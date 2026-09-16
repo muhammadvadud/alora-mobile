@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 101 / 249 bajarildi (43 jarayonda) (2026-09-16)
+**Umumiy holat:** 118 / 249 bajarildi (42 jarayonda) (2026-09-16)
 
 ---
 
@@ -102,7 +102,7 @@
 - [x] 4.2 `redirect`: auth, `/login` ↔ `/chat`, `employee` → `/forbidden`, mijoz rejimi qulfi (§4.3)
 - [x] 4.3 `ForbiddenScreen` (403) — "Ruxsat yo'q" + orqaga
 - [x] 4.4 `AppTabBar` shell'ga ulanadi; `Boshqaruv` tab'i faqat `manager/admin` (branch mavjud, lekin employee ko'rmaydi va kira olmaydi)
-- [~] 4.5 Buyurtmalar tab badge — tasdiqlanmagan qoralamalar soni (`orders?status=draft` count, 5 daq kesh)
+- [x] 4.5 Buyurtmalar tab badge — tasdiqlanmagan qoralamalar soni (`orders?status=draft` count, 5 daq kesh)
 - [x] 4.6 Deep-link: `/chat/:id`, `/orders/:id`, `/catalog/products/:id`
 - [x] 4.7 Planshet: `width ≥ 840` → chat ikki panelli layout (`LayoutBuilder`), boshqa ekranlar `maxWidth 720` markazda
 - [x] 4.8 Testlar: redirect jadvali (rol × yo'l), shell tab soni rolga qarab 4/5, deep-link parse
@@ -193,22 +193,22 @@
 
 > Dizayn: `1h`, `1i`, `2c`, `4b`, `3e`, `5d`, `5e`.
 
-- [ ] 9.1 DTO/entity: `Order` (`number, status, payment_status, customer_*, subtotal, discount_percent/amount/source, delivery_amount, total, prepayment_percent/prepayment/balance, deadline_date, note, measurements[], items[], confirmed_at, user`), `OrderMeasurement` (`room_name, cornice_length_m, height_m, coefficient, parts[], accessories[]`), `OrderCurtainPart`, `OrderAccessory`, `OrderItem`, `OrderStatus` enum (§7.5, `unknown`), `PaymentStatus`, `StatusTransition` (`GET orders/statuses/`)
-- [ ] 9.2 `OrdersRemoteDataSource` — list (status/sana/xodim filtr, search, cursor), detail, create, patch, confirm, changeStatus, statuses, pdf (bytes)
-- [ ] 9.3 `OrdersRepository` + Impl; `statuses` 1 soat kesh
-- [ ] 9.4 `OrdersListNotifier` (filtr chip, qidiruv), `OrderDetailNotifier` (family), `OrderFormNotifier`
-- [ ] 9.5 `OrdersScreen` (S-11) — qidiruv (raqam/ism/telefon), status filtr chip'lari sonli (`Qoralama 3`), `OrderCard`: chap chetida status chizig'i, raqam `mono`, status pill, mijoz · telefon, xonalar · deraza soni, summa + to'lov chip'i, muddat (≤3 kun `brass`, o'tgan `danger`, yo'q — "Muddat qo'yilmagan"); draft'da inline "Tasdiqlash"
-- [ ] 9.6 Swipe: chapga — "Status o'zgartirish" (S-13), o'ngga — "Qo'ng'iroq qilish" (`url_launcher tel:`)
-- [ ] 9.7 S-15 bo'sh holat — chizma, "Hali buyurtma yo'q", "Chatda hisob qilib, buyurtma yarating" + "Yangi suhbat"
-- [ ] 9.8 `OrderDetailScreen` (S-12) — 1) sarlavha: raqam, katta status pill, sana, sotuvchi; 2) `StatusTimeline` (vertikal 7 qadam, o'tilganlar `accent` + sana, joriy ajratilgan, keyingilar kulrang; `cancelled` alohida); 3) mijoz (telefon → qo'ng'iroq, manzil → xarita `geo:`); 4) har xona kartochkasi: nom, karniz, balandlik, mato bo'laklari (rol, mato, rang, m², summa); 5) pozitsiyalar (xizmatlar); 5b) bezaklar; 6) moliya bloki: jami · chegirma (% + manba `bosqichli/qo'lda`) · yetkazish · **JAMI** · avans (%) · **qoldiq**; 7) izoh; 8) yopishqoq panel — statusga qarab asosiy amal (`Tasdiqlash / Tikuvga topshirish / Tayyor deb belgilash / Topshirildi`) + ⋮ (PDF, ulashish, bekor qilish)
-- [ ] 9.9 `StatusChangeSheet` (S-13) — radio ro'yxat (faqat `statuses` dagi ruxsat etilgan o'tishlar faol), izoh, sana (kerak bo'lsa), "Saqlash" → `POST status/`
-- [ ] 9.10 Bekor qilish — `AppDialog` ("Buyurtmani bekor qilasizmi?", destruktiv) → `status/ cancelled`
-- [ ] 9.11 `OrderFormScreen` (S-14) — bo'limlar: Mijoz (ism, `PhoneField`, manzil) → O'lchovlar (xona qo'shish: nom, karniz, balandlik, koeffitsient) → har xonada Bo'laklar (rol, mato tanlash — katalog picker sheet, eni, balandligi, K) va Bezaklar (mahsulot, miqdor) → Xizmatlar → Moliya (chegirma % — avtomatik taklif placeholder, avans % — `50% (default)` placeholder, yetkazish) → Muddat → izoh; yopishqoq "Saqlash"
-- [ ] 9.12 Chegirma chegarasi: `discount-policy` dan olinadi; oshsa maydon ostida `Sizga 5% gacha ruxsat berilgan` (lokal) + server `ValidationFailure` ham shu maydonga
-- [ ] 9.13 Forma → `POST orders/` (yangi) yoki `PATCH orders/{id}/` (faqat o'zgargan maydonlar, `dirty` tracking); AI draft'idan ochilganda maydonlar to'ldirilgan
-- [ ] 9.14 Tasdiqlash: `POST confirm/` → detail yangilanadi → snackbar "Buyurtma tasdiqlandi"; tab badge yangilanadi
-- [ ] 9.15 Qorong'i mavzu (5d, 5e) tekshiruvi
-- [ ] 9.16 Testlar: status → rang/matn jadvali (8), ruxsat etilgan o'tishlar server'dan (ilova hisoblamaydi), muddat rangi (3 holat), chegirma chegarasi (employee/manager), forma `dirty` → PATCH body faqat o'zgargan maydon, timeline ko'rinishi; golden S-11, S-12 (yorug'/qorong'i), S-13, S-14, S-15
+- [x] 9.1 DTO/entity: `Order` (`number, status, payment_status, customer_*, subtotal, discount_percent/amount/source, delivery_amount, total, prepayment_percent/prepayment/balance, deadline_date, note, measurements[], items[], confirmed_at, user`), `OrderMeasurement` (`room_name, cornice_length_m, height_m, coefficient, parts[], accessories[]`), `OrderCurtainPart`, `OrderAccessory`, `OrderItem`, `OrderStatus` enum (§7.5, `unknown`), `PaymentStatus`, `StatusTransition` (`GET orders/statuses/`)
+- [x] 9.2 `OrdersRemoteDataSource` — list (status/sana/xodim filtr, search, cursor), detail, create, patch, confirm, changeStatus, statuses, pdf (bytes)
+- [x] 9.3 `OrdersRepository` + Impl; `statuses` 1 soat kesh
+- [x] 9.4 `OrdersListNotifier` (filtr chip, qidiruv), `OrderDetailNotifier` (family), `OrderFormNotifier`
+- [x] 9.5 `OrdersScreen` (S-11) — qidiruv (raqam/ism/telefon), status filtr chip'lari sonli (`Qoralama 3`), `OrderCard`: chap chetida status chizig'i, raqam `mono`, status pill, mijoz · telefon, xonalar · deraza soni, summa + to'lov chip'i, muddat (≤3 kun `brass`, o'tgan `danger`, yo'q — "Muddat qo'yilmagan"); draft'da inline "Tasdiqlash"
+- [x] 9.6 Swipe: chapga — "Status o'zgartirish" (S-13), o'ngga — "Qo'ng'iroq qilish" (`url_launcher tel:`)
+- [x] 9.7 S-15 bo'sh holat — chizma, "Hali buyurtma yo'q", "Chatda hisob qilib, buyurtma yarating" + "Yangi suhbat"
+- [x] 9.8 `OrderDetailScreen` (S-12) — 1) sarlavha: raqam, katta status pill, sana, sotuvchi; 2) `StatusTimeline` (vertikal 7 qadam, o'tilganlar `accent` + sana, joriy ajratilgan, keyingilar kulrang; `cancelled` alohida); 3) mijoz (telefon → qo'ng'iroq, manzil → xarita `geo:`); 4) har xona kartochkasi: nom, karniz, balandlik, mato bo'laklari (rol, mato, rang, m², summa); 5) pozitsiyalar (xizmatlar); 5b) bezaklar; 6) moliya bloki: jami · chegirma (% + manba `bosqichli/qo'lda`) · yetkazish · **JAMI** · avans (%) · **qoldiq**; 7) izoh; 8) yopishqoq panel — statusga qarab asosiy amal (`Tasdiqlash / Tikuvga topshirish / Tayyor deb belgilash / Topshirildi`) + ⋮ (PDF, ulashish, bekor qilish)
+- [x] 9.9 `StatusChangeSheet` (S-13) — radio ro'yxat (faqat `statuses` dagi ruxsat etilgan o'tishlar faol), izoh, sana (kerak bo'lsa), "Saqlash" → `POST status/`
+- [x] 9.10 Bekor qilish — `AppDialog` ("Buyurtmani bekor qilasizmi?", destruktiv) → `status/ cancelled`
+- [x] 9.11 `OrderFormScreen` (S-14) — bo'limlar: Mijoz (ism, `PhoneField`, manzil) → O'lchovlar (xona qo'shish: nom, karniz, balandlik, koeffitsient) → har xonada Bo'laklar (rol, mato tanlash — katalog picker sheet, eni, balandligi, K) va Bezaklar (mahsulot, miqdor) → Xizmatlar → Moliya (chegirma % — avtomatik taklif placeholder, avans % — `50% (default)` placeholder, yetkazish) → Muddat → izoh; yopishqoq "Saqlash"
+- [x] 9.12 Chegirma chegarasi: `discount-policy` dan olinadi; oshsa maydon ostida `Sizga 5% gacha ruxsat berilgan` (lokal) + server `ValidationFailure` ham shu maydonga
+- [x] 9.13 Forma → `POST orders/` (yangi) yoki `PATCH orders/{id}/` (faqat o'zgargan maydonlar, `dirty` tracking); AI draft'idan ochilganda maydonlar to'ldirilgan
+- [x] 9.14 Tasdiqlash: `POST confirm/` → detail yangilanadi → snackbar "Buyurtma tasdiqlandi"; tab badge yangilanadi
+- [x] 9.15 Qorong'i mavzu (5d, 5e) tekshiruvi
+- [x] 9.16 Testlar: status → rang/matn jadvali (8), ruxsat etilgan o'tishlar server'dan (ilova hisoblamaydi), muddat rangi (3 holat), chegirma chegarasi (employee/manager), forma `dirty` → PATCH body faqat o'zgargan maydon, timeline ko'rinishi; golden S-11, S-12 (yorug'/qorong'i), S-13, S-14, S-15
 
 ## Bosqich 10 — `features/profile` (S-25)
 

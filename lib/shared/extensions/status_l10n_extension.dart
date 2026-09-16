@@ -33,11 +33,11 @@ extension PaymentStatusL10nX on PaymentStatus {
   String getL10n(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
-      case PaymentStatus.advancePaid:
+      case PaymentStatus.prepaid:
         return l10n.payment_status_advancePaid;
-      case PaymentStatus.fullyPaid:
+      case PaymentStatus.paid:
         return l10n.payment_status_fullyPaid;
-      case PaymentStatus.debt:
+      case PaymentStatus.unpaid:
         return l10n.payment_status_debt;
       case PaymentStatus.unknown:
         return l10n.payment_status_unknown;

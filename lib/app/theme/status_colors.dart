@@ -61,17 +61,17 @@ class StatusColors {
     AppColors colors,
   ) {
     switch (status) {
-      case PaymentStatus.advancePaid:
+      case PaymentStatus.prepaid:
         return StatusColorPair(
           background: colors.accentSoft,
           textAndDot: colors.accent,
         );
-      case PaymentStatus.fullyPaid:
+      case PaymentStatus.paid:
         return StatusColorPair(
           background: colors.successSoft,
           textAndDot: colors.success,
         );
-      case PaymentStatus.debt:
+      case PaymentStatus.unpaid:
         return StatusColorPair(
           background: colors.dangerSoft,
           textAndDot: colors.danger,

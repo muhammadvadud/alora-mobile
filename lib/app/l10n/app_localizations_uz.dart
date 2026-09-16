@@ -273,6 +273,11 @@ class AppLocalizationsUz extends AppLocalizations {
   }
 
   @override
+  String catalog_filterPriceRangeFormatted(String min, String max) {
+    return '$min — $max so\'m';
+  }
+
+  @override
   String get product_category => 'Kategoriya';
 
   @override
@@ -286,6 +291,14 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get product_variantSelected => 'Tanlangan';
+
+  @override
+  String get product_colorLabel => 'Rang';
+
+  @override
+  String product_rollWidthValue(String value, String unit) {
+    return '$value $unit';
+  }
 
   @override
   String get product_fabricType => 'Mato turi';
@@ -514,6 +527,68 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get chat_draft_title => 'QORALAMA';
+
+  @override
+  String get orders => 'Buyurtmalar';
+
+  @override
+  String get errorLoadingStatuses => 'Statuslarni yuklashda xatolik';
+
+  @override
+  String get orderDetail => 'Buyurtma tafsiloti';
+
+  @override
+  String dateLabel(String value) {
+    return 'Sana: $value';
+  }
+
+  @override
+  String sellerLabel(String name) {
+    return 'Sotuvchi: $name';
+  }
+
+  @override
+  String get customer => 'Mijoz';
+
+  @override
+  String get rooms => 'Xonalar';
+
+  @override
+  String corniceAndHeight(String cornice, String height) {
+    return 'Karniz: $cornice m, Balandlik: $height m';
+  }
+
+  @override
+  String get finance => 'Moliya';
+
+  @override
+  String get nameAndPhoneRequired => 'Ism va telefon majburiy';
+
+  @override
+  String errorOccurred(String message) {
+    return 'Xatolik: $message';
+  }
+
+  @override
+  String get newOrder => 'Yangi buyurtma';
+
+  @override
+  String get discount => 'Chegirma';
+
+  @override
+  String get amount => 'Summa';
+
+  @override
+  String get prepayment => 'Avans';
+
+  @override
+  String get note => 'Izoh';
+
+  @override
+  String get errorLoadingTransitions => 'O\'tishlarni yuklashda xatolik';
+
+  @override
+  String get cancelled => 'Bekor qilingan';
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -783,6 +858,11 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   }
 
   @override
+  String catalog_filterPriceRangeFormatted(String min, String max) {
+    return '$min — $max сўм';
+  }
+
+  @override
   String get product_category => 'Категория';
 
   @override
@@ -796,6 +876,14 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get product_variantSelected => 'Танланган';
+
+  @override
+  String get product_colorLabel => 'Ранг';
+
+  @override
+  String product_rollWidthValue(String value, String unit) {
+    return '$value $unit';
+  }
 
   @override
   String get product_fabricType => 'Мато тури';
@@ -1023,4 +1111,66 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get chat_draft_title => 'ҚОРАЛАМА';
+
+  @override
+  String get orders => 'Буюртмалар';
+
+  @override
+  String get errorLoadingStatuses => 'Статусларни юклашда хатолик';
+
+  @override
+  String get orderDetail => 'Буюртма тафсилоти';
+
+  @override
+  String dateLabel(String value) {
+    return 'Сана: $value';
+  }
+
+  @override
+  String sellerLabel(String name) {
+    return 'Сотувчи: $name';
+  }
+
+  @override
+  String get customer => 'Мижоз';
+
+  @override
+  String get rooms => 'Хоналар';
+
+  @override
+  String corniceAndHeight(String cornice, String height) {
+    return 'Карниз: $cornice м, Баландлик: $height м';
+  }
+
+  @override
+  String get finance => 'Молия';
+
+  @override
+  String get nameAndPhoneRequired => 'Исм ва телефон мажбурий';
+
+  @override
+  String errorOccurred(String message) {
+    return 'Хатолик: $message';
+  }
+
+  @override
+  String get newOrder => 'Янги буюртма';
+
+  @override
+  String get discount => 'Чегирма';
+
+  @override
+  String get amount => 'Сумма';
+
+  @override
+  String get prepayment => 'Аванс';
+
+  @override
+  String get note => 'Изоҳ';
+
+  @override
+  String get errorLoadingTransitions => 'Ўтишларни юклашда хатолик';
+
+  @override
+  String get cancelled => 'Бекор қилинган';
 }

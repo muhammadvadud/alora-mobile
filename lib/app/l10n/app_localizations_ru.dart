@@ -271,6 +271,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String catalog_filterPriceRangeFormatted(String min, String max) {
+    return '$min — $max сум';
+  }
+
+  @override
   String get product_category => 'Категория';
 
   @override
@@ -284,6 +289,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get product_variantSelected => 'Выбран';
+
+  @override
+  String get product_colorLabel => 'Цвет';
+
+  @override
+  String product_rollWidthValue(String value, String unit) {
+    return '$value $unit';
+  }
 
   @override
   String get product_fabricType => 'Тип ткани';
@@ -512,4 +525,66 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chat_draft_title => 'ЧЕРНОВИК';
+
+  @override
+  String get orders => 'Заказы';
+
+  @override
+  String get errorLoadingStatuses => 'Ошибка загрузки статусов';
+
+  @override
+  String get orderDetail => 'Детали заказа';
+
+  @override
+  String dateLabel(String value) {
+    return 'Дата: $value';
+  }
+
+  @override
+  String sellerLabel(String name) {
+    return 'Продавец: $name';
+  }
+
+  @override
+  String get customer => 'Клиент';
+
+  @override
+  String get rooms => 'Комнаты';
+
+  @override
+  String corniceAndHeight(String cornice, String height) {
+    return 'Карниз: $cornice м, Высота: $height м';
+  }
+
+  @override
+  String get finance => 'Финансы';
+
+  @override
+  String get nameAndPhoneRequired => 'Имя и телефон обязательны';
+
+  @override
+  String errorOccurred(String message) {
+    return 'Ошибка: $message';
+  }
+
+  @override
+  String get newOrder => 'Новый заказ';
+
+  @override
+  String get discount => 'Скидка';
+
+  @override
+  String get amount => 'Сумма';
+
+  @override
+  String get prepayment => 'Аванс';
+
+  @override
+  String get note => 'Примечание';
+
+  @override
+  String get errorLoadingTransitions => 'Ошибка загрузки переходов';
+
+  @override
+  String get cancelled => 'Отменен';
 }

@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 88 / 249 bajarildi (43 jarayonda) (2026-09-16)
+**Umumiy holat:** 101 / 249 bajarildi (43 jarayonda) (2026-09-16)
 
 ---
 
@@ -175,19 +175,19 @@
 
 > Dizayn: `2d`, `4c`, `2e`.
 
-- [ ] 8.1 DTO/entity: `Category`, `Product` (AI atributlari bilan: `fabric_type, pattern, style, transparency, composition, care, recommended_rooms, recommended_coef, default_width_m, segment`), `ProductVariant` (`sku, color_name, color_hex, width_m, price, price_unit, old_price, cost_price?`), `ProductImage` (`thumbnail_url, image_url, is_primary`); enum'lar `unknown` bilan
-- [ ] 8.2 `CatalogRemoteDataSource` — categories, products (filtr + cursor + search), product detail, variant detail
-- [ ] 8.3 `CatalogLocalDataSource` — Hive stale-while-revalidate, TTL 24 soat
-- [ ] 8.4 `CatalogRepository` + Impl
-- [ ] 8.5 `CatalogFilter` model (`type: fabric/accessory`, `style, room, pattern, transparency, segment, priceRange`) + `CatalogNotifier` (sahifalash, filtr, qidiruv debounce)
-- [ ] 8.6 `CatalogScreen` (S-16) — qidiruv + filtr tugmasi (faol filtrlar soni badge), kategoriya chip'lari (gorizontal), 2 ustunli grid `ProductCard` (rasm 4:5 / 1:1, nom, narx+birlik, rang doiralari)
-- [ ] 8.7 `CatalogFilterSheet` (S-17) — tur, uslub, xona, naqsh, shaffoflik, segment, narx slayderi; "Tozalash" · "Ko'rsatish (N ta)" (N — server count yoki birinchi sahifa)
-- [ ] 8.8 `ProductScreen` (S-18) — rasm galereyasi (`PageView` + nuqtalar), nom, kategoriya, narx (katta) + birlik, rang variantlari (aylana chip'lar; tanlanganda narx va rasm o'zgaradi), xususiyatlar jadvali, pastda "AI'dan so'rash" (asosiy) · "Hisobga qo'shish"
-- [ ] 8.9 "AI'dan so'rash" → faol/yangi suhbatga `Shu mato (Velvet Milano, grafit) mehmonxonaga to'g'ri keladimi?` matni bilan o'tish
-- [ ] 8.10 "Hisobga qo'shish" → faol suhbatga "Hisobga qo'sh: {variant}" xabari
-- [ ] 8.11 Ombor/qoldiq belgilari **chizilmaydi** (v1 da yo'q) — testda `stock` so'zi UI'da yo'qligi tekshiriladi
-- [ ] 8.12 Skeleton grid, bo'sh natija ("Hech narsa topilmadi" + "Filtrni tozalash"), oflayn kesh
-- [ ] 8.13 Testlar: filtr → query param mapper, kesh/tarmoq, rang tanlash narxni o'zgartiradi; golden S-16, S-18
+- [x] 8.1 DTO/entity: `Category`, `Product` (AI atributlari bilan: `fabric_type, pattern, style, transparency, composition, care, recommended_rooms, recommended_coef, default_width_m, segment`), `ProductVariant` (`sku, color_name, color_hex, width_m, price, price_unit, old_price, cost_price?`), `ProductImage` (`thumbnail_url, image_url, is_primary`); enum'lar `unknown` bilan
+- [x] 8.2 `CatalogRemoteDataSource` — categories, products (filtr + cursor + search), product detail, variant detail
+- [x] 8.3 `CatalogLocalDataSource` — Hive stale-while-revalidate, TTL 24 soat
+- [x] 8.4 `CatalogRepository` + Impl
+- [x] 8.5 `CatalogFilter` model (`type: fabric/accessory`, `style, room, pattern, transparency, segment, priceRange`) + `CatalogNotifier` (sahifalash, filtr, qidiruv debounce)
+- [x] 8.6 `CatalogScreen` (S-16) — qidiruv + filtr tugmasi (faol filtrlar soni badge), kategoriya chip'lari (gorizontal), 2 ustunli grid `ProductCard` (rasm 4:5 / 1:1, nom, narx+birlik, rang doiralari)
+- [x] 8.7 `CatalogFilterSheet` (S-17) — tur, uslub, xona, naqsh, shaffoflik, segment, narx slayderi; "Tozalash" · "Ko'rsatish (N ta)" (N — server count yoki birinchi sahifa)
+- [x] 8.8 `ProductScreen` (S-18) — rasm galereyasi (`PageView` + nuqtalar), nom, kategoriya, narx (katta) + birlik, rang variantlari (aylana chip'lar; tanlanganda narx va rasm o'zgaradi), xususiyatlar jadvali, pastda "AI'dan so'rash" (asosiy) · "Hisobga qo'shish"
+- [x] 8.9 "AI'dan so'rash" → faol/yangi suhbatga `Shu mato (Velvet Milano, grafit) mehmonxonaga to'g'ri keladimi?` matni bilan o'tish
+- [x] 8.10 "Hisobga qo'shish" → faol suhbatga "Hisobga qo'sh: {variant}" xabari
+- [x] 8.11 Ombor/qoldiq belgilari **chizilmaydi** (v1 da yo'q) — testda `stock` so'zi UI'da yo'qligi tekshiriladi
+- [x] 8.12 Skeleton grid, bo'sh natija ("Hech narsa topilmadi" + "Filtrni tozalash"), oflayn kesh
+- [x] 8.13 Testlar: filtr → query param mapper, kesh/tarmoq, rang tanlash narxni o'zgartiradi; golden S-16, S-18
 
 ## Bosqich 9 — `features/orders` (S-11 … S-15)
 

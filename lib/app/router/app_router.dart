@@ -11,9 +11,11 @@ import 'package:alora_mobile/features/auth/presentation/screens/login_screen.dar
 import 'package:alora_mobile/features/chat/presentation/screens/chat_screen.dart';
 import 'package:alora_mobile/features/conversations/presentation/screens/conversations_screen.dart';
 import 'package:alora_mobile/features/catalog/presentation/screens/catalog_screen.dart';
+import 'package:alora_mobile/features/catalog/presentation/screens/product_screen.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
 import 'package:alora_mobile/features/management/presentation/screens/management_screen.dart';
 import 'package:alora_mobile/features/orders/presentation/screens/orders_screen.dart';
+import 'package:alora_mobile/features/orders/presentation/screens/order_form_screen.dart';
 import 'package:alora_mobile/features/profile/presentation/screens/profile_screen.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 
@@ -143,6 +145,10 @@ List<RouteBase> _routes() {
               builder: (_, _) => const OrdersScreen(),
               routes: [
                 GoRoute(
+                  path: 'new',
+                  builder: (_, _) => const OrderFormScreen(),
+                ),
+                GoRoute(
                   path: ':orderId',
                   builder: (_, state) =>
                       OrdersScreen(orderId: state.pathParameters['orderId']),
@@ -160,8 +166,8 @@ List<RouteBase> _routes() {
               routes: [
                 GoRoute(
                   path: 'products/:productId',
-                  builder: (_, state) => CatalogScreen(
-                    productId: state.pathParameters['productId'],
+                  builder: (_, state) => ProductScreen(
+                    productId: state.pathParameters['productId']!,
                   ),
                 ),
               ],

@@ -20,7 +20,9 @@ void main() {
 
   Widget widgetFor(ThemeMode mode) {
     final repository = FakeConversationsRepository();
-    final now = DateTime.now();
+    // Golden barqarorligi: vaqt kun ichida qotirilgan (09:41), sana guruhlari saqlanadi
+    final today = DateTime.now();
+    final now = DateTime(today.year, today.month, today.day, 9, 41);
     repository.listResult = (
       [
         testConversation(

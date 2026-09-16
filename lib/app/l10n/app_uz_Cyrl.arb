@@ -102,11 +102,34 @@
       }
     }
   },
+  "catalog_filterPriceRangeFormatted": "{min} — {max} сўм",
+  "@catalog_filterPriceRangeFormatted": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
   "product_category": "Категория",
   "product_properties": "Хусусиятлар",
   "product_askAi": "AI'дан сўраш",
   "product_addToAccount": "Ҳисобга қўшиш",
   "product_variantSelected": "Танланган",
+  "product_colorLabel": "Ранг",
+  "product_rollWidthValue": "{value} {unit}",
+  "@product_rollWidthValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
   "product_fabricType": "Мато тури",
   "product_rollWidth": "Рулон эни",
   "product_composition": "Таркиб",
@@ -166,7 +189,11 @@
   "chat_thinking": "Ўйлаяпти…",
   "chat_tool_running": "{tool}…",
   "@chat_tool_running": {
-     "placeholders": { "tool": {"type": "String"} }
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
   },
   "chat_tool_result": "Натижа",
   "chat_inputHint": "Хабар…",
@@ -191,7 +218,11 @@
   "chat_quote_services": "ХИЗМАТЛАР",
   "chat_quote_more": "Яна {count} та бўлак",
   "@chat_quote_more": {
-     "placeholders": { "count": {"type": "int"} }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "chat_quote_total": "ЖАМИ",
   "chat_quote_howCalculated": "Қандай ҳисобланди?",
@@ -202,5 +233,54 @@
   "chat_options_select": "Танлаш",
   "chat_draft_edit": "Таҳрирлаш",
   "chat_draft_createOrder": "Буюртма яратиш",
-  "chat_draft_title": "ҚОРАЛАМА"
+  "chat_draft_title": "ҚОРАЛАМА",
+  "orders": "Буюртмалар",
+  "errorLoadingStatuses": "Статусларни юклашда хатолик",
+  "orderDetail": "Буюртма тафсилоти",
+  "dateLabel": "Сана: {value}",
+  "@dateLabel": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "sellerLabel": "Сотувчи: {name}",
+  "@sellerLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "customer": "Мижоз",
+  "rooms": "Хоналар",
+  "corniceAndHeight": "Карниз: {cornice} м, Баландлик: {height} м",
+  "@corniceAndHeight": {
+    "placeholders": {
+      "cornice": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "finance": "Молия",
+  "nameAndPhoneRequired": "Исм ва телефон мажбурий",
+  "errorOccurred": "Хатолик: {message}",
+  "@errorOccurred": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "newOrder": "Янги буюртма",
+  "discount": "Чегирма",
+  "amount": "Сумма",
+  "prepayment": "Аванс",
+  "note": "Изоҳ",
+  "errorLoadingTransitions": "Ўтишларни юклашда хатолик",
+  "cancelled": "Бекор қилинган"
 }

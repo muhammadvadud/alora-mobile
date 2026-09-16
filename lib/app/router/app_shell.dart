@@ -23,7 +23,9 @@ class AloraShell extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final auth = ref.watch(authProvider);
-    final draftCount = ref.watch(draftOrdersCountProvider);
+    final draftCount = ref
+        .watch(draftOrdersCountProvider)
+        .maybeWhen(data: (count) => count, orElse: () => 0);
 
     final isEmployee = auth.maybeWhen(
       authenticated: (u) => u.role == Role.employee,

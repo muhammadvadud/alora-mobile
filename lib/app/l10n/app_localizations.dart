@@ -609,6 +609,12 @@ abstract class AppLocalizations {
   /// **'{min} — {max} so\'m'**
   String catalog_filterPriceRange(int min, int max);
 
+  /// No description provided for @catalog_filterPriceRangeFormatted.
+  ///
+  /// In uz, this message translates to:
+  /// **'{min} — {max} so\'m'**
+  String catalog_filterPriceRangeFormatted(String min, String max);
+
   /// No description provided for @product_category.
   ///
   /// In uz, this message translates to:
@@ -638,6 +644,18 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Tanlangan'**
   String get product_variantSelected;
+
+  /// No description provided for @product_colorLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rang'**
+  String get product_colorLabel;
+
+  /// No description provided for @product_rollWidthValue.
+  ///
+  /// In uz, this message translates to:
+  /// **'{value} {unit}'**
+  String product_rollWidthValue(String value, String unit);
 
   /// No description provided for @product_fabricType.
   ///
@@ -1076,6 +1094,114 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'QORALAMA'**
   String get chat_draft_title;
+
+  /// No description provided for @orders.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtmalar'**
+  String get orders;
+
+  /// No description provided for @errorLoadingStatuses.
+  ///
+  /// In uz, this message translates to:
+  /// **'Statuslarni yuklashda xatolik'**
+  String get errorLoadingStatuses;
+
+  /// No description provided for @orderDetail.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtma tafsiloti'**
+  String get orderDetail;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sana: {value}'**
+  String dateLabel(String value);
+
+  /// No description provided for @sellerLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sotuvchi: {name}'**
+  String sellerLabel(String name);
+
+  /// No description provided for @customer.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz'**
+  String get customer;
+
+  /// No description provided for @rooms.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xonalar'**
+  String get rooms;
+
+  /// No description provided for @corniceAndHeight.
+  ///
+  /// In uz, this message translates to:
+  /// **'Karniz: {cornice} m, Balandlik: {height} m'**
+  String corniceAndHeight(String cornice, String height);
+
+  /// No description provided for @finance.
+  ///
+  /// In uz, this message translates to:
+  /// **'Moliya'**
+  String get finance;
+
+  /// No description provided for @nameAndPhoneRequired.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ism va telefon majburiy'**
+  String get nameAndPhoneRequired;
+
+  /// No description provided for @errorOccurred.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xatolik: {message}'**
+  String errorOccurred(String message);
+
+  /// No description provided for @newOrder.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi buyurtma'**
+  String get newOrder;
+
+  /// No description provided for @discount.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chegirma'**
+  String get discount;
+
+  /// No description provided for @amount.
+  ///
+  /// In uz, this message translates to:
+  /// **'Summa'**
+  String get amount;
+
+  /// No description provided for @prepayment.
+  ///
+  /// In uz, this message translates to:
+  /// **'Avans'**
+  String get prepayment;
+
+  /// No description provided for @note.
+  ///
+  /// In uz, this message translates to:
+  /// **'Izoh'**
+  String get note;
+
+  /// No description provided for @errorLoadingTransitions.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'tishlarni yuklashda xatolik'**
+  String get errorLoadingTransitions;
+
+  /// No description provided for @cancelled.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bekor qilingan'**
+  String get cancelled;
 }
 
 class _AppLocalizationsDelegate

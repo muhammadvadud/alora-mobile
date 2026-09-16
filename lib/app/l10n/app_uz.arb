@@ -56,7 +56,11 @@
   "catalog_filterClear": "Tozalash",
   "catalog_filterShow": "Ko'rsatish ({count} ta)",
   "@catalog_filterShow": {
-    "placeholders": { "count": {"type": "int"} }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "catalog_emptyTitle": "Hech narsa topilmadi",
   "catalog_emptyMessage": "Filtrlarni o'zgartiring yoki qidiruv so'zini o'zgartiring",
@@ -89,13 +93,43 @@
   "catalog_filterPrice": "Narx",
   "catalog_filterPriceRange": "{min} — {max} so'm",
   "@catalog_filterPriceRange": {
-    "placeholders": { "min": {"type": "int"}, "max": {"type": "int"} }
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "catalog_filterPriceRangeFormatted": "{min} — {max} so'm",
+  "@catalog_filterPriceRangeFormatted": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
   },
   "product_category": "Kategoriya",
   "product_properties": "Xususiyatlar",
   "product_askAi": "AI'dan so'rash",
   "product_addToAccount": "Hisobga qo'shish",
   "product_variantSelected": "Tanlangan",
+  "product_colorLabel": "Rang",
+  "product_rollWidthValue": "{value} {unit}",
+  "@product_rollWidthValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
   "product_fabricType": "Mato turi",
   "product_rollWidth": "Rulon eni",
   "product_composition": "Tarkib",
@@ -155,7 +189,11 @@
   "chat_thinking": "O'ylayapti…",
   "chat_tool_running": "{tool}…",
   "@chat_tool_running": {
-     "placeholders": { "tool": {"type": "String"} }
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
   },
   "chat_tool_result": "Natija",
   "chat_inputHint": "Xabar…",
@@ -180,7 +218,11 @@
   "chat_quote_services": "XIZMATLAR",
   "chat_quote_more": "Yana {count} ta bo'lak",
   "@chat_quote_more": {
-     "placeholders": { "count": {"type": "int"} }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "chat_quote_total": "JAMI",
   "chat_quote_howCalculated": "Qanday hisoblandi?",
@@ -191,5 +233,54 @@
   "chat_options_select": "Tanlash",
   "chat_draft_edit": "Tahrirlash",
   "chat_draft_createOrder": "Buyurtma yaratish",
-  "chat_draft_title": "QORALAMA"
+  "chat_draft_title": "QORALAMA",
+  "orders": "Buyurtmalar",
+  "errorLoadingStatuses": "Statuslarni yuklashda xatolik",
+  "orderDetail": "Buyurtma tafsiloti",
+  "dateLabel": "Sana: {value}",
+  "@dateLabel": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "sellerLabel": "Sotuvchi: {name}",
+  "@sellerLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "customer": "Mijoz",
+  "rooms": "Xonalar",
+  "corniceAndHeight": "Karniz: {cornice} m, Balandlik: {height} m",
+  "@corniceAndHeight": {
+    "placeholders": {
+      "cornice": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "finance": "Moliya",
+  "nameAndPhoneRequired": "Ism va telefon majburiy",
+  "errorOccurred": "Xatolik: {message}",
+  "@errorOccurred": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "newOrder": "Yangi buyurtma",
+  "discount": "Chegirma",
+  "amount": "Summa",
+  "prepayment": "Avans",
+  "note": "Izoh",
+  "errorLoadingTransitions": "O'tishlarni yuklashda xatolik",
+  "cancelled": "Bekor qilingan"
 }

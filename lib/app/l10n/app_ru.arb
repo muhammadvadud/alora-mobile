@@ -102,11 +102,34 @@
       }
     }
   },
+  "catalog_filterPriceRangeFormatted": "{min} — {max} сум",
+  "@catalog_filterPriceRangeFormatted": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
   "product_category": "Категория",
   "product_properties": "Характеристики",
   "product_askAi": "Спросить у AI",
   "product_addToAccount": "Добавить в расчёт",
   "product_variantSelected": "Выбран",
+  "product_colorLabel": "Цвет",
+  "product_rollWidthValue": "{value} {unit}",
+  "@product_rollWidthValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
   "product_fabricType": "Тип ткани",
   "product_rollWidth": "Ширина рулона",
   "product_composition": "Состав",
@@ -166,7 +189,11 @@
   "chat_thinking": "Думает…",
   "chat_tool_running": "{tool}…",
   "@chat_tool_running": {
-     "placeholders": { "tool": {"type": "String"} }
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
   },
   "chat_tool_result": "Результат",
   "chat_inputHint": "Сообщение…",
@@ -191,7 +218,11 @@
   "chat_quote_services": "УСЛУГИ",
   "chat_quote_more": "Еще {count} частей",
   "@chat_quote_more": {
-     "placeholders": { "count": {"type": "int"} }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "chat_quote_total": "ИТОГО",
   "chat_quote_howCalculated": "Как рассчитано?",
@@ -202,5 +233,54 @@
   "chat_options_select": "Выбрать",
   "chat_draft_edit": "Редактировать",
   "chat_draft_createOrder": "Создать заказ",
-  "chat_draft_title": "ЧЕРНОВИК"
+  "chat_draft_title": "ЧЕРНОВИК",
+  "orders": "Заказы",
+  "errorLoadingStatuses": "Ошибка загрузки статусов",
+  "orderDetail": "Детали заказа",
+  "dateLabel": "Дата: {value}",
+  "@dateLabel": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "sellerLabel": "Продавец: {name}",
+  "@sellerLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "customer": "Клиент",
+  "rooms": "Комнаты",
+  "corniceAndHeight": "Карниз: {cornice} м, Высота: {height} м",
+  "@corniceAndHeight": {
+    "placeholders": {
+      "cornice": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "finance": "Финансы",
+  "nameAndPhoneRequired": "Имя и телефон обязательны",
+  "errorOccurred": "Ошибка: {message}",
+  "@errorOccurred": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "newOrder": "Новый заказ",
+  "discount": "Скидка",
+  "amount": "Сумма",
+  "prepayment": "Аванс",
+  "note": "Примечание",
+  "errorLoadingTransitions": "Ошибка загрузки переходов",
+  "cancelled": "Отменен"
 }

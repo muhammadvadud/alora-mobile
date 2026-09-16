@@ -1,0 +1,13 @@
+{
+  "@@locale": "uz",
+  "app_name": "Alora",
+  "common_retry": "Qayta urinish",
+  "common_cancel": "Bekor qilish",
+  "common_save": "Saqlash",
+  "common_ok": "OK",
+  "common_loading": "Yuklanmoqda…",
+  "common_noInternet": "Internet yo'q. Ulanish tiklanganda avtomatik yuboriladi",
+  "common_error": "Xatolik yuz berdi",
+  "common_search": "Qidiruv",
+  "common_close": "Yopish"
+}

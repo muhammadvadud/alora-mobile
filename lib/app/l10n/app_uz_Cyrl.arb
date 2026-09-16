@@ -1,0 +1,13 @@
+{
+  "@@locale": "uz_Cyrl",
+  "app_name": "Алора",
+  "common_retry": "Қайта уриниш",
+  "common_cancel": "Бекор қилиш",
+  "common_save": "Сақлаш",
+  "common_ok": "ОК",
+  "common_loading": "Юкланмоқда…",
+  "common_noInternet": "Интернет йўқ. Уланиш тикланганда автоматик юборилади",
+  "common_error": "Хатолик юз берди",
+  "common_search": "Қидирув",
+  "common_close": "Ёпиш"
+}

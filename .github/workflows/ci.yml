@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.4'
+          channel: 'stable'
+          cache: true
+      
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+      - run: flutter gen-l10n
+      - run: dart format --set-exit-if-changed lib test
+      - run: dart analyze --fatal-infos
+      - run: flutter test --coverage
+      
+      - name: Check coverage
+        run: |
+          COVERAGE=$(lcov --summary coverage/lcov.info | grep "lines......:" | grep -Eo "[0-9]+\.[0-9]+")
+          echo "Coverage: $COVERAGE%"
+          if (( $(echo "$COVERAGE < 70" | bc -l) )); then
+            echo "Coverage is less than 70%"
+            exit 1
+          fi
+          
+      - run: flutter build apk --split-per-abi

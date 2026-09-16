@@ -1,0 +1,13 @@
+{
+  "@@locale": "ru",
+  "app_name": "Алора",
+  "common_retry": "Повторить",
+  "common_cancel": "Отмена",
+  "common_save": "Сохранить",
+  "common_ok": "ОК",
+  "common_loading": "Загрузка…",
+  "common_noInternet": "Нет интернета. Будет отправлено при восстановлении",
+  "common_error": "Произошла ошибка",
+  "common_search": "Поиск",
+  "common_close": "Закрыть"
+}

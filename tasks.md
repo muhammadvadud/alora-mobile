@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 19 / 249 bajarildi (2026-09-16)
+**Umumiy holat:** 61 / 249 bajarildi (4 jarayonda) (2026-09-16)
 
 ---
 
@@ -23,7 +23,7 @@
 - [x] 0.10 `main.dart` + `bootstrap.dart`: `ProviderScope`, `runZonedGuarded`, `FlutterError.onError`, Hive init, Sentry (prod)
 - [x] 0.11 `core/utils/app_logger.dart` (`logger`), prod'da `warning`+; `print` lint bilan taqiq
 - [x] 0.12 Shriftlar: IBM Plex Sans (400/500/600/700, Latin Ext + Cyrillic), Spectral (500), IBM Plex Mono (500) `assets/fonts/` ga; `pubspec` da ro'yxat
-- [x] 0.13 Ikonkalar: `lucide_icons` (outline 1.5) yoki `assets/icons/*.svg`; `AppIcons` klassi
+- [x] 0.13 Ikonkalar: `lucide_icons_flutter` (outline 1.5) yoki `assets/icons/*.svg`; `AppIcons` klassi
 - [x] 0.14 `flutter_launcher_icons` + `flutter_native_splash` (fon `#F2F3F0`, logotip matn "Alora" Spectral)
 - [x] 0.15 Android: `minSdk 26`, `targetSdk` joriy, `INTERNET`, `RECORD_AUDIO`, `CAMERA`, `POST_NOTIFICATIONS` ruxsatlari manifestda; iOS: `Info.plist` — `NSMicrophoneUsageDescription`, `NSCameraUsageDescription`, `NSPhotoLibraryUsageDescription` (o'zbekcha sabab matni)
 - [x] 0.16 CI (GitHub Actions): `flutter pub get` → `build_runner` → `gen-l10n` → `dart format --set-exit-if-changed` → `dart analyze` → `flutter test --coverage` → coverage gate ≥70% → `flutter build apk --split-per-abi --analyze-size` (≤ 40 MB tekshiruvi)
@@ -35,53 +35,53 @@
 
 > Dizayn artboard: `3f` (Komponentlar kutubxonasi). Har komponent widget-test + golden bilan.
 
-- [ ] 1.1 `AppColors` — §7.1 yorug' va qorong'i palitra, `ThemeExtension<AppColors>`; `context.colors` extension
-- [ ] 1.2 `AppTypography` — §7.2 tokenlar, `tabularFigures` raqamlar uchun; `context.text` extension
-- [ ] 1.3 `AppRadius`, `AppSpacing` — §7.3
-- [ ] 1.4 `StatusColors` — §7.5 (8 status + 3 to'lov belgisi)
-- [ ] 1.5 `AppTheme.light` / `AppTheme.dark` — `ThemeData` (`useMaterial3: true`, `ColorScheme` qo'lda §7.1 dan, `fromSeed` **yo'q**), `InputDecorationTheme`, `ChipTheme`, `BottomSheetTheme`, `SnackBarTheme`, `DialogTheme`, `NavigationBarTheme`
-- [ ] 1.6 Mavzu rejimi provider (`Tizim/Yorug'/Qorong'i`), Hive'da saqlanadi (`keepAlive`)
-- [ ] 1.7 `AppButton` — primary / secondary / text / destructive; `isLoading`, `isEnabled`; balandlik 46; bosilgan holat `accentPressed`
-- [ ] 1.8 `AppChip`, `AppCountChip` (`Qoralama 3`), tanlangan/tanlanmagan/kategoriya holatlari
-- [ ] 1.9 `ToolChip` — 3 holat: `running` (spinner + "…"), `done` (nuqta + matn + chevron), `error`; bosilsa `onTap`
-- [ ] 1.10 `TypingLine` — 120×2 chiziq animatsiyasi (1.4 s)
-- [ ] 1.11 `StatusPill`, `PaymentChip`
-- [ ] 1.12 `AppTextField` — text/password (ko'rsatish tugmasi)/number/search/multiline; normal/fokus/xato/disabled; `errorText`
-- [ ] 1.13 `PhoneField` — `+998 90 123 45 67` maskasi, validatsiya
-- [ ] 1.14 `MoneyText`, `UnitText` (`so'm/m²`, `so'm/dona`, `so'm/m`), `ColorDot`, `LetterAvatar`
-- [ ] 1.15 `AppCard` (border-only, tanlangan holat 1.5px + halo), `SectionLabel` (overline brass)
-- [ ] 1.16 `AppBottomSheet` (tutqich, sarlavha, kontent, amal), `AppDialog` (tasdiqlash), `AppSnackbar` (success/error + amal)
-- [ ] 1.17 `LimitProgressBar` (accent → brass 80% → danger 100%), `SkeletonBox`, `SkeletonList`
-- [ ] 1.18 `EmptyState` (chizma + sarlavha + matn + tugma), `ErrorState(onRetry)`, `OfflineBanner`, `LimitExceededView`
-- [ ] 1.19 `AppTabBar` — 4/5 tab, faol `accent` + to'lgan ikonka, badge (`brass`); safe area
-- [ ] 1.20 `RoleGate` — `minRole` bo'yicha bolani ko'rsatish/yashirish
-- [ ] 1.21 `ProductCard` — karusel (eni 180) va grid rejimi; rasm 4:5 yoki 1:1 (`price_unit` ga qarab); rang doirasi; narx + birlik
-- [ ] 1.22 `Waveform` — mikrofon amplitudasi bo'yicha 24 ustunli animatsiya; AI gapirganda boshqa rang
-- [ ] 1.23 Komponentlar ko'rgazma ekrani `lib/core/dev/component_gallery.dart` (faqat `ENV=dev`, prod build'ga kirmaydi)
-- [ ] 1.24 Widget testlar: har komponentning barcha holatlari
-- [ ] 1.25 Golden: komponentlar kutubxonasi (yorug' + qorong'i)
+- [x] 1.1 `AppColors` — §7.1 yorug' va qorong'i palitra, `ThemeExtension<AppColors>`; `context.colors` extension
+- [x] 1.2 `AppTypography` — §7.2 tokenlar, `tabularFigures` raqamlar uchun; `context.text` extension
+- [x] 1.3 `AppRadius`, `AppSpacing` — §7.3
+- [x] 1.4 `StatusColors` — §7.5 (8 status + 3 to'lov belgisi)
+- [x] 1.5 `AppTheme.light` / `AppTheme.dark` — `ThemeData` (`useMaterial3: true`, `ColorScheme` qo'lda §7.1 dan, `fromSeed` **yo'q**), `InputDecorationTheme`, `ChipTheme`, `BottomSheetTheme`, `SnackBarTheme`, `DialogTheme`, `NavigationBarTheme`
+- [x] 1.6 Mavzu rejimi provider (`Tizim/Yorug'/Qorong'i`), Hive'da saqlanadi (`keepAlive`)
+- [x] 1.7 `AppButton` — primary / secondary / text / destructive; `isLoading`, `isEnabled`; balandlik 46; bosilgan holat `accentPressed`
+- [x] 1.8 `AppChip`, `AppCountChip` (`Qoralama 3`), tanlangan/tanlanmagan/kategoriya holatlari
+- [x] 1.9 `ToolChip` — 3 holat: `running` (spinner + "…"), `done` (nuqta + matn + chevron), `error`; bosilsa `onTap`
+- [x] 1.10 `TypingLine` — 120×2 chiziq animatsiyasi (1.4 s)
+- [x] 1.11 `StatusPill`, `PaymentChip`
+- [x] 1.12 `AppTextField` — text/password (ko'rsatish tugmasi)/number/search/multiline; normal/fokus/xato/disabled; `errorText`
+- [x] 1.13 `PhoneField` — `+998 90 123 45 67` maskasi, validatsiya
+- [x] 1.14 `MoneyText`, `UnitText` (`so'm/m²`, `so'm/dona`, `so'm/m`), `ColorDot`, `LetterAvatar`
+- [x] 1.15 `AppCard` (border-only, tanlangan holat 1.5px + halo), `SectionLabel` (overline brass)
+- [x] 1.16 `AppBottomSheet` (tutqich, sarlavha, kontent, amal), `AppDialog` (tasdiqlash), `AppSnackbar` (success/error + amal)
+- [x] 1.17 `LimitProgressBar` (accent → brass 80% → danger 100%), `SkeletonBox`, `SkeletonList`
+- [x] 1.18 `EmptyState` (chizma + sarlavha + matn + tugma), `ErrorState(onRetry)`, `OfflineBanner`, `LimitExceededView`
+- [x] 1.19 `AppTabBar` — 4/5 tab, faol `accent` + to'lgan ikonka, badge (`brass`); safe area
+- [x] 1.20 `RoleGate` — `minRole` bo'yicha bolani ko'rsatish/yashirish
+- [x] 1.21 `ProductCard` — karusel (eni 180) va grid rejimi; rasm 4:5 yoki 1:1 (`price_unit` ga qarab); rang doirasi; narx + birlik
+- [x] 1.22 `Waveform` — mikrofon amplitudasi bo'yicha 24 ustunli animatsiya; AI gapirganda boshqa rang
+- [x] 1.23 Komponentlar ko'rgazma ekrani `lib/core/dev/component_gallery.dart` (faqat `ENV=dev`, prod build'ga kirmaydi)
+- [~] 1.24 Widget testlar: har komponentning barcha holatlari
+- [x] 1.25 Golden: komponentlar kutubxonasi (yorug' + qorong'i)
 
 ## Bosqich 2 — `core` (network, storage, error, utils)
 
-- [ ] 2.1 `core/error/failure.dart` — sealed `Failure` (§8.3), `failure_l10n.dart`
-- [ ] 2.2 `core/network/api_paths.dart` — §8.1 barcha yo'llar (test: har konstanta `/` bilan tugaydi, bosh `/` yo'q)
-- [ ] 2.3 `DioClient` — base URL env'dan, `connectTimeout` 10 s, `receiveTimeout` 30 s (SSE'da o'chiriladi), JSON content-type
-- [ ] 2.4 `AuthInterceptor` — Bearer qo'shish; `login/`, `refresh/` bundan mustasno
-- [ ] 2.5 `RefreshInterceptor` — 401 → bitta refresh (mutex), navbatdagi so'rovlar qayta yuboriladi; refresh 401 → logout hodisasi
-- [ ] 2.6 `RetryInterceptor` — faqat idempotent (GET) va tarmoq xatosi; 3 marta, exponential backoff
-- [ ] 2.7 `ErrorMapperInterceptor` — `DioException` → `Failure` (§8.3 jadvali, `errors` maydonlari `ValidationFailure.fieldErrors` ga)
-- [ ] 2.8 `LoggingInterceptor` — dev'da; token/parol/telefon maskalanadi
-- [ ] 2.9 `SecureStorage` — access/refresh token, PIN; `flutter_secure_storage` (Android `encryptedSharedPreferences`)
-- [ ] 2.10 `HiveBoxes` — box nomlari, `schemaVersion`, versiya o'zgarsa tozalash; adapterlar ro'yxati
-- [ ] 2.11 `OfflineQueue` — FIFO, `attempts`, konflikt siyosati (§11)
-- [ ] 2.12 `ConnectivityNotifier` — `connectivity_plus` + haqiqiy ping; `isOnline` stream
-- [ ] 2.13 `Paginated<T>` model + `CursorPagingController` (keyingi sahifa, `hasMore`, `isLoadingMore`)
-- [ ] 2.14 `money_format.dart` (`2 748 000 so'm`, narrow NBSP), `phone_format.dart`, `date_format.dart` (`12-sentabr`, `Bugun/Kecha/Bu hafta`), `debounce.dart`
-- [ ] 2.15 `SseClient` — POST → stream, `\n\n` frame ajratish, `data:` parse, `CancelToken`, uzilishda 3 marta qayta urinish (1/2/4 s)
-- [ ] 2.16 `SseEvent` sealed — `start / thinking / content / toolCall / toolArgs / toolResult / done(usage, products) / error / unknown`
-- [ ] 2.17 `VoiceSocket` — WebSocket ochish/yopish, `?locale=`, auth (`?token=` — backend tasdiqlagach), binary (audio) va text (`kind`) frame'lar (§8.6), 1008/1011 yopilish kodlari → `Failure`, reconnect (1 marta)
-- [ ] 2.18 Unit testlar: SSE parser (har `kind`, buzilgan frame, ikki frame bir chunk'da, frame ikki chunk'ga bo'lingan, uzilish), `Failure` mapper (har HTTP kod), refresh mutex (3 parallel → 1 refresh), retry faqat GET, formatlar (kirill oy nomlari ham), `OfflineQueue`, `Paginated` parse
-- [ ] 2.19 Coverage `core/sse`, `core/network/interceptors`, `core/utils` ≥ 90%
+- [x] 2.1 `core/error/failure.dart` — sealed `Failure` (§8.3), `failure_l10n.dart`
+- [x] 2.2 `core/network/api_paths.dart` — §8.1 barcha yo'llar (test: har konstanta `/` bilan tugaydi, bosh `/` yo'q)
+- [x] 2.3 `DioClient` — base URL env'dan, `connectTimeout` 10 s, `receiveTimeout` 30 s (SSE'da o'chiriladi), JSON content-type
+- [x] 2.4 `AuthInterceptor` — Bearer qo'shish; `login/`, `refresh/` bundan mustasno
+- [x] 2.5 `RefreshInterceptor` — 401 → bitta refresh (mutex), navbatdagi so'rovlar qayta yuboriladi; refresh 401 → logout hodisasi
+- [x] 2.6 `RetryInterceptor` — faqat idempotent (GET) va tarmoq xatosi; 3 marta, exponential backoff
+- [x] 2.7 `ErrorMapperInterceptor` — `DioException` → `Failure` (§8.3 jadvali, `errors` maydonlari `ValidationFailure.fieldErrors` ga)
+- [x] 2.8 `LoggingInterceptor` — dev'da; token/parol/telefon maskalanadi
+- [x] 2.9 `SecureStorage` — access/refresh token, PIN; `flutter_secure_storage` (Android `encryptedSharedPreferences`)
+- [x] 2.10 `HiveBoxes` — box nomlari, `schemaVersion`, versiya o'zgarsa tozalash; adapterlar ro'yxati
+- [x] 2.11 `OfflineQueue` — FIFO, `attempts`, konflikt siyosati (§11)
+- [x] 2.12 `ConnectivityNotifier` — `connectivity_plus` + haqiqiy ping; `isOnline` stream
+- [x] 2.13 `Paginated<T>` model + `CursorPagingController` (keyingi sahifa, `hasMore`, `isLoadingMore`)
+- [x] 2.14 `money_format.dart` (`2 748 000 so'm`, narrow NBSP), `phone_format.dart`, `date_format.dart` (`12-sentabr`, `Bugun/Kecha/Bu hafta`), `debounce.dart`
+- [x] 2.15 `SseClient` — POST → stream, `\n\n` frame ajratish, `data:` parse, `CancelToken`, uzilishda 3 marta qayta urinish (1/2/4 s)
+- [x] 2.16 `SseEvent` sealed — `start / thinking / content / toolCall / toolArgs / toolResult / done(usage, products) / error / unknown`
+- [x] 2.17 `VoiceSocket` — WebSocket ochish/yopish, `?locale=`, auth (`?token=` — backend tasdiqlagach), binary (audio) va text (`kind`) frame'lar (§8.6), 1008/1011 yopilish kodlari → `Failure`, reconnect (1 marta)
+- [x] 2.18 Unit testlar: SSE parser (har `kind`, buzilgan frame, ikki frame bir chunk'da, frame ikki chunk'ga bo'lingan, uzilish), `Failure` mapper (har HTTP kod), refresh mutex (3 parallel → 1 refresh), retry faqat GET, formatlar (kirill oy nomlari ham), `OfflineQueue`, `Paginated` parse
+- [~] 2.19 Coverage `core/sse`, `core/network/interceptors`, `core/utils` ≥ 90%
 
 ## Bosqich 3 — `features/auth` (S-01)
 
@@ -342,7 +342,7 @@
 ## Bosqich 20 — Hujjat va yetkazish
 
 - [ ] 20.1 `README.md` — o'rnatish, `--dart-define-from-file`, build buyruqlari, papka tuzilmasi, `rules.md` ga havola
-- [ ] 20.2 `docs/ARCHITECTURE.md` — qatlamlar, ma'lumot oqimi diagrammasi, SSE holat mashinasi, ovoz holat mashinasi
+- [~] 20.2 `docs/ARCHITECTURE.md` — qatlamlar, ma'lumot oqimi diagrammasi, SSE holat mashinasi, ovoz holat mashinasi
 - [~] 20.3 `docs/API-CONTRACT.md` — ilova ishlatadigan har endpoint: so'rov/javob namunasi (backend `docs/API-GUIDE.md` bilan sinxron)
 - [~] 20.4 `docs/DESIGN-TOKENS.md` — §7 jadvallari + artboard → widget mapping
 - [ ] 20.5 `docs/PERF.md` — o'lchov natijalari (start, FPS, APK)

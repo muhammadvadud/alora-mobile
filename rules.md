@@ -358,7 +358,7 @@ Shriftlar `assets/fonts/` ga qo'shiladi (Google Fonts'dan yuklab, offline). Tarm
 | `AppSpacing.chatGap` | 16 | xabarlar orasidagi masofa |
 
 - **Soya deyarli yo'q.** Kartochka faqat `1px border`. Tanlangan kartochka: `1.5px accent` + `0 0 0 3px accent@9%`.
-- Ikonkalar: outline, stroke 1.5, o'lcham 22–24. `Icons.*` (Material filled) — taqiq; `lucide_icons` yoki
+- Ikonkalar: outline, stroke 1.5, o'lcham 22–24. `Icons.*` (Material filled) — taqiq; `lucide_icons_flutter` yoki
   loyihaning SVG to'plami (`assets/icons/`) ishlatiladi.
 - Rasm nisbati: mato — **4:5** vertikal; bezak (gul, podxvat) — **1:1**. 16:9 — taqiq.
 - Minimal bosish maydoni 48×48 dp (tugma balandligi 46 + padding).
@@ -688,7 +688,7 @@ Ro'yxatdan tashqari paket — faqat §19 orqali.
 | Storage | `hive`, `hive_flutter`, `flutter_secure_storage`, `path_provider` |
 | Ovoz | `record`, `just_audio`, `audio_session`, `wakelock_plus`, `permission_handler` |
 | Rasm | `cached_network_image`, `image_picker`, `image_cropper`, `flutter_image_compress` |
-| UI | `lucide_icons` (yoki `flutter_svg` + o'z ikonkalar), `fl_chart`, `flutter_colorpicker`, `shimmer` **emas** (§7.7) |
+| UI | `lucide_icons_flutter` (yoki `flutter_svg` + o'z ikonkalar), `fl_chart`, `flutter_colorpicker`, `shimmer` **emas** (§7.7) |
 | Format | `intl`, `mask_text_input_formatter` |
 | Fayl/ulashish | `share_plus`, `open_filex`, `url_launcher` |
 | Bildirishnoma | `firebase_messaging`, `flutter_local_notifications` (4-bosqich) |
@@ -760,7 +760,9 @@ mato **m²** bo'yicha.
 ### 19.4 Flutter 3.2x → 3.47.4 (2026-09-16)
 
 **Chetlanish:** TZ (`03-MOBILE-TZ.md`) Flutter 3.2x ni ko'rsatadi; loyiha **Flutter 3.47.4 stable / Dart 3.13.3**
-da quriladi (Android SDK 36, build-tools 36.0.0, JDK 17 Temurin).
+da quriladi (Android SDK 36 + 37 platformasi, build-tools 36.0.0, JDK 17 Temurin).
+`compileSdk = 37` (permission_handler_android talabi), `targetSdk = 36`, `minSdk = 26`.
+`sentry_flutter` uchun `android/build.gradle.kts` da Kotlin languageVersion 2.0 va compileSdk 36 majburlanadi.
 
 **Sabab:** TZ yozilgan paytdagi joriy stable 3.2x edi; hozirgi stable 3.47.4. Eski versiyani ataylab
 o'rnatish — xavfsizlik yangilanishlaridan va paketlarning joriy versiyalaridan mahrum qiladi.
@@ -773,3 +775,16 @@ o'rnatish — xavfsizlik yangilanishlaridan va paketlarning joriy versiyalaridan
 PATH `~/.zshrc` da. Dart MCP: `claude mcp add --scope user dart -- ~/development/flutter/bin/dart mcp-server`.
 
 **Qaror:** hamma joyda 3.47.4. Foydalanuvchi tomonidan tasdiqlangan (o'rnatish so'rovi).
+
+### 19.5 `lucide_icons` → `lucide_icons_flutter` (2026-09-16)
+
+**Chetlanish:** §17 dagi `lucide_icons` paketi `lucide_icons_flutter` (3.1.x) bilan almashtirildi.
+
+**Sabab:** `lucide_icons` 0.257.0 — 2023-06 dan beri yangilanmagan; Flutter 3.24+ da `IconData`
+o'zgarishi tufayli kompilyatsiya bo'lmaydi (1-bosqich ishchisi aniqladi). `lucide_icons_flutter` —
+o'sha Lucide to'plamining faol saqlanayotgan porti, API: `LucideIcons.<name>`.
+
+**Ta'sir doirasi:** `pubspec.yaml`, `lib/shared/icons/app_icons.dart`. Material `Icons.*` ishlatish
+§7.3 bo'yicha taqiqligicha qoladi.
+
+**Qaror:** almashtirildi. Foydalanuvchi tomonidan tasdiqlangan (agent ishini nazorat qilish vakolati doirasida).

@@ -158,6 +158,156 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Yopish'**
   String get common_close;
+
+  /// No description provided for @error_network.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ulanish yo\'q. Internetni tekshiring.'**
+  String get error_network;
+
+  /// No description provided for @error_auth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sessiya muddati tugadi. Iltimos, qayta kiring.'**
+  String get error_auth;
+
+  /// No description provided for @error_permission.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ruxsat yo\'q'**
+  String get error_permission;
+
+  /// No description provided for @error_notFound.
+  ///
+  /// In uz, this message translates to:
+  /// **'Topilmadi'**
+  String get error_notFound;
+
+  /// No description provided for @error_limit.
+  ///
+  /// In uz, this message translates to:
+  /// **'Limit tugadi'**
+  String get error_limit;
+
+  /// No description provided for @error_serviceUnavailable.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI xizmati vaqtincha ishlamayapti'**
+  String get error_serviceUnavailable;
+
+  /// No description provided for @error_server.
+  ///
+  /// In uz, this message translates to:
+  /// **'Server javob bermadi'**
+  String get error_server;
+
+  /// No description provided for @error_unknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noma\'lum xatolik'**
+  String get error_unknown;
+
+  /// No description provided for @order_status_draft.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoralama'**
+  String get order_status_draft;
+
+  /// No description provided for @order_status_confirmed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tasdiqlangan'**
+  String get order_status_confirmed;
+
+  /// No description provided for @order_status_measuring.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'lchovda'**
+  String get order_status_measuring;
+
+  /// No description provided for @order_status_production.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tikuvda'**
+  String get order_status_production;
+
+  /// No description provided for @order_status_ready.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tayyor'**
+  String get order_status_ready;
+
+  /// No description provided for @order_status_installing.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'rnatishda'**
+  String get order_status_installing;
+
+  /// No description provided for @order_status_completed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Topshirildi'**
+  String get order_status_completed;
+
+  /// No description provided for @order_status_cancelled.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bekor qilingan'**
+  String get order_status_cancelled;
+
+  /// No description provided for @order_status_unknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noma\'lum'**
+  String get order_status_unknown;
+
+  /// No description provided for @payment_status_advancePaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'Avans olindi'**
+  String get payment_status_advancePaid;
+
+  /// No description provided for @payment_status_fullyPaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'To\'liq to\'landi'**
+  String get payment_status_fullyPaid;
+
+  /// No description provided for @payment_status_debt.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qarz bor'**
+  String get payment_status_debt;
+
+  /// No description provided for @payment_status_unknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noma\'lum'**
+  String get payment_status_unknown;
+
+  /// No description provided for @price_unit_perSqm.
+  ///
+  /// In uz, this message translates to:
+  /// **'so\'m/m²'**
+  String get price_unit_perSqm;
+
+  /// No description provided for @price_unit_perPiece.
+  ///
+  /// In uz, this message translates to:
+  /// **'so\'m/dona'**
+  String get price_unit_perPiece;
+
+  /// No description provided for @price_unit_perMeter.
+  ///
+  /// In uz, this message translates to:
+  /// **'so\'m/m'**
+  String get price_unit_perMeter;
+
+  /// No description provided for @price_unit_unknown.
+  ///
+  /// In uz, this message translates to:
+  /// **''**
+  String get price_unit_unknown;
 }
 
 class _AppLocalizationsDelegate

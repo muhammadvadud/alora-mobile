@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "uz.alora.alora_mobile"
-    compileSdk = 36
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

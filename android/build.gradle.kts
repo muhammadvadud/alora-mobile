@@ -18,6 +18,24 @@ subprojects {
 subprojects {
     project.evaluationDependsOn(":app")
 }
+subprojects {
+    if (name == "sentry_flutter") {
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+            compilerOptions.languageVersion.set(
+                org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
+            )
+        }
+    }
+}
+subprojects {
+    if (name == "sentry_flutter") {
+        afterEvaluate {
+            extensions.configure<com.android.build.gradle.LibraryExtension>("android") {
+                compileSdk = 36
+            }
+        }
+    }
+}
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)

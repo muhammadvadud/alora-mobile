@@ -39,7 +39,6 @@ void main() {
 
     testWidgets('AppDialog ochiladi va tugmalar ishlaydi', (tester) async {
       bool isPrimaryTapped = false;
-      bool isSecondaryTapped = false;
 
       await tester.pumpWidget(
         Builder(
@@ -58,7 +57,6 @@ void main() {
                     },
                     secondaryActionText: 'Yo\'q',
                     onSecondaryAction: () {
-                      isSecondaryTapped = true;
                       Navigator.of(context).pop();
                     },
                     isDestructive: true,

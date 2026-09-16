@@ -25,13 +25,6 @@ void main() {
       json,
       (x) => x as Map<String, dynamic>,
     );
-    final paginated3 = const Paginated<Map<String, dynamic>>(
-      next: 'http://example.com/next',
-      previous: null,
-      results: [
-        {'id': 1, 'name': 'Test'},
-      ],
-    );
     final paginatedDiff = const Paginated<Map<String, dynamic>>(
       next: null,
       previous: null,

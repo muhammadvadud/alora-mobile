@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 61 / 249 bajarildi (4 jarayonda) (2026-09-16)
+**Umumiy holat:** 63 / 249 bajarildi (3 jarayonda) (2026-09-16)
 
 ---
 
@@ -58,7 +58,7 @@
 - [x] 1.21 `ProductCard` — karusel (eni 180) va grid rejimi; rasm 4:5 yoki 1:1 (`price_unit` ga qarab); rang doirasi; narx + birlik
 - [x] 1.22 `Waveform` — mikrofon amplitudasi bo'yicha 24 ustunli animatsiya; AI gapirganda boshqa rang
 - [x] 1.23 Komponentlar ko'rgazma ekrani `lib/core/dev/component_gallery.dart` (faqat `ENV=dev`, prod build'ga kirmaydi)
-- [~] 1.24 Widget testlar: har komponentning barcha holatlari
+- [x] 1.24 Widget testlar: har komponentning barcha holatlari
 - [x] 1.25 Golden: komponentlar kutubxonasi (yorug' + qorong'i)
 
 ## Bosqich 2 — `core` (network, storage, error, utils)
@@ -81,7 +81,7 @@
 - [x] 2.16 `SseEvent` sealed — `start / thinking / content / toolCall / toolArgs / toolResult / done(usage, products) / error / unknown`
 - [x] 2.17 `VoiceSocket` — WebSocket ochish/yopish, `?locale=`, auth (`?token=` — backend tasdiqlagach), binary (audio) va text (`kind`) frame'lar (§8.6), 1008/1011 yopilish kodlari → `Failure`, reconnect (1 marta)
 - [x] 2.18 Unit testlar: SSE parser (har `kind`, buzilgan frame, ikki frame bir chunk'da, frame ikki chunk'ga bo'lingan, uzilish), `Failure` mapper (har HTTP kod), refresh mutex (3 parallel → 1 refresh), retry faqat GET, formatlar (kirill oy nomlari ham), `OfflineQueue`, `Paginated` parse
-- [~] 2.19 Coverage `core/sse`, `core/network/interceptors`, `core/utils` ≥ 90%
+- [x] 2.19 Coverage `core/sse`, `core/network/interceptors`, `core/utils` ≥ 90%
 
 ## Bosqich 3 — `features/auth` (S-01)
 

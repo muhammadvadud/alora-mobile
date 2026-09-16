@@ -165,4 +165,119 @@ void main() {
       orElse: () => fail('error kutilgan'),
     );
   });
+
+  test('done event usage va products bilan qaytadi', () async {
+    final stream = Stream.fromIterable([
+      utf8.encode(
+        'data: {"kind":"done", "usage":{"tokens":123}, "products":[{"id":"p1"}]}\n\n',
+      ),
+    ]);
+
+    when(
+      () => mockDio.post<ResponseBody>(
+        any(),
+        data: any(named: 'data'),
+        cancelToken: any(named: 'cancelToken'),
+        options: any(named: 'options'),
+      ),
+    ).thenAnswer(
+      (_) async => Response<ResponseBody>(
+        requestOptions: RequestOptions(path: ''),
+        data: ResponseBody(stream, 200),
+      ),
+    );
+
+    final events = await sseClient.connect('/chat').toList();
+
+    expect(events.length, 1);
+    events[0].maybeWhen(
+      done: (usage, products) {
+        expect(usage, isNotNull);
+        expect(usage!['tokens'], 123);
+        expect(products, isNotNull);
+        expect(products!.length, 1);
+      },
+      orElse: () => fail('done kutilgan'),
+    );
+  });
+
+  test('done event usage/products null bo\'lishi mumkin', () async {
+    final stream = Stream.fromIterable([
+      utf8.encode('data: {"kind":"done"}\n\n'),
+    ]);
+
+    when(
+      () => mockDio.post<ResponseBody>(
+        any(),
+        data: any(named: 'data'),
+        cancelToken: any(named: 'cancelToken'),
+        options: any(named: 'options'),
+      ),
+    ).thenAnswer(
+      (_) async => Response<ResponseBody>(
+        requestOptions: RequestOptions(path: ''),
+        data: ResponseBody(stream, 200),
+      ),
+    );
+
+    final events = await sseClient.connect('/chat').toList();
+
+    expect(events.length, 1);
+    events[0].maybeWhen(
+      done: (usage, products) {
+        expect(usage, isNull);
+        expect(products, isNull);
+      },
+      orElse: () => fail('done kutilgan'),
+    );
+  });
+
+  test('tool_call, tool_args, tool_result eventlari parse qilinadi', () async {
+    final stream = Stream.fromIterable([
+      utf8.encode('data: {"kind":"tool_call", "tool":"product_search"}\n\n'),
+      utf8.encode(
+        'data: {"kind":"tool_args", "tool":"product_search", "args":"qizil mato"}\n\n',
+      ),
+      utf8.encode(
+        'data: {"kind":"tool_result", "tool":"product_search", "result":"[]"}\n\n',
+      ),
+      utf8.encode('data: {"kind":"done"}\n\n'),
+    ]);
+
+    when(
+      () => mockDio.post<ResponseBody>(
+        any(),
+        data: any(named: 'data'),
+        cancelToken: any(named: 'cancelToken'),
+        options: any(named: 'options'),
+      ),
+    ).thenAnswer(
+      (_) async => Response<ResponseBody>(
+        requestOptions: RequestOptions(path: ''),
+        data: ResponseBody(stream, 200),
+      ),
+    );
+
+    final events = await sseClient.connect('/chat').toList();
+
+    expect(events.length, 4);
+    events[0].maybeWhen(
+      toolCall: (tool) => expect(tool, 'product_search'),
+      orElse: () => fail('tool_call kutilgan'),
+    );
+    events[1].maybeWhen(
+      toolArgs: (tool, args) {
+        expect(tool, 'product_search');
+        expect(args, isNotEmpty);
+      },
+      orElse: () => fail('tool_args kutilgan'),
+    );
+    events[2].maybeWhen(
+      toolResult: (tool, result) {
+        expect(tool, 'product_search');
+        expect(result, '[]');
+      },
+      orElse: () => fail('tool_result kutilgan'),
+    );
+  });
 }

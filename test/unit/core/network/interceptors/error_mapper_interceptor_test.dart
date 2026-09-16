@@ -40,7 +40,100 @@ void main() {
     }
   });
 
-  test('Network Error -> NetworkFailure', () async {
+  test(
+    '400 nested fieldErrors (variants.0.price) to\'g\'ri parse qilinadi',
+    () async {
+      dioAdapter.onGet(
+        '/test',
+        (server) => server.reply(400, {
+          'detail': 'Validatsiya xatosi',
+          'code': 'validation_error',
+          'errors': {
+            'variants': {
+              '0': {'price': 'Manfiy bo\'lmasligi kerak'},
+            },
+          },
+        }),
+      );
+
+      try {
+        await dio.get('/test');
+        fail('Exception kutilgan edi');
+      } on DioException catch (e) {
+        final failure = e.error as Failure;
+        failure.maybeWhen(
+          validation: (detail, errors) {
+            expect(detail, 'Validatsiya xatosi');
+            // nested errors string formatda qaytariladi
+            expect(errors.isNotEmpty, isTrue);
+          },
+          orElse: () => fail('Noto\'g\'ri failure turi'),
+        );
+      }
+    },
+  );
+
+  test('timeout -> NetworkFailure', () async {
+    dioAdapter.onGet(
+      '/test',
+      (server) => server.throws(
+        500,
+        DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.receiveTimeout,
+        ),
+      ),
+    );
+
+    try {
+      await dio.get('/test');
+      fail('Exception kutilgan edi');
+    } on DioException catch (e) {
+      expect(e.error, const Failure.network());
+    }
+  });
+
+  test('sendTimeout -> NetworkFailure', () async {
+    dioAdapter.onGet(
+      '/test',
+      (server) => server.throws(
+        500,
+        DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.sendTimeout,
+        ),
+      ),
+    );
+
+    try {
+      await dio.get('/test');
+      fail('Exception kutilgan edi');
+    } on DioException catch (e) {
+      expect(e.error, const Failure.network());
+    }
+  });
+
+  test('connectionError -> NetworkFailure', () async {
+    dioAdapter.onGet(
+      '/test',
+      (server) => server.throws(
+        500,
+        DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.connectionError,
+        ),
+      ),
+    );
+
+    try {
+      await dio.get('/test');
+      fail('Exception kutilgan edi');
+    } on DioException catch (e) {
+      expect(e.error, const Failure.network());
+    }
+  });
+
+  test('connectionTimeout -> NetworkFailure', () async {
     dioAdapter.onGet(
       '/test',
       (server) => server.throws(
@@ -56,12 +149,7 @@ void main() {
       await dio.get('/test');
       fail('Exception kutilgan edi');
     } on DioException catch (e) {
-      expect(e.error, isA<Failure>());
-      final failure = e.error as Failure;
-      failure.maybeWhen(
-        network: () => expect(true, isTrue),
-        orElse: () => fail('Noto\'g\'ri failure turi'),
-      );
+      expect(e.error, const Failure.network());
     }
   });
 
@@ -122,6 +210,24 @@ void main() {
     }
   });
 
+  test('502 -> ServerFailure', () async {
+    dioAdapter.onGet('/test', (server) => server.reply(502, {}));
+    try {
+      await dio.get('/test');
+    } on DioException catch (e) {
+      expect(e.error, const Failure.server());
+    }
+  });
+
+  test('504 -> ServerFailure', () async {
+    dioAdapter.onGet('/test', (server) => server.reply(504, {}));
+    try {
+      await dio.get('/test');
+    } on DioException catch (e) {
+      expect(e.error, const Failure.server());
+    }
+  });
+
   test('400 Bad Request without errors -> ValidationFailure(empty)', () async {
     dioAdapter.onGet(
       '/test',
@@ -134,7 +240,7 @@ void main() {
     }
   });
 
-  test('Unknown error -> UnknownFailure', () async {
+  test('xato response null bo\'lsa UnknownFailure qaytaradi', () async {
     dioAdapter.onGet(
       '/test',
       (server) => server.throws(
@@ -150,6 +256,28 @@ void main() {
       await dio.get('/test');
     } on DioException catch (e) {
       expect(e.error, const Failure.unknown('Nimadir'));
+    }
+  });
+
+  test('error xabarsiz va null bo\'lsa UnknownFailure qaytaradi', () async {
+    dioAdapter.onGet(
+      '/test',
+      (server) => server.throws(
+        500,
+        DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.unknown,
+        ),
+      ),
+    );
+    try {
+      await dio.get('/test');
+    } on DioException catch (e) {
+      final failure = e.error as Failure;
+      failure.maybeWhen(
+        unknown: (_) => expect(true, isTrue),
+        orElse: () => fail('UnknownFailure kutilgan'),
+      );
     }
   });
 }

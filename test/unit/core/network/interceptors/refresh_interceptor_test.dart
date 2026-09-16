@@ -64,16 +64,6 @@ void main() {
       }, delay: const Duration(milliseconds: 100));
     });
 
-    // We can't really intercept the retried request cleanly with mock_adapter
-    // unless we redefine the route after refresh, but let's just check the counts.
-    // mock_adapter intercepts based on URL. The retried request will hit the same handler
-    // and fail again if we don't change the mock.
-    // So let's mock it such that it succeeds the second time, or we can just check `refreshCount`
-    // and ignore the final DioException from the retried request.
-
-    // Better: let's not care if the retried request fails with 401 again (it will).
-    // We just want to ensure `/refresh/` was hit exactly once.
-
     final p1 = dio.get('/protected1');
     final p2 = dio.get('/protected2');
     final p3 = dio.get('/protected3');
@@ -85,4 +75,99 @@ void main() {
     expect(refreshCount, 1);
     expect(await secureStorage.getAccessToken(), 'new_access');
   });
+
+  test(
+    'refresh endpoint o\'zi 401 qaytarsa tokenlar tozalanadi (logout)',
+    () async {
+      await secureStorage.saveTokens(
+        access: 'old_access',
+        refresh: 'bad_refresh',
+      );
+
+      dioAdapter.onGet('/protected', (server) => server.reply(401, {}));
+
+      // Refresh endpoint ham 401 qaytaradi → refresh xato
+      dioAdapter.onPost(ApiPaths.refresh, (server) => server.reply(401, {}));
+
+      try {
+        await dio.get('/protected');
+      } catch (_) {}
+
+      expect(await secureStorage.getAccessToken(), isNull);
+      expect(await secureStorage.getRefreshToken(), isNull);
+    },
+  );
+
+  test(
+    'login endpointi uchun refresh boshlanmaydi (Interceptor o\'tlaydi)',
+    () async {
+      // login endpointi RefreshInterceptor tomonidan e'tiborsiz qoldirilishi kerak
+      // Lekin login 401 qaytarmaydi, shuning uchun test oddiyroq
+      final handler = _FakeErrorInterceptorHandler();
+      final err = DioException(
+        requestOptions: RequestOptions(path: ApiPaths.login),
+        response: Response(
+          statusCode: 401,
+          requestOptions: RequestOptions(path: ApiPaths.login),
+        ),
+      );
+
+      final interceptor = RefreshInterceptor(secureStorage, dio);
+      await interceptor.onError(err, handler);
+
+      expect(handler.isNextCalled, isTrue);
+    },
+  );
+
+  test('retry so\'rovida 401 kelsa refresh boshlanmaydi', () async {
+    final handler = _FakeErrorInterceptorHandler();
+    final err = DioException(
+      requestOptions: RequestOptions(
+        path: '/protected',
+        extra: {'is_retry': true},
+      ),
+      response: Response(
+        statusCode: 401,
+        requestOptions: RequestOptions(path: '/protected'),
+      ),
+    );
+
+    final interceptor = RefreshInterceptor(secureStorage, dio);
+    await interceptor.onError(err, handler);
+
+    expect(handler.isNextCalled, isTrue);
+  });
+
+  test('token null bo\'lganda tozalanadi', () async {
+    await secureStorage.clearTokens();
+
+    final handler = _FakeErrorInterceptorHandler();
+    final err = DioException(
+      requestOptions: RequestOptions(path: '/protected'),
+      response: Response(
+        statusCode: 401,
+        requestOptions: RequestOptions(path: '/protected'),
+      ),
+    );
+
+    final interceptor = RefreshInterceptor(secureStorage, dio);
+    await interceptor.onError(err, handler);
+
+    expect(handler.isNextCalled, isTrue);
+    expect(await secureStorage.getAccessToken(), isNull);
+  });
+}
+
+class _FakeErrorInterceptorHandler extends ErrorInterceptorHandler {
+  bool isNextCalled = false;
+  Object? passedError;
+
+  @override
+  void next(DioException err) {
+    isNextCalled = true;
+    passedError = err;
+  }
+
+  @override
+  void resolve(Response<Object?> response) {}
 }

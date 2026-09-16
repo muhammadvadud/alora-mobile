@@ -17,4 +17,25 @@ class AppIcons {
   static const IconData inbox = LucideIcons.inbox;
   static const IconData imageOff = LucideIcons.imageOff;
   static const IconData image = LucideIcons.image;
+  // Chat va umumiy amallar
+  static const IconData plus = LucideIcons.plus;
+  static const IconData send =
+      LucideIcons.arrowUp; // dizayn: yuborish — yuqoriga strelka (1c)
+  static const IconData check = LucideIcons.check;
+  static const IconData close = LucideIcons.x;
+  static const IconData arrowDown = LucideIcons.arrowDown;
+  static const IconData refresh = LucideIcons.refreshCw;
+  static const IconData more = LucideIcons.ellipsisVertical;
+  static const IconData chevronDown = LucideIcons.chevronDown;
+  static const IconData chevronUp = LucideIcons.chevronUp;
+  static const IconData back = LucideIcons.chevronLeft;
+  static const IconData lock = LucideIcons.lock;
+  static const IconData filter = LucideIcons.slidersHorizontal;
+  static const IconData phone = LucideIcons.phone;
+  static const IconData mapPin = LucideIcons.mapPin;
+  static const IconData share = LucideIcons.share2;
+  static const IconData fileText = LucideIcons.fileText;
+  static const IconData camera = LucideIcons.camera;
+  static const IconData wifiOff = LucideIcons.wifiOff;
+  static const IconData info = LucideIcons.info;
 }

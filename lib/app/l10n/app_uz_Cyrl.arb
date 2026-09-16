@@ -49,5 +49,158 @@
   "tab_profile": "Профил",
   "placeholder_comingSoon": "Бўлим тайёрланмоқда",
   "forbidden_title": "Рухсат йўқ",
-  "forbidden_text": "Бу бўлимга фақат менежер ёки админ кира олади"
+  "forbidden_text": "Бу бўлимга фақат менежер ёки админ кира олади",
+  "catalog_searchHint": "Маҳсулот қидириш",
+  "catalog_allCategories": "Ҳаммаси",
+  "catalog_filter": "Фильтрлаш",
+  "catalog_filterClear": "Тозалаш",
+  "catalog_filterShow": "Кўрсатиш ({count} та)",
+  "@catalog_filterShow": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "catalog_emptyTitle": "Ҳеч нарса топилмади",
+  "catalog_emptyMessage": "Фильтрларни ўзгартиргинг ёки қидирув сўзини ўзгартириш",
+  "catalog_filterType": "Тур",
+  "catalog_filterTypeFabric": "Матолар",
+  "catalog_filterTypeAccessory": "Аксессуарлар",
+  "catalog_filterStyle": "Услуб",
+  "catalog_filterStyleKlassik": "Классик",
+  "catalog_filterStyleZamonaviy": "Замонавий",
+  "catalog_filterStyleMinimalist": "Минималист",
+  "catalog_filterRoom": "Хона",
+  "catalog_filterRoomMehmonxona": "Меҳмонхона",
+  "catalog_filterRoomYotoqxona": "Йўтоқхона",
+  "catalog_filterRoomOshxona": "Ошхона",
+  "catalog_filterRoomBolalarXonasi": "Болалар хонси",
+  "catalog_filterRoomOfis": "Офис",
+  "catalog_filterPattern": "Нақш",
+  "catalog_filterPatternYassi": "Ясси",
+  "catalog_filterPatternGulli": "Гулли",
+  "catalog_filterPatternChiziqli": "Чизиқли",
+  "catalog_filterPatternGeometrik": "Геометрик",
+  "catalog_filterTransparency": "Шаффофлик",
+  "catalog_filterTransparencyYopiq": "Ёпиқ",
+  "catalog_filterTransparencyYarimYorug": "Ярим ёруғ",
+  "catalog_filterTransparencyYorug": "Ёруғ",
+  "catalog_filterSegment": "Сегмент",
+  "catalog_filterSegmentEconomy": "Иқтисод",
+  "catalog_filterSegmentStandard": "Стандарт",
+  "catalog_filterSegmentPremium": "Премиум",
+  "catalog_filterPrice": "Нарх",
+  "catalog_filterPriceRange": "{min} — {max} сўм",
+  "@catalog_filterPriceRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "product_category": "Категория",
+  "product_properties": "Хусусиятлар",
+  "product_askAi": "AI'дан сўраш",
+  "product_addToAccount": "Ҳисобга қўшиш",
+  "product_variantSelected": "Танланган",
+  "product_fabricType": "Мато тури",
+  "product_rollWidth": "Рулон эни",
+  "product_composition": "Таркиб",
+  "product_care": "Парвариш",
+  "product_unitCm": "см",
+  "product_sewingRequired": "Тикиш керак",
+  "product_askAiMessage": "Шу мато ({name}, {color}) меҳмонхонага тўғри келадими?",
+  "@product_askAiMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "color": {
+        "type": "String"
+      }
+    }
+  },
+  "product_addToAccountMessage": "Ҳисобга қўш: {variant}",
+  "@product_addToAccountMessage": {
+    "placeholders": {
+      "variant": {
+        "type": "String"
+      }
+    }
+  },
+  "conversations_title": "Суҳбатлар",
+  "conversations_searchHint": "Суҳбат ёки мижоз",
+  "conversations_filterAll": "Ҳаммаси",
+  "conversations_filterHasOrder": "Ҳисоб чиқарилган",
+  "conversations_filterInProgress": "Якунланмаган",
+  "conversations_stageNeed": "эҳтиёж",
+  "conversations_stageRecommend": "тавсия",
+  "conversations_stageMeasure": "ўлчов",
+  "conversations_stageCalc": "ҳисоб",
+  "conversations_stageVariants": "вариантлар",
+  "conversations_stageOrder": "буюртма",
+  "conversations_stageUnknown": "номаълум",
+  "conversations_groupToday": "Бугун",
+  "conversations_groupYesterday": "Кеча",
+  "conversations_groupThisWeek": "Бу ҳафта",
+  "conversations_groupOlder": "Олдинги",
+  "conversations_new": "Янги суҳбат",
+  "conversations_emptyTitle": "Ҳали суҳбат йўқ",
+  "conversations_emptyMessage": "Янги суҳбат бошланг",
+  "conversations_emptyFilteredTitle": "Натижа топилмади",
+  "conversations_emptyFilteredMessage": "Фильтрларни ўзгартиринг",
+  "conversations_archive": "Архивлаш",
+  "conversations_archiveDialogTitle": "Суҳбатни архивлайсизми?",
+  "conversations_archiveDialogMessage": "Суҳбат архивга кўчирилади",
+  "chat_emptyTitle": "Мижоз нима излаяпти?",
+  "chat_start_livingRoom": "Меҳмонхона",
+  "chat_start_bedroom": "Ётоқхона",
+  "chat_start_couple": "Келин-куёв хонаси",
+  "chat_start_kitchen": "Ошхона",
+  "chat_start_kids": "Болалар хонаси",
+  "chat_start_office": "Офис",
+  "chat_thinking": "Ўйлаяпти…",
+  "chat_tool_running": "{tool}…",
+  "@chat_tool_running": {
+     "placeholders": { "tool": {"type": "String"} }
+  },
+  "chat_tool_result": "Натижа",
+  "chat_inputHint": "Хабар…",
+  "chat_newMessages": "↓ Янги хабар",
+  "chat_menuNew": "Янги суҳбат",
+  "chat_menuReset": "Суҳбатни тозалаш",
+  "chat_menuCustomerMode": "Мижоз режими",
+  "chat_menuPdf": "PDF таклиф",
+  "chat_menuShare": "Улашиш",
+  "chat_resetConfirmTitle": "Тозалайсизми?",
+  "chat_resetConfirmMessage": "Контекст ўчирилади.",
+  "chat_continue": "Давом эттириш",
+  "chat_retry": "Қайта юбориш",
+  "tool_label_product_search": "Маҳсулот қидирилмоқда",
+  "tool_label_curtain_calculate": "Ҳисобланмоқда",
+  "tool_label_price_quote": "Нарх чиқарилмоқда",
+  "tool_label_order_draft": "Буюртма шакллантирилмоқда",
+  "tool_label_variants": "Вариантлар тайёрланмоқда",
+  "tool_label_unknown": "Маълумот олинмоқда",
+  "chat_quote_fabrics": "МАТОЛАР",
+  "chat_quote_accessories": "БЕЗАКЛАР",
+  "chat_quote_services": "ХИЗМАТЛАР",
+  "chat_quote_more": "Яна {count} та бўлак",
+  "@chat_quote_more": {
+     "placeholders": { "count": {"type": "int"} }
+  },
+  "chat_quote_total": "ЖАМИ",
+  "chat_quote_howCalculated": "Қандай ҳисобланди?",
+  "chat_quote_close": "Ёпиш",
+  "chat_quote_show": "Кўриш",
+  "chat_quote_addPart": "Бўлак қўшиш",
+  "chat_quote_showOptions": "Вариантларни кўриш",
+  "chat_options_select": "Танлаш",
+  "chat_draft_edit": "Таҳрирлаш",
+  "chat_draft_createOrder": "Буюртма яратиш",
+  "chat_draft_title": "ҚОРАЛАМА"
 }

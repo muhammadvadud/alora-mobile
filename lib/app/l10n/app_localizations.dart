@@ -398,6 +398,684 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Bu bo\'limga faqat menejer yoki admin kirishi mumkin'**
   String get forbidden_text;
+
+  /// No description provided for @catalog_searchHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulot qidirish'**
+  String get catalog_searchHint;
+
+  /// No description provided for @catalog_allCategories.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hammasi'**
+  String get catalog_allCategories;
+
+  /// No description provided for @catalog_filter.
+  ///
+  /// In uz, this message translates to:
+  /// **'Filtrlash'**
+  String get catalog_filter;
+
+  /// No description provided for @catalog_filterClear.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tozalash'**
+  String get catalog_filterClear;
+
+  /// No description provided for @catalog_filterShow.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ko\'rsatish ({count} ta)'**
+  String catalog_filterShow(int count);
+
+  /// No description provided for @catalog_emptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hech narsa topilmadi'**
+  String get catalog_emptyTitle;
+
+  /// No description provided for @catalog_emptyMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Filtrlarni o\'zgartiring yoki qidiruv so\'zini o\'zgartiring'**
+  String get catalog_emptyMessage;
+
+  /// No description provided for @catalog_filterType.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tur'**
+  String get catalog_filterType;
+
+  /// No description provided for @catalog_filterTypeFabric.
+  ///
+  /// In uz, this message translates to:
+  /// **'Matolar'**
+  String get catalog_filterTypeFabric;
+
+  /// No description provided for @catalog_filterTypeAccessory.
+  ///
+  /// In uz, this message translates to:
+  /// **'Aksessuarlar'**
+  String get catalog_filterTypeAccessory;
+
+  /// No description provided for @catalog_filterStyle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uslub'**
+  String get catalog_filterStyle;
+
+  /// No description provided for @catalog_filterStyleKlassik.
+  ///
+  /// In uz, this message translates to:
+  /// **'Klassik'**
+  String get catalog_filterStyleKlassik;
+
+  /// No description provided for @catalog_filterStyleZamonaviy.
+  ///
+  /// In uz, this message translates to:
+  /// **'Zamonaviy'**
+  String get catalog_filterStyleZamonaviy;
+
+  /// No description provided for @catalog_filterStyleMinimalist.
+  ///
+  /// In uz, this message translates to:
+  /// **'Minimalist'**
+  String get catalog_filterStyleMinimalist;
+
+  /// No description provided for @catalog_filterRoom.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xona'**
+  String get catalog_filterRoom;
+
+  /// No description provided for @catalog_filterRoomMehmonxona.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mehmonxona'**
+  String get catalog_filterRoomMehmonxona;
+
+  /// No description provided for @catalog_filterRoomYotoqxona.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yotoqxona'**
+  String get catalog_filterRoomYotoqxona;
+
+  /// No description provided for @catalog_filterRoomOshxona.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oshxona'**
+  String get catalog_filterRoomOshxona;
+
+  /// No description provided for @catalog_filterRoomBolalarXonasi.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bolalar xonasi'**
+  String get catalog_filterRoomBolalarXonasi;
+
+  /// No description provided for @catalog_filterRoomOfis.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ofis'**
+  String get catalog_filterRoomOfis;
+
+  /// No description provided for @catalog_filterPattern.
+  ///
+  /// In uz, this message translates to:
+  /// **'Naqsh'**
+  String get catalog_filterPattern;
+
+  /// No description provided for @catalog_filterPatternYassi.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yassi'**
+  String get catalog_filterPatternYassi;
+
+  /// No description provided for @catalog_filterPatternGulli.
+  ///
+  /// In uz, this message translates to:
+  /// **'Gulli'**
+  String get catalog_filterPatternGulli;
+
+  /// No description provided for @catalog_filterPatternChiziqli.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chiziqli'**
+  String get catalog_filterPatternChiziqli;
+
+  /// No description provided for @catalog_filterPatternGeometrik.
+  ///
+  /// In uz, this message translates to:
+  /// **'Geometrik'**
+  String get catalog_filterPatternGeometrik;
+
+  /// No description provided for @catalog_filterTransparency.
+  ///
+  /// In uz, this message translates to:
+  /// **'Shaffoflik'**
+  String get catalog_filterTransparency;
+
+  /// No description provided for @catalog_filterTransparencyYopiq.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yopiq'**
+  String get catalog_filterTransparencyYopiq;
+
+  /// No description provided for @catalog_filterTransparencyYarimYorug.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yarim yorug\''**
+  String get catalog_filterTransparencyYarimYorug;
+
+  /// No description provided for @catalog_filterTransparencyYorug.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yorug\''**
+  String get catalog_filterTransparencyYorug;
+
+  /// No description provided for @catalog_filterSegment.
+  ///
+  /// In uz, this message translates to:
+  /// **'Segment'**
+  String get catalog_filterSegment;
+
+  /// No description provided for @catalog_filterSegmentEconomy.
+  ///
+  /// In uz, this message translates to:
+  /// **'Iqtisod'**
+  String get catalog_filterSegmentEconomy;
+
+  /// No description provided for @catalog_filterSegmentStandard.
+  ///
+  /// In uz, this message translates to:
+  /// **'Standart'**
+  String get catalog_filterSegmentStandard;
+
+  /// No description provided for @catalog_filterSegmentPremium.
+  ///
+  /// In uz, this message translates to:
+  /// **'Premium'**
+  String get catalog_filterSegmentPremium;
+
+  /// No description provided for @catalog_filterPrice.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narx'**
+  String get catalog_filterPrice;
+
+  /// No description provided for @catalog_filterPriceRange.
+  ///
+  /// In uz, this message translates to:
+  /// **'{min} — {max} so\'m'**
+  String catalog_filterPriceRange(int min, int max);
+
+  /// No description provided for @product_category.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kategoriya'**
+  String get product_category;
+
+  /// No description provided for @product_properties.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xususiyatlar'**
+  String get product_properties;
+
+  /// No description provided for @product_askAi.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI\'dan so\'rash'**
+  String get product_askAi;
+
+  /// No description provided for @product_addToAccount.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisobga qo\'shish'**
+  String get product_addToAccount;
+
+  /// No description provided for @product_variantSelected.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tanlangan'**
+  String get product_variantSelected;
+
+  /// No description provided for @product_fabricType.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mato turi'**
+  String get product_fabricType;
+
+  /// No description provided for @product_rollWidth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rulon eni'**
+  String get product_rollWidth;
+
+  /// No description provided for @product_composition.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tarkib'**
+  String get product_composition;
+
+  /// No description provided for @product_care.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parvarish'**
+  String get product_care;
+
+  /// No description provided for @product_unitCm.
+  ///
+  /// In uz, this message translates to:
+  /// **'sm'**
+  String get product_unitCm;
+
+  /// No description provided for @product_sewingRequired.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tikish kerak'**
+  String get product_sewingRequired;
+
+  /// No description provided for @product_askAiMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Shu mato ({name}, {color}) mehmonxonaga to\'g\'ri keladimi?'**
+  String product_askAiMessage(String name, String color);
+
+  /// No description provided for @product_addToAccountMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisobga qo\'sh: {variant}'**
+  String product_addToAccountMessage(String variant);
+
+  /// No description provided for @conversations_title.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbatlar'**
+  String get conversations_title;
+
+  /// No description provided for @conversations_searchHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbat yoki mijoz'**
+  String get conversations_searchHint;
+
+  /// No description provided for @conversations_filterAll.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hammasi'**
+  String get conversations_filterAll;
+
+  /// No description provided for @conversations_filterHasOrder.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisob chiqarilgan'**
+  String get conversations_filterHasOrder;
+
+  /// No description provided for @conversations_filterInProgress.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yakunlanmagan'**
+  String get conversations_filterInProgress;
+
+  /// No description provided for @conversations_stageNeed.
+  ///
+  /// In uz, this message translates to:
+  /// **'ehtiyoj'**
+  String get conversations_stageNeed;
+
+  /// No description provided for @conversations_stageRecommend.
+  ///
+  /// In uz, this message translates to:
+  /// **'tavsiya'**
+  String get conversations_stageRecommend;
+
+  /// No description provided for @conversations_stageMeasure.
+  ///
+  /// In uz, this message translates to:
+  /// **'o\'lchov'**
+  String get conversations_stageMeasure;
+
+  /// No description provided for @conversations_stageCalc.
+  ///
+  /// In uz, this message translates to:
+  /// **'hisob'**
+  String get conversations_stageCalc;
+
+  /// No description provided for @conversations_stageVariants.
+  ///
+  /// In uz, this message translates to:
+  /// **'variantlar'**
+  String get conversations_stageVariants;
+
+  /// No description provided for @conversations_stageOrder.
+  ///
+  /// In uz, this message translates to:
+  /// **'buyurtma'**
+  String get conversations_stageOrder;
+
+  /// No description provided for @conversations_stageUnknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'noma\'lum'**
+  String get conversations_stageUnknown;
+
+  /// No description provided for @conversations_groupToday.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun'**
+  String get conversations_groupToday;
+
+  /// No description provided for @conversations_groupYesterday.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kecha'**
+  String get conversations_groupYesterday;
+
+  /// No description provided for @conversations_groupThisWeek.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu hafta'**
+  String get conversations_groupThisWeek;
+
+  /// No description provided for @conversations_groupOlder.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oldingi'**
+  String get conversations_groupOlder;
+
+  /// No description provided for @conversations_new.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi suhbat'**
+  String get conversations_new;
+
+  /// No description provided for @conversations_emptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali suhbat yo\'q'**
+  String get conversations_emptyTitle;
+
+  /// No description provided for @conversations_emptyMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi suhbat boshlang'**
+  String get conversations_emptyMessage;
+
+  /// No description provided for @conversations_emptyFilteredTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Natija topilmadi'**
+  String get conversations_emptyFilteredTitle;
+
+  /// No description provided for @conversations_emptyFilteredMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Filtrlarni o\'zgartiring'**
+  String get conversations_emptyFilteredMessage;
+
+  /// No description provided for @conversations_archive.
+  ///
+  /// In uz, this message translates to:
+  /// **'Arxivlash'**
+  String get conversations_archive;
+
+  /// No description provided for @conversations_archiveDialogTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbatni arxivlaysizmi?'**
+  String get conversations_archiveDialogTitle;
+
+  /// No description provided for @conversations_archiveDialogMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbat arxivga ko\'chiriladi'**
+  String get conversations_archiveDialogMessage;
+
+  /// No description provided for @chat_emptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz nima izlayapti?'**
+  String get chat_emptyTitle;
+
+  /// No description provided for @chat_start_livingRoom.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mehmonxona'**
+  String get chat_start_livingRoom;
+
+  /// No description provided for @chat_start_bedroom.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yotoqxona'**
+  String get chat_start_bedroom;
+
+  /// No description provided for @chat_start_couple.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kelin-kuyov xonasi'**
+  String get chat_start_couple;
+
+  /// No description provided for @chat_start_kitchen.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oshxona'**
+  String get chat_start_kitchen;
+
+  /// No description provided for @chat_start_kids.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bolalar xonasi'**
+  String get chat_start_kids;
+
+  /// No description provided for @chat_start_office.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ofis'**
+  String get chat_start_office;
+
+  /// No description provided for @chat_thinking.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'ylayapti…'**
+  String get chat_thinking;
+
+  /// No description provided for @chat_tool_running.
+  ///
+  /// In uz, this message translates to:
+  /// **'{tool}…'**
+  String chat_tool_running(String tool);
+
+  /// No description provided for @chat_tool_result.
+  ///
+  /// In uz, this message translates to:
+  /// **'Natija'**
+  String get chat_tool_result;
+
+  /// No description provided for @chat_inputHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xabar…'**
+  String get chat_inputHint;
+
+  /// No description provided for @chat_newMessages.
+  ///
+  /// In uz, this message translates to:
+  /// **'↓ Yangi xabar'**
+  String get chat_newMessages;
+
+  /// No description provided for @chat_menuNew.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi suhbat'**
+  String get chat_menuNew;
+
+  /// No description provided for @chat_menuReset.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbatni tozalash'**
+  String get chat_menuReset;
+
+  /// No description provided for @chat_menuCustomerMode.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz rejimi'**
+  String get chat_menuCustomerMode;
+
+  /// No description provided for @chat_menuPdf.
+  ///
+  /// In uz, this message translates to:
+  /// **'PDF taklif'**
+  String get chat_menuPdf;
+
+  /// No description provided for @chat_menuShare.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ulashish'**
+  String get chat_menuShare;
+
+  /// No description provided for @chat_resetConfirmTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tozalaysizmi?'**
+  String get chat_resetConfirmTitle;
+
+  /// No description provided for @chat_resetConfirmMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kontekst o\'chiriladi.'**
+  String get chat_resetConfirmMessage;
+
+  /// No description provided for @chat_continue.
+  ///
+  /// In uz, this message translates to:
+  /// **'Davom ettirish'**
+  String get chat_continue;
+
+  /// No description provided for @chat_retry.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qayta yuborish'**
+  String get chat_retry;
+
+  /// No description provided for @tool_label_product_search.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulot qidirilmoqda'**
+  String get tool_label_product_search;
+
+  /// No description provided for @tool_label_curtain_calculate.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisoblanmoqda'**
+  String get tool_label_curtain_calculate;
+
+  /// No description provided for @tool_label_price_quote.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narx chiqarilmoqda'**
+  String get tool_label_price_quote;
+
+  /// No description provided for @tool_label_order_draft.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtma shakllantirilmoqda'**
+  String get tool_label_order_draft;
+
+  /// No description provided for @tool_label_variants.
+  ///
+  /// In uz, this message translates to:
+  /// **'Variantlar tayyorlanmoqda'**
+  String get tool_label_variants;
+
+  /// No description provided for @tool_label_unknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ma\'lumot olinmoqda'**
+  String get tool_label_unknown;
+
+  /// No description provided for @chat_quote_fabrics.
+  ///
+  /// In uz, this message translates to:
+  /// **'MATOLAR'**
+  String get chat_quote_fabrics;
+
+  /// No description provided for @chat_quote_accessories.
+  ///
+  /// In uz, this message translates to:
+  /// **'BEZAKLAR'**
+  String get chat_quote_accessories;
+
+  /// No description provided for @chat_quote_services.
+  ///
+  /// In uz, this message translates to:
+  /// **'XIZMATLAR'**
+  String get chat_quote_services;
+
+  /// No description provided for @chat_quote_more.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yana {count} ta bo\'lak'**
+  String chat_quote_more(int count);
+
+  /// No description provided for @chat_quote_total.
+  ///
+  /// In uz, this message translates to:
+  /// **'JAMI'**
+  String get chat_quote_total;
+
+  /// No description provided for @chat_quote_howCalculated.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qanday hisoblandi?'**
+  String get chat_quote_howCalculated;
+
+  /// No description provided for @chat_quote_close.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yopish'**
+  String get chat_quote_close;
+
+  /// No description provided for @chat_quote_show.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ko\'rish'**
+  String get chat_quote_show;
+
+  /// No description provided for @chat_quote_addPart.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bo\'lak qo\'shish'**
+  String get chat_quote_addPart;
+
+  /// No description provided for @chat_quote_showOptions.
+  ///
+  /// In uz, this message translates to:
+  /// **'Variantlarni ko\'rish'**
+  String get chat_quote_showOptions;
+
+  /// No description provided for @chat_options_select.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tanlash'**
+  String get chat_options_select;
+
+  /// No description provided for @chat_draft_edit.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tahrirlash'**
+  String get chat_draft_edit;
+
+  /// No description provided for @chat_draft_createOrder.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtma yaratish'**
+  String get chat_draft_createOrder;
+
+  /// No description provided for @chat_draft_title.
+  ///
+  /// In uz, this message translates to:
+  /// **'QORALAMA'**
+  String get chat_draft_title;
 }
 
 class _AppLocalizationsDelegate

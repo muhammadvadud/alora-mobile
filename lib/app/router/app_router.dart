@@ -9,6 +9,7 @@ import 'package:alora_mobile/features/auth/application/auth_notifier.dart';
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:alora_mobile/features/chat/presentation/screens/chat_screen.dart';
+import 'package:alora_mobile/features/conversations/presentation/screens/conversations_screen.dart';
 import 'package:alora_mobile/features/catalog/presentation/screens/catalog_screen.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
 import 'package:alora_mobile/features/management/presentation/screens/management_screen.dart';
@@ -122,7 +123,7 @@ List<RouteBase> _routes() {
           routes: [
             GoRoute(
               path: AppRoutes.chat,
-              builder: (_, _) => const ChatScreen(),
+              builder: (_, _) => const ConversationsScreen(),
               routes: [
                 GoRoute(
                   path: ':conversationId',

@@ -160,4 +160,356 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get forbidden_text =>
       'В этот раздел могут входить только менеджер или администратор';
+
+  @override
+  String get catalog_searchHint => 'Поиск товаров';
+
+  @override
+  String get catalog_allCategories => 'Все';
+
+  @override
+  String get catalog_filter => 'Фильтры';
+
+  @override
+  String get catalog_filterClear => 'Сбросить';
+
+  @override
+  String catalog_filterShow(int count) {
+    return 'Показать ($count шт)';
+  }
+
+  @override
+  String get catalog_emptyTitle => 'Ничего не найдено';
+
+  @override
+  String get catalog_emptyMessage => 'Измените фильтры или поисковый запрос';
+
+  @override
+  String get catalog_filterType => 'Тип';
+
+  @override
+  String get catalog_filterTypeFabric => 'Ткани';
+
+  @override
+  String get catalog_filterTypeAccessory => 'Аксессуары';
+
+  @override
+  String get catalog_filterStyle => 'Стиль';
+
+  @override
+  String get catalog_filterStyleKlassik => 'Классический';
+
+  @override
+  String get catalog_filterStyleZamonaviy => 'Современный';
+
+  @override
+  String get catalog_filterStyleMinimalist => 'Минималистичный';
+
+  @override
+  String get catalog_filterRoom => 'Комната';
+
+  @override
+  String get catalog_filterRoomMehmonxona => 'Гостиная';
+
+  @override
+  String get catalog_filterRoomYotoqxona => 'Спальня';
+
+  @override
+  String get catalog_filterRoomOshxona => 'Кухня';
+
+  @override
+  String get catalog_filterRoomBolalarXonasi => 'Детская';
+
+  @override
+  String get catalog_filterRoomOfis => 'Офис';
+
+  @override
+  String get catalog_filterPattern => 'Узор';
+
+  @override
+  String get catalog_filterPatternYassi => 'Гладкий';
+
+  @override
+  String get catalog_filterPatternGulli => 'Цветочный';
+
+  @override
+  String get catalog_filterPatternChiziqli => 'Полосатый';
+
+  @override
+  String get catalog_filterPatternGeometrik => 'Геометрический';
+
+  @override
+  String get catalog_filterTransparency => 'Прозрачность';
+
+  @override
+  String get catalog_filterTransparencyYopiq => 'Непрозрачный';
+
+  @override
+  String get catalog_filterTransparencyYarimYorug => 'Полупрозрачный';
+
+  @override
+  String get catalog_filterTransparencyYorug => 'Прозрачный';
+
+  @override
+  String get catalog_filterSegment => 'Сегмент';
+
+  @override
+  String get catalog_filterSegmentEconomy => 'Эконом';
+
+  @override
+  String get catalog_filterSegmentStandard => 'Стандарт';
+
+  @override
+  String get catalog_filterSegmentPremium => 'Премиум';
+
+  @override
+  String get catalog_filterPrice => 'Цена';
+
+  @override
+  String catalog_filterPriceRange(int min, int max) {
+    return '$min — $max сум';
+  }
+
+  @override
+  String get product_category => 'Категория';
+
+  @override
+  String get product_properties => 'Характеристики';
+
+  @override
+  String get product_askAi => 'Спросить у AI';
+
+  @override
+  String get product_addToAccount => 'Добавить в расчёт';
+
+  @override
+  String get product_variantSelected => 'Выбран';
+
+  @override
+  String get product_fabricType => 'Тип ткани';
+
+  @override
+  String get product_rollWidth => 'Ширина рулона';
+
+  @override
+  String get product_composition => 'Состав';
+
+  @override
+  String get product_care => 'Уход';
+
+  @override
+  String get product_unitCm => 'см';
+
+  @override
+  String get product_sewingRequired => 'Нужен пошив';
+
+  @override
+  String product_askAiMessage(String name, String color) {
+    return 'Подходит ли эта ткань ($name, $color) для гостиной?';
+  }
+
+  @override
+  String product_addToAccountMessage(String variant) {
+    return 'Добавить в расчёт: $variant';
+  }
+
+  @override
+  String get conversations_title => 'Чаты';
+
+  @override
+  String get conversations_searchHint => 'Чат или клиент';
+
+  @override
+  String get conversations_filterAll => 'Все';
+
+  @override
+  String get conversations_filterHasOrder => 'С выставленным счётом';
+
+  @override
+  String get conversations_filterInProgress => 'Незавершённые';
+
+  @override
+  String get conversations_stageNeed => 'потребность';
+
+  @override
+  String get conversations_stageRecommend => 'рекомендация';
+
+  @override
+  String get conversations_stageMeasure => 'замер';
+
+  @override
+  String get conversations_stageCalc => 'расчёт';
+
+  @override
+  String get conversations_stageVariants => 'варианты';
+
+  @override
+  String get conversations_stageOrder => 'заказ';
+
+  @override
+  String get conversations_stageUnknown => 'неизвестно';
+
+  @override
+  String get conversations_groupToday => 'Сегодня';
+
+  @override
+  String get conversations_groupYesterday => 'Вчера';
+
+  @override
+  String get conversations_groupThisWeek => 'На этой неделе';
+
+  @override
+  String get conversations_groupOlder => 'Ранее';
+
+  @override
+  String get conversations_new => 'Новый чат';
+
+  @override
+  String get conversations_emptyTitle => 'Чатов пока нет';
+
+  @override
+  String get conversations_emptyMessage => 'Начните новый чат';
+
+  @override
+  String get conversations_emptyFilteredTitle => 'Ничего не найдено';
+
+  @override
+  String get conversations_emptyFilteredMessage => 'Измените фильтры';
+
+  @override
+  String get conversations_archive => 'В архив';
+
+  @override
+  String get conversations_archiveDialogTitle => 'Архивировать чат?';
+
+  @override
+  String get conversations_archiveDialogMessage =>
+      'Чат будет перемещён в архив';
+
+  @override
+  String get chat_emptyTitle => 'Что ищет клиент?';
+
+  @override
+  String get chat_start_livingRoom => 'Гостиная';
+
+  @override
+  String get chat_start_bedroom => 'Спальня';
+
+  @override
+  String get chat_start_couple => 'Комната молодоженов';
+
+  @override
+  String get chat_start_kitchen => 'Кухня';
+
+  @override
+  String get chat_start_kids => 'Детская';
+
+  @override
+  String get chat_start_office => 'Офис';
+
+  @override
+  String get chat_thinking => 'Думает…';
+
+  @override
+  String chat_tool_running(String tool) {
+    return '$tool…';
+  }
+
+  @override
+  String get chat_tool_result => 'Результат';
+
+  @override
+  String get chat_inputHint => 'Сообщение…';
+
+  @override
+  String get chat_newMessages => '↓ Новое сообщение';
+
+  @override
+  String get chat_menuNew => 'Новый чат';
+
+  @override
+  String get chat_menuReset => 'Очистить чат';
+
+  @override
+  String get chat_menuCustomerMode => 'Режим клиента';
+
+  @override
+  String get chat_menuPdf => 'PDF предложение';
+
+  @override
+  String get chat_menuShare => 'Поделиться';
+
+  @override
+  String get chat_resetConfirmTitle => 'Очистить?';
+
+  @override
+  String get chat_resetConfirmMessage => 'Контекст будет удален.';
+
+  @override
+  String get chat_continue => 'Продолжить';
+
+  @override
+  String get chat_retry => 'Повторить';
+
+  @override
+  String get tool_label_product_search => 'Поиск продукта';
+
+  @override
+  String get tool_label_curtain_calculate => 'Вычисление';
+
+  @override
+  String get tool_label_price_quote => 'Оценка';
+
+  @override
+  String get tool_label_order_draft => 'Черновик заказа';
+
+  @override
+  String get tool_label_variants => 'Подготовка вариантов';
+
+  @override
+  String get tool_label_unknown => 'Получение данных';
+
+  @override
+  String get chat_quote_fabrics => 'ТКАНИ';
+
+  @override
+  String get chat_quote_accessories => 'АКСЕССУАРЫ';
+
+  @override
+  String get chat_quote_services => 'УСЛУГИ';
+
+  @override
+  String chat_quote_more(int count) {
+    return 'Еще $count частей';
+  }
+
+  @override
+  String get chat_quote_total => 'ИТОГО';
+
+  @override
+  String get chat_quote_howCalculated => 'Как рассчитано?';
+
+  @override
+  String get chat_quote_close => 'Закрыть';
+
+  @override
+  String get chat_quote_show => 'Смотреть';
+
+  @override
+  String get chat_quote_addPart => 'Добавить часть';
+
+  @override
+  String get chat_quote_showOptions => 'Варианты';
+
+  @override
+  String get chat_options_select => 'Выбрать';
+
+  @override
+  String get chat_draft_edit => 'Редактировать';
+
+  @override
+  String get chat_draft_createOrder => 'Создать заказ';
+
+  @override
+  String get chat_draft_title => 'ЧЕРНОВИК';
 }

@@ -49,5 +49,158 @@
   "tab_profile": "Профиль",
   "placeholder_comingSoon": "Раздел готовится",
   "forbidden_title": "Нет доступа",
-  "forbidden_text": "В этот раздел могут входить только менеджер или администратор"
+  "forbidden_text": "В этот раздел могут входить только менеджер или администратор",
+  "catalog_searchHint": "Поиск товаров",
+  "catalog_allCategories": "Все",
+  "catalog_filter": "Фильтры",
+  "catalog_filterClear": "Сбросить",
+  "catalog_filterShow": "Показать ({count} шт)",
+  "@catalog_filterShow": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "catalog_emptyTitle": "Ничего не найдено",
+  "catalog_emptyMessage": "Измените фильтры или поисковый запрос",
+  "catalog_filterType": "Тип",
+  "catalog_filterTypeFabric": "Ткани",
+  "catalog_filterTypeAccessory": "Аксессуары",
+  "catalog_filterStyle": "Стиль",
+  "catalog_filterStyleKlassik": "Классический",
+  "catalog_filterStyleZamonaviy": "Современный",
+  "catalog_filterStyleMinimalist": "Минималистичный",
+  "catalog_filterRoom": "Комната",
+  "catalog_filterRoomMehmonxona": "Гостиная",
+  "catalog_filterRoomYotoqxona": "Спальня",
+  "catalog_filterRoomOshxona": "Кухня",
+  "catalog_filterRoomBolalarXonasi": "Детская",
+  "catalog_filterRoomOfis": "Офис",
+  "catalog_filterPattern": "Узор",
+  "catalog_filterPatternYassi": "Гладкий",
+  "catalog_filterPatternGulli": "Цветочный",
+  "catalog_filterPatternChiziqli": "Полосатый",
+  "catalog_filterPatternGeometrik": "Геометрический",
+  "catalog_filterTransparency": "Прозрачность",
+  "catalog_filterTransparencyYopiq": "Непрозрачный",
+  "catalog_filterTransparencyYarimYorug": "Полупрозрачный",
+  "catalog_filterTransparencyYorug": "Прозрачный",
+  "catalog_filterSegment": "Сегмент",
+  "catalog_filterSegmentEconomy": "Эконом",
+  "catalog_filterSegmentStandard": "Стандарт",
+  "catalog_filterSegmentPremium": "Премиум",
+  "catalog_filterPrice": "Цена",
+  "catalog_filterPriceRange": "{min} — {max} сум",
+  "@catalog_filterPriceRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "product_category": "Категория",
+  "product_properties": "Характеристики",
+  "product_askAi": "Спросить у AI",
+  "product_addToAccount": "Добавить в расчёт",
+  "product_variantSelected": "Выбран",
+  "product_fabricType": "Тип ткани",
+  "product_rollWidth": "Ширина рулона",
+  "product_composition": "Состав",
+  "product_care": "Уход",
+  "product_unitCm": "см",
+  "product_sewingRequired": "Нужен пошив",
+  "product_askAiMessage": "Подходит ли эта ткань ({name}, {color}) для гостиной?",
+  "@product_askAiMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "color": {
+        "type": "String"
+      }
+    }
+  },
+  "product_addToAccountMessage": "Добавить в расчёт: {variant}",
+  "@product_addToAccountMessage": {
+    "placeholders": {
+      "variant": {
+        "type": "String"
+      }
+    }
+  },
+  "conversations_title": "Чаты",
+  "conversations_searchHint": "Чат или клиент",
+  "conversations_filterAll": "Все",
+  "conversations_filterHasOrder": "С выставленным счётом",
+  "conversations_filterInProgress": "Незавершённые",
+  "conversations_stageNeed": "потребность",
+  "conversations_stageRecommend": "рекомендация",
+  "conversations_stageMeasure": "замер",
+  "conversations_stageCalc": "расчёт",
+  "conversations_stageVariants": "варианты",
+  "conversations_stageOrder": "заказ",
+  "conversations_stageUnknown": "неизвестно",
+  "conversations_groupToday": "Сегодня",
+  "conversations_groupYesterday": "Вчера",
+  "conversations_groupThisWeek": "На этой неделе",
+  "conversations_groupOlder": "Ранее",
+  "conversations_new": "Новый чат",
+  "conversations_emptyTitle": "Чатов пока нет",
+  "conversations_emptyMessage": "Начните новый чат",
+  "conversations_emptyFilteredTitle": "Ничего не найдено",
+  "conversations_emptyFilteredMessage": "Измените фильтры",
+  "conversations_archive": "В архив",
+  "conversations_archiveDialogTitle": "Архивировать чат?",
+  "conversations_archiveDialogMessage": "Чат будет перемещён в архив",
+  "chat_emptyTitle": "Что ищет клиент?",
+  "chat_start_livingRoom": "Гостиная",
+  "chat_start_bedroom": "Спальня",
+  "chat_start_couple": "Комната молодоженов",
+  "chat_start_kitchen": "Кухня",
+  "chat_start_kids": "Детская",
+  "chat_start_office": "Офис",
+  "chat_thinking": "Думает…",
+  "chat_tool_running": "{tool}…",
+  "@chat_tool_running": {
+     "placeholders": { "tool": {"type": "String"} }
+  },
+  "chat_tool_result": "Результат",
+  "chat_inputHint": "Сообщение…",
+  "chat_newMessages": "↓ Новое сообщение",
+  "chat_menuNew": "Новый чат",
+  "chat_menuReset": "Очистить чат",
+  "chat_menuCustomerMode": "Режим клиента",
+  "chat_menuPdf": "PDF предложение",
+  "chat_menuShare": "Поделиться",
+  "chat_resetConfirmTitle": "Очистить?",
+  "chat_resetConfirmMessage": "Контекст будет удален.",
+  "chat_continue": "Продолжить",
+  "chat_retry": "Повторить",
+  "tool_label_product_search": "Поиск продукта",
+  "tool_label_curtain_calculate": "Вычисление",
+  "tool_label_price_quote": "Оценка",
+  "tool_label_order_draft": "Черновик заказа",
+  "tool_label_variants": "Подготовка вариантов",
+  "tool_label_unknown": "Получение данных",
+  "chat_quote_fabrics": "ТКАНИ",
+  "chat_quote_accessories": "АКСЕССУАРЫ",
+  "chat_quote_services": "УСЛУГИ",
+  "chat_quote_more": "Еще {count} частей",
+  "@chat_quote_more": {
+     "placeholders": { "count": {"type": "int"} }
+  },
+  "chat_quote_total": "ИТОГО",
+  "chat_quote_howCalculated": "Как рассчитано?",
+  "chat_quote_close": "Закрыть",
+  "chat_quote_show": "Смотреть",
+  "chat_quote_addPart": "Добавить часть",
+  "chat_quote_showOptions": "Варианты",
+  "chat_options_select": "Выбрать",
+  "chat_draft_edit": "Редактировать",
+  "chat_draft_createOrder": "Создать заказ",
+  "chat_draft_title": "ЧЕРНОВИК"
 }

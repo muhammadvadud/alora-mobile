@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 78 / 249 bajarildi (4 jarayonda) (2026-09-16)
+**Umumiy holat:** 88 / 249 bajarildi (43 jarayonda) (2026-09-16)
 
 ---
 
@@ -111,65 +111,65 @@
 
 > Dizayn: `2b`, `5a` (chap panel).
 
-- [ ] 5.1 DTO/entity: `Conversation` (`id, title, stage, mode, status, last_message_at, total_amount?`, `last_message_preview`), `Stage` enum (`need/recommend/measure/calc/variants/order/unknown`)
-- [ ] 5.2 `ConversationsRemoteDataSource` — list (cursor, `search`, filtr), create, archive (DELETE), transcript
-- [ ] 5.3 `ConversationsLocalDataSource` — Hive (oxirgi 20), stale-while-revalidate
-- [ ] 5.4 `ConversationsRepository` + Impl
-- [ ] 5.5 `ConversationsNotifier` — sahifalash, qidiruv (300 ms debounce), filtr (bosqich, buyurtmaga aylanganlar)
-- [ ] 5.6 `ConversationsScreen` — sana bo'yicha guruh (`Bugun/Kecha/Bu hafta/oldingi`), satr: sarlavha, oxirgi xabar, summa (bo'lsa), bosqich nuqtasi + matn; qidiruv maydoni; filtr chip'lari; swipe — arxivlash
-- [ ] 5.7 Bo'sh holat, skeleton, oflayn kesh ko'rinishi
-- [ ] 5.8 Yangi suhbat: `POST conversations/` → `/chat/:id`
-- [ ] 5.9 Planshet chap paneli (`ConversationsPane`) — faol suhbat ajratilgan
-- [ ] 5.10 Testlar: guruhlash (sana chegaralari, kirill), qidiruv debounce, kesh → tarmoq almashuvi; golden S-10
+- [x] 5.1 DTO/entity: `Conversation` (`id, title, stage, mode, status, last_message_at, total_amount?`, `last_message_preview`), `Stage` enum (`need/recommend/measure/calc/variants/order/unknown`)
+- [x] 5.2 `ConversationsRemoteDataSource` — list (cursor, `search`, filtr), create, archive (DELETE), transcript
+- [x] 5.3 `ConversationsLocalDataSource` — Hive (oxirgi 20), stale-while-revalidate
+- [x] 5.4 `ConversationsRepository` + Impl
+- [x] 5.5 `ConversationsNotifier` — sahifalash, qidiruv (300 ms debounce), filtr (bosqich, buyurtmaga aylanganlar)
+- [x] 5.6 `ConversationsScreen` — sana bo'yicha guruh (`Bugun/Kecha/Bu hafta/oldingi`), satr: sarlavha, oxirgi xabar, summa (bo'lsa), bosqich nuqtasi + matn; qidiruv maydoni; filtr chip'lari; swipe — arxivlash
+- [x] 5.7 Bo'sh holat, skeleton, oflayn kesh ko'rinishi
+- [x] 5.8 Yangi suhbat: `POST conversations/` → `/chat/:id`
+- [x] 5.9 Planshet chap paneli (`ConversationsPane`) — faol suhbat ajratilgan
+- [x] 5.10 Testlar: guruhlash (sana chegaralari, kirill), qidiruv debounce, kesh → tarmoq almashuvi; golden S-10
 
 ## Bosqich 6 — `features/chat` — matnli oqim (S-02, S-03, S-04) ★
 
 > Dizayn: `1b`, `1c`, `1d`, `1j`, `5a`. Loyihaning eng katta feature'i; `rules.md` §3.3–3.4, §8.5.
 
-- [ ] 6.1 Domain: `Message` (`id, role, content, createdAt, status: sending/streaming/done/error, richBlocks[]`), `RichBlock` sealed (`toolChip`, `products`, `quote`, `options`, `orderDraft`, `warning`), `ToolChipState`
-- [ ] 6.2 DTO: `MessageDto` (tarix uchun `GET messages/`), `SendMessageRequest` (`content`, `locale`, `context{customer_mode, stage}`), `ProductRefDto`, `UsageDto`
-- [ ] 6.3 `ChatRemoteDataSource` — tarix (cursor), `sendMessage` → `Stream<SseEvent>`, `reset`
-- [ ] 6.4 `ChatLocalDataSource` — oxirgi 50 xabar Hive'da (oflayn ko'rish + uzilgan javob saqlash)
-- [ ] 6.5 `ChatRepository` + Impl — tool natijasini `RichBlock` ga parse (`product_search`, `curtain_calculate`, `price_quote`, `order_draft`); parse xatosi → chip "Natija"
-- [ ] 6.6 `ChatNotifier` (`family` by conversationId) — `ChatState(messages, isStreaming, activeStream, error, quickReplies, stage)`; event → holat o'tishlari; 50 ms throttle; bitta faol stream
-- [ ] 6.7 Uzilish: qisman matn saqlanadi, `retry` (oxirgi user xabari qayta yuboriladi), `continue`
-- [ ] 6.8 `ChatScreen` skeleti — AppBar (orqaga / sarlavha pill + bosqich / ⋮ menyu), xabarlar ro'yxati (`ListView.builder`, `reverse: true`, `RepaintBoundary`), input paneli
-- [ ] 6.9 S-02 bo'sh holat — "Mijoz nima izlayapti?", boshlash chip'lari (`Mehmonxona`, `Yotoqxona`, `Kelin-kuyov xonasi`, `Oshxona`, `Bolalar xonasi`, `Ofis`) → bosilsa xabar yuboriladi
-- [ ] 6.10 `UserBubble` (o'ngda, `surfaceMuted`, bubble radius), `AssistantMessage` (chapda, fon yo'q, markdown-lite: **qalin** faqat)
-- [ ] 6.11 `ThinkingBlock` — kulrang, kichik, yig'iladigan ("O'ylayapti…")
-- [ ] 6.12 Tool chip oqimi: `tool_call` → chip spinner ("Mahsulot qidirilmoqda…" — tool nomi → o'zbekcha lug'at `tool_labels`), `tool_result` → ✓ + natija matni ("5 ta mahsulot topildi"); bosilsa bottom sheet — argumentlar va natija (debug/ishonch)
-- [ ] 6.13 `TypingLine` — `start` dan birinchi `content` gacha
-- [ ] 6.14 `ProductCarousel` (S-04) — gorizontal `ProductCard` ro'yxati; "Batafsil" → `/catalog/products/:id`, "Tanlash" → chatga "Velvet Milano, grafit — tanlandi" xabari
-- [ ] 6.15 Quick replies — AI savol berganda (`done` event `quick_replies` yoki `tool_result` ichidan) chip'lar; bosilsa yuboriladi; yuborilgach yo'qoladi
-- [ ] 6.16 Kontekst chip'lari (`Boshqa ranglar`, `Arzonroq`, `Uchta variant`) — mahsulot/hisobdan keyin
-- [ ] 6.17 Input paneli — "+" (menyu: rasm biriktirish 4-bosqich, mahsulotni kontekstga qo'shish), matn maydoni (ko'p qatorli, max 6), mikrofon (→ S-08), yuborish (`accent` doira; bo'sh yoki streaming — disabled)
-- [ ] 6.18 Chat menyusi (⋮): yangi suhbat, kontekstni tozalash (`reset`, tasdiq dialogi), mijoz rejimi, PDF taklif (4-bosqich), ulashish (4-bosqich)
-- [ ] 6.19 Xato holatlari: `error` event → qizil banner + "Qayta urinish"; 503 → "AI xizmati vaqtincha ishlamayapti"; 429 → `LimitExceededView`; oflayn → `OfflineBanner` + input disabled
-- [ ] 6.20 Haptik: `done` da `HapticFeedback.lightImpact`
-- [ ] 6.21 Avto-scroll: streaming paytida pastga; foydalanuvchi yuqoriga scroll qilgan bo'lsa — "↓ Yangi xabar" tugmasi
-- [ ] 6.22 Planshet (5a): chapda `ConversationsPane` (320), o'ngda chat; AppBar'da mijoz ismi va "Mijoz rejimi" tugmasi
-- [ ] 6.23 Qorong'i mavzu (1j) tekshiruvi — barcha chat widgetlari tokenlardan
-- [ ] 6.24 Testlar: notifier — har event ketma-ketligi (`start→content×n→tool_call→tool_result→done`), throttle (100 chunk → ≤ 3 rebuild/50 ms), uzilish → qisman matn, retry; widget: bo'sh holat chip'lari, tool chip 3 holat, karusel, quick replies; golden S-02, S-03 (yorug'/qorong'i/planshet), S-04
-- [ ] 6.25 Coverage `features/chat/application` ≥ 90%
+- [~] 6.1 Domain: `Message` (`id, role, content, createdAt, status: sending/streaming/done/error, richBlocks[]`), `RichBlock` sealed (`toolChip`, `products`, `quote`, `options`, `orderDraft`, `warning`), `ToolChipState`
+- [~] 6.2 DTO: `MessageDto` (tarix uchun `GET messages/`), `SendMessageRequest` (`content`, `locale`, `context{customer_mode, stage}`), `ProductRefDto`, `UsageDto`
+- [~] 6.3 `ChatRemoteDataSource` — tarix (cursor), `sendMessage` → `Stream<SseEvent>`, `reset`
+- [~] 6.4 `ChatLocalDataSource` — oxirgi 50 xabar Hive'da (oflayn ko'rish + uzilgan javob saqlash)
+- [~] 6.5 `ChatRepository` + Impl — tool natijasini `RichBlock` ga parse (`product_search`, `curtain_calculate`, `price_quote`, `order_draft`); parse xatosi → chip "Natija"
+- [~] 6.6 `ChatNotifier` (`family` by conversationId) — `ChatState(messages, isStreaming, activeStream, error, quickReplies, stage)`; event → holat o'tishlari; 50 ms throttle; bitta faol stream
+- [~] 6.7 Uzilish: qisman matn saqlanadi, `retry` (oxirgi user xabari qayta yuboriladi), `continue`
+- [~] 6.8 `ChatScreen` skeleti — AppBar (orqaga / sarlavha pill + bosqich / ⋮ menyu), xabarlar ro'yxati (`ListView.builder`, `reverse: true`, `RepaintBoundary`), input paneli
+- [~] 6.9 S-02 bo'sh holat — "Mijoz nima izlayapti?", boshlash chip'lari (`Mehmonxona`, `Yotoqxona`, `Kelin-kuyov xonasi`, `Oshxona`, `Bolalar xonasi`, `Ofis`) → bosilsa xabar yuboriladi
+- [~] 6.10 `UserBubble` (o'ngda, `surfaceMuted`, bubble radius), `AssistantMessage` (chapda, fon yo'q, markdown-lite: **qalin** faqat)
+- [~] 6.11 `ThinkingBlock` — kulrang, kichik, yig'iladigan ("O'ylayapti…")
+- [~] 6.12 Tool chip oqimi: `tool_call` → chip spinner ("Mahsulot qidirilmoqda…" — tool nomi → o'zbekcha lug'at `tool_labels`), `tool_result` → ✓ + natija matni ("5 ta mahsulot topildi"); bosilsa bottom sheet — argumentlar va natija (debug/ishonch)
+- [~] 6.13 `TypingLine` — `start` dan birinchi `content` gacha
+- [~] 6.14 `ProductCarousel` (S-04) — gorizontal `ProductCard` ro'yxati; "Batafsil" → `/catalog/products/:id`, "Tanlash" → chatga "Velvet Milano, grafit — tanlandi" xabari
+- [~] 6.15 Quick replies — AI savol berganda (`done` event `quick_replies` yoki `tool_result` ichidan) chip'lar; bosilsa yuboriladi; yuborilgach yo'qoladi
+- [~] 6.16 Kontekst chip'lari (`Boshqa ranglar`, `Arzonroq`, `Uchta variant`) — mahsulot/hisobdan keyin
+- [~] 6.17 Input paneli — "+" (menyu: rasm biriktirish 4-bosqich, mahsulotni kontekstga qo'shish), matn maydoni (ko'p qatorli, max 6), mikrofon (→ S-08), yuborish (`accent` doira; bo'sh yoki streaming — disabled)
+- [~] 6.18 Chat menyusi (⋮): yangi suhbat, kontekstni tozalash (`reset`, tasdiq dialogi), mijoz rejimi, PDF taklif (4-bosqich), ulashish (4-bosqich)
+- [~] 6.19 Xato holatlari: `error` event → qizil banner + "Qayta urinish"; 503 → "AI xizmati vaqtincha ishlamayapti"; 429 → `LimitExceededView`; oflayn → `OfflineBanner` + input disabled
+- [~] 6.20 Haptik: `done` da `HapticFeedback.lightImpact`
+- [~] 6.21 Avto-scroll: streaming paytida pastga; foydalanuvchi yuqoriga scroll qilgan bo'lsa — "↓ Yangi xabar" tugmasi
+- [~] 6.22 Planshet (5a): chapda `ConversationsPane` (320), o'ngda chat; AppBar'da mijoz ismi va "Mijoz rejimi" tugmasi
+- [~] 6.23 Qorong'i mavzu (1j) tekshiruvi — barcha chat widgetlari tokenlardan
+- [~] 6.24 Testlar: notifier — har event ketma-ketligi (`start→content×n→tool_call→tool_result→done`), throttle (100 chunk → ≤ 3 rebuild/50 ms), uzilish → qisman matn, retry; widget: bo'sh holat chip'lari, tool chip 3 holat, karusel, quick replies; golden S-02, S-03 (yorug'/qorong'i/planshet), S-04
+- [~] 6.25 Coverage `features/chat/application` ≥ 90%
 
 ## Bosqich 7 — `features/chat` — boy kartochkalar (S-05, S-06, S-07) ★
 
 > Dizayn: `1e`, `1f`, `1g`, `5b`, `5c`. Hisob kartochkasi **3 guruhli** (TZ ustun, `rules.md` §9.8).
 
-- [ ] 7.1 `Quote` entity — `fabrics[]`, `accessories[]`, `services[]`, `wasteWarnings[]`, `formula`, `subtotal/discount/delivery/total`, `measurement(room, cornice, height, coef)`
-- [ ] 7.2 `curtain_calculate` / `price_quote` natijasini `Quote` ga mapper (backend `calc/preview/` javob shakli bilan bir xil; `tests/fixtures/calc_cases.json` dan 3 misol fixture)
-- [ ] 7.3 `QuoteCard` (S-05) — sarlavha `HISOB · MEHMONXONA` (overline), ostida o'lchov satri; 3 guruh `SectionLabel` bilan: **MATOLAR** (rol tegi + rang doirasi + nom · m² · summa; ikkinchi qator: `4.2 m × 2.6 m · K 2.5 · 180 000/m²`), **BEZAKLAR** (nom · miqdor+birlik · summa), **XIZMATLAR**; raqamlar tabular ustunda
-- [ ] 7.4 "Yana N ta bo'lak" — 6 tadan ortiq qator bo'lsa dastlab 4 tasi
-- [ ] 7.5 JAMI bloki (1px chiziq, 22px summa + `so'm`), chegirma/yetkazish qatorlari (bo'lsa)
-- [ ] 7.6 "Qanday hisoblandi?" — ochiladigan blok: formula matni, koeffitsient izohi (`accent` "Yopish/Ko'rish")
-- [ ] 7.7 Chiqindi ogohlantirish bloki — ikonka + matn (`Kant bo'lagida chiqindi 22% — 280 sm eni bo'lgan mato arzonroq tushadi`), emoji yo'q
-- [ ] 7.8 Qator bosilsa — `PartEditSheet` (bottom sheet): mato almashtirish (katalogdan tanlash), eni, balandligi, koeffitsient → chatga "Kant bo'lagini X ga o'zgartir" xabari sifatida yuboriladi (ilova hisoblamaydi, §0.8)
-- [ ] 7.9 Kartochka ostida tugmalar: "Bo'lak qo'shish" · "Variantlarni ko'rish"; chip'lar `Uchta variant` · `Chegirma qo'sh` · `Buyurtma qil`
-- [ ] 7.10 `PricingOption` entity (`tier: cheap/mid/premium`, `title`, `total`, `lines[]`, `difference`), `OptionsCard` (S-06) — gorizontal `PageView` (viewportFraction 0.86), o'rtachasi default tanlangan (1.5px `accent` + halo), har birida "Tanlash"; tanlash → chatga xabar
-- [ ] 7.11 S-06 planshet (5b): 3 ustun yonma-yon, mijozga ko'rsatish uchun katta summa
-- [ ] 7.12 `OrderDraft` entity (`customerName?, phone?, address?, measurements[], total, prepayment?, deadline?, missingFields[]`), `OrderDraftCard` (S-07) — to'ldirilgan maydonlar; yetishmayotganlari `brass`/`danger` belgili (`Telefon raqami kerak`); "Tahrirlash" (→ S-14 forma, draft bilan) · "Buyurtma yaratish" (→ `POST orders/` → `/orders/:id`)
-- [ ] 7.13 `WarningBlock` (umumiy) — AI ogohlantirishlari (narx yangilanmayotgan bo'lishi mumkin va h.k.)
-- [ ] 7.14 Testlar: `Quote` mapper (3 fixture, 10 bo'lakli parda), guruhlar ko'rinishi, "yana N ta", JAMI backend `total` bilan mos (yig'indi testi), `OptionsCard` tanlov, `OrderDraftCard` yetishmayotgan maydonlar; golden S-05, S-06 (yorug'/qorong'i/planshet), S-07
+- [~] 7.1 `Quote` entity — `fabrics[]`, `accessories[]`, `services[]`, `wasteWarnings[]`, `formula`, `subtotal/discount/delivery/total`, `measurement(room, cornice, height, coef)`
+- [~] 7.2 `curtain_calculate` / `price_quote` natijasini `Quote` ga mapper (backend `calc/preview/` javob shakli bilan bir xil; `tests/fixtures/calc_cases.json` dan 3 misol fixture)
+- [~] 7.3 `QuoteCard` (S-05) — sarlavha `HISOB · MEHMONXONA` (overline), ostida o'lchov satri; 3 guruh `SectionLabel` bilan: **MATOLAR** (rol tegi + rang doirasi + nom · m² · summa; ikkinchi qator: `4.2 m × 2.6 m · K 2.5 · 180 000/m²`), **BEZAKLAR** (nom · miqdor+birlik · summa), **XIZMATLAR**; raqamlar tabular ustunda
+- [~] 7.4 "Yana N ta bo'lak" — 6 tadan ortiq qator bo'lsa dastlab 4 tasi
+- [~] 7.5 JAMI bloki (1px chiziq, 22px summa + `so'm`), chegirma/yetkazish qatorlari (bo'lsa)
+- [~] 7.6 "Qanday hisoblandi?" — ochiladigan blok: formula matni, koeffitsient izohi (`accent` "Yopish/Ko'rish")
+- [~] 7.7 Chiqindi ogohlantirish bloki — ikonka + matn (`Kant bo'lagida chiqindi 22% — 280 sm eni bo'lgan mato arzonroq tushadi`), emoji yo'q
+- [~] 7.8 Qator bosilsa — `PartEditSheet` (bottom sheet): mato almashtirish (katalogdan tanlash), eni, balandligi, koeffitsient → chatga "Kant bo'lagini X ga o'zgartir" xabari sifatida yuboriladi (ilova hisoblamaydi, §0.8)
+- [~] 7.9 Kartochka ostida tugmalar: "Bo'lak qo'shish" · "Variantlarni ko'rish"; chip'lar `Uchta variant` · `Chegirma qo'sh` · `Buyurtma qil`
+- [~] 7.10 `PricingOption` entity (`tier: cheap/mid/premium`, `title`, `total`, `lines[]`, `difference`), `OptionsCard` (S-06) — gorizontal `PageView` (viewportFraction 0.86), o'rtachasi default tanlangan (1.5px `accent` + halo), har birida "Tanlash"; tanlash → chatga xabar
+- [~] 7.11 S-06 planshet (5b): 3 ustun yonma-yon, mijozga ko'rsatish uchun katta summa
+- [~] 7.12 `OrderDraft` entity (`customerName?, phone?, address?, measurements[], total, prepayment?, deadline?, missingFields[]`), `OrderDraftCard` (S-07) — to'ldirilgan maydonlar; yetishmayotganlari `brass`/`danger` belgili (`Telefon raqami kerak`); "Tahrirlash" (→ S-14 forma, draft bilan) · "Buyurtma yaratish" (→ `POST orders/` → `/orders/:id`)
+- [~] 7.13 `WarningBlock` (umumiy) — AI ogohlantirishlari (narx yangilanmayotgan bo'lishi mumkin va h.k.)
+- [~] 7.14 Testlar: `Quote` mapper (3 fixture, 10 bo'lakli parda), guruhlar ko'rinishi, "yana N ta", JAMI backend `total` bilan mos (yig'indi testi), `OptionsCard` tanlov, `OrderDraftCard` yetishmayotgan maydonlar; golden S-05, S-06 (yorug'/qorong'i/planshet), S-07
 
 ## Bosqich 8 — `features/catalog` (S-16, S-17, S-18)
 

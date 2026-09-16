@@ -788,3 +788,16 @@ o'sha Lucide to'plamining faol saqlanayotgan porti, API: `LucideIcons.<name>`.
 §7.3 bo'yicha taqiqligicha qoladi.
 
 **Qaror:** almashtirildi. Foydalanuvchi tomonidan tasdiqlangan (agent ishini nazorat qilish vakolati doirasida).
+
+### 19.6 freezed `make_collections_unmodifiable: false` (2026-09-16)
+
+**Chetlanish:** `build.yaml` da freezed uchun `make_collections_unmodifiable: false` qo'yildi (default `true`).
+
+**Sabab:** freezed 3.2 + `abstract class` uslubida `List` maydonli modellar (`RichBlock`, `Quote`,
+katalog DTO'lari) default rejimda kompilyatsiya xatosi beradi (`required final List<...>`);
+ikki mustaqil ishchi (chat va katalog) bir xil muammoga duch keldi.
+
+**Ta'sir doirasi:** freezed modellaridagi ro'yxatlar `UnmodifiableListView` ga o'ralmaydi. Kodda
+ro'yxatni joyida o'zgartirish baribir taqiq (§3.3 immutable `copyWith`) — bu lint/review bilan nazorat qilinadi.
+
+**Qaror:** qabul qilindi.

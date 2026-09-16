@@ -1,0 +1,325 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:alora_mobile/app/l10n/app_localizations.dart';
+import 'package:alora_mobile/app/theme/app_spacing.dart';
+import 'package:alora_mobile/core/error/failure_l10n.dart';
+import 'package:alora_mobile/core/utils/date_format.dart';
+import 'package:alora_mobile/features/conversations/application/conversations_notifier.dart';
+import 'package:alora_mobile/features/conversations/application/conversations_state.dart';
+import 'package:alora_mobile/features/conversations/domain/entities/conversation.dart';
+import 'package:alora_mobile/features/conversations/domain/entities/conversation_stage.dart';
+import 'package:alora_mobile/features/conversations/presentation/conversation_date_groups.dart';
+import 'package:alora_mobile/features/conversations/presentation/widgets/conversation_row.dart';
+import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
+import 'package:alora_mobile/shared/widgets/app_chip.dart';
+import 'package:alora_mobile/shared/widgets/app_dialog.dart';
+import 'package:alora_mobile/shared/widgets/app_text_field.dart';
+import 'package:alora_mobile/shared/widgets/empty_state.dart';
+import 'package:alora_mobile/shared/widgets/error_state.dart';
+import 'package:alora_mobile/shared/widgets/section_label.dart';
+import 'package:alora_mobile/shared/widgets/skeleton.dart';
+
+/// Suhbatlar ro'yxati (qidiruv, filtr, sana guruhlari, arxivlash).
+/// Keng ekranlarda ConversationsScreen'ning chap paneli sifatida ham
+/// ishlatilishi mumkin (adaptive_shell bilan).
+class ConversationsPane extends ConsumerStatefulWidget {
+  const ConversationsPane({super.key});
+
+  @override
+  ConsumerState<ConversationsPane> createState() => _ConversationsPaneState();
+}
+
+class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
+  static const double _loadMoreThreshold = 300;
+
+  final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.extentAfter < _loadMoreThreshold) {
+      ref.read(conversationsProvider.notifier).loadMore();
+    }
+  }
+
+  Future<bool?> _confirmArchive(BuildContext context, String id) async {
+    final l10n = AppLocalizations.of(context)!;
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AppDialog(
+        title: l10n.conversations_archiveDialogTitle,
+        content: l10n.conversations_archiveDialogMessage,
+        primaryActionText: l10n.conversations_archive,
+        secondaryActionText: l10n.common_cancel,
+        isDestructive: true,
+        onPrimaryAction: () => Navigator.of(context).pop(true),
+        onSecondaryAction: () => Navigator.of(context).pop(false),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final state = ref.watch(conversationsProvider);
+    final notifier = ref.read(conversationsProvider.notifier);
+    final filterType = state.maybeWhen(
+      loaded: (_, _, _, _, filterType) => filterType,
+      empty: (_, filterType) => filterType,
+      error: (_, _, filterType) => filterType,
+      orElse: () => ConversationFilterType.all,
+    );
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.screenH,
+            AppSpacing.l,
+            AppSpacing.screenH,
+            0,
+          ),
+          child: AppTextField(
+            type: AppTextFieldType.search,
+            hintText: l10n.conversations_searchHint,
+            controller: _searchController,
+            onChanged: notifier.search,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.m),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
+          child: Wrap(
+            spacing: AppSpacing.s,
+            runSpacing: AppSpacing.s,
+            children: [
+              _FilterChip(
+                label: l10n.conversations_filterAll,
+                isSelected: filterType == ConversationFilterType.all,
+                onTap: () => notifier.setFilter(ConversationFilterType.all),
+              ),
+              _FilterChip(
+                label: l10n.conversations_filterHasOrder,
+                isSelected: filterType == ConversationFilterType.hasOrder,
+                onTap: () =>
+                    notifier.setFilter(ConversationFilterType.hasOrder),
+              ),
+              _FilterChip(
+                label: l10n.conversations_filterInProgress,
+                isSelected: filterType == ConversationFilterType.inProgress,
+                onTap: () =>
+                    notifier.setFilter(ConversationFilterType.inProgress),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: AppSpacing.l),
+        Expanded(child: _buildBody(context, l10n, state)),
+      ],
+    );
+  }
+
+  Widget _buildBody(
+    BuildContext context,
+    AppLocalizations l10n,
+    ConversationsState state,
+  ) {
+    return state.maybeWhen(
+      initial: _buildLoading,
+      loading: (_, _) => _buildLoading(),
+      error: (failure, _, _) => ErrorState(
+        message: failure.localizedMessage(context),
+        onRetry: ref.read(conversationsProvider.notifier).retry,
+      ),
+      empty: (_, _) => EmptyState(
+        icon: AppIcons.chat,
+        title: l10n.conversations_emptyTitle,
+        message: l10n.conversations_emptyMessage,
+      ),
+      loaded: (items, _, _, _, filterType) =>
+          _buildLoaded(context, l10n, items, filterType),
+      orElse: () => const SizedBox.shrink(),
+    );
+  }
+
+  Widget _buildLoading() {
+    return const SkeletonList(
+      padding: EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
+      itemCount: 6,
+      itemBuilder: SkeletonBox(height: 84),
+    );
+  }
+
+  Widget _buildLoaded(
+    BuildContext context,
+    AppLocalizations l10n,
+    List<Conversation> items,
+    ConversationFilterType filterType,
+  ) {
+    final filtered = applyConversationFilter(items, filterType);
+    if (filtered.isEmpty) {
+      return EmptyState(
+        icon: AppIcons.search,
+        title: l10n.conversations_emptyFilteredTitle,
+        message: l10n.conversations_emptyFilteredMessage,
+      );
+    }
+
+    final now = DateTime.now();
+    final grouped = groupConversationsByDate(filtered, now: now);
+    final entries = <_PaneEntry>[];
+    for (final group in ConversationDateGroup.values) {
+      final groupItems = grouped[group]!;
+      if (groupItems.isEmpty) continue;
+      entries.add(_PaneHeader(group: group));
+      for (final conversation in groupItems) {
+        entries.add(_PaneRow(group: group, conversation: conversation));
+      }
+    }
+
+    return ListView.builder(
+      controller: _scrollController,
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+      itemCount: entries.length,
+      itemBuilder: (context, index) {
+        final entry = entries[index];
+        return switch (entry) {
+          _PaneHeader(:final group) => Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.screenH,
+              AppSpacing.l,
+              AppSpacing.screenH,
+              AppSpacing.s,
+            ),
+            child: SectionLabel(_headerLabel(context, group)),
+          ),
+          _PaneRow(:final conversation, :final group) => Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.screenH,
+              AppSpacing.xs,
+              AppSpacing.screenH,
+              AppSpacing.xs,
+            ),
+            child: Dismissible(
+              key: ValueKey(conversation.id),
+              direction: DismissDirection.endToStart,
+              background: _archiveBackground(context),
+              confirmDismiss: (_) => _confirmArchive(context, conversation.id),
+              onDismissed: (_) => unawaited(
+                ref
+                    .read(conversationsProvider.notifier)
+                    .archive(conversation.id),
+              ),
+              child: ConversationRow(
+                conversation: conversation,
+                stageLabel: _stageLabel(context, conversation.stage),
+                timeLabel: _timeLabel(context, conversation, group),
+              ),
+            ),
+          ),
+        };
+      },
+    );
+  }
+
+  Widget _archiveBackground(BuildContext context) => Container(
+    color: context.colors.dangerSoft,
+    alignment: Alignment.centerRight,
+    padding: const EdgeInsets.fromLTRB(0, 0, AppSpacing.xl, 0),
+    child: Icon(AppIcons.inbox, color: context.colors.danger),
+  );
+
+  String _headerLabel(BuildContext context, ConversationDateGroup group) {
+    final l10n = AppLocalizations.of(context)!;
+    return switch (group) {
+      ConversationDateGroup.today => l10n.conversations_groupToday,
+      ConversationDateGroup.yesterday => l10n.conversations_groupYesterday,
+      ConversationDateGroup.thisWeek => l10n.conversations_groupThisWeek,
+      ConversationDateGroup.older => l10n.conversations_groupOlder,
+    };
+  }
+
+  String _stageLabel(BuildContext context, ConversationStage stage) {
+    final l10n = AppLocalizations.of(context)!;
+    return switch (stage) {
+      ConversationStage.need => l10n.conversations_stageNeed,
+      ConversationStage.recommend => l10n.conversations_stageRecommend,
+      ConversationStage.measure => l10n.conversations_stageMeasure,
+      ConversationStage.calc => l10n.conversations_stageCalc,
+      ConversationStage.variants => l10n.conversations_stageVariants,
+      ConversationStage.order => l10n.conversations_stageOrder,
+      ConversationStage.unknown => l10n.conversations_stageUnknown,
+    };
+  }
+
+  String _timeLabel(
+    BuildContext context,
+    Conversation conversation,
+    ConversationDateGroup group,
+  ) {
+    final date = conversation.lastMessageAt;
+    if (date == null) return '';
+    if (group == ConversationDateGroup.older) {
+      return formatDate(date, context: context, short: true);
+    }
+    final hour = date.hour.toString().padLeft(2, '0');
+    final minute = date.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+}
+
+/// AppChip o'rnatmalarida davlatni saqlash uchun yordamchi
+class _FilterChip extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _FilterChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppChip(
+      label: label,
+      onTap: onTap,
+      state: isSelected ? AppChipState.selected : AppChipState.unselected,
+    );
+  }
+}
+
+/// Ro'yxatdagi qatorlarni ListView uchun birlashtiruvchi yordamchi
+sealed class _PaneEntry {
+  const _PaneEntry();
+}
+
+class _PaneHeader extends _PaneEntry {
+  final ConversationDateGroup group;
+
+  const _PaneHeader({required this.group});
+}
+
+class _PaneRow extends _PaneEntry {
+  final ConversationDateGroup group;
+  final Conversation conversation;
+
+  const _PaneRow({required this.group, required this.conversation});
+}

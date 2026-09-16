@@ -11,7 +11,7 @@ targets:
             - strict_raw_type
       freezed:
         options:
-          make_collections_unmodifiable: true
+          make_collections_unmodifiable: false
       json_serializable:
         options:
           explicit_to_json: true

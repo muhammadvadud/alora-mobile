@@ -12,7 +12,7 @@ import '../error/failure.dart';
 class VoiceSocket {
   final SecureStorage secureStorage;
   WebSocketChannel? _channel;
-  StreamSubscription? _subscription;
+  StreamSubscription<dynamic>? _subscription;
 
   final _audioController = StreamController<Uint8List>.broadcast();
   final _eventController = StreamController<Map<String, dynamic>>.broadcast();

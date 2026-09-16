@@ -140,7 +140,7 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  start,TResult Function()?  thinking,TResult Function( String content)?  content,TResult Function( String tool)?  toolCall,TResult Function( String tool,  String args)?  toolArgs,TResult Function( String tool,  String result)?  toolResult,TResult Function( Map<String, dynamic>? usage,  List? products)?  done,TResult Function( String detail)?  error,TResult Function()?  unknown,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  start,TResult Function()?  thinking,TResult Function( String content)?  content,TResult Function( String tool)?  toolCall,TResult Function( String tool,  String args)?  toolArgs,TResult Function( String tool,  String result)?  toolResult,TResult Function( Map<String, dynamic>? usage,  List<Map<String, dynamic>>? products)?  done,TResult Function( String detail)?  error,TResult Function()?  unknown,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SseEventStart() when start != null:
 return start();case _SseEventThinking() when thinking != null:
@@ -169,7 +169,7 @@ return unknown();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  start,required TResult Function()  thinking,required TResult Function( String content)  content,required TResult Function( String tool)  toolCall,required TResult Function( String tool,  String args)  toolArgs,required TResult Function( String tool,  String result)  toolResult,required TResult Function( Map<String, dynamic>? usage,  List? products)  done,required TResult Function( String detail)  error,required TResult Function()  unknown,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  start,required TResult Function()  thinking,required TResult Function( String content)  content,required TResult Function( String tool)  toolCall,required TResult Function( String tool,  String args)  toolArgs,required TResult Function( String tool,  String result)  toolResult,required TResult Function( Map<String, dynamic>? usage,  List<Map<String, dynamic>>? products)  done,required TResult Function( String detail)  error,required TResult Function()  unknown,}) {final _that = this;
 switch (_that) {
 case _SseEventStart():
 return start();case _SseEventThinking():
@@ -194,7 +194,7 @@ return unknown();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  start,TResult? Function()?  thinking,TResult? Function( String content)?  content,TResult? Function( String tool)?  toolCall,TResult? Function( String tool,  String args)?  toolArgs,TResult? Function( String tool,  String result)?  toolResult,TResult? Function( Map<String, dynamic>? usage,  List? products)?  done,TResult? Function( String detail)?  error,TResult? Function()?  unknown,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  start,TResult? Function()?  thinking,TResult? Function( String content)?  content,TResult? Function( String tool)?  toolCall,TResult? Function( String tool,  String args)?  toolArgs,TResult? Function( String tool,  String result)?  toolResult,TResult? Function( Map<String, dynamic>? usage,  List<Map<String, dynamic>>? products)?  done,TResult? Function( String detail)?  error,TResult? Function()?  unknown,}) {final _that = this;
 switch (_that) {
 case _SseEventStart() when start != null:
 return start();case _SseEventThinking() when thinking != null:
@@ -553,7 +553,7 @@ class _SseEventDone implements SseEvent {
   
 
  final  Map<String, dynamic>? usage;
- final  List? products;
+ final  List<Map<String, dynamic>>? products;
 
 /// Create a copy of SseEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -585,7 +585,7 @@ abstract mixin class _$SseEventDoneCopyWith<$Res> implements $SseEventCopyWith<$
   factory _$SseEventDoneCopyWith(_SseEventDone value, $Res Function(_SseEventDone) _then) = __$SseEventDoneCopyWithImpl;
 @useResult
 $Res call({
- Map<String, dynamic>? usage, List? products
+ Map<String, dynamic>? usage, List<Map<String, dynamic>>? products
 });
 
 
@@ -606,7 +606,7 @@ class __$SseEventDoneCopyWithImpl<$Res>
   return _then(_SseEventDone(
 usage: freezed == usage ? _self.usage : usage // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,products: freezed == products ? _self.products : products // ignore: cast_nullable_to_non_nullable
-as List?,
+as List<Map<String, dynamic>>?,
   ));
 }
 

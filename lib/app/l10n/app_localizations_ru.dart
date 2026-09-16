@@ -114,4 +114,50 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get price_unit_unknown => '';
+
+  @override
+  String get login_tagline => 'Инструмент для работы со шторами';
+
+  @override
+  String get login_phoneLabel => 'Номер телефона';
+
+  @override
+  String get login_passwordLabel => 'Пароль';
+
+  @override
+  String get login_signIn => 'Войти';
+
+  @override
+  String get login_forgotPassword => 'Забыли пароль? Обратитесь к менеджеру';
+
+  @override
+  String get login_errorAuthFailed => 'Неверные данные для входа';
+
+  @override
+  String get login_errorRequired => 'Введите номер телефона и пароль';
+
+  @override
+  String get tab_chat => 'Чаты';
+
+  @override
+  String get tab_orders => 'Заказы';
+
+  @override
+  String get tab_catalog => 'Каталог';
+
+  @override
+  String get tab_management => 'Управление';
+
+  @override
+  String get tab_profile => 'Профиль';
+
+  @override
+  String get placeholder_comingSoon => 'Раздел готовится';
+
+  @override
+  String get forbidden_title => 'Нет доступа';
+
+  @override
+  String get forbidden_text =>
+      'В этот раздел могут входить только менеджер или администратор';
 }

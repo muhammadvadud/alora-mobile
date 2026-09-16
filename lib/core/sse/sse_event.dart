@@ -11,8 +11,10 @@ sealed class SseEvent with _$SseEvent {
   const factory SseEvent.toolArgs(String tool, String args) = _SseEventToolArgs;
   const factory SseEvent.toolResult(String tool, String result) =
       _SseEventToolResult;
-  const factory SseEvent.done({Map<String, dynamic>? usage, List? products}) =
-      _SseEventDone;
+  const factory SseEvent.done({
+    Map<String, dynamic>? usage,
+    List<Map<String, dynamic>>? products,
+  }) = _SseEventDone;
   const factory SseEvent.error(String detail) = _SseEventError;
   const factory SseEvent.unknown() = _SseEventUnknown;
 
@@ -40,7 +42,9 @@ sealed class SseEvent with _$SseEvent {
       case 'done':
         return SseEvent.done(
           usage: json['usage'] as Map<String, dynamic>?,
-          products: json['products'] as List?,
+          products: (json['products'] as List<dynamic>?)
+              ?.map((e) => e as Map<String, dynamic>)
+              .toList(),
         );
       case 'error':
         return SseEvent.error(json['detail'] as String? ?? 'Noma\'lum xatolik');

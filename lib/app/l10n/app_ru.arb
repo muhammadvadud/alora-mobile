@@ -34,5 +34,20 @@
   "price_unit_perSqm": "сум/м²",
   "price_unit_perPiece": "сум/шт",
   "price_unit_perMeter": "сум/м",
-  "price_unit_unknown": ""
+  "price_unit_unknown": "",
+  "login_tagline": "Инструмент для работы со шторами",
+  "login_phoneLabel": "Номер телефона",
+  "login_passwordLabel": "Пароль",
+  "login_signIn": "Войти",
+  "login_forgotPassword": "Забыли пароль? Обратитесь к менеджеру",
+  "login_errorAuthFailed": "Неверные данные для входа",
+  "login_errorRequired": "Введите номер телефона и пароль",
+  "tab_chat": "Чаты",
+  "tab_orders": "Заказы",
+  "tab_catalog": "Каталог",
+  "tab_management": "Управление",
+  "tab_profile": "Профиль",
+  "placeholder_comingSoon": "Раздел готовится",
+  "forbidden_title": "Нет доступа",
+  "forbidden_text": "В этот раздел могут входить только менеджер или администратор"
 }

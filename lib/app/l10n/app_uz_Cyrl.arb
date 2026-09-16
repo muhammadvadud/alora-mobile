@@ -34,5 +34,20 @@
   "price_unit_perSqm": "сўм/м²",
   "price_unit_perPiece": "сўм/дона",
   "price_unit_perMeter": "сўм/м",
-  "price_unit_unknown": ""
+  "price_unit_unknown": "",
+  "login_tagline": "Парда савдоси учун иш қуроли",
+  "login_phoneLabel": "Телефон рақами",
+  "login_passwordLabel": "Парол",
+  "login_signIn": "Кириш",
+  "login_forgotPassword": "Паролни унутдингизми? Менеджер билан боғланинг",
+  "login_errorAuthFailed": "Кириш маълумотлари нотўғри",
+  "login_errorRequired": "Телефон рақам ва паролни киритинг",
+  "tab_chat": "Суҳбат",
+  "tab_orders": "Буюртмалар",
+  "tab_catalog": "Каталог",
+  "tab_management": "Бошқарув",
+  "tab_profile": "Профил",
+  "placeholder_comingSoon": "Бўлим тайёрланмоқда",
+  "forbidden_title": "Рухсат йўқ",
+  "forbidden_text": "Бу бўлимга фақат менежер ёки админ кира олади"
 }

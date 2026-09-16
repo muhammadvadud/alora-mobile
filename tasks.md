@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 63 / 249 bajarildi (3 jarayonda) (2026-09-16)
+**Umumiy holat:** 78 / 249 bajarildi (4 jarayonda) (2026-09-16)
 
 ---
 
@@ -87,25 +87,25 @@
 
 > Dizayn: `1a`.
 
-- [ ] 3.1 DTO: `LoginRequestDto`, `TokenPairDto` (`access, refresh`), `AuthMeDto` (`profile{id, phone, full_name, role, tenant, device_id}, limit?` — `rules.md` §8.2 shakli); entity `User`, `Role` enum (`employee/manager/admin/unknown`), `LimitStatus`
-- [ ] 3.2 `AuthRemoteDataSource` — login, refresh, logout, me
-- [ ] 3.3 `AuthRepository` + `AuthRepositoryImpl` (token secure storage'ga, `me` Hive keshga)
-- [ ] 3.4 `AuthNotifier` (`keepAlive`) — `unknown → unauthenticated → authenticated(user)`; ishga tushganda token bor bo'lsa `me` chaqiradi, xato bo'lsa refresh, u ham bo'lmasa `unauthenticated`
-- [ ] 3.5 `LoginScreen` — logotip (Spectral "Alora"), taglayn, `PhoneField`, parol (ko'rsatish), "Kirish" (to'liq eni, spinner), "Parolni unutdingizmi? Manager bilan bog'laning"; ro'yxatdan o'tish **yo'q**
-- [ ] 3.6 Holatlar: bo'sh, yuklanmoqda, xato (maydon ostida `authentication_failed` matni), bloklangan foydalanuvchi matni
-- [ ] 3.7 Logout: `POST auth/logout/` (refresh yuboriladi) → tokenlar tozalanadi → Hive foydalanuvchi keshi tozalanadi → `/login`
-- [ ] 3.8 Testlar: notifier holat o'tishlari, login xato → maydon xatosi, token muddati → refresh → me; widget: login ekrani 3 holat; golden S-01 (yorug'/qorong'i)
+- [x] 3.1 DTO: `LoginRequestDto`, `TokenPairDto` (`access, refresh`), `AuthMeDto` (`profile{id, phone, full_name, role, tenant, device_id}, limit?` — `rules.md` §8.2 shakli); entity `User`, `Role` enum (`employee/manager/admin/unknown`), `LimitStatus`
+- [x] 3.2 `AuthRemoteDataSource` — login, refresh, logout, me
+- [x] 3.3 `AuthRepository` + `AuthRepositoryImpl` (token secure storage'ga, `me` Hive keshga)
+- [x] 3.4 `AuthNotifier` (`keepAlive`) — `unknown → unauthenticated → authenticated(user)`; ishga tushganda token bor bo'lsa `me` chaqiradi, xato bo'lsa refresh, u ham bo'lmasa `unauthenticated`
+- [x] 3.5 `LoginScreen` — logotip (Spectral "Alora"), taglayn, `PhoneField`, parol (ko'rsatish), "Kirish" (to'liq eni, spinner), "Parolni unutdingizmi? Manager bilan bog'laning"; ro'yxatdan o'tish **yo'q**
+- [x] 3.6 Holatlar: bo'sh, yuklanmoqda, xato (maydon ostida `authentication_failed` matni), bloklangan foydalanuvchi matni
+- [x] 3.7 Logout: `POST auth/logout/` (refresh yuboriladi) → tokenlar tozalanadi → Hive foydalanuvchi keshi tozalanadi → `/login`
+- [x] 3.8 Testlar: notifier holat o'tishlari, login xato → maydon xatosi, token muddati → refresh → me; widget: login ekrani 3 holat; golden S-01 (yorug'/qorong'i)
 
 ## Bosqich 4 — Router, shell, rol
 
-- [ ] 4.1 `AppRoutes` konstantalari; `GoRouter` + `StatefulShellRoute.indexedStack` (5 branch)
-- [ ] 4.2 `redirect`: auth, `/login` ↔ `/chat`, `employee` → `/forbidden`, mijoz rejimi qulfi (§4.3)
-- [ ] 4.3 `ForbiddenScreen` (403) — "Ruxsat yo'q" + orqaga
-- [ ] 4.4 `AppTabBar` shell'ga ulanadi; `Boshqaruv` tab'i faqat `manager/admin` (branch mavjud, lekin employee ko'rmaydi va kira olmaydi)
-- [ ] 4.5 Buyurtmalar tab badge — tasdiqlanmagan qoralamalar soni (`orders?status=draft` count, 5 daq kesh)
-- [ ] 4.6 Deep-link: `/chat/:id`, `/orders/:id`, `/catalog/products/:id`
-- [ ] 4.7 Planshet: `width ≥ 840` → chat ikki panelli layout (`LayoutBuilder`), boshqa ekranlar `maxWidth 720` markazda
-- [ ] 4.8 Testlar: redirect jadvali (rol × yo'l), shell tab soni rolga qarab 4/5, deep-link parse
+- [x] 4.1 `AppRoutes` konstantalari; `GoRouter` + `StatefulShellRoute.indexedStack` (5 branch)
+- [x] 4.2 `redirect`: auth, `/login` ↔ `/chat`, `employee` → `/forbidden`, mijoz rejimi qulfi (§4.3)
+- [x] 4.3 `ForbiddenScreen` (403) — "Ruxsat yo'q" + orqaga
+- [x] 4.4 `AppTabBar` shell'ga ulanadi; `Boshqaruv` tab'i faqat `manager/admin` (branch mavjud, lekin employee ko'rmaydi va kira olmaydi)
+- [~] 4.5 Buyurtmalar tab badge — tasdiqlanmagan qoralamalar soni (`orders?status=draft` count, 5 daq kesh)
+- [x] 4.6 Deep-link: `/chat/:id`, `/orders/:id`, `/catalog/products/:id`
+- [x] 4.7 Planshet: `width ≥ 840` → chat ikki panelli layout (`LayoutBuilder`), boshqa ekranlar `maxWidth 720` markazda
+- [x] 4.8 Testlar: redirect jadvali (rol × yo'l), shell tab soni rolga qarab 4/5, deep-link parse
 
 ## Bosqich 5 — `features/conversations` (S-10)
 

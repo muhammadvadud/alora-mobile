@@ -308,6 +308,96 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **''**
   String get price_unit_unknown;
+
+  /// No description provided for @login_tagline.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parda savdosi uchun ish quroli'**
+  String get login_tagline;
+
+  /// No description provided for @login_phoneLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Telefon raqami'**
+  String get login_phoneLabel;
+
+  /// No description provided for @login_passwordLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parol'**
+  String get login_passwordLabel;
+
+  /// No description provided for @login_signIn.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kirish'**
+  String get login_signIn;
+
+  /// No description provided for @login_forgotPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parolni unutdingizmi? Menejer bilan bog\'laning'**
+  String get login_forgotPassword;
+
+  /// No description provided for @login_errorAuthFailed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kirish ma\'lumotlari noto\'g\'ri'**
+  String get login_errorAuthFailed;
+
+  /// No description provided for @login_errorRequired.
+  ///
+  /// In uz, this message translates to:
+  /// **'Telefon raqam va parolni kiriting'**
+  String get login_errorRequired;
+
+  /// No description provided for @tab_chat.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chat'**
+  String get tab_chat;
+
+  /// No description provided for @tab_orders.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtmalar'**
+  String get tab_orders;
+
+  /// No description provided for @tab_catalog.
+  ///
+  /// In uz, this message translates to:
+  /// **'Katalog'**
+  String get tab_catalog;
+
+  /// No description provided for @tab_management.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshqaruv'**
+  String get tab_management;
+
+  /// No description provided for @tab_profile.
+  ///
+  /// In uz, this message translates to:
+  /// **'Profil'**
+  String get tab_profile;
+
+  /// No description provided for @placeholder_comingSoon.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bo\'lim tayyorlanmoqda'**
+  String get placeholder_comingSoon;
+
+  /// No description provided for @forbidden_title.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ruxsat yo\'q'**
+  String get forbidden_title;
+
+  /// No description provided for @forbidden_text.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu bo\'limga faqat menejer yoki admin kirishi mumkin'**
+  String get forbidden_text;
 }
 
 class _AppLocalizationsDelegate

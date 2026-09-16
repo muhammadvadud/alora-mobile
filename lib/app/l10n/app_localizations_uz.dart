@@ -114,6 +114,53 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get price_unit_unknown => '';
+
+  @override
+  String get login_tagline => 'Parda savdosi uchun ish quroli';
+
+  @override
+  String get login_phoneLabel => 'Telefon raqami';
+
+  @override
+  String get login_passwordLabel => 'Parol';
+
+  @override
+  String get login_signIn => 'Kirish';
+
+  @override
+  String get login_forgotPassword =>
+      'Parolni unutdingizmi? Menejer bilan bog\'laning';
+
+  @override
+  String get login_errorAuthFailed => 'Kirish ma\'lumotlari noto\'g\'ri';
+
+  @override
+  String get login_errorRequired => 'Telefon raqam va parolni kiriting';
+
+  @override
+  String get tab_chat => 'Chat';
+
+  @override
+  String get tab_orders => 'Buyurtmalar';
+
+  @override
+  String get tab_catalog => 'Katalog';
+
+  @override
+  String get tab_management => 'Boshqaruv';
+
+  @override
+  String get tab_profile => 'Profil';
+
+  @override
+  String get placeholder_comingSoon => 'Bo\'lim tayyorlanmoqda';
+
+  @override
+  String get forbidden_title => 'Ruxsat yo\'q';
+
+  @override
+  String get forbidden_text =>
+      'Bu bo\'limga faqat menejer yoki admin kirishi mumkin';
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -225,4 +272,50 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get price_unit_unknown => '';
+
+  @override
+  String get login_tagline => 'Парда савдоси учун иш қуроли';
+
+  @override
+  String get login_phoneLabel => 'Телефон рақами';
+
+  @override
+  String get login_passwordLabel => 'Парол';
+
+  @override
+  String get login_signIn => 'Кириш';
+
+  @override
+  String get login_forgotPassword =>
+      'Паролни унутдингизми? Менеджер билан боғланинг';
+
+  @override
+  String get login_errorAuthFailed => 'Кириш маълумотлари нотўғри';
+
+  @override
+  String get login_errorRequired => 'Телефон рақам ва паролни киритинг';
+
+  @override
+  String get tab_chat => 'Суҳбат';
+
+  @override
+  String get tab_orders => 'Буюртмалар';
+
+  @override
+  String get tab_catalog => 'Каталог';
+
+  @override
+  String get tab_management => 'Бошқарув';
+
+  @override
+  String get tab_profile => 'Профил';
+
+  @override
+  String get placeholder_comingSoon => 'Бўлим тайёрланмоқда';
+
+  @override
+  String get forbidden_title => 'Рухсат йўқ';
+
+  @override
+  String get forbidden_text => 'Бу бўлимга фақат менежер ёки админ кира олади';
 }

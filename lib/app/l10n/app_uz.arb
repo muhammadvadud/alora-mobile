@@ -34,5 +34,20 @@
   "price_unit_perSqm": "so'm/m²",
   "price_unit_perPiece": "so'm/dona",
   "price_unit_perMeter": "so'm/m",
-  "price_unit_unknown": ""
+  "price_unit_unknown": "",
+  "login_tagline": "Parda savdosi uchun ish quroli",
+  "login_phoneLabel": "Telefon raqami",
+  "login_passwordLabel": "Parol",
+  "login_signIn": "Kirish",
+  "login_forgotPassword": "Parolni unutdingizmi? Menejer bilan bog'laning",
+  "login_errorAuthFailed": "Kirish ma'lumotlari noto'g'ri",
+  "login_errorRequired": "Telefon raqam va parolni kiriting",
+  "tab_chat": "Chat",
+  "tab_orders": "Buyurtmalar",
+  "tab_catalog": "Katalog",
+  "tab_management": "Boshqaruv",
+  "tab_profile": "Profil",
+  "placeholder_comingSoon": "Bo'lim tayyorlanmoqda",
+  "forbidden_title": "Ruxsat yo'q",
+  "forbidden_text": "Bu bo'limga faqat menejer yoki admin kirishi mumkin"
 }

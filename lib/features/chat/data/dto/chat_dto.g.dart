@@ -55,13 +55,18 @@ Map<String, dynamic> _$MessageDtoToJson(_MessageDto instance) =>
 
 _SendMessageContextDto _$SendMessageContextDtoFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate('_SendMessageContextDto', json, ($checkedConvert) {
-  final val = _SendMessageContextDto(
-    customerMode: $checkedConvert('customer_mode', (v) => v as bool),
-    stage: $checkedConvert('stage', (v) => v as String?),
-  );
-  return val;
-}, fieldKeyMap: const {'customerMode': 'customer_mode'});
+) => $checkedCreate(
+  '_SendMessageContextDto',
+  json,
+  ($checkedConvert) {
+    final val = _SendMessageContextDto(
+      customerMode: $checkedConvert('customer_mode', (v) => v as bool),
+      stage: $checkedConvert('stage', (v) => v as String?),
+    );
+    return val;
+  },
+  fieldKeyMap: const {'customerMode': 'customer_mode'},
+);
 
 Map<String, dynamic> _$SendMessageContextDtoToJson(
   _SendMessageContextDto instance,

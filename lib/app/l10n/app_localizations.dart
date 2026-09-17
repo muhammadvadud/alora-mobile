@@ -1202,6 +1202,504 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Bekor qilingan'**
   String get cancelled;
+
+  /// No description provided for @profile_languageTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Til'**
+  String get profile_languageTitle;
+
+  /// No description provided for @profile_languageOptionUz.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'zbek'**
+  String get profile_languageOptionUz;
+
+  /// No description provided for @profile_languageOptionCyrl.
+  ///
+  /// In uz, this message translates to:
+  /// **'Кирилл'**
+  String get profile_languageOptionCyrl;
+
+  /// No description provided for @profile_languageOptionRu.
+  ///
+  /// In uz, this message translates to:
+  /// **'Русский'**
+  String get profile_languageOptionRu;
+
+  /// No description provided for @profile_themeTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mavzu'**
+  String get profile_themeTitle;
+
+  /// No description provided for @profile_themeSystem.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tizim'**
+  String get profile_themeSystem;
+
+  /// No description provided for @profile_themeLight.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yorug\''**
+  String get profile_themeLight;
+
+  /// No description provided for @profile_themeDark.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qorong\'i'**
+  String get profile_themeDark;
+
+  /// No description provided for @profile_logout.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chiqish'**
+  String get profile_logout;
+
+  /// No description provided for @profile_logoutConfirmTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chiqish?'**
+  String get profile_logoutConfirmTitle;
+
+  /// No description provided for @profile_logoutConfirmMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisobingizdan chiqmoqchimisiz?'**
+  String get profile_logoutConfirmMessage;
+
+  /// No description provided for @profile_roleEmployee.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim'**
+  String get profile_roleEmployee;
+
+  /// No description provided for @profile_roleManager.
+  ///
+  /// In uz, this message translates to:
+  /// **'Menejer'**
+  String get profile_roleManager;
+
+  /// No description provided for @profile_roleAdmin.
+  ///
+  /// In uz, this message translates to:
+  /// **'Admin'**
+  String get profile_roleAdmin;
+
+  /// No description provided for @profile_roleUnknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noma\'lum'**
+  String get profile_roleUnknown;
+
+  /// No description provided for @profile_todaySpend.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugungi sarf'**
+  String get profile_todaySpend;
+
+  /// No description provided for @profile_limitDailyReset.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kunlik limit soat 24:00 da yangilanadi'**
+  String get profile_limitDailyReset;
+
+  /// No description provided for @profile_limitNotSet.
+  ///
+  /// In uz, this message translates to:
+  /// **'Limit o\'rnatilmagan'**
+  String get profile_limitNotSet;
+
+  /// No description provided for @profile_unlimited.
+  ///
+  /// In uz, this message translates to:
+  /// **'Cheksiz'**
+  String get profile_unlimited;
+
+  /// No description provided for @currency_som.
+  ///
+  /// In uz, this message translates to:
+  /// **'so\'m'**
+  String get currency_som;
+
+  /// No description provided for @management_periodToday.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun'**
+  String get management_periodToday;
+
+  /// No description provided for @management_periodWeek.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hafta'**
+  String get management_periodWeek;
+
+  /// No description provided for @management_periodMonth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oy'**
+  String get management_periodMonth;
+
+  /// No description provided for @management_chartTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kunlik sarf'**
+  String get management_chartTitle;
+
+  /// No description provided for @management_chartEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Grafik uchun ma\'lumot yo\'q'**
+  String get management_chartEmpty;
+
+  /// No description provided for @management_statThreads.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbatlar'**
+  String get management_statThreads;
+
+  /// No description provided for @management_statOrders.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtmalar'**
+  String get management_statOrders;
+
+  /// No description provided for @management_statConversion.
+  ///
+  /// In uz, this message translates to:
+  /// **'Konversiya'**
+  String get management_statConversion;
+
+  /// No description provided for @management_statCost.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sarf'**
+  String get management_statCost;
+
+  /// No description provided for @management_rankingTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodimlar reytingi'**
+  String get management_rankingTitle;
+
+  /// No description provided for @management_rankingEmployeeCol.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim'**
+  String get management_rankingEmployeeCol;
+
+  /// No description provided for @management_rankingChatsCol.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbat'**
+  String get management_rankingChatsCol;
+
+  /// No description provided for @management_rankingCostCol.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sarf'**
+  String get management_rankingCostCol;
+
+  /// No description provided for @management_rankingOrdersCol.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtma'**
+  String get management_rankingOrdersCol;
+
+  /// No description provided for @management_sectionEmployees.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodimlar'**
+  String get management_sectionEmployees;
+
+  /// No description provided for @management_sectionProducts.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulotlar'**
+  String get management_sectionProducts;
+
+  /// No description provided for @management_sectionPricing.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narx qoidalari'**
+  String get management_sectionPricing;
+
+  /// No description provided for @management_sectionKnowledge.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bilimlar'**
+  String get management_sectionKnowledge;
+
+  /// No description provided for @management_sectionSettings.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sozlamalar'**
+  String get management_sectionSettings;
+
+  /// No description provided for @management_employeesTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodimlar'**
+  String get management_employeesTitle;
+
+  /// No description provided for @management_employeesSearchHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim qidirish'**
+  String get management_employeesSearchHint;
+
+  /// No description provided for @management_employeeAdd.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim qo\'shish'**
+  String get management_employeeAdd;
+
+  /// No description provided for @management_employeeLastActive.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oxirgi faollik: {date}'**
+  String management_employeeLastActive(String date);
+
+  /// No description provided for @management_employeeTodayMeta.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbatlar {chats} · Xabarlar {messages}'**
+  String management_employeeTodayMeta(int chats, int messages);
+
+  /// No description provided for @management_employeeBlocked.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bloklangan'**
+  String get management_employeeBlocked;
+
+  /// No description provided for @management_createTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim qo\'shish'**
+  String get management_createTitle;
+
+  /// No description provided for @management_createPhone.
+  ///
+  /// In uz, this message translates to:
+  /// **'Telefon raqami'**
+  String get management_createPhone;
+
+  /// No description provided for @management_createName.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ism va familiya'**
+  String get management_createName;
+
+  /// No description provided for @management_createPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlang\'ich parol'**
+  String get management_createPassword;
+
+  /// No description provided for @management_createRole.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rol'**
+  String get management_createRole;
+
+  /// No description provided for @management_employeeProfileTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim profili'**
+  String get management_employeeProfileTitle;
+
+  /// No description provided for @management_limitTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kunlik limit'**
+  String get management_limitTitle;
+
+  /// No description provided for @management_limitCost.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sarf so\'m'**
+  String get management_limitCost;
+
+  /// No description provided for @management_limitMessages.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xabarlar soni'**
+  String get management_limitMessages;
+
+  /// No description provided for @management_limitTokens.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tokenlar'**
+  String get management_limitTokens;
+
+  /// No description provided for @management_onExceedWarn.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ogohlantirish'**
+  String get management_onExceedWarn;
+
+  /// No description provided for @management_onExceedBlock.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bloklash'**
+  String get management_onExceedBlock;
+
+  /// No description provided for @management_limitSet.
+  ///
+  /// In uz, this message translates to:
+  /// **'Limitni saqlash'**
+  String get management_limitSet;
+
+  /// No description provided for @management_employeeViewThreads.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbatlarini ko\'rish'**
+  String get management_employeeViewThreads;
+
+  /// No description provided for @management_employeeConversationsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim suhbatlari'**
+  String get management_employeeConversationsTitle;
+
+  /// No description provided for @management_employeeBlockConfirmTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodimni bloklash?'**
+  String get management_employeeBlockConfirmTitle;
+
+  /// No description provided for @management_employeeBlockConfirmMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bloklangan xodim tizimga kira olmaydi. Davom etasizmi?'**
+  String get management_employeeBlockConfirmMessage;
+
+  /// No description provided for @management_employeeUnblockConfirmTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodimni faollashtirish?'**
+  String get management_employeeUnblockConfirmTitle;
+
+  /// No description provided for @management_employeeUnblockConfirmMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodim tizimga qayta kira oladi. Davom etasizmi?'**
+  String get management_employeeUnblockConfirmMessage;
+
+  /// No description provided for @management_conversationsEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbatlar yo\'q'**
+  String get management_conversationsEmptyTitle;
+
+  /// No description provided for @management_conversationsEmptyMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu xodimning hozircha suhbatlari yo\'q'**
+  String get management_conversationsEmptyMessage;
+
+  /// No description provided for @management_transcriptTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Transkript'**
+  String get management_transcriptTitle;
+
+  /// No description provided for @management_transcriptEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xabarlar yo\'q'**
+  String get management_transcriptEmpty;
+
+  /// No description provided for @management_transcriptUser.
+  ///
+  /// In uz, this message translates to:
+  /// **'Foydalanuvchi'**
+  String get management_transcriptUser;
+
+  /// No description provided for @management_transcriptAssistant.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI'**
+  String get management_transcriptAssistant;
+
+  /// No description provided for @management_transcriptTool.
+  ///
+  /// In uz, this message translates to:
+  /// **'Asbob'**
+  String get management_transcriptTool;
+
+  /// No description provided for @management_employeeBlock.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bloklash'**
+  String get management_employeeBlock;
+
+  /// No description provided for @management_employeeUnblock.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faollashtirish'**
+  String get management_employeeUnblock;
+
+  /// No description provided for @management_employeesEmptyMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Jamoada hozircha xodimlar yo\'q'**
+  String get management_employeesEmptyMessage;
+
+  /// No description provided for @management_employeesEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xodimlar topilmadi'**
+  String get management_employeesEmptyTitle;
+
+  /// No description provided for @management_employeesSearchEmptyMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshqa so\'z bilan qidirib ko\'ring'**
+  String get management_employeesSearchEmptyMessage;
+
+  /// No description provided for @management_employeesSearchEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Natija topilmadi'**
+  String get management_employeesSearchEmptyTitle;
+
+  /// No description provided for @management_limitPeriodDay.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kunlik'**
+  String get management_limitPeriodDay;
+
+  /// No description provided for @management_limitPeriodMonth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oylik'**
+  String get management_limitPeriodMonth;
+
+  /// No description provided for @management_limitUnlimited.
+  ///
+  /// In uz, this message translates to:
+  /// **'Cheksiz'**
+  String get management_limitUnlimited;
+
+  /// No description provided for @management_statsEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ma\'lumotlar hozircha yo\'q'**
+  String get management_statsEmpty;
+
+  /// No description provided for @management_sectionTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bo\'limlar'**
+  String get management_sectionTitle;
+
+  /// No description provided for @management_createPhoneError.
+  ///
+  /// In uz, this message translates to:
+  /// **'Telefon raqamini to\'liq kiriting'**
+  String get management_createPhoneError;
 }
 
 class _AppLocalizationsDelegate

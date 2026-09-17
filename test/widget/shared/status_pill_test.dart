@@ -29,9 +29,9 @@ void main() {
     }
 
     final paymentStatuses = [
-      PaymentStatus.advancePaid,
-      PaymentStatus.fullyPaid,
-      PaymentStatus.debt,
+      PaymentStatus.prepaid,
+      PaymentStatus.paid,
+      PaymentStatus.unpaid,
     ];
 
     for (final status in paymentStatuses) {

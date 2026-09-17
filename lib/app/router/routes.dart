@@ -13,6 +13,23 @@ class AppRoutes {
   static const String forbidden = '/forbidden';
   static const String devGallery = '/dev/gallery';
 
+  static const String managementProducts = '/management/products';
+  static const String managementPricing = '/management/pricing';
+  static const String managementKnowledge = '/management/knowledge';
+  static const String managementEmployees = '/management/employees';
+
+  static String managementProductEdit(String id) => '$managementProducts/$id/edit';
+  static const String managementProductNew = '$managementProducts/new';
+
+  static String managementEmployee(String id) => '$managementEmployees/$id';
+  static String managementEmployeeConversations(String id) =>
+      '$managementEmployees/$id/conversations';
+  static String managementConversationTranscript(
+    String employeeId,
+    String conversationId,
+  ) =>
+      '$managementEmployees/$employeeId/conversations/$conversationId';
+
   static String chatConversation(String id) => '$chat/$id';
   static String order(String id) => '$orders/$id';
   static String catalogProduct(String id) => '$catalog/products/$id';

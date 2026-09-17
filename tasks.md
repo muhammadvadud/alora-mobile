@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 118 / 249 bajarildi (42 jarayonda) (2026-09-16)
+**Umumiy holat:** 118 / 249 bajarildi (75 jarayonda) (2026-09-17)
 
 ---
 
@@ -214,54 +214,54 @@
 
 > Dizayn: `2f`.
 
-- [ ] 10.1 `ProfileScreen` — ism, telefon, rol chip'i, bugungi sarf + limit (`LimitProgressBar`; `∞` cheksiz bo'lsa), til (O'zbek lotin / Кирилл / Русский), mavzu (Tizim/Yorug'/Qorong'i), "Chiqish"
-- [ ] 10.2 `LocaleNotifier` (`keepAlive`, Hive) — tanlov darhol qo'llanadi
-- [ ] 10.3 Sarf ma'lumoti `auth/me/` dan (`limit` bloki); 5 daqiqada yangilanadi
-- [ ] 10.4 Testlar: til almashinuvi ARB matnini o'zgartiradi (uz→ru), mavzu saqlanadi; golden S-25
+- [~] 10.1 `ProfileScreen` — ism, telefon, rol chip'i, bugungi sarf + limit (`LimitProgressBar`; `∞` cheksiz bo'lsa), til (O'zbek lotin / Кирилл / Русский), mavzu (Tizim/Yorug'/Qorong'i), "Chiqish"
+- [~] 10.2 `LocaleNotifier` (`keepAlive`, Hive) — tanlov darhol qo'llanadi
+- [~] 10.3 Sarf ma'lumoti `auth/me/` dan (`limit` bloki); 5 daqiqada yangilanadi
+- [~] 10.4 Testlar: til almashinuvi ARB matnini o'zgartiradi (uz→ru), mavzu saqlanadi; golden S-25
 
 ## Bosqich 11 — `features/management` — statistika va xodimlar (S-19, S-20, S-21)
 
 > Dizayn: `3a`, `3b`, `4d`. Faqat `manager/admin`; `RoleGate` + router.
 
-- [ ] 11.1 DTO/entity: `UsageSummary` (`period, conversations, orders, conversion, cost_uzs, tokens, daily[]`), `UserUsage` (reyting satri), `Employee` (`id, full_name, phone, role, is_active, last_login_at, today_cost, limit: UsageLimit`), `UsageLimit` (`period, is_unlimited, max_tokens, max_cost_uzs, max_messages, on_exceed`)
-- [ ] 11.2 `UsageRemoteDataSource` — summary, by-user, conversations (eng qimmat), conversion
-- [ ] 11.3 `TeamRemoteDataSource` — employees list/create/patch, limit, employee conversations
-- [ ] 11.4 Repository'lar + notifier'lar (`period` toggle, sahifalash)
-- [ ] 11.5 `ManagementHomeScreen` (S-19) — davr toggle (`Bugun/Hafta/Oy`), 4 kartochka (Suhbatlar · Buyurtmalar · Konversiya % · Sarf so'm), `fl_chart` chiziqli grafik (bitta chiziz, nozik grid, oxirgi nuqta ajratilgan, `accent`), xodimlar reytingi jadvali (Xodim · Suhbat · Sarf · Buyurtma), bo'limlarga kirish ro'yxati (Xodimlar, Mahsulotlar, Narx qoidalari, Bilimlar, Sozlamalar[admin])
-- [ ] 11.6 `EmployeesScreen` (S-20) — satr: `LetterAvatar`, ism, rol chip'i, oxirgi faollik, bugungi sarf, `LimitProgressBar` (yoki `∞`); qidiruv; "Xodim qo'shish"
-- [ ] 11.7 `EmployeeCreateSheet` — telefon, ism, boshlang'ich parol (ko'rsatish), rol → `POST team/employees/`; maydon xatolari
-- [ ] 11.8 `EmployeeScreen` (S-21) — profil tahriri (ism, rol), bloklash toggle (tasdiq), "Suhbatlarini ko'rish" → xodim suhbatlari ro'yxati (5-bosqich ekrani qayta ishlatiladi, `transcript` o'qish rejimi)
-- [ ] 11.9 Limit bloki — eng ustida "Cheksiz" toggle; yoqilsa maydonlar disabled; o'chirilgan: davr (kunlik/oylik), token limiti, summa limiti, xabar limiti, limit tugaganda (ogohlantirish/bloklash) → `POST limit/`
-- [ ] 11.10 `TranscriptScreen` — manager uchun o'qish rejimi (input yo'q), tool chip'lar ko'rinadi
-- [ ] 11.11 Testlar: employee `/management` 403 (router), davr toggle → query param, limit "Cheksiz" → `{is_unlimited: true}` body, progress rang chegaralari; golden S-19, S-20, S-21
+- [~] 11.1 DTO/entity: `UsageSummary` (`period, conversations, orders, conversion, cost_uzs, tokens, daily[]`), `UserUsage` (reyting satri), `Employee` (`id, full_name, phone, role, is_active, last_login_at, today_cost, limit: UsageLimit`), `UsageLimit` (`period, is_unlimited, max_tokens, max_cost_uzs, max_messages, on_exceed`)
+- [~] 11.2 `UsageRemoteDataSource` — summary, by-user, conversations (eng qimmat), conversion
+- [~] 11.3 `TeamRemoteDataSource` — employees list/create/patch, limit, employee conversations
+- [~] 11.4 Repository'lar + notifier'lar (`period` toggle, sahifalash)
+- [~] 11.5 `ManagementHomeScreen` (S-19) — davr toggle (`Bugun/Hafta/Oy`), 4 kartochka (Suhbatlar · Buyurtmalar · Konversiya % · Sarf so'm), `fl_chart` chiziqli grafik (bitta chiziz, nozik grid, oxirgi nuqta ajratilgan, `accent`), xodimlar reytingi jadvali (Xodim · Suhbat · Sarf · Buyurtma), bo'limlarga kirish ro'yxati (Xodimlar, Mahsulotlar, Narx qoidalari, Bilimlar, Sozlamalar[admin])
+- [~] 11.6 `EmployeesScreen` (S-20) — satr: `LetterAvatar`, ism, rol chip'i, oxirgi faollik, bugungi sarf, `LimitProgressBar` (yoki `∞`); qidiruv; "Xodim qo'shish"
+- [~] 11.7 `EmployeeCreateSheet` — telefon, ism, boshlang'ich parol (ko'rsatish), rol → `POST team/employees/`; maydon xatolari
+- [~] 11.8 `EmployeeScreen` (S-21) — profil tahriri (ism, rol), bloklash toggle (tasdiq), "Suhbatlarini ko'rish" → xodim suhbatlari ro'yxati (5-bosqich ekrani qayta ishlatiladi, `transcript` o'qish rejimi)
+- [~] 11.9 Limit bloki — eng ustida "Cheksiz" toggle; yoqilsa maydonlar disabled; o'chirilgan: davr (kunlik/oylik), token limiti, summa limiti, xabar limiti, limit tugaganda (ogohlantirish/bloklash) → `POST limit/`
+- [~] 11.10 `TranscriptScreen` — manager uchun o'qish rejimi (input yo'q), tool chip'lar ko'rinadi
+- [~] 11.11 Testlar: employee `/management` 403 (router), davr toggle → query param, limit "Cheksiz" → `{is_unlimited: true}` body, progress rang chegaralari; golden S-19, S-20, S-21
 
 ## Bosqich 12 — `features/management` — mahsulot CRUD (S-22)
 
 > Dizayn: `3c`. Oflayn navbat `rules.md` §11.
 
-- [ ] 12.1 Write DTO'lar: `ProductWriteDto`, `VariantWriteDto`, `BulkPriceDto` (`variant_ids, percent | amount`), rasm multipart
-- [ ] 12.2 `CatalogWriteDataSource` — product create/patch/delete, variant create/patch/delete, bulk-price, image upload (progress), image delete
-- [ ] 12.3 `ProductFormNotifier` — `dirty` tracking, variantlar inline ro'yxati, validatsiya (nom, kod, kategoriya, narx > 0, `color_hex` format)
-- [ ] 12.4 `ProductsManageScreen` — ro'yxat + qidiruv + kategoriya filtri; satrda narx (birlik bilan); faol/nofaol toggle; ko'p tanlash rejimi → "Narxni o'zgartirish" (bulk)
-- [ ] 12.5 `ProductFormScreen` (S-22) — rasm qatori ("+" kamera/galereya → `image_cropper` 4:5 yoki 1:1 → `flutter_image_compress` ≤ 1200px ≤ 1 MB → upload), maydonlar (nom, kod, kategoriya, mato turi, naqsh, uslub, shaffoflik, rulon eni, segment, tarkib, parvarish, tavsif), tavsiya etilgan xonalar (chip multi-select), **narx birligi** (`m² / dona / metr`), variantlar bo'limi (rang doirasi + `flutter_colorpicker`, rang nomi, SKU, narx + birlik, o'chirish; "+ Variant qo'shish"), yopishqoq "Saqlash"
-- [ ] 12.6 `BulkPriceSheet` — `+10%` / `−5%` / "yangi narx"; oldindan ko'rish (eski → yangi 3 misol); tasdiq
-- [ ] 12.7 Oflayn: saqlash internet yo'q bo'lsa `OfflineQueue` ga; snackbar "Saqlanadi: internet qaytganda"; qaytganda yuborish; konflikt → "Server versiyasi saqlandi" ogohlantirish
-- [ ] 12.8 Server maydon xatolari (`errors.variants.0.price`) → tegishli variant maydoni ostida
-- [ ] 12.9 Rasm yuklash ruxsati sababi bilan so'raladi (`permission_handler`), rad etilsa tushunarli matn + sozlamalarga o'tish
-- [ ] 12.10 Testlar: forma validatsiya, `dirty` → PATCH body, `errors` → maydon mapping (nested), bulk oldindan ko'rish hisobi backend bilan mos (faqat ko'rsatish), oflayn navbat → qaytganda yuborish tartibi; golden S-22
+- [~] 12.1 Write DTO'lar: `ProductWriteDto`, `VariantWriteDto`, `BulkPriceDto` (`variant_ids, percent | amount`), rasm multipart
+- [~] 12.2 `CatalogWriteDataSource` — product create/patch/delete, variant create/patch/delete, bulk-price, image upload (progress), image delete
+- [~] 12.3 `ProductFormNotifier` — `dirty` tracking, variantlar inline ro'yxati, validatsiya (nom, kod, kategoriya, narx > 0, `color_hex` format)
+- [~] 12.4 `ProductsManageScreen` — ro'yxat + qidiruv + kategoriya filtri; satrda narx (birlik bilan); faol/nofaol toggle; ko'p tanlash rejimi → "Narxni o'zgartirish" (bulk)
+- [~] 12.5 `ProductFormScreen` (S-22) — rasm qatori ("+" kamera/galereya → `image_cropper` 4:5 yoki 1:1 → `flutter_image_compress` ≤ 1200px ≤ 1 MB → upload), maydonlar (nom, kod, kategoriya, mato turi, naqsh, uslub, shaffoflik, rulon eni, segment, tarkib, parvarish, tavsif), tavsiya etilgan xonalar (chip multi-select), **narx birligi** (`m² / dona / metr`), variantlar bo'limi (rang doirasi + `flutter_colorpicker`, rang nomi, SKU, narx + birlik, o'chirish; "+ Variant qo'shish"), yopishqoq "Saqlash"
+- [~] 12.6 `BulkPriceSheet` — `+10%` / `−5%` / "yangi narx"; oldindan ko'rish (eski → yangi 3 misol); tasdiq
+- [~] 12.7 Oflayn: saqlash internet yo'q bo'lsa `OfflineQueue` ga; snackbar "Saqlanadi: internet qaytganda"; qaytganda yuborish; konflikt → "Server versiyasi saqlandi" ogohlantirish
+- [~] 12.8 Server maydon xatolari (`errors.variants.0.price`) → tegishli variant maydoni ostida
+- [~] 12.9 Rasm yuklash ruxsati sababi bilan so'raladi (`permission_handler`), rad etilsa tushunarli matn + sozlamalarga o'tish
+- [~] 12.10 Testlar: forma validatsiya, `dirty` → PATCH body, `errors` → maydon mapping (nested), bulk oldindan ko'rish hisobi backend bilan mos (faqat ko'rsatish), oflayn navbat → qaytganda yuborish tartibi; golden S-22
 
 ## Bosqich 13 — `features/management` — narx qoidalari va bilimlar (S-23, S-24)
 
 > Dizayn: `3d`, `4e`.
 
-- [ ] 13.1 DTO/entity: `CalcRule` (`key, value, unit, description`), `ServicePrice`, `DiscountTier`, `DiscountPolicy`, `OrderDefaults`, `CalcPreviewRequest/Response`
-- [ ] 13.2 `PricingRemoteDataSource` — calc-rules list/patch, services list/patch, discount-tiers CRUD, discount-policy get/patch, order-defaults get/patch, `pricing/calc/preview/`
-- [ ] 13.3 `PricingRulesScreen` (S-23) — 3 bo'lim: **Koeffitsientlar** (nom, ostida kulrang `description`, o'ngda qiymat maydoni — inline tahrir, blur'da PATCH), **Chegirma bosqichlari** (jadval `5 000 000 dan → 3%`, qator qo'shish/o'chirish; ostida employee/manager qo'lda maks %), **Standart qiymatlar** (avans %, yetkazish, muddat kun)
-- [ ] 13.4 "Hisobni sinash" → sheet: uzunlik, balandlik, bo'lak soni (default koeffitsient) → `POST pricing/calc/preview/` → natija `QuoteCard` (7-bosqich) bilan ko'rsatiladi
-- [ ] 13.5 `KnowledgeRule` entity (`kind, condition{room, style,...}, recommendation, priority, is_active`), `KnowledgeRemoteDataSource` CRUD
-- [ ] 13.6 `KnowledgeScreen` (S-24) — qoida kartochkalari: shart chip'lari (`mehmonxona` + `hi-tech`) → tavsiya matni, priority, faol toggle; "+ Qoida qo'shish"
-- [ ] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
-- [ ] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
+- [~] 13.1 DTO/entity: `CalcRule` (`key, value, unit, description`), `ServicePrice`, `DiscountTier`, `DiscountPolicy`, `OrderDefaults`, `CalcPreviewRequest/Response`
+- [~] 13.2 `PricingRemoteDataSource` — calc-rules list/patch, services list/patch, discount-tiers CRUD, discount-policy get/patch, order-defaults get/patch, `pricing/calc/preview/`
+- [~] 13.3 `PricingRulesScreen` (S-23) — 3 bo'lim: **Koeffitsientlar** (nom, ostida kulrang `description`, o'ngda qiymat maydoni — inline tahrir, blur'da PATCH), **Chegirma bosqichlari** (jadval `5 000 000 dan → 3%`, qator qo'shish/o'chirish; ostida employee/manager qo'lda maks %), **Standart qiymatlar** (avans %, yetkazish, muddat kun)
+- [~] 13.4 "Hisobni sinash" → sheet: uzunlik, balandlik, bo'lak soni (default koeffitsient) → `POST pricing/calc/preview/` → natija `QuoteCard` (7-bosqich) bilan ko'rsatiladi
+- [~] 13.5 `KnowledgeRule` entity (`kind, condition{room, style,...}, recommendation, priority, is_active`), `KnowledgeRemoteDataSource` CRUD
+- [~] 13.6 `KnowledgeScreen` (S-24) — qoida kartochkalari: shart chip'lari (`mehmonxona` + `hi-tech`) → tavsiya matni, priority, faol toggle; "+ Qoida qo'shish"
+- [~] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
+- [~] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
 
 ## Bosqich 14 — `features/management` — sozlamalar (faqat admin)
 

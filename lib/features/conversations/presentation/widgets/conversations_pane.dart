@@ -27,7 +27,10 @@ import 'package:alora_mobile/shared/widgets/skeleton.dart';
 /// Keng ekranlarda ConversationsScreen'ning chap paneli sifatida ham
 /// ishlatilishi mumkin (adaptive_shell bilan).
 class ConversationsPane extends ConsumerStatefulWidget {
-  const ConversationsPane({super.key});
+  const ConversationsPane({super.key, this.clock});
+
+  /// Joriy vaqt manbai — testlarda (golden) barqarorlik uchun qotiriladi.
+  final DateTime Function()? clock;
 
   @override
   ConsumerState<ConversationsPane> createState() => _ConversationsPaneState();
@@ -181,7 +184,7 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
       );
     }
 
-    final now = DateTime.now();
+    final now = (widget.clock ?? DateTime.now)();
     final grouped = groupConversationsByDate(filtered, now: now);
     final entries = <_PaneEntry>[];
     for (final group in ConversationDateGroup.values) {

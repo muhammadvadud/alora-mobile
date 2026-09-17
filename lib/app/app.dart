@@ -6,6 +6,7 @@ import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/router/app_router.dart';
 import 'package:alora_mobile/app/theme/app_theme.dart';
 import 'package:alora_mobile/app/theme/theme_mode_notifier.dart';
+import 'package:alora_mobile/features/profile/application/locale_notifier.dart';
 
 class AloraApp extends StatelessWidget {
   const AloraApp({super.key});
@@ -16,12 +17,14 @@ class AloraApp extends StatelessWidget {
       builder: (context, ref, child) {
         final router = ref.watch(appRouterProvider);
         final themeMode = ref.watch(themeModeProvider);
+        final locale = ref.watch(localeProvider);
 
         return MaterialApp.router(
           routerConfig: router,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
           themeMode: themeMode,
+          locale: locale,
           onGenerateTitle: (context) => AppLocalizations.of(context)!.app_name,
           localizationsDelegates: const [
             AppLocalizations.delegate,

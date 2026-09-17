@@ -589,6 +589,266 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get cancelled => 'Bekor qilingan';
+
+  @override
+  String get profile_languageTitle => 'Til';
+
+  @override
+  String get profile_languageOptionUz => 'O\'zbek';
+
+  @override
+  String get profile_languageOptionCyrl => 'Кирилл';
+
+  @override
+  String get profile_languageOptionRu => 'Русский';
+
+  @override
+  String get profile_themeTitle => 'Mavzu';
+
+  @override
+  String get profile_themeSystem => 'Tizim';
+
+  @override
+  String get profile_themeLight => 'Yorug\'';
+
+  @override
+  String get profile_themeDark => 'Qorong\'i';
+
+  @override
+  String get profile_logout => 'Chiqish';
+
+  @override
+  String get profile_logoutConfirmTitle => 'Chiqish?';
+
+  @override
+  String get profile_logoutConfirmMessage => 'Hisobingizdan chiqmoqchimisiz?';
+
+  @override
+  String get profile_roleEmployee => 'Xodim';
+
+  @override
+  String get profile_roleManager => 'Menejer';
+
+  @override
+  String get profile_roleAdmin => 'Admin';
+
+  @override
+  String get profile_roleUnknown => 'Noma\'lum';
+
+  @override
+  String get profile_todaySpend => 'Bugungi sarf';
+
+  @override
+  String get profile_limitDailyReset =>
+      'Kunlik limit soat 24:00 da yangilanadi';
+
+  @override
+  String get profile_limitNotSet => 'Limit o\'rnatilmagan';
+
+  @override
+  String get profile_unlimited => 'Cheksiz';
+
+  @override
+  String get currency_som => 'so\'m';
+
+  @override
+  String get management_periodToday => 'Bugun';
+
+  @override
+  String get management_periodWeek => 'Hafta';
+
+  @override
+  String get management_periodMonth => 'Oy';
+
+  @override
+  String get management_chartTitle => 'Kunlik sarf';
+
+  @override
+  String get management_chartEmpty => 'Grafik uchun ma\'lumot yo\'q';
+
+  @override
+  String get management_statThreads => 'Suhbatlar';
+
+  @override
+  String get management_statOrders => 'Buyurtmalar';
+
+  @override
+  String get management_statConversion => 'Konversiya';
+
+  @override
+  String get management_statCost => 'Sarf';
+
+  @override
+  String get management_rankingTitle => 'Xodimlar reytingi';
+
+  @override
+  String get management_rankingEmployeeCol => 'Xodim';
+
+  @override
+  String get management_rankingChatsCol => 'Suhbat';
+
+  @override
+  String get management_rankingCostCol => 'Sarf';
+
+  @override
+  String get management_rankingOrdersCol => 'Buyurtma';
+
+  @override
+  String get management_sectionEmployees => 'Xodimlar';
+
+  @override
+  String get management_sectionProducts => 'Mahsulotlar';
+
+  @override
+  String get management_sectionPricing => 'Narx qoidalari';
+
+  @override
+  String get management_sectionKnowledge => 'Bilimlar';
+
+  @override
+  String get management_sectionSettings => 'Sozlamalar';
+
+  @override
+  String get management_employeesTitle => 'Xodimlar';
+
+  @override
+  String get management_employeesSearchHint => 'Xodim qidirish';
+
+  @override
+  String get management_employeeAdd => 'Xodim qo\'shish';
+
+  @override
+  String management_employeeLastActive(String date) {
+    return 'Oxirgi faollik: $date';
+  }
+
+  @override
+  String management_employeeTodayMeta(int chats, int messages) {
+    return 'Suhbatlar $chats · Xabarlar $messages';
+  }
+
+  @override
+  String get management_employeeBlocked => 'Bloklangan';
+
+  @override
+  String get management_createTitle => 'Xodim qo\'shish';
+
+  @override
+  String get management_createPhone => 'Telefon raqami';
+
+  @override
+  String get management_createName => 'Ism va familiya';
+
+  @override
+  String get management_createPassword => 'Boshlang\'ich parol';
+
+  @override
+  String get management_createRole => 'Rol';
+
+  @override
+  String get management_employeeProfileTitle => 'Xodim profili';
+
+  @override
+  String get management_limitTitle => 'Kunlik limit';
+
+  @override
+  String get management_limitCost => 'Sarf so\'m';
+
+  @override
+  String get management_limitMessages => 'Xabarlar soni';
+
+  @override
+  String get management_limitTokens => 'Tokenlar';
+
+  @override
+  String get management_onExceedWarn => 'Ogohlantirish';
+
+  @override
+  String get management_onExceedBlock => 'Bloklash';
+
+  @override
+  String get management_limitSet => 'Limitni saqlash';
+
+  @override
+  String get management_employeeViewThreads => 'Suhbatlarini ko\'rish';
+
+  @override
+  String get management_employeeConversationsTitle => 'Xodim suhbatlari';
+
+  @override
+  String get management_employeeBlockConfirmTitle => 'Xodimni bloklash?';
+
+  @override
+  String get management_employeeBlockConfirmMessage =>
+      'Bloklangan xodim tizimga kira olmaydi. Davom etasizmi?';
+
+  @override
+  String get management_employeeUnblockConfirmTitle =>
+      'Xodimni faollashtirish?';
+
+  @override
+  String get management_employeeUnblockConfirmMessage =>
+      'Xodim tizimga qayta kira oladi. Davom etasizmi?';
+
+  @override
+  String get management_conversationsEmptyTitle => 'Suhbatlar yo\'q';
+
+  @override
+  String get management_conversationsEmptyMessage =>
+      'Bu xodimning hozircha suhbatlari yo\'q';
+
+  @override
+  String get management_transcriptTitle => 'Transkript';
+
+  @override
+  String get management_transcriptEmpty => 'Xabarlar yo\'q';
+
+  @override
+  String get management_transcriptUser => 'Foydalanuvchi';
+
+  @override
+  String get management_transcriptAssistant => 'AI';
+
+  @override
+  String get management_transcriptTool => 'Asbob';
+
+  @override
+  String get management_employeeBlock => 'Bloklash';
+
+  @override
+  String get management_employeeUnblock => 'Faollashtirish';
+
+  @override
+  String get management_employeesEmptyMessage =>
+      'Jamoada hozircha xodimlar yo\'q';
+
+  @override
+  String get management_employeesEmptyTitle => 'Xodimlar topilmadi';
+
+  @override
+  String get management_employeesSearchEmptyMessage =>
+      'Boshqa so\'z bilan qidirib ko\'ring';
+
+  @override
+  String get management_employeesSearchEmptyTitle => 'Natija topilmadi';
+
+  @override
+  String get management_limitPeriodDay => 'Kunlik';
+
+  @override
+  String get management_limitPeriodMonth => 'Oylik';
+
+  @override
+  String get management_limitUnlimited => 'Cheksiz';
+
+  @override
+  String get management_statsEmpty => 'Ma\'lumotlar hozircha yo\'q';
+
+  @override
+  String get management_sectionTitle => 'Bo\'limlar';
+
+  @override
+  String get management_createPhoneError => 'Telefon raqamini to\'liq kiriting';
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -1173,4 +1433,261 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get cancelled => 'Бекор қилинган';
+
+  @override
+  String get profile_languageTitle => 'Тил';
+
+  @override
+  String get profile_languageOptionUz => 'Ўзбек';
+
+  @override
+  String get profile_languageOptionCyrl => 'Кирилл';
+
+  @override
+  String get profile_languageOptionRu => 'Рус';
+
+  @override
+  String get profile_themeTitle => 'Мавзу';
+
+  @override
+  String get profile_themeSystem => 'Тизим';
+
+  @override
+  String get profile_themeLight => 'Ёруғ';
+
+  @override
+  String get profile_themeDark => 'Қоронғи';
+
+  @override
+  String get profile_logout => 'Чиқиш';
+
+  @override
+  String get profile_logoutConfirmTitle => 'Чиқиш?';
+
+  @override
+  String get profile_logoutConfirmMessage => 'Ҳисобингиздан чиқмоқчимисиз?';
+
+  @override
+  String get profile_roleEmployee => 'Ходим';
+
+  @override
+  String get profile_roleManager => 'Менежер';
+
+  @override
+  String get profile_roleAdmin => 'Админ';
+
+  @override
+  String get profile_roleUnknown => 'Номаълум';
+
+  @override
+  String get profile_todaySpend => 'Бугунги сарф';
+
+  @override
+  String get profile_limitDailyReset => 'Кунлик лимит соат 24:00 да янгиланади';
+
+  @override
+  String get profile_limitNotSet => 'Лимит ўрнатилмаган';
+
+  @override
+  String get profile_unlimited => 'Чексиз';
+
+  @override
+  String get currency_som => 'сўм';
+
+  @override
+  String get management_periodToday => 'Бугун';
+
+  @override
+  String get management_periodWeek => 'Ҳафта';
+
+  @override
+  String get management_periodMonth => 'Ой';
+
+  @override
+  String get management_chartTitle => 'Кунлик сарф';
+
+  @override
+  String get management_chartEmpty => 'График учун маълумот йўқ';
+
+  @override
+  String get management_statThreads => 'Суҳбатлар';
+
+  @override
+  String get management_statOrders => 'Буюртмалар';
+
+  @override
+  String get management_statConversion => 'Конверсия';
+
+  @override
+  String get management_statCost => 'Сарф';
+
+  @override
+  String get management_rankingTitle => 'Ходимлар рейтинги';
+
+  @override
+  String get management_rankingEmployeeCol => 'Ходим';
+
+  @override
+  String get management_rankingChatsCol => 'Суҳбат';
+
+  @override
+  String get management_rankingCostCol => 'Сарф';
+
+  @override
+  String get management_rankingOrdersCol => 'Буюртма';
+
+  @override
+  String get management_sectionEmployees => 'Ходимлар';
+
+  @override
+  String get management_sectionProducts => 'Маҳсулотлар';
+
+  @override
+  String get management_sectionPricing => 'Нарх қоидалари';
+
+  @override
+  String get management_sectionKnowledge => 'Билимлар';
+
+  @override
+  String get management_sectionSettings => 'Созламалар';
+
+  @override
+  String get management_employeesTitle => 'Ходимлар';
+
+  @override
+  String get management_employeesSearchHint => 'Ходим қидириш';
+
+  @override
+  String get management_employeeAdd => 'Ходим қўшиш';
+
+  @override
+  String management_employeeLastActive(String date) {
+    return 'Охирги фаоллик: $date';
+  }
+
+  @override
+  String management_employeeTodayMeta(int chats, int messages) {
+    return 'Суҳбатлар $chats · Хабарлар $messages';
+  }
+
+  @override
+  String get management_employeeBlocked => 'Блокланган';
+
+  @override
+  String get management_createTitle => 'Ходим қўшиш';
+
+  @override
+  String get management_createPhone => 'Телефон рақами';
+
+  @override
+  String get management_createName => 'Исм ва фамилия';
+
+  @override
+  String get management_createPassword => 'Бошланғич парол';
+
+  @override
+  String get management_createRole => 'Рол';
+
+  @override
+  String get management_employeeProfileTitle => 'Ходим профили';
+
+  @override
+  String get management_limitTitle => 'Кунлик лимит';
+
+  @override
+  String get management_limitCost => 'Сарф сўм';
+
+  @override
+  String get management_limitMessages => 'Хабарлар сони';
+
+  @override
+  String get management_limitTokens => 'Токенлар';
+
+  @override
+  String get management_onExceedWarn => 'Огоҳлантириш';
+
+  @override
+  String get management_onExceedBlock => 'Блоклаш';
+
+  @override
+  String get management_limitSet => 'Лимитни сақлаш';
+
+  @override
+  String get management_employeeViewThreads => 'Суҳбатларини кўриш';
+
+  @override
+  String get management_employeeConversationsTitle => 'Ходим суҳбатлари';
+
+  @override
+  String get management_employeeBlockConfirmTitle => 'Ходимни блоклаш?';
+
+  @override
+  String get management_employeeBlockConfirmMessage =>
+      'Блокланган ходим тизимга кира олмайди. Давом этасизми?';
+
+  @override
+  String get management_employeeUnblockConfirmTitle => 'Ходимни фаоллаштириш?';
+
+  @override
+  String get management_employeeUnblockConfirmMessage =>
+      'Ходим тизимга қайта кира олади. Давом этасизми?';
+
+  @override
+  String get management_conversationsEmptyTitle => 'Суҳбатлар йўқ';
+
+  @override
+  String get management_conversationsEmptyMessage =>
+      'Бу ходимнинг ҳозирча суҳбатлари йўқ';
+
+  @override
+  String get management_transcriptTitle => 'Транскрипт';
+
+  @override
+  String get management_transcriptEmpty => 'Хабарлар йўқ';
+
+  @override
+  String get management_transcriptUser => 'Фойдаланувчи';
+
+  @override
+  String get management_transcriptAssistant => 'AI';
+
+  @override
+  String get management_transcriptTool => 'Асбоб';
+
+  @override
+  String get management_employeeBlock => 'Блоклаш';
+
+  @override
+  String get management_employeeUnblock => 'Фаоллаштириш';
+
+  @override
+  String get management_employeesEmptyMessage => 'Жамоада ҳозирча ходимлар йўқ';
+
+  @override
+  String get management_employeesEmptyTitle => 'Ходимлар топилмади';
+
+  @override
+  String get management_employeesSearchEmptyMessage =>
+      'Бошқа сўз билан қидириб кўринг';
+
+  @override
+  String get management_employeesSearchEmptyTitle => 'Натижа топилмади';
+
+  @override
+  String get management_limitPeriodDay => 'Кунлик';
+
+  @override
+  String get management_limitPeriodMonth => 'Ойлик';
+
+  @override
+  String get management_limitUnlimited => 'Чексиз';
+
+  @override
+  String get management_statsEmpty => 'Маълумотлар ҳозирча йўқ';
+
+  @override
+  String get management_sectionTitle => 'Бўлимлар';
+
+  @override
+  String get management_createPhoneError => 'Телефон рақамини тўлиқ киритинг';
 }

@@ -8,20 +8,27 @@ part of 'order_accessory_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_OrderAccessoryDto _$OrderAccessoryDtoFromJson(
-  Map<String, dynamic> json,
-) => $checkedCreate('_OrderAccessoryDto', json, ($checkedConvert) {
-  final val = _OrderAccessoryDto(
-    id: $checkedConvert('id', (v) => v as String),
-    variant: $checkedConvert('variant', (v) => v as Map<String, dynamic>?),
-    qty: $checkedConvert('qty', (v) => v as String?),
-    unit: $checkedConvert('unit', (v) => v as String?),
-    unitPrice: $checkedConvert('unit_price', (v) => v as String?),
-    total: $checkedConvert('total', (v) => v as String?),
-    sortOrder: $checkedConvert('sort_order', (v) => (v as num?)?.toInt()),
-  );
-  return val;
-}, fieldKeyMap: const {'unitPrice': 'unit_price', 'sortOrder': 'sort_order'});
+_OrderAccessoryDto _$OrderAccessoryDtoFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      '_OrderAccessoryDto',
+      json,
+      ($checkedConvert) {
+        final val = _OrderAccessoryDto(
+          id: $checkedConvert('id', (v) => v as String),
+          variant: $checkedConvert(
+            'variant',
+            (v) => v as Map<String, dynamic>?,
+          ),
+          qty: $checkedConvert('qty', (v) => v as String?),
+          unit: $checkedConvert('unit', (v) => v as String?),
+          unitPrice: $checkedConvert('unit_price', (v) => v as String?),
+          total: $checkedConvert('total', (v) => v as String?),
+          sortOrder: $checkedConvert('sort_order', (v) => (v as num?)?.toInt()),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'unitPrice': 'unit_price', 'sortOrder': 'sort_order'},
+    );
 
 Map<String, dynamic> _$OrderAccessoryDtoToJson(_OrderAccessoryDto instance) =>
     <String, dynamic>{

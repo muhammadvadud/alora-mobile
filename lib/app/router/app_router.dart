@@ -14,6 +14,14 @@ import 'package:alora_mobile/features/catalog/presentation/screens/catalog_scree
 import 'package:alora_mobile/features/catalog/presentation/screens/product_screen.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
 import 'package:alora_mobile/features/management/presentation/screens/management_screen.dart';
+import 'package:alora_mobile/features/management/presentation/screens/employees_screen.dart';
+import 'package:alora_mobile/features/management/presentation/screens/employee_detail_screen.dart';
+import 'package:alora_mobile/features/management/presentation/screens/employee_conversations_screen.dart';
+import 'package:alora_mobile/features/management/presentation/screens/transcript_screen.dart';
+import 'package:alora_mobile/features/management/catalog_admin/presentation/screens/products_manage_screen.dart';
+import 'package:alora_mobile/features/management/catalog_admin/presentation/screens/product_form_screen.dart';
+import 'package:alora_mobile/features/management/pricing/presentation/screens/pricing_rules_screen.dart';
+import 'package:alora_mobile/features/management/knowledge/presentation/screens/knowledge_screen.dart';
 import 'package:alora_mobile/features/orders/presentation/screens/orders_screen.dart';
 import 'package:alora_mobile/features/orders/presentation/screens/order_form_screen.dart';
 import 'package:alora_mobile/features/profile/presentation/screens/profile_screen.dart';
@@ -180,6 +188,61 @@ List<RouteBase> _routes() {
             GoRoute(
               path: AppRoutes.management,
               builder: (_, _) => const ManagementScreen(),
+              routes: [
+                GoRoute(
+                  path: 'products',
+                  builder: (_, _) => const ProductsManageScreen(),
+                  routes: [
+                    GoRoute(
+                      path: 'new',
+                      builder: (_, _) => const ProductFormScreen(),
+                    ),
+                    GoRoute(
+                      path: ':id/edit',
+                      builder: (_, state) => ProductFormScreen(
+                        productId: state.pathParameters['id'],
+                      ),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: 'pricing',
+                  builder: (_, _) => const PricingRulesScreen(),
+                ),
+                GoRoute(
+                  path: 'knowledge',
+                  builder: (_, _) => const KnowledgeScreen(),
+                ),
+                GoRoute(
+                  path: 'employees',
+                  builder: (_, _) => const EmployeesScreen(),
+                  routes: [
+                    GoRoute(
+                      path: ':employeeId',
+                      builder: (_, state) => EmployeeDetailScreen(
+                        employeeId: state.pathParameters['employeeId']!,
+                      ),
+                      routes: [
+                        GoRoute(
+                          path: 'conversations',
+                          builder: (_, state) => EmployeeConversationsScreen(
+                            employeeId: state.pathParameters['employeeId']!,
+                          ),
+                          routes: [
+                            GoRoute(
+                              path: ':conversationId',
+                              builder: (_, state) => TranscriptScreen(
+                                conversationId:
+                                    state.pathParameters['conversationId']!,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

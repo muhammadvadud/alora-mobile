@@ -9,17 +9,22 @@ part of 'auth_profile_dto.dart';
 // **************************************************************************
 
 AuthProfileDto _$AuthProfileDtoFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('AuthProfileDto', json, ($checkedConvert) {
-      final val = AuthProfileDto(
-        id: $checkedConvert('id', (v) => v as String),
-        phone: $checkedConvert('phone', (v) => v as String),
-        fullName: $checkedConvert('full_name', (v) => v as String),
-        role: $checkedConvert('role', (v) => v as String),
-        tenant: $checkedConvert('tenant', (v) => v as String),
-        deviceId: $checkedConvert('device_id', (v) => v as String?),
-      );
-      return val;
-    }, fieldKeyMap: const {'fullName': 'full_name', 'deviceId': 'device_id'});
+    $checkedCreate(
+      'AuthProfileDto',
+      json,
+      ($checkedConvert) {
+        final val = AuthProfileDto(
+          id: $checkedConvert('id', (v) => v as String),
+          phone: $checkedConvert('phone', (v) => v as String),
+          fullName: $checkedConvert('full_name', (v) => v as String),
+          role: $checkedConvert('role', (v) => v as String),
+          tenant: $checkedConvert('tenant', (v) => v as String),
+          deviceId: $checkedConvert('device_id', (v) => v as String?),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'fullName': 'full_name', 'deviceId': 'device_id'},
+    );
 
 Map<String, dynamic> _$AuthProfileDtoToJson(AuthProfileDto instance) =>
     <String, dynamic>{

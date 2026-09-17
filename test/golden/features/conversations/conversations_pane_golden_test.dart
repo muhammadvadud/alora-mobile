@@ -21,8 +21,7 @@ void main() {
   Widget widgetFor(ThemeMode mode) {
     final repository = FakeConversationsRepository();
     // Golden barqarorligi: vaqt kun ichida qotirilgan (09:41), sana guruhlari saqlanadi
-    final today = DateTime.now();
-    final now = DateTime(today.year, today.month, today.day, 9, 41);
+    final now = DateTime(2026, 9, 16, 9, 41);
     repository.listResult = (
       [
         testConversation(
@@ -71,7 +70,7 @@ void main() {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-        home: const Scaffold(body: ConversationsPane()),
+        home: Scaffold(body: ConversationsPane(clock: () => now)),
       ),
     );
   }

@@ -587,4 +587,265 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get cancelled => 'Отменен';
+
+  @override
+  String get profile_languageTitle => 'Язык';
+
+  @override
+  String get profile_languageOptionUz => 'Узбекский';
+
+  @override
+  String get profile_languageOptionCyrl => 'Кириллица';
+
+  @override
+  String get profile_languageOptionRu => 'Русский';
+
+  @override
+  String get profile_themeTitle => 'Тема';
+
+  @override
+  String get profile_themeSystem => 'Системная';
+
+  @override
+  String get profile_themeLight => 'Светлая';
+
+  @override
+  String get profile_themeDark => 'Тёмная';
+
+  @override
+  String get profile_logout => 'Выйти';
+
+  @override
+  String get profile_logoutConfirmTitle => 'Выйти?';
+
+  @override
+  String get profile_logoutConfirmMessage =>
+      'Вы уверены, что хотите выйти из аккаунта?';
+
+  @override
+  String get profile_roleEmployee => 'Сотрудник';
+
+  @override
+  String get profile_roleManager => 'Менеджер';
+
+  @override
+  String get profile_roleAdmin => 'Админ';
+
+  @override
+  String get profile_roleUnknown => 'Неизвестно';
+
+  @override
+  String get profile_todaySpend => 'Расход за сегодня';
+
+  @override
+  String get profile_limitDailyReset => 'Дневной лимит обновляется в 24:00';
+
+  @override
+  String get profile_limitNotSet => 'Лимит не установлен';
+
+  @override
+  String get profile_unlimited => 'Безлимитно';
+
+  @override
+  String get currency_som => 'сум';
+
+  @override
+  String get management_periodToday => 'Сегодня';
+
+  @override
+  String get management_periodWeek => 'Неделя';
+
+  @override
+  String get management_periodMonth => 'Месяц';
+
+  @override
+  String get management_chartTitle => 'Ежедневный расход';
+
+  @override
+  String get management_chartEmpty => 'Нет данных для графика';
+
+  @override
+  String get management_statThreads => 'Диалоги';
+
+  @override
+  String get management_statOrders => 'Заказы';
+
+  @override
+  String get management_statConversion => 'Конверсия';
+
+  @override
+  String get management_statCost => 'Расход';
+
+  @override
+  String get management_rankingTitle => 'Рейтинг сотрудников';
+
+  @override
+  String get management_rankingEmployeeCol => 'Сотрудник';
+
+  @override
+  String get management_rankingChatsCol => 'Диалог';
+
+  @override
+  String get management_rankingCostCol => 'Расход';
+
+  @override
+  String get management_rankingOrdersCol => 'Заказ';
+
+  @override
+  String get management_sectionEmployees => 'Сотрудники';
+
+  @override
+  String get management_sectionProducts => 'Товары';
+
+  @override
+  String get management_sectionPricing => 'Правила цен';
+
+  @override
+  String get management_sectionKnowledge => 'База знаний';
+
+  @override
+  String get management_sectionSettings => 'Настройки';
+
+  @override
+  String get management_employeesTitle => 'Сотрудники';
+
+  @override
+  String get management_employeesSearchHint => 'Поиск сотрудника';
+
+  @override
+  String get management_employeeAdd => 'Добавить сотрудника';
+
+  @override
+  String management_employeeLastActive(String date) {
+    return 'Последняя активность: $date';
+  }
+
+  @override
+  String management_employeeTodayMeta(int chats, int messages) {
+    return 'Диалоги $chats · Сообщения $messages';
+  }
+
+  @override
+  String get management_employeeBlocked => 'Заблокирован';
+
+  @override
+  String get management_createTitle => 'Добавить сотрудника';
+
+  @override
+  String get management_createPhone => 'Номер телефона';
+
+  @override
+  String get management_createName => 'Имя и фамилия';
+
+  @override
+  String get management_createPassword => 'Начальный пароль';
+
+  @override
+  String get management_createRole => 'Роль';
+
+  @override
+  String get management_employeeProfileTitle => 'Профиль сотрудника';
+
+  @override
+  String get management_limitTitle => 'Дневной лимит';
+
+  @override
+  String get management_limitCost => 'Расход, сум';
+
+  @override
+  String get management_limitMessages => 'Кол-во сообщений';
+
+  @override
+  String get management_limitTokens => 'Токены';
+
+  @override
+  String get management_onExceedWarn => 'Предупреждать';
+
+  @override
+  String get management_onExceedBlock => 'Блокировать';
+
+  @override
+  String get management_limitSet => 'Сохранить лимит';
+
+  @override
+  String get management_employeeViewThreads => 'Посмотреть диалоги';
+
+  @override
+  String get management_employeeConversationsTitle => 'Диалоги сотрудника';
+
+  @override
+  String get management_employeeBlockConfirmTitle =>
+      'Заблокировать сотрудника?';
+
+  @override
+  String get management_employeeBlockConfirmMessage =>
+      'Заблокированный сотрудник не сможет войти в систему. Продолжить?';
+
+  @override
+  String get management_employeeUnblockConfirmTitle =>
+      'Разблокировать сотрудника?';
+
+  @override
+  String get management_employeeUnblockConfirmMessage =>
+      'Сотрудник снова сможет войти в систему. Продолжить?';
+
+  @override
+  String get management_conversationsEmptyTitle => 'Диалогов нет';
+
+  @override
+  String get management_conversationsEmptyMessage =>
+      'У этого сотрудника пока нет диалогов';
+
+  @override
+  String get management_transcriptTitle => 'Транскрипт';
+
+  @override
+  String get management_transcriptEmpty => 'Нет сообщений';
+
+  @override
+  String get management_transcriptUser => 'Пользователь';
+
+  @override
+  String get management_transcriptAssistant => 'AI';
+
+  @override
+  String get management_transcriptTool => 'Инструмент';
+
+  @override
+  String get management_employeeBlock => 'Заблокировать';
+
+  @override
+  String get management_employeeUnblock => 'Разблокировать';
+
+  @override
+  String get management_employeesEmptyMessage =>
+      'В команде пока нет сотрудников';
+
+  @override
+  String get management_employeesEmptyTitle => 'Сотрудники не найдены';
+
+  @override
+  String get management_employeesSearchEmptyMessage =>
+      'Попробуйте другой запрос';
+
+  @override
+  String get management_employeesSearchEmptyTitle => 'Ничего не найдено';
+
+  @override
+  String get management_limitPeriodDay => 'Ежедневно';
+
+  @override
+  String get management_limitPeriodMonth => 'Ежемесячно';
+
+  @override
+  String get management_limitUnlimited => 'Без лимита';
+
+  @override
+  String get management_statsEmpty => 'Данных пока нет';
+
+  @override
+  String get management_sectionTitle => 'Разделы';
+
+  @override
+  String get management_createPhoneError => 'Введите номер телефона полностью';
 }

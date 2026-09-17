@@ -77,11 +77,7 @@ class BulkPriceDto {
   final String? percent;
   final String? amount;
 
-  const BulkPriceDto({
-    required this.variantIds,
-    this.percent,
-    this.amount,
-  });
+  const BulkPriceDto({required this.variantIds, this.percent, this.amount});
 
   factory BulkPriceDto.fromJson(Map<String, dynamic> json) =>
       _$BulkPriceDtoFromJson(json);

@@ -21,7 +21,6 @@ Future<void> showEmployeeCreateSheet(BuildContext context, WidgetRef ref) {
   return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.transparent,
     builder: (_) => const EmployeeCreateSheet(),
   );
 }
@@ -30,7 +29,8 @@ class EmployeeCreateSheet extends ConsumerStatefulWidget {
   const EmployeeCreateSheet({super.key});
 
   @override
-  ConsumerState<EmployeeCreateSheet> createState() => _EmployeeCreateSheetState();
+  ConsumerState<EmployeeCreateSheet> createState() =>
+      _EmployeeCreateSheetState();
 }
 
 class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
@@ -122,10 +122,7 @@ class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
             errorText: _nameError,
           ),
           const SizedBox(height: AppSpacing.m),
-          PhoneField(
-            controller: _phoneController,
-            errorText: _phoneError,
-          ),
+          PhoneField(controller: _phoneController, errorText: _phoneError),
           const SizedBox(height: AppSpacing.m),
           AppTextField(
             controller: _passwordController,
@@ -139,10 +136,7 @@ class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
           Wrap(
             spacing: AppSpacing.s,
             children: [
-              _roleChip(
-                label: l10n.profile_roleEmployee,
-                role: Role.employee,
-              ),
+              _roleChip(label: l10n.profile_roleEmployee, role: Role.employee),
               _roleChip(label: l10n.profile_roleManager, role: Role.manager),
             ],
           ),

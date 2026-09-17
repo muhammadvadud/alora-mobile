@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
+import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/auth/domain/entities/user.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
@@ -72,7 +73,7 @@ class _RolePill extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: colors.accentSoft,
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: AppRadius.pillBorder,
       ),
       child: Text(
         roleLabel,

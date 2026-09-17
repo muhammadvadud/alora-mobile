@@ -29,10 +29,7 @@ class ManagementSpendChart extends StatelessWidget {
         AppCard(
           child: daily.length < 2
               ? _ChartEmpty(message: l10n.management_chartEmpty)
-              : SizedBox(
-                  height: 160,
-                  child: _LineChart(daily: daily),
-                ),
+              : SizedBox(height: 160, child: _LineChart(daily: daily)),
         ),
       ],
     );
@@ -84,7 +81,8 @@ class _LineChart extends StatelessWidget {
         reservedSize: 26,
         getTitlesWidget: (value, meta) {
           final index = value.round();
-          if (index < 0 || index >= daily.length) return const SizedBox.shrink();
+          if (index < 0 || index >= daily.length)
+            return const SizedBox.shrink();
           final day = daily[index].date.day;
           return Text(
             '$day',

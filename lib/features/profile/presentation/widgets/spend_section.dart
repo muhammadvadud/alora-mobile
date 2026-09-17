@@ -32,8 +32,9 @@ class SpendSection extends ConsumerWidget {
         AppCard(
           child: spend.maybeWhen(
             loading: () => const SkeletonBox(height: 60),
-            error: (error, _) =>
-                _SpendError(message: (error as Failure).localizedMessage(context)),
+            error: (error, _) => _SpendError(
+              message: (error as Failure).localizedMessage(context),
+            ),
             data: (data) => _SpendContent(data: data),
             orElse: () => const SkeletonBox(height: 60),
           ),
@@ -98,7 +99,10 @@ class _SpendContent extends StatelessWidget {
                   style: typography.bodyM.copyWith(color: colors.textSecondary),
                 ),
               ),
-              Text('∞', style: typography.displayM.copyWith(color: colors.accent)),
+              Text(
+                '∞',
+                style: typography.displayM.copyWith(color: colors.accent),
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.xs),

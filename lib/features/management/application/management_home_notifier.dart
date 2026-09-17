@@ -18,12 +18,20 @@ class ManagementHomeNotifier extends _$ManagementHomeNotifier {
     final period = ref.watch(managementPeriodProvider);
     final usageRepository = ref.watch(usageRepositoryProvider);
 
-    final (UsageSummary usage, ConversionStats conversion, List<UserUsage> ranking) = await (
+    final (
+      UsageSummary usage,
+      ConversionStats conversion,
+      List<UserUsage> ranking,
+    ) = await (
       usageRepository.summary(period: period),
       usageRepository.conversion(),
       usageRepository.byUser(period: period),
     ).wait;
 
-    return ManagementHomeData(usage: usage, conversion: conversion, ranking: ranking);
+    return ManagementHomeData(
+      usage: usage,
+      conversion: conversion,
+      ranking: ranking,
+    );
   }
 }

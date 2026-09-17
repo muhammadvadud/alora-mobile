@@ -12,7 +12,11 @@ abstract class CatalogWriteDataSource {
   Future<void> deleteVariant(String id);
 
   Future<void> applyBulkPrice(BulkPriceDto dto);
-  Future<void> uploadProductImage(String productId, String imagePath, {void Function(int, int)? onSendProgress});
+  Future<void> uploadProductImage(
+    String productId,
+    String imagePath, {
+    void Function(int, int)? onSendProgress,
+  });
   Future<void> deleteImage(String imageId);
 }
 
@@ -59,7 +63,11 @@ class CatalogWriteDataSourceImpl implements CatalogWriteDataSource {
   }
 
   @override
-  Future<void> uploadProductImage(String productId, String imagePath, {void Function(int, int)? onSendProgress}) async {
+  Future<void> uploadProductImage(
+    String productId,
+    String imagePath, {
+    void Function(int, int)? onSendProgress,
+  }) async {
     final formData = FormData.fromMap({
       'image': await MultipartFile.fromFile(imagePath),
     });

@@ -32,7 +32,10 @@ class EmployeeDetailNotifier extends _$EmployeeDetailNotifier {
   }
 
   /// Profil (ism, rol) yangilash.
-  Future<void> updateProfile({required String fullName, required Role role}) async {
+  Future<void> updateProfile({
+    required String fullName,
+    required Role role,
+  }) async {
     try {
       final repository = ref.read(teamRepositoryProvider);
       await repository.updateEmployee(
@@ -72,8 +75,6 @@ class EmployeeDetailNotifier extends _$EmployeeDetailNotifier {
     }
   }
 
-  UsageLimit? get limit => state.maybeWhen(
-    loaded: (_, limit) => limit,
-    orElse: () => null,
-  );
+  UsageLimit? get limit =>
+      state.maybeWhen(loaded: (_, limit) => limit, orElse: () => null);
 }

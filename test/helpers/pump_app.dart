@@ -9,8 +9,8 @@ extension PumpApp on Widget {
     Locale locale = const Locale('uz'),
   }) {
     return MaterialApp(
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       themeMode: themeMode,
       locale: locale,
       localizationsDelegates: const [

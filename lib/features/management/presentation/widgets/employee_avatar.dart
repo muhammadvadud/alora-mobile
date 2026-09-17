@@ -23,15 +23,12 @@ class EmployeeAvatar extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: colors.accent,
-        borderRadius: BorderRadius.circular(AppRadius.card),
+        borderRadius: AppRadius.cardBorder,
       ),
       alignment: Alignment.center,
       child: Text(
         _getLetter(),
-        style: context.text.titleL.copyWith(
-          color: colors.onAccent,
-          fontSize: size * 0.38,
-        ),
+        style: context.text.titleL.copyWith(color: colors.onAccent),
       ),
     );
   }

@@ -4,7 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/core/utils/app_logger.dart';
-import 'package:alora_mobile/features/auth/application/auth_notifier.dart' show authProvider;
+import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
+    show authProvider;
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 

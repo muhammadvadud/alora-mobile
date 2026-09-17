@@ -53,8 +53,10 @@ class PricingMapper {
   static DiscountPolicy toDiscountPolicy(DiscountPolicyDto dto) {
     return DiscountPolicy(
       id: dto.id,
-      manualMaxPercentEmployee: double.tryParse(dto.manualMaxPercentEmployee) ?? 0.0,
-      manualMaxPercentManager: double.tryParse(dto.manualMaxPercentManager) ?? 0.0,
+      manualMaxPercentEmployee:
+          double.tryParse(dto.manualMaxPercentEmployee) ?? 0.0,
+      manualMaxPercentManager:
+          double.tryParse(dto.manualMaxPercentManager) ?? 0.0,
       isActive: dto.isActive,
       createdAt: DateTime.parse(dto.createdAt).toLocal(),
       updatedAt: DateTime.parse(dto.updatedAt).toLocal(),
@@ -64,8 +66,10 @@ class PricingMapper {
   static OrderDefaults toOrderDefaults(OrderDefaultsDto dto) {
     return OrderDefaults(
       id: dto.id,
-      defaultPrepaymentPercent: double.tryParse(dto.defaultPrepaymentPercent) ?? 0.0,
-      defaultDeliveryAmount: double.tryParse(dto.defaultDeliveryAmount)?.toInt() ?? 0,
+      defaultPrepaymentPercent:
+          double.tryParse(dto.defaultPrepaymentPercent) ?? 0.0,
+      defaultDeliveryAmount:
+          double.tryParse(dto.defaultDeliveryAmount)?.toInt() ?? 0,
       isActive: dto.isActive,
       createdAt: DateTime.parse(dto.createdAt).toLocal(),
       updatedAt: DateTime.parse(dto.updatedAt).toLocal(),
@@ -78,34 +82,43 @@ class PricingMapper {
 
     for (final m in dto.measurements) {
       for (final p in m.parts) {
-        fabrics.add(QuoteFabric(
-          role: p.role,
-          variantId: p.variantId,
-          colorName: p.colorName,
-          colorHex: '', // Color hex is not present in CalcPreviewResponsePartDto
-          widthM: double.tryParse(p.widthM) ?? 0.0,
-          heightM: double.tryParse(p.heightM) ?? 0.0,
-          coef: double.tryParse(p.coef) ?? 0.0,
-          areaSqm: double.tryParse(p.areaSqm) ?? 0.0,
-          pricePerSqm: double.tryParse(p.pricePerSqm)?.toInt() ?? 0,
-          total: double.tryParse(p.total)?.toInt() ?? 0,
-        ));
+        fabrics.add(
+          QuoteFabric(
+            role: p.role,
+            variantId: p.variantId,
+            colorName: p.colorName,
+            colorHex:
+                '', // Color hex is not present in CalcPreviewResponsePartDto
+            widthM: double.tryParse(p.widthM) ?? 0.0,
+            heightM: double.tryParse(p.heightM) ?? 0.0,
+            coef: double.tryParse(p.coef) ?? 0.0,
+            areaSqm: double.tryParse(p.areaSqm) ?? 0.0,
+            pricePerSqm: double.tryParse(p.pricePerSqm)?.toInt() ?? 0,
+            total: double.tryParse(p.total)?.toInt() ?? 0,
+          ),
+        );
       }
       for (final a in m.accessories) {
-        accessories.add(QuoteAccessory(
-          name: a.colorName.isNotEmpty ? a.colorName : a.variantId,
-          qty: double.tryParse(a.qty) ?? 0.0,
-          unit: 'dona',
-          unitPrice: double.tryParse(a.unitPrice)?.toInt() ?? 0,
-          total: double.tryParse(a.total)?.toInt() ?? 0,
-        ));
+        accessories.add(
+          QuoteAccessory(
+            name: a.colorName.isNotEmpty ? a.colorName : a.variantId,
+            qty: double.tryParse(a.qty) ?? 0.0,
+            unit: 'dona',
+            unitPrice: double.tryParse(a.unitPrice)?.toInt() ?? 0,
+            total: double.tryParse(a.total)?.toInt() ?? 0,
+          ),
+        );
       }
     }
 
-    final services = dto.services.map((s) => QuoteService(
-      name: s.name,
-      total: double.tryParse(s.total)?.toInt() ?? 0,
-    )).toList();
+    final services = dto.services
+        .map(
+          (s) => QuoteService(
+            name: s.name,
+            total: double.tryParse(s.total)?.toInt() ?? 0,
+          ),
+        )
+        .toList();
 
     return Quote(
       fabrics: fabrics,

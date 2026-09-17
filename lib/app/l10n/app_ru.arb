@@ -382,5 +382,35 @@
   "management_limitUnlimited": "Без лимита",
   "management_statsEmpty": "Данных пока нет",
   "management_sectionTitle": "Разделы",
-  "management_createPhoneError": "Введите номер телефона полностью"
+  "management_createPhoneError": "Введите номер телефона полностью",
+  "management_productFormTitle": "Форма товара",
+  "management_productName": "Название",
+  "management_productsTitle": "Управление товарами",
+  "management_productsList": "Список",
+  "management_knowledgeTitle": "Правила знаний",
+  "management_knowledgeList": "Список правил знаний",
+  "management_pricingTitle": "Правила ценообразования",
+  "management_pricingCoefficients": "Коэффициенты — инлайн-редактирование",
+  "management_pricingTiers": "Таблица уровней скидок",
+  "management_pricingDefaults": "Значения по умолчанию",
+  "management_pricingTest": "Проверить расчёт",
+  "chat_listening": "Слушаю...",
+  "chat_stopVoice": "Остановить",
+  "chat_transcriptLabel": "ТРАНСКРИПТ",
+  "chat_voiceMode": "Голосовой режим",
+  "chat_textMode": "Текстовый режим",
+  "chat_customerModeTitle": "Режим клиента",
+  "chat_enterPinTitle": "Введите ПИН код",
+  "chat_setPinTitle": "Установите ПИН код для режима клиента",
+  "chat_confirmPinTitle": "Подтвердите ПИН код",
+  "chat_pinMismatch": "ПИН коды не совпадают",
+  "chat_pinIncorrect": "Неверный ПИН код",
+  "chat_pinAttemptsWait": "Слишком много неверных попыток. Подождите {seconds} секунд.",
+  "@chat_pinAttemptsWait": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  }
 }

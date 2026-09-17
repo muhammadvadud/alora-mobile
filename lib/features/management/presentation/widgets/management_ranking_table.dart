@@ -64,7 +64,10 @@ class _HeaderRow extends StatelessWidget {
       children: [
         Expanded(
           flex: 3,
-          child: Text(l10n.management_rankingEmployeeCol.toUpperCase(), style: style),
+          child: Text(
+            l10n.management_rankingEmployeeCol.toUpperCase(),
+            style: style,
+          ),
         ),
         Expanded(
           flex: 1,

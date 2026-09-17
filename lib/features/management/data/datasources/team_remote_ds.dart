@@ -29,7 +29,9 @@ class TeamRemoteDataSource {
   /// GET /team/employees/{id}/ — bitta xodim tafsiloti.
   Future<EmployeeDto> employee(String id) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(ApiPaths.employee(id));
+      final response = await _dio.get<Map<String, dynamic>>(
+        ApiPaths.employee(id),
+      );
       return EmployeeDto.fromJson(response.data!);
     } on DioException catch (error) {
       throw _mapError(error);
@@ -37,7 +39,9 @@ class TeamRemoteDataSource {
   }
 
   /// POST /team/employees/ — yangi xodim qo'shish.
-  Future<EmployeeDto> createEmployee({required Map<String, dynamic> body}) async {
+  Future<EmployeeDto> createEmployee({
+    required Map<String, dynamic> body,
+  }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         ApiPaths.employees,
@@ -88,7 +92,9 @@ class TeamRemoteDataSource {
         ApiPaths.employeeConversations(id),
       );
       return (response.data ?? [])
-          .map((e) => EmployeeConversationDto.fromJson(e as Map<String, dynamic>))
+          .map(
+            (e) => EmployeeConversationDto.fromJson(e as Map<String, dynamic>),
+          )
           .toList();
     } on DioException catch (error) {
       throw _mapError(error);

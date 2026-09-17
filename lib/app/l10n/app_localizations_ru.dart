@@ -848,4 +848,76 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get management_createPhoneError => 'Введите номер телефона полностью';
+
+  @override
+  String get management_productFormTitle => 'Форма товара';
+
+  @override
+  String get management_productName => 'Название';
+
+  @override
+  String get management_productsTitle => 'Управление товарами';
+
+  @override
+  String get management_productsList => 'Список';
+
+  @override
+  String get management_knowledgeTitle => 'Правила знаний';
+
+  @override
+  String get management_knowledgeList => 'Список правил знаний';
+
+  @override
+  String get management_pricingTitle => 'Правила ценообразования';
+
+  @override
+  String get management_pricingCoefficients =>
+      'Коэффициенты — инлайн-редактирование';
+
+  @override
+  String get management_pricingTiers => 'Таблица уровней скидок';
+
+  @override
+  String get management_pricingDefaults => 'Значения по умолчанию';
+
+  @override
+  String get management_pricingTest => 'Проверить расчёт';
+
+  @override
+  String get chat_listening => 'Слушаю...';
+
+  @override
+  String get chat_stopVoice => 'Остановить';
+
+  @override
+  String get chat_transcriptLabel => 'ТРАНСКРИПТ';
+
+  @override
+  String get chat_voiceMode => 'Голосовой режим';
+
+  @override
+  String get chat_textMode => 'Текстовый режим';
+
+  @override
+  String get chat_customerModeTitle => 'Режим клиента';
+
+  @override
+  String get chat_enterPinTitle => 'Введите ПИН код';
+
+  @override
+  String get chat_setPinTitle => 'Установите ПИН код для режима клиента';
+
+  @override
+  String get chat_confirmPinTitle => 'Подтвердите ПИН код';
+
+  @override
+  String get chat_pinMismatch => 'ПИН коды не совпадают';
+
+  @override
+  String get chat_pinIncorrect => 'Неверный ПИН код';
+
+  @override
+  String chat_pinAttemptsWait(int seconds) {
+    return 'Слишком много неверных попыток. Подождите $seconds секунд.';
+  }
 }

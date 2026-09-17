@@ -382,5 +382,35 @@
   "management_limitUnlimited": "Cheksiz",
   "management_statsEmpty": "Ma'lumotlar hozircha yo'q",
   "management_sectionTitle": "Bo'limlar",
-  "management_createPhoneError": "Telefon raqamini to'liq kiriting"
+  "management_createPhoneError": "Telefon raqamini to'liq kiriting",
+  "management_productFormTitle": "Mahsulot shakli",
+  "management_productName": "Nomi",
+  "management_productsTitle": "Mahsulotlarni boshqarish",
+  "management_productsList": "Ro'yxat",
+  "management_knowledgeTitle": "Bilim qoidalari",
+  "management_knowledgeList": "Bilim qoidalari ro'yxati",
+  "management_pricingTitle": "Narx qoidalari",
+  "management_pricingCoefficients": "Koeffitsientlar inline tahrir",
+  "management_pricingTiers": "Chegirma darajalari jadvali",
+  "management_pricingDefaults": "Standart qiymatlar",
+  "management_pricingTest": "Hisobni sinash",
+  "chat_listening": "Eshityapman...",
+  "chat_stopVoice": "To'xtatish",
+  "chat_transcriptLabel": "TRANSKRIPT",
+  "chat_voiceMode": "Ovozli rejim",
+  "chat_textMode": "Matnli rejim",
+  "chat_customerModeTitle": "Mijoz rejimi",
+  "chat_enterPinTitle": "PIN kodni kiriting",
+  "chat_setPinTitle": "Mijoz rejimi uchun PIN o'rnating",
+  "chat_confirmPinTitle": "PIN kodni tasdiqlang",
+  "chat_pinMismatch": "PIN kodlar mos tushmadi",
+  "chat_pinIncorrect": "PIN kod noto'g'ri",
+  "chat_pinAttemptsWait": "Juda ko'p xato urinishlar. {seconds} soniya kuting.",
+  "@chat_pinAttemptsWait": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  }
 }

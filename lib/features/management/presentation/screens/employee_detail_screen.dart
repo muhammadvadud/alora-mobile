@@ -138,16 +138,18 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
         ),
         error: (failure) => ErrorState(
           message: failure.localizedMessage(context),
-          onRetry: () =>
-              ref.read(employeeDetailProvider(widget.employeeId).notifier).load(),
+          onRetry: () => ref
+              .read(employeeDetailProvider(widget.employeeId).notifier)
+              .load(),
         ),
         loaded: (employee, _) => _DetailBody(
           employee: employee,
           nameController: _nameController,
           role: _role,
           onRoleChanged: (role) => setState(() => _role = role),
-          onViewConversations: () =>
-              context.go(AppRoutes.managementEmployeeConversations(employee.id)),
+          onViewConversations: () => context.go(
+            AppRoutes.managementEmployeeConversations(employee.id),
+          ),
           onBlockChanged: (blocked) => _toggleBlocked(blocked),
           limitEditor: EmployeeLimitEditor(
             key: ValueKey(limit?.id),
@@ -203,14 +205,18 @@ class _DetailBody extends StatelessWidget {
                   children: [
                     Text(
                       employee.fullName,
-                      style: typography.titleL.copyWith(color: colors.textPrimary),
+                      style: typography.titleL.copyWith(
+                        color: colors.textPrimary,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       employee.phone,
-                      style: typography.bodyM.copyWith(color: colors.textSecondary),
+                      style: typography.bodyM.copyWith(
+                        color: colors.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -224,17 +230,18 @@ class _DetailBody extends StatelessWidget {
               children: [
                 Text(
                   l10n.management_createName,
-                  style: typography.labelM.copyWith(color: colors.textSecondary),
+                  style: typography.labelM.copyWith(
+                    color: colors.textSecondary,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.s),
-                AppTextField(
-                  controller: nameController,
-                  onChanged: (_) => {},
-                ),
+                AppTextField(controller: nameController, onChanged: (_) => {}),
                 const SizedBox(height: AppSpacing.m),
                 Text(
                   l10n.management_createRole,
-                  style: typography.labelM.copyWith(color: colors.textSecondary),
+                  style: typography.labelM.copyWith(
+                    color: colors.textSecondary,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.s),
                 Wrap(
@@ -269,13 +276,12 @@ class _DetailBody extends StatelessWidget {
                     employee.isBlocked
                         ? l10n.management_employeeBlock
                         : l10n.management_employeeUnblock,
-                    style: typography.titleS.copyWith(color: colors.textPrimary),
+                    style: typography.titleS.copyWith(
+                      color: colors.textPrimary,
+                    ),
                   ),
                 ),
-                Switch(
-                  value: employee.isBlocked,
-                  onChanged: onBlockChanged,
-                ),
+                Switch(value: employee.isBlocked, onChanged: onBlockChanged),
               ],
             ),
           ),

@@ -42,7 +42,9 @@ class EmployeeRow extends StatelessWidget {
                     Expanded(
                       child: Text(
                         employee.fullName,
-                        style: typography.titleS.copyWith(color: colors.textPrimary),
+                        style: typography.titleS.copyWith(
+                          color: colors.textPrimary,
+                        ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -62,8 +64,8 @@ class EmployeeRow extends StatelessWidget {
                           formatRelativeDate(
                             lastActive,
                             context: context,
-                            overrideLocale:
-                                Localizations.localeOf(context).toString(),
+                            overrideLocale: Localizations.localeOf(context)
+                                .toString(),
                           ),
                         ),
                   style: typography.bodyS.copyWith(color: colors.textSecondary),

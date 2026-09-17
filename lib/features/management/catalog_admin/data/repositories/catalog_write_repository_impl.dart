@@ -43,8 +43,16 @@ class CatalogWriteRepositoryImpl implements CatalogWriteRepository {
   }
 
   @override
-  Future<void> uploadProductImage(String productId, String imagePath, {void Function(int, int)? onSendProgress}) {
-    return _dataSource.uploadProductImage(productId, imagePath, onSendProgress: onSendProgress);
+  Future<void> uploadProductImage(
+    String productId,
+    String imagePath, {
+    void Function(int, int)? onSendProgress,
+  }) {
+    return _dataSource.uploadProductImage(
+      productId,
+      imagePath,
+      onSendProgress: onSendProgress,
+    );
   }
 
   @override

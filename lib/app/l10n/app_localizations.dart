@@ -1700,6 +1700,144 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Telefon raqamini to\'liq kiriting'**
   String get management_createPhoneError;
+
+  /// No description provided for @management_productFormTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulot shakli'**
+  String get management_productFormTitle;
+
+  /// No description provided for @management_productName.
+  ///
+  /// In uz, this message translates to:
+  /// **'Nomi'**
+  String get management_productName;
+
+  /// No description provided for @management_productsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulotlarni boshqarish'**
+  String get management_productsTitle;
+
+  /// No description provided for @management_productsList.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ro\'yxat'**
+  String get management_productsList;
+
+  /// No description provided for @management_knowledgeTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bilim qoidalari'**
+  String get management_knowledgeTitle;
+
+  /// No description provided for @management_knowledgeList.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bilim qoidalari ro\'yxati'**
+  String get management_knowledgeList;
+
+  /// No description provided for @management_pricingTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narx qoidalari'**
+  String get management_pricingTitle;
+
+  /// No description provided for @management_pricingCoefficients.
+  ///
+  /// In uz, this message translates to:
+  /// **'Koeffitsientlar inline tahrir'**
+  String get management_pricingCoefficients;
+
+  /// No description provided for @management_pricingTiers.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chegirma darajalari jadvali'**
+  String get management_pricingTiers;
+
+  /// No description provided for @management_pricingDefaults.
+  ///
+  /// In uz, this message translates to:
+  /// **'Standart qiymatlar'**
+  String get management_pricingDefaults;
+
+  /// No description provided for @management_pricingTest.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisobni sinash'**
+  String get management_pricingTest;
+
+  /// No description provided for @chat_listening.
+  ///
+  /// In uz, this message translates to:
+  /// **'Eshityapman...'**
+  String get chat_listening;
+
+  /// No description provided for @chat_stopVoice.
+  ///
+  /// In uz, this message translates to:
+  /// **'To\'xtatish'**
+  String get chat_stopVoice;
+
+  /// No description provided for @chat_transcriptLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'TRANSKRIPT'**
+  String get chat_transcriptLabel;
+
+  /// No description provided for @chat_voiceMode.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ovozli rejim'**
+  String get chat_voiceMode;
+
+  /// No description provided for @chat_textMode.
+  ///
+  /// In uz, this message translates to:
+  /// **'Matnli rejim'**
+  String get chat_textMode;
+
+  /// No description provided for @chat_customerModeTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz rejimi'**
+  String get chat_customerModeTitle;
+
+  /// No description provided for @chat_enterPinTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'PIN kodni kiriting'**
+  String get chat_enterPinTitle;
+
+  /// No description provided for @chat_setPinTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz rejimi uchun PIN o\'rnating'**
+  String get chat_setPinTitle;
+
+  /// No description provided for @chat_confirmPinTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'PIN kodni tasdiqlang'**
+  String get chat_confirmPinTitle;
+
+  /// No description provided for @chat_pinMismatch.
+  ///
+  /// In uz, this message translates to:
+  /// **'PIN kodlar mos tushmadi'**
+  String get chat_pinMismatch;
+
+  /// No description provided for @chat_pinIncorrect.
+  ///
+  /// In uz, this message translates to:
+  /// **'PIN kod noto\'g\'ri'**
+  String get chat_pinIncorrect;
+
+  /// No description provided for @chat_pinAttemptsWait.
+  ///
+  /// In uz, this message translates to:
+  /// **'Juda ko\'p xato urinishlar. {seconds} soniya kuting.'**
+  String chat_pinAttemptsWait(int seconds);
 }
 
 class _AppLocalizationsDelegate

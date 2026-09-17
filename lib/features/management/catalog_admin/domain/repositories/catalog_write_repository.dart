@@ -8,6 +8,10 @@ abstract class CatalogWriteRepository {
   Future<void> updateVariant(String id, Map<String, dynamic> data);
   Future<void> deleteVariant(String id);
   Future<void> applyBulkPrice(BulkPriceDto dto);
-  Future<void> uploadProductImage(String productId, String imagePath, {void Function(int, int)? onSendProgress});
+  Future<void> uploadProductImage(
+    String productId,
+    String imagePath, {
+    void Function(int, int)? onSendProgress,
+  });
   Future<void> deleteImage(String imageId);
 }

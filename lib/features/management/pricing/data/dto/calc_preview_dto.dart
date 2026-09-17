@@ -61,7 +61,8 @@ abstract class CalcPreviewResponseDto with _$CalcPreviewResponseDto {
     required List<CalcPreviewResponseServiceDto> services,
     required String subtotal,
     @JsonKey(name: 'tier_discount_percent') required String tierDiscountPercent,
-    @JsonKey(name: 'manual_discount_percent') required String manualDiscountPercent,
+    @JsonKey(name: 'manual_discount_percent')
+    required String manualDiscountPercent,
     @JsonKey(name: 'discount_percent') required String discountPercent,
     @JsonKey(name: 'discount_amount') required String discountAmount,
     @JsonKey(name: 'delivery_amount') required String deliveryAmount,
@@ -74,15 +75,17 @@ abstract class CalcPreviewResponseDto with _$CalcPreviewResponseDto {
 }
 
 @freezed
-abstract class CalcPreviewResponseMeasurementDto with _$CalcPreviewResponseMeasurementDto {
+abstract class CalcPreviewResponseMeasurementDto
+    with _$CalcPreviewResponseMeasurementDto {
   const factory CalcPreviewResponseMeasurementDto({
     @JsonKey(name: 'room_name') required String roomName,
     required List<CalcPreviewResponsePartDto> parts,
     required List<CalcPreviewResponseAccessoryDto> accessories,
   }) = _CalcPreviewResponseMeasurementDto;
 
-  factory CalcPreviewResponseMeasurementDto.fromJson(Map<String, dynamic> json) =>
-      _$CalcPreviewResponseMeasurementDtoFromJson(json);
+  factory CalcPreviewResponseMeasurementDto.fromJson(
+    Map<String, dynamic> json,
+  ) => _$CalcPreviewResponseMeasurementDtoFromJson(json);
 }
 
 @freezed
@@ -104,7 +107,8 @@ abstract class CalcPreviewResponsePartDto with _$CalcPreviewResponsePartDto {
 }
 
 @freezed
-abstract class CalcPreviewResponseAccessoryDto with _$CalcPreviewResponseAccessoryDto {
+abstract class CalcPreviewResponseAccessoryDto
+    with _$CalcPreviewResponseAccessoryDto {
   const factory CalcPreviewResponseAccessoryDto({
     @JsonKey(name: 'variant_id') required String variantId,
     @JsonKey(name: 'color_name') required String colorName,
@@ -118,7 +122,8 @@ abstract class CalcPreviewResponseAccessoryDto with _$CalcPreviewResponseAccesso
 }
 
 @freezed
-abstract class CalcPreviewResponseServiceDto with _$CalcPreviewResponseServiceDto {
+abstract class CalcPreviewResponseServiceDto
+    with _$CalcPreviewResponseServiceDto {
   const factory CalcPreviewResponseServiceDto({
     required String key,
     required String name,

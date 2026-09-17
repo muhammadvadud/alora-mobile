@@ -45,7 +45,8 @@ class EmployeeLimitEditor extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<EmployeeLimitEditor> createState() => _EmployeeLimitEditorState();
+  ConsumerState<EmployeeLimitEditor> createState() =>
+      _EmployeeLimitEditorState();
 }
 
 class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
@@ -73,7 +74,9 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
 
   void _initFromLimit(UsageLimit? limit) {
     _unlimited = limit?.isUnlimited ?? true;
-    _period = limit == null ? LimitPeriod.daily : LimitPeriod.fromName(limit.period);
+    _period = limit == null
+        ? LimitPeriod.daily
+        : LimitPeriod.fromName(limit.period);
     _onExceed = limit?.onExceed ?? OnExceed.warn;
     _tokensController.text = limit?.maxTokens?.toString() ?? '';
     _costController.text = limit?.maxCost?.toString() ?? '';
@@ -149,7 +152,9 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
                   Expanded(
                     child: Text(
                       l10n.management_limitUnlimited,
-                      style: typography.labelL.copyWith(color: colors.textPrimary),
+                      style: typography.labelL.copyWith(
+                        color: colors.textPrimary,
+                      ),
                     ),
                   ),
                   Switch(
@@ -201,7 +206,10 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
                   spacing: AppSpacing.s,
                   children: [
                     _onExceedChip(l10n.management_onExceedWarn, OnExceed.warn),
-                    _onExceedChip(l10n.management_onExceedBlock, OnExceed.block),
+                    _onExceedChip(
+                      l10n.management_onExceedBlock,
+                      OnExceed.block,
+                    ),
                   ],
                 ),
                 const SizedBox(height: AppSpacing.l),
@@ -221,9 +229,7 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
   Widget _periodChip(String label, LimitPeriod period) {
     return AppChip(
       label: label,
-      onTap: _unlimited
-          ? null
-          : () => setState(() => _period = period),
+      onTap: _unlimited ? null : () => setState(() => _period = period),
       state: !_unlimited && _period == period
           ? AppChipState.selected
           : AppChipState.unselected,

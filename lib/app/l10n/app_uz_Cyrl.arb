@@ -382,5 +382,35 @@
   "management_limitUnlimited": "Чексиз",
   "management_statsEmpty": "Маълумотлар ҳозирча йўқ",
   "management_sectionTitle": "Бўлимлар",
-  "management_createPhoneError": "Телефон рақамини тўлиқ киритинг"
+  "management_createPhoneError": "Телефон рақамини тўлиқ киритинг",
+  "management_productFormTitle": "Махсулот шакли",
+  "management_productName": "Номи",
+  "management_productsTitle": "Махсулотларни бошқариш",
+  "management_productsList": "Рўйхат",
+  "management_knowledgeTitle": "Билим қоидалари",
+  "management_knowledgeList": "Билим қоидалари рўйхати",
+  "management_pricingTitle": "Нарх қоидалари",
+  "management_pricingCoefficients": "Коэффициентлар инлайн таҳрир",
+  "management_pricingTiers": "Чегирма даражалари жадвали",
+  "management_pricingDefaults": "Оддий қийматлар",
+  "management_pricingTest": "Ҳисобни синаш",
+  "chat_listening": "Эшитяпман...",
+  "chat_stopVoice": "Тўхтатиш",
+  "chat_transcriptLabel": "ТРАНСКРИПТ",
+  "chat_voiceMode": "Овозли режим",
+  "chat_textMode": "Матнли режим",
+  "chat_customerModeTitle": "Мижоз режими",
+  "chat_enterPinTitle": "ПИН кодни киритинг",
+  "chat_setPinTitle": "Мижоз режими учун ПИН ўрнатинг",
+  "chat_confirmPinTitle": "ПИН кодни тасдиқланг",
+  "chat_pinMismatch": "ПИН кодлар мос тушмади",
+  "chat_pinIncorrect": "ПИН код нотўғри",
+  "chat_pinAttemptsWait": "Жуда кўп хато уринишлар. {seconds} сония кутинг.",
+  "@chat_pinAttemptsWait": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  }
 }

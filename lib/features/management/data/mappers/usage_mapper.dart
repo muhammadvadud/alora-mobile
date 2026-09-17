@@ -21,9 +21,7 @@ extension UsageSummaryDtoMapper on UsageSummaryDto {
       messages: messages,
       conversations: conversations,
       orders: orders,
-      conversion: conversion != null
-          ? double.tryParse(conversion!)
-          : null,
+      conversion: conversion != null ? double.tryParse(conversion!) : null,
       daily: daily.map((dto) => dto.toEntity()).toList(),
     );
   }

@@ -50,7 +50,8 @@ class TranscriptScreen extends ConsumerWidget {
                     vertical: AppSpacing.l,
                   ),
                   itemCount: messages.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.m),
+                  separatorBuilder: (_, _) =>
+                      const SizedBox(height: AppSpacing.m),
                   itemBuilder: (context, index) =>
                       _MessageBubble(message: messages[index]),
                 ),
@@ -78,8 +79,8 @@ class _MessageBubble extends StatelessWidget {
     final label = isUser
         ? l10n.management_transcriptUser
         : message.isAssistant
-            ? l10n.management_transcriptAssistant
-            : l10n.management_transcriptTool;
+        ? l10n.management_transcriptAssistant
+        : l10n.management_transcriptTool;
     final labelColor = isUser ? colors.onAccent : colors.textSecondary;
 
     return Column(
@@ -112,7 +113,9 @@ class _MessageBubble extends StatelessWidget {
                   isUser ? AppRadius.input : AppRadius.card,
                 ),
               ),
-              border: isUser ? null : Border.all(color: colors.border, width: 1),
+              border: isUser
+                  ? null
+                  : Border.all(color: colors.border, width: 1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

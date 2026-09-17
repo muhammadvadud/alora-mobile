@@ -22,10 +22,7 @@ import 'package:alora_mobile/shared/widgets/skeleton.dart';
 class EmployeeConversationsScreen extends ConsumerWidget {
   final String employeeId;
 
-  const EmployeeConversationsScreen({
-    super.key,
-    required this.employeeId,
-  });
+  const EmployeeConversationsScreen({super.key, required this.employeeId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,7 +39,8 @@ class EmployeeConversationsScreen extends ConsumerWidget {
           ),
           error: (error, _) => ErrorState(
             message: (error as Failure).localizedMessage(context),
-            onRetry: () => ref.invalidate(employeeConversationsProvider(employeeId)),
+            onRetry: () =>
+                ref.invalidate(employeeConversationsProvider(employeeId)),
           ),
           data: (items) => items.isEmpty
               ? EmptyState(
@@ -56,7 +54,8 @@ class EmployeeConversationsScreen extends ConsumerWidget {
                     vertical: AppSpacing.l,
                   ),
                   itemCount: items.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.s),
+                  separatorBuilder: (_, _) =>
+                      const SizedBox(height: AppSpacing.s),
                   itemBuilder: (context, index) {
                     final conversation = items[index];
                     return ConversationRow(

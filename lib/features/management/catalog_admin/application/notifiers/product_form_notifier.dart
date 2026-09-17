@@ -1,6 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../providers/catalog_providers.dart';
 import '../../data/dto/catalog_write_dtos.dart';
+
 import 'package:alora_mobile/core/storage/offline_queue.dart';
 import 'package:alora_mobile/core/storage/offline_queue_item.dart';
 
@@ -31,7 +33,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
       if ((state['price'] as double) <= 0) {
         return false;
       }
-      
+
       final dto = ProductWriteDto(
         name: state['name'] as String,
         code: state['code'] as String,
@@ -42,7 +44,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
         recommendedRooms: [],
         segment: 'default',
       );
-      
+
       await repo.createProduct(dto);
       return true;
     } catch (e) {

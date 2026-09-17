@@ -14,7 +14,10 @@ class UsageRepositoryImpl implements UsageRepository {
   final UsageRemoteDataSource _remoteDataSource;
 
   @override
-  Future<UsageSummary> summary({required UsagePeriod period, String? userId}) async {
+  Future<UsageSummary> summary({
+    required UsagePeriod period,
+    String? userId,
+  }) async {
     final dto = await _remoteDataSource.summary(period: period, userId: userId);
     return dto.toEntity();
   }

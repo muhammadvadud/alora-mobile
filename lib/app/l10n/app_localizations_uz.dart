@@ -849,6 +849,77 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get management_createPhoneError => 'Telefon raqamini to\'liq kiriting';
+
+  @override
+  String get management_productFormTitle => 'Mahsulot shakli';
+
+  @override
+  String get management_productName => 'Nomi';
+
+  @override
+  String get management_productsTitle => 'Mahsulotlarni boshqarish';
+
+  @override
+  String get management_productsList => 'Ro\'yxat';
+
+  @override
+  String get management_knowledgeTitle => 'Bilim qoidalari';
+
+  @override
+  String get management_knowledgeList => 'Bilim qoidalari ro\'yxati';
+
+  @override
+  String get management_pricingTitle => 'Narx qoidalari';
+
+  @override
+  String get management_pricingCoefficients => 'Koeffitsientlar inline tahrir';
+
+  @override
+  String get management_pricingTiers => 'Chegirma darajalari jadvali';
+
+  @override
+  String get management_pricingDefaults => 'Standart qiymatlar';
+
+  @override
+  String get management_pricingTest => 'Hisobni sinash';
+
+  @override
+  String get chat_listening => 'Eshityapman...';
+
+  @override
+  String get chat_stopVoice => 'To\'xtatish';
+
+  @override
+  String get chat_transcriptLabel => 'TRANSKRIPT';
+
+  @override
+  String get chat_voiceMode => 'Ovozli rejim';
+
+  @override
+  String get chat_textMode => 'Matnli rejim';
+
+  @override
+  String get chat_customerModeTitle => 'Mijoz rejimi';
+
+  @override
+  String get chat_enterPinTitle => 'PIN kodni kiriting';
+
+  @override
+  String get chat_setPinTitle => 'Mijoz rejimi uchun PIN o\'rnating';
+
+  @override
+  String get chat_confirmPinTitle => 'PIN kodni tasdiqlang';
+
+  @override
+  String get chat_pinMismatch => 'PIN kodlar mos tushmadi';
+
+  @override
+  String get chat_pinIncorrect => 'PIN kod noto\'g\'ri';
+
+  @override
+  String chat_pinAttemptsWait(int seconds) {
+    return 'Juda ko\'p xato urinishlar. $seconds soniya kuting.';
+  }
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -1690,4 +1761,75 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get management_createPhoneError => 'Телефон рақамини тўлиқ киритинг';
+
+  @override
+  String get management_productFormTitle => 'Махсулот шакли';
+
+  @override
+  String get management_productName => 'Номи';
+
+  @override
+  String get management_productsTitle => 'Махсулотларни бошқариш';
+
+  @override
+  String get management_productsList => 'Рўйхат';
+
+  @override
+  String get management_knowledgeTitle => 'Билим қоидалари';
+
+  @override
+  String get management_knowledgeList => 'Билим қоидалари рўйхати';
+
+  @override
+  String get management_pricingTitle => 'Нарх қоидалари';
+
+  @override
+  String get management_pricingCoefficients => 'Коэффициентлар инлайн таҳрир';
+
+  @override
+  String get management_pricingTiers => 'Чегирма даражалари жадвали';
+
+  @override
+  String get management_pricingDefaults => 'Оддий қийматлар';
+
+  @override
+  String get management_pricingTest => 'Ҳисобни синаш';
+
+  @override
+  String get chat_listening => 'Эшитяпман...';
+
+  @override
+  String get chat_stopVoice => 'Тўхтатиш';
+
+  @override
+  String get chat_transcriptLabel => 'ТРАНСКРИПТ';
+
+  @override
+  String get chat_voiceMode => 'Овозли режим';
+
+  @override
+  String get chat_textMode => 'Матнли режим';
+
+  @override
+  String get chat_customerModeTitle => 'Мижоз режими';
+
+  @override
+  String get chat_enterPinTitle => 'ПИН кодни киритинг';
+
+  @override
+  String get chat_setPinTitle => 'Мижоз режими учун ПИН ўрнатинг';
+
+  @override
+  String get chat_confirmPinTitle => 'ПИН кодни тасдиқланг';
+
+  @override
+  String get chat_pinMismatch => 'ПИН кодлар мос тушмади';
+
+  @override
+  String get chat_pinIncorrect => 'ПИН код нотўғри';
+
+  @override
+  String chat_pinAttemptsWait(int seconds) {
+    return 'Жуда кўп хато уринишлар. $seconds сония кутинг.';
+  }
 }

@@ -27,20 +27,23 @@ class LanguageSection extends ConsumerWidget {
           context,
           label: l10n.profile_languageOptionUz,
           isSelected: isUz,
-          onTap: () => ref.read(localeProvider.notifier).setLocale(const Locale('uz')),
+          onTap: () =>
+              ref.read(localeProvider.notifier).setLocale(const Locale('uz')),
         ),
         _optionChip(
           context,
           label: l10n.profile_languageOptionCyrl,
           isSelected: isCyrl,
-          onTap: () =>
-              ref.read(localeProvider.notifier).setLocale(const Locale('uz', 'Cyrl')),
+          onTap: () => ref
+              .read(localeProvider.notifier)
+              .setLocale(const Locale('uz', 'Cyrl')),
         ),
         _optionChip(
           context,
           label: l10n.profile_languageOptionRu,
           isSelected: isRu,
-          onTap: () => ref.read(localeProvider.notifier).setLocale(const Locale('ru')),
+          onTap: () =>
+              ref.read(localeProvider.notifier).setLocale(const Locale('ru')),
         ),
       ],
     );

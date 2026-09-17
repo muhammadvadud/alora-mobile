@@ -50,8 +50,8 @@ Widget chatApp(
       connectivityProvider.overrideWithValue(online),
     ],
     child: MaterialApp(
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       themeMode: themeMode,
       locale: testLocale,
       localizationsDelegates: const [

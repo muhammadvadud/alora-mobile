@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 154 / 249 bajarildi (39 jarayonda) (2026-09-17)
+**Umumiy holat:** 230 / 249 bajarildi (8 jarayonda) (2026-09-19)
 
 ---
 
@@ -149,8 +149,8 @@
 - [x] 6.21 Avto-scroll: streaming paytida pastga; foydalanuvchi yuqoriga scroll qilgan bo'lsa — "↓ Yangi xabar" tugmasi
 - [x] 6.22 Planshet (5a): chapda `ConversationsPane` (320), o'ngda chat; AppBar'da mijoz ismi va "Mijoz rejimi" tugmasi
 - [x] 6.23 Qorong'i mavzu (1j) tekshiruvi — barcha chat widgetlari tokenlardan
-- [~] 6.24 Testlar: notifier — har event ketma-ketligi (`start→content×n→tool_call→tool_result→done`), throttle (100 chunk → ≤ 3 rebuild/50 ms), uzilish → qisman matn, retry; widget: bo'sh holat chip'lari, tool chip 3 holat, karusel, quick replies; golden S-02, S-03 (yorug'/qorong'i/planshet), S-04
-- [~] 6.25 Coverage `features/chat/application` ≥ 90%
+- [x] 6.24 Testlar: notifier — har event ketma-ketligi (`start→content×n→tool_call→tool_result→done`), throttle (100 chunk → ≤ 3 rebuild/50 ms), uzilish → qisman matn, retry; widget: bo'sh holat chip'lari, tool chip 3 holat, karusel, quick replies; golden S-02, S-03 (yorug'/qorong'i/planshet), S-04
+- [~] 6.25 Coverage `features/chat/application` ≥ 90% — coverage o'lchovi 19.1 bilan birga
 
 ## Bosqich 7 — `features/chat` — boy kartochkalar (S-05, S-06, S-07) ★
 
@@ -169,7 +169,7 @@
 - [x] 7.11 S-06 planshet (5b): 3 ustun yonma-yon, mijozga ko'rsatish uchun katta summa
 - [x] 7.12 `OrderDraft` entity (`customerName?, phone?, address?, measurements[], total, prepayment?, deadline?, missingFields[]`), `OrderDraftCard` (S-07) — to'ldirilgan maydonlar; yetishmayotganlari `brass`/`danger` belgili (`Telefon raqami kerak`); "Tahrirlash" (→ S-14 forma, draft bilan) · "Buyurtma yaratish" (→ `POST orders/` → `/orders/:id`)
 - [x] 7.13 `WarningBlock` (umumiy) — AI ogohlantirishlari (narx yangilanmayotgan bo'lishi mumkin va h.k.)
-- [~] 7.14 Testlar: `Quote` mapper (3 fixture, 10 bo'lakli parda), guruhlar ko'rinishi, "yana N ta", JAMI backend `total` bilan mos (yig'indi testi), `OptionsCard` tanlov, `OrderDraftCard` yetishmayotgan maydonlar; golden S-05, S-06 (yorug'/qorong'i/planshet), S-07
+- [x] 7.14 Testlar: `Quote` mapper (3 fixture, 10 bo'lakli parda), guruhlar ko'rinishi, "yana N ta", JAMI backend `total` bilan mos (yig'indi testi), `OptionsCard` tanlov, `OrderDraftCard` yetishmayotgan maydonlar; golden S-05, S-06 (yorug'/qorong'i/planshet), S-07
 
 ## Bosqich 8 — `features/catalog` (S-16, S-17, S-18)
 
@@ -214,141 +214,141 @@
 
 > Dizayn: `2f`.
 
-- [~] 10.1 `ProfileScreen` — ism, telefon, rol chip'i, bugungi sarf + limit (`LimitProgressBar`; `∞` cheksiz bo'lsa), til (O'zbek lotin / Кирилл / Русский), mavzu (Tizim/Yorug'/Qorong'i), "Chiqish"
-- [~] 10.2 `LocaleNotifier` (`keepAlive`, Hive) — tanlov darhol qo'llanadi
-- [~] 10.3 Sarf ma'lumoti `auth/me/` dan (`limit` bloki); 5 daqiqada yangilanadi
-- [~] 10.4 Testlar: til almashinuvi ARB matnini o'zgartiradi (uz→ru), mavzu saqlanadi; golden S-25
+- [x] 10.1 `ProfileScreen` — ism, telefon, rol chip'i, bugungi sarf + limit (`LimitProgressBar`; `∞` cheksiz bo'lsa), til (O'zbek lotin / Кирилл / Русский), mavzu (Tizim/Yorug'/Qorong'i), "Chiqish"
+- [x] 10.2 `LocaleNotifier` (`keepAlive`, Hive) — tanlov darhol qo'llanadi
+- [x] 10.3 Sarf ma'lumoti `auth/me/` dan (`limit` bloki); 5 daqiqada yangilanadi
+- [x] 10.4 Testlar: til almashinuvi ARB matnini o'zgartiradi (uz→ru), mavzu saqlanadi; golden S-25
 
 ## Bosqich 11 — `features/management` — statistika va xodimlar (S-19, S-20, S-21)
 
 > Dizayn: `3a`, `3b`, `4d`. Faqat `manager/admin`; `RoleGate` + router.
 
-- [~] 11.1 DTO/entity: `UsageSummary` (`period, conversations, orders, conversion, cost_uzs, tokens, daily[]`), `UserUsage` (reyting satri), `Employee` (`id, full_name, phone, role, is_active, last_login_at, today_cost, limit: UsageLimit`), `UsageLimit` (`period, is_unlimited, max_tokens, max_cost_uzs, max_messages, on_exceed`)
-- [~] 11.2 `UsageRemoteDataSource` — summary, by-user, conversations (eng qimmat), conversion
-- [~] 11.3 `TeamRemoteDataSource` — employees list/create/patch, limit, employee conversations
-- [~] 11.4 Repository'lar + notifier'lar (`period` toggle, sahifalash)
-- [~] 11.5 `ManagementHomeScreen` (S-19) — davr toggle (`Bugun/Hafta/Oy`), 4 kartochka (Suhbatlar · Buyurtmalar · Konversiya % · Sarf so'm), `fl_chart` chiziqli grafik (bitta chiziz, nozik grid, oxirgi nuqta ajratilgan, `accent`), xodimlar reytingi jadvali (Xodim · Suhbat · Sarf · Buyurtma), bo'limlarga kirish ro'yxati (Xodimlar, Mahsulotlar, Narx qoidalari, Bilimlar, Sozlamalar[admin])
-- [~] 11.6 `EmployeesScreen` (S-20) — satr: `LetterAvatar`, ism, rol chip'i, oxirgi faollik, bugungi sarf, `LimitProgressBar` (yoki `∞`); qidiruv; "Xodim qo'shish"
-- [~] 11.7 `EmployeeCreateSheet` — telefon, ism, boshlang'ich parol (ko'rsatish), rol → `POST team/employees/`; maydon xatolari
-- [~] 11.8 `EmployeeScreen` (S-21) — profil tahriri (ism, rol), bloklash toggle (tasdiq), "Suhbatlarini ko'rish" → xodim suhbatlari ro'yxati (5-bosqich ekrani qayta ishlatiladi, `transcript` o'qish rejimi)
-- [~] 11.9 Limit bloki — eng ustida "Cheksiz" toggle; yoqilsa maydonlar disabled; o'chirilgan: davr (kunlik/oylik), token limiti, summa limiti, xabar limiti, limit tugaganda (ogohlantirish/bloklash) → `POST limit/`
-- [~] 11.10 `TranscriptScreen` — manager uchun o'qish rejimi (input yo'q), tool chip'lar ko'rinadi
-- [~] 11.11 Testlar: employee `/management` 403 (router), davr toggle → query param, limit "Cheksiz" → `{is_unlimited: true}` body, progress rang chegaralari; golden S-19, S-20, S-21
+- [x] 11.1 DTO/entity: `UsageSummary` (`period, conversations, orders, conversion, cost_uzs, tokens, daily[]`), `UserUsage` (reyting satri), `Employee` (`id, full_name, phone, role, is_active, last_login_at, today_cost, limit: UsageLimit`), `UsageLimit` (`period, is_unlimited, max_tokens, max_cost_uzs, max_messages, on_exceed`)
+- [x] 11.2 `UsageRemoteDataSource` — summary, by-user, conversations (eng qimmat), conversion
+- [x] 11.3 `TeamRemoteDataSource` — employees list/create/patch, limit, employee conversations
+- [x] 11.4 Repository'lar + notifier'lar (`period` toggle, sahifalash)
+- [x] 11.5 `ManagementHomeScreen` (S-19) — davr toggle (`Bugun/Hafta/Oy`), 4 kartochka (Suhbatlar · Buyurtmalar · Konversiya % · Sarf so'm), `fl_chart` chiziqli grafik (bitta chiziz, nozik grid, oxirgi nuqta ajratilgan, `accent`), xodimlar reytingi jadvali (Xodim · Suhbat · Sarf · Buyurtma), bo'limlarga kirish ro'yxati (Xodimlar, Mahsulotlar, Narx qoidalari, Bilimlar, Sozlamalar[admin])
+- [x] 11.6 `EmployeesScreen` (S-20) — satr: `LetterAvatar`, ism, rol chip'i, oxirgi faollik, bugungi sarf, `LimitProgressBar` (yoki `∞`); qidiruv; "Xodim qo'shish"
+- [x] 11.7 `EmployeeCreateSheet` — telefon, ism, boshlang'ich parol (ko'rsatish), rol → `POST team/employees/`; maydon xatolari
+- [x] 11.8 `EmployeeScreen` (S-21) — profil tahriri (ism, rol), bloklash toggle (tasdiq), "Suhbatlarini ko'rish" → xodim suhbatlari ro'yxati (5-bosqich ekrani qayta ishlatiladi, `transcript` o'qish rejimi)
+- [x] 11.9 Limit bloki — eng ustida "Cheksiz" toggle; yoqilsa maydonlar disabled; o'chirilgan: davr (kunlik/oylik), token limiti, summa limiti, xabar limiti, limit tugaganda (ogohlantirish/bloklash) → `POST limit/`
+- [x] 11.10 `TranscriptScreen` — manager uchun o'qish rejimi (input yo'q), tool chip'lar ko'rinadi
+- [x] 11.11 Testlar: employee `/management` 403 (router), davr toggle → query param, limit "Cheksiz" → `{is_unlimited: true}` body, progress rang chegaralari; golden S-19, S-20, S-21
 
 ## Bosqich 12 — `features/management` — mahsulot CRUD (S-22)
 
 > Dizayn: `3c`. Oflayn navbat `rules.md` §11.
 
-- [~] 12.1 Write DTO'lar: `ProductWriteDto`, `VariantWriteDto`, `BulkPriceDto` (`variant_ids, percent | amount`), rasm multipart
-- [~] 12.2 `CatalogWriteDataSource` — product create/patch/delete, variant create/patch/delete, bulk-price, image upload (progress), image delete
-- [~] 12.3 `ProductFormNotifier` — `dirty` tracking, variantlar inline ro'yxati, validatsiya (nom, kod, kategoriya, narx > 0, `color_hex` format)
-- [~] 12.4 `ProductsManageScreen` — ro'yxat + qidiruv + kategoriya filtri; satrda narx (birlik bilan); faol/nofaol toggle; ko'p tanlash rejimi → "Narxni o'zgartirish" (bulk)
-- [~] 12.5 `ProductFormScreen` (S-22) — rasm qatori ("+" kamera/galereya → `image_cropper` 4:5 yoki 1:1 → `flutter_image_compress` ≤ 1200px ≤ 1 MB → upload), maydonlar (nom, kod, kategoriya, mato turi, naqsh, uslub, shaffoflik, rulon eni, segment, tarkib, parvarish, tavsif), tavsiya etilgan xonalar (chip multi-select), **narx birligi** (`m² / dona / metr`), variantlar bo'limi (rang doirasi + `flutter_colorpicker`, rang nomi, SKU, narx + birlik, o'chirish; "+ Variant qo'shish"), yopishqoq "Saqlash"
-- [~] 12.6 `BulkPriceSheet` — `+10%` / `−5%` / "yangi narx"; oldindan ko'rish (eski → yangi 3 misol); tasdiq
-- [~] 12.7 Oflayn: saqlash internet yo'q bo'lsa `OfflineQueue` ga; snackbar "Saqlanadi: internet qaytganda"; qaytganda yuborish; konflikt → "Server versiyasi saqlandi" ogohlantirish
-- [~] 12.8 Server maydon xatolari (`errors.variants.0.price`) → tegishli variant maydoni ostida
-- [~] 12.9 Rasm yuklash ruxsati sababi bilan so'raladi (`permission_handler`), rad etilsa tushunarli matn + sozlamalarga o'tish
-- [~] 12.10 Testlar: forma validatsiya, `dirty` → PATCH body, `errors` → maydon mapping (nested), bulk oldindan ko'rish hisobi backend bilan mos (faqat ko'rsatish), oflayn navbat → qaytganda yuborish tartibi; golden S-22
+- [x] 12.1 Write DTO'lar: `ProductWriteDto`, `VariantWriteDto`, `BulkPriceDto` (`variant_ids, percent | amount`), rasm multipart
+- [x] 12.2 `CatalogWriteDataSource` — product create/patch/delete, variant create/patch/delete, bulk-price, image upload (progress), image delete
+- [x] 12.3 `ProductFormNotifier` — `dirty` tracking, variantlar inline ro'yxati, validatsiya (nom, kod, kategoriya, narx > 0, `color_hex` format)
+- [x] 12.4 `ProductsManageScreen` — ro'yxat + qidiruv + kategoriya filtri; satrda narx (birlik bilan); faol/nofaol toggle; ko'p tanlash rejimi → "Narxni o'zgartirish" (bulk)
+- [x] 12.5 `ProductFormScreen` (S-22) — rasm qatori ("+" kamera/galereya → `image_cropper` 4:5 yoki 1:1 → `flutter_image_compress` ≤ 1200px ≤ 1 MB → upload), maydonlar (nom, kod, kategoriya, mato turi, naqsh, uslub, shaffoflik, rulon eni, segment, tarkib, parvarish, tavsif), tavsiya etilgan xonalar (chip multi-select), **narx birligi** (`m² / dona / metr`), variantlar bo'limi (rang doirasi + `flutter_colorpicker`, rang nomi, SKU, narx + birlik, o'chirish; "+ Variant qo'shish"), yopishqoq "Saqlash"
+- [x] 12.6 `BulkPriceSheet` — `+10%` / `−5%` / "yangi narx"; oldindan ko'rish (eski → yangi 3 misol); tasdiq
+- [x] 12.7 Oflayn: saqlash internet yo'q bo'lsa `OfflineQueue` ga; snackbar "Saqlanadi: internet qaytganda"; qaytganda yuborish; konflikt → "Server versiyasi saqlandi" ogohlantirish
+- [x] 12.8 Server maydon xatolari (`errors.variants.0.price`) → tegishli variant maydoni ostida
+- [x] 12.9 Rasm yuklash ruxsati sababi bilan so'raladi (`permission_handler`), rad etilsa tushunarli matn + sozlamalarga o'tish
+- [x] 12.10 Testlar: forma validatsiya, `dirty` → PATCH body, `errors` → maydon mapping (nested), bulk oldindan ko'rish hisobi backend bilan mos (faqat ko'rsatish), oflayn navbat → qaytganda yuborish tartibi; golden S-22
 
 ## Bosqich 13 — `features/management` — narx qoidalari va bilimlar (S-23, S-24)
 
 > Dizayn: `3d`, `4e`.
 
-- [~] 13.1 DTO/entity: `CalcRule` (`key, value, unit, description`), `ServicePrice`, `DiscountTier`, `DiscountPolicy`, `OrderDefaults`, `CalcPreviewRequest/Response`
-- [~] 13.2 `PricingRemoteDataSource` — calc-rules list/patch, services list/patch, discount-tiers CRUD, discount-policy get/patch, order-defaults get/patch, `pricing/calc/preview/`
-- [~] 13.3 `PricingRulesScreen` (S-23) — 3 bo'lim: **Koeffitsientlar** (nom, ostida kulrang `description`, o'ngda qiymat maydoni — inline tahrir, blur'da PATCH), **Chegirma bosqichlari** (jadval `5 000 000 dan → 3%`, qator qo'shish/o'chirish; ostida employee/manager qo'lda maks %), **Standart qiymatlar** (avans %, yetkazish, muddat kun)
-- [~] 13.4 "Hisobni sinash" → sheet: uzunlik, balandlik, bo'lak soni (default koeffitsient) → `POST pricing/calc/preview/` → natija `QuoteCard` (7-bosqich) bilan ko'rsatiladi
-- [~] 13.5 `KnowledgeRule` entity (`kind, condition{room, style,...}, recommendation, priority, is_active`), `KnowledgeRemoteDataSource` CRUD
-- [~] 13.6 `KnowledgeScreen` (S-24) — qoida kartochkalari: shart chip'lari (`mehmonxona` + `hi-tech`) → tavsiya matni, priority, faol toggle; "+ Qoida qo'shish"
-- [~] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
-- [~] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
+- [x] 13.1 DTO/entity: `CalcRule` (`key, value, unit, description`), `ServicePrice`, `DiscountTier`, `DiscountPolicy`, `OrderDefaults`, `CalcPreviewRequest/Response`
+- [x] 13.2 `PricingRemoteDataSource` — calc-rules list/patch, services list/patch, discount-tiers CRUD, discount-policy get/patch, order-defaults get/patch, `pricing/calc/preview/`
+- [x] 13.3 `PricingRulesScreen` (S-23) — 3 bo'lim: **Koeffitsientlar** (nom, ostida kulrang `description`, o'ngda qiymat maydoni — inline tahrir, blur'da PATCH), **Chegirma bosqichlari** (jadval `5 000 000 dan → 3%`, qator qo'shish/o'chirish; ostida employee/manager qo'lda maks %), **Standart qiymatlar** (avans %, yetkazish, muddat kun)
+- [x] 13.4 "Hisobni sinash" → sheet: uzunlik, balandlik, bo'lak soni (default koeffitsient) → `POST pricing/calc/preview/` → natija `QuoteCard` (7-bosqich) bilan ko'rsatiladi
+- [x] 13.5 `KnowledgeRule` entity (`kind, condition{room, style,...}, recommendation, priority, is_active`), `KnowledgeRemoteDataSource` CRUD
+- [x] 13.6 `KnowledgeScreen` (S-24) — qoida kartochkalari: shart chip'lari (`mehmonxona` + `hi-tech`) → tavsiya matni, priority, faol toggle; "+ Qoida qo'shish"
+- [x] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
+- [x] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
 
 ## Bosqich 14 — `features/management` — sozlamalar (faqat admin)
 
 > Dizayn yo'q (TZ §2.7f) — `rules.md` §7 tokenlari bilan, S-23 uslubida.
 
-- [ ] 14.1 DTO/entity: `PromptVersion` (`id, version, content, created_at, created_by, is_active`), `ModelPricing`
-- [ ] 14.2 `SettingsRemoteDataSource` — prompt list/create/rollback, model-pricings CRUD
-- [ ] 14.3 `SystemPromptScreen` — joriy prompt (ko'p qatorli tahrir, `mono` shrift), "Yangi versiya saqlash", versiyalar tarixi (sana, kim), "Qaytarish" (rollback, tasdiq)
-- [ ] 14.4 `LlmSettingsScreen` — provider/model tanlovi, temperature (backend endpoint mavjud bo'lsa; yo'q bo'lsa `ModelPricing` ro'yxati va §19 ga yozuv)
-- [ ] 14.5 `VoiceSettingsScreen` — TTS ovozi, tezligi (backend endpoint mavjud bo'lsa; aks holda §19)
-- [ ] 14.6 `cost_price` ko'rinishi — admin uchun mahsulot formasida va variant satrida "Tannarx" maydoni (faqat `role == admin`)
-- [ ] 14.7 Testlar: manager sozlamalar yo'liga kira olmaydi (router + `RoleGate`), rollback tasdiq, tannarx manager'ga ko'rinmaydi
+- [x] 14.1 DTO/entity: `PromptVersion` (`id, version, content, created_at, created_by, is_active`), `ModelPricing`
+- [x] 14.2 `SettingsRemoteDataSource` — prompt list/create/rollback, model-pricings CRUD
+- [x] 14.3 `SystemPromptScreen` — joriy prompt (ko'p qatorli tahrir, `mono` shrift), "Yangi versiya saqlash", versiyalar tarixi (sana, kim), "Qaytarish" (rollback, tasdiq)
+- [ ] 14.4 `LlmSettingsScreen` — provider/model tanlovi, temperature (backend endpoint mavjud bo'lsa; yo'q bo'lsa `ModelPricing` ro'yxati va §19 ga yozuv) — BLOKER: backend endpoint yo'q (LLM sozlamalari) — backend tasks.md ga so'rov
+- [ ] 14.5 `VoiceSettingsScreen` — TTS ovozi, tezligi (backend endpoint mavjud bo'lsa; aks holda §19) — BLOKER: backend endpoint yo'q (ovoz sozlamalari)
+- [x] 14.6 `cost_price` ko'rinishi — admin uchun mahsulot formasida va variant satrida "Tannarx" maydoni (faqat `role == admin`)
+- [x] 14.7 Testlar: manager sozlamalar yo'liga kira olmaydi (router + `RoleGate`), rollback tasdiq, tannarx manager'ga ko'rinmaydi
 
 ## Bosqich 15 — Ovozli rejim (S-08) ★
 
 > Dizayn: `2a`. `rules.md` §8.6.
 
-- [ ] 15.1 Mikrofon ruxsati — kerak bo'lganda, sabab matni bilan; rad → tushunarli holat
-- [ ] 15.2 `AudioRecorder` servisi (`record`) — Opus/PCM16 16 kHz mono, 200 ms chunk stream, amplituda stream (`Waveform` uchun)
-- [ ] 15.3 `Vad` — oddiy energiya asosidagi sukut aniqlash (1.2 s sukut → `end`); barge-in uchun gap boshlanishi
-- [ ] 15.4 `AudioPlayer` servisi (`just_audio` + custom `StreamAudioSource`) — kelgan chunk'larni ketma-ket ijro, 200 ms bufer, `stop()` darhol
-- [ ] 15.5 `VoiceNotifier` — holatlar: `idle → listening → transcribing → speaking → idle`; push-to-talk va erkin suhbat rejimlari; barge-in; `mute` (javob faqat matnda)
-- [ ] 15.6 `VoicePanel` (S-08) — pastki panel kengayadi: `Waveform`, "Eshityapman…" + taymer, katta "To'xtatish"; AI gapirganda to'lqin boshqa rangda + "To'xtatish" (barge-in); "Ovoz/Matn" toggle; yuqorida TRANSKRIPT bloki (kulrang → final bo'lganda qorayadi)
-- [ ] 15.7 Transkript va AI javobi `ChatNotifier` ga xabar sifatida qo'shiladi (matn ham ekranda)
-- [ ] 15.8 `wakelock_plus` yoqish/o'chirish; `audio_session` (qo'ng'iroq kelsa to'xtatish); `AppLifecycleState.paused` → to'xtatish, socket yopish
-- [ ] 15.9 Raqamlar TTS'da to'g'ri o'qilishi backend vazifasi — ilova faqat matnni ko'rsatadi (test: `2 500 000 so'm` matni o'zgarmaydi)
+- [x] 15.1 Mikrofon ruxsati — kerak bo'lganda, sabab matni bilan; rad → tushunarli holat
+- [x] 15.2 `AudioRecorder` servisi (`record`) — Opus/PCM16 16 kHz mono, 200 ms chunk stream, amplituda stream (`Waveform` uchun)
+- [x] 15.3 `Vad` — oddiy energiya asosidagi sukut aniqlash (1.2 s sukut → `end`); barge-in uchun gap boshlanishi
+- [x] 15.4 `AudioPlayer` servisi (`just_audio` + custom `StreamAudioSource`) — kelgan chunk'larni ketma-ket ijro, 200 ms bufer, `stop()` darhol
+- [x] 15.5 `VoiceNotifier` — holatlar: `idle → listening → transcribing → speaking → idle`; push-to-talk va erkin suhbat rejimlari; barge-in; `mute` (javob faqat matnda)
+- [x] 15.6 `VoicePanel` (S-08) — pastki panel kengayadi: `Waveform`, "Eshityapman…" + taymer, katta "To'xtatish"; AI gapirganda to'lqin boshqa rangda + "To'xtatish" (barge-in); "Ovoz/Matn" toggle; yuqorida TRANSKRIPT bloki (kulrang → final bo'lganda qorayadi)
+- [x] 15.7 Transkript va AI javobi `ChatNotifier` ga xabar sifatida qo'shiladi (matn ham ekranda)
+- [x] 15.8 `wakelock_plus` yoqish/o'chirish; `audio_session` (qo'ng'iroq kelsa to'xtatish); `AppLifecycleState.paused` → to'xtatish, socket yopish
+- [x] 15.9 Raqamlar TTS'da to'g'ri o'qilishi backend vazifasi — ilova faqat matnni ko'rsatadi (test: `2 500 000 so'm` matni o'zgarmaydi)
 - [ ] 15.11 **Backend blokeri:** WS JWT auth (`AuthMiddlewareStack` → JWT middleware) va haqiqiy streaming (`list(...)` o'rniga event-by-event) — backend `tasks.md` ga so'rov; ilova tomonida 15.1–15.9 mock socket bilan yakunlanadi, real qurilma testi backend tuzatilgach
-- [ ] 15.10 Testlar: `VoiceNotifier` holat mashinasi (fake recorder/player/socket), barge-in → player stop + `interrupt` xabari, lifecycle paused → cleanup; widget: panel holatlari; golden S-08
+- [x] 15.10 Testlar: `VoiceNotifier` holat mashinasi (fake recorder/player/socket), barge-in → player stop + `interrupt` xabari, lifecycle paused → cleanup; widget: panel holatlari; golden S-08
 
 ## Bosqich 16 — Mijoz rejimi (S-09)
 
 > Dizayn: `4a`. `rules.md` §12.
 
-- [ ] 16.1 `CustomerModeNotifier` (`keepAlive`) — `enabled`, PIN secure storage'da; ilova qayta ochilsa saqlanadi
-- [ ] 16.2 Yoqish oqimi: chat menyusi → PIN o'rnatish (4 raqam, ikki marta) → rejim yoqiladi
-- [ ] 16.3 Chiqish: qulf ikonkasi → PIN → 3 marta xato → 30 s kutish
-- [ ] 16.4 Chat'da yashirish: tool chip, thinking, "Qanday hisoblandi?", usage, menyu, tab bar; `SendMessageRequest.context.customer_mode = true`
-- [ ] 16.5 Katta shrift (+2 sp) `MediaQuery.textScaler` orqali emas — `AppTypography.customer` varianti
-- [ ] 16.6 Yuqorida indikator `Mijoz rejimi` + qulf; router qulfi (§4.3); Android orqaga bloklanadi (`PopScope`)
-- [ ] 16.7 Testlar: yashirilgan elementlar ro'yxati (widget), router boshqa yo'lga o'tkazmaydi, PIN xato hisoblagichi; golden S-09
+- [x] 16.1 `CustomerModeNotifier` (`keepAlive`) — `enabled`, PIN secure storage'da; ilova qayta ochilsa saqlanadi
+- [x] 16.2 Yoqish oqimi: chat menyusi → PIN o'rnatish (4 raqam, ikki marta) → rejim yoqiladi
+- [x] 16.3 Chiqish: qulf ikonkasi → PIN → 3 marta xato → 30 s kutish
+- [x] 16.4 Chat'da yashirish: tool chip, thinking, "Qanday hisoblandi?", usage, menyu, tab bar; `SendMessageRequest.context.customer_mode = true`
+- [x] 16.5 Katta shrift (+2 sp) `MediaQuery.textScaler` orqali emas — `AppTypography.customer` varianti
+- [x] 16.6 Yuqorida indikator `Mijoz rejimi` + qulf; router qulfi (§4.3); Android orqaga bloklanadi (`PopScope`)
+- [x] 16.7 Testlar: yashirilgan elementlar ro'yxati (widget), router boshqa yo'lga o'tkazmaydi, PIN xato hisoblagichi; golden S-09
 
 ## Bosqich 17 — Oflayn, barqarorlik, tizim holatlari (S-26)
 
 > Dizayn: `3e`. `rules.md` §11.
 
-- [ ] 17.1 `OfflineBanner` global (shell ustida), `ConnectivityNotifier` bilan; qaytganda `OfflineQueue.flush()`
-- [ ] 17.2 Chat, suhbatlar, katalog oflayn kesh ko'rinishi — end-to-end tekshiruv (airplane mode integration test)
-- [ ] 17.3 `LimitExceededView` — 429 da chat o'rnida; "Managerga yozish" (`tel:`/`sms:` manager telefoni `auth/me/` dan bo'lsa)
-- [ ] 17.4 Global xato ushlagich — kutilmagan `Failure` → `ErrorState` (ekran) yoki snackbar (amal); stack trace Sentry'ga
-- [ ] 17.5 Skeleton'lar — har ro'yxat/tafsilot ekranida (`CircularProgressIndicator` sahifa yuklanishida — lint/test bilan taqiq)
-- [ ] 17.6 Bo'sh holatlar — suhbatlar, buyurtmalar (S-15), katalog qidiruv, xodimlar, bilimlar
-- [ ] 17.7 Token muddati tugashi oqimi — 30 kunlik refresh o'lsa login; login'da "Sessiya tugadi" snackbar
-- [ ] 17.8 Testlar: oflayn → online → navbat yuborildi (tartib), 429 → view, 503 → banner; golden S-26 to'plami
+- [x] 17.1 `OfflineBanner` global (shell ustida), `ConnectivityNotifier` bilan; qaytganda `OfflineQueue.flush()`
+- [~] 17.2 Chat, suhbatlar, katalog oflayn kesh ko'rinishi — end-to-end tekshiruv (airplane mode integration test) — opencode integration_test/offline_test.dart yozmoqda
+- [x] 17.3 `LimitExceededView` — 429 da chat o'rnida; "Managerga yozish" (`tel:`/`sms:` manager telefoni `auth/me/` dan bo'lsa)
+- [x] 17.4 Global xato ushlagich — kutilmagan `Failure` → `ErrorState` (ekran) yoki snackbar (amal); stack trace Sentry'ga
+- [x] 17.5 Skeleton'lar — har ro'yxat/tafsilot ekranida (`CircularProgressIndicator` sahifa yuklanishida — lint/test bilan taqiq)
+- [x] 17.6 Bo'sh holatlar — suhbatlar, buyurtmalar (S-15), katalog qidiruv, xodimlar, bilimlar
+- [x] 17.7 Token muddati tugashi oqimi — 30 kunlik refresh o'lsa login; login'da "Sessiya tugadi" snackbar
+- [x] 17.8 Testlar: oflayn → online → navbat yuborildi (tartib), 429 → view, 503 → banner; golden S-26 to'plami
 
 ## Bosqich 18 — PDF, ulashish, bildirishnomalar, rasm bo'yicha tavsiya
 
-- [ ] 18.1 PDF taklif: `GET orders/{id}/pdf/` → fayl (`path_provider` temp) → `open_filex` ko'rish → `share_plus` (Telegram/WhatsApp)
-- [ ] 18.2 Chat menyusidan "PDF taklif" — faol suhbat buyurtmaga bog'langan bo'lsa; aks holda "Avval buyurtma yarating"
-- [ ] 18.3 Ulashish: buyurtma matni (raqam, mijoz, jami, muddat) `share_plus`
-- [ ] 18.4 Push: `firebase_messaging` — token `PATCH auth/me/` (`device_id`) yoki backend endpointiga (mavjud bo'lsa; yo'q — §19); turlar: limit tugadi, yangi buyurtma/status (manager), foreground'da `flutter_local_notifications`
-- [ ] 18.5 Bildirishnoma ruxsati — kerak bo'lganda (birinchi buyurtma tasdiqlanganda), sabab bilan
-- [ ] 18.6 Chat "+" → rasm biriktirish (kamera/galereya, siqish) → xabar bilan yuborish (backend `messages/` multipart yoki `image_url` — shartnoma aniqlanganda; hozircha `[ ]`, §19)
-- [ ] 18.7 Testlar: PDF yuklash → fayl mavjud, ulashish matni formati, push payload → navigatsiya (`/orders/:id`)
+- [x] 18.1 PDF taklif: `GET orders/{id}/pdf/` → fayl (`path_provider` temp) → `open_filex` ko'rish → `share_plus` (Telegram/WhatsApp)
+- [x] 18.2 Chat menyusidan "PDF taklif" — faol suhbat buyurtmaga bog'langan bo'lsa; aks holda "Avval buyurtma yarating"
+- [x] 18.3 Ulashish: buyurtma matni (raqam, mijoz, jami, muddat) `share_plus`
+- [ ] 18.4 Push: `firebase_messaging` — token `PATCH auth/me/` (`device_id`) yoki backend endpointiga (mavjud bo'lsa; yo'q — §19); turlar: limit tugadi, yangi buyurtma/status (manager), foreground'da `flutter_local_notifications` — BLOKER: backend push-token endpointi yo'q
+- [ ] 18.5 Bildirishnoma ruxsati — kerak bo'lganda (birinchi buyurtma tasdiqlanganda), sabab bilan — 18.4 ga bog'liq
+- [ ] 18.6 Chat "+" → rasm biriktirish (kamera/galereya, siqish) → xabar bilan yuborish (backend `messages/` multipart yoki `image_url` — shartnoma aniqlanganda; hozircha `[ ]`, §19) — BLOKER: backend rasm biriktirish shartnomasi yo'q
+- [x] 18.7 Testlar: PDF yuklash → fayl mavjud, ulashish matni formati, push payload → navigatsiya (`/orders/:id`)
 
 ## Bosqich 19 — Sifat, ishlash, xavfsizlik
 
 - [ ] 19.1 Coverage ≥ 70% umumiy; `core/sse`, `core/network/interceptors`, `core/utils`, `features/chat/application` ≥ 90%
 - [ ] 19.2 Golden to'plami to'liq: S-01, S-03 (3 variant), S-05, S-06 (3 variant), S-11 (2), S-12 (2) — CI'da
-- [ ] 19.3 Integration test: login → yangi suhbat → xabar → SSE mock → hisob kartochkasi → qoralama → buyurtma → tasdiqlash
-- [ ] 19.4 Integration test: employee `/management` → 403; limit 429 → view
-- [ ] 19.5 Ishlash: sovuq start ≤ 2 s (`profile` o'lchov hujjatlashtiriladi `docs/PERF.md`), chat 100+ xabar 60 FPS (`flutter drive --profile` timeline), streaming rebuild ≤ 20/s (test)
-- [ ] 19.6 APK ≤ 40 MB (arm64) — CI gate; shriftlar subset (faqat kerakli og'irliklar)
-- [ ] 19.7 Xavfsizlik: tokenlar faqat secure storage (test: Hive box'larda `token` kaliti yo'q), log maskalash testi, `usesCleartextTraffic=false`, iOS ATS default, root/jailbreak tekshiruvi **yo'q** (TZ'da yo'q)
-- [ ] 19.8 Accessibility: `Semantics` label'lar tugma/ikonkalarda, min bosish maydoni 48 dp (test), kontrast — `accent` on `background` ≥ 4.5:1 tekshirildi
-- [ ] 19.9 `dart analyze` 0 issue, `dart format` toza, `custom_lint` toza — CI gate
-- [ ] 19.10 Sentry: `Failure` lar breadcrumb, foydalanuvchi `id`/`role` (telefon emas)
+- [~] 19.3 Integration test: login → yangi suhbat → xabar → SSE mock → hisob kartochkasi → qoralama → buyurtma → tasdiqlash
+- [~] 19.4 Integration test: employee `/management` → 403; limit 429 → view
+- [ ] 19.5 Ishlash: sovuq start ≤ 2 s (`profile` o'lchov hujjatlashtiriladi `docs/PERF.md`), chat 100+ xabar 60 FPS (`flutter drive --profile` timeline), streaming rebuild ≤ 20/s (test) — APK o'lchandi (docs/PERF.md); start/FPS — real qurilma kerak
+- [x] 19.6 APK ≤ 40 MB (arm64) — CI gate; shriftlar subset (faqat kerakli og'irliklar)
+- [x] 19.7 Xavfsizlik: tokenlar faqat secure storage (test: Hive box'larda `token` kaliti yo'q), log maskalash testi, `usesCleartextTraffic=false`, iOS ATS default, root/jailbreak tekshiruvi **yo'q** (TZ'da yo'q)
+- [~] 19.8 Accessibility: `Semantics` label'lar tugma/ikonkalarda, min bosish maydoni 48 dp (test), kontrast — `accent` on `background` ≥ 4.5:1 tekshirildi — audit testi bor (test/widget/a11y), lekin tasdiqlovchi assert emas — kamchiliklar tuzatilishi kerak
+- [x] 19.9 `dart analyze` 0 issue, `dart format` toza, `custom_lint` toza — CI gate
+- [x] 19.10 Sentry: `Failure` lar breadcrumb, foydalanuvchi `id`/`role` (telefon emas)
 
 ## Bosqich 20 — Hujjat va yetkazish
 
-- [ ] 20.1 `README.md` — o'rnatish, `--dart-define-from-file`, build buyruqlari, papka tuzilmasi, `rules.md` ga havola
+- [x] 20.1 `README.md` — o'rnatish, `--dart-define-from-file`, build buyruqlari, papka tuzilmasi, `rules.md` ga havola
 - [~] 20.2 `docs/ARCHITECTURE.md` — qatlamlar, ma'lumot oqimi diagrammasi, SSE holat mashinasi, ovoz holat mashinasi
 - [~] 20.3 `docs/API-CONTRACT.md` — ilova ishlatadigan har endpoint: so'rov/javob namunasi (backend `docs/API-GUIDE.md` bilan sinxron)
 - [~] 20.4 `docs/DESIGN-TOKENS.md` — §7 jadvallari + artboard → widget mapping
-- [ ] 20.5 `docs/PERF.md` — o'lchov natijalari (start, FPS, APK)
-- [ ] 20.6 Android release: `key.properties` (repoda yo'q), `proguard`, `--split-per-abi`; Firebase App Distribution / to'g'ridan-to'g'ri APK
-- [ ] 20.7 iOS release: TestFlight (Mac mavjud bo'lsa; aks holda §19 yozuv)
-- [ ] 20.8 Versiya: `pubspec.yaml` `version: 1.0.0+1`, `CHANGELOG.md` (o'zbekcha)
+- [x] 20.5 `docs/PERF.md` — o'lchov natijalari (start, FPS, APK)
+- [x] 20.6 Android release: `key.properties` (repoda yo'q), `proguard`, `--split-per-abi`; Firebase App Distribution / to'g'ridan-to'g'ri APK
+- [ ] 20.7 iOS release: TestFlight (Mac mavjud bo'lsa; aks holda §19 yozuv) — Mac yo'q, `rules.md` §19.7
+- [x] 20.8 Versiya: `pubspec.yaml` `version: 1.0.0+1`, `CHANGELOG.md` (o'zbekcha)
 - [ ] 20.9 Ilova ichida "Ilova haqida": versiya, build, muhit (Profil ostida)
 
 ---

@@ -801,3 +801,18 @@ ikki mustaqil ishchi (chat va katalog) bir xil muammoga duch keldi.
 ro'yxatni joyida o'zgartirish baribir taqiq (§3.3 immutable `copyWith`) — bu lint/review bilan nazorat qilinadi.
 
 **Qaror:** qabul qilindi.
+
+### 19.7 Backend'ga bog'liq bloklangan bandlar va iOS release (2026-09-19)
+
+**Chetlanish:** `tasks.md` 14.4 (LLM sozlamalari), 14.5 (ovoz sozlamalari), 18.4 (push-token), 18.6 (chatga rasm
+biriktirish) va 15.11 (WS JWT auth + haqiqiy streaming) — backend'da endpoint/shartnoma yo'q, shu sabab
+mobil tomonida bajarilmagan (`[ ]`). 20.7 (iOS TestFlight) — Mac mavjud emas.
+
+**Sabab:** §0.3 va §8.1 — o'ylab topilgan endpoint ishlatilmaydi; shartnoma avval backend `docs/API-GUIDE.md` da
+paydo bo'lishi kerak. iOS build faqat macOS'da mumkin.
+
+**Ta'sir doirasi:** faqat shu bandlar. `ApiPaths`, DTO va ekranlar backend tayyor bo'lgach qo'shiladi. Android
+release (20.6) mustaqil.
+
+**Qaror:** bandlar `[ ]` holatida BLOKER izohi bilan qoladi; backend `tasks.md` ga so'rov yuboriladi. iOS —
+Mac paydo bo'lganda; `ios/` konfiguratsiyasi (Info.plist ruxsat matnlari) tayyor.

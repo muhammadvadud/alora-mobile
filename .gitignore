@@ -71,3 +71,11 @@ coverage/
 # forge orkestratsiya holati
 .forge/
 l10n-errors.txt
+
+# Release keys
+android/key.properties
+*.jks
+
+# golden test farq artefaktlari
+**/failures/
+test_hive/

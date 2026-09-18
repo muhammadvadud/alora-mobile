@@ -16,12 +16,16 @@ _OrderDefaultsDto _$OrderDefaultsDtoFromJson(Map<String, dynamic> json) =>
         final val = _OrderDefaultsDto(
           id: $checkedConvert('id', (v) => v as String),
           defaultPrepaymentPercent: $checkedConvert(
-            'default_prepayment_percent',
+            'prepayment_percent',
             (v) => v as String,
           ),
           defaultDeliveryAmount: $checkedConvert(
-            'default_delivery_amount',
+            'delivery_amount',
             (v) => v as String,
+          ),
+          deadlineDays: $checkedConvert(
+            'deadline_days',
+            (v) => (v as num?)?.toInt() ?? 0,
           ),
           isActive: $checkedConvert('is_active', (v) => v as bool),
           createdAt: $checkedConvert('created_at', (v) => v as String),
@@ -30,8 +34,9 @@ _OrderDefaultsDto _$OrderDefaultsDtoFromJson(Map<String, dynamic> json) =>
         return val;
       },
       fieldKeyMap: const {
-        'defaultPrepaymentPercent': 'default_prepayment_percent',
-        'defaultDeliveryAmount': 'default_delivery_amount',
+        'defaultPrepaymentPercent': 'prepayment_percent',
+        'defaultDeliveryAmount': 'delivery_amount',
+        'deadlineDays': 'deadline_days',
         'isActive': 'is_active',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at',
@@ -41,8 +46,9 @@ _OrderDefaultsDto _$OrderDefaultsDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OrderDefaultsDtoToJson(_OrderDefaultsDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'default_prepayment_percent': instance.defaultPrepaymentPercent,
-      'default_delivery_amount': instance.defaultDeliveryAmount,
+      'prepayment_percent': instance.defaultPrepaymentPercent,
+      'delivery_amount': instance.defaultDeliveryAmount,
+      'deadline_days': instance.deadlineDays,
       'is_active': instance.isActive,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,

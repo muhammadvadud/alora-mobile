@@ -46,7 +46,7 @@ final class EmployeesNotifierProvider
   }
 }
 
-String _$employeesNotifierHash() => r'ce1e3c0f05dd59ec0533087d48f58adbcdcdfb8b';
+String _$employeesNotifierHash() => r'ee08b9088dbb2030c029f767bb77900177d0eccb';
 
 /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
 

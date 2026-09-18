@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart' show Override;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -11,6 +12,12 @@ import 'package:alora_mobile/features/chat/application/providers.dart'
     as chat_providers;
 import 'package:alora_mobile/features/customer_mode/application/providers.dart'
     as cm_providers;
+import 'package:alora_mobile/features/conversations/application/conversations_state.dart';
+import 'package:alora_mobile/features/conversations/application/conversations_notifier.dart';
+import 'package:alora_mobile/features/conversations/domain/entities/conversation.dart';
+import 'package:alora_mobile/features/conversations/domain/entities/conversation_mode.dart';
+import 'package:alora_mobile/features/conversations/domain/entities/conversation_stage.dart';
+import 'package:alora_mobile/features/conversations/domain/entities/conversation_status.dart';
 import 'package:alora_mobile/features/chat/domain/entities/message.dart';
 import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
 import 'package:alora_mobile/features/chat/domain/entities/pricing_option.dart';
@@ -20,6 +27,26 @@ import 'package:alora_mobile/features/chat/domain/repositories/chat_repository.d
 import 'package:alora_mobile/features/chat/presentation/screens/chat_screen.dart';
 
 class MockChatRepository extends Mock implements ChatRepository {}
+
+/// [ConversationsState.loaded] override'i — chat menyusidagi PDF amallari
+/// uchun suhbatda orderId bor/yo'q holatini simulyatsiya qiladi.
+Override registerConversations(List<String> ids, {String? orderId}) {
+  return conversationsProvider.overrideWithValue(
+    ConversationsState.loaded(
+      items: [
+        for (final id in ids)
+          Conversation(
+            id: id,
+            title: 'Suhbat $id',
+            stage: ConversationStage.need,
+            mode: ConversationMode.seller,
+            status: ConversationStatus.active,
+            orderId: orderId,
+          ),
+      ],
+    ),
+  );
+}
 
 void stubGetMessages(
   MockChatRepository repo,
@@ -42,16 +69,20 @@ Widget chatApp(
   bool online = true,
   ThemeMode themeMode = ThemeMode.light,
   String conversationId = 'conv-1',
+  bool customerMode = false,
+  List<Override> extraOverrides = const [],
 }) {
   return ProviderScope(
     overrides: [
       chat_providers.chatRepositoryProvider.overrideWithValue(repo),
-      cm_providers.customerModeEnabledProvider.overrideWithValue(false),
+      cm_providers.customerModeEnabledProvider.overrideWithValue(customerMode),
       connectivityProvider.overrideWithValue(online),
+      ...extraOverrides,
     ],
     child: MaterialApp(
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.light(isCustomerMode: customerMode),
+      darkTheme: AppTheme.dark(isCustomerMode: customerMode),
       themeMode: themeMode,
       locale: testLocale,
       localizationsDelegates: const [

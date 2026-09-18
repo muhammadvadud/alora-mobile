@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderDefaultsDto {
 
- String get id;@JsonKey(name: 'default_prepayment_percent') String get defaultPrepaymentPercent;@JsonKey(name: 'default_delivery_amount') String get defaultDeliveryAmount;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') String get createdAt;@JsonKey(name: 'updated_at') String get updatedAt;
+ String get id;@JsonKey(name: 'prepayment_percent') String get defaultPrepaymentPercent;@JsonKey(name: 'delivery_amount') String get defaultDeliveryAmount;@JsonKey(name: 'deadline_days') int get deadlineDays;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') String get createdAt;@JsonKey(name: 'updated_at') String get updatedAt;
 /// Create a copy of OrderDefaultsDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OrderDefaultsDtoCopyWith<OrderDefaultsDto> get copyWith => _$OrderDefaultsDtoCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderDefaultsDto&&(identical(other.id, id) || other.id == id)&&(identical(other.defaultPrepaymentPercent, defaultPrepaymentPercent) || other.defaultPrepaymentPercent == defaultPrepaymentPercent)&&(identical(other.defaultDeliveryAmount, defaultDeliveryAmount) || other.defaultDeliveryAmount == defaultDeliveryAmount)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderDefaultsDto&&(identical(other.id, id) || other.id == id)&&(identical(other.defaultPrepaymentPercent, defaultPrepaymentPercent) || other.defaultPrepaymentPercent == defaultPrepaymentPercent)&&(identical(other.defaultDeliveryAmount, defaultDeliveryAmount) || other.defaultDeliveryAmount == defaultDeliveryAmount)&&(identical(other.deadlineDays, deadlineDays) || other.deadlineDays == deadlineDays)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,defaultPrepaymentPercent,defaultDeliveryAmount,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,defaultPrepaymentPercent,defaultDeliveryAmount,deadlineDays,isActive,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'OrderDefaultsDto(id: $id, defaultPrepaymentPercent: $defaultPrepaymentPercent, defaultDeliveryAmount: $defaultDeliveryAmount, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'OrderDefaultsDto(id: $id, defaultPrepaymentPercent: $defaultPrepaymentPercent, defaultDeliveryAmount: $defaultDeliveryAmount, deadlineDays: $deadlineDays, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OrderDefaultsDtoCopyWith<$Res>  {
   factory $OrderDefaultsDtoCopyWith(OrderDefaultsDto value, $Res Function(OrderDefaultsDto) _then) = _$OrderDefaultsDtoCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(name: 'default_prepayment_percent') String defaultPrepaymentPercent,@JsonKey(name: 'default_delivery_amount') String defaultDeliveryAmount,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
+ String id,@JsonKey(name: 'prepayment_percent') String defaultPrepaymentPercent,@JsonKey(name: 'delivery_amount') String defaultDeliveryAmount,@JsonKey(name: 'deadline_days') int deadlineDays,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
 });
 
 
@@ -65,12 +65,13 @@ class _$OrderDefaultsDtoCopyWithImpl<$Res>
 
 /// Create a copy of OrderDefaultsDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? defaultPrepaymentPercent = null,Object? defaultDeliveryAmount = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? defaultPrepaymentPercent = null,Object? defaultDeliveryAmount = null,Object? deadlineDays = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,defaultPrepaymentPercent: null == defaultPrepaymentPercent ? _self.defaultPrepaymentPercent : defaultPrepaymentPercent // ignore: cast_nullable_to_non_nullable
 as String,defaultDeliveryAmount: null == defaultDeliveryAmount ? _self.defaultDeliveryAmount : defaultDeliveryAmount // ignore: cast_nullable_to_non_nullable
-as String,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as String,deadlineDays: null == deadlineDays ? _self.deadlineDays : deadlineDays // ignore: cast_nullable_to_non_nullable
+as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String,
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'default_prepayment_percent')  String defaultPrepaymentPercent, @JsonKey(name: 'default_delivery_amount')  String defaultDeliveryAmount, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'prepayment_percent')  String defaultPrepaymentPercent, @JsonKey(name: 'delivery_amount')  String defaultDeliveryAmount, @JsonKey(name: 'deadline_days')  int deadlineDays, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderDefaultsDto() when $default != null:
-return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmount,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmount,_that.deadlineDays,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'default_prepayment_percent')  String defaultPrepaymentPercent, @JsonKey(name: 'default_delivery_amount')  String defaultDeliveryAmount, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'prepayment_percent')  String defaultPrepaymentPercent, @JsonKey(name: 'delivery_amount')  String defaultDeliveryAmount, @JsonKey(name: 'deadline_days')  int deadlineDays, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _OrderDefaultsDto():
-return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmount,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmount,_that.deadlineDays,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'default_prepayment_percent')  String defaultPrepaymentPercent, @JsonKey(name: 'default_delivery_amount')  String defaultDeliveryAmount, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'prepayment_percent')  String defaultPrepaymentPercent, @JsonKey(name: 'delivery_amount')  String defaultDeliveryAmount, @JsonKey(name: 'deadline_days')  int deadlineDays, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderDefaultsDto() when $default != null:
-return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmount,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmount,_that.deadlineDays,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -214,12 +215,13 @@ return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmo
 @JsonSerializable()
 
 class _OrderDefaultsDto implements OrderDefaultsDto {
-  const _OrderDefaultsDto({required this.id, @JsonKey(name: 'default_prepayment_percent') required this.defaultPrepaymentPercent, @JsonKey(name: 'default_delivery_amount') required this.defaultDeliveryAmount, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
+  const _OrderDefaultsDto({required this.id, @JsonKey(name: 'prepayment_percent') required this.defaultPrepaymentPercent, @JsonKey(name: 'delivery_amount') required this.defaultDeliveryAmount, @JsonKey(name: 'deadline_days') this.deadlineDays = 0, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _OrderDefaultsDto.fromJson(Map<String, dynamic> json) => _$OrderDefaultsDtoFromJson(json);
 
 @override final  String id;
-@override@JsonKey(name: 'default_prepayment_percent') final  String defaultPrepaymentPercent;
-@override@JsonKey(name: 'default_delivery_amount') final  String defaultDeliveryAmount;
+@override@JsonKey(name: 'prepayment_percent') final  String defaultPrepaymentPercent;
+@override@JsonKey(name: 'delivery_amount') final  String defaultDeliveryAmount;
+@override@JsonKey(name: 'deadline_days') final  int deadlineDays;
 @override@JsonKey(name: 'is_active') final  bool isActive;
 @override@JsonKey(name: 'created_at') final  String createdAt;
 @override@JsonKey(name: 'updated_at') final  String updatedAt;
@@ -237,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderDefaultsDto&&(identical(other.id, id) || other.id == id)&&(identical(other.defaultPrepaymentPercent, defaultPrepaymentPercent) || other.defaultPrepaymentPercent == defaultPrepaymentPercent)&&(identical(other.defaultDeliveryAmount, defaultDeliveryAmount) || other.defaultDeliveryAmount == defaultDeliveryAmount)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderDefaultsDto&&(identical(other.id, id) || other.id == id)&&(identical(other.defaultPrepaymentPercent, defaultPrepaymentPercent) || other.defaultPrepaymentPercent == defaultPrepaymentPercent)&&(identical(other.defaultDeliveryAmount, defaultDeliveryAmount) || other.defaultDeliveryAmount == defaultDeliveryAmount)&&(identical(other.deadlineDays, deadlineDays) || other.deadlineDays == deadlineDays)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,defaultPrepaymentPercent,defaultDeliveryAmount,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,defaultPrepaymentPercent,defaultDeliveryAmount,deadlineDays,isActive,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'OrderDefaultsDto(id: $id, defaultPrepaymentPercent: $defaultPrepaymentPercent, defaultDeliveryAmount: $defaultDeliveryAmount, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'OrderDefaultsDto(id: $id, defaultPrepaymentPercent: $defaultPrepaymentPercent, defaultDeliveryAmount: $defaultDeliveryAmount, deadlineDays: $deadlineDays, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$OrderDefaultsDtoCopyWith<$Res> implements $OrderDefaultsD
   factory _$OrderDefaultsDtoCopyWith(_OrderDefaultsDto value, $Res Function(_OrderDefaultsDto) _then) = __$OrderDefaultsDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(name: 'default_prepayment_percent') String defaultPrepaymentPercent,@JsonKey(name: 'default_delivery_amount') String defaultDeliveryAmount,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
+ String id,@JsonKey(name: 'prepayment_percent') String defaultPrepaymentPercent,@JsonKey(name: 'delivery_amount') String defaultDeliveryAmount,@JsonKey(name: 'deadline_days') int deadlineDays,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
 });
 
 
@@ -274,12 +276,13 @@ class __$OrderDefaultsDtoCopyWithImpl<$Res>
 
 /// Create a copy of OrderDefaultsDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? defaultPrepaymentPercent = null,Object? defaultDeliveryAmount = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? defaultPrepaymentPercent = null,Object? defaultDeliveryAmount = null,Object? deadlineDays = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_OrderDefaultsDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,defaultPrepaymentPercent: null == defaultPrepaymentPercent ? _self.defaultPrepaymentPercent : defaultPrepaymentPercent // ignore: cast_nullable_to_non_nullable
 as String,defaultDeliveryAmount: null == defaultDeliveryAmount ? _self.defaultDeliveryAmount : defaultDeliveryAmount // ignore: cast_nullable_to_non_nullable
-as String,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as String,deadlineDays: null == deadlineDays ? _self.deadlineDays : deadlineDays // ignore: cast_nullable_to_non_nullable
+as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String,

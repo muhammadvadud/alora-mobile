@@ -42,7 +42,7 @@ final class ManagementHomeNotifierProvider
 }
 
 String _$managementHomeNotifierHash() =>
-    r'7ceddf173da6ab9f892baa6f0f2ccb1b554705c6';
+    r'70f09e31d9caa96a416ca7ded9bdfae1c0d40c3a';
 
 /// Boshqaruv bosh sahifasi (S-19) ma'lumotlarini parallel yuklaydi.
 /// Davr o'zgarsa [managementPeriodProvider] orqali qayta yuklanadi.

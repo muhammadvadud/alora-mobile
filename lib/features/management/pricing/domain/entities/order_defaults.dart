@@ -8,6 +8,7 @@ abstract class OrderDefaults with _$OrderDefaults {
     required String id,
     required double defaultPrepaymentPercent,
     required int defaultDeliveryAmount,
+    @Default(0) int deadlineDays,
     required bool isActive,
     required DateTime createdAt,
     required DateTime updatedAt,

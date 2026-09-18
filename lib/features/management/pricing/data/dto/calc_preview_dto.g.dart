@@ -10,31 +10,29 @@ part of 'calc_preview_dto.dart';
 
 _CalcPreviewRequestDto _$CalcPreviewRequestDtoFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate(
-  '_CalcPreviewRequestDto',
-  json,
-  ($checkedConvert) {
-    final val = _CalcPreviewRequestDto(
-      measurements: $checkedConvert(
-        'measurements',
-        (v) => (v as List<dynamic>)
-            .map(
-              (e) =>
-                  CalcPreviewMeasurementDto.fromJson(e as Map<String, dynamic>),
-            )
-            .toList(),
-      ),
-      services: $checkedConvert(
-        'services',
-        (v) => (v as List<dynamic>).map((e) => e as String).toList(),
-      ),
-      discountPercent: $checkedConvert('discount_percent', (v) => v as String),
-      delivery: $checkedConvert('delivery', (v) => v as bool),
-    );
-    return val;
-  },
-  fieldKeyMap: const {'discountPercent': 'discount_percent'},
-);
+) => $checkedCreate('_CalcPreviewRequestDto', json, ($checkedConvert) {
+  final val = _CalcPreviewRequestDto(
+    measurements: $checkedConvert(
+      'measurements',
+      (v) => (v as List<dynamic>)
+          .map(
+            (e) =>
+                CalcPreviewMeasurementDto.fromJson(e as Map<String, dynamic>),
+          )
+          .toList(),
+    ),
+    services: $checkedConvert(
+      'services',
+      (v) => (v as List<dynamic>).map((e) => e as String).toList(),
+    ),
+    discountPercent: $checkedConvert(
+      'discount_percent',
+      (v) => v as String? ?? '0',
+    ),
+    delivery: $checkedConvert('delivery', (v) => v as bool? ?? false),
+  );
+  return val;
+}, fieldKeyMap: const {'discountPercent': 'discount_percent'});
 
 Map<String, dynamic> _$CalcPreviewRequestDtoToJson(
   _CalcPreviewRequestDto instance,
@@ -195,37 +193,33 @@ Map<String, dynamic> _$CalcPreviewResponseDtoToJson(
 
 _CalcPreviewResponseMeasurementDto _$CalcPreviewResponseMeasurementDtoFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate(
-  '_CalcPreviewResponseMeasurementDto',
-  json,
-  ($checkedConvert) {
-    final val = _CalcPreviewResponseMeasurementDto(
-      roomName: $checkedConvert('room_name', (v) => v as String),
-      parts: $checkedConvert(
-        'parts',
-        (v) => (v as List<dynamic>)
-            .map(
-              (e) => CalcPreviewResponsePartDto.fromJson(
-                e as Map<String, dynamic>,
-              ),
-            )
-            .toList(),
-      ),
-      accessories: $checkedConvert(
-        'accessories',
-        (v) => (v as List<dynamic>)
-            .map(
-              (e) => CalcPreviewResponseAccessoryDto.fromJson(
-                e as Map<String, dynamic>,
-              ),
-            )
-            .toList(),
-      ),
-    );
-    return val;
-  },
-  fieldKeyMap: const {'roomName': 'room_name'},
-);
+) => $checkedCreate('_CalcPreviewResponseMeasurementDto', json, (
+  $checkedConvert,
+) {
+  final val = _CalcPreviewResponseMeasurementDto(
+    roomName: $checkedConvert('room_name', (v) => v as String),
+    parts: $checkedConvert(
+      'parts',
+      (v) => (v as List<dynamic>)
+          .map(
+            (e) =>
+                CalcPreviewResponsePartDto.fromJson(e as Map<String, dynamic>),
+          )
+          .toList(),
+    ),
+    accessories: $checkedConvert(
+      'accessories',
+      (v) => (v as List<dynamic>)
+          .map(
+            (e) => CalcPreviewResponseAccessoryDto.fromJson(
+              e as Map<String, dynamic>,
+            ),
+          )
+          .toList(),
+    ),
+  );
+  return val;
+}, fieldKeyMap: const {'roomName': 'room_name'});
 
 Map<String, dynamic> _$CalcPreviewResponseMeasurementDtoToJson(
   _CalcPreviewResponseMeasurementDto instance,

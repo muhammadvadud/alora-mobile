@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DiscountPolicyDto {
 
- String get id;@JsonKey(name: 'manual_max_percent_employee') String get manualMaxPercentEmployee;@JsonKey(name: 'manual_max_percent_manager') String get manualMaxPercentManager;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') String get createdAt;@JsonKey(name: 'updated_at') String get updatedAt;
+ String get id;@JsonKey(name: 'manual_max_percent_employee') String get manualMaxPercentEmployee;@JsonKey(name: 'manual_max_percent_manager') String get manualMaxPercentManager;@JsonKey(name: 'stack_with_tier') bool get stackWithTier;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') String get createdAt;@JsonKey(name: 'updated_at') String get updatedAt;
 /// Create a copy of DiscountPolicyDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $DiscountPolicyDtoCopyWith<DiscountPolicyDto> get copyWith => _$DiscountPolicyDt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DiscountPolicyDto&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DiscountPolicyDto&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.stackWithTier, stackWithTier) || other.stackWithTier == stackWithTier)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,stackWithTier,isActive,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DiscountPolicyDto(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DiscountPolicyDto(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, stackWithTier: $stackWithTier, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $DiscountPolicyDtoCopyWith<$Res>  {
   factory $DiscountPolicyDtoCopyWith(DiscountPolicyDto value, $Res Function(DiscountPolicyDto) _then) = _$DiscountPolicyDtoCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(name: 'manual_max_percent_employee') String manualMaxPercentEmployee,@JsonKey(name: 'manual_max_percent_manager') String manualMaxPercentManager,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
+ String id,@JsonKey(name: 'manual_max_percent_employee') String manualMaxPercentEmployee,@JsonKey(name: 'manual_max_percent_manager') String manualMaxPercentManager,@JsonKey(name: 'stack_with_tier') bool stackWithTier,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
 });
 
 
@@ -65,12 +65,13 @@ class _$DiscountPolicyDtoCopyWithImpl<$Res>
 
 /// Create a copy of DiscountPolicyDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? stackWithTier = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,manualMaxPercentEmployee: null == manualMaxPercentEmployee ? _self.manualMaxPercentEmployee : manualMaxPercentEmployee // ignore: cast_nullable_to_non_nullable
 as String,manualMaxPercentManager: null == manualMaxPercentManager ? _self.manualMaxPercentManager : manualMaxPercentManager // ignore: cast_nullable_to_non_nullable
-as String,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as String,stackWithTier: null == stackWithTier ? _self.stackWithTier : stackWithTier // ignore: cast_nullable_to_non_nullable
+as bool,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String,
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'manual_max_percent_employee')  String manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager')  String manualMaxPercentManager, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'manual_max_percent_employee')  String manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager')  String manualMaxPercentManager, @JsonKey(name: 'stack_with_tier')  bool stackWithTier, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DiscountPolicyDto() when $default != null:
-return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.stackWithTier,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentMa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'manual_max_percent_employee')  String manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager')  String manualMaxPercentManager, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'manual_max_percent_employee')  String manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager')  String manualMaxPercentManager, @JsonKey(name: 'stack_with_tier')  bool stackWithTier, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _DiscountPolicyDto():
-return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.stackWithTier,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentMa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'manual_max_percent_employee')  String manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager')  String manualMaxPercentManager, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'manual_max_percent_employee')  String manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager')  String manualMaxPercentManager, @JsonKey(name: 'stack_with_tier')  bool stackWithTier, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _DiscountPolicyDto() when $default != null:
-return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.stackWithTier,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -214,12 +215,13 @@ return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentMa
 @JsonSerializable()
 
 class _DiscountPolicyDto implements DiscountPolicyDto {
-  const _DiscountPolicyDto({required this.id, @JsonKey(name: 'manual_max_percent_employee') required this.manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager') required this.manualMaxPercentManager, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
+  const _DiscountPolicyDto({required this.id, @JsonKey(name: 'manual_max_percent_employee') required this.manualMaxPercentEmployee, @JsonKey(name: 'manual_max_percent_manager') required this.manualMaxPercentManager, @JsonKey(name: 'stack_with_tier') this.stackWithTier = true, @JsonKey(name: 'is_active') this.isActive = true, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _DiscountPolicyDto.fromJson(Map<String, dynamic> json) => _$DiscountPolicyDtoFromJson(json);
 
 @override final  String id;
 @override@JsonKey(name: 'manual_max_percent_employee') final  String manualMaxPercentEmployee;
 @override@JsonKey(name: 'manual_max_percent_manager') final  String manualMaxPercentManager;
+@override@JsonKey(name: 'stack_with_tier') final  bool stackWithTier;
 @override@JsonKey(name: 'is_active') final  bool isActive;
 @override@JsonKey(name: 'created_at') final  String createdAt;
 @override@JsonKey(name: 'updated_at') final  String updatedAt;
@@ -237,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DiscountPolicyDto&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DiscountPolicyDto&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.stackWithTier, stackWithTier) || other.stackWithTier == stackWithTier)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,stackWithTier,isActive,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DiscountPolicyDto(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DiscountPolicyDto(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, stackWithTier: $stackWithTier, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$DiscountPolicyDtoCopyWith<$Res> implements $DiscountPolic
   factory _$DiscountPolicyDtoCopyWith(_DiscountPolicyDto value, $Res Function(_DiscountPolicyDto) _then) = __$DiscountPolicyDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(name: 'manual_max_percent_employee') String manualMaxPercentEmployee,@JsonKey(name: 'manual_max_percent_manager') String manualMaxPercentManager,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
+ String id,@JsonKey(name: 'manual_max_percent_employee') String manualMaxPercentEmployee,@JsonKey(name: 'manual_max_percent_manager') String manualMaxPercentManager,@JsonKey(name: 'stack_with_tier') bool stackWithTier,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
 });
 
 
@@ -274,12 +276,13 @@ class __$DiscountPolicyDtoCopyWithImpl<$Res>
 
 /// Create a copy of DiscountPolicyDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? stackWithTier = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_DiscountPolicyDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,manualMaxPercentEmployee: null == manualMaxPercentEmployee ? _self.manualMaxPercentEmployee : manualMaxPercentEmployee // ignore: cast_nullable_to_non_nullable
 as String,manualMaxPercentManager: null == manualMaxPercentManager ? _self.manualMaxPercentManager : manualMaxPercentManager // ignore: cast_nullable_to_non_nullable
-as String,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as String,stackWithTier: null == stackWithTier ? _self.stackWithTier : stackWithTier // ignore: cast_nullable_to_non_nullable
+as bool,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String,

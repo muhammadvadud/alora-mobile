@@ -4,9 +4,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/core/utils/app_logger.dart';
+import 'package:alora_mobile/core/error/error_reporter.dart';
 
 import 'auth_state.dart';
 import 'providers.dart';
+import 'session_expired_notifier.dart';
 
 part 'auth_notifier.g.dart';
 
@@ -21,6 +23,7 @@ class AuthNotifier extends _$AuthNotifier {
     final repository = ref.read(authRepositoryProvider);
     _sessionExpiredSub = repository.onSessionExpired.listen((_) {
       _setUnauthenticated();
+      ref.read(sessionExpiredProvider.notifier).trigger();
     });
     ref.onDispose(() => _sessionExpiredSub?.cancel());
 
@@ -34,19 +37,22 @@ class AuthNotifier extends _$AuthNotifier {
 
     final refreshToken = await repository.getRefreshToken();
     if (refreshToken == null) {
-      state = const AuthState.unauthenticated();
+      _setUnauthenticated();
       return;
     }
 
     try {
       await repository.refresh();
       final user = await repository.me();
+      ref
+          .read(errorReporterProvider)
+          .setUser(id: user.id, role: user.role.name);
       state = AuthState.authenticated(user: user);
     } on Failure catch (error) {
       if (error.maybeWhen(auth: () => true, orElse: () => false)) {
         await repository.clearSession();
       }
-      state = const AuthState.unauthenticated();
+      _setUnauthenticated();
     }
   }
 
@@ -60,6 +66,9 @@ class AuthNotifier extends _$AuthNotifier {
     try {
       await repository.login(phone: phone, password: password);
       final user = await repository.me();
+      ref
+          .read(errorReporterProvider)
+          .setUser(id: user.id, role: user.role.name);
       state = AuthState.authenticated(user: user);
       return null;
     } on Failure catch (error) {
@@ -78,10 +87,11 @@ class AuthNotifier extends _$AuthNotifier {
     } on Failure catch (error) {
       logger.w('Logout xatosi: $error');
     }
-    state = const AuthState.unauthenticated();
+    _setUnauthenticated();
   }
 
   void _setUnauthenticated() {
+    ref.read(errorReporterProvider).clearUser();
     state = const AuthState.unauthenticated();
   }
 }

@@ -10,6 +10,10 @@ class StatusColorPair {
   const StatusColorPair({required this.background, required this.textAndDot});
 }
 
+StatusColorPair getOrderStatusColors(OrderStatus status, AppColors colors) {
+  return StatusColors.getOrderStatusColors(status, colors);
+}
+
 class StatusColors {
   static StatusColorPair getOrderStatusColors(
     OrderStatus status,

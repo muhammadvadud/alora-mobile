@@ -11,6 +11,7 @@ class AuthProfileDto {
   final String role;
   final String tenant;
   final String? deviceId;
+  final String? managerPhone;
 
   const AuthProfileDto({
     required this.id,
@@ -19,6 +20,7 @@ class AuthProfileDto {
     required this.role,
     required this.tenant,
     this.deviceId,
+    this.managerPhone,
   });
 
   factory AuthProfileDto.fromJson(Map<String, dynamic> json) =>

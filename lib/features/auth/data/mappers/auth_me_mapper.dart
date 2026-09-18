@@ -16,6 +16,7 @@ extension AuthMeDtoMapper on AuthMeDto {
       role: roleFromName(profile.role),
       tenant: profile.tenant,
       deviceId: profile.deviceId,
+      managerPhone: profile.managerPhone,
     );
   }
 

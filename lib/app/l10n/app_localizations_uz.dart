@@ -47,6 +47,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get error_auth => 'Sessiya muddati tugadi. Iltimos, qayta kiring.';
 
   @override
+  String get offline_flushFailed =>
+      'Serverda yangi ma\'lumot bor. Ba\'zi o\'zgarishlar saqlanmadi.';
+
+  @override
   String get error_permission => 'Ruxsat yo\'q';
 
   @override
@@ -54,6 +58,12 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get error_limit => 'Limit tugadi';
+
+  @override
+  String get limit_callManager => 'Qo\'ng\'iroq';
+
+  @override
+  String get limit_smsManager => 'SMS';
 
   @override
   String get error_serviceUnavailable => 'AI xizmati vaqtincha ishlamayapti';
@@ -562,6 +572,15 @@ class AppLocalizationsUz extends AppLocalizations {
   String get finance => 'Moliya';
 
   @override
+  String get orders_financeTotal => 'Jami';
+
+  @override
+  String get orders_financePrepayment => 'Avans';
+
+  @override
+  String get orders_financeBalance => 'Qoldiq';
+
+  @override
   String get nameAndPhoneRequired => 'Ism va telefon majburiy';
 
   @override
@@ -884,6 +903,267 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_pricingTest => 'Hisobni sinash';
 
   @override
+  String get management_pricingCoefs => 'Koeffitsientlar';
+
+  @override
+  String get management_pricingTiersTitle => 'Chegirma bosqichlari';
+
+  @override
+  String get management_pricingDefaultsTitle => 'Standart qiymatlar';
+
+  @override
+  String get management_pricingAddTier => 'Bosqich qo\'shish';
+
+  @override
+  String get management_pricingTierMinAmount => 'Eng kam summa';
+
+  @override
+  String get management_pricingTierPercent => 'Chegirma %';
+
+  @override
+  String get management_pricingTierSave => 'Saqlash';
+
+  @override
+  String get management_pricingMaxManager => 'Maks chegirma (Manager)';
+
+  @override
+  String get management_pricingMaxEmployee => 'Maks chegirma (Xodim)';
+
+  @override
+  String get management_pricingAdvancePercent => 'Avans %';
+
+  @override
+  String get management_pricingDeliveryPrice => 'Yetkazish narxi';
+
+  @override
+  String get management_pricingCalcPreviewHeight => 'Balandligi (m)';
+
+  @override
+  String get management_pricingCalcPreviewWidth => 'Uzunligi (m)';
+
+  @override
+  String get management_pricingCalcPreviewPieces => 'Bo\'lak soni';
+
+  @override
+  String get management_pricingCalcPreviewCalc => 'Hisoblash';
+
+  @override
+  String get management_knowledgeAddRule => 'Qoida qo\'shish';
+
+  @override
+  String get management_knowledgeRuleType => 'Turi';
+
+  @override
+  String get management_knowledgeRuleConditions => 'Shartlar';
+
+  @override
+  String get management_knowledgeRuleRecommendation => 'Tavsiya';
+
+  @override
+  String get management_knowledgeRulePriority => 'Ustuvorlik';
+
+  @override
+  String get management_knowledgeRuleIsActive => 'Faol';
+
+  @override
+  String get management_knowledgeRuleSave => 'Saqlash';
+
+  @override
+  String get management_knowledgeRuleTestAI => 'AI\'da sinash';
+
+  @override
+  String get management_bulkPriceTitle => 'Narxni o\'zgartirish';
+
+  @override
+  String get management_bulkPricePercent10 => '+10%';
+
+  @override
+  String get management_bulkPricePercent5 => '-5%';
+
+  @override
+  String get management_bulkPriceAmount => 'Yangi narx';
+
+  @override
+  String get management_bulkPricePercentHint => 'Foiz';
+
+  @override
+  String get management_bulkPriceAmountHint => 'Summa';
+
+  @override
+  String get management_bulkPricePreview => 'Oldindan ko\'rish:';
+
+  @override
+  String get management_pricingPolicyHint =>
+      'Qo\'lda maksimal chegirma limitlari. AI taklifi bu limitdan oshmaydi.';
+
+  @override
+  String get management_pricingStackWithTier => 'Tier chegirma bilan jamlash';
+
+  @override
+  String get management_pricingDeadlineDays => 'Muddat (kun)';
+
+  @override
+  String get management_pricingCoefsEmpty => 'Koeffitsientlar topilmadi';
+
+  @override
+  String get management_pricingTiersEmpty =>
+      'Chegirma bosqichlari hozircha yo\'q';
+
+  @override
+  String get management_pricingSaveError => 'Saqlashda xatolik yuz berdi';
+
+  @override
+  String get management_pricingPreviewError => 'Hisoblashda xatolik yuz berdi';
+
+  @override
+  String get management_knowledgeEditTitle => 'Qoidani tahrirlash';
+
+  @override
+  String get management_knowledgeEmptyTitle => 'Qoidalar yo\'q';
+
+  @override
+  String get management_knowledgeEmptyMessage =>
+      'Hozircha bilim qoidalari qo\'shilmagan';
+
+  @override
+  String get management_knowledgeErrorTitle => 'Yuklab bo\'lmadi';
+
+  @override
+  String get management_knowledgeConditionHint => 'Shart qo\'shish';
+
+  @override
+  String get management_knowledgeRemove => 'O\'chirish';
+
+  @override
+  String get management_knowledgeRemoveConfirmTitle => 'Qoidani o\'chirish?';
+
+  @override
+  String get management_knowledgeRemoveConfirmMessage =>
+      'Qoida butunlay o\'chiriladi. Davom etasizmi?';
+
+  @override
+  String get management_knowledgeRuleRemoved => 'Qoida o\'chirildi';
+
+  @override
+  String get management_knowledgeRulePriorityHint => 'Ustuvorlik';
+
+  @override
+  String management_knowledgeRulePriorityLabel(int value) {
+    return 'Ustuvorlik: $value';
+  }
+
+  @override
+  String get management_productsSearchHint => 'Mahsulot nomi, SKU qidirish';
+
+  @override
+  String get management_productsAll => 'Barchasi';
+
+  @override
+  String get management_productsEmptyTitle => 'Mahsulotlar topilmadi';
+
+  @override
+  String get management_productsEmptyMessage =>
+      'Qidiruv yoki filtr shartini o\'zgartirib ko\'ring';
+
+  @override
+  String get management_productsLoadError => 'Yuklab bo\'lmadi';
+
+  @override
+  String get management_bulkApplied => 'Narx yangilandi';
+
+  @override
+  String management_productsSelected(int count) {
+    return '$count ta tanlandi';
+  }
+
+  @override
+  String get management_productFormEditTitle => 'Mahsulotni tahrirlash';
+
+  @override
+  String get management_productFormBasic => 'Asosiy';
+
+  @override
+  String get management_productFormName => 'Nomi';
+
+  @override
+  String get management_productFormCode => 'Kodi';
+
+  @override
+  String get management_productFormCategory => 'Kategoriya';
+
+  @override
+  String get management_productFormDescription => 'Tavsif';
+
+  @override
+  String get management_productFormFabricType => 'Mato turi';
+
+  @override
+  String get management_productFormComposition => 'Tarkibi';
+
+  @override
+  String get management_productFormCare => 'Parvarish qilish';
+
+  @override
+  String get management_productFormSegment => 'Segment';
+
+  @override
+  String get management_productFormRecommendedRooms =>
+      'Tavsiya qilinadigan xonalar';
+
+  @override
+  String get management_productFormBasePrice => 'Asosiy narx';
+
+  @override
+  String get management_productFormPrice => 'Narx';
+
+  @override
+  String get management_productFormCost => 'Tannarx';
+
+  @override
+  String get management_productFormVariants => 'Variantlar';
+
+  @override
+  String get management_productFormAddVariant => 'Variant qo\'shish';
+
+  @override
+  String get management_productFormVariantsEmpty =>
+      'Hali variant qo\'shilmagan';
+
+  @override
+  String management_productFormVariantLabel(int index) {
+    return 'Variant $index';
+  }
+
+  @override
+  String get management_productFormRemoveVariantTitle =>
+      'Variant o\'chirilsinmi?';
+
+  @override
+  String get management_productFormRemoveVariantMessage =>
+      'Bu amalni qaytarib bo\'lmaydi';
+
+  @override
+  String get management_productFormRemoveVariant => 'O\'chirish';
+
+  @override
+  String get management_productFormSku => 'SKU';
+
+  @override
+  String get management_productFormColorName => 'Rang nomi';
+
+  @override
+  String get management_productFormColorHex => 'Rang (hex)';
+
+  @override
+  String get management_productFormWidth => 'Eni (m)';
+
+  @override
+  String get management_productFormIsActive => 'Faol';
+
+  @override
+  String get management_productFormSaved => 'Saqlandi';
+
+  @override
   String get chat_listening => 'Eshityapman...';
 
   @override
@@ -920,6 +1200,95 @@ class AppLocalizationsUz extends AppLocalizations {
   String chat_pinAttemptsWait(int seconds) {
     return 'Juda ko\'p xato urinishlar. $seconds soniya kuting.';
   }
+
+  @override
+  String get chat_pdfRequireOrder => 'Avval buyurtma yarating';
+
+  @override
+  String get orders_pdf => 'PDF';
+
+  @override
+  String get orders_share => 'Ulashish';
+
+  @override
+  String get settings_systemPromptTitle => 'Tizim prompti';
+
+  @override
+  String get settings_currentPrompt => 'JORIY PROMPT';
+
+  @override
+  String get settings_promptHint => 'Prompt matni';
+
+  @override
+  String get settings_saveNewVersion => 'Yangi versiya saqlash';
+
+  @override
+  String get settings_versionHistory => 'VERSIYALAR TARIXI';
+
+  @override
+  String settings_version(int version) {
+    return 'v$version';
+  }
+
+  @override
+  String get settings_rollback => 'Qaytarish';
+
+  @override
+  String get settings_rollbackConfirmTitle => 'Versiyaga qaytish?';
+
+  @override
+  String get settings_rollbackConfirmMessage =>
+      'Haqiqatan ham ushbu versiyaga qaytasizmi?';
+
+  @override
+  String get settings_authorUnknown => 'Noma\'lum';
+
+  @override
+  String get settings_modelPricingsTitle => 'Model narxlari';
+
+  @override
+  String settings_modelProviderModel(String provider, String model) {
+    return '$provider — $model';
+  }
+
+  @override
+  String settings_modelInput(double price) {
+    return 'Kirish (1M): $price';
+  }
+
+  @override
+  String settings_modelOutput(double price) {
+    return 'Chiqish (1M): $price';
+  }
+
+  @override
+  String settings_modelCached(double price) {
+    return 'Kesh (1M): $price';
+  }
+
+  @override
+  String settings_modelStt(double price) {
+    return 'STT (daqiqa): $price';
+  }
+
+  @override
+  String settings_modelTts(double price) {
+    return 'TTS (1k belgi): $price';
+  }
+
+  @override
+  String settings_modelUsdToUzs(double value) {
+    return 'USD → UZS: $value';
+  }
+
+  @override
+  String get settings_active => 'Faol';
+
+  @override
+  String get settings_inactive => 'Nofaol';
+
+  @override
+  String get settings_delete => 'O\'chirish';
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -964,6 +1333,10 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get error_auth => 'Сессия муддати тугади. Илтимос, қайта киринг.';
 
   @override
+  String get offline_flushFailed =>
+      'Серверда янги маълумот бор. Баъзи ўзгаришлар сақланмади.';
+
+  @override
   String get error_permission => 'Рухсат йўқ';
 
   @override
@@ -971,6 +1344,12 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get error_limit => 'Лимит тугади';
+
+  @override
+  String get limit_callManager => 'Қўнғироқ';
+
+  @override
+  String get limit_smsManager => 'SMS';
 
   @override
   String get error_serviceUnavailable => 'AI хизмати вақтинча ишламаяпти';
@@ -1477,6 +1856,15 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get finance => 'Молия';
 
   @override
+  String get orders_financeTotal => 'Жами';
+
+  @override
+  String get orders_financePrepayment => 'Аванс';
+
+  @override
+  String get orders_financeBalance => 'Қолдиқ';
+
+  @override
   String get nameAndPhoneRequired => 'Исм ва телефон мажбурий';
 
   @override
@@ -1796,6 +2184,195 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get management_pricingTest => 'Ҳисобни синаш';
 
   @override
+  String get management_bulkPriceTitle => 'Нархни ўзгартириш';
+
+  @override
+  String get management_bulkPricePercent10 => '+10%';
+
+  @override
+  String get management_bulkPricePercent5 => '-5%';
+
+  @override
+  String get management_bulkPriceAmount => 'Янги нарх';
+
+  @override
+  String get management_bulkPricePercentHint => 'Фоиз';
+
+  @override
+  String get management_bulkPriceAmountHint => 'Сумма';
+
+  @override
+  String get management_bulkPricePreview => 'Олдиндан кўриш:';
+
+  @override
+  String get management_pricingPolicyHint =>
+      'Қўлда максимал чегирма лимитлари. АИ таклифи бу лимитдан ошмайди.';
+
+  @override
+  String get management_pricingStackWithTier => 'Тиер чегирма билан жамлаш';
+
+  @override
+  String get management_pricingDeadlineDays => 'Муддат (кун)';
+
+  @override
+  String get management_pricingCoefsEmpty => 'Коэффициентлар топилмади';
+
+  @override
+  String get management_pricingTiersEmpty => 'Чегирма босқичлари ҳозирча йўқ';
+
+  @override
+  String get management_pricingSaveError => 'Сақлашда хатолик юз берди';
+
+  @override
+  String get management_pricingPreviewError => 'Ҳисоблашда хатолик юз берди';
+
+  @override
+  String get management_knowledgeEditTitle => 'Қоидани таҳрирлаш';
+
+  @override
+  String get management_knowledgeEmptyTitle => 'Қоидалар йўқ';
+
+  @override
+  String get management_knowledgeEmptyMessage =>
+      'Ҳозирча билим қоидалари қўшилмаган';
+
+  @override
+  String get management_knowledgeErrorTitle => 'Юклаб бўлмади';
+
+  @override
+  String get management_knowledgeConditionHint => 'Шарт қўшиш';
+
+  @override
+  String get management_knowledgeRemove => 'Ўчириш';
+
+  @override
+  String get management_knowledgeRemoveConfirmTitle => 'Қоидани ўчириш?';
+
+  @override
+  String get management_knowledgeRemoveConfirmMessage =>
+      'Қоида бутунлай ўчирилади. Давом этасизми?';
+
+  @override
+  String get management_knowledgeRuleRemoved => 'Қоида ўчирилди';
+
+  @override
+  String get management_knowledgeRulePriorityHint => 'Устуворлик';
+
+  @override
+  String management_knowledgeRulePriorityLabel(int value) {
+    return 'Устуворлик: $value';
+  }
+
+  @override
+  String get management_productsSearchHint => 'Маҳсулот номи, SKU қидириш';
+
+  @override
+  String get management_productsAll => 'Барчаси';
+
+  @override
+  String get management_productsEmptyTitle => 'Маҳсулотлар топилмади';
+
+  @override
+  String get management_productsEmptyMessage =>
+      'Қидирув ёки фильтр шартини ўзгартириб кўринг';
+
+  @override
+  String get management_productsLoadError => 'Юклаб бўлмади';
+
+  @override
+  String get management_bulkApplied => 'Нарх янгиланди';
+
+  @override
+  String management_productsSelected(int count) {
+    return '$count та танланди';
+  }
+
+  @override
+  String get management_productFormEditTitle => 'Маҳсулотни таҳрирлаш';
+
+  @override
+  String get management_productFormBasic => 'Асосий';
+
+  @override
+  String get management_productFormName => 'Номи';
+
+  @override
+  String get management_productFormCode => 'Коди';
+
+  @override
+  String get management_productFormCategory => 'Категория';
+
+  @override
+  String get management_productFormDescription => 'Тавсиф';
+
+  @override
+  String get management_productFormFabricType => 'Мато тури';
+
+  @override
+  String get management_productFormComposition => 'Таркиби';
+
+  @override
+  String get management_productFormCare => 'Парвариш қилиш';
+
+  @override
+  String get management_productFormSegment => 'Сегмент';
+
+  @override
+  String get management_productFormRecommendedRooms =>
+      'Тавсия қилинадиган хоналар';
+
+  @override
+  String get management_productFormBasePrice => 'Асосий нарх';
+
+  @override
+  String get management_productFormPrice => 'Нарх';
+
+  @override
+  String get management_productFormCost => 'Таннарх';
+
+  @override
+  String get management_productFormVariants => 'Вариантлар';
+
+  @override
+  String get management_productFormAddVariant => 'Вариант қўшиш';
+
+  @override
+  String get management_productFormVariantsEmpty => 'Ҳали вариант қўшилмаган';
+
+  @override
+  String management_productFormVariantLabel(int index) {
+    return 'Вариант $index';
+  }
+
+  @override
+  String get management_productFormRemoveVariantTitle => 'Вариант ўчирилсинми?';
+
+  @override
+  String get management_productFormRemoveVariantMessage =>
+      'Бу амални қайтариб бўлмайди';
+
+  @override
+  String get management_productFormRemoveVariant => 'Ўчириш';
+
+  @override
+  String get management_productFormSku => 'SKU';
+
+  @override
+  String get management_productFormColorName => 'Ранг номи';
+
+  @override
+  String get management_productFormColorHex => 'Ранг (hex)';
+
+  @override
+  String get management_productFormWidth => 'Эни (м)';
+
+  @override
+  String get management_productFormIsActive => 'Фаол';
+
+  @override
+  String get management_productFormSaved => 'Сақланди';
+
+  @override
   String get chat_listening => 'Эшитяпман...';
 
   @override
@@ -1832,4 +2409,93 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String chat_pinAttemptsWait(int seconds) {
     return 'Жуда кўп хато уринишлар. $seconds сония кутинг.';
   }
+
+  @override
+  String get chat_pdfRequireOrder => 'Аввал буюртма яратинг';
+
+  @override
+  String get orders_pdf => 'PDF';
+
+  @override
+  String get orders_share => 'Улашиш';
+
+  @override
+  String get settings_systemPromptTitle => 'Тизим промпти';
+
+  @override
+  String get settings_currentPrompt => 'ЖОРИЙ ПРОМПТ';
+
+  @override
+  String get settings_promptHint => 'Промпт матни';
+
+  @override
+  String get settings_saveNewVersion => 'Янги версияни сақлаш';
+
+  @override
+  String get settings_versionHistory => 'ВЕРСИЯЛАР ТАРИХИ';
+
+  @override
+  String settings_version(int version) {
+    return 'v$version';
+  }
+
+  @override
+  String get settings_rollback => 'Қайтариш';
+
+  @override
+  String get settings_rollbackConfirmTitle => 'Версияга қайтиш?';
+
+  @override
+  String get settings_rollbackConfirmMessage =>
+      'Ҳақиқатан ҳам ушбу версияга қайтасизми?';
+
+  @override
+  String get settings_authorUnknown => 'Номаълум';
+
+  @override
+  String get settings_modelPricingsTitle => 'Модель нархлари';
+
+  @override
+  String settings_modelProviderModel(String provider, String model) {
+    return '$provider — $model';
+  }
+
+  @override
+  String settings_modelInput(double price) {
+    return 'Кириш (1M): $price';
+  }
+
+  @override
+  String settings_modelOutput(double price) {
+    return 'Чиқиш (1M): $price';
+  }
+
+  @override
+  String settings_modelCached(double price) {
+    return 'Кеш (1M): $price';
+  }
+
+  @override
+  String settings_modelStt(double price) {
+    return 'STT (дақиқа): $price';
+  }
+
+  @override
+  String settings_modelTts(double price) {
+    return 'TTS (1k белги): $price';
+  }
+
+  @override
+  String settings_modelUsdToUzs(double value) {
+    return 'USD → UZS: $value';
+  }
+
+  @override
+  String get settings_active => 'Фаол';
+
+  @override
+  String get settings_inactive => 'Нофаол';
+
+  @override
+  String get settings_delete => 'Ўчириш';
 }

@@ -13,8 +13,8 @@ void main() {
 
   Widget buildGallery(ThemeMode mode) {
     return MaterialApp(
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       themeMode: mode,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [

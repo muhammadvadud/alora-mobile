@@ -8,8 +8,8 @@ abstract class CalcPreviewRequestDto with _$CalcPreviewRequestDto {
   const factory CalcPreviewRequestDto({
     required List<CalcPreviewMeasurementDto> measurements,
     required List<String> services,
-    @JsonKey(name: 'discount_percent') required String discountPercent,
-    required bool delivery,
+    @JsonKey(name: 'discount_percent') @Default('0') String discountPercent,
+    @Default(false) bool delivery,
   }) = _CalcPreviewRequestDto;
 
   factory CalcPreviewRequestDto.fromJson(Map<String, dynamic> json) =>

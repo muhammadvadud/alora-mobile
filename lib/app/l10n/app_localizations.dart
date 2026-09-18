@@ -171,6 +171,12 @@ abstract class AppLocalizations {
   /// **'Sessiya muddati tugadi. Iltimos, qayta kiring.'**
   String get error_auth;
 
+  /// No description provided for @offline_flushFailed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Serverda yangi ma\'lumot bor. Ba\'zi o\'zgarishlar saqlanmadi.'**
+  String get offline_flushFailed;
+
   /// No description provided for @error_permission.
   ///
   /// In uz, this message translates to:
@@ -188,6 +194,18 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Limit tugadi'**
   String get error_limit;
+
+  /// No description provided for @limit_callManager.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qo\'ng\'iroq'**
+  String get limit_callManager;
+
+  /// No description provided for @limit_smsManager.
+  ///
+  /// In uz, this message translates to:
+  /// **'SMS'**
+  String get limit_smsManager;
 
   /// No description provided for @error_serviceUnavailable.
   ///
@@ -1149,6 +1167,24 @@ abstract class AppLocalizations {
   /// **'Moliya'**
   String get finance;
 
+  /// No description provided for @orders_financeTotal.
+  ///
+  /// In uz, this message translates to:
+  /// **'Jami'**
+  String get orders_financeTotal;
+
+  /// No description provided for @orders_financePrepayment.
+  ///
+  /// In uz, this message translates to:
+  /// **'Avans'**
+  String get orders_financePrepayment;
+
+  /// No description provided for @orders_financeBalance.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoldiq'**
+  String get orders_financeBalance;
+
   /// No description provided for @nameAndPhoneRequired.
   ///
   /// In uz, this message translates to:
@@ -1767,6 +1803,498 @@ abstract class AppLocalizations {
   /// **'Hisobni sinash'**
   String get management_pricingTest;
 
+  /// No description provided for @management_pricingCoefs.
+  ///
+  /// In uz, this message translates to:
+  /// **'Koeffitsientlar'**
+  String get management_pricingCoefs;
+
+  /// No description provided for @management_pricingTiersTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chegirma bosqichlari'**
+  String get management_pricingTiersTitle;
+
+  /// No description provided for @management_pricingDefaultsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Standart qiymatlar'**
+  String get management_pricingDefaultsTitle;
+
+  /// No description provided for @management_pricingAddTier.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bosqich qo\'shish'**
+  String get management_pricingAddTier;
+
+  /// No description provided for @management_pricingTierMinAmount.
+  ///
+  /// In uz, this message translates to:
+  /// **'Eng kam summa'**
+  String get management_pricingTierMinAmount;
+
+  /// No description provided for @management_pricingTierPercent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chegirma %'**
+  String get management_pricingTierPercent;
+
+  /// No description provided for @management_pricingTierSave.
+  ///
+  /// In uz, this message translates to:
+  /// **'Saqlash'**
+  String get management_pricingTierSave;
+
+  /// No description provided for @management_pricingMaxManager.
+  ///
+  /// In uz, this message translates to:
+  /// **'Maks chegirma (Manager)'**
+  String get management_pricingMaxManager;
+
+  /// No description provided for @management_pricingMaxEmployee.
+  ///
+  /// In uz, this message translates to:
+  /// **'Maks chegirma (Xodim)'**
+  String get management_pricingMaxEmployee;
+
+  /// No description provided for @management_pricingAdvancePercent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Avans %'**
+  String get management_pricingAdvancePercent;
+
+  /// No description provided for @management_pricingDeliveryPrice.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yetkazish narxi'**
+  String get management_pricingDeliveryPrice;
+
+  /// No description provided for @management_pricingCalcPreviewHeight.
+  ///
+  /// In uz, this message translates to:
+  /// **'Balandligi (m)'**
+  String get management_pricingCalcPreviewHeight;
+
+  /// No description provided for @management_pricingCalcPreviewWidth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uzunligi (m)'**
+  String get management_pricingCalcPreviewWidth;
+
+  /// No description provided for @management_pricingCalcPreviewPieces.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bo\'lak soni'**
+  String get management_pricingCalcPreviewPieces;
+
+  /// No description provided for @management_pricingCalcPreviewCalc.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisoblash'**
+  String get management_pricingCalcPreviewCalc;
+
+  /// No description provided for @management_knowledgeAddRule.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoida qo\'shish'**
+  String get management_knowledgeAddRule;
+
+  /// No description provided for @management_knowledgeRuleType.
+  ///
+  /// In uz, this message translates to:
+  /// **'Turi'**
+  String get management_knowledgeRuleType;
+
+  /// No description provided for @management_knowledgeRuleConditions.
+  ///
+  /// In uz, this message translates to:
+  /// **'Shartlar'**
+  String get management_knowledgeRuleConditions;
+
+  /// No description provided for @management_knowledgeRuleRecommendation.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tavsiya'**
+  String get management_knowledgeRuleRecommendation;
+
+  /// No description provided for @management_knowledgeRulePriority.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ustuvorlik'**
+  String get management_knowledgeRulePriority;
+
+  /// No description provided for @management_knowledgeRuleIsActive.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faol'**
+  String get management_knowledgeRuleIsActive;
+
+  /// No description provided for @management_knowledgeRuleSave.
+  ///
+  /// In uz, this message translates to:
+  /// **'Saqlash'**
+  String get management_knowledgeRuleSave;
+
+  /// No description provided for @management_knowledgeRuleTestAI.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI\'da sinash'**
+  String get management_knowledgeRuleTestAI;
+
+  /// No description provided for @management_bulkPriceTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narxni o\'zgartirish'**
+  String get management_bulkPriceTitle;
+
+  /// No description provided for @management_bulkPricePercent10.
+  ///
+  /// In uz, this message translates to:
+  /// **'+10%'**
+  String get management_bulkPricePercent10;
+
+  /// No description provided for @management_bulkPricePercent5.
+  ///
+  /// In uz, this message translates to:
+  /// **'-5%'**
+  String get management_bulkPricePercent5;
+
+  /// No description provided for @management_bulkPriceAmount.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi narx'**
+  String get management_bulkPriceAmount;
+
+  /// No description provided for @management_bulkPricePercentHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Foiz'**
+  String get management_bulkPricePercentHint;
+
+  /// No description provided for @management_bulkPriceAmountHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Summa'**
+  String get management_bulkPriceAmountHint;
+
+  /// No description provided for @management_bulkPricePreview.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oldindan ko\'rish:'**
+  String get management_bulkPricePreview;
+
+  /// No description provided for @management_pricingPolicyHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qo\'lda maksimal chegirma limitlari. AI taklifi bu limitdan oshmaydi.'**
+  String get management_pricingPolicyHint;
+
+  /// No description provided for @management_pricingStackWithTier.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tier chegirma bilan jamlash'**
+  String get management_pricingStackWithTier;
+
+  /// No description provided for @management_pricingDeadlineDays.
+  ///
+  /// In uz, this message translates to:
+  /// **'Muddat (kun)'**
+  String get management_pricingDeadlineDays;
+
+  /// No description provided for @management_pricingCoefsEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Koeffitsientlar topilmadi'**
+  String get management_pricingCoefsEmpty;
+
+  /// No description provided for @management_pricingTiersEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chegirma bosqichlari hozircha yo\'q'**
+  String get management_pricingTiersEmpty;
+
+  /// No description provided for @management_pricingSaveError.
+  ///
+  /// In uz, this message translates to:
+  /// **'Saqlashda xatolik yuz berdi'**
+  String get management_pricingSaveError;
+
+  /// No description provided for @management_pricingPreviewError.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisoblashda xatolik yuz berdi'**
+  String get management_pricingPreviewError;
+
+  /// No description provided for @management_knowledgeEditTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoidani tahrirlash'**
+  String get management_knowledgeEditTitle;
+
+  /// No description provided for @management_knowledgeEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoidalar yo\'q'**
+  String get management_knowledgeEmptyTitle;
+
+  /// No description provided for @management_knowledgeEmptyMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hozircha bilim qoidalari qo\'shilmagan'**
+  String get management_knowledgeEmptyMessage;
+
+  /// No description provided for @management_knowledgeErrorTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yuklab bo\'lmadi'**
+  String get management_knowledgeErrorTitle;
+
+  /// No description provided for @management_knowledgeConditionHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Shart qo\'shish'**
+  String get management_knowledgeConditionHint;
+
+  /// No description provided for @management_knowledgeRemove.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'chirish'**
+  String get management_knowledgeRemove;
+
+  /// No description provided for @management_knowledgeRemoveConfirmTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoidani o\'chirish?'**
+  String get management_knowledgeRemoveConfirmTitle;
+
+  /// No description provided for @management_knowledgeRemoveConfirmMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoida butunlay o\'chiriladi. Davom etasizmi?'**
+  String get management_knowledgeRemoveConfirmMessage;
+
+  /// No description provided for @management_knowledgeRuleRemoved.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qoida o\'chirildi'**
+  String get management_knowledgeRuleRemoved;
+
+  /// No description provided for @management_knowledgeRulePriorityHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ustuvorlik'**
+  String get management_knowledgeRulePriorityHint;
+
+  /// No description provided for @management_knowledgeRulePriorityLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ustuvorlik: {value}'**
+  String management_knowledgeRulePriorityLabel(int value);
+
+  /// No description provided for @management_productsSearchHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulot nomi, SKU qidirish'**
+  String get management_productsSearchHint;
+
+  /// No description provided for @management_productsAll.
+  ///
+  /// In uz, this message translates to:
+  /// **'Barchasi'**
+  String get management_productsAll;
+
+  /// No description provided for @management_productsEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulotlar topilmadi'**
+  String get management_productsEmptyTitle;
+
+  /// No description provided for @management_productsEmptyMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qidiruv yoki filtr shartini o\'zgartirib ko\'ring'**
+  String get management_productsEmptyMessage;
+
+  /// No description provided for @management_productsLoadError.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yuklab bo\'lmadi'**
+  String get management_productsLoadError;
+
+  /// No description provided for @management_bulkApplied.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narx yangilandi'**
+  String get management_bulkApplied;
+
+  /// No description provided for @management_productsSelected.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta tanlandi'**
+  String management_productsSelected(int count);
+
+  /// No description provided for @management_productFormEditTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mahsulotni tahrirlash'**
+  String get management_productFormEditTitle;
+
+  /// No description provided for @management_productFormBasic.
+  ///
+  /// In uz, this message translates to:
+  /// **'Asosiy'**
+  String get management_productFormBasic;
+
+  /// No description provided for @management_productFormName.
+  ///
+  /// In uz, this message translates to:
+  /// **'Nomi'**
+  String get management_productFormName;
+
+  /// No description provided for @management_productFormCode.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kodi'**
+  String get management_productFormCode;
+
+  /// No description provided for @management_productFormCategory.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kategoriya'**
+  String get management_productFormCategory;
+
+  /// No description provided for @management_productFormDescription.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tavsif'**
+  String get management_productFormDescription;
+
+  /// No description provided for @management_productFormFabricType.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mato turi'**
+  String get management_productFormFabricType;
+
+  /// No description provided for @management_productFormComposition.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tarkibi'**
+  String get management_productFormComposition;
+
+  /// No description provided for @management_productFormCare.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parvarish qilish'**
+  String get management_productFormCare;
+
+  /// No description provided for @management_productFormSegment.
+  ///
+  /// In uz, this message translates to:
+  /// **'Segment'**
+  String get management_productFormSegment;
+
+  /// No description provided for @management_productFormRecommendedRooms.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tavsiya qilinadigan xonalar'**
+  String get management_productFormRecommendedRooms;
+
+  /// No description provided for @management_productFormBasePrice.
+  ///
+  /// In uz, this message translates to:
+  /// **'Asosiy narx'**
+  String get management_productFormBasePrice;
+
+  /// No description provided for @management_productFormPrice.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narx'**
+  String get management_productFormPrice;
+
+  /// No description provided for @management_productFormCost.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tannarx'**
+  String get management_productFormCost;
+
+  /// No description provided for @management_productFormVariants.
+  ///
+  /// In uz, this message translates to:
+  /// **'Variantlar'**
+  String get management_productFormVariants;
+
+  /// No description provided for @management_productFormAddVariant.
+  ///
+  /// In uz, this message translates to:
+  /// **'Variant qo\'shish'**
+  String get management_productFormAddVariant;
+
+  /// No description provided for @management_productFormVariantsEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali variant qo\'shilmagan'**
+  String get management_productFormVariantsEmpty;
+
+  /// No description provided for @management_productFormVariantLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Variant {index}'**
+  String management_productFormVariantLabel(int index);
+
+  /// No description provided for @management_productFormRemoveVariantTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Variant o\'chirilsinmi?'**
+  String get management_productFormRemoveVariantTitle;
+
+  /// No description provided for @management_productFormRemoveVariantMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu amalni qaytarib bo\'lmaydi'**
+  String get management_productFormRemoveVariantMessage;
+
+  /// No description provided for @management_productFormRemoveVariant.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'chirish'**
+  String get management_productFormRemoveVariant;
+
+  /// No description provided for @management_productFormSku.
+  ///
+  /// In uz, this message translates to:
+  /// **'SKU'**
+  String get management_productFormSku;
+
+  /// No description provided for @management_productFormColorName.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rang nomi'**
+  String get management_productFormColorName;
+
+  /// No description provided for @management_productFormColorHex.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rang (hex)'**
+  String get management_productFormColorHex;
+
+  /// No description provided for @management_productFormWidth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Eni (m)'**
+  String get management_productFormWidth;
+
+  /// No description provided for @management_productFormIsActive.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faol'**
+  String get management_productFormIsActive;
+
+  /// No description provided for @management_productFormSaved.
+  ///
+  /// In uz, this message translates to:
+  /// **'Saqlandi'**
+  String get management_productFormSaved;
+
   /// No description provided for @chat_listening.
   ///
   /// In uz, this message translates to:
@@ -1838,6 +2366,150 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Juda ko\'p xato urinishlar. {seconds} soniya kuting.'**
   String chat_pinAttemptsWait(int seconds);
+
+  /// No description provided for @chat_pdfRequireOrder.
+  ///
+  /// In uz, this message translates to:
+  /// **'Avval buyurtma yarating'**
+  String get chat_pdfRequireOrder;
+
+  /// No description provided for @orders_pdf.
+  ///
+  /// In uz, this message translates to:
+  /// **'PDF'**
+  String get orders_pdf;
+
+  /// No description provided for @orders_share.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ulashish'**
+  String get orders_share;
+
+  /// No description provided for @settings_systemPromptTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tizim prompti'**
+  String get settings_systemPromptTitle;
+
+  /// No description provided for @settings_currentPrompt.
+  ///
+  /// In uz, this message translates to:
+  /// **'JORIY PROMPT'**
+  String get settings_currentPrompt;
+
+  /// No description provided for @settings_promptHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Prompt matni'**
+  String get settings_promptHint;
+
+  /// No description provided for @settings_saveNewVersion.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi versiya saqlash'**
+  String get settings_saveNewVersion;
+
+  /// No description provided for @settings_versionHistory.
+  ///
+  /// In uz, this message translates to:
+  /// **'VERSIYALAR TARIXI'**
+  String get settings_versionHistory;
+
+  /// No description provided for @settings_version.
+  ///
+  /// In uz, this message translates to:
+  /// **'v{version}'**
+  String settings_version(int version);
+
+  /// No description provided for @settings_rollback.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qaytarish'**
+  String get settings_rollback;
+
+  /// No description provided for @settings_rollbackConfirmTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Versiyaga qaytish?'**
+  String get settings_rollbackConfirmTitle;
+
+  /// No description provided for @settings_rollbackConfirmMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Haqiqatan ham ushbu versiyaga qaytasizmi?'**
+  String get settings_rollbackConfirmMessage;
+
+  /// No description provided for @settings_authorUnknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noma\'lum'**
+  String get settings_authorUnknown;
+
+  /// No description provided for @settings_modelPricingsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Model narxlari'**
+  String get settings_modelPricingsTitle;
+
+  /// No description provided for @settings_modelProviderModel.
+  ///
+  /// In uz, this message translates to:
+  /// **'{provider} — {model}'**
+  String settings_modelProviderModel(String provider, String model);
+
+  /// No description provided for @settings_modelInput.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kirish (1M): {price}'**
+  String settings_modelInput(double price);
+
+  /// No description provided for @settings_modelOutput.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chiqish (1M): {price}'**
+  String settings_modelOutput(double price);
+
+  /// No description provided for @settings_modelCached.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kesh (1M): {price}'**
+  String settings_modelCached(double price);
+
+  /// No description provided for @settings_modelStt.
+  ///
+  /// In uz, this message translates to:
+  /// **'STT (daqiqa): {price}'**
+  String settings_modelStt(double price);
+
+  /// No description provided for @settings_modelTts.
+  ///
+  /// In uz, this message translates to:
+  /// **'TTS (1k belgi): {price}'**
+  String settings_modelTts(double price);
+
+  /// No description provided for @settings_modelUsdToUzs.
+  ///
+  /// In uz, this message translates to:
+  /// **'USD → UZS: {value}'**
+  String settings_modelUsdToUzs(double value);
+
+  /// No description provided for @settings_active.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faol'**
+  String get settings_active;
+
+  /// No description provided for @settings_inactive.
+  ///
+  /// In uz, this message translates to:
+  /// **'Nofaol'**
+  String get settings_inactive;
+
+  /// No description provided for @settings_delete.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'chirish'**
+  String get settings_delete;
 }
 
 class _AppLocalizationsDelegate

@@ -81,8 +81,9 @@ class _LineChart extends StatelessWidget {
         reservedSize: 26,
         getTitlesWidget: (value, meta) {
           final index = value.round();
-          if (index < 0 || index >= daily.length)
+          if (index < 0 || index >= daily.length) {
             return const SizedBox.shrink();
+          }
           final day = daily[index].date.day;
           return Text(
             '$day',

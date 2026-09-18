@@ -8,6 +8,7 @@ class User {
   final Role role;
   final String tenant;
   final String? deviceId;
+  final String? managerPhone;
 
   const User({
     required this.id,
@@ -16,5 +17,6 @@ class User {
     required this.role,
     required this.tenant,
     this.deviceId,
+    this.managerPhone,
   });
 }

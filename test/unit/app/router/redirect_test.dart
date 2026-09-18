@@ -186,4 +186,60 @@ void main() {
       isNull,
     );
   });
+
+  test('xodim (employee) barcha management sub-route\'laridan forbidden ga tushadi', () {
+    final employee = authenticated(Role.employee);
+    final managementLocations = [
+      AppRoutes.managementEmployees,
+      AppRoutes.managementEmployee('employee-1'),
+      AppRoutes.managementEmployeeConversations('employee-1'),
+      AppRoutes.managementConversationTranscript('employee-1', 'conv-1'),
+      AppRoutes.managementProducts,
+      AppRoutes.managementProductNew,
+      AppRoutes.managementProductEdit('product-1'),
+      AppRoutes.managementPricing,
+      AppRoutes.managementKnowledge,
+    ];
+
+    for (final location in managementLocations) {
+      expect(
+        resolveRedirect(
+          auth: employee,
+          customerModeEnabled: false,
+          location: location,
+        ),
+        AppRoutes.forbidden,
+        reason: '$location employee uchun forbidden bo\'lishi kerak',
+      );
+    }
+  });
+
+  test('admin boshqaruv bo\'limlariga ruxsat oladi', () {
+    final admin = authenticated(Role.admin);
+
+    expect(
+      resolveRedirect(
+        auth: admin,
+        customerModeEnabled: false,
+        location: AppRoutes.management,
+      ),
+      isNull,
+    );
+    expect(
+      resolveRedirect(
+        auth: admin,
+        customerModeEnabled: false,
+        location: AppRoutes.managementEmployees,
+      ),
+      isNull,
+    );
+    expect(
+      resolveRedirect(
+        auth: admin,
+        customerModeEnabled: false,
+        location: AppRoutes.managementEmployee('employee-1'),
+      ),
+      isNull,
+    );
+  });
 }

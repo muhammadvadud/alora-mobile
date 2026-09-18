@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../env.dart';
+import '../error/error_reporter.dart';
 import 'interceptors/auth_interceptor.dart';
 import 'interceptors/error_mapper_interceptor.dart';
 import 'interceptors/logging_interceptor.dart';
@@ -28,7 +29,10 @@ Dio dio(Ref ref) {
     AuthInterceptor(secureStorage),
     RefreshInterceptor(secureStorage, dio),
     RetryInterceptor(dio),
-    ErrorMapperInterceptor(),
+    ErrorMapperInterceptor(
+      onFailure: (failure) =>
+          ref.read(errorReporterProvider).breadcrumb(failure),
+    ),
     if (Env.isDev) LoggingInterceptor(),
   ]);
 

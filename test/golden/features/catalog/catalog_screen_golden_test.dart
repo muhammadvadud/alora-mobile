@@ -102,8 +102,8 @@ void main() {
         connectivityProvider.overrideWithValue(true),
       ],
       child: MaterialApp(
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
+        theme: AppTheme.light(),
+        darkTheme: AppTheme.dark(),
         themeMode: mode,
         localizationsDelegates: const [
           AppLocalizations.delegate,

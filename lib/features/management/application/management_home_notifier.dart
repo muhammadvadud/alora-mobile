@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:alora_mobile/core/error/failure.dart';
+
 import '../domain/entities/conversion_stats.dart';
 import '../domain/entities/management_home_data.dart';
 import '../domain/entities/usage_summary.dart';
@@ -18,20 +20,26 @@ class ManagementHomeNotifier extends _$ManagementHomeNotifier {
     final period = ref.watch(managementPeriodProvider);
     final usageRepository = ref.watch(usageRepositoryProvider);
 
-    final (
-      UsageSummary usage,
-      ConversionStats conversion,
-      List<UserUsage> ranking,
-    ) = await (
-      usageRepository.summary(period: period),
-      usageRepository.conversion(),
-      usageRepository.byUser(period: period),
-    ).wait;
+    try {
+      final (
+        UsageSummary usage,
+        ConversionStats conversion,
+        List<UserUsage> ranking,
+      ) = await (
+        usageRepository.summary(period: period),
+        usageRepository.conversion(),
+        usageRepository.byUser(period: period),
+      ).wait;
 
-    return ManagementHomeData(
-      usage: usage,
-      conversion: conversion,
-      ranking: ranking,
-    );
+      return ManagementHomeData(
+        usage: usage,
+        conversion: conversion,
+        ranking: ranking,
+      );
+    } on Failure {
+      rethrow;
+    } catch (error) {
+      throw Failure.unknown(error.toString());
+    }
   }
 }

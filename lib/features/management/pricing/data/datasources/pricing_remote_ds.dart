@@ -118,13 +118,13 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
     String id,
     Map<String, dynamic> data,
   ) async {
-    final res = await _dio.patch('\${ApiPaths.discountTiers}$id/', data: data);
+    final res = await _dio.patch('${ApiPaths.discountTiers}$id/', data: data);
     return DiscountTierDto.fromJson(res.data as Map<String, dynamic>);
   }
 
   @override
   Future<void> deleteDiscountTier(String id) async {
-    await _dio.delete('\${ApiPaths.discountTiers}$id/');
+    await _dio.delete('${ApiPaths.discountTiers}$id/');
   }
 
   @override

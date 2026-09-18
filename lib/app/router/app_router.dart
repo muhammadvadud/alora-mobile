@@ -26,7 +26,10 @@ import 'package:alora_mobile/features/orders/presentation/screens/orders_screen.
 import 'package:alora_mobile/features/orders/presentation/screens/order_form_screen.dart';
 import 'package:alora_mobile/features/profile/presentation/screens/profile_screen.dart';
 import 'package:alora_mobile/shared/models/role.dart';
+import 'package:alora_mobile/features/management/settings/presentation/screens/system_prompt_screen.dart';
+import 'package:alora_mobile/features/management/settings/presentation/screens/model_pricings_screen.dart';
 
+import '../../features/customer_mode/presentation/widgets/customer_mode_pop_scope.dart';
 import 'app_shell.dart';
 import 'forbidden_screen.dart';
 import 'routes.dart';
@@ -90,6 +93,14 @@ String? resolveRedirect({
     return AppRoutes.forbidden;
   }
 
+  final isManager = auth.maybeWhen(
+    authenticated: (u) => u.role == Role.manager,
+    orElse: () => false,
+  );
+  if (isManager && location.startsWith('/management/settings')) {
+    return AppRoutes.forbidden;
+  }
+
   return null;
 }
 
@@ -125,8 +136,9 @@ List<RouteBase> _routes() {
         builder: (context, state) => const ComponentGallery(),
       ),
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) =>
-          AloraShell(navigationShell: navigationShell),
+      builder: (context, state, navigationShell) => CustomerModePopScope(
+        child: AloraShell(navigationShell: navigationShell),
+      ),
       branches: [
         StatefulShellBranch(
           navigatorKey: _chatNavKey,
@@ -212,6 +224,14 @@ List<RouteBase> _routes() {
                 GoRoute(
                   path: 'knowledge',
                   builder: (_, _) => const KnowledgeScreen(),
+                ),
+                GoRoute(
+                  path: 'settings/prompt',
+                  builder: (_, _) => const SystemPromptScreen(),
+                ),
+                GoRoute(
+                  path: 'settings/models',
+                  builder: (_, _) => const ModelPricingsScreen(),
                 ),
                 GoRoute(
                   path: 'employees',

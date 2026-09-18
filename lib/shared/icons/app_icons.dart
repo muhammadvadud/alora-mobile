@@ -22,6 +22,8 @@ class AppIcons {
   static const IconData send =
       LucideIcons.arrowUp; // dizayn: yuborish — yuqoriga strelka (1c)
   static const IconData check = LucideIcons.check;
+  static const IconData edit = LucideIcons.pencil;
+  static const IconData dot = LucideIcons.dot;
   static const IconData close = LucideIcons.x;
   static const IconData arrowDown = LucideIcons.arrowDown;
   static const IconData refresh = LucideIcons.refreshCw;

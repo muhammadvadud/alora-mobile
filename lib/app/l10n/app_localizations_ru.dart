@@ -47,6 +47,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_auth => 'Сессия истекла. Пожалуйста, войдите снова.';
 
   @override
+  String get offline_flushFailed =>
+      'На сервере есть новые данные. Некоторые изменения не сохранены.';
+
+  @override
   String get error_permission => 'Нет доступа';
 
   @override
@@ -54,6 +58,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get error_limit => 'Лимит исчерпан';
+
+  @override
+  String get limit_callManager => 'Позвонить';
+
+  @override
+  String get limit_smsManager => 'SMS';
 
   @override
   String get error_serviceUnavailable => 'AI сервис временно недоступен';
@@ -560,6 +570,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get finance => 'Финансы';
 
   @override
+  String get orders_financeTotal => 'Итого';
+
+  @override
+  String get orders_financePrepayment => 'Аванс';
+
+  @override
+  String get orders_financeBalance => 'Остаток';
+
+  @override
   String get nameAndPhoneRequired => 'Имя и телефон обязательны';
 
   @override
@@ -884,6 +903,263 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_pricingTest => 'Проверить расчёт';
 
   @override
+  String get management_pricingCoefs => 'Коэффициенты';
+
+  @override
+  String get management_pricingTiersTitle => 'Уровни скидок';
+
+  @override
+  String get management_pricingDefaultsTitle => 'Стандартные значения';
+
+  @override
+  String get management_pricingAddTier => 'Добавить уровень';
+
+  @override
+  String get management_pricingTierMinAmount => 'Мин. сумма';
+
+  @override
+  String get management_pricingTierPercent => 'Скидка %';
+
+  @override
+  String get management_pricingTierSave => 'Сохранить';
+
+  @override
+  String get management_pricingMaxManager => 'Макс. скидка (Менеджер)';
+
+  @override
+  String get management_pricingMaxEmployee => 'Макс. скидка (Сотрудник)';
+
+  @override
+  String get management_pricingAdvancePercent => 'Аванс %';
+
+  @override
+  String get management_pricingDeliveryPrice => 'Цена доставки';
+
+  @override
+  String get management_pricingCalcPreviewHeight => 'Высота (м)';
+
+  @override
+  String get management_pricingCalcPreviewWidth => 'Ширина (м)';
+
+  @override
+  String get management_pricingCalcPreviewPieces => 'Кол-во частей';
+
+  @override
+  String get management_pricingCalcPreviewCalc => 'Рассчитать';
+
+  @override
+  String get management_knowledgeAddRule => 'Добавить правило';
+
+  @override
+  String get management_knowledgeRuleType => 'Тип';
+
+  @override
+  String get management_knowledgeRuleConditions => 'Условия';
+
+  @override
+  String get management_knowledgeRuleRecommendation => 'Рекомендация';
+
+  @override
+  String get management_knowledgeRulePriority => 'Приоритет';
+
+  @override
+  String get management_knowledgeRuleIsActive => 'Активно';
+
+  @override
+  String get management_knowledgeRuleSave => 'Сохранить';
+
+  @override
+  String get management_knowledgeRuleTestAI => 'Тест в ИИ';
+
+  @override
+  String get management_bulkPriceTitle => 'Изменить цену';
+
+  @override
+  String get management_bulkPricePercent10 => '+10%';
+
+  @override
+  String get management_bulkPricePercent5 => '-5%';
+
+  @override
+  String get management_bulkPriceAmount => 'Новая цена';
+
+  @override
+  String get management_bulkPricePercentHint => 'Процент';
+
+  @override
+  String get management_bulkPriceAmountHint => 'Сумма';
+
+  @override
+  String get management_bulkPricePreview => 'Предпросмотр:';
+
+  @override
+  String get management_pricingPolicyHint =>
+      'Максимальные лимиты ручной скидки. Предложение ИИ не превышает лимит.';
+
+  @override
+  String get management_pricingStackWithTier => 'Складывать с тирной скидкой';
+
+  @override
+  String get management_pricingDeadlineDays => 'Срок (дней)';
+
+  @override
+  String get management_pricingCoefsEmpty => 'Коэффициенты не найдены';
+
+  @override
+  String get management_pricingTiersEmpty => 'Ступеней скидки пока нет';
+
+  @override
+  String get management_pricingSaveError => 'Ошибка при сохранении';
+
+  @override
+  String get management_pricingPreviewError => 'Ошибка при расчёте';
+
+  @override
+  String get management_knowledgeEditTitle => 'Редактировать правило';
+
+  @override
+  String get management_knowledgeEmptyTitle => 'Правил нет';
+
+  @override
+  String get management_knowledgeEmptyMessage =>
+      'Пока не добавлены правила знаний';
+
+  @override
+  String get management_knowledgeErrorTitle => 'Не удалось загрузить';
+
+  @override
+  String get management_knowledgeConditionHint => 'Добавить условие';
+
+  @override
+  String get management_knowledgeRemove => 'Удалить';
+
+  @override
+  String get management_knowledgeRemoveConfirmTitle => 'Удалить правило?';
+
+  @override
+  String get management_knowledgeRemoveConfirmMessage =>
+      'Правило будет удалено безвозвратно. Продолжить?';
+
+  @override
+  String get management_knowledgeRuleRemoved => 'Правило удалено';
+
+  @override
+  String get management_knowledgeRulePriorityHint => 'Приоритет';
+
+  @override
+  String management_knowledgeRulePriorityLabel(int value) {
+    return 'Приоритет: $value';
+  }
+
+  @override
+  String get management_productsSearchHint => 'Поиск по названию, SKU';
+
+  @override
+  String get management_productsAll => 'Все';
+
+  @override
+  String get management_productsEmptyTitle => 'Товары не найдены';
+
+  @override
+  String get management_productsEmptyMessage =>
+      'Измените условия поиска или фильтра';
+
+  @override
+  String get management_productsLoadError => 'Не удалось загрузить';
+
+  @override
+  String get management_bulkApplied => 'Цена обновлена';
+
+  @override
+  String management_productsSelected(int count) {
+    return 'Выбрано: $count';
+  }
+
+  @override
+  String get management_productFormEditTitle => 'Редактирование товара';
+
+  @override
+  String get management_productFormBasic => 'Основное';
+
+  @override
+  String get management_productFormName => 'Название';
+
+  @override
+  String get management_productFormCode => 'Код';
+
+  @override
+  String get management_productFormCategory => 'Категория';
+
+  @override
+  String get management_productFormDescription => 'Описание';
+
+  @override
+  String get management_productFormFabricType => 'Тип ткани';
+
+  @override
+  String get management_productFormComposition => 'Состав';
+
+  @override
+  String get management_productFormCare => 'Уход';
+
+  @override
+  String get management_productFormSegment => 'Сегмент';
+
+  @override
+  String get management_productFormRecommendedRooms => 'Рекомендуемые комнаты';
+
+  @override
+  String get management_productFormBasePrice => 'Базовая цена';
+
+  @override
+  String get management_productFormPrice => 'Цена';
+
+  @override
+  String get management_productFormCost => 'Себестоимость';
+
+  @override
+  String get management_productFormVariants => 'Варианты';
+
+  @override
+  String get management_productFormAddVariant => 'Добавить вариант';
+
+  @override
+  String get management_productFormVariantsEmpty => 'Вариантов пока нет';
+
+  @override
+  String management_productFormVariantLabel(int index) {
+    return 'Вариант $index';
+  }
+
+  @override
+  String get management_productFormRemoveVariantTitle => 'Удалить вариант?';
+
+  @override
+  String get management_productFormRemoveVariantMessage =>
+      'Это действие нельзя отменить';
+
+  @override
+  String get management_productFormRemoveVariant => 'Удалить';
+
+  @override
+  String get management_productFormSku => 'SKU';
+
+  @override
+  String get management_productFormColorName => 'Название цвета';
+
+  @override
+  String get management_productFormColorHex => 'Цвет (hex)';
+
+  @override
+  String get management_productFormWidth => 'Ширина (м)';
+
+  @override
+  String get management_productFormIsActive => 'Активен';
+
+  @override
+  String get management_productFormSaved => 'Сохранено';
+
+  @override
   String get chat_listening => 'Слушаю...';
 
   @override
@@ -920,4 +1196,93 @@ class AppLocalizationsRu extends AppLocalizations {
   String chat_pinAttemptsWait(int seconds) {
     return 'Слишком много неверных попыток. Подождите $seconds секунд.';
   }
+
+  @override
+  String get chat_pdfRequireOrder => 'Сначала создайте заказ';
+
+  @override
+  String get orders_pdf => 'PDF';
+
+  @override
+  String get orders_share => 'Поделиться';
+
+  @override
+  String get settings_systemPromptTitle => 'Системный промпт';
+
+  @override
+  String get settings_currentPrompt => 'ТЕКУЩИЙ ПРОМПТ';
+
+  @override
+  String get settings_promptHint => 'Текст промпта';
+
+  @override
+  String get settings_saveNewVersion => 'Сохранить новую версию';
+
+  @override
+  String get settings_versionHistory => 'ИСТОРИЯ ВЕРСИЙ';
+
+  @override
+  String settings_version(int version) {
+    return 'v$version';
+  }
+
+  @override
+  String get settings_rollback => 'Вернуть';
+
+  @override
+  String get settings_rollbackConfirmTitle => 'Вернуться к версии?';
+
+  @override
+  String get settings_rollbackConfirmMessage =>
+      'Действительно вернуться к этой версии?';
+
+  @override
+  String get settings_authorUnknown => 'Неизвестно';
+
+  @override
+  String get settings_modelPricingsTitle => 'Цены моделей';
+
+  @override
+  String settings_modelProviderModel(String provider, String model) {
+    return '$provider — $model';
+  }
+
+  @override
+  String settings_modelInput(double price) {
+    return 'Вход (1M): $price';
+  }
+
+  @override
+  String settings_modelOutput(double price) {
+    return 'Выход (1M): $price';
+  }
+
+  @override
+  String settings_modelCached(double price) {
+    return 'Кэш (1M): $price';
+  }
+
+  @override
+  String settings_modelStt(double price) {
+    return 'STT (мин): $price';
+  }
+
+  @override
+  String settings_modelTts(double price) {
+    return 'TTS (1k симв.): $price';
+  }
+
+  @override
+  String settings_modelUsdToUzs(double value) {
+    return 'USD → UZS: $value';
+  }
+
+  @override
+  String get settings_active => 'Активен';
+
+  @override
+  String get settings_inactive => 'Неактивен';
+
+  @override
+  String get settings_delete => 'Удалить';
 }

@@ -12,9 +12,12 @@
   "common_close": "Ёпиш",
   "error_network": "Уланиш йўқ. Интернетни текширинг.",
   "error_auth": "Сессия муддати тугади. Илтимос, қайта киринг.",
+  "offline_flushFailed": "Серверда янги маълумот бор. Баъзи ўзгаришлар сақланмади.",
   "error_permission": "Рухсат йўқ",
   "error_notFound": "Топилмади",
   "error_limit": "Лимит тугади",
+  "limit_callManager": "Қўнғироқ",
+  "limit_smsManager": "SMS",
   "error_serviceUnavailable": "AI хизмати вақтинча ишламаяпти",
   "error_server": "Сервер жавоб бермади",
   "error_unknown": "Номаълум хатолик",
@@ -267,6 +270,9 @@
     }
   },
   "finance": "Молия",
+  "orders_financeTotal": "Жами",
+  "orders_financePrepayment": "Аванс",
+  "orders_financeBalance": "Қолдиқ",
   "nameAndPhoneRequired": "Исм ва телефон мажбурий",
   "errorOccurred": "Хатолик: {message}",
   "@errorOccurred": {
@@ -394,6 +400,86 @@
   "management_pricingTiers": "Чегирма даражалари жадвали",
   "management_pricingDefaults": "Оддий қийматлар",
   "management_pricingTest": "Ҳисобни синаш",
+  "management_bulkPriceTitle": "Нархни ўзгартириш",
+  "management_bulkPricePercent10": "+10%",
+  "management_bulkPricePercent5": "-5%",
+  "management_bulkPriceAmount": "Янги нарх",
+  "management_bulkPricePercentHint": "Фоиз",
+  "management_bulkPriceAmountHint": "Сумма",
+  "management_bulkPricePreview": "Олдиндан кўриш:",
+  "management_pricingPolicyHint": "Қўлда максимал чегирма лимитлари. АИ таклифи бу лимитдан ошмайди.",
+  "management_pricingStackWithTier": "Тиер чегирма билан жамлаш",
+  "management_pricingDeadlineDays": "Муддат (кун)",
+  "management_pricingCoefsEmpty": "Коэффициентлар топилмади",
+  "management_pricingTiersEmpty": "Чегирма босқичлари ҳозирча йўқ",
+  "management_pricingSaveError": "Сақлашда хатолик юз берди",
+  "management_pricingPreviewError": "Ҳисоблашда хатолик юз берди",
+  "management_knowledgeEditTitle": "Қоидани таҳрирлаш",
+  "management_knowledgeEmptyTitle": "Қоидалар йўқ",
+  "management_knowledgeEmptyMessage": "Ҳозирча билим қоидалари қўшилмаган",
+  "management_knowledgeErrorTitle": "Юклаб бўлмади",
+  "management_knowledgeConditionHint": "Шарт қўшиш",
+  "management_knowledgeRemove": "Ўчириш",
+  "management_knowledgeRemoveConfirmTitle": "Қоидани ўчириш?",
+  "management_knowledgeRemoveConfirmMessage": "Қоида бутунлай ўчирилади. Давом этасизми?",
+  "management_knowledgeRuleRemoved": "Қоида ўчирилди",
+  "management_knowledgeRulePriorityHint": "Устуворлик",
+  "management_knowledgeRulePriorityLabel": "Устуворлик: {value}",
+  "@management_knowledgeRulePriorityLabel": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productsSearchHint": "Маҳсулот номи, SKU қидириш",
+  "management_productsAll": "Барчаси",
+  "management_productsEmptyTitle": "Маҳсулотлар топилмади",
+  "management_productsEmptyMessage": "Қидирув ёки фильтр шартини ўзгартириб кўринг",
+  "management_productsLoadError": "Юклаб бўлмади",
+  "management_bulkApplied": "Нарх янгиланди",
+  "management_productsSelected": "{count} та танланди",
+  "@management_productsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productFormEditTitle": "Маҳсулотни таҳрирлаш",
+  "management_productFormBasic": "Асосий",
+  "management_productFormName": "Номи",
+  "management_productFormCode": "Коди",
+  "management_productFormCategory": "Категория",
+  "management_productFormDescription": "Тавсиф",
+  "management_productFormFabricType": "Мато тури",
+  "management_productFormComposition": "Таркиби",
+  "management_productFormCare": "Парвариш қилиш",
+  "management_productFormSegment": "Сегмент",
+  "management_productFormRecommendedRooms": "Тавсия қилинадиган хоналар",
+  "management_productFormBasePrice": "Асосий нарх",
+  "management_productFormPrice": "Нарх",
+  "management_productFormCost": "Таннарх",
+  "management_productFormVariants": "Вариантлар",
+  "management_productFormAddVariant": "Вариант қўшиш",
+  "management_productFormVariantsEmpty": "Ҳали вариант қўшилмаган",
+  "management_productFormVariantLabel": "Вариант {index}",
+  "@management_productFormVariantLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productFormRemoveVariantTitle": "Вариант ўчирилсинми?",
+  "management_productFormRemoveVariantMessage": "Бу амални қайтариб бўлмайди",
+  "management_productFormRemoveVariant": "Ўчириш",
+  "management_productFormSku": "SKU",
+  "management_productFormColorName": "Ранг номи",
+  "management_productFormColorHex": "Ранг (hex)",
+  "management_productFormWidth": "Эни (м)",
+  "management_productFormIsActive": "Фаол",
+  "management_productFormSaved": "Сақланди",
   "chat_listening": "Эшитяпман...",
   "chat_stopVoice": "Тўхтатиш",
   "chat_transcriptLabel": "ТРАНСКРИПТ",
@@ -412,5 +498,88 @@
         "type": "int"
       }
     }
-  }
+  },
+  "chat_pdfRequireOrder": "Аввал буюртма яратинг",
+  "orders_pdf": "PDF",
+  "orders_share": "Улашиш",
+  "settings_systemPromptTitle": "Тизим промпти",
+  "settings_currentPrompt": "ЖОРИЙ ПРОМПТ",
+  "settings_promptHint": "Промпт матни",
+  "settings_saveNewVersion": "Янги версияни сақлаш",
+  "settings_versionHistory": "ВЕРСИЯЛАР ТАРИХИ",
+  "settings_version": "v{version}",
+  "@settings_version": {
+    "placeholders": {
+      "version": {
+        "type": "int"
+      }
+    }
+  },
+  "settings_rollback": "Қайтариш",
+  "settings_rollbackConfirmTitle": "Версияга қайтиш?",
+  "settings_rollbackConfirmMessage": "Ҳақиқатан ҳам ушбу версияга қайтасизми?",
+  "settings_authorUnknown": "Номаълум",
+  "settings_modelPricingsTitle": "Модель нархлари",
+  "settings_modelProviderModel": "{provider} — {model}",
+  "@settings_modelProviderModel": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_modelInput": "Кириш (1M): {price}",
+  "@settings_modelInput": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelOutput": "Чиқиш (1M): {price}",
+  "@settings_modelOutput": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelCached": "Кеш (1M): {price}",
+  "@settings_modelCached": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelStt": "STT (дақиқа): {price}",
+  "@settings_modelStt": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelTts": "TTS (1k белги): {price}",
+  "@settings_modelTts": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelUsdToUzs": "USD → UZS: {value}",
+  "@settings_modelUsdToUzs": {
+    "placeholders": {
+      "value": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_active": "Фаол",
+  "settings_inactive": "Нофаол",
+  "settings_delete": "Ўчириш"
 }

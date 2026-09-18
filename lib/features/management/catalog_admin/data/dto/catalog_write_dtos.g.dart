@@ -84,6 +84,7 @@ VariantWriteDto _$VariantWriteDtoFromJson(Map<String, dynamic> json) =>
           colorHex: $checkedConvert('color_hex', (v) => v as String),
           widthM: $checkedConvert('width_m', (v) => (v as num?)?.toDouble()),
           price: $checkedConvert('price', (v) => v as String),
+          costPrice: $checkedConvert('cost_price', (v) => v as String?),
           priceUnit: $checkedConvert(
             'price_unit',
             (v) => $enumDecode(_$PriceUnitEnumMap, v),
@@ -96,6 +97,7 @@ VariantWriteDto _$VariantWriteDtoFromJson(Map<String, dynamic> json) =>
         'colorName': 'color_name',
         'colorHex': 'color_hex',
         'widthM': 'width_m',
+        'costPrice': 'cost_price',
         'priceUnit': 'price_unit',
         'isActive': 'is_active',
       },
@@ -109,6 +111,7 @@ Map<String, dynamic> _$VariantWriteDtoToJson(VariantWriteDto instance) =>
       'color_hex': instance.colorHex,
       'width_m': ?instance.widthM,
       'price': instance.price,
+      'cost_price': ?instance.costPrice,
       'price_unit': _$PriceUnitEnumMap[instance.priceUnit]!,
       'is_active': ?instance.isActive,
     };
@@ -127,8 +130,8 @@ BulkPriceDto _$BulkPriceDtoFromJson(Map<String, dynamic> json) =>
           'variant_ids',
           (v) => (v as List<dynamic>).map((e) => e as String).toList(),
         ),
-        percent: $checkedConvert('percent', (v) => v as String?),
-        amount: $checkedConvert('amount', (v) => v as String?),
+        value: $checkedConvert('value', (v) => (v as num).toDouble()),
+        type: $checkedConvert('type', (v) => v as String),
       );
       return val;
     }, fieldKeyMap: const {'variantIds': 'variant_ids'});
@@ -136,6 +139,6 @@ BulkPriceDto _$BulkPriceDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$BulkPriceDtoToJson(BulkPriceDto instance) =>
     <String, dynamic>{
       'variant_ids': instance.variantIds,
-      'percent': ?instance.percent,
-      'amount': ?instance.amount,
+      'value': instance.value,
+      'type': instance.type,
     };

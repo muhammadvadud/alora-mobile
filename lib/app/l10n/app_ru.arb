@@ -12,9 +12,12 @@
   "common_close": "Закрыть",
   "error_network": "Нет подключения к интернету.",
   "error_auth": "Сессия истекла. Пожалуйста, войдите снова.",
+  "offline_flushFailed": "На сервере есть новые данные. Некоторые изменения не сохранены.",
   "error_permission": "Нет доступа",
   "error_notFound": "Не найдено",
   "error_limit": "Лимит исчерпан",
+  "limit_callManager": "Позвонить",
+  "limit_smsManager": "SMS",
   "error_serviceUnavailable": "AI сервис временно недоступен",
   "error_server": "Сервер не отвечает",
   "error_unknown": "Неизвестная ошибка",
@@ -267,6 +270,9 @@
     }
   },
   "finance": "Финансы",
+  "orders_financeTotal": "Итого",
+  "orders_financePrepayment": "Аванс",
+  "orders_financeBalance": "Остаток",
   "nameAndPhoneRequired": "Имя и телефон обязательны",
   "errorOccurred": "Ошибка: {message}",
   "@errorOccurred": {
@@ -394,6 +400,109 @@
   "management_pricingTiers": "Таблица уровней скидок",
   "management_pricingDefaults": "Значения по умолчанию",
   "management_pricingTest": "Проверить расчёт",
+  "management_pricingCoefs": "Коэффициенты",
+  "management_pricingTiersTitle": "Уровни скидок",
+  "management_pricingDefaultsTitle": "Стандартные значения",
+  "management_pricingAddTier": "Добавить уровень",
+  "management_pricingTierMinAmount": "Мин. сумма",
+  "management_pricingTierPercent": "Скидка %",
+  "management_pricingTierSave": "Сохранить",
+  "management_pricingMaxManager": "Макс. скидка (Менеджер)",
+  "management_pricingMaxEmployee": "Макс. скидка (Сотрудник)",
+  "management_pricingAdvancePercent": "Аванс %",
+  "management_pricingDeliveryPrice": "Цена доставки",
+  "management_pricingCalcPreviewHeight": "Высота (м)",
+  "management_pricingCalcPreviewWidth": "Ширина (м)",
+  "management_pricingCalcPreviewPieces": "Кол-во частей",
+  "management_pricingCalcPreviewCalc": "Рассчитать",
+  "management_knowledgeAddRule": "Добавить правило",
+  "management_knowledgeRuleType": "Тип",
+  "management_knowledgeRuleConditions": "Условия",
+  "management_knowledgeRuleRecommendation": "Рекомендация",
+  "management_knowledgeRulePriority": "Приоритет",
+  "management_knowledgeRuleIsActive": "Активно",
+  "management_knowledgeRuleSave": "Сохранить",
+  "management_knowledgeRuleTestAI": "Тест в ИИ",
+  "management_bulkPriceTitle": "Изменить цену",
+  "management_bulkPricePercent10": "+10%",
+  "management_bulkPricePercent5": "-5%",
+  "management_bulkPriceAmount": "Новая цена",
+  "management_bulkPricePercentHint": "Процент",
+  "management_bulkPriceAmountHint": "Сумма",
+  "management_bulkPricePreview": "Предпросмотр:",
+  "management_pricingPolicyHint": "Максимальные лимиты ручной скидки. Предложение ИИ не превышает лимит.",
+  "management_pricingStackWithTier": "Складывать с тирной скидкой",
+  "management_pricingDeadlineDays": "Срок (дней)",
+  "management_pricingCoefsEmpty": "Коэффициенты не найдены",
+  "management_pricingTiersEmpty": "Ступеней скидки пока нет",
+  "management_pricingSaveError": "Ошибка при сохранении",
+  "management_pricingPreviewError": "Ошибка при расчёте",
+  "management_knowledgeEditTitle": "Редактировать правило",
+  "management_knowledgeEmptyTitle": "Правил нет",
+  "management_knowledgeEmptyMessage": "Пока не добавлены правила знаний",
+  "management_knowledgeErrorTitle": "Не удалось загрузить",
+  "management_knowledgeConditionHint": "Добавить условие",
+  "management_knowledgeRemove": "Удалить",
+  "management_knowledgeRemoveConfirmTitle": "Удалить правило?",
+  "management_knowledgeRemoveConfirmMessage": "Правило будет удалено безвозвратно. Продолжить?",
+  "management_knowledgeRuleRemoved": "Правило удалено",
+  "management_knowledgeRulePriorityHint": "Приоритет",
+  "management_knowledgeRulePriorityLabel": "Приоритет: {value}",
+  "@management_knowledgeRulePriorityLabel": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productsSearchHint": "Поиск по названию, SKU",
+  "management_productsAll": "Все",
+  "management_productsEmptyTitle": "Товары не найдены",
+  "management_productsEmptyMessage": "Измените условия поиска или фильтра",
+  "management_productsLoadError": "Не удалось загрузить",
+  "management_bulkApplied": "Цена обновлена",
+  "management_productsSelected": "Выбрано: {count}",
+  "@management_productsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productFormEditTitle": "Редактирование товара",
+  "management_productFormBasic": "Основное",
+  "management_productFormName": "Название",
+  "management_productFormCode": "Код",
+  "management_productFormCategory": "Категория",
+  "management_productFormDescription": "Описание",
+  "management_productFormFabricType": "Тип ткани",
+  "management_productFormComposition": "Состав",
+  "management_productFormCare": "Уход",
+  "management_productFormSegment": "Сегмент",
+  "management_productFormRecommendedRooms": "Рекомендуемые комнаты",
+  "management_productFormBasePrice": "Базовая цена",
+  "management_productFormPrice": "Цена",
+  "management_productFormCost": "Себестоимость",
+  "management_productFormVariants": "Варианты",
+  "management_productFormAddVariant": "Добавить вариант",
+  "management_productFormVariantsEmpty": "Вариантов пока нет",
+  "management_productFormVariantLabel": "Вариант {index}",
+  "@management_productFormVariantLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productFormRemoveVariantTitle": "Удалить вариант?",
+  "management_productFormRemoveVariantMessage": "Это действие нельзя отменить",
+  "management_productFormRemoveVariant": "Удалить",
+  "management_productFormSku": "SKU",
+  "management_productFormColorName": "Название цвета",
+  "management_productFormColorHex": "Цвет (hex)",
+  "management_productFormWidth": "Ширина (м)",
+  "management_productFormIsActive": "Активен",
+  "management_productFormSaved": "Сохранено",
   "chat_listening": "Слушаю...",
   "chat_stopVoice": "Остановить",
   "chat_transcriptLabel": "ТРАНСКРИПТ",
@@ -412,5 +521,88 @@
         "type": "int"
       }
     }
-  }
+  },
+  "chat_pdfRequireOrder": "Сначала создайте заказ",
+  "orders_pdf": "PDF",
+  "orders_share": "Поделиться",
+  "settings_systemPromptTitle": "Системный промпт",
+  "settings_currentPrompt": "ТЕКУЩИЙ ПРОМПТ",
+  "settings_promptHint": "Текст промпта",
+  "settings_saveNewVersion": "Сохранить новую версию",
+  "settings_versionHistory": "ИСТОРИЯ ВЕРСИЙ",
+  "settings_version": "v{version}",
+  "@settings_version": {
+    "placeholders": {
+      "version": {
+        "type": "int"
+      }
+    }
+  },
+  "settings_rollback": "Вернуть",
+  "settings_rollbackConfirmTitle": "Вернуться к версии?",
+  "settings_rollbackConfirmMessage": "Действительно вернуться к этой версии?",
+  "settings_authorUnknown": "Неизвестно",
+  "settings_modelPricingsTitle": "Цены моделей",
+  "settings_modelProviderModel": "{provider} — {model}",
+  "@settings_modelProviderModel": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_modelInput": "Вход (1M): {price}",
+  "@settings_modelInput": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelOutput": "Выход (1M): {price}",
+  "@settings_modelOutput": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelCached": "Кэш (1M): {price}",
+  "@settings_modelCached": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelStt": "STT (мин): {price}",
+  "@settings_modelStt": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelTts": "TTS (1k симв.): {price}",
+  "@settings_modelTts": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelUsdToUzs": "USD → UZS: {value}",
+  "@settings_modelUsdToUzs": {
+    "placeholders": {
+      "value": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_active": "Активен",
+  "settings_inactive": "Неактивен",
+  "settings_delete": "Удалить"
 }

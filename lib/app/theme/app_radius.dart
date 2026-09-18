@@ -21,6 +21,7 @@ class AppRadius {
   static final BorderRadius cardBorder = BorderRadius.circular(card);
   static final BorderRadius inputBorder = BorderRadius.circular(input);
   static final BorderRadius avatarBorder = BorderRadius.circular(avatar);
+  static final BorderRadius smallBorder = BorderRadius.circular(small);
   static final BorderRadius progressBorder = BorderRadius.circular(2.5);
   static final BorderRadius waveBorder = BorderRadius.circular(2.0);
   static final BorderRadius lineBorder = BorderRadius.circular(1.0);

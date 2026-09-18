@@ -23,7 +23,11 @@ _DiscountPolicyDto _$DiscountPolicyDtoFromJson(Map<String, dynamic> json) =>
             'manual_max_percent_manager',
             (v) => v as String,
           ),
-          isActive: $checkedConvert('is_active', (v) => v as bool),
+          stackWithTier: $checkedConvert(
+            'stack_with_tier',
+            (v) => v as bool? ?? true,
+          ),
+          isActive: $checkedConvert('is_active', (v) => v as bool? ?? true),
           createdAt: $checkedConvert('created_at', (v) => v as String),
           updatedAt: $checkedConvert('updated_at', (v) => v as String),
         );
@@ -32,6 +36,7 @@ _DiscountPolicyDto _$DiscountPolicyDtoFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {
         'manualMaxPercentEmployee': 'manual_max_percent_employee',
         'manualMaxPercentManager': 'manual_max_percent_manager',
+        'stackWithTier': 'stack_with_tier',
         'isActive': 'is_active',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at',
@@ -43,6 +48,7 @@ Map<String, dynamic> _$DiscountPolicyDtoToJson(_DiscountPolicyDto instance) =>
       'id': instance.id,
       'manual_max_percent_employee': instance.manualMaxPercentEmployee,
       'manual_max_percent_manager': instance.manualMaxPercentManager,
+      'stack_with_tier': instance.stackWithTier,
       'is_active': instance.isActive,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,

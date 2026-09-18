@@ -15,7 +15,7 @@ part of 'product_form_notifier.dart';
 final productFormProvider = ProductFormNotifierProvider._();
 
 final class ProductFormNotifierProvider
-    extends $NotifierProvider<ProductFormNotifier, Map<String, dynamic>> {
+    extends $NotifierProvider<ProductFormNotifier, ProductFormState> {
   ProductFormNotifierProvider._()
     : super(
         from: null,
@@ -35,28 +35,28 @@ final class ProductFormNotifierProvider
   ProductFormNotifier create() => ProductFormNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Map<String, dynamic> value) {
+  Override overrideWithValue(ProductFormState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Map<String, dynamic>>(value),
+      providerOverride: $SyncValueProvider<ProductFormState>(value),
     );
   }
 }
 
 String _$productFormNotifierHash() =>
-    r'502bf7012ae0d9a5c9c7f6f0cf797628682f6c9d';
+    r'ac1ad5eba824ef5f5d4002e86e9caca2017f8a4b';
 
-abstract class _$ProductFormNotifier extends $Notifier<Map<String, dynamic>> {
-  Map<String, dynamic> build();
+abstract class _$ProductFormNotifier extends $Notifier<ProductFormState> {
+  ProductFormState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<Map<String, dynamic>, Map<String, dynamic>>;
+    final ref = this.ref as $Ref<ProductFormState, ProductFormState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<Map<String, dynamic>, Map<String, dynamic>>,
-              Map<String, dynamic>,
+              AnyNotifier<ProductFormState, ProductFormState>,
+              ProductFormState,
               Object?,
               Object?
             >;

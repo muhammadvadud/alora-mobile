@@ -8,6 +8,7 @@ abstract class DiscountPolicy with _$DiscountPolicy {
     required String id,
     required double manualMaxPercentEmployee,
     required double manualMaxPercentManager,
+    @Default(true) bool stackWithTier,
     required bool isActive,
     required DateTime createdAt,
     required DateTime updatedAt,

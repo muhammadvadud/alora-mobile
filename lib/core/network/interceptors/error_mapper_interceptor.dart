@@ -2,7 +2,15 @@ import 'package:dio/dio.dart';
 
 import '../../error/failure.dart';
 
+/// `Failure` kuzatuvga (breadcrumb) yuborish uchun callback.
+typedef FailureListener = void Function(Failure failure);
+
 class ErrorMapperInterceptor extends Interceptor {
+  /// [onFailure] — har xaritalangan `Failure` uchun chaqiriladi (Sentry breadcrumb, 19.10).
+  ErrorMapperInterceptor({this.onFailure});
+
+  final FailureListener? onFailure;
+
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     Failure failure;
@@ -43,6 +51,7 @@ class ErrorMapperInterceptor extends Interceptor {
       failure = Failure.unknown(err.message ?? err.error?.toString() ?? '');
     }
 
+    onFailure?.call(failure);
     final mappedErr = err.copyWith(error: failure);
     handler.next(mappedErr);
   }

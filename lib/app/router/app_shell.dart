@@ -10,6 +10,8 @@ import 'package:alora_mobile/features/orders/application/providers.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 import 'package:alora_mobile/shared/widgets/app_tab_bar.dart';
+import 'package:alora_mobile/shared/widgets/offline_banner.dart';
+import 'package:alora_mobile/core/connectivity/connectivity_notifier.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -78,8 +80,15 @@ class AloraShell extends ConsumerWidget {
         .clamp(0, tabItems.length - 1)
         .toInt();
 
+    final isOnline = ref.watch(connectivityProvider);
+
     return Scaffold(
-      body: navigationShell,
+      body: Column(
+        children: [
+          if (!isOnline) const OfflineBanner(),
+          Expanded(child: navigationShell),
+        ],
+      ),
       bottomNavigationBar: AppTabBar(
         currentIndex: currentTab,
         items: tabItems,

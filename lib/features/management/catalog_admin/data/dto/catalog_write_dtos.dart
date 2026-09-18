@@ -52,6 +52,7 @@ class VariantWriteDto {
   final String colorHex;
   final double? widthM;
   final String price;
+  final String? costPrice;
   final PriceUnit priceUnit;
   final bool? isActive;
 
@@ -62,6 +63,7 @@ class VariantWriteDto {
     required this.colorHex,
     this.widthM,
     required this.price,
+    this.costPrice,
     required this.priceUnit,
     this.isActive,
   });
@@ -69,15 +71,43 @@ class VariantWriteDto {
   factory VariantWriteDto.fromJson(Map<String, dynamic> json) =>
       _$VariantWriteDtoFromJson(json);
   Map<String, dynamic> toJson() => _$VariantWriteDtoToJson(this);
+
+  VariantWriteDto copyWith({
+    String? id,
+    String? sku,
+    String? colorName,
+    String? colorHex,
+    double? widthM,
+    String? price,
+    String? costPrice,
+    PriceUnit? priceUnit,
+    bool? isActive,
+  }) {
+    return VariantWriteDto(
+      id: id ?? this.id,
+      sku: sku ?? this.sku,
+      colorName: colorName ?? this.colorName,
+      colorHex: colorHex ?? this.colorHex,
+      widthM: widthM ?? this.widthM,
+      price: price ?? this.price,
+      costPrice: costPrice ?? this.costPrice,
+      priceUnit: priceUnit ?? this.priceUnit,
+      isActive: isActive ?? this.isActive,
+    );
+  }
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BulkPriceDto {
   final List<String> variantIds;
-  final String? percent;
-  final String? amount;
+  final double value;
+  final String type;
 
-  const BulkPriceDto({required this.variantIds, this.percent, this.amount});
+  const BulkPriceDto({
+    required this.variantIds,
+    required this.value,
+    required this.type,
+  });
 
   factory BulkPriceDto.fromJson(Map<String, dynamic> json) =>
       _$BulkPriceDtoFromJson(json);

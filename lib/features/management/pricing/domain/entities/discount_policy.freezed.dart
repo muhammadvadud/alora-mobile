@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DiscountPolicy {
 
- String get id; double get manualMaxPercentEmployee; double get manualMaxPercentManager; bool get isActive; DateTime get createdAt; DateTime get updatedAt;
+ String get id; double get manualMaxPercentEmployee; double get manualMaxPercentManager; bool get stackWithTier; bool get isActive; DateTime get createdAt; DateTime get updatedAt;
 /// Create a copy of DiscountPolicy
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $DiscountPolicyCopyWith<DiscountPolicy> get copyWith => _$DiscountPolicyCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DiscountPolicy&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DiscountPolicy&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.stackWithTier, stackWithTier) || other.stackWithTier == stackWithTier)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,stackWithTier,isActive,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DiscountPolicy(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DiscountPolicy(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, stackWithTier: $stackWithTier, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $DiscountPolicyCopyWith<$Res>  {
   factory $DiscountPolicyCopyWith(DiscountPolicy value, $Res Function(DiscountPolicy) _then) = _$DiscountPolicyCopyWithImpl;
 @useResult
 $Res call({
- String id, double manualMaxPercentEmployee, double manualMaxPercentManager, bool isActive, DateTime createdAt, DateTime updatedAt
+ String id, double manualMaxPercentEmployee, double manualMaxPercentManager, bool stackWithTier, bool isActive, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -62,12 +62,13 @@ class _$DiscountPolicyCopyWithImpl<$Res>
 
 /// Create a copy of DiscountPolicy
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? stackWithTier = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,manualMaxPercentEmployee: null == manualMaxPercentEmployee ? _self.manualMaxPercentEmployee : manualMaxPercentEmployee // ignore: cast_nullable_to_non_nullable
 as double,manualMaxPercentManager: null == manualMaxPercentManager ? _self.manualMaxPercentManager : manualMaxPercentManager // ignore: cast_nullable_to_non_nullable
-as double,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as double,stackWithTier: null == stackWithTier ? _self.stackWithTier : stackWithTier // ignore: cast_nullable_to_non_nullable
+as bool,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  double manualMaxPercentEmployee,  double manualMaxPercentManager,  bool isActive,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  double manualMaxPercentEmployee,  double manualMaxPercentManager,  bool stackWithTier,  bool isActive,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DiscountPolicy() when $default != null:
-return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.stackWithTier,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentMa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  double manualMaxPercentEmployee,  double manualMaxPercentManager,  bool isActive,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  double manualMaxPercentEmployee,  double manualMaxPercentManager,  bool stackWithTier,  bool isActive,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _DiscountPolicy():
-return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.stackWithTier,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentMa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  double manualMaxPercentEmployee,  double manualMaxPercentManager,  bool isActive,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  double manualMaxPercentEmployee,  double manualMaxPercentManager,  bool stackWithTier,  bool isActive,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _DiscountPolicy() when $default != null:
-return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.isActive,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentManager,_that.stackWithTier,_that.isActive,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -211,12 +212,13 @@ return $default(_that.id,_that.manualMaxPercentEmployee,_that.manualMaxPercentMa
 
 
 class _DiscountPolicy implements DiscountPolicy {
-  const _DiscountPolicy({required this.id, required this.manualMaxPercentEmployee, required this.manualMaxPercentManager, required this.isActive, required this.createdAt, required this.updatedAt});
+  const _DiscountPolicy({required this.id, required this.manualMaxPercentEmployee, required this.manualMaxPercentManager, this.stackWithTier = true, required this.isActive, required this.createdAt, required this.updatedAt});
   
 
 @override final  String id;
 @override final  double manualMaxPercentEmployee;
 @override final  double manualMaxPercentManager;
+@override@JsonKey() final  bool stackWithTier;
 @override final  bool isActive;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
@@ -231,16 +233,16 @@ _$DiscountPolicyCopyWith<_DiscountPolicy> get copyWith => __$DiscountPolicyCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DiscountPolicy&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DiscountPolicy&&(identical(other.id, id) || other.id == id)&&(identical(other.manualMaxPercentEmployee, manualMaxPercentEmployee) || other.manualMaxPercentEmployee == manualMaxPercentEmployee)&&(identical(other.manualMaxPercentManager, manualMaxPercentManager) || other.manualMaxPercentManager == manualMaxPercentManager)&&(identical(other.stackWithTier, stackWithTier) || other.stackWithTier == stackWithTier)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,manualMaxPercentEmployee,manualMaxPercentManager,stackWithTier,isActive,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DiscountPolicy(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DiscountPolicy(id: $id, manualMaxPercentEmployee: $manualMaxPercentEmployee, manualMaxPercentManager: $manualMaxPercentManager, stackWithTier: $stackWithTier, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -251,7 +253,7 @@ abstract mixin class _$DiscountPolicyCopyWith<$Res> implements $DiscountPolicyCo
   factory _$DiscountPolicyCopyWith(_DiscountPolicy value, $Res Function(_DiscountPolicy) _then) = __$DiscountPolicyCopyWithImpl;
 @override @useResult
 $Res call({
- String id, double manualMaxPercentEmployee, double manualMaxPercentManager, bool isActive, DateTime createdAt, DateTime updatedAt
+ String id, double manualMaxPercentEmployee, double manualMaxPercentManager, bool stackWithTier, bool isActive, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -268,12 +270,13 @@ class __$DiscountPolicyCopyWithImpl<$Res>
 
 /// Create a copy of DiscountPolicy
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? manualMaxPercentEmployee = null,Object? manualMaxPercentManager = null,Object? stackWithTier = null,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_DiscountPolicy(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,manualMaxPercentEmployee: null == manualMaxPercentEmployee ? _self.manualMaxPercentEmployee : manualMaxPercentEmployee // ignore: cast_nullable_to_non_nullable
 as double,manualMaxPercentManager: null == manualMaxPercentManager ? _self.manualMaxPercentManager : manualMaxPercentManager // ignore: cast_nullable_to_non_nullable
-as double,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as double,stackWithTier: null == stackWithTier ? _self.stackWithTier : stackWithTier // ignore: cast_nullable_to_non_nullable
+as bool,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,

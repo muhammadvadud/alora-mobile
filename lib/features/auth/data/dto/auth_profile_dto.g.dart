@@ -20,10 +20,15 @@ AuthProfileDto _$AuthProfileDtoFromJson(Map<String, dynamic> json) =>
           role: $checkedConvert('role', (v) => v as String),
           tenant: $checkedConvert('tenant', (v) => v as String),
           deviceId: $checkedConvert('device_id', (v) => v as String?),
+          managerPhone: $checkedConvert('manager_phone', (v) => v as String?),
         );
         return val;
       },
-      fieldKeyMap: const {'fullName': 'full_name', 'deviceId': 'device_id'},
+      fieldKeyMap: const {
+        'fullName': 'full_name',
+        'deviceId': 'device_id',
+        'managerPhone': 'manager_phone',
+      },
     );
 
 Map<String, dynamic> _$AuthProfileDtoToJson(AuthProfileDto instance) =>
@@ -34,4 +39,5 @@ Map<String, dynamic> _$AuthProfileDtoToJson(AuthProfileDto instance) =>
       'role': instance.role,
       'tenant': instance.tenant,
       'device_id': ?instance.deviceId,
+      'manager_phone': ?instance.managerPhone,
     };

@@ -5,27 +5,31 @@ import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 
 class AppTheme {
-  static ThemeData get light {
+  static ThemeData light({bool isCustomerMode = false}) {
     return _buildTheme(
       colors: AppColors.light,
-      typography: AppTypography.regular,
+      isCustomerMode: isCustomerMode,
       brightness: Brightness.light,
     );
   }
 
-  static ThemeData get dark {
+  static ThemeData dark({bool isCustomerMode = false}) {
     return _buildTheme(
       colors: AppColors.dark,
-      typography: AppTypography.regular,
+      isCustomerMode: isCustomerMode,
       brightness: Brightness.dark,
     );
   }
 
   static ThemeData _buildTheme({
     required AppColors colors,
-    required AppTypography typography,
+    required bool isCustomerMode,
     required Brightness brightness,
   }) {
+    final typography = isCustomerMode
+        ? AppTypography.customer
+        : AppTypography.regular;
+
     final colorScheme = ColorScheme(
       brightness: brightness,
       primary: colors.accent,

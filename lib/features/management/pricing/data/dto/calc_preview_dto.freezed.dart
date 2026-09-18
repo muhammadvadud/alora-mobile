@@ -212,13 +212,13 @@ return $default(_that.measurements,_that.services,_that.discountPercent,_that.de
 @JsonSerializable()
 
 class _CalcPreviewRequestDto implements CalcPreviewRequestDto {
-  const _CalcPreviewRequestDto({required this.measurements, required this.services, @JsonKey(name: 'discount_percent') required this.discountPercent, required this.delivery});
+  const _CalcPreviewRequestDto({required this.measurements, required this.services, @JsonKey(name: 'discount_percent') this.discountPercent = '0', this.delivery = false});
   factory _CalcPreviewRequestDto.fromJson(Map<String, dynamic> json) => _$CalcPreviewRequestDtoFromJson(json);
 
 @override final  List<CalcPreviewMeasurementDto> measurements;
 @override final  List<String> services;
 @override@JsonKey(name: 'discount_percent') final  String discountPercent;
-@override final  bool delivery;
+@override@JsonKey() final  bool delivery;
 
 /// Create a copy of CalcPreviewRequestDto
 /// with the given fields replaced by the non-null parameter values.

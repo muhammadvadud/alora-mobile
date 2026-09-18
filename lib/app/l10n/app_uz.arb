@@ -12,9 +12,12 @@
   "common_close": "Yopish",
   "error_network": "Ulanish yo'q. Internetni tekshiring.",
   "error_auth": "Sessiya muddati tugadi. Iltimos, qayta kiring.",
+  "offline_flushFailed": "Serverda yangi ma'lumot bor. Ba'zi o'zgarishlar saqlanmadi.",
   "error_permission": "Ruxsat yo'q",
   "error_notFound": "Topilmadi",
   "error_limit": "Limit tugadi",
+  "limit_callManager": "Qo'ng'iroq",
+  "limit_smsManager": "SMS",
   "error_serviceUnavailable": "AI xizmati vaqtincha ishlamayapti",
   "error_server": "Server javob bermadi",
   "error_unknown": "Noma'lum xatolik",
@@ -267,6 +270,9 @@
     }
   },
   "finance": "Moliya",
+  "orders_financeTotal": "Jami",
+  "orders_financePrepayment": "Avans",
+  "orders_financeBalance": "Qoldiq",
   "nameAndPhoneRequired": "Ism va telefon majburiy",
   "errorOccurred": "Xatolik: {message}",
   "@errorOccurred": {
@@ -394,6 +400,109 @@
   "management_pricingTiers": "Chegirma darajalari jadvali",
   "management_pricingDefaults": "Standart qiymatlar",
   "management_pricingTest": "Hisobni sinash",
+  "management_pricingCoefs": "Koeffitsientlar",
+  "management_pricingTiersTitle": "Chegirma bosqichlari",
+  "management_pricingDefaultsTitle": "Standart qiymatlar",
+  "management_pricingAddTier": "Bosqich qo'shish",
+  "management_pricingTierMinAmount": "Eng kam summa",
+  "management_pricingTierPercent": "Chegirma %",
+  "management_pricingTierSave": "Saqlash",
+  "management_pricingMaxManager": "Maks chegirma (Manager)",
+  "management_pricingMaxEmployee": "Maks chegirma (Xodim)",
+  "management_pricingAdvancePercent": "Avans %",
+  "management_pricingDeliveryPrice": "Yetkazish narxi",
+  "management_pricingCalcPreviewHeight": "Balandligi (m)",
+  "management_pricingCalcPreviewWidth": "Uzunligi (m)",
+  "management_pricingCalcPreviewPieces": "Bo'lak soni",
+  "management_pricingCalcPreviewCalc": "Hisoblash",
+  "management_knowledgeAddRule": "Qoida qo'shish",
+  "management_knowledgeRuleType": "Turi",
+  "management_knowledgeRuleConditions": "Shartlar",
+  "management_knowledgeRuleRecommendation": "Tavsiya",
+  "management_knowledgeRulePriority": "Ustuvorlik",
+  "management_knowledgeRuleIsActive": "Faol",
+  "management_knowledgeRuleSave": "Saqlash",
+  "management_knowledgeRuleTestAI": "AI'da sinash",
+  "management_bulkPriceTitle": "Narxni o'zgartirish",
+  "management_bulkPricePercent10": "+10%",
+  "management_bulkPricePercent5": "-5%",
+  "management_bulkPriceAmount": "Yangi narx",
+  "management_bulkPricePercentHint": "Foiz",
+  "management_bulkPriceAmountHint": "Summa",
+  "management_bulkPricePreview": "Oldindan ko'rish:",
+  "management_pricingPolicyHint": "Qo'lda maksimal chegirma limitlari. AI taklifi bu limitdan oshmaydi.",
+  "management_pricingStackWithTier": "Tier chegirma bilan jamlash",
+  "management_pricingDeadlineDays": "Muddat (kun)",
+  "management_pricingCoefsEmpty": "Koeffitsientlar topilmadi",
+  "management_pricingTiersEmpty": "Chegirma bosqichlari hozircha yo'q",
+  "management_pricingSaveError": "Saqlashda xatolik yuz berdi",
+  "management_pricingPreviewError": "Hisoblashda xatolik yuz berdi",
+  "management_knowledgeEditTitle": "Qoidani tahrirlash",
+  "management_knowledgeEmptyTitle": "Qoidalar yo'q",
+  "management_knowledgeEmptyMessage": "Hozircha bilim qoidalari qo'shilmagan",
+  "management_knowledgeErrorTitle": "Yuklab bo'lmadi",
+  "management_knowledgeConditionHint": "Shart qo'shish",
+  "management_knowledgeRemove": "O'chirish",
+  "management_knowledgeRemoveConfirmTitle": "Qoidani o'chirish?",
+  "management_knowledgeRemoveConfirmMessage": "Qoida butunlay o'chiriladi. Davom etasizmi?",
+  "management_knowledgeRuleRemoved": "Qoida o'chirildi",
+  "management_knowledgeRulePriorityHint": "Ustuvorlik",
+  "management_knowledgeRulePriorityLabel": "Ustuvorlik: {value}",
+  "@management_knowledgeRulePriorityLabel": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productsSearchHint": "Mahsulot nomi, SKU qidirish",
+  "management_productsAll": "Barchasi",
+  "management_productsEmptyTitle": "Mahsulotlar topilmadi",
+  "management_productsEmptyMessage": "Qidiruv yoki filtr shartini o'zgartirib ko'ring",
+  "management_productsLoadError": "Yuklab bo'lmadi",
+  "management_bulkApplied": "Narx yangilandi",
+  "management_productsSelected": "{count} ta tanlandi",
+  "@management_productsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productFormEditTitle": "Mahsulotni tahrirlash",
+  "management_productFormBasic": "Asosiy",
+  "management_productFormName": "Nomi",
+  "management_productFormCode": "Kodi",
+  "management_productFormCategory": "Kategoriya",
+  "management_productFormDescription": "Tavsif",
+  "management_productFormFabricType": "Mato turi",
+  "management_productFormComposition": "Tarkibi",
+  "management_productFormCare": "Parvarish qilish",
+  "management_productFormSegment": "Segment",
+  "management_productFormRecommendedRooms": "Tavsiya qilinadigan xonalar",
+  "management_productFormBasePrice": "Asosiy narx",
+  "management_productFormPrice": "Narx",
+  "management_productFormCost": "Tannarx",
+  "management_productFormVariants": "Variantlar",
+  "management_productFormAddVariant": "Variant qo'shish",
+  "management_productFormVariantsEmpty": "Hali variant qo'shilmagan",
+  "management_productFormVariantLabel": "Variant {index}",
+  "@management_productFormVariantLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "management_productFormRemoveVariantTitle": "Variant o'chirilsinmi?",
+  "management_productFormRemoveVariantMessage": "Bu amalni qaytarib bo'lmaydi",
+  "management_productFormRemoveVariant": "O'chirish",
+  "management_productFormSku": "SKU",
+  "management_productFormColorName": "Rang nomi",
+  "management_productFormColorHex": "Rang (hex)",
+  "management_productFormWidth": "Eni (m)",
+  "management_productFormIsActive": "Faol",
+  "management_productFormSaved": "Saqlandi",
   "chat_listening": "Eshityapman...",
   "chat_stopVoice": "To'xtatish",
   "chat_transcriptLabel": "TRANSKRIPT",
@@ -412,5 +521,88 @@
         "type": "int"
       }
     }
-  }
+  },
+  "chat_pdfRequireOrder": "Avval buyurtma yarating",
+  "orders_pdf": "PDF",
+  "orders_share": "Ulashish",
+  "settings_systemPromptTitle": "Tizim prompti",
+  "settings_currentPrompt": "JORIY PROMPT",
+  "settings_promptHint": "Prompt matni",
+  "settings_saveNewVersion": "Yangi versiya saqlash",
+  "settings_versionHistory": "VERSIYALAR TARIXI",
+  "settings_version": "v{version}",
+  "@settings_version": {
+    "placeholders": {
+      "version": {
+        "type": "int"
+      }
+    }
+  },
+  "settings_rollback": "Qaytarish",
+  "settings_rollbackConfirmTitle": "Versiyaga qaytish?",
+  "settings_rollbackConfirmMessage": "Haqiqatan ham ushbu versiyaga qaytasizmi?",
+  "settings_authorUnknown": "Noma'lum",
+  "settings_modelPricingsTitle": "Model narxlari",
+  "settings_modelProviderModel": "{provider} — {model}",
+  "@settings_modelProviderModel": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_modelInput": "Kirish (1M): {price}",
+  "@settings_modelInput": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelOutput": "Chiqish (1M): {price}",
+  "@settings_modelOutput": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelCached": "Kesh (1M): {price}",
+  "@settings_modelCached": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelStt": "STT (daqiqa): {price}",
+  "@settings_modelStt": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelTts": "TTS (1k belgi): {price}",
+  "@settings_modelTts": {
+    "placeholders": {
+      "price": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_modelUsdToUzs": "USD → UZS: {value}",
+  "@settings_modelUsdToUzs": {
+    "placeholders": {
+      "value": {
+        "type": "double"
+      }
+    }
+  },
+  "settings_active": "Faol",
+  "settings_inactive": "Nofaol",
+  "settings_delete": "O'chirish"
 }

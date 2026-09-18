@@ -8,11 +8,28 @@ void main() {
   late Dio dio;
   late DioAdapter dioAdapter;
 
+  final reported = <Failure>[];
+
   setUp(() {
+    reported.clear();
     dio = Dio(BaseOptions());
-    dio.interceptors.add(ErrorMapperInterceptor());
+    dio.interceptors.add(ErrorMapperInterceptor(onFailure: reported.add));
     dioAdapter = DioAdapter(dio: dio);
   });
+
+  test(
+    "har xaritalangan Failure onFailure callback'iga uzatiladi (19.10)",
+    () async {
+      dioAdapter.onGet('/test', (server) => server.reply(503, {'detail': 'x'}));
+
+      try {
+        await dio.get('/test');
+        fail('Exception kutilgan edi');
+      } on DioException catch (_) {
+        expect(reported, [const Failure.serviceUnavailable()]);
+      }
+    },
+  );
 
   test('400 Bad Request -> ValidationFailure', () async {
     dioAdapter.onGet(

@@ -84,7 +84,7 @@ Future<void> _pumpProduct(
     UncontrolledProviderScope(
       container: container,
       child: MaterialApp(
-        theme: AppTheme.light,
+        theme: AppTheme.light(),
         locale: const Locale('uz'),
         localizationsDelegates: const [
           AppLocalizations.delegate,

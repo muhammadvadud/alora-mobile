@@ -57,6 +57,7 @@ class PricingMapper {
           double.tryParse(dto.manualMaxPercentEmployee) ?? 0.0,
       manualMaxPercentManager:
           double.tryParse(dto.manualMaxPercentManager) ?? 0.0,
+      stackWithTier: dto.stackWithTier,
       isActive: dto.isActive,
       createdAt: DateTime.parse(dto.createdAt).toLocal(),
       updatedAt: DateTime.parse(dto.updatedAt).toLocal(),
@@ -70,6 +71,7 @@ class PricingMapper {
           double.tryParse(dto.defaultPrepaymentPercent) ?? 0.0,
       defaultDeliveryAmount:
           double.tryParse(dto.defaultDeliveryAmount)?.toInt() ?? 0,
+      deadlineDays: dto.deadlineDays,
       isActive: dto.isActive,
       createdAt: DateTime.parse(dto.createdAt).toLocal(),
       updatedAt: DateTime.parse(dto.updatedAt).toLocal(),

@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mocktail/mocktail.dart';
 
 import 'package:alora_mobile/core/error/failure.dart';
+import 'package:alora_mobile/core/error/error_reporter.dart';
 import 'package:alora_mobile/features/auth/application/auth_notifier.dart';
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/features/auth/application/providers.dart';
@@ -9,14 +11,25 @@ import 'package:alora_mobile/shared/models/role.dart';
 
 import 'auth_test_helpers.dart';
 
+class MockErrorReporter extends Mock implements ErrorReporter {}
+
 void main() {
   late ProviderContainer container;
   late FakeAuthRepository repository;
+  late MockErrorReporter errorReporter;
 
   setUp(() {
     repository = FakeAuthRepository();
+    errorReporter = MockErrorReporter();
+    
+    when(() => errorReporter.setUser(id: any(named: 'id'), role: any(named: 'role'))).thenReturn(null);
+    when(() => errorReporter.clearUser()).thenReturn(null);
+
     container = ProviderContainer(
-      overrides: [authRepositoryProvider.overrideWithValue(repository)],
+      overrides: [
+        authRepositoryProvider.overrideWithValue(repository),
+        errorReporterProvider.overrideWithValue(errorReporter),
+      ],
     );
     addTearDown(() async {
       await repository.dispose();
@@ -38,10 +51,11 @@ void main() {
       state().maybeWhen(unauthenticated: () => true, orElse: () => false),
       isTrue,
     );
+    verify(() => errorReporter.clearUser()).called(1);
   });
 
   test(
-    'refresh token bo\'lsa refresh + me orqali authenticated bo\'ladi',
+    'refresh token bo\'lsa refresh + me orqali authenticated bo\'ladi va setUser chaqiriladi',
     () async {
       repository.refreshToken = 'r1';
       repository.user = testUser(role: Role.manager);
@@ -56,6 +70,8 @@ void main() {
         ),
         isTrue,
       );
+      
+      verify(() => errorReporter.setUser(id: 'user-1', role: 'manager')).called(1);
     },
   );
 
@@ -103,6 +119,7 @@ void main() {
       ),
       isTrue,
     );
+    verify(() => errorReporter.setUser(id: 'user-1', role: 'employee')).called(1);
   });
 
   test('login xatosi Failure qaytaradi va holat o\'zgarmaydi', () async {
@@ -120,7 +137,7 @@ void main() {
   });
 
   test(
-    'logout repository logout chaqiradi va unauthenticated bo\'ladi',
+    'logout repository logout chaqiradi va unauthenticated bo\'ladi va clearUser chaqiriladi',
     () async {
       repository.refreshToken = 'r1';
       repository.user = testUser();
@@ -134,6 +151,7 @@ void main() {
         state().maybeWhen(unauthenticated: () => true, orElse: () => false),
         isTrue,
       );
+      verify(() => errorReporter.clearUser()).called(greaterThanOrEqualTo(1));
     },
   );
 

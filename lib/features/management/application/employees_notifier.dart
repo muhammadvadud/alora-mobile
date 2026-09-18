@@ -20,7 +20,7 @@ class EmployeesNotifier extends _$EmployeesNotifier {
 
   @override
   EmployeesState build() {
-    _load();
+    scheduleMicrotask(_load);
     ref.onDispose(() => _debounceTimer?.cancel());
     return const EmployeesState.initial();
   }

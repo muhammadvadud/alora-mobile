@@ -21,6 +21,8 @@ abstract class CatalogWriteDataSource {
 }
 
 class CatalogWriteDataSourceImpl implements CatalogWriteDataSource {
+  static const String _variantsBase = 'catalog/variants/';
+
   final Dio _dio;
 
   CatalogWriteDataSourceImpl(this._dio);
@@ -44,7 +46,7 @@ class CatalogWriteDataSourceImpl implements CatalogWriteDataSource {
   Future<void> createVariant(String productId, VariantWriteDto dto) async {
     final data = dto.toJson();
     data['product'] = productId;
-    await _dio.post('catalog/variants/', data: data);
+    await _dio.post(_variantsBase, data: data);
   }
 
   @override

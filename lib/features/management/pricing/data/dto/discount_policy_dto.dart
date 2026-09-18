@@ -11,7 +11,8 @@ abstract class DiscountPolicyDto with _$DiscountPolicyDto {
     required String manualMaxPercentEmployee,
     @JsonKey(name: 'manual_max_percent_manager')
     required String manualMaxPercentManager,
-    @JsonKey(name: 'is_active') required bool isActive,
+    @JsonKey(name: 'stack_with_tier') @Default(true) bool stackWithTier,
+    @JsonKey(name: 'is_active') @Default(true) bool isActive,
     @JsonKey(name: 'created_at') required String createdAt,
     @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _DiscountPolicyDto;

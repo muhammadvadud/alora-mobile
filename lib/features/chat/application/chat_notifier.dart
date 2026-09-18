@@ -41,6 +41,18 @@ class ChatNotifier extends _$ChatNotifier {
     }
   }
 
+  /// Throttle buferidagi eng so'nggi holat (hali `state` ga yozilmagan) yoki `state`.
+  /// SSE eventlari 50 ms ichida ketma-ket kelganda oldingi o'zgarish yo'qolmasligi uchun
+  /// har event shu asosdan hisoblanadi (§3.4 — bufer, yo'qotish emas).
+  ChatState get _latest => _pendingState ?? state;
+
+  /// Buferni bekor qilib darhol yozadi (yangi xabar, retry, reset).
+  void _commitNow(ChatState newState) {
+    _throttleTimer?.cancel();
+    _pendingState = null;
+    state = newState;
+  }
+
   void _updateStateThrottled(ChatState newState) {
     _pendingState = newState;
     if (_throttleTimer == null || !_throttleTimer!.isActive) {
@@ -77,11 +89,13 @@ class ChatNotifier extends _$ChatNotifier {
       status: MessageStatus.streaming,
     );
 
-    state = state.copyWith(
-      messages: [assistantMsg, userMsg, ...state.messages],
-      isStreaming: true,
-      error: null,
-      quickReplies: [],
+    _commitNow(
+      _latest.copyWith(
+        messages: [assistantMsg, userMsg, ..._latest.messages],
+        isStreaming: true,
+        error: null,
+        quickReplies: [],
+      ),
     );
 
     _cancelToken = CancelToken();
@@ -110,11 +124,13 @@ class ChatNotifier extends _$ChatNotifier {
   }
 
   void _handleEvent(SseEvent event, String msgId) {
-    final msgs = List<Message>.from(state.messages);
+    final base = _latest;
+    final msgs = List<Message>.from(base.messages);
     final idx = msgs.indexWhere((m) => m.id == msgId);
     if (idx == -1) return;
 
     Message msg = msgs[idx];
+    String? streamError;
 
     event.when(
       start: () {},
@@ -174,28 +190,38 @@ class ChatNotifier extends _$ChatNotifier {
           },
       error: (String detail) {
         msg = msg.copyWith(status: MessageStatus.error);
-        _handleError(detail, msgId);
+        streamError = detail;
       },
       unknown: () {},
     );
 
     msgs[idx] = msg;
-    _updateStateThrottled(state.copyWith(messages: msgs));
+    _updateStateThrottled(
+      streamError == null
+          ? base.copyWith(messages: msgs)
+          : base.copyWith(
+              messages: msgs,
+              error: streamError,
+              isStreaming: false,
+            ),
+    );
   }
 
   void _handleError(String error, String msgId) {
-    final msgs = List<Message>.from(state.messages);
+    final base = _latest;
+    final msgs = List<Message>.from(base.messages);
     final idx = msgs.indexWhere((m) => m.id == msgId);
     if (idx != -1) {
       msgs[idx] = msgs[idx].copyWith(status: MessageStatus.error);
     }
     _updateStateThrottled(
-      state.copyWith(error: error, isStreaming: false, messages: msgs),
+      base.copyWith(error: error, isStreaming: false, messages: msgs),
     );
   }
 
   void _handleDone(String msgId) {
-    final msgs = List<Message>.from(state.messages);
+    final base = _latest;
+    final msgs = List<Message>.from(base.messages);
     final idx = msgs.indexWhere((m) => m.id == msgId);
     if (idx != -1) {
       msgs[idx] = msgs[idx].copyWith(status: MessageStatus.done);
@@ -204,13 +230,31 @@ class ChatNotifier extends _$ChatNotifier {
         msgs[idx + 1] = msgs[idx + 1].copyWith(status: MessageStatus.done);
       }
     }
-    _updateStateThrottled(state.copyWith(isStreaming: false, messages: msgs));
+    _updateStateThrottled(base.copyWith(isStreaming: false, messages: msgs));
+  }
+
+  /// Uzilgan/xato bo'lgan oxirgi javobni qayta so'raydi: oxirgi user xabari
+  /// qayta yuboriladi, xato holatidagi assistant xabari olib tashlanadi (§8.5).
+  Future<void> retryLast() async {
+    if (state.isStreaming) return;
+    final msgs = List<Message>.from(_latest.messages);
+    final lastUserIdx = msgs.lastIndexWhere((m) => m.role == MessageRole.user);
+    if (lastUserIdx == -1) {
+      // Tarix yuklanmagan (getMessages xatosi) — qayta yuklash.
+      _commitNow(_latest.copyWith(error: null));
+      await _loadMessages();
+      return;
+    }
+    final content = msgs[lastUserIdx].content;
+    msgs.removeRange(lastUserIdx, msgs.length);
+    _commitNow(_latest.copyWith(messages: msgs, error: null));
+    await sendMessage(content);
   }
 
   void cancelStream() {
     _cancelToken?.cancel();
     _activeStream?.cancel();
-    state = state.copyWith(isStreaming: false);
+    _commitNow(_latest.copyWith(isStreaming: false));
   }
 
   Future<void> resetConversation() async {

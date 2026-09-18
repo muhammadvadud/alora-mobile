@@ -212,53 +212,50 @@ void main() {
   });
 
   group('50 ms throttle', () {
-    test(
-      '100 ta content chunk — state yangilanishi ≤ 3 ta har 50 ms',
-      () async {
-        final notifier = container.read(chatProvider('throttle-1').notifier);
+    test('100 ta content chunk — state yangilanishi ≤ 3 ta har 50 ms', () async {
+      final notifier = container.read(chatProvider('throttle-1').notifier);
 
-        when(
-          () => mockRepo.sendMessage(
-            any(),
-            any(),
-            any(),
-            any(),
-            any(),
-            cancelToken: any(named: 'cancelToken'),
-          ),
-        ).thenAnswer((_) => sseController.stream);
+      when(
+        () => mockRepo.sendMessage(
+          any(),
+          any(),
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).thenAnswer((_) => sseController.stream);
 
-        unawaited(notifier.sendMessage('Test'));
-        await Future<void>.delayed(Duration.zero);
+      unawaited(notifier.sendMessage('Test'));
+      await Future<void>.delayed(Duration.zero);
 
-        int stateUpdateCount = 0;
-        final sub = container.listen<ChatState>(
-          chatProvider('throttle-1'),
-          (_, _) => stateUpdateCount++,
-        );
+      int stateUpdateCount = 0;
+      final sub = container.listen<ChatState>(
+        chatProvider('throttle-1'),
+        (_, _) => stateUpdateCount++,
+      );
 
-        // 100 ta content chunk tez ketma-ket yuboriladi
-        for (var i = 0; i < 100; i++) {
-          sseController.add(const SseEvent.content('x'));
-        }
-        sseController.add(const SseEvent.done());
+      // 100 ta content chunk tez ketma-ket yuboriladi
+      for (var i = 0; i < 100; i++) {
+        sseController.add(const SseEvent.content('x'));
+      }
+      sseController.add(const SseEvent.done());
 
-        // Throttle commit uchun 50 ms va zahira kutamiz
-        await Future<void>.delayed(const Duration(milliseconds: 250));
+      // Throttle commit uchun 50 ms va zahira kutamiz
+      await Future<void>.delayed(const Duration(milliseconds: 250));
 
-        final state = readState('throttle-1');
-        final assistant = state.messages.firstWhere(
-          (m) => m.role == MessageRole.assistant,
-        );
-        expect(assistant.status, MessageStatus.done);
-        // 100 ta chunk uchun commit soni 3 dan oshmaydi (throttle birlashadi).
-        // Izoh: chunk'lar 50 ms oyna ichida _pendingState o'rniga eski state'ga
-        // yozilishi tufayli to'liq saqlanmaydi — BUG: chat_notifier.dart:183.
-        expect(stateUpdateCount, lessThanOrEqualTo(3));
+      final state = readState('throttle-1');
+      final assistant = state.messages.firstWhere(
+        (m) => m.role == MessageRole.assistant,
+      );
+      expect(assistant.status, MessageStatus.done);
+      // 100 ta chunk uchun commit soni 3 dan oshmaydi (throttle birlashadi)...
+      expect(stateUpdateCount, lessThanOrEqualTo(3));
+      // ...lekin birorta chunk yo'qolmaydi (bufer, §3.4).
+      expect(assistant.content, 'x' * 100);
 
-        sub.close();
-      },
-    );
+      sub.close();
+    });
   });
 
   group('Xatolik holatlari', () {
@@ -297,7 +294,7 @@ void main() {
       expect(assistant.status, MessageStatus.error);
     });
 
-    test('error SSE event — assistant xabari error holatida (BUG: state.error)', () async {
+    test('error SSE event — assistant xabari error, state.error to\'ldiriladi, oqim to\'xtaydi', () async {
       final notifier = container.read(chatProvider('err-2').notifier);
 
       when(
@@ -322,10 +319,8 @@ void main() {
         (m) => m.role == MessageRole.assistant,
       );
       expect(assistant.status, MessageStatus.error);
-      // BUG: chat_notifier.dart:183 — _handleEvent error'ni o'z _pendingState
-      // yozuvi bilan ustiga yozadi; state.error va isStreaming=false yo'qoladi.
-      expect(state.error, isNull);
-      expect(state.isStreaming, isTrue);
+      expect(state.error, isNotNull);
+      expect(state.isStreaming, isFalse);
     });
   });
 
@@ -397,10 +392,9 @@ void main() {
     });
   });
 
-  group('Bitta faol stream', () {
-    test('ikkinchi sendMessage — rad etiladi (isStreaming true)', () async {
-      final notifier = container.read(chatProvider('single-1').notifier);
-
+  group('retryLast', () {
+    test("xato bo'lgan javob o'chiriladi, oxirgi user xabari 1 marta qayta yuboriladi", () async {
+      final notifier = container.read(chatProvider('retry-2').notifier);
       when(
         () => mockRepo.sendMessage(
           any(),
@@ -412,20 +406,52 @@ void main() {
         ),
       ).thenAnswer((_) => sseController.stream);
 
-      unawaited(notifier.sendMessage('Birinchi'));
+      unawaited(notifier.sendMessage('Parda kerak'));
       await Future<void>.delayed(Duration.zero);
+      sseController.addError('Uzilish');
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      expect(readState('retry-2').error, isNotNull);
 
-      expect(readState('single-1').isStreaming, isTrue);
+      final sseController2 = StreamController<SseEvent>.broadcast();
+      when(
+        () => mockRepo.sendMessage(
+          any(),
+          any(),
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).thenAnswer((_) => sseController2.stream);
 
-      // Try second send — should be ignored
-      await notifier.sendMessage('Ikkinchi');
+      unawaited(notifier.retryLast());
+      await Future<void>.delayed(Duration.zero);
+      sseController2.add(const SseEvent.content('Albatta'));
+      sseController2.add(const SseEvent.done());
+      await sseController2.close();
+      await sseController.close();
+      await Future<void>.delayed(const Duration(milliseconds: 100));
 
-      // Only one user message should exist
-      final userMsgs = readState('single-1').messages
-          .where((m) => m.role == MessageRole.user)
-          .toList();
-      expect(userMsgs.length, 1);
-      expect(userMsgs.first.content, 'Birinchi');
+      final state = readState('retry-2');
+      expect(state.error, isNull);
+      // Xato bo'lgan juftlik o'chirilgan: faqat 1 user + 1 assistant xabar.
+      final users = state.messages.where((m) => m.role == MessageRole.user);
+      expect(users.length, 1);
+      expect(users.single.content, 'Parda kerak');
+      expect(
+        state.messages.any((m) => m.status == MessageStatus.error),
+        isFalse,
+      );
+      verify(
+        () => mockRepo.sendMessage(
+          any(),
+          'Parda kerak',
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).called(2);
     });
   });
 

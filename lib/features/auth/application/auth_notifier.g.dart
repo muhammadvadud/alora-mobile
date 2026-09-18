@@ -49,7 +49,7 @@ final class AuthNotifierProvider
   }
 }
 
-String _$authNotifierHash() => r'8139be090897792f55a6561296edaa4473cce5a8';
+String _$authNotifierHash() => r'5ed8aa10eb3c45dc459ce291b29c9b8d4a0d3daa';
 
 /// Auth holatini boshqaruvchi notifier.
 /// Ilovada sessiyani tiklaydi, login/logout amallarini bajardi.

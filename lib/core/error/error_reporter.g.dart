@@ -10,13 +10,17 @@ part of 'error_reporter.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Prod + DSN bo'lsa Sentry, aks holda Noop.
 
 @ProviderFor(errorReporter)
 final errorReporterProvider = ErrorReporterProvider._();
 
+/// Prod + DSN bo'lsa Sentry, aks holda Noop.
+
 final class ErrorReporterProvider
     extends $FunctionalProvider<ErrorReporter, ErrorReporter, ErrorReporter>
     with $Provider<ErrorReporter> {
+  /// Prod + DSN bo'lsa Sentry, aks holda Noop.
   ErrorReporterProvider._()
     : super(
         from: null,

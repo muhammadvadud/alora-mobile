@@ -7,6 +7,7 @@ import "package:image_cropper/image_cropper.dart";
 import "package:flutter_image_compress/flutter_image_compress.dart";
 import "package:path_provider/path_provider.dart";
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:alora_mobile/core/network/api_paths.dart';
 
 import '../providers/catalog_providers.dart';
 import '../../data/dto/catalog_write_dtos.dart';
@@ -331,8 +332,8 @@ class ProductFormNotifier extends _$ProductFormNotifier {
             // Queue on offline
             final method = productId == null ? 'POST' : 'PATCH';
             final path = productId == null
-                ? '/catalog/products/'
-                : '/catalog/products/$productId/';
+                ? '/${ApiPaths.products}'
+                : '/${ApiPaths.product(productId)}';
             final data = productId == null
                 ? {
                     'name': state.name,

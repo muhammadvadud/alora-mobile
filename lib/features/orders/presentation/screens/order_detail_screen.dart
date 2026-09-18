@@ -3,6 +3,9 @@ import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/models/order_status.dart';
+import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
+import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/core/utils/money_format.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,6 +46,15 @@ class OrderDetailScreen extends ConsumerWidget {
     final state = ref.watch(orderDetailProvider(orderId));
     final colors = context.colors;
     final typography = context.text;
+
+    // Tasdiqlash muvaffaqiyatli bo'lsa snackbar (9.14)
+    ref.listen(orderDetailProvider(orderId), (previous, next) {
+      final was = previous?.value?.status;
+      final now = next.value?.status;
+      if (was == OrderStatus.draft && now == OrderStatus.confirmed) {
+        AppSnackbar.show(context, message: context.l10n.orders_confirmedSnack);
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -137,6 +149,19 @@ class OrderDetailScreen extends ConsumerWidget {
                   actionDate: order.updatedAt,
                 ),
                 const SizedBox(height: AppSpacing.l),
+
+                // 9.14: qoralama → tasdiqlash (POST confirm/)
+                if (order.status == OrderStatus.draft) ...[
+                  AppButton(
+                    text: context.l10n.orders_confirm,
+                    onPressed: () => unawaited(
+                      ref
+                          .read(orderDetailProvider(orderId).notifier)
+                          .confirmOrder(),
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.l),
+                ],
 
                 // Customer info
                 if (order.customerName != null) ...[

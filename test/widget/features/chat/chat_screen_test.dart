@@ -18,6 +18,9 @@ import 'package:alora_mobile/features/chat/presentation/widgets/product_carousel
 import 'package:alora_mobile/features/chat/presentation/widgets/quote_card.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/tool_chip_block.dart';
 import 'package:alora_mobile/features/orders/domain/repositories/orders_repository.dart';
+import 'package:alora_mobile/shared/models/payment_status.dart';
+import 'package:alora_mobile/shared/models/order_status.dart';
+import 'package:alora_mobile/features/orders/domain/entities/order.dart';
 import 'package:alora_mobile/features/orders/application/providers.dart'
     as orders_providers;
 import 'package:alora_mobile/shared/widgets/app_button.dart';
@@ -313,6 +316,50 @@ void main() {
       final button = tester.widget<AppButton>(createButton);
       expect(button.onPressed, isNull);
     });
+
+    testWidgets("to'liq qoralamada 'Buyurtma yaratish' → POST orders/ (7.12)", (
+      tester,
+    ) async {
+      final ordersRepo = MockOrdersRepo();
+      when(() => ordersRepo.createOrder(any())).thenAnswer(
+        (_) async => const Order(
+          id: 'ord-1',
+          number: 'ALR-2026-000001',
+          status: OrderStatus.draft,
+          paymentStatus: PaymentStatus.unpaid,
+          total: 2140000,
+        ),
+      );
+      stubGetMessages(repo, [
+        assistantMessage(
+          richBlocks: [
+            RichBlock.orderDraft(draft: orderDraftFixture(missingFields: [])),
+          ],
+        ),
+      ]);
+      await tester.pumpWidget(
+        chatApp(
+          repo,
+          withRouter: true,
+          extraOverrides: [
+            orders_providers.ordersRepositoryProvider.overrideWithValue(
+              ordersRepo,
+            ),
+          ],
+        ),
+      );
+      await tester.pump();
+
+      await tester.tap(find.widgetWithText(AppButton, 'Buyurtma yaratish'));
+      await tester.pumpAndSettle();
+      expect(find.text('order:ord-1'), findsOneWidget);
+
+      final body =
+          verify(() => ordersRepo.createOrder(captureAny())).captured.single
+              as Map<String, dynamic>;
+      expect(body['customer_name'], 'Ali Valiyev');
+      expect(body['conversation_id'], 'conv-1');
+    });
   });
 
   group('ChatScreen — xatolik holatlari', () {
@@ -341,16 +388,8 @@ void main() {
 
       await tester.tap(find.text('Qayta yuborish'));
       await tester.pump();
-      verify(
-        () => repo.sendMessage(
-          'conv-1',
-          'Retry',
-          any(),
-          any(),
-          any(),
-          cancelToken: any(named: 'cancelToken'),
-        ),
-      ).called(1);
+      // Tarix yuklanmagan holatda retry → getMessages qayta chaqiriladi.
+      verify(() => repo.getMessages('conv-1', cursor: null)).called(2);
     });
 
     testWidgets('429 xatosi LimitExceededView ko\'rsatadi', (tester) async {

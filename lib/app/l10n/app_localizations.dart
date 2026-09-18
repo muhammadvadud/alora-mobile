@@ -195,6 +195,36 @@ abstract class AppLocalizations {
   /// **'Limit tugadi'**
   String get error_limit;
 
+  /// No description provided for @orders_confirm.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tasdiqlash'**
+  String get orders_confirm;
+
+  /// No description provided for @orders_confirmedSnack.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtma tasdiqlandi'**
+  String get orders_confirmedSnack;
+
+  /// No description provided for @orders_createdSnack.
+  ///
+  /// In uz, this message translates to:
+  /// **'Buyurtma yaratildi'**
+  String get orders_createdSnack;
+
+  /// No description provided for @chat_defaultTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz'**
+  String get chat_defaultTitle;
+
+  /// No description provided for @chat_noConversation.
+  ///
+  /// In uz, this message translates to:
+  /// **'Suhbat tanlanmagan'**
+  String get chat_noConversation;
+
   /// No description provided for @limit_callManager.
   ///
   /// In uz, this message translates to:

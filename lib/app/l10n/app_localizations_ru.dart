@@ -60,6 +60,21 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_limit => 'Лимит исчерпан';
 
   @override
+  String get orders_confirm => 'Подтвердить';
+
+  @override
+  String get orders_confirmedSnack => 'Заказ подтверждён';
+
+  @override
+  String get orders_createdSnack => 'Заказ создан';
+
+  @override
+  String get chat_defaultTitle => 'Клиент';
+
+  @override
+  String get chat_noConversation => 'Беседа не выбрана';
+
+  @override
   String get limit_callManager => 'Позвонить';
 
   @override

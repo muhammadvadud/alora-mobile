@@ -12,6 +12,7 @@ import 'package:alora_mobile/features/chat/presentation/screens/chat_screen.dart
 import 'package:alora_mobile/features/conversations/presentation/screens/conversations_screen.dart';
 import 'package:alora_mobile/features/catalog/presentation/screens/catalog_screen.dart';
 import 'package:alora_mobile/features/catalog/presentation/screens/product_screen.dart';
+import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
 import 'package:alora_mobile/features/management/presentation/screens/management_screen.dart';
 import 'package:alora_mobile/features/management/presentation/screens/employees_screen.dart';
@@ -166,7 +167,11 @@ List<RouteBase> _routes() {
               routes: [
                 GoRoute(
                   path: 'new',
-                  builder: (_, _) => const OrderFormScreen(),
+                  builder: (_, state) => OrderFormScreen(
+                    initialDraft: state.extra is OrderDraft
+                        ? state.extra as OrderDraft
+                        : null,
+                  ),
                 ),
                 GoRoute(
                   path: ':orderId',

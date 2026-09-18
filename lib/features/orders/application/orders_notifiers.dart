@@ -101,6 +101,22 @@ class OrdersListNotifier extends _$OrdersListNotifier {
       // You could optionally set state to error depending on how you want to show it.
     }
   }
+
+  /// Ro'yxatdagi qoralamani tasdiqlash (`POST confirm/`, 9.14): server javobi
+  /// bilan element almashtiriladi, tafsilot va badge yangilanadi.
+  Future<void> confirmOrder(String id) async {
+    final current = state.value;
+    if (current == null) return;
+    final repo = ref.read(ordersRepositoryProvider);
+    final updated = await repo.confirmOrder(id);
+    state = AsyncValue.data(
+      current.copyWith(
+        items: [for (final o in current.items) o.id == id ? updated : o],
+      ),
+    );
+    ref.invalidate(orderDetailProvider(id));
+    ref.invalidate(draftOrdersCountProvider);
+  }
 }
 
 @riverpod

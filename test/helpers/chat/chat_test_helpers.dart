@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/app/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart' show Override;
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -71,7 +73,27 @@ Widget chatApp(
   String conversationId = 'conv-1',
   bool customerMode = false,
   List<Override> extraOverrides = const [],
+  bool withRouter = false,
 }) {
+  final router = withRouter
+      ? GoRouter(
+          initialLocation: AppRoutes.chatConversation(conversationId),
+          routes: [
+            GoRoute(
+              path: '${AppRoutes.chat}/:conversationId',
+              builder: (_, state) => ChatScreen(
+                conversationId: state.pathParameters['conversationId'],
+              ),
+            ),
+            GoRoute(
+              path: '${AppRoutes.orders}/:orderId',
+              builder: (_, state) => Scaffold(
+                body: Text('order:${state.pathParameters['orderId']}'),
+              ),
+            ),
+          ],
+        )
+      : null;
   return ProviderScope(
     overrides: [
       chat_providers.chatRepositoryProvider.overrideWithValue(repo),
@@ -79,7 +101,9 @@ Widget chatApp(
       connectivityProvider.overrideWithValue(online),
       ...extraOverrides,
     ],
-    child: MaterialApp(
+    child: MaterialApp.router(
+      routerConfig:
+          router ?? _homeRouter(ChatScreen(conversationId: conversationId)),
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(isCustomerMode: customerMode),
       darkTheme: AppTheme.dark(isCustomerMode: customerMode),
@@ -92,10 +116,14 @@ Widget chatApp(
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: ChatScreen(conversationId: conversationId),
     ),
   );
 }
+
+/// Bitta ekranli minimal router (`home:` o'rniga) — GoRouter kontekst uchun.
+GoRouter _homeRouter(Widget home) => GoRouter(
+  routes: [GoRoute(path: '/', builder: (_, _) => home)],
+);
 
 const testLocale = Locale('uz');
 

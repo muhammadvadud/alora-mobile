@@ -33,6 +33,7 @@ class AppRoutes {
   ) => '$managementEmployees/$employeeId/conversations/$conversationId';
 
   static String chatConversation(String id) => '$chat/$id';
+  static const String orderNew = '$orders/new';
   static String order(String id) => '$orders/$id';
   static String catalogProduct(String id) => '$catalog/products/$id';
 }

@@ -60,6 +60,21 @@ class AppLocalizationsUz extends AppLocalizations {
   String get error_limit => 'Limit tugadi';
 
   @override
+  String get orders_confirm => 'Tasdiqlash';
+
+  @override
+  String get orders_confirmedSnack => 'Buyurtma tasdiqlandi';
+
+  @override
+  String get orders_createdSnack => 'Buyurtma yaratildi';
+
+  @override
+  String get chat_defaultTitle => 'Mijoz';
+
+  @override
+  String get chat_noConversation => 'Suhbat tanlanmagan';
+
+  @override
   String get limit_callManager => 'Qo\'ng\'iroq';
 
   @override
@@ -1344,6 +1359,21 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get error_limit => 'Лимит тугади';
+
+  @override
+  String get orders_confirm => 'Тасдиқлаш';
+
+  @override
+  String get orders_confirmedSnack => 'Буюртма тасдиқланди';
+
+  @override
+  String get orders_createdSnack => 'Буюртма яратилди';
+
+  @override
+  String get chat_defaultTitle => 'Мижоз';
+
+  @override
+  String get chat_noConversation => 'Суҳбат танланмаган';
 
   @override
   String get limit_callManager => 'Қўнғироқ';

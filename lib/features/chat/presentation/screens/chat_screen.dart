@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
@@ -29,7 +30,11 @@ import 'package:alora_mobile/features/customer_mode/presentation/widgets/pin_dia
 import 'package:alora_mobile/features/conversations/application/conversations_notifier.dart';
 import 'package:alora_mobile/features/conversations/application/conversations_state.dart';
 import 'package:alora_mobile/features/conversations/domain/entities/conversation.dart';
+import 'package:alora_mobile/app/router/routes.dart';
+import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
+import 'package:alora_mobile/features/orders/application/order_from_draft_notifier.dart';
 import 'package:alora_mobile/features/orders/application/order_pdf_notifier.dart';
+import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String? conversationId;
@@ -62,6 +67,27 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     super.dispose();
   }
 
+  /// S-07 "Buyurtma yaratish": `POST orders/` → `/orders/:id` (7.12).
+  Future<void> _createOrderFromDraft(OrderDraft draft) async {
+    final order = await ref
+        .read(orderFromDraftProvider.notifier)
+        .create(draft, conversationId: widget.conversationId);
+    if (!mounted) return;
+    if (order == null) {
+      final error = ref.read(orderFromDraftProvider).error;
+      AppSnackbar.show(
+        context,
+        message: error == null
+            ? context.l10n.error_unknown
+            : context.l10n.errorOccurred(error.toString()),
+        isError: true,
+      );
+      return;
+    }
+    AppSnackbar.show(context, message: context.l10n.orders_createdSnack);
+    await context.push(AppRoutes.order(order.id));
+  }
+
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
       _scrollController.animateTo(
@@ -75,8 +101,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.conversationId == null) {
-      return const Scaffold(
-        body: Center(child: Text("Conversation ID is required")),
+      return Scaffold(
+        body: Center(child: Text(context.l10n.chat_noConversation)),
       );
     }
 
@@ -113,9 +139,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      ref
-                          .read(chatProvider(widget.conversationId!).notifier)
-                          .sendMessage('Retry');
+                      unawaited(
+                        ref
+                            .read(chatProvider(widget.conversationId!).notifier)
+                            .retryLast(),
+                      );
                     },
                     child: Text(l10n.chat_retry),
                   ),
@@ -241,7 +269,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 border: Border.all(color: colors.border),
               ),
               child: Text(
-                'Mijoz',
+                l10n.chat_defaultTitle,
                 style: typography.titleL.copyWith(color: colors.textPrimary),
               ),
             ),
@@ -420,7 +448,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   : quote,
             ),
             options: (options) => OptionsCardView(optionsBlock: options),
-            orderDraft: (draft) => OrderDraftCardView(draft: draft),
+            orderDraft: (draft) => OrderDraftCardView(
+              draft: draft,
+              onEdit: () => context.push(AppRoutes.orderNew, extra: draft),
+              onCreate: () => unawaited(_createOrderFromDraft(draft)),
+            ),
             warning: (message) => isCustomerMode
                 ? const SizedBox.shrink()
                 : Text(message, style: TextStyle(color: context.colors.danger)),

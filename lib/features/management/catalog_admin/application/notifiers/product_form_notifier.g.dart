@@ -44,7 +44,7 @@ final class ProductFormNotifierProvider
 }
 
 String _$productFormNotifierHash() =>
-    r'ac1ad5eba824ef5f5d4002e86e9caca2017f8a4b';
+    r'06e331ccbce5b3fa7e2a1a756bafb4e300684243';
 
 abstract class _$ProductFormNotifier extends $Notifier<ProductFormState> {
   ProductFormState build();

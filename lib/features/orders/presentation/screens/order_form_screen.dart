@@ -1,5 +1,7 @@
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/app/router/routes.dart';
+import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
@@ -10,7 +12,10 @@ import 'package:alora_mobile/features/orders/application/providers.dart';
 import 'package:go_router/go_router.dart';
 
 class OrderFormScreen extends ConsumerStatefulWidget {
-  const OrderFormScreen({super.key});
+  /// [initialDraft] — chatdagi qoralamadan (S-07 "Tahrirlash") oldindan to'ldirish.
+  const OrderFormScreen({super.key, this.initialDraft});
+
+  final OrderDraft? initialDraft;
 
   @override
   ConsumerState<OrderFormScreen> createState() => _OrderFormScreenState();
@@ -27,6 +32,20 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
   bool _isDiscountPercent = false;
   bool _isPrepaymentPercent = false;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final draft = widget.initialDraft;
+    if (draft != null) {
+      _nameController.text = draft.customerName ?? '';
+      _phoneController.text = draft.phone ?? '';
+      _addressController.text = draft.address ?? '';
+      if (draft.prepayment != null) {
+        _prepaymentController.text = draft.prepayment.toString();
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -85,7 +104,7 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
       ref.invalidate(ordersListProvider);
       if (mounted) {
         context.pop();
-        await context.push('/orders/${newOrder.id}');
+        await context.push(AppRoutes.order(newOrder.id));
       }
     } catch (e) {
       if (mounted) {

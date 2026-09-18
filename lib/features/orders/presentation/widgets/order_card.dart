@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
+import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
@@ -72,7 +76,7 @@ class OrderCard extends ConsumerWidget {
         alignment: Alignment.centerRight,
       ),
       child: GestureDetector(
-        onTap: () => context.go('/orders/${order.id}'),
+        onTap: () => context.go(AppRoutes.order(order.id)),
         child: Container(
           decoration: BoxDecoration(
             color: colors.surface,
@@ -161,12 +165,12 @@ class OrderCard extends ConsumerWidget {
                         if (order.status == OrderStatus.draft) ...[
                           const SizedBox(height: AppSpacing.m),
                           AppButton(
-                            text: 'Tasdiqlash',
-                            onPressed: () {
+                            text: context.l10n.orders_confirm,
+                            onPressed: () => unawaited(
                               ref
-                                  .read(orderDetailProvider(order.id).notifier)
-                                  .confirmOrder();
-                            },
+                                  .read(ordersListProvider.notifier)
+                                  .confirmOrder(order.id),
+                            ),
                           ),
                         ],
                       ],

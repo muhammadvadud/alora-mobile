@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/features/chat/domain/entities/product_ref.dart';
 import 'package:alora_mobile/shared/models/product_card_data.dart';
 import 'package:alora_mobile/shared/models/price_unit.dart';
@@ -52,7 +53,7 @@ class ProductCarousel extends StatelessWidget {
               data: data,
               isCarousel: true,
               onTap: () {
-                context.push('/catalog/products/${p.id}');
+                context.push(AppRoutes.catalogProduct(p.id));
               },
             ),
           );

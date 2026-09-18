@@ -1,5 +1,6 @@
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -140,7 +141,7 @@ class OrdersScreen extends ConsumerWidget {
                     icon: AppIcons.orders,
                     actionText: 'Yangi suhbat',
                     onAction: () {
-                      context.go('/chat');
+                      context.go(AppRoutes.chat);
                     },
                   );
                 }

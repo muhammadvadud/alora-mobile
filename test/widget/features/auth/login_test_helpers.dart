@@ -16,7 +16,7 @@ Future<void> pumpLoginScreen(
     UncontrolledProviderScope(
       container: container,
       child: MaterialApp(
-        theme: AppTheme.light,
+        theme: AppTheme.light(),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

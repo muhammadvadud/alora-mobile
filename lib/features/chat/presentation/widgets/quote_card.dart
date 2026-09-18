@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/core/utils/money_format.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/chat/domain/entities/quote.dart';
@@ -132,7 +133,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
                       ),
                       decoration: BoxDecoration(
                         color: colors.surfaceMuted,
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: AppRadius.smallBorder,
                       ),
                       child: Text(
                         f.role,
@@ -158,7 +159,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '${f.widthM} m × ${f.heightM} m · K ${f.coef} · ${f.pricePerSqm}/m²',
+                  '${f.widthM} m × ${f.heightM} m · K ${f.coef} · ${formatMoneyPlain(f.pricePerSqm)}/m²',
                   style: typography.bodyS.copyWith(color: colors.textSecondary),
                 ),
               ],
@@ -175,7 +176,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
           SizedBox(
             width: 82,
             child: Text(
-              f.total.toString(),
+              formatMoneyPlain(f.total),
               style: typography.bodyS.copyWith(fontWeight: FontWeight.w500),
               textAlign: TextAlign.right,
             ),
@@ -216,7 +217,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
                   SizedBox(
                     width: 82,
                     child: Text(
-                      a.total.toString(),
+                      formatMoneyPlain(a.total),
                       style: typography.bodyS.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -253,7 +254,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
                   SizedBox(
                     width: 82,
                     child: Text(
-                      s.total.toString(),
+                      formatMoneyPlain(s.total),
                       style: typography.bodyS.copyWith(
                         fontWeight: FontWeight.w500,
                       ),

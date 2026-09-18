@@ -73,7 +73,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
         children: [
           IconButton(
             onPressed: widget.disabled ? null : widget.onAddPressed,
-            icon: Icon(AppIcons.chat, color: colors.textSecondary),
+            icon: Icon(AppIcons.plus, color: colors.textSecondary),
             constraints: const BoxConstraints(minWidth: 38, minHeight: 38),
             padding: EdgeInsets.zero,
           ),
@@ -117,7 +117,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                AppIcons.chat,
+                AppIcons.send,
                 color: canSend ? colors.onAccent : colors.textDisabled,
                 size: 20,
               ),

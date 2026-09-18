@@ -24,7 +24,7 @@ Future<void> pumpLogin(
       overrides: [authRepositoryProvider.overrideWithValue(repository)],
       child: MaterialApp(
         locale: const Locale('uz'),
-        theme: AppTheme.light,
+        theme: AppTheme.light(),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

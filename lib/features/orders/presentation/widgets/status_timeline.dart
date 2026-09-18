@@ -1,5 +1,6 @@
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/models/order_status.dart';
@@ -32,7 +33,7 @@ class StatusTimeline extends StatelessWidget {
     if (currentStatus == OrderStatus.cancelled) {
       return Row(
         children: [
-          Icon(Icons.cancel, color: colors.danger),
+          Icon(AppIcons.close, color: colors.danger),
           const SizedBox(width: AppSpacing.s),
           Text(
             context.l10n.cancelled,
@@ -76,9 +77,9 @@ class StatusTimeline extends StatelessWidget {
                           : Border.all(color: color),
                     ),
                     child: isPassed
-                        ? Icon(Icons.check, size: 14, color: iconColor)
+                        ? Icon(AppIcons.check, size: 14, color: iconColor)
                         : (isCurrent
-                              ? Icon(Icons.circle, size: 8, color: iconColor)
+                              ? Icon(AppIcons.dot, size: 8, color: iconColor)
                               : null),
                   ),
                   if (index < steps.length - 1)

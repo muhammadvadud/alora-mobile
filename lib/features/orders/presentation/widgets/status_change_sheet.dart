@@ -9,6 +9,8 @@ import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
 import 'package:alora_mobile/features/orders/application/statuses_notifier.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
 import 'package:alora_mobile/features/orders/domain/entities/order.dart';
+import 'package:alora_mobile/shared/widgets/skeleton.dart';
+import 'package:alora_mobile/app/theme/app_radius.dart';
 
 class StatusChangeSheet extends ConsumerStatefulWidget {
   final Order order;
@@ -119,12 +121,32 @@ class _StatusChangeSheetState extends ConsumerState<StatusChangeSheet> {
                 ],
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Padding(
+              padding: EdgeInsets.all(AppSpacing.m),
+              child: SkeletonList(
+                itemCount: 4,
+                itemBuilder: SkeletonBox(
+                  width: double.infinity,
+                  height: 48,
+                  borderRadius: AppRadius.card,
+                ),
+              ),
+            ),
             error: (err, st) =>
                 Center(child: Text(context.l10n.errorLoadingStatuses)),
           );
         },
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Padding(
+          padding: EdgeInsets.all(AppSpacing.m),
+          child: SkeletonList(
+            itemCount: 4,
+            itemBuilder: SkeletonBox(
+              width: double.infinity,
+              height: 48,
+              borderRadius: AppRadius.card,
+            ),
+          ),
+        ),
         error: (err, st) =>
             Center(child: Text(context.l10n.errorLoadingTransitions)),
       ),

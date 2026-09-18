@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_colors.dart';
@@ -39,10 +40,7 @@ class OrderCard extends ConsumerWidget {
     final typography = context.text;
     final l10n = AppLocalizations.of(context)!;
 
-    final statusColors = StatusColors.getOrderStatusColors(
-      order.status,
-      colors,
-    );
+    final statusColors = getOrderStatusColors(order.status, colors);
 
     final deadlineText = _getDeadlineText(order.deadlineDate, l10n);
     final deadlineColor = _getDeadlineColor(order.deadlineDate, colors);
@@ -63,13 +61,13 @@ class OrderCard extends ConsumerWidget {
       },
       background: _buildSwipeBackground(
         color: colors.successSoft,
-        icon: Icons.phone,
+        icon: AppIcons.phone,
         iconColor: colors.success,
         alignment: Alignment.centerLeft,
       ),
       secondaryBackground: _buildSwipeBackground(
         color: colors.accentSoft,
-        icon: Icons.edit,
+        icon: AppIcons.edit,
         iconColor: colors.accent,
         alignment: Alignment.centerRight,
       ),

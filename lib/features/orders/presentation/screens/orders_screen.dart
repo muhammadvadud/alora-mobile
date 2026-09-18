@@ -1,5 +1,6 @@
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
@@ -136,7 +137,7 @@ class OrdersScreen extends ConsumerWidget {
                   return EmptyState(
                     title: 'Hali buyurtma yo\'q',
                     message: 'Chatda hisob qilib, buyurtma yarating',
-                    icon: Icons.list_alt,
+                    icon: AppIcons.orders,
                     actionText: 'Yangi suhbat',
                     onAction: () {
                       context.go('/chat');
@@ -166,7 +167,13 @@ class OrdersScreen extends ConsumerWidget {
                       if (index == pagingState.items.length) {
                         return const Padding(
                           padding: EdgeInsets.all(AppSpacing.m),
-                          child: Center(child: CircularProgressIndicator()),
+                          child: Center(
+                            child: SkeletonBox(
+                              width: 32,
+                              height: 32,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
                         );
                       }
                       final order = pagingState.items[index];

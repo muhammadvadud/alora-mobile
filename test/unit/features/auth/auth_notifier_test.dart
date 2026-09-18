@@ -21,8 +21,13 @@ void main() {
   setUp(() {
     repository = FakeAuthRepository();
     errorReporter = MockErrorReporter();
-    
-    when(() => errorReporter.setUser(id: any(named: 'id'), role: any(named: 'role'))).thenReturn(null);
+
+    when(
+      () => errorReporter.setUser(
+        id: any(named: 'id'),
+        role: any(named: 'role'),
+      ),
+    ).thenReturn(null);
     when(() => errorReporter.clearUser()).thenReturn(null);
 
     container = ProviderContainer(
@@ -54,26 +59,24 @@ void main() {
     verify(() => errorReporter.clearUser()).called(1);
   });
 
-  test(
-    'refresh token bo\'lsa refresh + me orqali authenticated bo\'ladi va setUser chaqiriladi',
-    () async {
-      repository.refreshToken = 'r1';
-      repository.user = testUser(role: Role.manager);
+  test('refresh token bo\'lsa refresh + me orqali authenticated bo\'ladi va setUser chaqiriladi', () async {
+    repository.refreshToken = 'r1';
+    repository.user = testUser(role: Role.manager);
 
-      state(); // trigger provider creation and _initialize
-      await pumpEventQueue();
+    state(); // trigger provider creation and _initialize
+    await pumpEventQueue();
 
-      expect(
-        state().maybeWhen(
-          authenticated: (user) => user.role == Role.manager,
-          orElse: () => false,
-        ),
-        isTrue,
-      );
-      
-      verify(() => errorReporter.setUser(id: 'user-1', role: 'manager')).called(1);
-    },
-  );
+    expect(
+      state().maybeWhen(
+        authenticated: (user) => user.role == Role.manager,
+        orElse: () => false,
+      ),
+      isTrue,
+    );
+
+    verify(() => errorReporter.setUser(id: 'user-1', role: 'manager'))
+        .called(1);
+  });
 
   test('refresh xatosi sessiyani tozalab unauthenticated qiladi', () async {
     repository.refreshToken = 'r1';
@@ -119,7 +122,8 @@ void main() {
       ),
       isTrue,
     );
-    verify(() => errorReporter.setUser(id: 'user-1', role: 'employee')).called(1);
+    verify(() => errorReporter.setUser(id: 'user-1', role: 'employee'))
+        .called(1);
   });
 
   test('login xatosi Failure qaytaradi va holat o\'zgarmaydi', () async {
@@ -136,24 +140,21 @@ void main() {
     );
   });
 
-  test(
-    'logout repository logout chaqiradi va unauthenticated bo\'ladi va clearUser chaqiriladi',
-    () async {
-      repository.refreshToken = 'r1';
-      repository.user = testUser();
+  test('logout repository logout chaqiradi va unauthenticated bo\'ladi va clearUser chaqiriladi', () async {
+    repository.refreshToken = 'r1';
+    repository.user = testUser();
 
-      state(); // trigger provider creation
-      await pumpEventQueue();
-      await container.read(authProvider.notifier).logout();
+    state(); // trigger provider creation
+    await pumpEventQueue();
+    await container.read(authProvider.notifier).logout();
 
-      expect(repository.logoutCalls, 1);
-      expect(
-        state().maybeWhen(unauthenticated: () => true, orElse: () => false),
-        isTrue,
-      );
-      verify(() => errorReporter.clearUser()).called(greaterThanOrEqualTo(1));
-    },
-  );
+    expect(repository.logoutCalls, 1);
+    expect(
+      state().maybeWhen(unauthenticated: () => true, orElse: () => false),
+      isTrue,
+    );
+    verify(() => errorReporter.clearUser()).called(greaterThanOrEqualTo(1));
+  });
 
   test('session tugashi hodisasi unauthenticated holatga o\'tkazadi', () async {
     repository.refreshToken = 'r1';

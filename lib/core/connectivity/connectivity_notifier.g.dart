@@ -44,7 +44,7 @@ final class ConnectivityNotifierProvider
 }
 
 String _$connectivityNotifierHash() =>
-    r'4962f689b537e3f3a513b4f3ca10c0000f13c6c2';
+    r'f8faa4c7542dfdfc37da02384c2801975f73d0f6';
 
 abstract class _$ConnectivityNotifier extends $Notifier<bool> {
   bool build();

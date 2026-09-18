@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 230 / 249 bajarildi (8 jarayonda) (2026-09-19)
+**Umumiy holat:** 233 / 249 bajarildi (5 jarayonda) (2026-09-19)
 
 ---
 
@@ -308,7 +308,7 @@
 > Dizayn: `3e`. `rules.md` §11.
 
 - [x] 17.1 `OfflineBanner` global (shell ustida), `ConnectivityNotifier` bilan; qaytganda `OfflineQueue.flush()`
-- [~] 17.2 Chat, suhbatlar, katalog oflayn kesh ko'rinishi — end-to-end tekshiruv (airplane mode integration test) — opencode integration_test/offline_test.dart yozmoqda
+- [x] 17.2 Chat, suhbatlar, katalog oflayn kesh ko'rinishi — end-to-end tekshiruv (airplane mode integration test) — `integration_test/offline_test.dart` (host: `test/integration/`)
 - [x] 17.3 `LimitExceededView` — 429 da chat o'rnida; "Managerga yozish" (`tel:`/`sms:` manager telefoni `auth/me/` dan bo'lsa)
 - [x] 17.4 Global xato ushlagich — kutilmagan `Failure` → `ErrorState` (ekran) yoki snackbar (amal); stack trace Sentry'ga
 - [x] 17.5 Skeleton'lar — har ro'yxat/tafsilot ekranida (`CircularProgressIndicator` sahifa yuklanishida — lint/test bilan taqiq)
@@ -330,8 +330,8 @@
 
 - [ ] 19.1 Coverage ≥ 70% umumiy; `core/sse`, `core/network/interceptors`, `core/utils`, `features/chat/application` ≥ 90%
 - [ ] 19.2 Golden to'plami to'liq: S-01, S-03 (3 variant), S-05, S-06 (3 variant), S-11 (2), S-12 (2) — CI'da
-- [~] 19.3 Integration test: login → yangi suhbat → xabar → SSE mock → hisob kartochkasi → qoralama → buyurtma → tasdiqlash
-- [~] 19.4 Integration test: employee `/management` → 403; limit 429 → view
+- [x] 19.3 Integration test: login → yangi suhbat → xabar → SSE mock → hisob kartochkasi → qoralama → buyurtma → tasdiqlash — `integration_test/login_to_order_test.dart`; qurilmasiz `test/integration/*_host_test.dart` orqali CI'da
+- [x] 19.4 Integration test: employee `/management` → 403; limit 429 → view — `integration_test/permissions_test.dart`
 - [ ] 19.5 Ishlash: sovuq start ≤ 2 s (`profile` o'lchov hujjatlashtiriladi `docs/PERF.md`), chat 100+ xabar 60 FPS (`flutter drive --profile` timeline), streaming rebuild ≤ 20/s (test) — APK o'lchandi (docs/PERF.md); start/FPS — real qurilma kerak
 - [x] 19.6 APK ≤ 40 MB (arm64) — CI gate; shriftlar subset (faqat kerakli og'irliklar)
 - [x] 19.7 Xavfsizlik: tokenlar faqat secure storage (test: Hive box'larda `token` kaliti yo'q), log maskalash testi, `usesCleartextTraffic=false`, iOS ATS default, root/jailbreak tekshiruvi **yo'q** (TZ'da yo'q)

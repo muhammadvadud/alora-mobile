@@ -33,7 +33,7 @@ jobs:
       - run: dart format --set-exit-if-changed lib test
       - run: dart analyze --fatal-infos
       - run: dart run custom_lint
-      - run: flutter test --coverage --concurrency=2 test/unit test/widget test/golden
+      - run: flutter test --coverage --concurrency=2 test/unit test/widget test/golden test/integration
 
       - name: Coverage ≥ 70% (rules §15.2)
         run: |

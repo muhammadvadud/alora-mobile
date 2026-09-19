@@ -6,6 +6,7 @@ class AppRoutes {
 
   static const String login = '/login';
   static const String chat = '/chat';
+  static const String chatNew = '$chat/new';
   static const String orders = '/orders';
   static const String catalog = '/catalog';
   static const String management = '/management';

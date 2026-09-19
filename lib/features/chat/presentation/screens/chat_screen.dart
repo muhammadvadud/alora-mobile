@@ -14,6 +14,7 @@ import 'package:alora_mobile/core/connectivity/connectivity_notifier.dart';
 import 'package:alora_mobile/shared/widgets/limit_exceeded_view.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/chat/application/chat_notifier.dart';
+import 'package:alora_mobile/features/chat/application/chat_state.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_empty_view.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_error_banner.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_input_panel.dart';
@@ -46,6 +47,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _showScrollDown = false;
   bool _isVoiceMode = false;
+  bool _isCreatingConversation = false;
 
   @override
   void initState() {
@@ -84,6 +86,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     await context.push(AppRoutes.order(order.id));
   }
 
+  Future<void> _startConversation(String text) async {
+    if (_isCreatingConversation) return;
+    setState(() => _isCreatingConversation = true);
+
+    final id = await ref.read(conversationsProvider.notifier).create();
+    if (!mounted) return;
+    if (id == null) {
+      setState(() => _isCreatingConversation = false);
+      return;
+    }
+
+    unawaited(ref.read(chatProvider(id).notifier).sendMessage(text));
+    context.go(AppRoutes.chatConversation(id));
+  }
+
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
       _scrollController.animateTo(
@@ -96,15 +113,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.conversationId == null) {
-      return Scaffold(body: Center(child: Text(context.l10n.chat_noConversation)));
-    }
-
     final isCustomerMode = ref.watch(customerModeEnabledProvider);
     final colors = context.colors;
     final isOnline = ref.watch(connectivityProvider);
-    final chatState = ref.watch(chatProvider(widget.conversationId!));
-    final error = chatState.error;
+    final error = widget.conversationId == null
+        ? null
+        : ref.watch(chatProvider(widget.conversationId!)).error;
     final isLimitExceeded = error?.maybeWhen(limit: (_) => true, orElse: () => false) == true;
 
     return Scaffold(
@@ -115,7 +129,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         child: isLimitExceeded
             ? const LimitExceededView()
             : _ChatBody(
-                conversationId: widget.conversationId!,
+                conversationId: widget.conversationId,
                 isOnline: isOnline,
                 isCustomerMode: isCustomerMode,
                 isVoiceMode: _isVoiceMode,
@@ -124,6 +138,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 onCreateOrder: _createOrderFromDraft,
                 onScrollToBottom: _scrollToBottom,
                 onVoiceModeChanged: (val) => setState(() => _isVoiceMode = val),
+                onFirstMessage: widget.conversationId == null ? _startConversation : null,
+                isCreatingConversation: _isCreatingConversation,
               ),
       ),
     );
@@ -183,7 +199,9 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     String value,
     AppLocalizations l10n,
   ) async {
-    if (value == 'reset') {
+    if (value == 'new') {
+      context.go(AppRoutes.chatNew);
+    } else if (value == 'reset') {
       final confirmed = await _showResetConfirm(context, l10n);
       if (confirmed == true && conversationId != null) {
         await ref.read(chatProvider(conversationId!).notifier).resetConversation();
@@ -242,7 +260,7 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 }
 
 class _ChatBody extends ConsumerWidget {
-  final String conversationId;
+  final String? conversationId;
   final bool isOnline;
   final bool isCustomerMode;
   final bool isVoiceMode;
@@ -251,6 +269,8 @@ class _ChatBody extends ConsumerWidget {
   final void Function(OrderDraft draft) onCreateOrder;
   final VoidCallback onScrollToBottom;
   final ValueChanged<bool> onVoiceModeChanged;
+  final ValueChanged<String>? onFirstMessage;
+  final bool isCreatingConversation;
 
   const _ChatBody({
     required this.conversationId,
@@ -262,12 +282,16 @@ class _ChatBody extends ConsumerWidget {
     required this.onCreateOrder,
     required this.onScrollToBottom,
     required this.onVoiceModeChanged,
+    this.onFirstMessage,
+    this.isCreatingConversation = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final chatState = ref.watch(chatProvider(conversationId));
+    final chatState = conversationId == null
+        ? const ChatState()
+        : ref.watch(chatProvider(conversationId!));
     final error = chatState.error;
 
     return Column(
@@ -277,7 +301,7 @@ class _ChatBody extends ConsumerWidget {
             error: error,
             retryLabel: l10n.chat_retry,
             onRetry: () {
-              unawaited(ref.read(chatProvider(conversationId).notifier).retryLast());
+              unawaited(ref.read(chatProvider(conversationId!).notifier).retryLast());
             },
           ),
         Expanded(
@@ -286,7 +310,11 @@ class _ChatBody extends ConsumerWidget {
               chatState.messages.isEmpty
                   ? ChatEmptyView(
                       onChipSelected: (text) {
-                        ref.read(chatProvider(conversationId).notifier).sendMessage(text);
+                        if (conversationId == null) {
+                          onFirstMessage?.call(text);
+                        } else {
+                          ref.read(chatProvider(conversationId!).notifier).sendMessage(text);
+                        }
                       },
                     )
                   : ChatMessageList(
@@ -312,10 +340,14 @@ class _ChatBody extends ConsumerWidget {
             padding: const EdgeInsets.all(AppSpacing.l).copyWith(top: AppSpacing.s),
             child: ChatInputPanel(
               isStreaming: chatState.isStreaming,
-              disabled: !isOnline,
+              disabled: !isOnline || isCreatingConversation,
               onSend: (text) {
-                ref.read(chatProvider(conversationId).notifier).sendMessage(text);
-                onScrollToBottom();
+                if (conversationId == null) {
+                  onFirstMessage?.call(text);
+                } else {
+                  ref.read(chatProvider(conversationId!).notifier).sendMessage(text);
+                  onScrollToBottom();
+                }
               },
               onMicPressed: () => onVoiceModeChanged(true),
               onAddPressed: () {},

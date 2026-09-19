@@ -143,17 +143,14 @@ List<RouteBase> _routes() {
               builder: (_, _) => const ConversationsScreen(),
               routes: [
                 GoRoute(
+                  path: 'new',
+                  pageBuilder: (_, state) => _chatPage(state, const ChatScreen()),
+                ),
+                GoRoute(
                   path: ':conversationId',
-                  pageBuilder: (_, state) => CustomTransitionPage<void>(
-                    key: state.pageKey,
-                    transitionDuration: _chatTransitionDuration,
-                    child: ChatScreen(conversationId: state.pathParameters['conversationId']),
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(
-                        opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
-                        child: child,
-                      );
-                    },
+                  pageBuilder: (_, state) => _chatPage(
+                    state,
+                    ChatScreen(conversationId: state.pathParameters['conversationId']),
                   ),
                 ),
               ],
@@ -258,4 +255,18 @@ List<RouteBase> _routes() {
       ],
     ),
   ];
+}
+
+CustomTransitionPage<void> _chatPage(GoRouterState state, Widget child) {
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    transitionDuration: _chatTransitionDuration,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+        child: child,
+      );
+    },
+  );
 }

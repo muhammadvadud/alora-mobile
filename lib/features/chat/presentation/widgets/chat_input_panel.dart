@@ -57,8 +57,6 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final l10n = AppLocalizations.of(context)!;
-
     final canSend = _hasText && !widget.isStreaming && !widget.disabled;
 
     return Container(
@@ -71,70 +69,133 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          IconButton(
-            onPressed: widget.disabled ? null : widget.onAddPressed,
-            icon: Icon(AppIcons.plus, color: colors.textSecondary),
-            tooltip: l10n.chat_addAttachment,
-            constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
-            padding: EdgeInsets.zero,
+          _AddButton(
+            disabled: widget.disabled,
+            onAddPressed: widget.onAddPressed,
           ),
           Expanded(
-            child: TextField(
+            child: _InputField(
               controller: _controller,
-              enabled: !widget.disabled,
-              maxLines: 6,
-              minLines: 1,
-              style: context.text.bodyM.copyWith(color: colors.textPrimary),
-              decoration: InputDecoration(
-                hintText: l10n.chat_inputHint,
-                hintStyle: context.text.bodyM.copyWith(
-                  color: colors.textSecondary,
-                ),
-                border: InputBorder.none,
-                isDense: true,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 13,
-                ),
-              ),
+              disabled: widget.disabled,
             ),
           ),
           if (!_hasText)
-            IconButton(
-              onPressed: widget.disabled ? null : widget.onMicPressed,
-              icon: Icon(AppIcons.mic, color: colors.textSecondary),
-              tooltip: l10n.chat_microphone,
-              constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
-              padding: EdgeInsets.zero,
+            _MicButton(
+              disabled: widget.disabled,
+              onMicPressed: widget.onMicPressed,
             ),
           const SizedBox(width: 4),
-          Semantics(
-            button: true,
-            label: l10n.chat_send,
-            child: Container(
-              width: 48,
-              height: 48,
-              alignment: Alignment.center,
-              child: InkWell(
-                onTap: canSend ? _handleSend : null,
-                borderRadius: AppRadius.pillBorder,
-                child: Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: canSend ? colors.accent : colors.surfaceDisabled,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    AppIcons.send,
-                    color: canSend ? colors.onAccent : colors.textDisabled,
-                    size: 20,
-                  ),
-                ),
-              ),
+          _SendButton(canSend: canSend, onSend: _handleSend),
+        ],
+      ),
+    );
+  }
+}
+
+class _AddButton extends StatelessWidget {
+  final bool disabled;
+  final VoidCallback onAddPressed;
+
+  const _AddButton({required this.disabled, required this.onAddPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final l10n = AppLocalizations.of(context)!;
+    return IconButton(
+      onPressed: disabled ? null : onAddPressed,
+      icon: Icon(AppIcons.plus, color: colors.textSecondary),
+      tooltip: l10n.chat_addAttachment,
+      constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+      padding: EdgeInsets.zero,
+    );
+  }
+}
+
+class _InputField extends StatelessWidget {
+  final TextEditingController controller;
+  final bool disabled;
+
+  const _InputField({required this.controller, required this.disabled});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final l10n = AppLocalizations.of(context)!;
+
+    return TextField(
+      controller: controller,
+      enabled: !disabled,
+      maxLines: 6,
+      minLines: 1,
+      style: context.text.bodyM.copyWith(color: colors.textPrimary),
+      decoration: InputDecoration(
+        hintText: l10n.chat_inputHint,
+        hintStyle: context.text.bodyM.copyWith(color: colors.textSecondary),
+        border: InputBorder.none,
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
+      ),
+    );
+  }
+}
+
+class _MicButton extends StatelessWidget {
+  final bool disabled;
+  final VoidCallback onMicPressed;
+
+  const _MicButton({required this.disabled, required this.onMicPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final l10n = AppLocalizations.of(context)!;
+
+    return IconButton(
+      onPressed: disabled ? null : onMicPressed,
+      icon: Icon(AppIcons.mic, color: colors.textSecondary),
+      tooltip: l10n.chat_microphone,
+      constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+      padding: EdgeInsets.zero,
+    );
+  }
+}
+
+class _SendButton extends StatelessWidget {
+  final bool canSend;
+  final VoidCallback onSend;
+
+  const _SendButton({required this.canSend, required this.onSend});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final l10n = AppLocalizations.of(context)!;
+
+    return Semantics(
+      button: true,
+      label: l10n.chat_send,
+      child: Container(
+        width: 48,
+        height: 48,
+        alignment: Alignment.center,
+        child: InkWell(
+          onTap: canSend ? onSend : null,
+          borderRadius: AppRadius.pillBorder,
+          child: Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: canSend ? colors.accent : colors.surfaceDisabled,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              AppIcons.send,
+              color: canSend ? colors.onAccent : colors.textDisabled,
+              size: 20,
             ),
           ),
-        ],
+        ),
       ),
     );
   }

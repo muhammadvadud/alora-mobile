@@ -28,7 +28,10 @@ class VoicePanel extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.l,
+        vertical: AppSpacing.m,
+      ),
       decoration: BoxDecoration(
         color: colors.background,
         border: Border(top: BorderSide(color: colors.borderSubtle)),
@@ -51,14 +54,17 @@ class VoicePanel extends ConsumerWidget {
                 ),
               ],
             ),
-            listening: (amplitude, duration) =>
-                _buildListening(context, notifier, amplitude, duration),
+            listening: (amplitude, duration) => _ListeningView(
+              notifier: notifier,
+              amplitude: amplitude,
+              duration: duration,
+            ),
             transcribing: () => const Padding(
               padding: EdgeInsets.all(AppSpacing.l),
               child: TypingLine(),
             ),
             speaking: (amplitude) =>
-                _buildSpeaking(context, notifier, amplitude),
+                _SpeakingView(notifier: notifier, amplitude: amplitude),
             error: (msg) => Text(
               context.l10n.errorOccurred(msg),
               style: TextStyle(color: colors.danger),
@@ -68,13 +74,21 @@ class VoicePanel extends ConsumerWidget {
       ),
     );
   }
+}
 
-  Widget _buildListening(
-    BuildContext context,
-    VoiceNotifier notifier,
-    double amplitude,
-    Duration duration,
-  ) {
+class _ListeningView extends StatelessWidget {
+  final VoiceNotifier notifier;
+  final double amplitude;
+  final Duration duration;
+
+  const _ListeningView({
+    required this.notifier,
+    required this.amplitude,
+    required this.duration,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final colors = context.colors;
     final minutes = duration.inMinutes.toString().padLeft(2, '0');
     final seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
@@ -96,7 +110,10 @@ class VoicePanel extends ConsumerWidget {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(AppRadius.pill)),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.xxl,
+              vertical: AppSpacing.m,
+            ),
           ),
           onPressed: () => notifier.stopListening(),
           child: Text("To'xtatish", style: TextStyle(color: colors.surface)),
@@ -104,12 +121,16 @@ class VoicePanel extends ConsumerWidget {
       ],
     );
   }
+}
 
-  Widget _buildSpeaking(
-    BuildContext context,
-    VoiceNotifier notifier,
-    double amplitude,
-  ) {
+class _SpeakingView extends StatelessWidget {
+  final VoiceNotifier notifier;
+  final double amplitude;
+
+  const _SpeakingView({required this.notifier, required this.amplitude});
+
+  @override
+  Widget build(BuildContext context) {
     final colors = context.colors;
 
     return Column(
@@ -122,7 +143,10 @@ class VoicePanel extends ConsumerWidget {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(AppRadius.pill)),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.xxl,
+              vertical: AppSpacing.m,
+            ),
           ),
           onPressed: () => notifier.stopSpeaking(),
           child: Text(

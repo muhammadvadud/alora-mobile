@@ -78,23 +78,7 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.l),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(4, (index) {
-                  final isFilled = index < _pin.length;
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.s,
-                    ),
-                    width: AppSpacing.l,
-                    height: AppSpacing.l,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isFilled ? colors.accent : colors.surfaceMuted,
-                    ),
-                  );
-                }),
-              ),
+              _PinDots(pinLength: _pin.length),
               if (_error != null) ...[
                 const SizedBox(height: AppSpacing.l),
                 Text(
@@ -104,36 +88,11 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
                 ),
               ],
               const SizedBox(height: AppSpacing.xl),
-              _buildNumpad(),
+              _Numpad(isLocked: false, onDigit: _onDigit, onDelete: _onDelete),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildNumpad() {
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      childAspectRatio: 1.5,
-      mainAxisSpacing: AppSpacing.s,
-      crossAxisSpacing: AppSpacing.s,
-      children: [
-        for (var i = 1; i <= 9; i++)
-          _buildButton(i.toString(), () => _onDigit(i.toString())),
-        const SizedBox(),
-        _buildButton('0', () => _onDigit('0')),
-        _buildButton('<-', _onDelete),
-      ],
-    );
-  }
-
-  Widget _buildButton(String text, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: const BorderRadius.all(Radius.circular(AppRadius.input)),
-      child: Center(child: Text(text, style: context.text.displayM)),
     );
   }
 }
@@ -219,23 +178,7 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
             children: [
               Text(context.l10n.chat_enterPinTitle, style: context.text.titleL),
               const SizedBox(height: AppSpacing.l),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(4, (index) {
-                  final isFilled = index < _pin.length;
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.s,
-                    ),
-                    width: AppSpacing.l,
-                    height: AppSpacing.l,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isFilled ? colors.accent : colors.surfaceMuted,
-                    ),
-                  );
-                }),
-              ),
+              _PinDots(pinLength: _pin.length),
               if (_error != null) ...[
                 const SizedBox(height: AppSpacing.l),
                 Text(
@@ -245,15 +188,58 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
                 ),
               ],
               const SizedBox(height: AppSpacing.xl),
-              _buildNumpad(isLocked),
+              _Numpad(
+                isLocked: isLocked,
+                onDigit: _onDigit,
+                onDelete: _onDelete,
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget _buildNumpad(bool isLocked) {
+class _PinDots extends StatelessWidget {
+  final int pinLength;
+
+  const _PinDots({required this.pinLength});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(4, (index) {
+        final isFilled = index < pinLength;
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
+          width: AppSpacing.l,
+          height: AppSpacing.l,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isFilled ? colors.accent : colors.surfaceMuted,
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class _Numpad extends StatelessWidget {
+  final bool isLocked;
+  final ValueChanged<String> onDigit;
+  final VoidCallback onDelete;
+
+  const _Numpad({
+    required this.isLocked,
+    required this.onDigit,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 3,
@@ -262,18 +248,26 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
       crossAxisSpacing: AppSpacing.s,
       children: [
         for (var i = 1; i <= 9; i++)
-          _buildButton(
-            i.toString(),
-            isLocked ? null : () => _onDigit(i.toString()),
+          _NumpadButton(
+            text: i.toString(),
+            onTap: isLocked ? null : () => onDigit(i.toString()),
           ),
         const SizedBox(),
-        _buildButton('0', isLocked ? null : () => _onDigit('0')),
-        _buildButton('<-', isLocked ? null : _onDelete),
+        _NumpadButton(text: '0', onTap: isLocked ? null : () => onDigit('0')),
+        _NumpadButton(text: '<-', onTap: isLocked ? null : onDelete),
       ],
     );
   }
+}
 
-  Widget _buildButton(String text, VoidCallback? onTap) {
+class _NumpadButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onTap;
+
+  const _NumpadButton({required this.text, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       borderRadius: const BorderRadius.all(Radius.circular(AppRadius.input)),

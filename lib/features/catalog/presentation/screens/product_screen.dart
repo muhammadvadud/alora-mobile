@@ -15,6 +15,8 @@ import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 import 'package:alora_mobile/shared/widgets/unit_text.dart';
+import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
+import 'package:alora_mobile/features/catalog/domain/entities/product_image.dart';
 
 /// Mahsulot sahifasi (S-18): galereya, nom/kategoriya, narx,
 /// rang variantlari, xususiyatlar jadvali, AI/Hisob tugmalari.
@@ -27,7 +29,6 @@ class ProductScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final colors = context.colors;
-    final typography = context.text;
     final state = ref.watch(productDetailProvider(productId));
     final notifier = ref.read(productDetailProvider(productId).notifier);
 
@@ -64,10 +65,6 @@ class ProductScreen extends ConsumerWidget {
         ? '${product.categoryData!.name.toUpperCase()} · ${product.code}'
         : product.code.toUpperCase();
 
-    void openChat(String message) {
-      context.go(AppRoutes.chat, extra: {'initialMessage': message});
-    }
-
     final askAiMessage = selectedVariant != null
         ? l10n.product_askAiMessage(product.name, selectedVariant.colorName)
         : product.name;
@@ -77,65 +74,130 @@ class ProductScreen extends ConsumerWidget {
           )
         : product.name;
 
+    void openChat(String message) {
+      context.go(AppRoutes.chat, extra: {'initialMessage': message});
+    }
+
     return Scaffold(
       backgroundColor: colors.background,
       appBar: AppBar(title: Text(product.name)),
-      body: ListView(
-        padding: const EdgeInsets.all(AppSpacing.l),
-        children: [
-          ProductGallery(images: images),
-          const SizedBox(height: AppSpacing.m),
-          Text(
-            categoryLabel,
-            style: typography.overline.copyWith(color: colors.brass),
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(product.name, style: typography.titleL),
-          const SizedBox(height: AppSpacing.s),
-          if (selectedVariant != null)
-            UnitText(
-              amount: selectedVariant.price,
-              unit: selectedVariant.priceUnit,
-              style: typography.displayM.copyWith(color: colors.textPrimary),
-            ),
-          const SizedBox(height: AppSpacing.m),
-          if (selectedVariant != null)
-            Text(
-              '${l10n.product_colorLabel}: ${selectedVariant.colorName}',
-              style: typography.bodyM.copyWith(color: colors.textSecondary),
-            ),
-          const SizedBox(height: AppSpacing.s),
-          ProductVariantSelector(
-            product: product,
-            selectedVariantId: state.selectedVariantId,
-            onSelected: notifier.selectVariant,
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          ProductPropertiesTable(product: product),
-        ],
+      body: _ProductContent(
+        product: product,
+        images: images,
+        categoryLabel: categoryLabel,
+        displayPrice: selectedVariant != null,
+        selectedVariantId: state.selectedVariantId,
+        onSelectVariant: notifier.selectVariant,
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            AppSpacing.l,
-            AppSpacing.s,
-            AppSpacing.l,
-            AppSpacing.m,
+      bottomNavigationBar: _ProductActions(
+        askAiLabel: l10n.product_askAi,
+        addToAccountLabel: l10n.product_addToAccount,
+        onAskAi: () => openChat(askAiMessage),
+        onAddToAccount: () => openChat(addToAccountMessage),
+      ),
+    );
+  }
+}
+
+class _ProductContent extends StatelessWidget {
+  final Product product;
+  final List<ProductImage> images;
+  final String categoryLabel;
+  final bool displayPrice;
+  final String? selectedVariantId;
+  final ValueChanged<String> onSelectVariant;
+
+  const _ProductContent({
+    required this.product,
+    required this.images,
+    required this.categoryLabel,
+    required this.displayPrice,
+    required this.selectedVariantId,
+    required this.onSelectVariant,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typography = context.text;
+    final l10n = AppLocalizations.of(context)!;
+    final selectedVariant = displayPrice
+        ? product.variants.firstWhere(
+            (v) => v.id == selectedVariantId,
+            orElse: () => product.variants.first,
+          )
+        : null;
+
+    return ListView(
+      padding: const EdgeInsets.all(AppSpacing.l),
+      children: [
+        ProductGallery(images: images),
+        const SizedBox(height: AppSpacing.m),
+        Text(
+          categoryLabel,
+          style: typography.overline.copyWith(color: colors.brass),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(product.name, style: typography.titleL),
+        const SizedBox(height: AppSpacing.s),
+        if (selectedVariant != null)
+          UnitText(
+            amount: selectedVariant.price,
+            unit: selectedVariant.priceUnit,
+            style: typography.displayM.copyWith(color: colors.textPrimary),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppButton(
-                text: l10n.product_askAi,
-                onPressed: () => openChat(askAiMessage),
-              ),
-              const SizedBox(height: AppSpacing.s),
-              AppButton.secondary(
-                text: l10n.product_addToAccount,
-                onPressed: () => openChat(addToAccountMessage),
-              ),
-            ],
+        const SizedBox(height: AppSpacing.m),
+        if (selectedVariant != null)
+          Text(
+            '${l10n.product_colorLabel}: ${selectedVariant.colorName}',
+            style: typography.bodyM.copyWith(color: colors.textSecondary),
           ),
+        const SizedBox(height: AppSpacing.s),
+        ProductVariantSelector(
+          product: product,
+          selectedVariantId: selectedVariantId,
+          onSelected: onSelectVariant,
+        ),
+        const SizedBox(height: AppSpacing.xl),
+        ProductPropertiesTable(product: product),
+      ],
+    );
+  }
+}
+
+class _ProductActions extends StatelessWidget {
+  final String askAiLabel;
+  final String addToAccountLabel;
+  final VoidCallback onAskAi;
+  final VoidCallback onAddToAccount;
+
+  const _ProductActions({
+    required this.askAiLabel,
+    required this.addToAccountLabel,
+    required this.onAskAi,
+    required this.onAddToAccount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.l,
+          AppSpacing.s,
+          AppSpacing.l,
+          AppSpacing.m,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppButton(text: askAiLabel, onPressed: onAskAi),
+            const SizedBox(height: AppSpacing.s),
+            AppButton.secondary(
+              text: addToAccountLabel,
+              onPressed: onAddToAccount,
+            ),
+          ],
         ),
       ),
     );

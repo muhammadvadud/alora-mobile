@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:alora_mobile/app/theme/app_colors.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
-import 'package:alora_mobile/app/theme/app_typography.dart';
 import 'package:alora_mobile/core/utils/date_format.dart';
 import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
     show authProvider;
@@ -73,52 +71,6 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
     }
   }
 
-  Widget _buildVersionCard(
-    PromptVersion v,
-    AppColors colors,
-    AppTypography typography,
-  ) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.s),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(color: colors.borderSubtle, width: 1.0),
-      ),
-      padding: const EdgeInsets.all(AppSpacing.m),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                context.l10n.settings_version(v.version),
-                style: typography.titleS,
-              ),
-              if (v.createdAt != null)
-                Text(
-                  formatDate(v.createdAt!, context: context),
-                  style: typography.bodyS.copyWith(color: colors.textSecondary),
-                ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            v.authorName ?? context.l10n.settings_authorUnknown,
-            style: typography.bodyS.copyWith(color: colors.textSecondary),
-          ),
-          const SizedBox(height: AppSpacing.m),
-          AppButton(
-            text: context.l10n.settings_rollback,
-            onPressed: () => _rollback(v.id),
-            type: AppButtonType.secondary,
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     ref.listen(promptHistoryProvider, (previous, next) {
@@ -126,8 +78,6 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
     });
 
     final state = ref.watch(promptHistoryProvider);
-    final colors = context.colors;
-    final typography = context.text;
 
     final currentRole = ref
         .watch(authProvider)
@@ -165,7 +115,7 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
                 SectionLabel(context.l10n.settings_versionHistory),
                 const SizedBox(height: AppSpacing.s),
                 ...history.history.map(
-                  (v) => _buildVersionCard(v, colors, typography),
+                  (v) => _VersionCard(version: v, onRollback: _rollback),
                 ),
               ],
             ),
@@ -184,6 +134,60 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
           error: (e, st) =>
               ErrorState(onRetry: () => ref.invalidate(promptHistoryProvider)),
         ),
+      ),
+    );
+  }
+}
+
+class _VersionCard extends StatelessWidget {
+  final PromptVersion version;
+  final ValueChanged<String> onRollback;
+
+  const _VersionCard({required this.version, required this.onRollback});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typography = context.text;
+    final l10n = context.l10n;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppSpacing.s),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: AppRadius.cardBorder,
+        border: Border.all(color: colors.borderSubtle, width: 1.0),
+      ),
+      padding: const EdgeInsets.all(AppSpacing.m),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                l10n.settings_version(version.version),
+                style: typography.titleS,
+              ),
+              if (version.createdAt != null)
+                Text(
+                  formatDate(version.createdAt!, context: context),
+                  style: typography.bodyS.copyWith(color: colors.textSecondary),
+                ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            version.authorName ?? l10n.settings_authorUnknown,
+            style: typography.bodyS.copyWith(color: colors.textSecondary),
+          ),
+          const SizedBox(height: AppSpacing.m),
+          AppButton(
+            text: l10n.settings_rollback,
+            onPressed: () => onRollback(version.id),
+            type: AppButtonType.secondary,
+          ),
+        ],
       ),
     );
   }

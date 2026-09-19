@@ -1,3 +1,4 @@
+import 'package:alora_mobile/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
@@ -58,56 +59,11 @@ class AppButton extends StatelessWidget {
     final typography = context.text;
 
     final effectiveEnabled = isEnabled && !isLoading;
-    final effectiveOnPressed = effectiveEnabled ? onPressed : null;
-
-    Color backgroundColor;
-    Color textColor;
-    BorderSide borderSide = BorderSide.none;
-    Color overlayColor = const Color.fromARGB(0, 0, 0, 0);
-
-    switch (type) {
-      case AppButtonType.primary:
-        backgroundColor = effectiveEnabled ? colors.accent : colors.border;
-        textColor = effectiveEnabled ? colors.onAccent : colors.textDisabled;
-        overlayColor = colors.accentPressed;
-        break;
-      case AppButtonType.secondary:
-        backgroundColor = effectiveEnabled
-            ? colors.surface
-            : colors.surfaceDisabled;
-        textColor = effectiveEnabled ? colors.textPrimary : colors.textDisabled;
-        borderSide = BorderSide(
-          color: effectiveEnabled ? colors.border : colors.borderSubtle,
-          width: 1.0,
-        );
-        overlayColor = colors.borderSubtle;
-        break;
-      case AppButtonType.text:
-        backgroundColor = const Color.fromARGB(0, 0, 0, 0);
-        textColor = effectiveEnabled ? colors.accent : colors.textDisabled;
-        overlayColor = colors.accentSoft;
-        break;
-      case AppButtonType.destructive:
-        backgroundColor = effectiveEnabled
-            ? colors.surface
-            : colors.surfaceDisabled;
-        textColor = effectiveEnabled ? colors.danger : colors.textDisabled;
-        borderSide = BorderSide(
-          color: effectiveEnabled ? colors.dangerSoft : colors.borderSubtle,
-          width: 1.0,
-        );
-        overlayColor = colors.dangerSoft;
-        break;
-      case AppButtonType.dialogDestructive:
-        backgroundColor = effectiveEnabled ? colors.danger : colors.border;
-        textColor = effectiveEnabled ? colors.onAccent : colors.textDisabled;
-        overlayColor = colors.dangerSoft;
-        break;
-    }
+    final style = _AppButtonStyle(type, effectiveEnabled, colors);
 
     Widget content = Text(
       text,
-      style: typography.labelL.copyWith(color: textColor),
+      style: typography.labelL.copyWith(color: style.textColor),
     );
 
     if (isLoading) {
@@ -120,7 +76,7 @@ class AppButton extends StatelessWidget {
             height: 14,
             child: CircularProgressIndicator(
               strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(textColor),
+              valueColor: AlwaysStoppedAnimation<Color>(style.textColor),
             ),
           ),
           const SizedBox(width: 8),
@@ -137,18 +93,20 @@ class AppButton extends StatelessWidget {
           height: 46,
           width: double.infinity,
           child: TextButton(
-            onPressed: effectiveOnPressed,
+            onPressed: effectiveEnabled ? onPressed : null,
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(backgroundColor),
-              foregroundColor: WidgetStateProperty.all(textColor),
+              backgroundColor: WidgetStateProperty.all(style.backgroundColor),
+              foregroundColor: WidgetStateProperty.all(style.textColor),
               overlayColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.pressed)) return overlayColor;
+                if (states.contains(WidgetState.pressed)) {
+                  return style.overlayColor;
+                }
                 return const Color.fromARGB(0, 0, 0, 0);
               }),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: AppRadius.pillBorder,
-                  side: borderSide,
+                  side: style.borderSide,
                 ),
               ),
               padding: WidgetStateProperty.all(
@@ -160,5 +118,53 @@ class AppButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _AppButtonStyle {
+  late Color backgroundColor;
+  late Color textColor;
+  late BorderSide borderSide;
+  late Color overlayColor;
+
+  _AppButtonStyle(AppButtonType type, bool enabled, AppColors colors) {
+    borderSide = BorderSide.none;
+    overlayColor = const Color.fromARGB(0, 0, 0, 0);
+
+    switch (type) {
+      case AppButtonType.primary:
+        backgroundColor = enabled ? colors.accent : colors.border;
+        textColor = enabled ? colors.onAccent : colors.textDisabled;
+        overlayColor = colors.accentPressed;
+        break;
+      case AppButtonType.secondary:
+        backgroundColor = enabled ? colors.surface : colors.surfaceDisabled;
+        textColor = enabled ? colors.textPrimary : colors.textDisabled;
+        borderSide = BorderSide(
+          color: enabled ? colors.border : colors.borderSubtle,
+          width: 1.0,
+        );
+        overlayColor = colors.borderSubtle;
+        break;
+      case AppButtonType.text:
+        backgroundColor = const Color.fromARGB(0, 0, 0, 0);
+        textColor = enabled ? colors.accent : colors.textDisabled;
+        overlayColor = colors.accentSoft;
+        break;
+      case AppButtonType.destructive:
+        backgroundColor = enabled ? colors.surface : colors.surfaceDisabled;
+        textColor = enabled ? colors.danger : colors.textDisabled;
+        borderSide = BorderSide(
+          color: enabled ? colors.dangerSoft : colors.borderSubtle,
+          width: 1.0,
+        );
+        overlayColor = colors.dangerSoft;
+        break;
+      case AppButtonType.dialogDestructive:
+        backgroundColor = enabled ? colors.danger : colors.border;
+        textColor = enabled ? colors.onAccent : colors.textDisabled;
+        overlayColor = colors.dangerSoft;
+        break;
+    }
   }
 }

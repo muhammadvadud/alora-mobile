@@ -19,12 +19,9 @@ class KnowledgeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(knowledgeProvider);
-    final notifier = ref.read(knowledgeProvider.notifier);
-
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.management_knowledgeTitle)),
-      body: _buildBody(context, ref, state, notifier),
+      body: const _KnowledgeBody(),
       bottomNavigationBar: SafeArea(
         top: false,
         minimum: const EdgeInsets.fromLTRB(
@@ -41,12 +38,23 @@ class KnowledgeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildBody(
-    BuildContext context,
-    WidgetRef ref,
-    KnowledgeState state,
-    KnowledgeNotifier notifier,
-  ) {
+  void _showRuleForm(BuildContext context, [KnowledgeRule? rule]) {
+    showDialog<void>(
+      context: context,
+      builder: (context) => KnowledgeRuleForm(rule: rule),
+    );
+  }
+}
+
+class _KnowledgeBody extends ConsumerWidget {
+  const _KnowledgeBody();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(knowledgeProvider);
+    final notifier = ref.read(knowledgeProvider.notifier);
+    final l10n = context.l10n;
+
     if (state.isLoading && state.rules.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(AppSpacing.m),
@@ -62,7 +70,7 @@ class KnowledgeScreen extends ConsumerWidget {
     }
     if (state.error != null && state.rules.isEmpty) {
       return ErrorState(
-        title: context.l10n.management_knowledgeErrorTitle,
+        title: l10n.management_knowledgeErrorTitle,
         message: state.error,
         onRetry: () => notifier.loadData(),
       );
@@ -70,8 +78,8 @@ class KnowledgeScreen extends ConsumerWidget {
     if (state.rules.isEmpty) {
       return EmptyState(
         icon: AppIcons.fileText,
-        title: context.l10n.management_knowledgeEmptyTitle,
-        message: context.l10n.management_knowledgeEmptyMessage,
+        title: l10n.management_knowledgeEmptyTitle,
+        message: l10n.management_knowledgeEmptyMessage,
       );
     }
     return RefreshIndicator(
@@ -86,13 +94,6 @@ class KnowledgeScreen extends ConsumerWidget {
       ),
     );
   }
-
-  void _showRuleForm(BuildContext context, [KnowledgeRule? rule]) {
-    showDialog<void>(
-      context: context,
-      builder: (context) => KnowledgeRuleForm(rule: rule),
-    );
-  }
 }
 
 class _KnowledgeRuleCard extends ConsumerWidget {
@@ -104,6 +105,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     final notifier = ref.read(knowledgeProvider.notifier);
+    final l10n = context.l10n;
 
     return Container(
       margin: const EdgeInsets.only(bottom: AppSpacing.m),
@@ -152,9 +154,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                context.l10n.management_knowledgeRulePriorityLabel(
-                  rule.priority,
-                ),
+                l10n.management_knowledgeRulePriorityLabel(rule.priority),
                 style: context.text.bodyS.copyWith(color: colors.textSecondary),
               ),
               Row(
@@ -183,20 +183,21 @@ class _KnowledgeRuleCard extends ConsumerWidget {
   }
 
   Future<void> _confirmDelete(BuildContext context, WidgetRef ref) async {
+    final l10n = context.l10n;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(context.l10n.management_knowledgeRemoveConfirmTitle),
-        content: Text(context.l10n.management_knowledgeRemoveConfirmMessage),
+        title: Text(l10n.management_knowledgeRemoveConfirmTitle),
+        content: Text(l10n.management_knowledgeRemoveConfirmMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: Text(context.l10n.common_cancel),
+            child: Text(l10n.common_cancel),
           ),
           SizedBox(
             width: 140,
             child: AppButton.dialogDestructive(
-              text: context.l10n.management_knowledgeRemove,
+              text: l10n.management_knowledgeRemove,
               onPressed: () => Navigator.pop(context, true),
             ),
           ),
@@ -205,7 +206,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
     );
     if (confirmed != true || !context.mounted) return;
     final messenger = ScaffoldMessenger.of(context);
-    final message = context.l10n.management_knowledgeRuleRemoved;
+    final message = l10n.management_knowledgeRuleRemoved;
     await ref.read(knowledgeProvider.notifier).deleteRule(rule.id);
     messenger.showSnackBar(SnackBar(content: Text(message)));
   }

@@ -16,7 +16,6 @@ import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 import 'package:alora_mobile/shared/widgets/section_label.dart';
 
-/// Limit davrlari (API-CONTRACT 2.5: `daily`/`monthly`).
 enum LimitPeriod {
   daily('daily'),
   monthly('monthly');
@@ -33,7 +32,6 @@ enum LimitPeriod {
   }
 }
 
-/// Xodim limit sozlamalari (S-21, 11.9).
 class EmployeeLimitEditor extends ConsumerStatefulWidget {
   final String employeeId;
   final UsageLimit? initialLimit;
@@ -104,12 +102,13 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
       AppSnackbar.show(context, message: l10n.management_limitSet);
     } on Failure catch (error) {
       if (!mounted) return;
-      setState(() => _saving = false);
       AppSnackbar.show(
         context,
         message: error.localizedMessage(context),
         isError: true,
       );
+    } finally {
+      if (mounted) setState(() => _saving = false);
     }
   }
 
@@ -165,54 +164,15 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
               ),
               if (!_unlimited) ...[
                 const Divider(height: AppSpacing.l),
-                Wrap(
-                  spacing: AppSpacing.s,
-                  runSpacing: AppSpacing.s,
-                  children: [
-                    _periodChip(
-                      l10n.management_limitPeriodDay,
-                      LimitPeriod.daily,
-                    ),
-                    _periodChip(
-                      l10n.management_limitPeriodMonth,
-                      LimitPeriod.monthly,
-                    ),
-                  ],
+                _LimitFormSection(
+                  period: _period,
+                  onExceed: _onExceed,
+                  tokensController: _tokensController,
+                  costController: _costController,
+                  messagesController: _messagesController,
+                  onPeriodChanged: (val) => setState(() => _period = val),
+                  onExceedChanged: (val) => setState(() => _onExceed = val),
                 ),
-                const SizedBox(height: AppSpacing.m),
-                AppTextField(
-                  controller: _tokensController,
-                  type: AppTextFieldType.number,
-                  hintText: l10n.management_limitTokens,
-                  isEnabled: !_unlimited,
-                ),
-                const SizedBox(height: AppSpacing.m),
-                AppTextField(
-                  controller: _costController,
-                  type: AppTextFieldType.number,
-                  hintText:
-                      '${l10n.management_limitCost} (${l10n.currency_som})',
-                  isEnabled: !_unlimited,
-                ),
-                const SizedBox(height: AppSpacing.m),
-                AppTextField(
-                  controller: _messagesController,
-                  type: AppTextFieldType.number,
-                  hintText: l10n.management_limitMessages,
-                  isEnabled: !_unlimited,
-                ),
-                const SizedBox(height: AppSpacing.l),
-                Wrap(
-                  spacing: AppSpacing.s,
-                  children: [
-                    _onExceedChip(l10n.management_onExceedWarn, OnExceed.warn),
-                    _onExceedChip(
-                      l10n.management_onExceedBlock,
-                      OnExceed.block,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.l),
               ],
               AppButton(
                 text: l10n.management_limitSet,
@@ -225,22 +185,138 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
       ],
     );
   }
+}
 
-  Widget _periodChip(String label, LimitPeriod period) {
+class _LimitFormSection extends StatelessWidget {
+  final LimitPeriod period;
+  final OnExceed onExceed;
+  final TextEditingController tokensController;
+  final TextEditingController costController;
+  final TextEditingController messagesController;
+  final ValueChanged<LimitPeriod> onPeriodChanged;
+  final ValueChanged<OnExceed> onExceedChanged;
+
+  const _LimitFormSection({
+    required this.period,
+    required this.onExceed,
+    required this.tokensController,
+    required this.costController,
+    required this.messagesController,
+    required this.onPeriodChanged,
+    required this.onExceedChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          spacing: AppSpacing.s,
+          runSpacing: AppSpacing.s,
+          children: [
+            _PeriodChip(
+              label: l10n.management_limitPeriodDay,
+              period: LimitPeriod.daily,
+              currentPeriod: period,
+              onTap: () => onPeriodChanged(LimitPeriod.daily),
+            ),
+            _PeriodChip(
+              label: l10n.management_limitPeriodMonth,
+              period: LimitPeriod.monthly,
+              currentPeriod: period,
+              onTap: () => onPeriodChanged(LimitPeriod.monthly),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.m),
+        AppTextField(
+          controller: tokensController,
+          type: AppTextFieldType.number,
+          hintText: l10n.management_limitTokens,
+        ),
+        const SizedBox(height: AppSpacing.m),
+        AppTextField(
+          controller: costController,
+          type: AppTextFieldType.number,
+          hintText: '${l10n.management_limitCost} (${l10n.currency_som})',
+        ),
+        const SizedBox(height: AppSpacing.m),
+        AppTextField(
+          controller: messagesController,
+          type: AppTextFieldType.number,
+          hintText: l10n.management_limitMessages,
+        ),
+        const SizedBox(height: AppSpacing.l),
+        Wrap(
+          spacing: AppSpacing.s,
+          children: [
+            _OnExceedChip(
+              label: l10n.management_onExceedWarn,
+              onExceed: OnExceed.warn,
+              current: onExceed,
+              onTap: () => onExceedChanged(OnExceed.warn),
+            ),
+            _OnExceedChip(
+              label: l10n.management_onExceedBlock,
+              onExceed: OnExceed.block,
+              current: onExceed,
+              onTap: () => onExceedChanged(OnExceed.block),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.l),
+      ],
+    );
+  }
+}
+
+class _PeriodChip extends StatelessWidget {
+  final String label;
+  final LimitPeriod period;
+  final LimitPeriod currentPeriod;
+  final VoidCallback onTap;
+
+  const _PeriodChip({
+    required this.label,
+    required this.period,
+    required this.currentPeriod,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return AppChip(
       label: label,
-      onTap: _unlimited ? null : () => setState(() => _period = period),
-      state: !_unlimited && _period == period
+      onTap: onTap,
+      state: currentPeriod == period
           ? AppChipState.selected
           : AppChipState.unselected,
     );
   }
+}
 
-  Widget _onExceedChip(String label, OnExceed onExceed) {
+class _OnExceedChip extends StatelessWidget {
+  final String label;
+  final OnExceed onExceed;
+  final OnExceed current;
+  final VoidCallback onTap;
+
+  const _OnExceedChip({
+    required this.label,
+    required this.onExceed,
+    required this.current,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return AppChip(
       label: label,
-      onTap: () => setState(() => _onExceed = onExceed),
-      state: _onExceed == onExceed
+      onTap: onTap,
+      state: current == onExceed
           ? AppChipState.selected
           : AppChipState.unselected,
     );

@@ -123,6 +123,8 @@ class _KnowledgeRuleFormState extends ConsumerState<KnowledgeRuleForm> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final l10n = context.l10n;
+
     return Dialog(
       insetPadding: const EdgeInsets.all(AppSpacing.m),
       child: Padding(
@@ -134,123 +136,189 @@ class _KnowledgeRuleFormState extends ConsumerState<KnowledgeRuleForm> {
             children: [
               Text(
                 widget.rule == null
-                    ? context.l10n.management_knowledgeAddRule
-                    : context.l10n.management_knowledgeEditTitle,
+                    ? l10n.management_knowledgeAddRule
+                    : l10n.management_knowledgeEditTitle,
                 style: context.text.titleL,
               ),
               const SizedBox(height: AppSpacing.l),
               AppTextField(
                 controller: _kindCtrl,
-                hintText: context.l10n.management_knowledgeRuleType,
+                hintText: l10n.management_knowledgeRuleType,
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: AppSpacing.m),
               Text(
-                context.l10n.management_knowledgeRuleConditions,
+                l10n.management_knowledgeRuleConditions,
                 style: context.text.bodyS.copyWith(color: colors.textSecondary),
               ),
               const SizedBox(height: AppSpacing.s),
-              Wrap(
-                spacing: AppSpacing.xs,
-                runSpacing: AppSpacing.xs,
-                children: [
-                  for (final suggestion in _suggestions)
-                    AppChip(
-                      label: suggestion,
-                      state: _conditions.contains(suggestion)
-                          ? AppChipState.selected
-                          : AppChipState.unselected,
-                      onTap: () => _toggleCondition(suggestion),
-                    ),
-                ],
+              _ConditionsBuilder(
+                suggestions: _suggestions,
+                conditions: _conditions,
+                condCtrl: _condCtrl,
+                onToggleCondition: _toggleCondition,
+                onAddCondition: _addCondition,
               ),
-              const SizedBox(height: AppSpacing.m),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppTextField(
-                      controller: _condCtrl,
-                      hintText: context.l10n.management_knowledgeConditionHint,
-                      onChanged: (_) => setState(() {}),
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.s),
-                  IconButton(
-                    icon: const Icon(AppIcons.plus),
-                    color: colors.accent,
-                    onPressed: _addCondition,
-                  ),
-                ],
-              ),
-              if (_conditions.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: AppSpacing.s),
-                  child: Wrap(
-                    spacing: AppSpacing.xs,
-                    runSpacing: AppSpacing.xs,
-                    children: [
-                      for (final cond in _conditions)
-                        AppChip(
-                          label: cond,
-                          state: AppChipState.categorySelected,
-                          onTap: () => _toggleCondition(cond),
-                        ),
-                    ],
-                  ),
-                ),
               const SizedBox(height: AppSpacing.m),
               AppTextField(
                 controller: _recCtrl,
                 type: AppTextFieldType.multiline,
-                hintText: context.l10n.management_knowledgeRuleRecommendation,
+                hintText: l10n.management_knowledgeRuleRecommendation,
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: AppSpacing.m),
               AppTextField(
                 controller: _priorityCtrl,
                 type: AppTextFieldType.number,
-                hintText: context.l10n.management_knowledgeRulePriorityHint,
+                hintText: l10n.management_knowledgeRulePriorityHint,
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: AppSpacing.xs),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text(
-                  context.l10n.management_knowledgeRuleIsActive,
+                  l10n.management_knowledgeRuleIsActive,
                   style: context.text.bodyM,
                 ),
                 value: _isActive,
                 onChanged: (val) => setState(() => _isActive = val),
               ),
               const SizedBox(height: AppSpacing.m),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppButton.secondary(
-                      text: context.l10n.common_cancel,
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.s),
-                  Expanded(
-                    child: AppButton(
-                      text: context.l10n.common_save,
-                      isEnabled: _isValid && !_isSaving,
-                      isLoading: _isSaving,
-                      onPressed: _save,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.m),
-              AppButton.secondary(
-                text: context.l10n.management_knowledgeRuleTestAI,
-                onPressed: _testInAi,
+              _ActionButtons(
+                isValid: _isValid,
+                isSaving: _isSaving,
+                onCancel: () => Navigator.of(context).pop(),
+                onSave: _save,
+                onTestInAi: _testInAi,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ConditionsBuilder extends StatelessWidget {
+  final List<String> suggestions;
+  final List<String> conditions;
+  final TextEditingController condCtrl;
+  final ValueChanged<String> onToggleCondition;
+  final VoidCallback onAddCondition;
+
+  const _ConditionsBuilder({
+    required this.suggestions,
+    required this.conditions,
+    required this.condCtrl,
+    required this.onToggleCondition,
+    required this.onAddCondition,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final l10n = context.l10n;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Wrap(
+          spacing: AppSpacing.xs,
+          runSpacing: AppSpacing.xs,
+          children: [
+            for (final suggestion in suggestions)
+              AppChip(
+                label: suggestion,
+                state: conditions.contains(suggestion)
+                    ? AppChipState.selected
+                    : AppChipState.unselected,
+                onTap: () => onToggleCondition(suggestion),
+              ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.m),
+        Row(
+          children: [
+            Expanded(
+              child: AppTextField(
+                controller: condCtrl,
+                hintText: l10n.management_knowledgeConditionHint,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.s),
+            IconButton(
+              icon: const Icon(AppIcons.plus),
+              color: colors.accent,
+              onPressed: onAddCondition,
+            ),
+          ],
+        ),
+        if (conditions.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.s),
+            child: Wrap(
+              spacing: AppSpacing.xs,
+              runSpacing: AppSpacing.xs,
+              children: [
+                for (final cond in conditions)
+                  AppChip(
+                    label: cond,
+                    state: AppChipState.categorySelected,
+                    onTap: () => onToggleCondition(cond),
+                  ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _ActionButtons extends StatelessWidget {
+  final bool isValid;
+  final bool isSaving;
+  final VoidCallback onCancel;
+  final VoidCallback onSave;
+  final VoidCallback onTestInAi;
+
+  const _ActionButtons({
+    required this.isValid,
+    required this.isSaving,
+    required this.onCancel,
+    required this.onSave,
+    required this.onTestInAi,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: AppButton.secondary(
+                text: l10n.common_cancel,
+                onPressed: onCancel,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.s),
+            Expanded(
+              child: AppButton(
+                text: l10n.common_save,
+                isEnabled: isValid && !isSaving,
+                isLoading: isSaving,
+                onPressed: onSave,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.m),
+        AppButton.secondary(
+          text: l10n.management_knowledgeRuleTestAI,
+          onPressed: onTestInAi,
+        ),
+      ],
     );
   }
 }

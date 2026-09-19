@@ -90,10 +90,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    final text = context.text;
-    final l10n = AppLocalizations.of(context)!;
-
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(
@@ -113,62 +109,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          l10n.app_name,
-                          style: text.displayL.copyWith(
-                            color: colors.textPrimary,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: AppSpacing.s),
-                        Text(
-                          l10n.login_tagline,
-                          style: text.bodyM.copyWith(
-                            color: colors.textSecondary,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        const _LoginHeader(),
                         const SizedBox(height: AppSpacing.xxl),
-                        Text(
-                          l10n.login_phoneLabel,
-                          style: text.labelS.copyWith(
-                            color: colors.textSecondary,
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.s),
-                        PhoneField(
-                          controller: _phoneController,
-                          isEnabled: !_isSubmitting,
-                          onChanged: (_) => _clearError(),
-                        ),
-                        const SizedBox(height: AppSpacing.m),
-                        Text(
-                          l10n.login_passwordLabel,
-                          style: text.labelS.copyWith(
-                            color: colors.textSecondary,
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.s),
-                        AppTextField(
-                          type: AppTextFieldType.password,
-                          controller: _passwordController,
-                          isEnabled: !_isSubmitting,
+                        _LoginFormFields(
+                          phoneController: _phoneController,
+                          passwordController: _passwordController,
+                          isSubmitting: _isSubmitting,
                           errorText: _errorText,
-                          onChanged: (_) => _clearError(),
-                        ),
-                        const SizedBox(height: AppSpacing.m),
-                        AppButton(
-                          text: l10n.login_signIn,
-                          isLoading: _isSubmitting,
-                          onPressed: _submit,
-                        ),
-                        const SizedBox(height: AppSpacing.l),
-                        Text(
-                          l10n.login_forgotPassword,
-                          style: text.bodyS.copyWith(
-                            color: colors.textSecondary,
-                          ),
-                          textAlign: TextAlign.center,
+                          onChanged: _clearError,
+                          onSubmit: _submit,
                         ),
                       ],
                     ),
@@ -179,6 +128,99 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           },
         ),
       ),
+    );
+  }
+}
+
+class _LoginHeader extends StatelessWidget {
+  const _LoginHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final text = context.text;
+    final l10n = AppLocalizations.of(context)!;
+
+    return Column(
+      children: [
+        Text(
+          l10n.app_name,
+          style: text.displayL.copyWith(color: colors.textPrimary),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: AppSpacing.s),
+        Text(
+          l10n.login_tagline,
+          style: text.bodyM.copyWith(color: colors.textSecondary),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+}
+
+class _LoginFormFields extends StatelessWidget {
+  final TextEditingController phoneController;
+  final TextEditingController passwordController;
+  final bool isSubmitting;
+  final String? errorText;
+  final VoidCallback onChanged;
+  final VoidCallback onSubmit;
+
+  const _LoginFormFields({
+    required this.phoneController,
+    required this.passwordController,
+    required this.isSubmitting,
+    required this.errorText,
+    required this.onChanged,
+    required this.onSubmit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final text = context.text;
+    final l10n = AppLocalizations.of(context)!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          l10n.login_phoneLabel,
+          style: text.labelS.copyWith(color: colors.textSecondary),
+        ),
+        const SizedBox(height: AppSpacing.s),
+        PhoneField(
+          controller: phoneController,
+          isEnabled: !isSubmitting,
+          onChanged: (_) => onChanged(),
+        ),
+        const SizedBox(height: AppSpacing.m),
+        Text(
+          l10n.login_passwordLabel,
+          style: text.labelS.copyWith(color: colors.textSecondary),
+        ),
+        const SizedBox(height: AppSpacing.s),
+        AppTextField(
+          type: AppTextFieldType.password,
+          controller: passwordController,
+          isEnabled: !isSubmitting,
+          errorText: errorText,
+          onChanged: (_) => onChanged(),
+        ),
+        const SizedBox(height: AppSpacing.m),
+        AppButton(
+          text: l10n.login_signIn,
+          isLoading: isSubmitting,
+          onPressed: onSubmit,
+        ),
+        const SizedBox(height: AppSpacing.l),
+        Text(
+          l10n.login_forgotPassword,
+          style: text.bodyS.copyWith(color: colors.textSecondary),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

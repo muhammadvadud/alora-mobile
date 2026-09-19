@@ -9,6 +9,7 @@ import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
 import 'package:alora_mobile/features/orders/application/statuses_notifier.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
 import 'package:alora_mobile/features/orders/domain/entities/order.dart';
+import 'package:alora_mobile/features/orders/domain/entities/status_transition.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 
@@ -45,11 +46,20 @@ class _StatusChangeSheetState extends ConsumerState<StatusChangeSheet> {
     super.dispose();
   }
 
+  Future<void> _save() async {
+    if (_selectedStatus == null) return;
+    await ref
+        .read(orderDetailProvider(widget.order.id).notifier)
+        .changeStatus(
+          _selectedStatus!,
+          note: _noteController.text.isNotEmpty ? _noteController.text : null,
+        );
+    if (!mounted) return;
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    final typography = context.text;
-
     final transitionsState = ref.watch(orderTransitionsProvider);
     final statusesState = ref.watch(orderStatusesProvider);
 
@@ -67,57 +77,17 @@ class _StatusChangeSheetState extends ConsumerState<StatusChangeSheet> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ...statuses.map((s) {
-                    final isAllowed = allowed.contains(s.code);
-
-                    return RadioListTile<String>(
-                      value: s.code,
-                      // ignore: deprecated_member_use
-                      groupValue: _selectedStatus,
-                      // ignore: deprecated_member_use
-                      onChanged: isAllowed
-                          ? (val) {
-                              setState(() {
-                                _selectedStatus = val;
-                              });
-                            }
-                          : null,
-                      title: Text(
-                        s.label,
-                        style: typography.bodyL.copyWith(
-                          color: isAllowed
-                              ? colors.textPrimary
-                              : colors.textDisabled,
-                        ),
-                      ),
-                      activeColor: colors.accent,
-                      contentPadding: EdgeInsets.zero,
-                    );
-                  }),
-                  const SizedBox(height: AppSpacing.m),
-                  AppTextField(
-                    controller: _noteController,
-                    hintText: 'Izoh (ixtiyoriy)',
+                  _StatusRadioList(
+                    statuses: statuses,
+                    allowed: allowed,
+                    selectedStatus: _selectedStatus,
+                    onChanged: (val) => setState(() => _selectedStatus = val),
                   ),
-                  const SizedBox(height: AppSpacing.l),
-                  AppButton(
-                    text: 'Saqlash',
+                  _SheetActions(
+                    noteController: _noteController,
                     isEnabled: _selectedStatus != null,
-                    onPressed: () async {
-                      if (_selectedStatus == null) return;
-                      await ref
-                          .read(orderDetailProvider(widget.order.id).notifier)
-                          .changeStatus(
-                            _selectedStatus!,
-                            note: _noteController.text.isNotEmpty
-                                ? _noteController.text
-                                : null,
-                          );
-                      if (!context.mounted) return;
-                      Navigator.pop(context);
-                    },
+                    onSave: _save,
                   ),
-                  const SizedBox(height: AppSpacing.m),
                 ],
               );
             },
@@ -150,6 +120,80 @@ class _StatusChangeSheetState extends ConsumerState<StatusChangeSheet> {
         error: (err, st) =>
             Center(child: Text(context.l10n.errorLoadingTransitions)),
       ),
+    );
+  }
+}
+
+class _StatusRadioList extends StatelessWidget {
+  final List<StatusTransition> statuses;
+  final List<String> allowed;
+  final String? selectedStatus;
+  final ValueChanged<String?> onChanged;
+
+  const _StatusRadioList({
+    required this.statuses,
+    required this.allowed,
+    required this.selectedStatus,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typography = context.text;
+
+    return Column(
+      children: [
+        ...statuses.map((s) {
+          final isAllowed = allowed.contains(s.code);
+
+          return RadioListTile<String>(
+            value: s.code,
+            // ignore: deprecated_member_use
+            groupValue: selectedStatus,
+            // ignore: deprecated_member_use
+            onChanged: isAllowed
+                ? (val) {
+                    onChanged(val);
+                  }
+                : null,
+            title: Text(
+              s.label,
+              style: typography.bodyL.copyWith(
+                color: isAllowed ? colors.textPrimary : colors.textDisabled,
+              ),
+            ),
+            activeColor: colors.accent,
+            contentPadding: EdgeInsets.zero,
+          );
+        }),
+      ],
+    );
+  }
+}
+
+class _SheetActions extends StatelessWidget {
+  final TextEditingController noteController;
+  final bool isEnabled;
+  final VoidCallback onSave;
+
+  const _SheetActions({
+    required this.noteController,
+    required this.isEnabled,
+    required this.onSave,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(height: AppSpacing.m),
+        AppTextField(controller: noteController, hintText: 'Izoh (ixtiyoriy)'),
+        const SizedBox(height: AppSpacing.l),
+        AppButton(text: 'Saqlash', isEnabled: isEnabled, onPressed: onSave),
+        const SizedBox(height: AppSpacing.m),
+      ],
     );
   }
 }

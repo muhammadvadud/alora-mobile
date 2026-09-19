@@ -7,23 +7,24 @@ import 'package:alora_mobile/shared/models/order_status.dart';
 import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
-import 'package:alora_mobile/shared/icons/app_icons.dart';
+import 'package:alora_mobile/shared/widgets/status_pill.dart';
 import 'package:alora_mobile/core/utils/date_format.dart';
 import 'package:alora_mobile/core/utils/money_format.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
+import 'package:alora_mobile/app/theme/app_spacing.dart';
+import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:alora_mobile/app/theme/app_colors.dart';
-import 'package:alora_mobile/app/theme/app_spacing.dart';
-import 'package:alora_mobile/app/theme/app_typography.dart';
-import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
-import 'package:alora_mobile/shared/widgets/status_pill.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/features/orders/presentation/widgets/status_change_sheet.dart';
 import 'package:alora_mobile/features/orders/presentation/widgets/status_timeline.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/orders/application/order_pdf_notifier.dart';
+import 'package:alora_mobile/features/orders/domain/entities/order.dart';
+
+part '../widgets/order_detail_sections.dart';
 
 class OrderDetailScreen extends ConsumerWidget {
   final String orderId;
@@ -48,7 +49,6 @@ class OrderDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(orderDetailProvider(orderId));
     final colors = context.colors;
-    final typography = context.text;
 
     // Tasdiqlash muvaffaqiyatli bo'lsa snackbar (9.14)
     ref.listen(orderDetailProvider(orderId), (previous, next) {
@@ -67,209 +67,32 @@ class OrderDetailScreen extends ConsumerWidget {
         iconTheme: IconThemeData(color: colors.textPrimary),
         actions: [
           state.maybeWhen(
-            data: (order) => PopupMenuButton<String>(
-              icon: Icon(AppIcons.more, color: colors.textPrimary),
-              onSelected: (value) {
-                if (value == 'pdf') {
-                  unawaited(
-                    ref.read(orderPdfProvider(orderId).notifier).openPdf(),
-                  );
-                } else if (value == 'share') {
-                  unawaited(
-                    ref
-                        .read(orderPdfProvider(orderId).notifier)
-                        .shareOrderText(order),
-                  );
-                } else if (value == 'cancel') {
-                  unawaited(StatusChangeSheet.show(context, order));
-                }
-              },
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  value: 'pdf',
-                  child: Text(context.l10n.orders_pdf),
-                ),
-                PopupMenuItem(
-                  value: 'share',
-                  child: Text(context.l10n.orders_share),
-                ),
-                PopupMenuItem(
-                  value: 'cancel',
-                  child: Text(context.l10n.common_cancel),
-                ),
-              ],
+            data: (order) => _OrderDetailMenu(
+              onPdf: () => unawaited(
+                ref.read(orderPdfProvider(orderId).notifier).openPdf(),
+              ),
+              onShare: () => unawaited(
+                ref
+                    .read(orderPdfProvider(orderId).notifier)
+                    .shareOrderText(order),
+              ),
+              onCancel: () => unawaited(StatusChangeSheet.show(context, order)),
             ),
             orElse: () => const SizedBox.shrink(),
           ),
         ],
       ),
       body: state.when(
-        data: (order) {
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(AppSpacing.m),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      order.number ?? '',
-                      style: typography.titleL.copyWith(
-                        color: colors.textPrimary,
-                      ),
-                    ),
-                    StatusPill(status: order.status),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.s),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (order.createdAt != null)
-                      Text(
-                        context.l10n.dateLabel(
-                          formatDate(order.createdAt!, context: context),
-                        ),
-                        style: typography.bodyS.copyWith(
-                          color: colors.textSecondary,
-                        ),
-                      ),
-                    if (order.user != null)
-                      Text(
-                        context.l10n.sellerLabel(order.user!.fullName ?? ''),
-                        style: typography.bodyS.copyWith(
-                          color: colors.textSecondary,
-                        ),
-                      ),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.l),
-
-                // Timeline
-                StatusTimeline(
-                  currentStatus: order.status,
-                  actionDate: order.updatedAt,
-                ),
-                const SizedBox(height: AppSpacing.l),
-
-                // 9.14: qoralama → tasdiqlash (POST confirm/)
-                if (order.status == OrderStatus.draft) ...[
-                  AppButton(
-                    text: context.l10n.orders_confirm,
-                    onPressed: () => unawaited(
-                      ref
-                          .read(orderDetailProvider(orderId).notifier)
-                          .confirmOrder(),
-                    ),
-                  ),
-                  const SizedBox(height: AppSpacing.l),
-                ],
-
-                // Customer info
-                if (order.customerName != null) ...[
-                  Text(
-                    context.l10n.customer,
-                    style: typography.titleM.copyWith(
-                      color: colors.textPrimary,
-                    ),
-                  ),
-                  const SizedBox(height: AppSpacing.s),
-                  ListTile(
-                    leading: Icon(
-                      AppIcons.profile,
-                      color: colors.textSecondary,
-                    ),
-                    title: Text(order.customerName!, style: typography.bodyL),
-                    subtitle: Text(order.customerPhone ?? ''),
-                    trailing: order.customerPhone != null
-                        ? IconButton(
-                            icon: Icon(AppIcons.phone, color: colors.accent),
-                            onPressed: () => _call(order.customerPhone!),
-                          )
-                        : null,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ],
-                if (order.address != null)
-                  ListTile(
-                    leading: Icon(AppIcons.mapPin, color: colors.textSecondary),
-                    title: Text(order.address!, style: typography.bodyL),
-                    trailing: IconButton(
-                      icon: Icon(AppIcons.mapPin, color: colors.accent),
-                      onPressed: () => _geo(order.address!),
-                    ),
-                    contentPadding: EdgeInsets.zero,
-                  ),
-
-                // Rooms (simplified)
-                const SizedBox(height: AppSpacing.l),
-                Text(
-                  context.l10n.rooms,
-                  style: typography.titleM.copyWith(color: colors.textPrimary),
-                ),
-                const SizedBox(height: AppSpacing.s),
-                ...order.measurements.map((m) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.s),
-                    child: AppCard(
-                      padding: const EdgeInsets.all(AppSpacing.m),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(m.roomName ?? 'Xona', style: typography.titleS),
-                          const SizedBox(height: AppSpacing.s),
-                          Text(
-                            context.l10n.corniceAndHeight(
-                              (m.corniceLengthM ?? 0).toString(),
-                              (m.heightM ?? 0).toString(),
-                            ),
-                            style: typography.bodyS,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-
-                // Finance block
-                const SizedBox(height: AppSpacing.l),
-                Text(
-                  context.l10n.finance,
-                  style: typography.titleM.copyWith(color: colors.textPrimary),
-                ),
-                const SizedBox(height: AppSpacing.s),
-                AppCard(
-                  padding: const EdgeInsets.all(AppSpacing.m),
-                  child: Column(
-                    children: [
-                      _finRow(
-                        context.l10n.orders_financeTotal,
-                        formatMoney(order.total ?? 0),
-                        typography,
-                        colors,
-                      ),
-                      if (order.prepayment != null)
-                        _finRow(
-                          context.l10n.orders_financePrepayment,
-                          formatMoney(order.prepayment!),
-                          typography,
-                          colors,
-                        ),
-                      if (order.balance != null)
-                        _finRow(
-                          context.l10n.orders_financeBalance,
-                          formatMoney(order.balance!),
-                          typography,
-                          colors,
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+        data: (order) => _OrderDetailBody(
+          order: order,
+          onConfirm: () => unawaited(
+            ref.read(orderDetailProvider(orderId).notifier).confirmOrder(),
+          ),
+          onCall: order.customerPhone != null
+              ? () => _call(order.customerPhone!)
+              : null,
+          onGeo: order.address != null ? () => _geo(order.address!) : null,
+        ),
         loading: () => const Padding(
           padding: EdgeInsets.all(AppSpacing.m),
           child: Column(
@@ -297,33 +120,6 @@ class OrderDetailScreen extends ConsumerWidget {
         error: (err, st) => ErrorState(
           onRetry: () => ref.invalidate(orderDetailProvider(orderId)),
         ),
-      ),
-    );
-  }
-
-  Widget _finRow(
-    String label,
-    String value,
-    AppTypography typography,
-    AppColors colors,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: typography.bodyL.copyWith(color: colors.textSecondary),
-          ),
-          Text(
-            value,
-            style: typography.bodyL.copyWith(
-              color: colors.textPrimary,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
       ),
     );
   }

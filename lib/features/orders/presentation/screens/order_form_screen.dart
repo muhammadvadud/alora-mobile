@@ -153,47 +153,20 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
             const SizedBox(height: AppSpacing.l),
 
             Text(context.l10n.discount, style: typography.titleM),
-            Row(
-              children: [
-                Expanded(
-                  child: AppTextField(
-                    controller: _discountController,
-                    hintText: _isDiscountPercent ? 'Foiz (%)' : 'Summa',
-                    type: AppTextFieldType.number,
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.m),
-                Text(context.l10n.amount),
-                Switch(
-                  value: _isDiscountPercent,
-                  onChanged: (val) => setState(() => _isDiscountPercent = val),
-                  activeTrackColor: colors.accent,
-                ),
-                const Text('%'),
-              ],
+            _AmountToggleRow(
+              controller: _discountController,
+              isPercent: _isDiscountPercent,
+              onPercentChanged: (val) =>
+                  setState(() => _isDiscountPercent = val),
             ),
             const SizedBox(height: AppSpacing.l),
 
             Text(context.l10n.prepayment, style: typography.titleM),
-            Row(
-              children: [
-                Expanded(
-                  child: AppTextField(
-                    controller: _prepaymentController,
-                    hintText: _isPrepaymentPercent ? 'Foiz (%)' : 'Summa',
-                    type: AppTextFieldType.number,
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.m),
-                Text(context.l10n.amount),
-                Switch(
-                  value: _isPrepaymentPercent,
-                  onChanged: (val) =>
-                      setState(() => _isPrepaymentPercent = val),
-                  activeTrackColor: colors.accent,
-                ),
-                const Text('%'),
-              ],
+            _AmountToggleRow(
+              controller: _prepaymentController,
+              isPercent: _isPrepaymentPercent,
+              onPercentChanged: (val) =>
+                  setState(() => _isPrepaymentPercent = val),
             ),
             const SizedBox(height: AppSpacing.l),
 
@@ -215,6 +188,43 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _AmountToggleRow extends StatelessWidget {
+  final TextEditingController controller;
+  final bool isPercent;
+  final ValueChanged<bool> onPercentChanged;
+
+  const _AmountToggleRow({
+    required this.controller,
+    required this.isPercent,
+    required this.onPercentChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+
+    return Row(
+      children: [
+        Expanded(
+          child: AppTextField(
+            controller: controller,
+            hintText: isPercent ? 'Foiz (%)' : 'Summa',
+            type: AppTextFieldType.number,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.m),
+        Text(context.l10n.amount),
+        Switch(
+          value: isPercent,
+          onChanged: onPercentChanged,
+          activeTrackColor: colors.accent,
+        ),
+        const Text('%'),
+      ],
     );
   }
 }

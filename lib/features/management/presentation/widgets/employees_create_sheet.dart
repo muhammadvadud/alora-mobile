@@ -16,7 +16,6 @@ import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 import 'package:alora_mobile/shared/widgets/phone_field.dart';
 
-/// "Xodim qo'shish" pastki varag'ini ochadi (S-20, 11.7).
 Future<void> showEmployeeCreateSheet(BuildContext context, WidgetRef ref) {
   return showModalBottomSheet<void>(
     context: context,
@@ -136,8 +135,20 @@ class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
           Wrap(
             spacing: AppSpacing.s,
             children: [
-              _roleChip(label: l10n.profile_roleEmployee, role: Role.employee),
-              _roleChip(label: l10n.profile_roleManager, role: Role.manager),
+              AppChip(
+                label: l10n.profile_roleEmployee,
+                onTap: () => setState(() => _role = Role.employee),
+                state: _role == Role.employee
+                    ? AppChipState.selected
+                    : AppChipState.unselected,
+              ),
+              AppChip(
+                label: l10n.profile_roleManager,
+                onTap: () => setState(() => _role = Role.manager),
+                state: _role == Role.manager
+                    ? AppChipState.selected
+                    : AppChipState.unselected,
+              ),
             ],
           ),
         ],
@@ -147,14 +158,6 @@ class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
         isLoading: _saving,
         onPressed: _submit,
       ),
-    );
-  }
-
-  Widget _roleChip({required String label, required Role role}) {
-    return AppChip(
-      label: label,
-      onTap: () => setState(() => _role = role),
-      state: _role == role ? AppChipState.selected : AppChipState.unselected,
     );
   }
 

@@ -115,8 +115,6 @@ class _OptionCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typography = context.text;
-    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 15),
@@ -140,60 +138,102 @@ class _OptionCardItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _OptionHeader(option: option),
+          const SizedBox(height: 16),
+          Expanded(child: _OptionLinesList(lines: option.lines)),
+          const SizedBox(height: 16),
+          _OptionAction(option: option, onSelect: onSelect),
+        ],
+      ),
+    );
+  }
+}
+
+class _OptionHeader extends StatelessWidget {
+  final PricingOption option;
+
+  const _OptionHeader({required this.option});
+
+  @override
+  Widget build(BuildContext context) {
+    final typography = context.text;
+    final colors = context.colors;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          option.title.toUpperCase(),
+          style: typography.overline.copyWith(color: colors.textSecondary),
+        ),
+        const SizedBox(height: 8),
+        MoneyText(amount: option.total, style: typography.displayM),
+        if (option.difference != null && option.difference! != 0) ...[
+          const SizedBox(height: 4),
           Text(
-            option.title.toUpperCase(),
-            style: typography.overline.copyWith(color: colors.textSecondary),
+            option.difference! > 0
+                ? '+${option.difference} so\'m'
+                : '${option.difference} so\'m',
+            style: typography.bodyS.copyWith(
+              color: option.difference! > 0
+                  ? colors.textSecondary
+                  : colors.success,
+            ),
           ),
-          const SizedBox(height: 8),
-          MoneyText(amount: option.total, style: typography.displayM),
-          if (option.difference != null && option.difference! != 0) ...[
-            const SizedBox(height: 4),
+        ],
+      ],
+    );
+  }
+}
+
+class _OptionLinesList extends StatelessWidget {
+  final List<PricingOptionLine> lines;
+
+  const _OptionLinesList({required this.lines});
+
+  @override
+  Widget build(BuildContext context) {
+    final typography = context.text;
+    final colors = context.colors;
+
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: lines.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 8),
+      itemBuilder: (context, index) {
+        final line = lines[index];
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Text(
-              option.difference! > 0
-                  ? '+${option.difference} so\'m'
-                  : '${option.difference} so\'m',
-              style: typography.bodyS.copyWith(
-                color: option.difference! > 0
-                    ? colors.textSecondary
-                    : colors.success,
+              '• ',
+              style: typography.bodyS.copyWith(color: colors.textSecondary),
+            ),
+            Expanded(
+              child: Text(
+                '${line.title}: ${line.value}',
+                style: typography.bodyS,
               ),
             ),
           ],
-          const SizedBox(height: 16),
-          Expanded(
-            child: ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: option.lines.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 8),
-              itemBuilder: (context, index) {
-                final line = option.lines[index];
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '• ',
-                      style: typography.bodyS.copyWith(
-                        color: colors.textSecondary,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '${line.title}: ${line.value}',
-                        style: typography.bodyS,
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 16),
-          AppButton.secondary(
-            text: l10n.chat_options_select,
-            onPressed: onSelect != null ? () => onSelect!(option) : null,
-          ),
-        ],
-      ),
+        );
+      },
+    );
+  }
+}
+
+class _OptionAction extends StatelessWidget {
+  final PricingOption option;
+  final ValueChanged<PricingOption>? onSelect;
+
+  const _OptionAction({required this.option, this.onSelect});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return AppButton.secondary(
+      text: l10n.chat_options_select,
+      onPressed: onSelect != null ? () => onSelect!(option) : null,
     );
   }
 }

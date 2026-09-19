@@ -6,7 +6,6 @@ import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/profile/application/locale_notifier.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
 
-/// Til tanlash (S-25, 10.2): O'zbek lotin / Кирилл / Русский.
 class LanguageSection extends ConsumerWidget {
   const LanguageSection({super.key});
 
@@ -23,42 +22,26 @@ class LanguageSection extends ConsumerWidget {
       spacing: AppSpacing.s,
       runSpacing: AppSpacing.s,
       children: [
-        _optionChip(
-          context,
+        AppChip(
           label: l10n.profile_languageOptionUz,
-          isSelected: isUz,
           onTap: () =>
               ref.read(localeProvider.notifier).setLocale(const Locale('uz')),
+          state: isUz ? AppChipState.selected : AppChipState.unselected,
         ),
-        _optionChip(
-          context,
+        AppChip(
           label: l10n.profile_languageOptionCyrl,
-          isSelected: isCyrl,
           onTap: () => ref
               .read(localeProvider.notifier)
               .setLocale(const Locale('uz', 'Cyrl')),
+          state: isCyrl ? AppChipState.selected : AppChipState.unselected,
         ),
-        _optionChip(
-          context,
+        AppChip(
           label: l10n.profile_languageOptionRu,
-          isSelected: isRu,
           onTap: () =>
               ref.read(localeProvider.notifier).setLocale(const Locale('ru')),
+          state: isRu ? AppChipState.selected : AppChipState.unselected,
         ),
       ],
-    );
-  }
-
-  Widget _optionChip(
-    BuildContext context, {
-    required String label,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return AppChip(
-      label: label,
-      onTap: onTap,
-      state: isSelected ? AppChipState.selected : AppChipState.unselected,
     );
   }
 }

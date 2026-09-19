@@ -29,15 +29,36 @@ class ProductVariantSelector extends StatelessWidget {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children: [for (final variant in variants) _variantDot(colors, variant)],
+      children: [
+        for (final variant in variants)
+          _VariantDot(
+            colors: colors,
+            variant: variant,
+            isSelected: variant.id == selectedVariantId,
+            onTap: () => onSelected(variant.id),
+          ),
+      ],
     );
   }
+}
 
-  Widget _variantDot(AppColors colors, ProductVariant variant) {
-    final isSelected = variant.id == selectedVariantId;
+class _VariantDot extends StatelessWidget {
+  final AppColors colors;
+  final ProductVariant variant;
+  final bool isSelected;
+  final VoidCallback onTap;
 
+  const _VariantDot({
+    required this.colors,
+    required this.variant,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onSelected(variant.id),
+      onTap: onTap,
       child: Container(
         width: 28,
         height: 28,

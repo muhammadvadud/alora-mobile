@@ -64,7 +64,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     super.dispose();
   }
 
-  /// S-07 "Buyurtma yaratish": `POST orders/` → `/orders/:id` (7.12).
   Future<void> _createOrderFromDraft(OrderDraft draft) async {
     final order = await ref
         .read(orderFromDraftProvider.notifier)
@@ -104,124 +103,55 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     }
 
     final isCustomerMode = ref.watch(customerModeEnabledProvider);
-    final l10n = AppLocalizations.of(context)!;
     final colors = context.colors;
     final isOnline = ref.watch(connectivityProvider);
     final chatState = ref.watch(chatProvider(widget.conversationId!));
     final error = chatState.error;
-
     final isLimitExceeded =
         error?.maybeWhen(limit: (_) => true, orElse: () => false) == true;
 
-    Widget body;
-    if (isLimitExceeded) {
-      body = const LimitExceededView();
-    } else {
-      body = Column(
-        children: [
-          if (error != null)
-            ChatErrorBanner(
-              error: error,
-              retryLabel: l10n.chat_retry,
-              onRetry: () {
-                unawaited(
-                  ref
-                      .read(chatProvider(widget.conversationId!).notifier)
-                      .retryLast(),
-                );
-              },
-            ),
-          Expanded(
-            child: Stack(
-              children: [
-                chatState.messages.isEmpty
-                    ? ChatEmptyView(
-                        onChipSelected: (text) {
-                          ref
-                              .read(
-                                chatProvider(widget.conversationId!).notifier,
-                              )
-                              .sendMessage(text);
-                        },
-                      )
-                    : ListView.builder(
-                        controller: _scrollController,
-                        reverse: true,
-                        itemCount: chatState.messages.length,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.l,
-                          vertical: AppSpacing.l,
-                        ),
-                        itemBuilder: (context, index) {
-                          final msg = chatState.messages[index];
-                          return RepaintBoundary(
-                            child: ChatMessageRow(
-                              message: msg,
-                              isCustomerMode: isCustomerMode,
-                              onEditOrder: (draft) => context.push(
-                                AppRoutes.orderNew,
-                                extra: draft,
-                              ),
-                              onCreateOrder: (draft) =>
-                                  unawaited(_createOrderFromDraft(draft)),
-                            ),
-                          );
-                        },
-                      ),
-                if (_showScrollDown)
-                  Positioned(
-                    bottom: AppSpacing.l,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: ChatScrollDownFab(
-                        onPressed: _scrollToBottom,
-                        label: l10n.chat_newMessages,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          if (_isVoiceMode)
-            VoicePanel(onClose: () => setState(() => _isVoiceMode = false))
-          else
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.l)
-                  .copyWith(top: AppSpacing.s),
-              child: ChatInputPanel(
-                isStreaming: chatState.isStreaming,
-                disabled: !isOnline,
-                onSend: (text) {
-                  ref
-                      .read(chatProvider(widget.conversationId!).notifier)
-                      .sendMessage(text);
-                  _scrollToBottom();
-                },
-                onMicPressed: () => setState(() => _isVoiceMode = true),
-                onAddPressed: () {},
-              ),
-            ),
-        ],
-      );
-    }
-
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: _buildAppBar(context, l10n, isCustomerMode),
+      appBar: _ChatAppBar(
+        conversationId: widget.conversationId,
+        isCustomerMode: isCustomerMode,
+      ),
       body: AdaptiveShell(
         leading: const ConversationsPanePlaceholder(),
-        child: body,
+        child: isLimitExceeded
+            ? const LimitExceededView()
+            : _ChatBody(
+                conversationId: widget.conversationId!,
+                isOnline: isOnline,
+                isCustomerMode: isCustomerMode,
+                isVoiceMode: _isVoiceMode,
+                showScrollDown: _showScrollDown,
+                scrollController: _scrollController,
+                onCreateOrder: _createOrderFromDraft,
+                onScrollToBottom: _scrollToBottom,
+                onVoiceModeChanged: (val) => setState(() => _isVoiceMode = val),
+              ),
       ),
     );
   }
+}
 
-  AppBar _buildAppBar(
-    BuildContext context,
-    AppLocalizations l10n,
-    bool isCustomerMode,
-  ) {
+class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
+  final String? conversationId;
+  final bool isCustomerMode;
+
+  const _ChatAppBar({
+    required this.conversationId,
+    required this.isCustomerMode,
+  });
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
+    final l10n = AppLocalizations.of(context)!;
 
     return AppBar(
       backgroundColor: colors.surface,
@@ -246,65 +176,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         else
           PopupMenuButton<String>(
             icon: Icon(AppIcons.more, color: colors.textPrimary),
-            onSelected: (value) async {
-              if (value == 'reset') {
-                final confirmed = await _showResetConfirm(context, l10n);
-                if (confirmed == true && widget.conversationId != null) {
-                  await ref
-                      .read(chatProvider(widget.conversationId!).notifier)
-                      .resetConversation();
-                }
-              } else if (value == 'customer') {
-                await showDialog(
-                  context: context,
-                  builder: (context) => const SetPinDialog(),
-                );
-              } else if (value == 'pdf') {
-                final conversation = _findConversation(ref);
-                if (conversation != null && conversation.orderId != null) {
-                  unawaited(
-                    ref
-                        .read(orderPdfProvider(conversation.orderId!).notifier)
-                        .openPdf(),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(l10n.chat_pdfRequireOrder),
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: context.colors.inverse,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(AppRadius.input),
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              } else if (value == 'share') {
-                final conversation = _findConversation(ref);
-                if (conversation != null && conversation.orderId != null) {
-                  unawaited(
-                    ref
-                        .read(orderPdfProvider(conversation.orderId!).notifier)
-                        .sharePdf(),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(l10n.chat_pdfRequireOrder),
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: context.colors.inverse,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(AppRadius.input),
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              }
-            },
+            onSelected: (value) =>
+                _handleMenuSelection(context, ref, value, l10n),
             itemBuilder: (context) => [
               PopupMenuItem(value: 'new', child: Text(l10n.chat_menuNew)),
               PopupMenuItem(value: 'reset', child: Text(l10n.chat_menuReset)),
@@ -320,15 +193,63 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     );
   }
 
+  Future<void> _handleMenuSelection(
+    BuildContext context,
+    WidgetRef ref,
+    String value,
+    AppLocalizations l10n,
+  ) async {
+    if (value == 'reset') {
+      final confirmed = await _showResetConfirm(context, l10n);
+      if (confirmed == true && conversationId != null) {
+        await ref
+            .read(chatProvider(conversationId!).notifier)
+            .resetConversation();
+      }
+    } else if (value == 'customer') {
+      await showDialog(
+        context: context,
+        builder: (context) => const SetPinDialog(),
+      );
+    } else if (value == 'pdf' || value == 'share') {
+      final conversation = _findConversation(ref);
+      if (conversation != null && conversation.orderId != null) {
+        if (value == 'pdf') {
+          unawaited(
+            ref
+                .read(orderPdfProvider(conversation.orderId!).notifier)
+                .openPdf(),
+          );
+        } else {
+          unawaited(
+            ref
+                .read(orderPdfProvider(conversation.orderId!).notifier)
+                .sharePdf(),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.chat_pdfRequireOrder),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: context.colors.inverse,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(AppRadius.input)),
+            ),
+          ),
+        );
+      }
+    }
+  }
+
   Conversation? _findConversation(WidgetRef ref) {
-    final id = widget.conversationId;
-    if (id == null) return null;
+    if (conversationId == null) return null;
     final items = ref
         .read(conversationsProvider)
         .whenOrNull(loaded: (items, _, _, _, _) => items);
     if (items == null) return null;
     for (final c in items) {
-      if (c.id == id) return c;
+      if (c.id == conversationId) return c;
     }
     return null;
   }
@@ -350,6 +271,118 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _ChatBody extends ConsumerWidget {
+  final String conversationId;
+  final bool isOnline;
+  final bool isCustomerMode;
+  final bool isVoiceMode;
+  final bool showScrollDown;
+  final ScrollController scrollController;
+  final Function(OrderDraft) onCreateOrder;
+  final VoidCallback onScrollToBottom;
+  final ValueChanged<bool> onVoiceModeChanged;
+
+  const _ChatBody({
+    required this.conversationId,
+    required this.isOnline,
+    required this.isCustomerMode,
+    required this.isVoiceMode,
+    required this.showScrollDown,
+    required this.scrollController,
+    required this.onCreateOrder,
+    required this.onScrollToBottom,
+    required this.onVoiceModeChanged,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final chatState = ref.watch(chatProvider(conversationId));
+    final error = chatState.error;
+
+    return Column(
+      children: [
+        if (error != null)
+          ChatErrorBanner(
+            error: error,
+            retryLabel: l10n.chat_retry,
+            onRetry: () {
+              unawaited(
+                ref.read(chatProvider(conversationId).notifier).retryLast(),
+              );
+            },
+          ),
+        Expanded(
+          child: Stack(
+            children: [
+              chatState.messages.isEmpty
+                  ? ChatEmptyView(
+                      onChipSelected: (text) {
+                        ref
+                            .read(chatProvider(conversationId).notifier)
+                            .sendMessage(text);
+                      },
+                    )
+                  : ListView.builder(
+                      controller: scrollController,
+                      reverse: true,
+                      itemCount: chatState.messages.length,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.l,
+                        vertical: AppSpacing.l,
+                      ),
+                      itemBuilder: (context, index) {
+                        final msg = chatState.messages[index];
+                        return RepaintBoundary(
+                          child: ChatMessageRow(
+                            message: msg,
+                            isCustomerMode: isCustomerMode,
+                            onEditOrder: (draft) =>
+                                context.push(AppRoutes.orderNew, extra: draft),
+                            onCreateOrder: (draft) => onCreateOrder(draft),
+                          ),
+                        );
+                      },
+                    ),
+              if (showScrollDown)
+                Positioned(
+                  bottom: AppSpacing.l,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: ChatScrollDownFab(
+                      onPressed: onScrollToBottom,
+                      label: l10n.chat_newMessages,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        if (isVoiceMode)
+          VoicePanel(onClose: () => onVoiceModeChanged(false))
+        else
+          Padding(
+            padding: const EdgeInsets.all(AppSpacing.l)
+                .copyWith(top: AppSpacing.s),
+            child: ChatInputPanel(
+              isStreaming: chatState.isStreaming,
+              disabled: !isOnline,
+              onSend: (text) {
+                ref
+                    .read(chatProvider(conversationId).notifier)
+                    .sendMessage(text);
+                onScrollToBottom();
+              },
+              onMicPressed: () => onVoiceModeChanged(true),
+              onAddPressed: () {},
+            ),
+          ),
+      ],
     );
   }
 }

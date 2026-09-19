@@ -24,81 +24,12 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typography = context.text;
-
-    final aspectRatio = data.priceUnit == PriceUnit.perPiece
-        ? 1.0
-        : 0.8; // 4:5 is 0.8
-
-    Widget imageWidget;
-    if (data.imageUrl != null && data.imageUrl!.isNotEmpty) {
-      imageWidget = CachedNetworkImage(
-        imageUrl: data.imageUrl!,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => Container(color: colors.borderSubtle),
-        errorWidget: (context, url, error) => Container(
-          color: colors.borderSubtle,
-          child: Icon(AppIcons.imageOff, color: colors.textDisabled),
-        ),
-      );
-    } else {
-      imageWidget = Container(
-        color: colors.borderSubtle,
-        child: Icon(AppIcons.image, color: colors.textDisabled),
-      );
-    }
 
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AspectRatio(
-          aspectRatio: aspectRatio,
-          child: ClipRRect(
-            borderRadius: BorderRadius.vertical(top: AppRadius.cardTopRadius),
-            child: imageWidget,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.s,
-            vertical: AppSpacing.s,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                data.name,
-                style: typography.titleS,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  ColorDot(colorHex: data.colorHex, size: 12),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      data.colorName,
-                      style: typography.labelM.copyWith(
-                        color: colors.textSecondary,
-                        fontWeight: FontWeight.normal,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.s),
-              UnitText(
-                amount: data.price,
-                unit: data.priceUnit,
-                style: typography.priceM,
-              ),
-            ],
-          ),
-        ),
+        _ProductCardImage(data: data),
+        _ProductCardDetails(data: data),
       ],
     );
 
@@ -129,5 +60,97 @@ class ProductCard extends StatelessWidget {
     }
 
     return result;
+  }
+}
+
+class _ProductCardImage extends StatelessWidget {
+  final ProductCardData data;
+
+  const _ProductCardImage({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final aspectRatio = data.priceUnit == PriceUnit.perPiece ? 1.0 : 0.8;
+
+    Widget imageWidget;
+    if (data.imageUrl != null && data.imageUrl!.isNotEmpty) {
+      imageWidget = CachedNetworkImage(
+        imageUrl: data.imageUrl!,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => Container(color: colors.borderSubtle),
+        errorWidget: (context, url, error) => Container(
+          color: colors.borderSubtle,
+          child: Icon(AppIcons.imageOff, color: colors.textDisabled),
+        ),
+      );
+    } else {
+      imageWidget = Container(
+        color: colors.borderSubtle,
+        child: Icon(AppIcons.image, color: colors.textDisabled),
+      );
+    }
+
+    return AspectRatio(
+      aspectRatio: aspectRatio,
+      child: ClipRRect(
+        borderRadius: BorderRadius.vertical(top: AppRadius.cardTopRadius),
+        child: imageWidget,
+      ),
+    );
+  }
+}
+
+class _ProductCardDetails extends StatelessWidget {
+  final ProductCardData data;
+
+  const _ProductCardDetails({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typography = context.text;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.s,
+        vertical: AppSpacing.s,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            data.name,
+            style: typography.titleS,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 4),
+          Row(
+            children: [
+              ColorDot(colorHex: data.colorHex, size: 12),
+              const SizedBox(width: 4),
+              Expanded(
+                child: Text(
+                  data.colorName,
+                  style: typography.labelM.copyWith(
+                    color: colors.textSecondary,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.s),
+          UnitText(
+            amount: data.price,
+            unit: data.priceUnit,
+            style: typography.priceM,
+          ),
+        ],
+      ),
+    );
   }
 }

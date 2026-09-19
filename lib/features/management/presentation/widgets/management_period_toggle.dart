@@ -7,7 +7,6 @@ import 'package:alora_mobile/features/management/application/management_period_n
 import 'package:alora_mobile/features/management/domain/entities/usage_period.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
 
-/// Boshqaruv bosh sahifasidagi davr o'tkazgich (Bugun/Hafta/Oy, S-19).
 class ManagementPeriodToggle extends ConsumerWidget {
   const ManagementPeriodToggle({super.key});
 
@@ -19,40 +18,30 @@ class ManagementPeriodToggle extends ConsumerWidget {
 
     return Row(
       children: [
-        _chip(
-          context,
+        AppChip(
           label: l10n.management_periodToday,
-          state: period == UsagePeriod.day,
           onTap: () => notifier.setPeriod(UsagePeriod.day),
+          state: period == UsagePeriod.day
+              ? AppChipState.selected
+              : AppChipState.unselected,
         ),
         const SizedBox(width: AppSpacing.s),
-        _chip(
-          context,
+        AppChip(
           label: l10n.management_periodWeek,
-          state: period == UsagePeriod.week,
           onTap: () => notifier.setPeriod(UsagePeriod.week),
+          state: period == UsagePeriod.week
+              ? AppChipState.selected
+              : AppChipState.unselected,
         ),
         const SizedBox(width: AppSpacing.s),
-        _chip(
-          context,
+        AppChip(
           label: l10n.management_periodMonth,
-          state: period == UsagePeriod.month,
           onTap: () => notifier.setPeriod(UsagePeriod.month),
+          state: period == UsagePeriod.month
+              ? AppChipState.selected
+              : AppChipState.unselected,
         ),
       ],
-    );
-  }
-
-  Widget _chip(
-    BuildContext context, {
-    required String label,
-    required bool state,
-    required VoidCallback onTap,
-  }) {
-    return AppChip(
-      label: label,
-      onTap: onTap,
-      state: state ? AppChipState.selected : AppChipState.unselected,
     );
   }
 }

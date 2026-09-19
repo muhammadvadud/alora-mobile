@@ -41,13 +41,7 @@ class OrderCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
-    final typography = context.text;
-    final l10n = AppLocalizations.of(context)!;
-
     final statusColors = getOrderStatusColors(order.status, colors);
-
-    final deadlineText = _getDeadlineText(order.deadlineDate, l10n);
-    final deadlineColor = _getDeadlineColor(order.deadlineDate, colors);
 
     return Dismissible(
       key: ValueKey(order.id),
@@ -63,13 +57,13 @@ class OrderCard extends ConsumerWidget {
         }
         return false;
       },
-      background: _buildSwipeBackground(
+      background: _SwipeBackground(
         color: colors.successSoft,
         icon: AppIcons.phone,
         iconColor: colors.success,
         alignment: Alignment.centerLeft,
       ),
-      secondaryBackground: _buildSwipeBackground(
+      secondaryBackground: _SwipeBackground(
         color: colors.accentSoft,
         icon: AppIcons.edit,
         iconColor: colors.accent,
@@ -97,86 +91,7 @@ class OrderCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppSpacing.m),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              order.number ?? 'Nomsiz',
-                              style: typography.mono.copyWith(
-                                color: colors.textPrimary,
-                              ),
-                            ),
-                            StatusPill(status: order.status),
-                          ],
-                        ),
-                        const SizedBox(height: AppSpacing.s),
-                        Text(
-                          '${order.customerName ?? "Mijoz"} · ${order.customerPhone ?? "Raqam yo'q"}',
-                          style: typography.titleM.copyWith(
-                            color: colors.textPrimary,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '${order.measurements.length} xona · ${order.measurements.expand((m) => m.parts).length} bo\'lak',
-                          style: typography.bodyS.copyWith(
-                            color: colors.textSecondary,
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.m),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                MoneyText(
-                                  amount: order.total ?? 0,
-                                  style: typography.titleM.copyWith(
-                                    color: colors.textPrimary,
-                                  ),
-                                ),
-                                if (order.paymentStatusDisplay != null)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4),
-                                    child: PaymentChip(
-                                      status: order.paymentStatus,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                            Text(
-                              deadlineText,
-                              style: typography.bodyS.copyWith(
-                                color: deadlineColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (order.status == OrderStatus.draft) ...[
-                          const SizedBox(height: AppSpacing.m),
-                          AppButton(
-                            text: context.l10n.orders_confirm,
-                            onPressed: () => unawaited(
-                              ref
-                                  .read(ordersListProvider.notifier)
-                                  .confirmOrder(order.id),
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
+                Expanded(child: _OrderCardContent(order: order)),
               ],
             ),
           ),
@@ -184,13 +99,106 @@ class OrderCard extends ConsumerWidget {
       ),
     );
   }
+}
 
-  Widget _buildSwipeBackground({
-    required Color color,
-    required IconData icon,
-    required Color iconColor,
-    required Alignment alignment,
-  }) {
+class _OrderCardContent extends ConsumerWidget {
+  final Order order;
+
+  const _OrderCardContent({required this.order});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = context.colors;
+    final typography = context.text;
+    final l10n = AppLocalizations.of(context)!;
+
+    final deadlineText = _getDeadlineText(order.deadlineDate, l10n);
+    final deadlineColor = _getDeadlineColor(order.deadlineDate, colors);
+
+    return Padding(
+      padding: const EdgeInsets.all(AppSpacing.m),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                order.number ?? 'Nomsiz',
+                style: typography.mono.copyWith(color: colors.textPrimary),
+              ),
+              StatusPill(status: order.status),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.s),
+          Text(
+            '${order.customerName ?? "Mijoz"} · ${order.customerPhone ?? "Raqam yo'q"}',
+            style: typography.titleM.copyWith(color: colors.textPrimary),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '${order.measurements.length} xona · ${order.measurements.expand((m) => m.parts).length} bo\'lak',
+            style: typography.bodyS.copyWith(color: colors.textSecondary),
+          ),
+          const SizedBox(height: AppSpacing.m),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MoneyText(
+                    amount: order.total ?? 0,
+                    style: typography.titleM.copyWith(
+                      color: colors.textPrimary,
+                    ),
+                  ),
+                  if (order.paymentStatusDisplay != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: PaymentChip(status: order.paymentStatus),
+                    ),
+                ],
+              ),
+              Text(
+                deadlineText,
+                style: typography.bodyS.copyWith(color: deadlineColor),
+              ),
+            ],
+          ),
+          if (order.status == OrderStatus.draft) ...[
+            const SizedBox(height: AppSpacing.m),
+            AppButton(
+              text: context.l10n.orders_confirm,
+              onPressed: () => unawaited(
+                ref.read(ordersListProvider.notifier).confirmOrder(order.id),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _SwipeBackground extends StatelessWidget {
+  final Color color;
+  final IconData icon;
+  final Color iconColor;
+  final Alignment alignment;
+
+  const _SwipeBackground({
+    required this.color,
+    required this.icon,
+    required this.iconColor,
+    required this.alignment,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       alignment: alignment,
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -201,23 +209,23 @@ class OrderCard extends ConsumerWidget {
       child: Icon(icon, color: iconColor),
     );
   }
+}
 
-  String _getDeadlineText(DateTime? date, AppLocalizations l10n) {
-    if (date == null) return 'Muddat qo\'yilmagan';
-    final now = DateTime.now();
-    final diff = date.difference(now).inDays;
-    if (diff < 0) return 'O\'tib ketgan';
-    if (diff == 0) return 'Bugun';
-    if (diff == 1) return 'Erta';
-    return '$diff kun qoldi';
-  }
+String _getDeadlineText(DateTime? date, AppLocalizations l10n) {
+  if (date == null) return 'Muddat qo\'yilmagan';
+  final now = DateTime.now();
+  final diff = date.difference(now).inDays;
+  if (diff < 0) return 'O\'tib ketgan';
+  if (diff == 0) return 'Bugun';
+  if (diff == 1) return 'Erta';
+  return '$diff kun qoldi';
+}
 
-  Color _getDeadlineColor(DateTime? date, AppColors colors) {
-    if (date == null) return colors.textSecondary;
-    final now = DateTime.now();
-    final diff = date.difference(now).inDays;
-    if (diff < 0) return colors.danger;
-    if (diff <= 3) return colors.brass;
-    return colors.textSecondary;
-  }
+Color _getDeadlineColor(DateTime? date, AppColors colors) {
+  if (date == null) return colors.textSecondary;
+  final now = DateTime.now();
+  final diff = date.difference(now).inDays;
+  if (diff < 0) return colors.danger;
+  if (diff <= 3) return colors.brass;
+  return colors.textSecondary;
 }

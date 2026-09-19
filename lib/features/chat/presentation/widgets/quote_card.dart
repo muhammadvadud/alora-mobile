@@ -45,23 +45,39 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _buildHeader(context),
-          if (quote.fabrics.isNotEmpty) _buildFabricsSection(context),
-          if (quote.accessories.isNotEmpty) _buildAccessoriesSection(context),
-          if (quote.services.isNotEmpty) _buildServicesSection(context),
-          _buildWarnings(context),
-          _buildFormula(context),
-          _buildTotalSection(context),
-          _buildActions(context),
+          _QuoteHeaderSection(quote: quote),
+          if (quote.fabrics.isNotEmpty)
+            _QuoteFabricsSection(
+              quote: quote,
+              showAllFabrics: _showAllFabrics,
+              onShowMore: () => setState(() => _showAllFabrics = true),
+            ),
+          if (quote.accessories.isNotEmpty)
+            _QuoteAccessoriesSection(quote: quote),
+          if (quote.services.isNotEmpty) _QuoteServicesSection(quote: quote),
+          _QuoteWarningsSection(quote: quote),
+          _QuoteFormulaSection(quote: quote),
+          _QuoteTotalSection(quote: quote),
+          _QuoteActionsSection(
+            onAddPart: widget.onAddPart,
+            onShowOptions: widget.onShowOptions,
+          ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildHeader(BuildContext context) {
+class _QuoteHeaderSection extends StatelessWidget {
+  final Quote quote;
+
+  const _QuoteHeaderSection({required this.quote});
+
+  @override
+  Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.text;
-    final m = widget.quote.measurement;
+    final m = quote.measurement;
 
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.l),
@@ -82,12 +98,25 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       ),
     );
   }
+}
 
-  Widget _buildFabricsSection(BuildContext context) {
+class _QuoteFabricsSection extends StatelessWidget {
+  final Quote quote;
+  final bool showAllFabrics;
+  final VoidCallback onShowMore;
+
+  const _QuoteFabricsSection({
+    required this.quote,
+    required this.showAllFabrics,
+    required this.onShowMore,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final fabrics = widget.quote.fabrics;
+    final fabrics = quote.fabrics;
 
-    final displayCount = _showAllFabrics
+    final displayCount = showAllFabrics
         ? fabrics.length
         : (fabrics.length > 6 ? 4 : fabrics.length);
     final hiddenCount = fabrics.length - displayCount;
@@ -99,10 +128,10 @@ class _QuoteCardViewState extends State<QuoteCardView> {
         children: [
           SectionLabel(l10n.chat_quote_fabrics),
           const SizedBox(height: 8),
-          ...fabrics.take(displayCount).map((f) => _buildFabricRow(context, f)),
+          ...fabrics.take(displayCount).map((f) => _FabricRow(fabric: f)),
           if (hiddenCount > 0)
             TextButton(
-              onPressed: () => setState(() => _showAllFabrics = true),
+              onPressed: onShowMore,
               child: Text(l10n.chat_quote_more(hiddenCount)),
             ),
           const SizedBox(height: 16),
@@ -110,10 +139,18 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       ),
     );
   }
+}
 
-  Widget _buildFabricRow(BuildContext context, QuoteFabric f) {
+class _FabricRow extends StatelessWidget {
+  final QuoteFabric fabric;
+
+  const _FabricRow({required this.fabric});
+
+  @override
+  Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.text;
+    final f = fabric;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
@@ -185,8 +222,15 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       ),
     );
   }
+}
 
-  Widget _buildAccessoriesSection(BuildContext context) {
+class _QuoteAccessoriesSection extends StatelessWidget {
+  final Quote quote;
+
+  const _QuoteAccessoriesSection({required this.quote});
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final typography = context.text;
     final colors = context.colors;
@@ -198,7 +242,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
         children: [
           SectionLabel(l10n.chat_quote_accessories),
           const SizedBox(height: 8),
-          ...widget.quote.accessories.map((a) {
+          ...quote.accessories.map((a) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Row(
@@ -233,8 +277,15 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       ),
     );
   }
+}
 
-  Widget _buildServicesSection(BuildContext context) {
+class _QuoteServicesSection extends StatelessWidget {
+  final Quote quote;
+
+  const _QuoteServicesSection({required this.quote});
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final typography = context.text;
 
@@ -245,7 +296,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
         children: [
           SectionLabel(l10n.chat_quote_services),
           const SizedBox(height: 8),
-          ...widget.quote.services.map((s) {
+          ...quote.services.map((s) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Row(
@@ -270,9 +321,16 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       ),
     );
   }
+}
 
-  Widget _buildWarnings(BuildContext context) {
-    if (widget.quote.wasteWarnings.isEmpty) return const SizedBox.shrink();
+class _QuoteWarningsSection extends StatelessWidget {
+  final Quote quote;
+
+  const _QuoteWarningsSection({required this.quote});
+
+  @override
+  Widget build(BuildContext context) {
+    if (quote.wasteWarnings.isEmpty) return const SizedBox.shrink();
     final colors = context.colors;
     final typography = context.text;
 
@@ -280,7 +338,7 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: widget.quote.wasteWarnings.map((w) {
+        children: quote.wasteWarnings.map((w) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -298,8 +356,15 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       ),
     );
   }
+}
 
-  Widget _buildFormula(BuildContext context) {
+class _QuoteFormulaSection extends StatelessWidget {
+  final Quote quote;
+
+  const _QuoteFormulaSection({required this.quote});
+
+  @override
+  Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.text;
     final l10n = AppLocalizations.of(context)!;
@@ -321,14 +386,21 @@ class _QuoteCardViewState extends State<QuoteCardView> {
       ),
       children: [
         Text(
-          widget.quote.formula,
+          quote.formula,
           style: typography.bodyS.copyWith(color: colors.textSecondary),
         ),
       ],
     );
   }
+}
 
-  Widget _buildTotalSection(BuildContext context) {
+class _QuoteTotalSection extends StatelessWidget {
+  final Quote quote;
+
+  const _QuoteTotalSection({required this.quote});
+
+  @override
+  Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.text;
     final l10n = AppLocalizations.of(context)!;
@@ -342,13 +414,21 @@ class _QuoteCardViewState extends State<QuoteCardView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(l10n.chat_quote_total, style: typography.labelM),
-          MoneyText(amount: widget.quote.total, style: typography.displayM),
+          MoneyText(amount: quote.total, style: typography.displayM),
         ],
       ),
     );
   }
+}
 
-  Widget _buildActions(BuildContext context) {
+class _QuoteActionsSection extends StatelessWidget {
+  final VoidCallback? onAddPart;
+  final VoidCallback? onShowOptions;
+
+  const _QuoteActionsSection({this.onAddPart, this.onShowOptions});
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
     return Padding(
@@ -358,14 +438,14 @@ class _QuoteCardViewState extends State<QuoteCardView> {
           Expanded(
             child: AppButton.secondary(
               text: l10n.chat_quote_addPart,
-              onPressed: widget.onAddPart,
+              onPressed: onAddPart,
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: AppButton.secondary(
               text: l10n.chat_quote_showOptions,
-              onPressed: widget.onShowOptions,
+              onPressed: onShowOptions,
             ),
           ),
         ],

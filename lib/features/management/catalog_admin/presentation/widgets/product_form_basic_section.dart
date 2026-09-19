@@ -17,8 +17,6 @@ const List<String> _roomSuggestions = [
   'Kvartira',
 ];
 
-/// Mahsulotning asosiy maydonlari (nom, kod, tur, tavsif) va tavsiya
-/// etilgan xonalar chip'larini ko'rsatadi.
 class ProductFormBasicSection extends StatelessWidget {
   const ProductFormBasicSection({
     super.key,
@@ -40,6 +38,40 @@ class ProductFormBasicSection extends StatelessWidget {
       children: [
         ProductFormSectionTitle(text: context.l10n.management_productFormBasic),
         const SizedBox(height: AppSpacing.s),
+        _MainFields(state: state, isEnabled: isEnabled, onChanged: onChanged),
+        _DetailFields(state: state, isEnabled: isEnabled, onChanged: onChanged),
+        const SizedBox(height: AppSpacing.m),
+        Text(
+          context.l10n.management_productFormRecommendedRooms,
+          style: context.text.bodyM,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        _RecommendedRoomsView(
+          selectedRooms: state.recommendedRooms,
+          isEnabled: isEnabled,
+          onToggleRoom: onToggleRoom,
+        ),
+        const SizedBox(height: AppSpacing.l),
+      ],
+    );
+  }
+}
+
+class _MainFields extends StatelessWidget {
+  final ProductFormState state;
+  final bool isEnabled;
+  final void Function(String field, Object? value) onChanged;
+
+  const _MainFields({
+    required this.state,
+    required this.isEnabled,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
         AppTextField(
           hintText: context.l10n.management_productFormName,
           isEnabled: isEnabled,
@@ -72,6 +104,26 @@ class ProductFormBasicSection extends StatelessWidget {
           maxLines: 3,
         ),
         const SizedBox(height: AppSpacing.s),
+      ],
+    );
+  }
+}
+
+class _DetailFields extends StatelessWidget {
+  final ProductFormState state;
+  final bool isEnabled;
+  final void Function(String field, Object? value) onChanged;
+
+  const _DetailFields({
+    required this.state,
+    required this.isEnabled,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
         AppTextField(
           hintText: context.l10n.management_productFormFabricType,
           isEnabled: isEnabled,
@@ -99,27 +151,36 @@ class ProductFormBasicSection extends StatelessWidget {
           controller: TextEditingController(text: state.segment),
           onChanged: (v) => onChanged('segment', v),
         ),
-        const SizedBox(height: AppSpacing.m),
-        Text(
-          context.l10n.management_productFormRecommendedRooms,
-          style: context.text.bodyM,
-        ),
-        const SizedBox(height: AppSpacing.xs),
-        Wrap(
-          spacing: AppSpacing.s,
-          runSpacing: AppSpacing.xs,
-          children: [
-            for (final room in _roomSuggestions)
-              AppChip(
-                label: room,
-                state: state.recommendedRooms.contains(room)
-                    ? AppChipState.selected
-                    : AppChipState.unselected,
-                onTap: isEnabled ? () => onToggleRoom(room) : null,
-              ),
-          ],
-        ),
-        const SizedBox(height: AppSpacing.l),
+      ],
+    );
+  }
+}
+
+class _RecommendedRoomsView extends StatelessWidget {
+  final List<String> selectedRooms;
+  final bool isEnabled;
+  final ValueChanged<String> onToggleRoom;
+
+  const _RecommendedRoomsView({
+    required this.selectedRooms,
+    required this.isEnabled,
+    required this.onToggleRoom,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: AppSpacing.s,
+      runSpacing: AppSpacing.xs,
+      children: [
+        for (final room in _roomSuggestions)
+          AppChip(
+            label: room,
+            state: selectedRooms.contains(room)
+                ? AppChipState.selected
+                : AppChipState.unselected,
+            onTap: isEnabled ? () => onToggleRoom(room) : null,
+          ),
       ],
     );
   }

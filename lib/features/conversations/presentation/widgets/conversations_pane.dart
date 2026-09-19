@@ -23,13 +23,8 @@ import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/shared/widgets/section_label.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 
-/// Suhbatlar ro'yxati (qidiruv, filtr, sana guruhlari, arxivlash).
-/// Keng ekranlarda ConversationsScreen'ning chap paneli sifatida ham
-/// ishlatilishi mumkin (adaptive_shell bilan).
 class ConversationsPane extends ConsumerStatefulWidget {
   const ConversationsPane({super.key, this.clock});
-
-  /// Joriy vaqt manbai — testlarda (golden) barqarorlik uchun qotiriladi.
   final DateTime Function()? clock;
 
   @override
@@ -59,22 +54,6 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
     if (_scrollController.position.extentAfter < _loadMoreThreshold) {
       ref.read(conversationsProvider.notifier).loadMore();
     }
-  }
-
-  Future<bool?> _confirmArchive(BuildContext context, String id) async {
-    final l10n = AppLocalizations.of(context)!;
-    return showDialog<bool>(
-      context: context,
-      builder: (context) => AppDialog(
-        title: l10n.conversations_archiveDialogTitle,
-        content: l10n.conversations_archiveDialogMessage,
-        primaryActionText: l10n.conversations_archive,
-        secondaryActionText: l10n.common_cancel,
-        isDestructive: true,
-        onPrimaryAction: () => Navigator.of(context).pop(true),
-        onSecondaryAction: () => Navigator.of(context).pop(false),
-      ),
-    );
   }
 
   @override
@@ -133,19 +112,36 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
           ),
         ),
         const SizedBox(height: AppSpacing.l),
-        Expanded(child: _buildBody(context, l10n, state)),
+        Expanded(
+          child: _PaneBody(
+            state: state,
+            clock: widget.clock,
+            scrollController: _scrollController,
+          ),
+        ),
       ],
     );
   }
+}
 
-  Widget _buildBody(
-    BuildContext context,
-    AppLocalizations l10n,
-    ConversationsState state,
-  ) {
+class _PaneBody extends ConsumerWidget {
+  final ConversationsState state;
+  final DateTime Function()? clock;
+  final ScrollController scrollController;
+
+  const _PaneBody({
+    required this.state,
+    required this.clock,
+    required this.scrollController,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
     return state.maybeWhen(
-      initial: _buildLoading,
-      loading: (_, _) => _buildLoading(),
+      initial: () => const _PaneLoading(),
+      loading: (_, _) => const _PaneLoading(),
       error: (failure, _, _) => ErrorState(
         message: failure.localizedMessage(context),
         onRetry: ref.read(conversationsProvider.notifier).retry,
@@ -155,26 +151,62 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
         title: l10n.conversations_emptyTitle,
         message: l10n.conversations_emptyMessage,
       ),
-      loaded: (items, _, _, _, filterType) =>
-          _buildLoaded(context, l10n, items, filterType),
+      loaded: (items, _, _, _, filterType) => _PaneLoaded(
+        items: items,
+        filterType: filterType,
+        clock: clock,
+        scrollController: scrollController,
+      ),
       orElse: () => const SizedBox.shrink(),
     );
   }
+}
 
-  Widget _buildLoading() {
+class _PaneLoading extends StatelessWidget {
+  const _PaneLoading();
+
+  @override
+  Widget build(BuildContext context) {
     return const SkeletonList(
       padding: EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
       itemCount: 6,
       itemBuilder: SkeletonBox(height: 84),
     );
   }
+}
 
-  Widget _buildLoaded(
-    BuildContext context,
-    AppLocalizations l10n,
-    List<Conversation> items,
-    ConversationFilterType filterType,
-  ) {
+class _PaneLoaded extends ConsumerWidget {
+  final List<Conversation> items;
+  final ConversationFilterType filterType;
+  final DateTime Function()? clock;
+  final ScrollController scrollController;
+
+  const _PaneLoaded({
+    required this.items,
+    required this.filterType,
+    required this.clock,
+    required this.scrollController,
+  });
+
+  Future<bool?> _confirmArchive(BuildContext context, String id) async {
+    final l10n = AppLocalizations.of(context)!;
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AppDialog(
+        title: l10n.conversations_archiveDialogTitle,
+        content: l10n.conversations_archiveDialogMessage,
+        primaryActionText: l10n.conversations_archive,
+        secondaryActionText: l10n.common_cancel,
+        isDestructive: true,
+        onPrimaryAction: () => Navigator.of(context).pop(true),
+        onSecondaryAction: () => Navigator.of(context).pop(false),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final filtered = applyConversationFilter(items, filterType);
     if (filtered.isEmpty) {
       return EmptyState(
@@ -184,7 +216,7 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
       );
     }
 
-    final now = (widget.clock ?? DateTime.now)();
+    final now = (clock ?? DateTime.now)();
     final grouped = groupConversationsByDate(filtered, now: now);
     final entries = <_PaneEntry>[];
     for (final group in ConversationDateGroup.values) {
@@ -197,7 +229,7 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
     }
 
     return ListView.builder(
-      controller: _scrollController,
+      controller: scrollController,
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
       itemCount: entries.length,
       itemBuilder: (context, index) {
@@ -222,7 +254,7 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
             child: Dismissible(
               key: ValueKey(conversation.id),
               direction: DismissDirection.endToStart,
-              background: _archiveBackground(context),
+              background: const _ArchiveBackground(),
               confirmDismiss: (_) => _confirmArchive(context, conversation.id),
               onDismissed: (_) => unawaited(
                 ref
@@ -240,13 +272,6 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
       },
     );
   }
-
-  Widget _archiveBackground(BuildContext context) => Container(
-    color: context.colors.dangerSoft,
-    alignment: Alignment.centerRight,
-    padding: const EdgeInsets.fromLTRB(0, 0, AppSpacing.xl, 0),
-    child: Icon(AppIcons.inbox, color: context.colors.danger),
-  );
 
   String _headerLabel(BuildContext context, ConversationDateGroup group) {
     final l10n = AppLocalizations.of(context)!;
@@ -287,7 +312,20 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
   }
 }
 
-/// AppChip o'rnatmalarida davlatni saqlash uchun yordamchi
+class _ArchiveBackground extends StatelessWidget {
+  const _ArchiveBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: context.colors.dangerSoft,
+      alignment: Alignment.centerRight,
+      padding: const EdgeInsets.fromLTRB(0, 0, AppSpacing.xl, 0),
+      child: Icon(AppIcons.inbox, color: context.colors.danger),
+    );
+  }
+}
+
 class _FilterChip extends StatelessWidget {
   final String label;
   final bool isSelected;
@@ -309,7 +347,6 @@ class _FilterChip extends StatelessWidget {
   }
 }
 
-/// Ro'yxatdagi qatorlarni ListView uchun birlashtiruvchi yordamchi
 sealed class _PaneEntry {
   const _PaneEntry();
 }

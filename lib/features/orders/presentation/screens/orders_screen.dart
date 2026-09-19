@@ -32,13 +32,6 @@ class OrdersScreen extends ConsumerWidget {
     final colors = context.colors;
     final typography = context.text;
 
-    final filter = ref.watch(ordersListFilterProvider);
-    final listState = ref.watch(ordersListProvider);
-    final statusesState = ref.watch(orderStatusesProvider);
-    final draftCount = ref
-        .watch(draftOrdersCountProvider)
-        .maybeWhen(data: (count) => count, orElse: () => 0);
-
     return Scaffold(
       backgroundColor: colors.background,
       appBar: AppBar(
@@ -49,160 +42,187 @@ class OrdersScreen extends ConsumerWidget {
         backgroundColor: colors.surface,
         elevation: 0,
       ),
-      body: Column(
+      body: const Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(AppSpacing.screenH),
-            child: AppTextField(
-              type: AppTextFieldType.search,
-              hintText: 'Qidiruv (raqam, ism, telefon)',
-              onChanged: (val) {
-                ref
-                    .read(ordersListFilterProvider.notifier)
-                    .updateSearch(val.isEmpty ? null : val);
-              },
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: statusesState.when(
-              data: (statuses) {
-                return ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.screenH,
-                  ),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: statuses.length + 1,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: AppSpacing.s),
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      final isSelected = filter.status == null;
-                      return AppChip(
-                        label: 'Barchasi',
-                        state: isSelected
-                            ? AppChipState.selected
-                            : AppChipState.unselected,
-                        onTap: () => ref
-                            .read(ordersListFilterProvider.notifier)
-                            .updateStatus(null),
-                      );
-                    }
-                    final s = statuses[index - 1];
-                    final isSelected = filter.status == s.code;
-                    if (s.code == 'draft') {
-                      return AppCountChip(
-                        label: s.label,
-                        count: draftCount,
-                        isSelected: isSelected,
-                        onTap: () => ref
-                            .read(ordersListFilterProvider.notifier)
-                            .updateStatus(s.code),
-                      );
-                    }
-                    return AppChip(
-                      label: s.label,
-                      state: isSelected
-                          ? AppChipState.selected
-                          : AppChipState.unselected,
-                      onTap: () => ref
-                          .read(ordersListFilterProvider.notifier)
-                          .updateStatus(s.code),
-                    );
-                  },
-                );
-              },
-              loading: () => ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.screenH,
-                ),
-                scrollDirection: Axis.horizontal,
-                itemCount: 4,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(width: AppSpacing.s),
-                itemBuilder: (context, index) => const SkeletonBox(
-                  width: 80,
-                  height: 40,
-                  borderRadius: AppRadius.pill,
-                ),
-              ),
-              error: (err, _) =>
-                  Center(child: Text(context.l10n.errorLoadingStatuses)),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.m),
-          Expanded(
-            child: listState.when(
-              data: (pagingState) {
-                if (pagingState.items.isEmpty) {
-                  return EmptyState(
-                    title: 'Hali buyurtma yo\'q',
-                    message: 'Chatda hisob qilib, buyurtma yarating',
-                    icon: AppIcons.orders,
-                    actionText: 'Yangi suhbat',
-                    onAction: () {
-                      context.go(AppRoutes.chat);
-                    },
-                  );
-                }
-
-                return NotificationListener<ScrollNotification>(
-                  onNotification: (ScrollNotification scrollInfo) {
-                    if (scrollInfo.metrics.pixels ==
-                        scrollInfo.metrics.maxScrollExtent) {
-                      ref.read(ordersListProvider.notifier).loadMore();
-                    }
-                    return false;
-                  },
-                  child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.screenH,
-                      vertical: AppSpacing.s,
-                    ),
-                    itemCount:
-                        pagingState.items.length +
-                        (pagingState.hasMore ? 1 : 0),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: AppSpacing.m),
-                    itemBuilder: (context, index) {
-                      if (index == pagingState.items.length) {
-                        return const Padding(
-                          padding: EdgeInsets.all(AppSpacing.m),
-                          child: Center(
-                            child: SkeletonBox(
-                              width: 32,
-                              height: 32,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        );
-                      }
-                      final order = pagingState.items[index];
-                      return OrderCard(order: order);
-                    },
-                  ),
-                );
-              },
-              loading: () => ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.screenH,
-                  vertical: AppSpacing.s,
-                ),
-                itemCount: 5,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: AppSpacing.m),
-                itemBuilder: (context, index) => const SkeletonBox(
-                  width: double.infinity,
-                  height: 120,
-                  borderRadius: AppRadius.card,
-                ),
-              ),
-              error: (err, st) =>
-                  ErrorState(onRetry: () => ref.invalidate(ordersListProvider)),
-            ),
-          ),
+          _OrdersSearchField(),
+          _OrdersStatusChips(),
+          SizedBox(height: AppSpacing.m),
+          Expanded(child: _OrdersBody()),
         ],
       ),
+    );
+  }
+}
+
+class _OrdersSearchField extends ConsumerWidget {
+  const _OrdersSearchField();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.all(AppSpacing.screenH),
+      child: AppTextField(
+        type: AppTextFieldType.search,
+        hintText: 'Qidiruv (raqam, ism, telefon)',
+        onChanged: (val) {
+          ref
+              .read(ordersListFilterProvider.notifier)
+              .updateSearch(val.isEmpty ? null : val);
+        },
+      ),
+    );
+  }
+}
+
+class _OrdersStatusChips extends ConsumerWidget {
+  const _OrdersStatusChips();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filter = ref.watch(ordersListFilterProvider);
+    final statusesState = ref.watch(orderStatusesProvider);
+    final draftCount = ref
+        .watch(draftOrdersCountProvider)
+        .maybeWhen(data: (count) => count, orElse: () => 0);
+
+    return SizedBox(
+      height: 40,
+      child: statusesState.when(
+        data: (statuses) {
+          return ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
+            scrollDirection: Axis.horizontal,
+            itemCount: statuses.length + 1,
+            separatorBuilder: (context, index) =>
+                const SizedBox(width: AppSpacing.s),
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                final isSelected = filter.status == null;
+                return AppChip(
+                  label: 'Barchasi',
+                  state: isSelected
+                      ? AppChipState.selected
+                      : AppChipState.unselected,
+                  onTap: () => ref
+                      .read(ordersListFilterProvider.notifier)
+                      .updateStatus(null),
+                );
+              }
+              final s = statuses[index - 1];
+              final isSelected = filter.status == s.code;
+              if (s.code == 'draft') {
+                return AppCountChip(
+                  label: s.label,
+                  count: draftCount,
+                  isSelected: isSelected,
+                  onTap: () => ref
+                      .read(ordersListFilterProvider.notifier)
+                      .updateStatus(s.code),
+                );
+              }
+              return AppChip(
+                label: s.label,
+                state: isSelected
+                    ? AppChipState.selected
+                    : AppChipState.unselected,
+                onTap: () => ref
+                    .read(ordersListFilterProvider.notifier)
+                    .updateStatus(s.code),
+              );
+            },
+          );
+        },
+        loading: () => ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
+          scrollDirection: Axis.horizontal,
+          itemCount: 4,
+          separatorBuilder: (context, index) =>
+              const SizedBox(width: AppSpacing.s),
+          itemBuilder: (context, index) => const SkeletonBox(
+            width: 80,
+            height: 40,
+            borderRadius: AppRadius.pill,
+          ),
+        ),
+        error: (err, _) =>
+            Center(child: Text(context.l10n.errorLoadingStatuses)),
+      ),
+    );
+  }
+}
+
+class _OrdersBody extends ConsumerWidget {
+  const _OrdersBody();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listState = ref.watch(ordersListProvider);
+
+    return listState.when(
+      data: (pagingState) {
+        if (pagingState.items.isEmpty) {
+          return EmptyState(
+            title: 'Hali buyurtma yo\'q',
+            message: 'Chatda hisob qilib, buyurtma yarating',
+            icon: AppIcons.orders,
+            actionText: 'Yangi suhbat',
+            onAction: () {
+              context.go(AppRoutes.chat);
+            },
+          );
+        }
+
+        return NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification scrollInfo) {
+            if (scrollInfo.metrics.pixels ==
+                scrollInfo.metrics.maxScrollExtent) {
+              ref.read(ordersListProvider.notifier).loadMore();
+            }
+            return false;
+          },
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.screenH,
+              vertical: AppSpacing.s,
+            ),
+            itemCount: pagingState.items.length + (pagingState.hasMore ? 1 : 0),
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: AppSpacing.m),
+            itemBuilder: (context, index) {
+              if (index == pagingState.items.length) {
+                return const Padding(
+                  padding: EdgeInsets.all(AppSpacing.m),
+                  child: Center(
+                    child: SkeletonBox(
+                      width: 32,
+                      height: 32,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                );
+              }
+              final order = pagingState.items[index];
+              return OrderCard(order: order);
+            },
+          ),
+        );
+      },
+      loading: () => ListView.separated(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.screenH,
+          vertical: AppSpacing.s,
+        ),
+        itemCount: 5,
+        separatorBuilder: (context, index) =>
+            const SizedBox(height: AppSpacing.m),
+        itemBuilder: (context, index) => const SkeletonBox(
+          width: double.infinity,
+          height: 120,
+          borderRadius: AppRadius.card,
+        ),
+      ),
+      error: (err, st) =>
+          ErrorState(onRetry: () => ref.invalidate(ordersListProvider)),
     );
   }
 }

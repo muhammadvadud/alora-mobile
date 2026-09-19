@@ -141,20 +141,60 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
               children: [
-                _categoryChip(null, context.l10n.management_productsAll),
+                _CategoryChip(
+                  id: null,
+                  label: context.l10n.management_productsAll,
+                ),
                 for (final category in state.categories)
-                  _categoryChip(category.id, category.name),
+                  _CategoryChip(id: category.id, label: category.name),
               ],
             ),
           ),
           const SizedBox(height: AppSpacing.s),
-          Expanded(child: _buildList(context, state, notifier)),
+          Expanded(
+            child: _ProductList(
+              state: state,
+              notifier: notifier,
+              scrollController: _scrollController,
+              selectedIds: _selectedVariantIds,
+              onToggleSelection: (variant) {
+                setState(() {
+                  if (!_selectedVariantIds.remove(variant.id)) {
+                    _selectedVariantIds.add(variant.id);
+                  }
+                });
+              },
+              onToggleActive: _toggleActive,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _categoryChip(String? id, String label) {
+  Future<void> _openBulkSheet() async {
+    final variants = _selectedVariants;
+    if (variants.isEmpty) return;
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (context) => BulkPriceSheet(
+        selectedVariants: variants,
+        onSave: (dto) => _applyBulkPrice(dto),
+      ),
+    );
+  }
+}
+
+class _CategoryChip extends ConsumerWidget {
+  final String? id;
+  final String label;
+
+  const _CategoryChip({required this.id, required this.label});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(catalogProvider).categoryId == id;
     return Padding(
       padding: const EdgeInsets.only(right: AppSpacing.xs),
@@ -165,12 +205,27 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
       ),
     );
   }
+}
 
-  Widget _buildList(
-    BuildContext context,
-    CatalogState state,
-    CatalogNotifier notifier,
-  ) {
+class _ProductList extends StatelessWidget {
+  final CatalogState state;
+  final CatalogNotifier notifier;
+  final ScrollController scrollController;
+  final Set<String> selectedIds;
+  final void Function(ProductVariant) onToggleSelection;
+  final void Function(ProductVariant, bool) onToggleActive;
+
+  const _ProductList({
+    required this.state,
+    required this.notifier,
+    required this.scrollController,
+    required this.selectedIds,
+    required this.onToggleSelection,
+    required this.onToggleActive,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     if (state.error != null && state.products.isEmpty) {
       return ErrorState(
         title: context.l10n.management_productsLoadError,
@@ -200,7 +255,7 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
     }
 
     return ListView(
-      controller: _scrollController,
+      controller: scrollController,
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.l,
         AppSpacing.xs,
@@ -211,16 +266,10 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
         for (final product in state.products)
           _ProductSection(
             product: product,
-            selectedIds: _selectedVariantIds,
-            selectionMode: _selectedVariantIds.isNotEmpty,
-            onToggleSelection: (variant) {
-              setState(() {
-                if (!_selectedVariantIds.remove(variant.id)) {
-                  _selectedVariantIds.add(variant.id);
-                }
-              });
-            },
-            onToggleActive: _toggleActive,
+            selectedIds: selectedIds,
+            selectionMode: selectedIds.isNotEmpty,
+            onToggleSelection: onToggleSelection,
+            onToggleActive: onToggleActive,
           ),
         if (state.isLoadingMore)
           const Padding(
@@ -230,20 +279,6 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
             ),
           ),
       ],
-    );
-  }
-
-  Future<void> _openBulkSheet() async {
-    final variants = _selectedVariants;
-    if (variants.isEmpty) return;
-    await showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      builder: (context) => BulkPriceSheet(
-        selectedVariants: variants,
-        onSave: (dto) => _applyBulkPrice(dto),
-      ),
     );
   }
 }

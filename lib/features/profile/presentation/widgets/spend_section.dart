@@ -15,7 +15,6 @@ import 'package:alora_mobile/shared/widgets/limit_progress_bar.dart';
 import 'package:alora_mobile/shared/widgets/section_label.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 
-/// Bugungi sarf va limit bloki (S-25, 10.3).
 class SpendSection extends ConsumerWidget {
   const SpendSection({super.key});
 
@@ -84,7 +83,7 @@ class _SpendContent extends StatelessWidget {
     final todayCost = data.todayCost;
 
     if (limit == null) {
-      return _notSet(context);
+      return const _NotSetView();
     }
 
     if (limit.isUnlimited) {
@@ -116,7 +115,7 @@ class _SpendContent extends StatelessWidget {
 
     final maxCost = limit.maxCost;
     if (maxCost == null) {
-      return _notSet(context);
+      return const _NotSetView();
     }
 
     final fractionText = todayCost == null
@@ -152,8 +151,13 @@ class _SpendContent extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _notSet(BuildContext context) {
+class _NotSetView extends StatelessWidget {
+  const _NotSetView();
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colors = context.colors;
     return Column(

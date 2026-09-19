@@ -108,6 +108,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
             categoryId: state.categoryId,
             onSelect: (id) => ref.read(catalogProvider.notifier).selectCategory(id),
           ),
+          const SizedBox(height: AppSpacing.m),
           Expanded(
             child: _Body(state: state, scrollController: _scrollController),
           ),

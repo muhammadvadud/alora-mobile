@@ -613,5 +613,7 @@
   "chat_draft_customer": "Мижоз",
   "chat_draft_phone": "Телефон рақам",
   "chat_draft_address": "Манзил",
-  "chat_draft_missingFields": "Тўлдириш керак бўлган майдонлар"
+  "chat_draft_missingFields": "Тўлдириш керак бўлган майдонлар",
+  "common_delete": "Ўчириш",
+  "management_pricingTierRow": "{minAmount} сўм дан"
 }

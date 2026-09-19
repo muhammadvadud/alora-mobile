@@ -636,5 +636,7 @@
   "chat_draft_customer": "Клиент",
   "chat_draft_phone": "Номер телефона",
   "chat_draft_address": "Адрес",
-  "chat_draft_missingFields": "Поля, которые нужно заполнить"
+  "chat_draft_missingFields": "Поля, которые нужно заполнить",
+  "common_delete": "Удалить",
+  "management_pricingTierRow": "от {minAmount} сум"
 }

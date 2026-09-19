@@ -2658,6 +2658,18 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Gacha'**
   String get catalog_filterPriceTo;
+
+  /// No description provided for @common_delete.
+  ///
+  /// In uz, this message translates to:
+  /// **'O\'chirish'**
+  String get common_delete;
+
+  /// No description provided for @management_pricingTierRow.
+  ///
+  /// In uz, this message translates to:
+  /// **'{minAmount} so\'m dan'**
+  String management_pricingTierRow(String minAmount);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

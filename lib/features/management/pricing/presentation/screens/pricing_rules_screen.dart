@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
@@ -47,11 +49,14 @@ class PricingRulesScreen extends ConsumerWidget {
               ),
             )
           : state.error != null
-          ? Center(child: Text(state.error!))
+          ? ErrorState(message: state.error, onRetry: () => notifier.loadData())
           : RefreshIndicator(
               onRefresh: () => notifier.loadData(),
               child: ListView(
-                padding: const EdgeInsets.all(AppSpacing.m),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.screenH,
+                  vertical: AppSpacing.l,
+                ),
                 children: [
                   PricingSectionTitle(title: context.l10n.management_pricingCoefs),
                   PricingCoefficientsSection(rules: state.calcRules),
@@ -65,7 +70,7 @@ class PricingRulesScreen extends ConsumerWidget {
                   ),
                   if (state.discountPolicy != null) ...[
                     const SizedBox(height: AppSpacing.m),
-                    DiscountPolicyForm(policy: state.discountPolicy!),
+                    AppCard(child: DiscountPolicyForm(policy: state.discountPolicy!)),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       context.l10n.management_pricingPolicyHint,
@@ -76,7 +81,7 @@ class PricingRulesScreen extends ConsumerWidget {
 
                   PricingSectionTitle(title: context.l10n.management_pricingDefaultsTitle),
                   if (state.orderDefaults != null)
-                    OrderDefaultsSection(defaults: state.orderDefaults!),
+                    AppCard(child: OrderDefaultsSection(defaults: state.orderDefaults!)),
                 ],
               ),
             ),

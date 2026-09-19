@@ -1348,4 +1348,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get catalog_filterPriceTo => 'До';
+
+  @override
+  String get common_delete => 'Удалить';
+
+  @override
+  String management_pricingTierRow(String minAmount) {
+    return 'от $minAmount сум';
+  }
 }

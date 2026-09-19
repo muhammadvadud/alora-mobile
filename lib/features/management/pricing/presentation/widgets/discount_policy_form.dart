@@ -100,11 +100,13 @@ class _DiscountPolicyFormState extends ConsumerState<DiscountPolicyForm> {
           ],
         ),
         const SizedBox(height: AppSpacing.s),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.management_pricingStackWithTier, style: context.text.bodyM),
-          value: _stackWithTier,
-          onChanged: (v) => setState(() => _stackWithTier = v),
+        Row(
+          children: [
+            Expanded(
+              child: Text(context.l10n.management_pricingStackWithTier, style: context.text.bodyM),
+            ),
+            Switch(value: _stackWithTier, onChanged: (v) => setState(() => _stackWithTier = v)),
+          ],
         ),
         const SizedBox(height: AppSpacing.s),
         AppButton(

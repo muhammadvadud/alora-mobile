@@ -1348,6 +1348,14 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get catalog_filterPriceTo => 'Gacha';
+
+  @override
+  String get common_delete => 'O\'chirish';
+
+  @override
+  String management_pricingTierRow(String minAmount) {
+    return '$minAmount so\'m dan';
+  }
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -2623,4 +2631,12 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get catalog_filterPriceTo => 'Гача';
+
+  @override
+  String get common_delete => 'Ўчириш';
+
+  @override
+  String management_pricingTierRow(String minAmount) {
+    return '$minAmount сўм дан';
+  }
 }

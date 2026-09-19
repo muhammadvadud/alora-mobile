@@ -636,5 +636,8 @@
   "chat_start_kids_sub": "O'yin va qiziqarli",
   "chat_start_office_sub": "Sokin va ishchan",
   "catalog_filterPriceFrom": "Dan",
-  "catalog_filterPriceTo": "Gacha"
+  "catalog_filterPriceTo": "Gacha",
+  "common_delete": "O'chirish",
+  "management_pricingTierRow": "{minAmount} so'm dan",
+  "@management_pricingTierRow": {"placeholders": {"minAmount": {"type": "String"}}}
 }

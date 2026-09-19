@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
@@ -29,30 +30,26 @@ class ProductsManageProductSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.m),
-      padding: const EdgeInsets.all(AppSpacing.l),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(color: colors.borderSubtle, width: 1.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(product.name, style: context.text.titleS),
-          if (product.code.isNotEmpty)
-            Text(product.code, style: context.text.bodyS.copyWith(color: colors.textSecondary)),
-          if (product.variants.isNotEmpty) const Divider(height: AppSpacing.xl),
-          for (final variant in product.variants)
-            _VariantRow(
-              variant: variant,
-              selected: selectedIds.contains(variant.id),
-              selectionMode: selectionMode,
-              onToggleSelection: () => onToggleSelection(variant),
-              onToggleActive: (value) => onToggleActive(variant, value),
-            ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.m),
+      child: AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(product.name, style: context.text.titleS),
+            if (product.code.isNotEmpty)
+              Text(product.code, style: context.text.bodyS.copyWith(color: colors.textSecondary)),
+            if (product.variants.isNotEmpty) const Divider(height: AppSpacing.xl),
+            for (final variant in product.variants)
+              _VariantRow(
+                variant: variant,
+                selected: selectedIds.contains(variant.id),
+                selectionMode: selectionMode,
+                onToggleSelection: () => onToggleSelection(variant),
+                onToggleActive: (value) => onToggleActive(variant, value),
+              ),
+          ],
+        ),
       ),
     );
   }

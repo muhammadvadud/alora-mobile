@@ -7,6 +7,9 @@ import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
+import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/widgets/app_icon_button.dart';
 
 /// Chegirma bosqichlari jadvali. Qator qo'shish/o'chirish va qo'lda
 /// maksimal foiz sozlamasi uchun tugmalarni ko'rsatadi.
@@ -44,38 +47,29 @@ class DiscountTiersSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: DataTable(
-            headingRowHeight: 40,
-            dataRowMinHeight: 48,
-            dataRowMaxHeight: 48,
-            columns: [
-              DataColumn(label: Text(context.l10n.management_pricingTierMinAmount)),
-              DataColumn(numeric: true, label: Text(context.l10n.management_pricingTierPercent)),
-              const DataColumn(label: Text('')),
-            ],
-            rows: [
-              for (final t in tiers)
-                DataRow(
-                  cells: [
-                    DataCell(Text(formatMoney(t.minAmount))),
-                    DataCell(Text('${formatPercent(t.percent)}%')),
-                    DataCell(
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          icon: Icon(AppIcons.trash, size: 18, color: context.colors.danger),
-                          onPressed: () => onDelete(t.id),
-                        ),
-                      ),
+        AppCard.sections(
+          sections: [
+            for (final t in tiers)
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      context.l10n.management_pricingTierRow(formatMoney(t.minAmount)),
+                      style: context.text.titleS,
                     ),
-                  ],
-                ),
-            ],
-          ),
+                  ),
+                  Text('${formatPercent(t.percent)}%', style: context.text.bodyL),
+                  const SizedBox(width: AppSpacing.s),
+                  AppIconButton.muted(
+                    icon: AppIcons.trash,
+                    semanticLabel: context.l10n.common_delete,
+                    onPressed: () => onDelete(t.id),
+                  ),
+                ],
+              ),
+          ],
         ),
-        const SizedBox(height: AppSpacing.s),
+        const SizedBox(height: AppSpacing.m),
         AppButton.secondary(
           text: context.l10n.management_pricingAddTier,
           onPressed: () => _showAddTierDialog(context),
@@ -87,36 +81,36 @@ class DiscountTiersSection extends StatelessWidget {
   Future<void> _showAddTierDialog(BuildContext context) async {
     final minCtrl = TextEditingController();
     final pctCtrl = TextEditingController();
-    final result = await showDialog<bool>(
+    final result = await showModalBottomSheet<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(context.l10n.management_pricingAddTier),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppTextField(
-              controller: minCtrl,
-              type: AppTextFieldType.number,
-              hintText: context.l10n.management_pricingTierMinAmount,
-            ),
-            const SizedBox(height: AppSpacing.s),
-            AppTextField(
-              controller: pctCtrl,
-              type: AppTextFieldType.number,
-              hintText: context.l10n.management_pricingTierPercent,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+        child: AppBottomSheet(
+          title: context.l10n.management_pricingAddTier,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppTextField(
+                controller: minCtrl,
+                type: AppTextFieldType.number,
+                hintText: context.l10n.management_pricingTierMinAmount,
+              ),
+              const SizedBox(height: AppSpacing.m),
+              AppTextField(
+                controller: pctCtrl,
+                type: AppTextFieldType.number,
+                hintText: context.l10n.management_pricingTierPercent,
+              ),
+            ],
           ),
-          TextButton(
+          action: AppButton(
+            text: context.l10n.management_pricingTierSave,
             onPressed: () => Navigator.pop(context, true),
-            child: Text(context.l10n.management_pricingTierSave),
           ),
-        ],
+        ),
       ),
     );
     if (result != true) return;

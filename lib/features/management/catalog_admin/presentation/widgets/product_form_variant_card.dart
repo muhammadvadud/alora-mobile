@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/auth/application/auth_notifier.dart';
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
@@ -35,46 +35,47 @@ class ProductFormVariantCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.m),
-      padding: const EdgeInsets.all(AppSpacing.m),
-      decoration: BoxDecoration(
-        color: context.colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(color: context.colors.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _VariantHeader(index: index, variant: variant, isEnabled: isEnabled, onRemove: onRemove),
-          const SizedBox(height: AppSpacing.s),
-          _VariantBasicFields(
-            variant: variant,
-            isEnabled: isEnabled,
-            errors: errors,
-            index: index,
-            onChanged: onChanged,
-          ),
-          _VariantMetricsFields(
-            variant: variant,
-            isEnabled: isEnabled,
-            errors: errors,
-            index: index,
-            onChanged: onChanged,
-            ref: ref,
-          ),
-          const SizedBox(height: AppSpacing.s),
-          Material(
-            type: MaterialType.transparency,
-            child: SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              dense: true,
-              title: Text(context.l10n.management_productFormIsActive, style: context.text.bodyM),
-              value: variant.isActive ?? true,
-              onChanged: isEnabled ? (v) => onChanged('isActive', v) : null,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.m),
+      child: AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _VariantHeader(
+              index: index,
+              variant: variant,
+              isEnabled: isEnabled,
+              onRemove: onRemove,
             ),
-          ),
-        ],
+            const SizedBox(height: AppSpacing.s),
+            _VariantBasicFields(
+              variant: variant,
+              isEnabled: isEnabled,
+              errors: errors,
+              index: index,
+              onChanged: onChanged,
+            ),
+            _VariantMetricsFields(
+              variant: variant,
+              isEnabled: isEnabled,
+              errors: errors,
+              index: index,
+              onChanged: onChanged,
+              ref: ref,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                dense: true,
+                title: Text(context.l10n.management_productFormIsActive, style: context.text.bodyM),
+                value: variant.isActive ?? true,
+                onChanged: isEnabled ? (v) => onChanged('isActive', v) : null,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

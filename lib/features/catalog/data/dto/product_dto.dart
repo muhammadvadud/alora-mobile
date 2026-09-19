@@ -16,9 +16,13 @@ class ProductDto {
   final String code;
   final String? description;
   final String? fabricType;
+  @JsonKey(unknownEnumValue: ProductStyle.unknown)
   final ProductStyle style;
+  @JsonKey(unknownEnumValue: ProductPattern.unknown)
   final ProductPattern pattern;
+  @JsonKey(unknownEnumValue: ProductTransparency.unknown)
   final ProductTransparency transparency;
+  @JsonKey(unknownEnumValue: ProductDensity.unknown)
   final ProductDensity density;
   final String? composition;
   final String? care;
@@ -26,6 +30,7 @@ class ProductDto {
   final double? recommendedCoef;
   final double? defaultWidthM;
   final bool isSewingRequired;
+  @JsonKey(unknownEnumValue: ProductSegment.unknown)
   final ProductSegment segment;
   final List<String> tags;
   final int sortOrder;

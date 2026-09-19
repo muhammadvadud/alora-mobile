@@ -27,25 +27,41 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
       style: $checkedConvert(
         'style',
         (v) =>
-            $enumDecodeNullable(_$ProductStyleEnumMap, v) ??
+            $enumDecodeNullable(
+              _$ProductStyleEnumMap,
+              v,
+              unknownValue: ProductStyle.unknown,
+            ) ??
             ProductStyle.unknown,
       ),
       pattern: $checkedConvert(
         'pattern',
         (v) =>
-            $enumDecodeNullable(_$ProductPatternEnumMap, v) ??
+            $enumDecodeNullable(
+              _$ProductPatternEnumMap,
+              v,
+              unknownValue: ProductPattern.unknown,
+            ) ??
             ProductPattern.unknown,
       ),
       transparency: $checkedConvert(
         'transparency',
         (v) =>
-            $enumDecodeNullable(_$ProductTransparencyEnumMap, v) ??
+            $enumDecodeNullable(
+              _$ProductTransparencyEnumMap,
+              v,
+              unknownValue: ProductTransparency.unknown,
+            ) ??
             ProductTransparency.unknown,
       ),
       density: $checkedConvert(
         'density',
         (v) =>
-            $enumDecodeNullable(_$ProductDensityEnumMap, v) ??
+            $enumDecodeNullable(
+              _$ProductDensityEnumMap,
+              v,
+              unknownValue: ProductDensity.unknown,
+            ) ??
             ProductDensity.unknown,
       ),
       composition: $checkedConvert('composition', (v) => v as String?),
@@ -70,7 +86,11 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
       segment: $checkedConvert(
         'segment',
         (v) =>
-            $enumDecodeNullable(_$ProductSegmentEnumMap, v) ??
+            $enumDecodeNullable(
+              _$ProductSegmentEnumMap,
+              v,
+              unknownValue: ProductSegment.unknown,
+            ) ??
             ProductSegment.unknown,
       ),
       tags: $checkedConvert(

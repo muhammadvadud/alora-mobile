@@ -14,6 +14,7 @@ class ProductVariantDto {
   final String colorHex;
   final double widthM;
   final String price;
+  @JsonKey(unknownEnumValue: PriceUnit.unknown)
   final PriceUnit priceUnit;
   final String? oldPrice;
   final String? costPrice;

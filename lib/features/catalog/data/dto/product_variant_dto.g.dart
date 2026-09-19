@@ -26,7 +26,12 @@ ProductVariantDto _$ProductVariantDtoFromJson(Map<String, dynamic> json) =>
           priceUnit: $checkedConvert(
             'price_unit',
             (v) =>
-                $enumDecodeNullable(_$PriceUnitEnumMap, v) ?? PriceUnit.unknown,
+                $enumDecodeNullable(
+                  _$PriceUnitEnumMap,
+                  v,
+                  unknownValue: PriceUnit.unknown,
+                ) ??
+                PriceUnit.unknown,
           ),
           oldPrice: $checkedConvert('old_price', (v) => v as String?),
           costPrice: $checkedConvert('cost_price', (v) => v as String?),

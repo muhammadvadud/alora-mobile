@@ -1,4 +1,6 @@
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:alora_mobile/shared/widgets/empty_state.dart';
 
@@ -50,10 +52,10 @@ void main() {
 
     testWidgets('image ko\'rsatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const EmptyState(title: 'Sarlavha', image: Icon(Icons.image)).pumpApp(),
+        const EmptyState(title: 'Sarlavha', icon: LucideIcons.inbox).pumpApp(),
       );
 
-      expect(find.byIcon(Icons.image), findsOneWidget);
+      expect(find.byIcon(LucideIcons.inbox), findsOneWidget);
     });
   });
 }

@@ -191,7 +191,7 @@ class _Section extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: typography.overline.copyWith(color: colors.brass)),
+        Text(label, style: typography.overline.copyWith(color: colors.warning)),
         const SizedBox(height: AppSpacing.s),
         Wrap(spacing: AppSpacing.s, runSpacing: AppSpacing.s, children: children),
         const SizedBox(height: AppSpacing.l),

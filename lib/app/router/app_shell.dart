@@ -40,7 +40,7 @@ class AloraShell extends ConsumerWidget {
         icon: AppIcons.orders,
         activeIcon: AppIcons.orders,
         label: l10n.tab_orders,
-        badgeCount: draftCount,
+        hasBadge: draftCount > 0,
       ),
       AppTabBarItem(icon: AppIcons.catalog, activeIcon: AppIcons.catalog, label: l10n.tab_catalog),
     ];

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/app/theme/app_typography.dart';
-import 'package:alora_mobile/app/theme/app_radius.dart';
-import 'package:alora_mobile/app/theme/app_spacing.dart';
 
 class AppTabBarItem {
   final IconData icon;
   final IconData activeIcon;
   final String label;
-  final int? badgeCount;
+  final bool hasBadge;
 
   const AppTabBarItem({
     required this.icon,
     required this.activeIcon,
     required this.label,
-    this.badgeCount,
+    this.hasBadge = false,
   });
 }
 
@@ -37,10 +34,10 @@ class AppTabBar extends StatelessWidget {
     final bottomPadding = MediaQuery.paddingOf(context).bottom;
 
     return Container(
-      height: 62 + bottomPadding,
+      height: 56 + bottomPadding,
       padding: EdgeInsets.only(bottom: bottomPadding),
       decoration: BoxDecoration(
-        color: colors.surface,
+        color: colors.background,
         border: Border(top: BorderSide(color: colors.border, width: 1.0)),
       ),
       child: Row(
@@ -51,31 +48,22 @@ class AppTabBar extends StatelessWidget {
 
           final iconColor = isSelected ? colors.accent : colors.textSecondary;
           final icon = isSelected ? item.activeIcon : item.icon;
-          final textStyle = typography.tabLabel.copyWith(
-            color: iconColor,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-          );
+          final textStyle = typography.labelS.copyWith(color: iconColor);
 
           Widget iconWidget = Icon(icon, color: iconColor, size: 24);
 
-          if (item.badgeCount != null && item.badgeCount! > 0) {
+          if (item.hasBadge) {
             iconWidget = Stack(
               clipBehavior: Clip.none,
               children: [
                 iconWidget,
                 Positioned(
-                  top: -2,
-                  right: -4,
+                  top: 0,
+                  right: -2,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: colors.brass,
-                      borderRadius: AppRadius.badgeBorder,
-                    ),
-                    child: Text(
-                      item.badgeCount.toString(),
-                      style: typography.badgeLabel.copyWith(color: colors.onInverse).tabular,
-                    ),
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(color: colors.danger, shape: BoxShape.circle),
                   ),
                 ),
               ],
@@ -83,16 +71,21 @@ class AppTabBar extends StatelessWidget {
           }
 
           return Expanded(
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => onTap(index),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  iconWidget,
-                  const SizedBox(height: 4),
-                  Text(item.label, style: textStyle),
-                ],
+            child: Semantics(
+              button: true,
+              selected: isSelected,
+              label: item.label,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => onTap(index),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    iconWidget,
+                    const SizedBox(height: 2),
+                    Text(item.label, style: textStyle),
+                  ],
+                ),
               ),
             ),
           );

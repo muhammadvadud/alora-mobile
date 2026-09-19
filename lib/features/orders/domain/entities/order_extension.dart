@@ -12,7 +12,7 @@ extension OrderExtension on Order {
     if (difference.isNegative) {
       return colors.danger;
     } else if (difference.inDays <= 3) {
-      return colors.brass;
+      return colors.warning;
     }
 
     return null;

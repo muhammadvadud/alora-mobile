@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 
-enum AppButtonType { primary, secondary, text, destructive, dialogDestructive }
+enum AppButtonType { primary, secondary, text, destructive }
 
 class AppButton extends StatelessWidget {
   final String text;
@@ -11,6 +11,8 @@ class AppButton extends StatelessWidget {
   final AppButtonType type;
   final bool isLoading;
   final bool isEnabled;
+  final IconData? icon;
+  final bool filled;
 
   const AppButton({
     super.key,
@@ -19,6 +21,8 @@ class AppButton extends StatelessWidget {
     this.type = AppButtonType.primary,
     this.isLoading = false,
     this.isEnabled = true,
+    this.icon,
+    this.filled = false,
   });
 
   const AppButton.secondary({
@@ -27,7 +31,9 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     this.isLoading = false,
     this.isEnabled = true,
-  }) : type = AppButtonType.secondary;
+    this.icon,
+  }) : type = AppButtonType.secondary,
+       filled = false;
 
   const AppButton.text({
     super.key,
@@ -35,7 +41,9 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     this.isLoading = false,
     this.isEnabled = true,
-  }) : type = AppButtonType.text;
+  }) : type = AppButtonType.text,
+       icon = null,
+       filled = false;
 
   const AppButton.destructive({
     super.key,
@@ -43,23 +51,16 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     this.isLoading = false,
     this.isEnabled = true,
-  }) : type = AppButtonType.destructive;
-
-  const AppButton.dialogDestructive({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.isLoading = false,
-    this.isEnabled = true,
-  }) : type = AppButtonType.dialogDestructive;
+    this.filled = false,
+  }) : type = AppButtonType.destructive,
+       icon = null;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.text;
-
     final effectiveEnabled = isEnabled && !isLoading;
-    final style = _AppButtonStyle(type, effectiveEnabled, colors);
+    final style = _AppButtonStyle(type, effectiveEnabled, colors, filled);
 
     Widget content = Text(text, style: typography.labelL.copyWith(color: style.textColor));
 
@@ -69,8 +70,8 @@ class AppButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 14,
-            height: 14,
+            width: 16,
+            height: 16,
             child: CircularProgressIndicator(
               strokeWidth: 2,
               valueColor: AlwaysStoppedAnimation<Color>(style.textColor),
@@ -80,14 +81,25 @@ class AppButton extends StatelessWidget {
           content,
         ],
       );
+    } else if (icon != null) {
+      content = Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 20, color: style.textColor),
+          const SizedBox(width: 8),
+          content,
+        ],
+      );
     }
 
-    return SizedBox(
-      height: 48,
-      width: double.infinity,
-      child: Center(
+    return Semantics(
+      button: true,
+      enabled: effectiveEnabled,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2.0),
         child: SizedBox(
-          height: 46,
+          height: 44,
           width: double.infinity,
           child: TextButton(
             onPressed: effectiveEnabled ? onPressed : null,
@@ -95,10 +107,8 @@ class AppButton extends StatelessWidget {
               backgroundColor: WidgetStateProperty.all(style.backgroundColor),
               foregroundColor: WidgetStateProperty.all(style.textColor),
               overlayColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.pressed)) {
-                  return style.overlayColor;
-                }
-                return const Color.fromARGB(0, 0, 0, 0);
+                if (states.contains(WidgetState.pressed)) return style.overlayColor;
+                return Colors.transparent;
               }),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(borderRadius: AppRadius.pillBorder, side: style.borderSide),
@@ -119,40 +129,44 @@ class _AppButtonStyle {
   late BorderSide borderSide;
   late Color overlayColor;
 
-  _AppButtonStyle(AppButtonType type, bool enabled, AppColors colors) {
+  _AppButtonStyle(AppButtonType type, bool enabled, AppColors colors, bool filled) {
     borderSide = BorderSide.none;
-    overlayColor = const Color.fromARGB(0, 0, 0, 0);
+    overlayColor = Colors.transparent;
 
     switch (type) {
       case AppButtonType.primary:
-        backgroundColor = enabled ? colors.accent : colors.border;
+        backgroundColor = enabled ? colors.accent : colors.surfaceDisabled;
         textColor = enabled ? colors.onAccent : colors.textDisabled;
         overlayColor = colors.accentPressed;
         break;
       case AppButtonType.secondary:
         backgroundColor = enabled ? colors.surface : colors.surfaceDisabled;
         textColor = enabled ? colors.textPrimary : colors.textDisabled;
-        borderSide = BorderSide(color: enabled ? colors.border : colors.borderSubtle, width: 1.0);
+        borderSide = BorderSide(
+          color: enabled ? colors.border : colors.surfaceDisabled,
+          width: 1.0,
+        );
         overlayColor = colors.borderSubtle;
         break;
       case AppButtonType.text:
-        backgroundColor = const Color.fromARGB(0, 0, 0, 0);
-        textColor = enabled ? colors.accent : colors.textDisabled;
-        overlayColor = colors.accentSoft;
+        backgroundColor = Colors.transparent;
+        textColor = enabled ? colors.info : colors.textDisabled;
+        overlayColor = colors.infoSoft;
         break;
       case AppButtonType.destructive:
-        backgroundColor = enabled ? colors.surface : colors.surfaceDisabled;
-        textColor = enabled ? colors.danger : colors.textDisabled;
-        borderSide = BorderSide(
-          color: enabled ? colors.dangerSoft : colors.borderSubtle,
-          width: 1.0,
-        );
-        overlayColor = colors.dangerSoft;
-        break;
-      case AppButtonType.dialogDestructive:
-        backgroundColor = enabled ? colors.danger : colors.border;
-        textColor = enabled ? colors.onAccent : colors.textDisabled;
-        overlayColor = colors.dangerSoft;
+        if (filled) {
+          backgroundColor = enabled ? colors.danger : colors.surfaceDisabled;
+          textColor = enabled ? colors.onAccent : colors.textDisabled;
+          overlayColor = colors.dangerSoft;
+        } else {
+          backgroundColor = enabled ? colors.surface : colors.surfaceDisabled;
+          textColor = enabled ? colors.danger : colors.textDisabled;
+          borderSide = BorderSide(
+            color: enabled ? colors.border : colors.surfaceDisabled,
+            width: 1.0,
+          );
+          overlayColor = colors.dangerSoft;
+        }
         break;
     }
   }

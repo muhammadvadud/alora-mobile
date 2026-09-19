@@ -7,8 +7,15 @@ class UnitText extends StatelessWidget {
   final int amount;
   final PriceUnit unit;
   final TextStyle? style;
+  final TextStyle? suffixStyle;
 
-  const UnitText({super.key, required this.amount, required this.unit, this.style});
+  const UnitText({
+    super.key,
+    required this.amount,
+    required this.unit,
+    this.style,
+    this.suffixStyle,
+  });
 
   String _getSuffix(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -26,6 +33,11 @@ class UnitText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MoneyText(amount: amount, style: style, suffix: _getSuffix(context));
+    return MoneyText(
+      amount: amount,
+      style: style,
+      suffixStyle: suffixStyle,
+      suffix: _getSuffix(context),
+    );
   }
 }

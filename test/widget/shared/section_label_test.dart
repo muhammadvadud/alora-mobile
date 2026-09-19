@@ -8,7 +8,7 @@ void main() {
     testWidgets('SectionLabel matni katta harflarda ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(const SectionLabel('bo\'lim nomi').pumpApp());
 
-      expect(find.text('BO\'LIM NOMI'), findsOneWidget);
+      expect(find.text('bo\'lim nomi'), findsOneWidget);
     });
   });
 }

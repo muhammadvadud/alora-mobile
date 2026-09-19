@@ -119,7 +119,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
               Expanded(
                 child: Text(
                   rule.kind.toUpperCase(),
-                  style: context.text.labelM.copyWith(color: colors.brass, letterSpacing: 0.4),
+                  style: context.text.labelM.copyWith(color: colors.warning, letterSpacing: 0.4),
                 ),
               ),
               Switch(
@@ -187,7 +187,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
           ),
           SizedBox(
             width: 140,
-            child: AppButton.dialogDestructive(
+            child: AppButton.destructive(
               text: l10n.management_knowledgeRemove,
               onPressed: () => Navigator.pop(context, true),
             ),

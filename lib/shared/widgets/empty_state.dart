@@ -1,22 +1,24 @@
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
+import 'package:alora_mobile/app/l10n/app_localizations.dart';
 
 class EmptyState extends StatelessWidget {
-  final Widget? image;
-  final IconData? icon;
   final String title;
   final String? message;
+  final IconData? icon;
+  final Widget? image; // backward compatibility
   final String? actionText;
   final VoidCallback? onAction;
 
   const EmptyState({
     super.key,
-    this.image,
-    this.icon,
     required this.title,
     this.message,
+    this.icon,
+    this.image,
     this.actionText,
     this.onAction,
   });
@@ -25,35 +27,48 @@ class EmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.text;
+    final l10n = AppLocalizations.of(context)!;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxl, vertical: AppSpacing.xxl),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (image != null)
-            image!
-          else if (icon != null)
-            Icon(icon, size: 64, color: colors.border),
-          const SizedBox(height: AppSpacing.l),
-          Text(title, style: typography.displayM, textAlign: TextAlign.center),
-          if (message != null) ...[
-            const SizedBox(height: AppSpacing.s),
+    Widget graphic;
+    if (image != null) {
+      graphic = image!;
+    } else {
+      graphic = Icon(icon ?? LucideIcons.inbox, size: 48, color: colors.textDisabled);
+    }
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            graphic,
+            const SizedBox(height: AppSpacing.l),
             Text(
-              message!,
-              style: typography.bodyM.copyWith(color: colors.textSecondary),
+              title,
+              style: typography.titleM.copyWith(color: colors.textPrimary),
               textAlign: TextAlign.center,
             ),
+            if (message != null) ...[
+              const SizedBox(height: AppSpacing.s),
+              Text(
+                message!,
+                style: typography.bodyS.copyWith(color: colors.textSecondary),
+                textAlign: TextAlign.center,
+              ),
+            ],
+            if (onAction != null) ...[
+              const SizedBox(height: AppSpacing.xl),
+              SizedBox(
+                width: double.infinity,
+                child: AppButton.secondary(
+                  text: actionText ?? l10n.common_retry,
+                  onPressed: onAction,
+                ),
+              ),
+            ],
           ],
-          if (actionText != null && onAction != null) ...[
-            const SizedBox(height: AppSpacing.xl),
-            SizedBox(
-              width: 200,
-              child: AppButton(text: actionText!, onPressed: onAction),
-            ),
-          ],
-        ],
+        ),
       ),
     );
   }

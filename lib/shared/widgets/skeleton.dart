@@ -11,7 +11,7 @@ class SkeletonBox extends StatefulWidget {
     super.key,
     this.width,
     this.height,
-    this.borderRadius = 6.0, // 5-7
+    this.borderRadius = 12.0,
     this.shape = BoxShape.rectangle,
   });
 
@@ -37,7 +37,7 @@ class _SkeletonBoxState extends State<SkeletonBox> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    final baseColor = context.colors.borderSubtle;
+    final baseColor = context.colors.surfaceMuted;
     final highlightColor = baseColor.withValues(alpha: 0.5);
 
     return AnimatedBuilder(

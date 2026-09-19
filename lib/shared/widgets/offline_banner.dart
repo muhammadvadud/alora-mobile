@@ -13,8 +13,9 @@ class OfflineBanner extends StatelessWidget {
 
     return Container(
       width: double.infinity,
+      height: 40,
       color: colors.inverse,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      alignment: Alignment.center,
       child: Text(
         l10n.common_noInternet,
         style: typography.bodyS.copyWith(color: colors.onInverse),

@@ -1,7 +1,7 @@
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
-import 'package:alora_mobile/shared/icons/app_icons.dart';
 
 enum ToolChipState { running, done, error }
 
@@ -24,8 +24,8 @@ class ToolChip extends StatelessWidget {
     switch (state) {
       case ToolChipState.running:
         leading = SizedBox(
-          width: 10,
-          height: 10,
+          width: 14,
+          height: 14,
           child: CircularProgressIndicator(
             strokeWidth: 1.5,
             valueColor: AlwaysStoppedAnimation<Color>(colors.textSecondary),
@@ -33,49 +33,41 @@ class ToolChip extends StatelessWidget {
         );
         break;
       case ToolChipState.done:
-        leading = Container(
-          width: 6,
-          height: 6,
-          decoration: BoxDecoration(color: colors.accent, shape: BoxShape.circle),
-        );
+        leading = Icon(LucideIcons.check, size: 16, color: colors.textSecondary);
         trailing = Padding(
           padding: const EdgeInsets.only(left: 4.0),
-          child: Icon(AppIcons.chevronRight, size: 14, color: colors.textSecondary),
+          child: Icon(LucideIcons.chevronRight, size: 16, color: colors.textDisabled),
         );
         break;
       case ToolChipState.error:
-        leading = Container(
-          width: 6,
-          height: 6,
-          decoration: BoxDecoration(color: colors.danger, shape: BoxShape.circle),
-        );
+        leading = Icon(LucideIcons.alertCircle, size: 16, color: colors.danger);
         textColor = colors.danger;
         trailing = Padding(
           padding: const EdgeInsets.only(left: 4.0),
-          child: Icon(AppIcons.chevronRight, size: 14, color: colors.danger),
+          child: Icon(LucideIcons.chevronRight, size: 16, color: colors.textDisabled),
         );
         break;
     }
 
     final String displayText = state == ToolChipState.running ? '$text…' : text;
 
-    return GestureDetector(
-      onTap: state != ToolChipState.running ? onTap : null,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
-        decoration: BoxDecoration(
-          color: colors.surface,
-          borderRadius: AppRadius.pillBorder,
-          border: Border.all(color: colors.border, width: 1.0),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            leading,
-            const SizedBox(width: 6),
-            Text(displayText, style: typography.labelM.copyWith(color: textColor)),
-            trailing,
-          ],
+    return Semantics(
+      button: true,
+      label: displayText,
+      child: GestureDetector(
+        onTap: state != ToolChipState.running ? onTap : null,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(color: colors.surfaceMuted, borderRadius: AppRadius.pillBorder),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              leading,
+              const SizedBox(width: 6),
+              Text(displayText, style: typography.labelM.copyWith(color: textColor)),
+              trailing,
+            ],
+          ),
         ),
       ),
     );

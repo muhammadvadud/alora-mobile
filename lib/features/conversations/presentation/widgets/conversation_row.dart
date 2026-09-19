@@ -54,7 +54,7 @@ class ConversationRow extends StatelessWidget {
                 const SizedBox(width: AppSpacing.s),
                 MoneyText(
                   amount: amount,
-                  style: typography.labelM.copyWith(color: colors.brass),
+                  style: typography.labelM.copyWith(color: colors.warning),
                 ),
               ],
             ],
@@ -95,7 +95,7 @@ class _StageDot extends StatelessWidget {
     return switch (stage) {
       ConversationStage.need => context.colors.info,
       ConversationStage.recommend => context.colors.accent,
-      ConversationStage.measure => context.colors.brass,
+      ConversationStage.measure => context.colors.warning,
       ConversationStage.calc => context.colors.info,
       ConversationStage.variants => context.colors.accent,
       ConversationStage.order => context.colors.success,

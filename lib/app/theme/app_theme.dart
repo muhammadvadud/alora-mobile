@@ -32,7 +32,7 @@ class AppTheme {
       brightness: brightness,
       primary: colors.accent,
       onPrimary: colors.onAccent,
-      secondary: colors.brass,
+      secondary: colors.warning,
       onSecondary: colors.onInverse,
       error: colors.danger,
       onError: colors.onAccent,
@@ -44,26 +44,29 @@ class AppTheme {
       useMaterial3: true,
       brightness: brightness,
       scaffoldBackgroundColor: colors.background,
+      dividerColor: colors.border,
       colorScheme: colorScheme,
       extensions: [colors, typography],
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'Inter',
       appBarTheme: AppBarTheme(
         backgroundColor: colors.background,
         foregroundColor: colors.textPrimary,
         elevation: 0,
-        centerTitle: true,
+        surfaceTintColor: Colors.transparent,
+        toolbarHeight: 44,
+        centerTitle: false,
         titleTextStyle: typography.titleL.copyWith(color: colors.textPrimary),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: colors.surface,
+        fillColor: colors.surfaceMuted,
         border: OutlineInputBorder(
           borderRadius: AppRadius.inputBorder,
-          borderSide: BorderSide(color: colors.border, width: 1.0),
+          borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: AppRadius.inputBorder,
-          borderSide: BorderSide(color: colors.border, width: 1.0),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: AppRadius.inputBorder,
@@ -79,10 +82,10 @@ class AppTheme {
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: AppRadius.inputBorder,
-          borderSide: BorderSide(color: colors.border, width: 1.0),
+          borderSide: BorderSide.none,
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: 0),
-        hintStyle: typography.bodyM.copyWith(color: colors.textSecondary),
+        hintStyle: typography.bodyM.copyWith(color: colors.textDisabled),
         errorStyle: typography.labelS.copyWith(color: colors.danger),
       ),
       chipTheme: ChipThemeData(
@@ -123,7 +126,7 @@ class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: colors.surface,
         elevation: 0,
-        indicatorColor: colors.background, // we will customize the active tab in AppTabBar
+        indicatorColor: colors.background,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
             return typography.tabLabel.copyWith(color: colors.accent);

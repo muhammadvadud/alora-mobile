@@ -17,14 +17,14 @@ void main() {
       expect(decoration.color, AppColors.light.accent);
     });
 
-    testWidgets('80-99% progress brass rangda', (WidgetTester tester) async {
+    testWidgets('80-99% progress warning rangda', (WidgetTester tester) async {
       await tester.pumpWidget(const LimitProgressBar(progress: 0.9).pumpApp());
 
       final container = tester.widget<Container>(
         find.descendant(of: find.byType(FractionallySizedBox), matching: find.byType(Container)),
       );
       final decoration = container.decoration! as BoxDecoration;
-      expect(decoration.color, AppColors.light.brass);
+      expect(decoration.color, AppColors.light.warning);
     });
 
     testWidgets('100% progress danger rangda', (WidgetTester tester) async {

@@ -53,7 +53,11 @@ void main() {
                 const Text('2. Error State', textAlign: TextAlign.center),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: AppSpacing.l),
-                  child: ErrorState(message: 'Something went wrong', onRetry: () {}),
+                  child: ErrorState(
+                    message: 'Something went wrong',
+                    title: 'Xato',
+                    onAction: () {},
+                  ),
                 ),
                 const SizedBox(height: 20),
                 const Text('3. Empty State', textAlign: TextAlign.center),

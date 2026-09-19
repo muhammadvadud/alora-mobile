@@ -156,7 +156,7 @@ class FilterButton extends StatelessWidget {
             top: -4,
             child: Container(
               padding: const EdgeInsets.all(AppSpacing.xs),
-              decoration: BoxDecoration(color: colors.brass, shape: BoxShape.circle),
+              decoration: BoxDecoration(color: colors.warning, shape: BoxShape.circle),
               child: Text('$count', style: typography.badgeLabel.copyWith(color: colors.onAccent)),
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
+import 'package:alora_mobile/app/theme/app_shadows.dart';
 
 class AppBottomSheet extends StatelessWidget {
   final String title;
@@ -16,6 +17,11 @@ class AppBottomSheet extends StatelessWidget {
     final typography = context.text;
 
     return Container(
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: AppRadius.sheet,
+        boxShadow: AppShadows.lg,
+      ),
       padding: EdgeInsets.only(
         left: AppSpacing.l,
         right: AppSpacing.l,

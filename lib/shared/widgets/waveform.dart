@@ -13,7 +13,7 @@ class Waveform extends StatelessWidget {
     final colors = context.colors;
 
     // Waveform colors based on who is speaking
-    final activeColor = isAiSpeaking ? colors.brass : colors.accent;
+    final activeColor = isAiSpeaking ? colors.warning : colors.accent;
     final inactiveColor = colors.borderSubtle;
 
     // Pad or trim to exactly 24 bars

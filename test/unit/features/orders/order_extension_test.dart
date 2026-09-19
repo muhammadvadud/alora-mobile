@@ -28,9 +28,9 @@ void main() {
       expect(order.deadlineColor(colors), colors.danger);
     });
 
-    test('returns brass color when deadline is <= 3 days', () {
+    test('returns warning color when deadline is <= 3 days', () {
       final order = createOrder(DateTime.now().add(const Duration(days: 2)));
-      expect(order.deadlineColor(colors), colors.brass);
+      expect(order.deadlineColor(colors), colors.warning);
     });
 
     test('returns null when deadline is > 3 days', () {

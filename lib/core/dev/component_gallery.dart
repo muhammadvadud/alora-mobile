@@ -1,3 +1,4 @@
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/core/env.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
@@ -25,6 +26,12 @@ import 'package:alora_mobile/shared/widgets/product_card.dart';
 import 'package:alora_mobile/shared/models/product_card_data.dart';
 import 'package:alora_mobile/shared/widgets/app_tab_bar.dart';
 import 'package:alora_mobile/shared/widgets/waveform.dart';
+import 'package:alora_mobile/shared/widgets/app_icon_button.dart';
+import 'package:alora_mobile/shared/widgets/suggestion_chip.dart';
+import 'package:alora_mobile/shared/widgets/app_radio.dart';
+import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
+import 'package:alora_mobile/shared/widgets/scroll_down_button.dart';
+
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 
@@ -108,7 +115,7 @@ class ComponentGallery extends StatelessWidget {
             const SizedBox(height: 8),
             const ColorDot(colorHex: '0E5751'),
             const SizedBox(height: 8),
-            const LetterAvatar(name: 'Aziza'),
+            const LetterAvatar(text: 'Aziza'),
             const SizedBox(height: 8),
             const SectionLabel('Matolar'),
           ]),
@@ -136,6 +143,37 @@ class ComponentGallery extends StatelessWidget {
               ),
             ],
           ]),
+
+          _buildSection('AppIconButton & AppRadio & SuggestionChip', [
+            Row(
+              children: [
+                AppIconButton.muted(
+                  icon: LucideIcons.mic,
+                  onPressed: () {},
+                  semanticLabel: 'Muted',
+                ),
+                const SizedBox(width: 16),
+                AppIconButton.accent(
+                  icon: LucideIcons.arrowUp,
+                  onPressed: () {},
+                  semanticLabel: 'Accent',
+                ),
+                const SizedBox(width: 16),
+                AppRadio(isSelected: false, onTap: () {}),
+                const SizedBox(width: 16),
+                AppRadio(isSelected: true, onTap: () {}),
+                const SizedBox(width: 16),
+                ScrollDownButton(onPressed: () {}),
+              ],
+            ),
+            const SizedBox(height: 16),
+            SuggestionChip(title: 'Sample title', subtitle: 'Sample subtitle', onTap: () {}),
+          ]),
+          _buildSection('AppListTile', [
+            AppListTile(title: 'List Title', subtitle: 'List subtitle', onTap: () {}),
+            AppListTile(title: 'List Title No Subtitle', onTap: () {}),
+          ]),
+
           _buildSection('States', [
             const OfflineBanner(),
             const SizedBox(height: 16),
@@ -154,7 +192,7 @@ class ComponentGallery extends StatelessWidget {
             Container(
               height: 300,
               decoration: BoxDecoration(border: Border.all(color: context.colors.border)),
-              child: ErrorState(onRetry: () {}),
+              child: ErrorState(title: 'Xatolik', onAction: () {}),
             ),
           ]),
           _buildSection('ProductCard', [
@@ -211,7 +249,7 @@ class ComponentGallery extends StatelessWidget {
                   icon: AppIcons.orders,
                   activeIcon: AppIcons.orders,
                   label: 'Buyurtmalar',
-                  badgeCount: 3,
+                  hasBadge: true,
                 ),
               ],
             ),

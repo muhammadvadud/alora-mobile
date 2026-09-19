@@ -2,20 +2,15 @@ import 'package:flutter/material.dart';
 
 class AppRadius {
   static const double pill = 999.0;
-  static const double card = 16.0;
-  static const double input = 12.0;
-  static const double avatar = 11.0;
-  static const BorderRadius bubble = BorderRadius.only(
-    topLeft: Radius.circular(20),
-    topRight: Radius.circular(20),
-    bottomLeft: Radius.circular(8),
-    bottomRight: Radius.circular(20),
-  );
+  static const double card = 20.0;
+  static const double input = 16.0;
+  static const double avatar = 8.0;
+  static const BorderRadius bubble = BorderRadius.all(Radius.circular(pill));
   static const BorderRadius sheet = BorderRadius.only(
     topLeft: Radius.circular(20),
     topRight: Radius.circular(20),
   );
-  static const double small = 4.0;
+  static const double small = 8.0;
 
   static final BorderRadius pillBorder = BorderRadius.circular(pill);
   static final BorderRadius cardBorder = BorderRadius.circular(card);

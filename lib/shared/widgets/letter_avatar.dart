@@ -1,29 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/app/theme/app_radius.dart';
 
 class LetterAvatar extends StatelessWidget {
-  final String name;
+  final String text;
+  final String? name;
+  final double size;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
 
-  const LetterAvatar({super.key, required this.name});
-
-  String _getLetter() {
-    if (name.isEmpty) return '?';
-    return name.trimLeft()[0].toUpperCase();
-  }
+  const LetterAvatar({
+    super.key,
+    this.text = '',
+    this.name,
+    this.size = 40,
+    this.backgroundColor,
+    this.foregroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final typography = context.text;
+
+    final effectiveText = name ?? text;
+
+    final String initial = effectiveText.trim().isNotEmpty
+        ? effectiveText.trim()[0].toUpperCase()
+        : '?';
 
     return Container(
-      width: 36,
-      height: 36,
-      decoration: BoxDecoration(color: colors.accent, borderRadius: AppRadius.avatarBorder),
+      width: size,
+      height: size,
+      decoration: BoxDecoration(color: backgroundColor ?? colors.inverse, shape: BoxShape.circle),
       alignment: Alignment.center,
       child: Text(
-        _getLetter(),
-        style: context.text.bodyL.copyWith(fontWeight: FontWeight.w600, color: colors.onAccent),
+        initial,
+        style: typography.labelM.copyWith(color: foregroundColor ?? colors.onInverse),
       ),
     );
   }

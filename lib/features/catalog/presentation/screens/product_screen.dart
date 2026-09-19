@@ -128,7 +128,7 @@ class _ProductContent extends StatelessWidget {
       children: [
         ProductGallery(images: images),
         const SizedBox(height: AppSpacing.m),
-        Text(categoryLabel, style: typography.overline.copyWith(color: colors.brass)),
+        Text(categoryLabel, style: typography.overline.copyWith(color: colors.warning)),
         const SizedBox(height: AppSpacing.xs),
         Text(product.name, style: typography.titleL),
         const SizedBox(height: AppSpacing.s),

@@ -104,7 +104,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
             onPressed: () => Navigator.pop(dialogContext, false),
             child: Text(dialogContext.l10n.common_cancel),
           ),
-          AppButton.dialogDestructive(
+          AppButton.destructive(
             text: dialogContext.l10n.management_productFormRemoveVariant,
             onPressed: () => Navigator.pop(dialogContext, true),
           ),

@@ -17,6 +17,7 @@ String _defaultMoneyFormatter(int amount) {
 class MoneyText extends StatelessWidget {
   final int amount;
   final TextStyle? style;
+  final TextStyle? suffixStyle;
   final String Function(int) formatter;
   final String suffix;
 
@@ -24,13 +25,16 @@ class MoneyText extends StatelessWidget {
     super.key,
     required this.amount,
     this.style,
+    this.suffixStyle,
     this.formatter = _defaultMoneyFormatter,
     this.suffix = " so'm",
   });
 
   @override
   Widget build(BuildContext context) {
-    final effectiveStyle = style ?? context.text.bodyM;
+    final effectiveStyle = style ?? context.text.bodyL;
+    final effectiveSuffixStyle =
+        suffixStyle ?? context.text.bodyS.copyWith(color: context.colors.textSecondary);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -38,7 +42,7 @@ class MoneyText extends StatelessWidget {
       textBaseline: TextBaseline.alphabetic,
       children: [
         Text(formatter(amount), style: effectiveStyle.tabular),
-        Text(suffix, style: effectiveStyle.copyWith(color: context.colors.textSecondary)),
+        Text(suffix, style: effectiveSuffixStyle),
       ],
     );
   }

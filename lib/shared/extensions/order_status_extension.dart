@@ -34,13 +34,13 @@ extension OrderStatusExtension on OrderStatus {
       case OrderStatus.confirmed:
         return colors.info;
       case OrderStatus.measuring:
-        return colors.brass;
+        return colors.warning;
       case OrderStatus.production:
         return colors.accent;
       case OrderStatus.ready:
         return colors.success;
       case OrderStatus.installing:
-        return colors.brass; // or another color
+        return colors.warning; // or another color
       case OrderStatus.completed:
         return colors.success;
       case OrderStatus.cancelled:

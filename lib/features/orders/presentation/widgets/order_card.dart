@@ -217,6 +217,6 @@ Color _getDeadlineColor(DateTime? date, AppColors colors) {
   final now = DateTime.now();
   final diff = date.difference(now).inDays;
   if (diff < 0) return colors.danger;
-  if (diff <= 3) return colors.brass;
+  if (diff <= 3) return colors.warning;
   return colors.textSecondary;
 }

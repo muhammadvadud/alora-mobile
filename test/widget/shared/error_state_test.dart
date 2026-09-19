@@ -7,20 +7,20 @@ import '../../helpers/pump_app.dart';
 void main() {
   group('ErrorState Widget Testlari', () {
     testWidgets('default sarlavha ko\'rsatiladi', (WidgetTester tester) async {
-      await tester.pumpWidget(ErrorState(onRetry: () {}).pumpApp());
+      await tester.pumpWidget(ErrorState(title: 'Xato', onAction: () {}).pumpApp());
 
-      expect(find.text('Xatolik yuz berdi'), findsOneWidget);
+      expect(find.text('Xato'), findsOneWidget);
     });
 
     testWidgets('maxsus sarlavha ko\'rsatiladi', (WidgetTester tester) async {
-      await tester.pumpWidget(ErrorState(title: 'Tarmoq xatosi', onRetry: () {}).pumpApp());
+      await tester.pumpWidget(ErrorState(title: 'Tarmoq xatosi', onAction: () {}).pumpApp());
 
       expect(find.text('Tarmoq xatosi'), findsOneWidget);
     });
 
     testWidgets('matn ko\'rsatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        ErrorState(message: 'Internetni tekshiring', onRetry: () {}).pumpApp(),
+        ErrorState(message: 'Internetni tekshiring', title: 'Xato', onAction: () {}).pumpApp(),
       );
 
       expect(find.text('Internetni tekshiring'), findsOneWidget);
@@ -33,7 +33,8 @@ void main() {
 
       await tester.pumpWidget(
         ErrorState(
-          onRetry: () {
+          title: 'Xato',
+          onAction: () {
             retryCalled = true;
           },
         ).pumpApp(),
@@ -46,7 +47,7 @@ void main() {
     });
 
     testWidgets('xatolik ikonkasi ko\'rsatiladi', (WidgetTester tester) async {
-      await tester.pumpWidget(ErrorState(onRetry: () {}).pumpApp());
+      await tester.pumpWidget(ErrorState(title: 'Xato', onAction: () {}).pumpApp());
 
       expect(find.byType(Icon), findsWidgets);
     });

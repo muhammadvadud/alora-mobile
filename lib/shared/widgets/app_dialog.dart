@@ -34,7 +34,7 @@ class AppDialog extends StatelessWidget {
           children: [
             Text(title, style: context.text.titleM),
             const SizedBox(height: AppSpacing.s),
-            Text(content, style: context.text.bodyS.copyWith(color: context.colors.textSecondary)),
+            Text(content, style: context.text.bodyL.copyWith(color: context.colors.textSecondary)),
             const SizedBox(height: AppSpacing.xl),
             Row(
               children: [
@@ -52,7 +52,8 @@ class AppDialog extends StatelessWidget {
                   child: SizedBox(
                     height: 44,
                     child: isDestructive
-                        ? AppButton.dialogDestructive(
+                        ? AppButton.destructive(
+                            filled: true,
                             text: primaryActionText,
                             onPressed: onPrimaryAction,
                           )

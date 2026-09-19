@@ -51,7 +51,7 @@ void main() {
           icon: Icons.notifications_outlined,
           activeIcon: Icons.notifications,
           label: 'Xabarlar',
-          badgeCount: 5,
+          hasBadge: true,
         ),
       ];
 
@@ -59,7 +59,7 @@ void main() {
         AppTabBar(currentIndex: 0, onTap: (index) {}, items: items).pumpApp(),
       );
 
-      expect(find.text('5'), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
   });
 }

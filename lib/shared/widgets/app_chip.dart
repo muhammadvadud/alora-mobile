@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/app/theme/app_typography.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 
 enum AppChipState { unselected, selected, categorySelected }
@@ -17,52 +16,45 @@ class AppChip extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
 
-    Color backgroundColor;
+    Color bgColor;
     Color textColor;
-    BorderSide borderSide;
-    TextStyle textStyle = typography.bodyS;
+    final BorderSide borderSide = BorderSide.none;
+    BorderRadius radius = AppRadius.pillBorder;
+    final TextStyle textStyle = typography.labelM;
 
     switch (state) {
       case AppChipState.unselected:
-        backgroundColor = colors.surface;
+        bgColor = colors.surfaceMuted;
         textColor = colors.textPrimary;
-        borderSide = BorderSide(color: colors.border, width: 1.0);
         break;
       case AppChipState.selected:
-        backgroundColor = colors.inverse;
+        bgColor = colors.inverse;
         textColor = colors.onInverse;
-        borderSide = BorderSide.none;
-        textStyle = typography.bodyS.copyWith(fontWeight: FontWeight.w600);
         break;
       case AppChipState.categorySelected:
-        backgroundColor = colors.accentSoft;
-        textColor = colors.accent;
-        borderSide = BorderSide(color: colors.accent, width: 1.0);
+        bgColor = colors.info;
+        textColor = Colors.white;
+        radius = AppRadius.inputBorder;
         break;
     }
 
     return Semantics(
       button: true,
+      selected: state == AppChipState.selected || state == AppChipState.categorySelected,
       label: label,
-      child: GestureDetector(
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        // 48 dp bosish maydoni (§7.3), lekin kenglik faqat matn bo'yicha —
-        // Wrap ichida chip'lar gorizontal qoladi (dizayn 1b).
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
-          child: Center(
-            widthFactor: 1,
-            heightFactor: 1,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: AppRadius.pillBorder,
-                border: state == AppChipState.selected ? null : Border.fromBorderSide(borderSide),
-              ),
-              child: Text(label, style: textStyle.copyWith(color: textColor)),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: radius,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: radius,
+              border: borderSide == BorderSide.none ? null : Border.fromBorderSide(borderSide),
             ),
+            child: Text(label, style: textStyle.copyWith(color: textColor)),
           ),
         ),
       ),
@@ -89,58 +81,29 @@ class AppCountChip extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
 
-    Color backgroundColor;
-    Color textColor;
-    BorderSide borderSide;
-    TextStyle textStyle = typography.bodyS;
-
-    if (isSelected) {
-      backgroundColor = colors.inverse;
-      textColor = colors.onInverse;
-      borderSide = BorderSide.none;
-      textStyle = typography.bodyS.copyWith(fontWeight: FontWeight.w600);
-    } else {
-      backgroundColor = colors.surface;
-      textColor = colors.textPrimary;
-      borderSide = BorderSide(color: colors.border, width: 1.0);
-    }
+    final bgColor = isSelected ? colors.inverse : colors.surfaceMuted;
+    final textColor = isSelected ? colors.onInverse : colors.textPrimary;
+    final countColor = isSelected ? colors.onInverse : colors.textSecondary;
 
     return Semantics(
       button: true,
+      selected: isSelected,
       label: '$label, $count',
-      child: GestureDetector(
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        // 48 dp bosish maydoni (§7.3), lekin kenglik faqat matn bo'yicha —
-        // Wrap ichida chip'lar gorizontal qoladi (dizayn 1b).
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
-          child: Center(
-            widthFactor: 1,
-            heightFactor: 1,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: AppRadius.pillBorder,
-                border: isSelected ? null : Border.fromBorderSide(borderSide),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(label, style: textStyle.copyWith(color: textColor)),
-                  const SizedBox(width: 4),
-                  Text(
-                    count.toString(),
-                    style: typography.bodyS
-                        .copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: isSelected ? colors.onInverse : colors.brass,
-                        )
-                        .tabular,
-                  ),
-                ],
-              ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: AppRadius.pillBorder,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(color: bgColor, borderRadius: AppRadius.pillBorder),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(label, style: typography.labelM.copyWith(color: textColor)),
+                const SizedBox(width: 4),
+                Text(count.toString(), style: typography.labelM.copyWith(color: countColor)),
+              ],
             ),
           ),
         ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/shared/icons/app_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 enum AppTextFieldType { text, password, number, search, multiline }
 
 class AppTextField extends StatefulWidget {
+  final String? label;
   final String? hintText;
   final String? errorText;
   final bool isEnabled;
@@ -15,6 +16,7 @@ class AppTextField extends StatefulWidget {
 
   const AppTextField({
     super.key,
+    this.label,
     this.hintText,
     this.errorText,
     this.isEnabled = true,
@@ -34,6 +36,51 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final typography = context.text;
+
+    final innerField = _InnerTextField(
+      widget: widget,
+      obscureText: _obscureText,
+      onToggleObscure: () {
+        setState(() {
+          _obscureText = !_obscureText;
+        });
+      },
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (widget.label != null) ...[
+          Text(widget.label!, style: typography.labelS.copyWith(color: colors.textSecondary)),
+          const SizedBox(height: 6),
+        ],
+        innerField,
+        if (widget.errorText != null) ...[
+          const SizedBox(height: 4),
+          Text(widget.errorText!, style: typography.labelS.copyWith(color: colors.danger)),
+        ],
+      ],
+    );
+  }
+}
+
+class _InnerTextField extends StatelessWidget {
+  final AppTextField widget;
+  final bool obscureText;
+  final VoidCallback onToggleObscure;
+
+  const _InnerTextField({
+    required this.widget,
+    required this.obscureText,
+    required this.onToggleObscure,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typography = context.text;
 
     Widget? suffixIcon;
     Widget? prefixIcon;
@@ -41,45 +88,32 @@ class _AppTextFieldState extends State<AppTextField> {
     if (widget.type == AppTextFieldType.password) {
       suffixIcon = IconButton(
         icon: Icon(
-          _obscureText ? AppIcons.eye : AppIcons.eyeOff,
+          obscureText ? LucideIcons.eye : LucideIcons.eyeOff,
           color: colors.textSecondary,
           size: 20,
         ),
-        onPressed: () {
-          setState(() {
-            _obscureText = !_obscureText;
-          });
-        },
+        onPressed: onToggleObscure,
       );
     } else if (widget.type == AppTextFieldType.search) {
-      prefixIcon = Icon(AppIcons.search, color: colors.textSecondary, size: 20);
+      prefixIcon = Icon(LucideIcons.search, color: colors.textSecondary, size: 20);
     }
 
     final int effectiveMaxLines = widget.type == AppTextFieldType.multiline
         ? (widget.maxLines ?? 4)
         : 1;
     final bool effectiveObscureText = widget.type == AppTextFieldType.password
-        ? _obscureText
+        ? obscureText
         : false;
     TextInputType keyboardType = TextInputType.text;
 
-    switch (widget.type) {
-      case AppTextFieldType.number:
-        keyboardType = const TextInputType.numberWithOptions(decimal: true);
-        break;
-      case AppTextFieldType.multiline:
-        keyboardType = TextInputType.multiline;
-        break;
-      case AppTextFieldType.search:
-      case AppTextFieldType.text:
-      case AppTextFieldType.password:
-        break;
+    if (widget.type == AppTextFieldType.number) {
+      keyboardType = const TextInputType.numberWithOptions(decimal: true);
+    } else if (widget.type == AppTextFieldType.multiline) {
+      keyboardType = TextInputType.multiline;
     }
 
     return SizedBox(
-      height: widget.type == AppTextFieldType.multiline
-          ? null
-          : (widget.errorText != null ? 64 : 46),
+      height: widget.type == AppTextFieldType.multiline ? null : 44,
       child: TextField(
         controller: widget.controller,
         enabled: widget.isEnabled,
@@ -88,16 +122,16 @@ class _AppTextFieldState extends State<AppTextField> {
         maxLines: effectiveMaxLines,
         minLines: widget.type == AppTextFieldType.multiline ? 1 : null,
         onChanged: widget.onChanged,
-        style: context.text.bodyM.copyWith(
+        style: typography.bodyL.copyWith(
           color: widget.isEnabled ? colors.textPrimary : colors.textDisabled,
         ),
         decoration: InputDecoration(
           hintText: widget.hintText,
-          errorText: widget.errorText,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
-          fillColor: widget.isEnabled ? colors.surface : colors.surfaceDisabled,
-          // Other properties are defined in AppTheme inputDecorationTheme
+          fillColor: widget.isEnabled ? colors.surfaceMuted : colors.surfaceDisabled,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+          errorStyle: const TextStyle(height: 0, fontSize: 0),
         ),
       ),
     );

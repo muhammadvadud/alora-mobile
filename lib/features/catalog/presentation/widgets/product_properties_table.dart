@@ -38,7 +38,7 @@ class ProductPropertiesTable extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.product_properties, style: typography.overline.copyWith(color: colors.brass)),
+        Text(l10n.product_properties, style: typography.overline.copyWith(color: colors.warning)),
         const SizedBox(height: AppSpacing.s),
         for (final (label, value) in rows) ...[
           Padding(

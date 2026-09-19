@@ -15,10 +15,10 @@ void main() {
 
       expect(OrderStatus.draft.color(colors), colors.textSecondary);
       expect(OrderStatus.confirmed.color(colors), colors.info);
-      expect(OrderStatus.measuring.color(colors), colors.brass);
+      expect(OrderStatus.measuring.color(colors), colors.warning);
       expect(OrderStatus.production.color(colors), colors.accent);
       expect(OrderStatus.ready.color(colors), colors.success);
-      expect(OrderStatus.installing.color(colors), colors.brass);
+      expect(OrderStatus.installing.color(colors), colors.warning);
       expect(OrderStatus.completed.color(colors), colors.success);
       expect(OrderStatus.cancelled.color(colors), colors.danger);
       expect(OrderStatus.unknown.color(colors), colors.textDisabled);

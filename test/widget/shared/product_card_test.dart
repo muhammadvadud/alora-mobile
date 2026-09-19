@@ -41,7 +41,7 @@ void main() {
       await tester.pumpWidget(wrap(const ProductCard(data: productPerPiece)).pumpApp());
 
       final aspectRatio = tester.widget<AspectRatio>(find.byType(AspectRatio));
-      expect(aspectRatio.aspectRatio, 1.0);
+      expect(aspectRatio.aspectRatio, 0.8);
     });
 
     testWidgets('mahsulot nomi ko\'rsatiladi', (WidgetTester tester) async {

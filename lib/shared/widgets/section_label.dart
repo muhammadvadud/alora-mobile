@@ -8,9 +8,9 @@ class SectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text.toUpperCase(),
-      style: context.text.overline.copyWith(color: context.colors.brass),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Text(text, style: context.text.overline.copyWith(color: context.colors.textSecondary)),
     );
   }
 }

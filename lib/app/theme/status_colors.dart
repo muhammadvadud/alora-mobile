@@ -23,12 +23,13 @@ class StatusColors {
         return StatusColorPair(background: colors.infoSoft, textAndDot: colors.info);
       case OrderStatus.measuring:
       case OrderStatus.production:
-        return StatusColorPair(background: colors.brassSoft, textAndDot: colors.brass);
+        return StatusColorPair(background: colors.warningSoft, textAndDot: colors.warning);
       case OrderStatus.ready:
-      case OrderStatus.installing:
-        return StatusColorPair(background: colors.accentSoft, textAndDot: colors.accent);
-      case OrderStatus.completed:
         return StatusColorPair(background: colors.successSoft, textAndDot: colors.success);
+      case OrderStatus.installing:
+        return StatusColorPair(background: colors.infoSoft, textAndDot: colors.info);
+      case OrderStatus.completed:
+        return StatusColorPair(background: colors.inverse, textAndDot: colors.onInverse);
       case OrderStatus.cancelled:
         return StatusColorPair(background: colors.dangerSoft, textAndDot: colors.danger);
       case OrderStatus.unknown:

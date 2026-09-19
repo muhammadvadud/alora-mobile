@@ -137,6 +137,13 @@ class ChatMapper {
             }
           }
           break;
+        case 'build_options':
+          if (data is Map<String, dynamic> && data['options'] is List) {
+            return RichBlock.options(
+              options: PricingOptions(options: _parseBackendOptions(data['options'] as List)),
+            );
+          }
+          break;
         case 'order_draft':
           if (data is Map<String, dynamic>) {
             final ms =
@@ -215,6 +222,76 @@ class ChatMapper {
 
     // Parse xatosi bo'lsa
     return RichBlock.toolChip(tool: tool, state: ToolChipState.done, rawResult: resultStr);
+  }
+
+  static List<PricingOption> _parseBackendOptions(List<Object?> rawOptions) {
+    return rawOptions.whereType<Map<String, dynamic>>().map((option) {
+      final tier = switch (option['tier']?.toString()) {
+        'economy' || 'cheap' => PricingTier.cheap,
+        'standard' || 'mid' => PricingTier.mid,
+        'premium' => PricingTier.premium,
+        _ => PricingTier.unknown,
+      };
+
+      final lines = <PricingOptionLine>[];
+      final rawLines = option['lines'];
+      if (rawLines is List) {
+        for (final rawLine in rawLines) {
+          if (rawLine is Map<String, dynamic>) {
+            lines.add(
+              PricingOptionLine(
+                title: rawLine['title']?.toString() ?? '',
+                value: rawLine['value']?.toString() ?? '',
+              ),
+            );
+          } else if (rawLine != null) {
+            final parts = rawLine.toString().split(':');
+            lines.add(
+              PricingOptionLine(
+                title: parts.first.trim(),
+                value: parts.length > 1 ? parts.sublist(1).join(':').trim() : '',
+              ),
+            );
+          }
+        }
+      }
+
+      final why = option['why']?.toString();
+      if (why != null && why.isNotEmpty) {
+        lines.add(PricingOptionLine(title: 'Sabab', value: why));
+      }
+
+      return PricingOption(
+        tier: tier,
+        title: _optionTitle(option['tier']?.toString()),
+        total: _parseMoney(option['total']),
+        lines: lines,
+      );
+    }).toList();
+  }
+
+  static String _optionTitle(String? tier) {
+    switch (tier) {
+      case 'economy':
+      case 'cheap':
+        return 'Tejamkor';
+      case 'standard':
+      case 'mid':
+        return 'O‘rtacha';
+      case 'premium':
+        return 'Premium';
+      default:
+        return tier ?? 'Variant';
+    }
+  }
+
+  static int _parseMoney(Object? value) {
+    final text = value?.toString() ?? '0';
+    final parsed = num.tryParse(text.replaceAll(',', '').trim());
+    if (parsed != null) return parsed.round();
+
+    final digitsOnly = text.replaceAll(RegExp(r'[^0-9-]'), '');
+    return int.tryParse(digitsOnly) ?? 0;
   }
 
   static Quote parseQuote(Map<String, dynamic> data) {

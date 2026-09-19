@@ -42,6 +42,9 @@ class ToolChipBlockView extends StatelessWidget {
       case 'variants':
         toolLabel = l10n.tool_label_variants;
         break;
+      case 'build_options':
+        toolLabel = l10n.tool_label_variants;
+        break;
     }
 
     String labelText = toolLabel;

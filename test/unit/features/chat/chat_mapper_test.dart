@@ -226,6 +226,33 @@ void main() {
     });
   });
 
+  group('ChatMapper.parseToolResult — build_options (backend)', () {
+    test('backend formatidagi variantlar OptionsCard ga parse qilinadi', () {
+      const result = '''
+      {"options": [
+        {"tier": "economy", "total": "995 000 so'm",
+         "why": "asosiy portyera",
+         "lines": ["portyera: Tul Oq Oddiy", "xizmatlar: sewing,tape,hook"]},
+        {"tier": "premium", "total": "1 310 000 so'm", "lines": []}
+      ], "comparison": [], "stale": false, "warnings": []}''';
+
+      final block = ChatMapper.parseToolResult('build_options', result);
+
+      block.maybeWhen(
+        options: (options) {
+          expect(options.options, hasLength(2));
+          expect(options.options.first.tier, PricingTier.cheap);
+          expect(options.options.first.total, 995000);
+          expect(options.options.first.title, 'Tejamkor');
+          expect(options.options.first.lines[0].title, 'portyera');
+          expect(options.options.first.lines[0].value, 'Tul Oq Oddiy');
+          expect(options.options.first.lines.last.title, 'Sabab');
+        },
+        orElse: () => fail('build_options → OptionsBlock bo\'lishi kerak'),
+      );
+    });
+  });
+
   group('ChatMapper.parseToolResult — order_draft', () {
     test('missingFields bilan OrderDraft qaytadi', () {
       const result = '''

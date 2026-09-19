@@ -299,6 +299,10 @@
   "profile_languageOptionCyrl": "Кирилл",
   "profile_languageOptionRu": "Рус",
   "profile_themeTitle": "Мавзу",
+  "profile_aboutTitle": "Илова ҳақида",
+  "profile_aboutVersion": "Версия",
+  "profile_aboutBuild": "Build",
+  "profile_aboutEnv": "Муҳит",
   "profile_themeSystem": "Тизим",
   "profile_themeLight": "Ёруғ",
   "profile_themeDark": "Қоронғи",
@@ -413,7 +417,7 @@
   "management_bulkPriceAmountHint": "Сумма",
   "management_bulkPricePreview": "Олдиндан кўриш:",
   "management_pricingPolicyHint": "Қўлда максимал чегирма лимитлари. АИ таклифи бу лимитдан ошмайди.",
-  "management_pricingStackWithTier": "Тиер чегирма билан жамлаш",
+  "management_pricingStackWithTier": "Босқичли чегирма билан жамлаш",
   "management_pricingDeadlineDays": "Муддат (кун)",
   "management_pricingCoefsEmpty": "Коэффициентлар топилмади",
   "management_pricingTiersEmpty": "Чегирма босқичлари ҳозирча йўқ",
@@ -504,6 +508,14 @@
       }
     }
   },
+  "pin_attemptsLeft": "ПИН код нотўғри. Яна {count} уриниш қолди.",
+  "@pin_attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "chat_pdfRequireOrder": "Аввал буюртма яратинг",
   "orders_pdf": "PDF",
   "orders_share": "Улашиш",
@@ -586,5 +598,8 @@
   },
   "settings_active": "Фаол",
   "settings_inactive": "Нофаол",
-  "settings_delete": "Ўчириш"
+  "settings_delete": "Ўчириш",
+  "chat_addAttachment": "Қўшиш",
+  "chat_microphone": "Микрофон",
+  "chat_send": "Юбориш"
 }

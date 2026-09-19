@@ -1333,60 +1333,49 @@ Backend `apps/` papkasida tekshirildi. Quyidagilar **topilmadi**:
 
 ## 15. API Paths xaritasi
 
-Quyidagi jadval `core/network/api_paths.dart` da yaratilishi kerak bo'lgan konstantalar:
+Jadval `core/network/api_paths.dart` dagi **haqiqiy** a'zolar (kod bilan sinxron, 2026-09-19):
 
-| Konstanta | Yo'l | Metod |
+| `ApiPaths` a'zosi | Yo'l | Metod |
 |---|---|---|
 | `login` | `auth/login/` | POST |
 | `refresh` | `auth/refresh/` | POST |
 | `logout` | `auth/logout/` | POST |
-| `authMe` | `auth/me/` | GET |
+| `me` | `auth/me/` | GET |
 | `conversations` | `conversations/` | GET/POST |
-| `conversationDetail` | `conversations/{id}/` | GET/DELETE |
-| `conversationReset` | `conversations/{id}/reset/` | POST |
-| `conversationTranscript` | `conversations/{id}/transcript/` | GET |
-| `conversationMessages` | `conversations/{id}/messages/` | GET |
-| `conversationSendMessage` | `conversations/{id}/messages/` | POST (SSE) |
+| `conversation(id)` | `conversations/{id}/` | GET/DELETE |
+| `conversationReset(id)` | `conversations/{id}/reset/` | POST |
+| `conversationTranscript(id)` | `conversations/{id}/transcript/` | GET |
+| `conversationMessages(id)` | `conversations/{id}/messages/` | GET (tarix) / POST (SSE) |
+| `voiceSocket(id)` | `ws/voice/{conversation_id}/` | WS |
 | `categories` | `catalog/categories/` | GET |
-| `products` | `catalog/products/` | GET |
-| `productDetail` | `catalog/products/{id}/` | GET |
-| `productWrite` | `catalog/products/{id}/` | POST/PATCH/DELETE |
-| `productImages` | `catalog/products/{id}/images/` | POST |
-| `variants` | `catalog/variants/` | GET |
-| `variantDetail` | `catalog/variants/{id}/` | GET |
-| `variantWrite` | `catalog/variants/{id}/` | POST/PATCH/DELETE |
-| `bulkPrice` | `catalog/variants/bulk-price/` | POST |
-| `imageDelete` | `catalog/images/{id}/` | DELETE |
-| `fasons` | `catalog/fasons/` | GET/POST |
-| `fasonDetail` | `catalog/fasons/{id}/` | GET/PATCH/DELETE |
-| `orders` | `orders/` | GET/POST |
-| `orderDetail` | `orders/{id}/` | GET/PATCH |
-| `orderConfirm` | `orders/{id}/confirm/` | POST |
-| `orderStatus` | `orders/{id}/status/` | POST |
+| `products` | `catalog/products/` | GET / POST (manager) |
+| `product(id)` | `catalog/products/{id}/` | GET / PATCH / DELETE |
+| `variant(id)` | `catalog/variants/{id}/` | GET / PATCH / DELETE |
+| `variantsBulkPrice` | `catalog/variants/bulk-price/` | POST |
+| `productImages(id)` | `catalog/products/{id}/images/` | POST (multipart) |
+| `catalogImage(id)` | `catalog/images/{id}/` | DELETE |
+| `fasons` / `fason(id)` | `catalog/fasons/`, `catalog/fasons/{id}/` | CRUD |
+| `orders` | `orders/` | GET / POST |
+| `order(id)` | `orders/{id}/` | GET / PATCH |
+| `orderConfirm(id)` | `orders/{id}/confirm/` | POST |
+| `orderStatus(id)` | `orders/{id}/status/` | POST |
 | `orderStatuses` | `orders/statuses/` | GET |
-| `orderPdf` | `orders/{id}/pdf/` | GET |
-| `calcPreview` | `pricing/calc/preview/` | POST |
-| `calcRules` | `pricing/calc-rules/` | GET/PATCH |
-| `calcRuleDetail` | `pricing/calc-rules/{key}/` | GET |
-| `services` | `pricing/services/` | GET/PATCH |
-| `serviceDetail` | `pricing/services/{key}/` | GET |
-| `discountPolicy` | `pricing/discount-policy/` | GET/PATCH |
-| `orderDefaults` | `pricing/order-defaults/` | GET/PATCH |
-| `discountTiers` | `pricing/discount-tiers/` | GET/POST |
-| `discountTierDetail` | `pricing/discount-tiers/{id}/` | GET/PATCH/DELETE |
-| `modelPricings` | `pricing/model-pricings/` | GET/POST |
-| `modelPricingDetail` | `pricing/model-pricings/{id}/` | GET/PATCH/DELETE |
-| `knowledgeRules` | `knowledge/rules/` | GET/POST |
-| `knowledgeRuleDetail` | `knowledge/rules/{id}/` | GET/PATCH/DELETE |
-| `employees` | `team/employees/` | GET/POST |
-| `employeeDetail` | `team/employees/{id}/` | GET/PATCH/DELETE |
-| `employeeLimit` | `team/employees/{id}/limit/` | POST |
-| `employeeConversations` | `team/employees/{id}/conversations/` | GET |
+| `orderPdf(id)` | `orders/{id}/pdf/` | GET (bytes) |
+| `calcPreview` | `pricing/calc/preview/` | POST (rules §19.2) |
+| `calcRules` / `calcRule(key)` | `pricing/calc-rules/`, `pricing/calc-rules/{key}/` | GET / PATCH |
+| `services` | `pricing/services/` | GET / PATCH |
+| `discountTiers` / `discountTier(id)` | `pricing/discount-tiers/`, `.../{id}/` | CRUD |
+| `discountPolicy` | `pricing/discount-policy/` | GET / PATCH |
+| `orderDefaults` | `pricing/order-defaults/` | GET / PATCH |
+| `modelPricings` / `modelPricing(id)` | `pricing/model-pricings/`, `.../{id}/` | CRUD (admin) |
+| `knowledgeRules` / `knowledgeRule(id)` | `knowledge/rules/`, `knowledge/rules/{id}/` | CRUD |
+| `employees` | `team/employees/` | GET / POST |
+| `employee(id)` | `team/employees/{id}/` | GET / PATCH |
+| `employeeLimit(id)` | `team/employees/{id}/limit/` | POST |
+| `employeeConversations(id)` | `team/employees/{id}/conversations/` | GET |
 | `usageSummary` | `usage/summary/` | GET |
 | `usageByUser` | `usage/by-user/` | GET |
 | `usageConversations` | `usage/conversations/` | GET |
 | `analyticsConversion` | `analytics/conversion/` | GET |
-| `promptHistory` | `settings/prompt/` | GET |
-| `promptCreate` | `settings/prompt/` | POST |
-| `promptRollback` | `settings/prompt/{version}/rollback/` | POST |
-| `voiceWs` | `ws/voice/{conversation_id}/` | WS |
+| `settingsPrompt` | `settings/prompt/` | GET / POST |
+| `settingsPromptRollback(id)` | `settings/prompt/{id}/rollback/` | POST |

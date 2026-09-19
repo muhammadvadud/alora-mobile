@@ -170,6 +170,7 @@ alora-mobile/
 | `lib/features/management/` | bor | bor | ✅ |
 | `lib/features/customer_mode/` | bor | bor | ✅ |
 | `lib/features/profile/` | bor | bor | ✅ |
+| `lib/features/voice/` | — (rules §2 da chat ichida nazarda tutilgan) | bor — ovozli rejim alohida feature (application: recorder/vad/player/notifier, presentation: VoicePanel) | ✅ (qo'shimcha) |
 | `lib/shared/widgets/` | bor | bor | ✅ |
 | `lib/shared/models/` | bor | bor | ✅ |
 | `lib/shared/extensions/` | bor | bor | ✅ |
@@ -227,25 +228,33 @@ features/<feature>/
 | `ThemeNotifier` | Mavzu rejimi butun ilovada |
 | `LocaleNotifier` | Til tanlovi butun ilovada |
 | `CustomerModeNotifier` | Mijoz rejimi saqlanib qoladi |
+| `errorReporterProvider` | Sentry/Noop hisobot qatlami (breadcrumb, user id/rol) |
+| `dioProvider` | Bitta Dio instansi, interceptorlar bilan |
 
 ### ChatNotifier throttle mexanizmi
 
 ```
-SSE event keladi (content chunk)
+SSE event keladi (content / tool_call / tool_result / done / error)
         │
         ▼
-┌─────────────────────┐
-│  50 ms buffer timer  │
-│  ichiga jamlaydi     │
-└─────────┬───────────┘
-          │ Timer tugadi
+┌───────────────────────────────────────────┐
+│ base = _pendingState ?? state              │  ← eng so'nggi (hali commit qilinmagan)
+│ yangi holat = base asosida hisoblanadi     │    holatdan davom etadi — bo'lak yo'qolmaydi
+│ _pendingState = yangi holat                │
+└─────────┬─────────────────────────────────┘
+          │ 50 ms Timer (faqat bittasi faol)
           ▼
 ┌─────────────────────┐
-│  state = state       │
-│  .copyWith(...)      │
-│  (bitta yangilanish) │
+│ state = _pendingState│  (≤ 20 rebuild/s)
+│ _pendingState = null │
 └─────────────────────┘
+
+Sinxron yozuvlar (yangi xabar, retryLast, cancelStream, reset) → `_commitNow`:
+timer bekor qilinadi, bufer tozalanadi, state darhol yoziladi (eski bufer ustidan yozmaydi).
 ```
+
+Regression testlar: `test/unit/features/chat/chat_notifier_test.dart` — 100 chunk → ≤3 commit **va** to'liq matn;
+bir microtask'dagi burst; SSE `error` → `state.error` + `isStreaming=false`.
 
 ---
 
@@ -547,6 +556,13 @@ Manager PATCH qiladi       OfflineQueue (Hive)      ConnectivityNotifier
 | 503 "AI xizmati vaqtincha ishlamayapti" | `ServiceUnavailableFailure` | Banner + qayta urinish |
 | Boshqa 5xx | `ServerFailure` | "Server javob bermadi" + qayta urinish |
 
+### Kuzatuv (Sentry) — `core/error/error_reporter.dart`
+
+- `ErrorMapperInterceptor(onFailure:)` → har `Failure` breadcrumb (category `failure`, faqat tur nomi va daraja; telefon/detail yo'q).
+- `reportFailure(ref, failure)` — breadcrumb + `server`/`serviceUnavailable`/`unknown` uchun `captureException`.
+- `AuthNotifier` → `setUser(id, role)` / `clearUser()`; `sendDefaultPii = false`, `beforeSend` PII tozalaydi.
+- Dev/test — `NoopErrorReporter` (`Env.isProd && dsn` bo'lmasa).
+
 ### Backend xato formati
 
 ```json
@@ -674,13 +690,18 @@ Qo'shimcha qoidalar (`analysis_options.yaml`):
 ```yaml
 1. flutter pub get
 2. dart run build_runner build --delete-conflicting-outputs
-3. flutter gen-l10n
+3. flutter gen-l10n  →  l10n-errors.txt bo'sh ({}) bo'lishi shart (tarjima qilinmagan kalit = xato)
 4. dart format --set-exit-if-changed lib test
 5. dart analyze --fatal-infos
-6. flutter test --coverage
-7. Coverage gate: ≥ 70% (lcov)
-8. flutter build apk --split-per-abi
+6. dart run custom_lint
+7. flutter test --coverage --concurrency=2 test/unit test/widget test/golden test/integration
+8. Coverage gate: ≥ 70% (lcov; *.g.dart, *.freezed.dart, l10n chiqarib tashlanadi)
+9. flutter build apk --release --split-per-abi (arm64, env/prod.json + tool/version_defines.sh)
+10. APK ≤ 40 MB (fayl hajmi; `--analyze-size` Flutter 3.47.4 da integration_test plagini bilan xato beradi)
 ```
+
+**Integration testlar qurilmasiz:** `integration_test/*.dart` (IntegrationTestWidgetsFlutterBinding, fake repo/SSE/Hive)
+`test/integration/*_host_test.dart` o'ramlari orqali `flutter_tester` da yuradi — emulator kerak emas.
 
 ### Qo'shimcha sifat chegaralari
 
@@ -727,6 +748,9 @@ Qo'shimcha qoidalar (`analysis_options.yaml`):
 | **Dizayn tizimi** | §11 — `docs/DESIGN-TOKENS.md` ga havola |
 | **Sifat darvozalari** | §12 — lint/analyze/test/coverage/golden; CI qadamlari |
 | **Ochiq masalalar** | §13 — 6 ta backend'da yo'q endpoint (API-CONTRACT.md §14 dan) |
+
+**Yangilandi (2026-09-19):** voice feature, throttle semantikasi (`_pendingState`/`_commitNow`), Sentry qatlami,
+CI qadamlari (custom_lint, tarjima, integration host o'ramlari, APK gate) haqiqiy kodga moslandi.
 
 **Tayyorlandi:** `rules.md` (790 qator), `tasks.md` (369 qator), `docs/API-CONTRACT.md` (1392 qator),
 `docs/DESIGN-TOKENS.md` (259 qator), `.github/workflows/ci.yml`, `find lib -type d`.

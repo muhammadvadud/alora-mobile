@@ -299,6 +299,10 @@
   "profile_languageOptionCyrl": "Кирилл",
   "profile_languageOptionRu": "Русский",
   "profile_themeTitle": "Mavzu",
+  "profile_aboutTitle": "Ilova haqida",
+  "profile_aboutVersion": "Versiya",
+  "profile_aboutBuild": "Build",
+  "profile_aboutEnv": "Muhit",
   "profile_themeSystem": "Tizim",
   "profile_themeLight": "Yorug'",
   "profile_themeDark": "Qorong'i",
@@ -436,7 +440,7 @@
   "management_bulkPriceAmountHint": "Summa",
   "management_bulkPricePreview": "Oldindan ko'rish:",
   "management_pricingPolicyHint": "Qo'lda maksimal chegirma limitlari. AI taklifi bu limitdan oshmaydi.",
-  "management_pricingStackWithTier": "Tier chegirma bilan jamlash",
+  "management_pricingStackWithTier": "Bosqichli chegirma bilan jamlash",
   "management_pricingDeadlineDays": "Muddat (kun)",
   "management_pricingCoefsEmpty": "Koeffitsientlar topilmadi",
   "management_pricingTiersEmpty": "Chegirma bosqichlari hozircha yo'q",
@@ -527,6 +531,14 @@
       }
     }
   },
+  "pin_attemptsLeft": "PIN kod noto'g'ri. Yana {count} urinish qoldi.",
+  "@pin_attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "chat_pdfRequireOrder": "Avval buyurtma yarating",
   "orders_pdf": "PDF",
   "orders_share": "Ulashish",
@@ -609,5 +621,8 @@
   },
   "settings_active": "Faol",
   "settings_inactive": "Nofaol",
-  "settings_delete": "O'chirish"
+  "settings_delete": "O'chirish",
+  "chat_addAttachment": "Qo'shish",
+  "chat_microphone": "Mikrofon",
+  "chat_send": "Yuborish"
 }

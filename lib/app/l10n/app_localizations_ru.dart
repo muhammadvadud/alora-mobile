@@ -638,6 +638,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profile_themeTitle => 'Тема';
 
   @override
+  String get profile_aboutTitle => 'О приложении';
+
+  @override
+  String get profile_aboutVersion => 'Версия';
+
+  @override
+  String get profile_aboutBuild => 'Сборка';
+
+  @override
+  String get profile_aboutEnv => 'Среда';
+
+  @override
   String get profile_themeSystem => 'Системная';
 
   @override
@@ -1012,7 +1024,8 @@ class AppLocalizationsRu extends AppLocalizations {
       'Максимальные лимиты ручной скидки. Предложение ИИ не превышает лимит.';
 
   @override
-  String get management_pricingStackWithTier => 'Складывать с тирной скидкой';
+  String get management_pricingStackWithTier =>
+      'Складывать со ступенчатой скидкой';
 
   @override
   String get management_pricingDeadlineDays => 'Срок (дней)';
@@ -1213,6 +1226,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String pin_attemptsLeft(int count) {
+    return 'Неверный ПИН код. Осталось $count попыток.';
+  }
+
+  @override
   String get chat_pdfRequireOrder => 'Сначала создайте заказ';
 
   @override
@@ -1300,4 +1318,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settings_delete => 'Удалить';
+
+  @override
+  String get chat_addAttachment => 'Добавить';
+
+  @override
+  String get chat_microphone => 'Микрофон';
+
+  @override
+  String get chat_send => 'Отправить';
 }

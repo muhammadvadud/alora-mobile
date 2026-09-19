@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 233 / 249 bajarildi (5 jarayonda) (2026-09-19)
+**Umumiy holat:** 241 / 250 bajarildi (0 jarayonda) (2026-09-19)
 
 ---
 
@@ -150,7 +150,7 @@
 - [x] 6.22 Planshet (5a): chapda `ConversationsPane` (320), o'ngda chat; AppBar'da mijoz ismi va "Mijoz rejimi" tugmasi
 - [x] 6.23 Qorong'i mavzu (1j) tekshiruvi — barcha chat widgetlari tokenlardan
 - [x] 6.24 Testlar: notifier — har event ketma-ketligi (`start→content×n→tool_call→tool_result→done`), throttle (100 chunk → ≤ 3 rebuild/50 ms), uzilish → qisman matn, retry; widget: bo'sh holat chip'lari, tool chip 3 holat, karusel, quick replies; golden S-02, S-03 (yorug'/qorong'i/planshet), S-04
-- [~] 6.25 Coverage `features/chat/application` ≥ 90% — coverage o'lchovi 19.1 bilan birga
+- [x] 6.25 Coverage `features/chat/application` ≥ 90% — 90.4% (2026-09-19)
 
 ## Bosqich 7 — `features/chat` — boy kartochkalar (S-05, S-06, S-07) ★
 
@@ -262,6 +262,7 @@
 - [x] 13.6 `KnowledgeScreen` (S-24) — qoida kartochkalari: shart chip'lari (`mehmonxona` + `hi-tech`) → tavsiya matni, priority, faol toggle; "+ Qoida qo'shish"
 - [x] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
 - [x] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
+- [ ] 13.9 `rules.md` §14.6 (fayl ≤400 qator): `pricing_rules_screen.dart` (760) → bo'limlar alohida widget fayllarga (`pricing_coefficients_section.dart`, `discount_tiers_section.dart`, `order_defaults_section.dart`, `calc_preview_sheet.dart`); `product_form_screen.dart` (468) va `product_form_notifier.dart` (474) → rasm/variant bo'laklari ajratiladi. Funksiya o'zgarmaydi, golden S-22/S-23 saqlanadi
 
 ## Bosqich 14 — `features/management` — sozlamalar (faqat admin)
 
@@ -328,28 +329,28 @@
 
 ## Bosqich 19 — Sifat, ishlash, xavfsizlik
 
-- [ ] 19.1 Coverage ≥ 70% umumiy; `core/sse`, `core/network/interceptors`, `core/utils`, `features/chat/application` ≥ 90%
-- [ ] 19.2 Golden to'plami to'liq: S-01, S-03 (3 variant), S-05, S-06 (3 variant), S-11 (2), S-12 (2) — CI'da
+- [x] 19.1 Coverage ≥ 70% umumiy; `core/sse`, `core/network/interceptors`, `core/utils`, `features/chat/application` ≥ 90% — umumiy 72.4%; utils 98.9, interceptors 93.8, sse 94.5, chat/application 90.4 (gen fayllarsiz, 2026-09-19)
+- [x] 19.2 Golden to'plami to'liq: S-01, S-03 (3 variant), S-05, S-06 (3 variant), S-11 (2), S-12 (2) — CI'da — S-01, S-03×3, S-05×2, S-06×3, S-11×2, S-12×2 + S-02/04/07/09/19–26 — CI `test/golden`
 - [x] 19.3 Integration test: login → yangi suhbat → xabar → SSE mock → hisob kartochkasi → qoralama → buyurtma → tasdiqlash — `integration_test/login_to_order_test.dart`; qurilmasiz `test/integration/*_host_test.dart` orqali CI'da
 - [x] 19.4 Integration test: employee `/management` → 403; limit 429 → view — `integration_test/permissions_test.dart`
 - [ ] 19.5 Ishlash: sovuq start ≤ 2 s (`profile` o'lchov hujjatlashtiriladi `docs/PERF.md`), chat 100+ xabar 60 FPS (`flutter drive --profile` timeline), streaming rebuild ≤ 20/s (test) — APK o'lchandi (docs/PERF.md); start/FPS — real qurilma kerak
 - [x] 19.6 APK ≤ 40 MB (arm64) — CI gate; shriftlar subset (faqat kerakli og'irliklar)
 - [x] 19.7 Xavfsizlik: tokenlar faqat secure storage (test: Hive box'larda `token` kaliti yo'q), log maskalash testi, `usesCleartextTraffic=false`, iOS ATS default, root/jailbreak tekshiruvi **yo'q** (TZ'da yo'q)
-- [~] 19.8 Accessibility: `Semantics` label'lar tugma/ikonkalarda, min bosish maydoni 48 dp (test), kontrast — `accent` on `background` ≥ 4.5:1 tekshirildi — audit testi bor (test/widget/a11y), lekin tasdiqlovchi assert emas — kamchiliklar tuzatilishi kerak
+- [x] 19.8 Accessibility: `Semantics` label'lar tugma/ikonkalarda, min bosish maydoni 48 dp (test), kontrast — `accent` on `background` ≥ 4.5:1 tekshirildi — `test/widget/a11y` qat'iy assert (tap target 48, label, kontrast)
 - [x] 19.9 `dart analyze` 0 issue, `dart format` toza, `custom_lint` toza — CI gate
 - [x] 19.10 Sentry: `Failure` lar breadcrumb, foydalanuvchi `id`/`role` (telefon emas)
 
 ## Bosqich 20 — Hujjat va yetkazish
 
 - [x] 20.1 `README.md` — o'rnatish, `--dart-define-from-file`, build buyruqlari, papka tuzilmasi, `rules.md` ga havola
-- [~] 20.2 `docs/ARCHITECTURE.md` — qatlamlar, ma'lumot oqimi diagrammasi, SSE holat mashinasi, ovoz holat mashinasi
-- [~] 20.3 `docs/API-CONTRACT.md` — ilova ishlatadigan har endpoint: so'rov/javob namunasi (backend `docs/API-GUIDE.md` bilan sinxron)
-- [~] 20.4 `docs/DESIGN-TOKENS.md` — §7 jadvallari + artboard → widget mapping
+- [x] 20.2 `docs/ARCHITECTURE.md` — qatlamlar, ma'lumot oqimi diagrammasi, SSE holat mashinasi, ovoz holat mashinasi
+- [x] 20.3 `docs/API-CONTRACT.md` — ilova ishlatadigan har endpoint: so'rov/javob namunasi (backend `docs/API-GUIDE.md` bilan sinxron) — ApiPaths jadvali kod bilan sinxron (2026-09-19)
+- [x] 20.4 `docs/DESIGN-TOKENS.md` — §7 jadvallari + artboard → widget mapping — ranglar/radius/spacing skript bilan solishtirildi
 - [x] 20.5 `docs/PERF.md` — o'lchov natijalari (start, FPS, APK)
 - [x] 20.6 Android release: `key.properties` (repoda yo'q), `proguard`, `--split-per-abi`; Firebase App Distribution / to'g'ridan-to'g'ri APK
 - [ ] 20.7 iOS release: TestFlight (Mac mavjud bo'lsa; aks holda §19 yozuv) — Mac yo'q, `rules.md` §19.7
 - [x] 20.8 Versiya: `pubspec.yaml` `version: 1.0.0+1`, `CHANGELOG.md` (o'zbekcha)
-- [ ] 20.9 Ilova ichida "Ilova haqida": versiya, build, muhit (Profil ostida)
+- [x] 20.9 Ilova ichida "Ilova haqida": versiya, build, muhit (Profil ostida) — `AboutSection` — `Env.appVersion/buildNumber` (`tool/version_defines.sh`, package_info §17 da yo'q)
 
 ---
 

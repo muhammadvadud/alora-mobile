@@ -640,6 +640,18 @@ class AppLocalizationsUz extends AppLocalizations {
   String get profile_themeTitle => 'Mavzu';
 
   @override
+  String get profile_aboutTitle => 'Ilova haqida';
+
+  @override
+  String get profile_aboutVersion => 'Versiya';
+
+  @override
+  String get profile_aboutBuild => 'Build';
+
+  @override
+  String get profile_aboutEnv => 'Muhit';
+
+  @override
   String get profile_themeSystem => 'Tizim';
 
   @override
@@ -1012,7 +1024,8 @@ class AppLocalizationsUz extends AppLocalizations {
       'Qo\'lda maksimal chegirma limitlari. AI taklifi bu limitdan oshmaydi.';
 
   @override
-  String get management_pricingStackWithTier => 'Tier chegirma bilan jamlash';
+  String get management_pricingStackWithTier =>
+      'Bosqichli chegirma bilan jamlash';
 
   @override
   String get management_pricingDeadlineDays => 'Muddat (kun)';
@@ -1217,6 +1230,11 @@ class AppLocalizationsUz extends AppLocalizations {
   }
 
   @override
+  String pin_attemptsLeft(int count) {
+    return 'PIN kod noto\'g\'ri. Yana $count urinish qoldi.';
+  }
+
+  @override
   String get chat_pdfRequireOrder => 'Avval buyurtma yarating';
 
   @override
@@ -1304,6 +1322,15 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get settings_delete => 'O\'chirish';
+
+  @override
+  String get chat_addAttachment => 'Qo\'shish';
+
+  @override
+  String get chat_microphone => 'Mikrofon';
+
+  @override
+  String get chat_send => 'Yuborish';
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -1939,6 +1966,18 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get profile_themeTitle => 'Мавзу';
 
   @override
+  String get profile_aboutTitle => 'Илова ҳақида';
+
+  @override
+  String get profile_aboutVersion => 'Версия';
+
+  @override
+  String get profile_aboutBuild => 'Build';
+
+  @override
+  String get profile_aboutEnv => 'Муҳит';
+
+  @override
   String get profile_themeSystem => 'Тизим';
 
   @override
@@ -2239,7 +2278,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
       'Қўлда максимал чегирма лимитлари. АИ таклифи бу лимитдан ошмайди.';
 
   @override
-  String get management_pricingStackWithTier => 'Тиер чегирма билан жамлаш';
+  String get management_pricingStackWithTier => 'Босқичли чегирма билан жамлаш';
 
   @override
   String get management_pricingDeadlineDays => 'Муддат (кун)';
@@ -2441,6 +2480,11 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   }
 
   @override
+  String pin_attemptsLeft(int count) {
+    return 'ПИН код нотўғри. Яна $count уриниш қолди.';
+  }
+
+  @override
   String get chat_pdfRequireOrder => 'Аввал буюртма яратинг';
 
   @override
@@ -2528,4 +2572,13 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get settings_delete => 'Ўчириш';
+
+  @override
+  String get chat_addAttachment => 'Қўшиш';
+
+  @override
+  String get chat_microphone => 'Микрофон';
+
+  @override
+  String get chat_send => 'Юбориш';
 }

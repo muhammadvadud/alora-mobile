@@ -33,6 +33,7 @@ class ApiPaths {
   static String productImages(String id) => 'catalog/products/$id/images/';
   static String catalogImage(String id) => 'catalog/images/$id/';
   static const String fasons = 'catalog/fasons/';
+  static String fason(String id) => 'catalog/fasons/$id/';
 
   // Buyurtma
   static const String orders = 'orders/';
@@ -50,12 +51,15 @@ class ApiPaths {
   static String calcRule(String key) => 'pricing/calc-rules/$key/';
   static const String services = 'pricing/services/';
   static const String discountTiers = 'pricing/discount-tiers/';
+  static String discountTier(String id) => 'pricing/discount-tiers/$id/';
   static const String discountPolicy = 'pricing/discount-policy/';
   static const String orderDefaults = 'pricing/order-defaults/';
   static const String modelPricings = 'pricing/model-pricings/';
+  static String modelPricing(String id) => 'pricing/model-pricings/$id/';
 
   // Bilimlar
   static const String knowledgeRules = 'knowledge/rules/';
+  static String knowledgeRule(String id) => 'knowledge/rules/$id/';
 
   // Jamoa
   static const String employees = 'team/employees/';

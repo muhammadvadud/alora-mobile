@@ -1299,6 +1299,30 @@ abstract class AppLocalizations {
   /// **'Mavzu'**
   String get profile_themeTitle;
 
+  /// No description provided for @profile_aboutTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ilova haqida'**
+  String get profile_aboutTitle;
+
+  /// No description provided for @profile_aboutVersion.
+  ///
+  /// In uz, this message translates to:
+  /// **'Versiya'**
+  String get profile_aboutVersion;
+
+  /// No description provided for @profile_aboutBuild.
+  ///
+  /// In uz, this message translates to:
+  /// **'Build'**
+  String get profile_aboutBuild;
+
+  /// No description provided for @profile_aboutEnv.
+  ///
+  /// In uz, this message translates to:
+  /// **'Muhit'**
+  String get profile_aboutEnv;
+
   /// No description provided for @profile_themeSystem.
   ///
   /// In uz, this message translates to:
@@ -2022,7 +2046,7 @@ abstract class AppLocalizations {
   /// No description provided for @management_pricingStackWithTier.
   ///
   /// In uz, this message translates to:
-  /// **'Tier chegirma bilan jamlash'**
+  /// **'Bosqichli chegirma bilan jamlash'**
   String get management_pricingStackWithTier;
 
   /// No description provided for @management_pricingDeadlineDays.
@@ -2397,6 +2421,12 @@ abstract class AppLocalizations {
   /// **'Juda ko\'p xato urinishlar. {seconds} soniya kuting.'**
   String chat_pinAttemptsWait(int seconds);
 
+  /// No description provided for @pin_attemptsLeft.
+  ///
+  /// In uz, this message translates to:
+  /// **'PIN kod noto\'g\'ri. Yana {count} urinish qoldi.'**
+  String pin_attemptsLeft(int count);
+
   /// No description provided for @chat_pdfRequireOrder.
   ///
   /// In uz, this message translates to:
@@ -2540,6 +2570,24 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'O\'chirish'**
   String get settings_delete;
+
+  /// No description provided for @chat_addAttachment.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qo\'shish'**
+  String get chat_addAttachment;
+
+  /// No description provided for @chat_microphone.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mikrofon'**
+  String get chat_microphone;
+
+  /// No description provided for @chat_send.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yuborish'**
+  String get chat_send;
 }
 
 class _AppLocalizationsDelegate

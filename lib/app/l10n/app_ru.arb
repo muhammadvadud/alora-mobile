@@ -299,6 +299,10 @@
   "profile_languageOptionCyrl": "Кириллица",
   "profile_languageOptionRu": "Русский",
   "profile_themeTitle": "Тема",
+  "profile_aboutTitle": "О приложении",
+  "profile_aboutVersion": "Версия",
+  "profile_aboutBuild": "Сборка",
+  "profile_aboutEnv": "Среда",
   "profile_themeSystem": "Системная",
   "profile_themeLight": "Светлая",
   "profile_themeDark": "Тёмная",
@@ -436,7 +440,7 @@
   "management_bulkPriceAmountHint": "Сумма",
   "management_bulkPricePreview": "Предпросмотр:",
   "management_pricingPolicyHint": "Максимальные лимиты ручной скидки. Предложение ИИ не превышает лимит.",
-  "management_pricingStackWithTier": "Складывать с тирной скидкой",
+  "management_pricingStackWithTier": "Складывать со ступенчатой скидкой",
   "management_pricingDeadlineDays": "Срок (дней)",
   "management_pricingCoefsEmpty": "Коэффициенты не найдены",
   "management_pricingTiersEmpty": "Ступеней скидки пока нет",
@@ -527,6 +531,14 @@
       }
     }
   },
+  "pin_attemptsLeft": "Неверный ПИН код. Осталось {count} попыток.",
+  "@pin_attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "chat_pdfRequireOrder": "Сначала создайте заказ",
   "orders_pdf": "PDF",
   "orders_share": "Поделиться",
@@ -609,5 +621,8 @@
   },
   "settings_active": "Активен",
   "settings_inactive": "Неактивен",
-  "settings_delete": "Удалить"
+  "settings_delete": "Удалить",
+  "chat_addAttachment": "Добавить",
+  "chat_microphone": "Микрофон",
+  "chat_send": "Отправить"
 }

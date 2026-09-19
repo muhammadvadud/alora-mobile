@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:alora_mobile/features/management/knowledge/application/knowledge_repository.dart';
+import 'package:alora_mobile/features/management/knowledge/application/providers.dart';
 import 'package:alora_mobile/features/management/knowledge/domain/entities/knowledge_rule.dart';
+import 'package:alora_mobile/features/management/knowledge/domain/repositories/knowledge_repository.dart';
 import 'package:alora_mobile/features/management/knowledge/presentation/screens/knowledge_screen.dart';
 import 'package:alora_mobile/shared/widgets/empty_state.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';

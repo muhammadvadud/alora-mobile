@@ -1,29 +1,7 @@
 import 'package:alora_mobile/features/management/knowledge/data/datasources/knowledge_remote_ds.dart';
 import 'package:alora_mobile/features/management/knowledge/data/mappers/knowledge_mapper.dart';
 import 'package:alora_mobile/features/management/knowledge/domain/entities/knowledge_rule.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:alora_mobile/core/network/dio_client.dart';
-
-part 'knowledge_repository.g.dart';
-
-@riverpod
-KnowledgeRepository knowledgeRepository(Ref ref) {
-  final dio = ref.watch(dioProvider);
-  return KnowledgeRepositoryImpl(KnowledgeRemoteDataSourceImpl(dio));
-}
-
-abstract class KnowledgeRepository {
-  Future<List<KnowledgeRule>> getRules();
-  Future<KnowledgeRule> createRule(
-    String kind,
-    List<String> condition,
-    String recommendation,
-    int priority,
-    bool isActive,
-  );
-  Future<KnowledgeRule> patchRule(String id, Map<String, dynamic> updates);
-  Future<void> deleteRule(String id);
-}
+import 'package:alora_mobile/features/management/knowledge/domain/repositories/knowledge_repository.dart';
 
 class KnowledgeRepositoryImpl implements KnowledgeRepository {
   final KnowledgeRemoteDataSource _remoteDs;

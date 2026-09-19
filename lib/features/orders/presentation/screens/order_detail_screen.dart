@@ -4,9 +4,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/models/order_status.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
+import 'package:alora_mobile/core/utils/date_format.dart';
 import 'package:alora_mobile/core/utils/money_format.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,6 +19,7 @@ import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
 import 'package:alora_mobile/shared/widgets/status_pill.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
+import 'package:alora_mobile/features/orders/presentation/widgets/status_change_sheet.dart';
 import 'package:alora_mobile/features/orders/presentation/widgets/status_timeline.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
@@ -78,7 +81,7 @@ class OrderDetailScreen extends ConsumerWidget {
                         .shareOrderText(order),
                   );
                 } else if (value == 'cancel') {
-                  // implemented later
+                  unawaited(StatusChangeSheet.show(context, order));
                 }
               },
               itemBuilder: (context) => [
@@ -126,7 +129,7 @@ class OrderDetailScreen extends ConsumerWidget {
                     if (order.createdAt != null)
                       Text(
                         context.l10n.dateLabel(
-                          order.createdAt!.toString().split(' ')[0],
+                          formatDate(order.createdAt!, context: context),
                         ),
                         style: typography.bodyS.copyWith(
                           color: colors.textSecondary,
@@ -207,9 +210,9 @@ class OrderDetailScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: AppSpacing.s),
                 ...order.measurements.map((m) {
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: AppSpacing.s),
-                    child: Padding(
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.s),
+                    child: AppCard(
                       padding: const EdgeInsets.all(AppSpacing.m),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,33 +239,31 @@ class OrderDetailScreen extends ConsumerWidget {
                   style: typography.titleM.copyWith(color: colors.textPrimary),
                 ),
                 const SizedBox(height: AppSpacing.s),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppSpacing.m),
-                    child: Column(
-                      children: [
+                AppCard(
+                  padding: const EdgeInsets.all(AppSpacing.m),
+                  child: Column(
+                    children: [
+                      _finRow(
+                        context.l10n.orders_financeTotal,
+                        formatMoney(order.total ?? 0),
+                        typography,
+                        colors,
+                      ),
+                      if (order.prepayment != null)
                         _finRow(
-                          context.l10n.orders_financeTotal,
-                          formatMoney(order.total ?? 0),
+                          context.l10n.orders_financePrepayment,
+                          formatMoney(order.prepayment!),
                           typography,
                           colors,
                         ),
-                        if (order.prepayment != null)
-                          _finRow(
-                            context.l10n.orders_financePrepayment,
-                            formatMoney(order.prepayment!),
-                            typography,
-                            colors,
-                          ),
-                        if (order.balance != null)
-                          _finRow(
-                            context.l10n.orders_financeBalance,
-                            formatMoney(order.balance!),
-                            typography,
-                            colors,
-                          ),
-                      ],
-                    ),
+                      if (order.balance != null)
+                        _finRow(
+                          context.l10n.orders_financeBalance,
+                          formatMoney(order.balance!),
+                          typography,
+                          colors,
+                        ),
+                    ],
                   ),
                 ),
               ],
@@ -307,7 +308,7 @@ class OrderDetailScreen extends ConsumerWidget {
     AppColors colors,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

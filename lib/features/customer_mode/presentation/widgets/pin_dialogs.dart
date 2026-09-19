@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:alora_mobile/features/customer_mode/application/pin_result.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
+import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
+import 'package:alora_mobile/app/theme/app_spacing.dart';
 
 class SetPinDialog extends ConsumerStatefulWidget {
   const SetPinDialog({super.key});
@@ -40,7 +42,7 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
           });
         } else {
           setState(() {
-            _error = 'PIN kodlar mos tushmadi';
+            _error = context.l10n.chat_pinMismatch;
             _pin = '';
             _confirmPin = null;
           });
@@ -60,6 +62,7 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return Dialog(
       child: SingleChildScrollView(
         child: Padding(
@@ -69,36 +72,38 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
             children: [
               Text(
                 _confirmPin == null
-                    ? 'PIN kodni o\'rnating'
-                    : 'PIN kodni tasdiqlang',
-                style: Theme.of(context).textTheme.titleLarge,
+                    ? context.l10n.chat_setPinTitle
+                    : context.l10n.chat_confirmPinTitle,
+                style: context.text.titleL,
+                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.l),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(4, (index) {
                   final isFilled = index < _pin.length;
                   return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    width: 16,
-                    height: 16,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.s,
+                    ),
+                    width: AppSpacing.l,
+                    height: AppSpacing.l,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isFilled
-                          ? Theme.of(context).colorScheme.primary
-                          : context.colors.surfaceMuted,
+                      color: isFilled ? colors.accent : colors.surfaceMuted,
                     ),
                   );
                 }),
               ),
               if (_error != null) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.l),
                 Text(
                   _error!,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                  style: context.text.bodyM.copyWith(color: colors.danger),
+                  textAlign: TextAlign.center,
                 ),
               ],
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.xl),
               _buildNumpad(),
             ],
           ),
@@ -112,8 +117,8 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
       shrinkWrap: true,
       crossAxisCount: 3,
       childAspectRatio: 1.5,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
+      mainAxisSpacing: AppSpacing.s,
+      crossAxisSpacing: AppSpacing.s,
       children: [
         for (var i = 1; i <= 9; i++)
           _buildButton(i.toString(), () => _onDigit(i.toString())),
@@ -160,28 +165,26 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
         _isLoading = true;
       });
 
-      try {
-        final success = await ref
-            .read(customerModeNotifierProvider.notifier)
-            .disable(_pin);
-        if (!mounted) return;
+      final result = await ref
+          .read(customerModeNotifierProvider.notifier)
+          .disable(_pin);
+      if (!mounted) return;
 
-        if (success) {
+      switch (result) {
+        case PinOk():
           Navigator.of(context).pop();
-        } else {
+        case PinWrong(attemptsLeft: final attemptsLeft):
           setState(() {
-            _error = 'Noto\'g\'ri PIN kod';
+            _error = context.l10n.pin_attemptsLeft(attemptsLeft);
             _pin = '';
             _isLoading = false;
           });
-        }
-      } catch (e) {
-        if (!mounted) return;
-        setState(() {
-          _error = e.toString().replaceAll('Exception: ', '');
-          _pin = '';
-          _isLoading = false;
-        });
+        case PinLocked(seconds: final seconds):
+          setState(() {
+            _error = context.l10n.chat_pinAttemptsWait(seconds);
+            _pin = '';
+            _isLoading = false;
+          });
       }
     }
   }
@@ -197,13 +200,14 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final notifier = ref.watch(customerModeNotifierProvider.notifier);
-    final isLocked =
-        notifier.lockUntil != null &&
-        DateTime.now().isBefore(notifier.lockUntil!);
+    final lockUntil = notifier.lockUntil;
+    final isLocked = lockUntil != null && DateTime.now().isBefore(lockUntil);
     if (isLocked && _error == null) {
-      final seconds = notifier.lockUntil!.difference(DateTime.now()).inSeconds;
-      _error = '3 marta xato. $seconds soniya kuting.';
+      _error = context.l10n.chat_pinAttemptsWait(
+        lockUntil.difference(DateTime.now()).inSeconds,
+      );
     }
 
     return Dialog(
@@ -213,37 +217,34 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'PIN kodni kiriting',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 16),
+              Text(context.l10n.chat_enterPinTitle, style: context.text.titleL),
+              const SizedBox(height: AppSpacing.l),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(4, (index) {
                   final isFilled = index < _pin.length;
                   return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    width: 16,
-                    height: 16,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.s,
+                    ),
+                    width: AppSpacing.l,
+                    height: AppSpacing.l,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isFilled
-                          ? Theme.of(context).colorScheme.primary
-                          : context.colors.surfaceMuted,
+                      color: isFilled ? colors.accent : colors.surfaceMuted,
                     ),
                   );
                 }),
               ),
               if (_error != null) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.l),
                 Text(
                   _error!,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                  style: context.text.bodyM.copyWith(color: colors.danger),
                   textAlign: TextAlign.center,
                 ),
               ],
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.xl),
               _buildNumpad(isLocked),
             ],
           ),
@@ -257,8 +258,8 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
       shrinkWrap: true,
       crossAxisCount: 3,
       childAspectRatio: 1.5,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
+      mainAxisSpacing: AppSpacing.s,
+      crossAxisSpacing: AppSpacing.s,
       children: [
         for (var i = 1; i <= 9; i++)
           _buildButton(

@@ -90,7 +90,7 @@ final class OrdersListNotifierProvider
 }
 
 String _$ordersListNotifierHash() =>
-    r'099bc4cd9de0ddc2257416f759ed133d31a1e2fb';
+    r'd14b5fdaef6cfa66f7f505488463b49c52770312';
 
 abstract class _$OrdersListNotifier
     extends $AsyncNotifier<CursorPagingState<Order>> {

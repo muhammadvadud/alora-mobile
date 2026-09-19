@@ -26,10 +26,18 @@ class KnowledgeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.management_knowledgeTitle)),
       body: _buildBody(context, ref, state, notifier),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showRuleForm(context),
-        icon: const Icon(LucideIcons.plus),
-        label: Text(context.l10n.management_knowledgeAddRule),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        minimum: const EdgeInsets.fromLTRB(
+          AppSpacing.m,
+          0,
+          AppSpacing.m,
+          AppSpacing.m,
+        ),
+        child: AppButton(
+          text: context.l10n.management_knowledgeAddRule,
+          onPressed: () => _showRuleForm(context),
+        ),
       ),
     );
   }

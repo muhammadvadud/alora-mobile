@@ -1,4 +1,4 @@
-import 'package:alora_mobile/features/management/knowledge/application/knowledge_repository.dart';
+import 'package:alora_mobile/features/management/knowledge/application/providers.dart';
 import 'package:alora_mobile/features/management/knowledge/domain/entities/knowledge_rule.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

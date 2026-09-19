@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/features/chat/application/providers.dart';
 import 'package:alora_mobile/features/chat/application/chat_state.dart';
 import 'package:alora_mobile/core/sse/sse_event.dart';
@@ -30,6 +31,22 @@ class ChatNotifier extends _$ChatNotifier {
     return const ChatState();
   }
 
+  /// Turli manbalardan kelgan xatoni tiplangan [Failure]'ga keltiradi.
+  /// Dio interceptor allaqachon [Failure] qaytargan bo'lsa — o'sha ishlatiladi;
+  /// aks holda matnda limit belgisi (429/limit) bor-yo'qligiga qarab
+  /// [Failure.limit] yoki [Failure.unknown] qaytariladi.
+  Failure _mapFailure(Object error) {
+    if (error is Failure) return error;
+    if (error is DioException && error.error is Failure) {
+      return error.error! as Failure;
+    }
+    final text = error.toString();
+    if (text.contains('429') || text.contains('limit')) {
+      return Failure.limit(text);
+    }
+    return Failure.unknown(text);
+  }
+
   Future<void> _loadMessages() async {
     try {
       final repository = ref.read(chatRepositoryProvider);
@@ -37,7 +54,7 @@ class ChatNotifier extends _$ChatNotifier {
       // Backend returns ordered, we need to reverse it for ListView.builder reverse: true
       state = state.copyWith(messages: result.results.reversed.toList());
     } catch (e) {
-      state = state.copyWith(error: e.toString());
+      state = state.copyWith(error: _mapFailure(e));
     }
   }
 
@@ -114,8 +131,8 @@ class ChatNotifier extends _$ChatNotifier {
       (event) {
         _handleEvent(event, assistantMsgId);
       },
-      onError: (e) {
-        _handleError(e.toString(), assistantMsgId);
+      onError: (Object e) {
+        _handleError(e, assistantMsgId);
       },
       onDone: () {
         _handleDone(assistantMsgId);
@@ -130,7 +147,7 @@ class ChatNotifier extends _$ChatNotifier {
     if (idx == -1) return;
 
     Message msg = msgs[idx];
-    String? streamError;
+    Failure? streamError;
 
     event.when(
       start: () {},
@@ -190,7 +207,7 @@ class ChatNotifier extends _$ChatNotifier {
           },
       error: (String detail) {
         msg = msg.copyWith(status: MessageStatus.error);
-        streamError = detail;
+        streamError = _mapFailure(detail);
       },
       unknown: () {},
     );
@@ -207,7 +224,7 @@ class ChatNotifier extends _$ChatNotifier {
     );
   }
 
-  void _handleError(String error, String msgId) {
+  void _handleError(Object error, String msgId) {
     final base = _latest;
     final msgs = List<Message>.from(base.messages);
     final idx = msgs.indexWhere((m) => m.id == msgId);
@@ -215,7 +232,11 @@ class ChatNotifier extends _$ChatNotifier {
       msgs[idx] = msgs[idx].copyWith(status: MessageStatus.error);
     }
     _updateStateThrottled(
-      base.copyWith(error: error, isStreaming: false, messages: msgs),
+      base.copyWith(
+        error: _mapFailure(error),
+        isStreaming: false,
+        messages: msgs,
+      ),
     );
   }
 

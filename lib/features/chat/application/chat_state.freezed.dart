@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatState {
 
- List<Message> get messages; bool get isStreaming; String? get error; List<String> get quickReplies; String? get stage;
+ List<Message> get messages; bool get isStreaming; Failure? get error; List<String> get quickReplies; String? get stage;
 /// Create a copy of ChatState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,11 +45,11 @@ abstract mixin class $ChatStateCopyWith<$Res>  {
   factory $ChatStateCopyWith(ChatState value, $Res Function(ChatState) _then) = _$ChatStateCopyWithImpl;
 @useResult
 $Res call({
- List<Message> messages, bool isStreaming, String? error, List<String> quickReplies, String? stage
+ List<Message> messages, bool isStreaming, Failure? error, List<String> quickReplies, String? stage
 });
 
 
-
+$FailureCopyWith<$Res>? get error;
 
 }
 /// @nodoc
@@ -67,12 +67,24 @@ class _$ChatStateCopyWithImpl<$Res>
 messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
 as List<Message>,isStreaming: null == isStreaming ? _self.isStreaming : isStreaming // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,quickReplies: null == quickReplies ? _self.quickReplies : quickReplies // ignore: cast_nullable_to_non_nullable
+as Failure?,quickReplies: null == quickReplies ? _self.quickReplies : quickReplies // ignore: cast_nullable_to_non_nullable
 as List<String>,stage: freezed == stage ? _self.stage : stage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
+/// Create a copy of ChatState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FailureCopyWith<$Res>? get error {
+    if (_self.error == null) {
+    return null;
+  }
 
+  return $FailureCopyWith<$Res>(_self.error!, (value) {
+    return _then(_self.copyWith(error: value));
+  });
+}
 }
 
 
@@ -154,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Message> messages,  bool isStreaming,  String? error,  List<String> quickReplies,  String? stage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Message> messages,  bool isStreaming,  Failure? error,  List<String> quickReplies,  String? stage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatState() when $default != null:
 return $default(_that.messages,_that.isStreaming,_that.error,_that.quickReplies,_that.stage);case _:
@@ -175,7 +187,7 @@ return $default(_that.messages,_that.isStreaming,_that.error,_that.quickReplies,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Message> messages,  bool isStreaming,  String? error,  List<String> quickReplies,  String? stage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Message> messages,  bool isStreaming,  Failure? error,  List<String> quickReplies,  String? stage)  $default,) {final _that = this;
 switch (_that) {
 case _ChatState():
 return $default(_that.messages,_that.isStreaming,_that.error,_that.quickReplies,_that.stage);case _:
@@ -195,7 +207,7 @@ return $default(_that.messages,_that.isStreaming,_that.error,_that.quickReplies,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Message> messages,  bool isStreaming,  String? error,  List<String> quickReplies,  String? stage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Message> messages,  bool isStreaming,  Failure? error,  List<String> quickReplies,  String? stage)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatState() when $default != null:
 return $default(_that.messages,_that.isStreaming,_that.error,_that.quickReplies,_that.stage);case _:
@@ -215,7 +227,7 @@ class _ChatState implements ChatState {
 
 @override@JsonKey() final  List<Message> messages;
 @override@JsonKey() final  bool isStreaming;
-@override final  String? error;
+@override final  Failure? error;
 @override@JsonKey() final  List<String> quickReplies;
 @override final  String? stage;
 
@@ -249,11 +261,11 @@ abstract mixin class _$ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Re
   factory _$ChatStateCopyWith(_ChatState value, $Res Function(_ChatState) _then) = __$ChatStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<Message> messages, bool isStreaming, String? error, List<String> quickReplies, String? stage
+ List<Message> messages, bool isStreaming, Failure? error, List<String> quickReplies, String? stage
 });
 
 
-
+@override $FailureCopyWith<$Res>? get error;
 
 }
 /// @nodoc
@@ -271,13 +283,25 @@ class __$ChatStateCopyWithImpl<$Res>
 messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
 as List<Message>,isStreaming: null == isStreaming ? _self.isStreaming : isStreaming // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,quickReplies: null == quickReplies ? _self.quickReplies : quickReplies // ignore: cast_nullable_to_non_nullable
+as Failure?,quickReplies: null == quickReplies ? _self.quickReplies : quickReplies // ignore: cast_nullable_to_non_nullable
 as List<String>,stage: freezed == stage ? _self.stage : stage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
 
+/// Create a copy of ChatState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FailureCopyWith<$Res>? get error {
+    if (_self.error == null) {
+    return null;
+  }
 
+  return $FailureCopyWith<$Res>(_self.error!, (value) {
+    return _then(_self.copyWith(error: value));
+  });
+}
 }
 
 // dart format on

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/core/storage/secure_storage.dart';
+import 'package:alora_mobile/features/customer_mode/application/pin_result.dart';
 
 class CustomerModeNotifier extends Notifier<bool> {
   int _errorCount = 0;
@@ -27,10 +28,14 @@ class CustomerModeNotifier extends Notifier<bool> {
     _lockUntil = null;
   }
 
-  Future<bool> disable(String pin) async {
-    if (_lockUntil != null && DateTime.now().isBefore(_lockUntil!)) {
-      final seconds = _lockUntil!.difference(DateTime.now()).inSeconds;
-      throw Exception('3 marta xato. $seconds soniya kuting.');
+  Future<PinResult> disable(String pin) async {
+    final now = DateTime.now();
+    final lockUntil = _lockUntil;
+    if (lockUntil != null && now.isBefore(lockUntil)) {
+      return PinLocked(seconds: lockUntil.difference(now).inSeconds);
+    }
+    if (lockUntil != null) {
+      _lockUntil = null;
     }
 
     final storage = ref.read(secureStorageProvider);
@@ -41,16 +46,16 @@ class CustomerModeNotifier extends Notifier<bool> {
       state = false;
       _errorCount = 0;
       _lockUntil = null;
-      return true;
-    } else {
-      _errorCount++;
-      if (_errorCount >= 3) {
-        _lockUntil = DateTime.now().add(const Duration(seconds: 30));
-        _errorCount = 0;
-        throw Exception('3 marta xato. 30 soniya kuting.');
-      }
-      return false;
+      return const PinOk();
     }
+
+    _errorCount++;
+    if (_errorCount >= 3) {
+      _lockUntil = DateTime.now().add(const Duration(seconds: 30));
+      _errorCount = 0;
+      return const PinLocked(seconds: 30);
+    }
+    return PinWrong(attemptsLeft: 3 - _errorCount);
   }
 
   int get errorCount => _errorCount;

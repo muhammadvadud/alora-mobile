@@ -13,3 +13,8 @@ String formatMoneyPlain(int amount) {
   final formatted = formatter.format(amount);
   return formatted.replaceAll(',', _narrowNoBreakSpace);
 }
+
+/// Foizni ko'rsatish uchun: butun bo'lsa `3`, aks holda `2.5` (ortiqcha `.0` yo'q).
+String formatPercent(double value) {
+  return value % 1 == 0 ? value.toInt().toString() : value.toString();
+}

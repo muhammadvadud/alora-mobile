@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
-import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
-import 'package:alora_mobile/shared/widgets/money_text.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 
 class OrderDraftCardView extends StatelessWidget {
   final OrderDraft draft;
@@ -17,21 +16,13 @@ class OrderDraftCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.l),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(color: colors.border, width: 1.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _DraftHeader(draft: draft),
-          if (draft.missingFields.isNotEmpty) _DraftWarnings(missingFields: draft.missingFields),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.l),
+      child: AppCard.sections(
+        sections: [
+          _DraftHeaderSection(),
           _DraftFieldsSection(draft: draft),
+          if (draft.missingFields.isNotEmpty) _DraftMissingFieldsSection(draft: draft),
           _DraftActionsSection(draft: draft, onEdit: onEdit, onCreate: onCreate),
         ],
       ),
@@ -39,109 +30,89 @@ class OrderDraftCardView extends StatelessWidget {
   }
 }
 
-class _DraftHeader extends StatelessWidget {
-  final OrderDraft draft;
-
-  const _DraftHeader({required this.draft});
-
-  @override
-  Widget build(BuildContext context) {
-    final typography = context.text;
-    final l10n = AppLocalizations.of(context)!;
-
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.l),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(l10n.chat_draft_title, style: typography.overline),
-          MoneyText(amount: draft.total, style: typography.titleM),
-        ],
-      ),
-    );
-  }
-}
-
-class _DraftWarnings extends StatelessWidget {
-  final List<String> missingFields;
-
-  const _DraftWarnings({required this.missingFields});
-
+class _DraftHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.text;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.m),
-      color: colors.dangerSoft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: missingFields.map((f) {
-          return Row(
-            children: [
-              Icon(AppIcons.alertTriangle, size: 16, color: colors.danger),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(f, style: typography.bodyS.copyWith(color: colors.danger)),
-              ),
-            ],
-          );
-        }).toList(),
-      ),
+    final l10n = AppLocalizations.of(context)!;
+    return Text(
+      l10n.chat_draft_title,
+      style: typography.titleM.copyWith(color: colors.textPrimary),
     );
   }
 }
 
 class _DraftFieldsSection extends StatelessWidget {
   final OrderDraft draft;
-
   const _DraftFieldsSection({required this.draft});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.l),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _DraftField(label: 'Mijoz', value: draft.customerName),
-          _DraftField(label: 'Telefon', value: draft.phone),
-          _DraftField(label: 'Manzil', value: draft.address),
-          _DraftField(
-            label: 'Xonalar',
-            value: draft.measurements.map((m) => m.roomName ?? 'Noma\'lum').join(', '),
-          ),
-        ],
-      ),
-    );
+    final colors = context.colors;
+    final typography = context.text;
+    final l10n = AppLocalizations.of(context)!;
+    
+    final fields = <Widget>[];
+    
+    void addField(String label, String? value) {
+      if (value != null && value.isNotEmpty) {
+        fields.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.s),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(label, style: typography.titleS.copyWith(color: colors.textSecondary)),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(value, style: typography.bodyL.copyWith(color: colors.textPrimary)),
+                ),
+              ],
+            ),
+          )
+        );
+      }
+    }
+
+    addField(l10n.chat_draft_customer, draft.customerName);
+    addField(l10n.chat_draft_phone, draft.phone);
+    addField(l10n.chat_draft_address, draft.address);
+
+    if (fields.isEmpty) return const SizedBox.shrink();
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: fields);
   }
 }
 
-class _DraftField extends StatelessWidget {
-  final String label;
-  final String? value;
-
-  const _DraftField({required this.label, required this.value});
+class _DraftMissingFieldsSection extends StatelessWidget {
+  final OrderDraft draft;
+  const _DraftMissingFieldsSection({required this.draft});
 
   @override
   Widget build(BuildContext context) {
-    if (value == null || value!.isEmpty) return const SizedBox.shrink();
-    final typography = context.text;
     final colors = context.colors;
+    final typography = context.text;
+    final l10n = AppLocalizations.of(context)!;
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 80,
-            child: Text(label, style: typography.bodyS.copyWith(color: colors.textSecondary)),
-          ),
-          Expanded(child: Text(value!, style: typography.bodyS)),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(AppIcons.alertTriangle, size: AppSpacing.l, color: colors.danger),
+            const SizedBox(width: AppSpacing.s),
+            Text(l10n.chat_draft_missingFields, style: typography.labelS.copyWith(color: colors.danger)),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        ...draft.missingFields.map((f) => Padding(
+          padding: const EdgeInsets.only(left: AppSpacing.xl, bottom: 2.0),
+          child: Text('• $f', style: typography.bodyS.copyWith(color: colors.danger)),
+        )),
+      ],
     );
   }
 }
@@ -156,23 +127,20 @@ class _DraftActionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final isComplete = draft.missingFields.isEmpty;
 
-    return Padding(
-      padding: const EdgeInsets.only(left: AppSpacing.l, right: AppSpacing.l, bottom: AppSpacing.l),
-      child: Row(
-        children: [
+    return Row(
+      children: [
+        Expanded(
+          child: AppButton.secondary(text: l10n.chat_draft_edit, onPressed: onEdit),
+        ),
+        if (isComplete) ...[
+          const SizedBox(width: AppSpacing.s),
           Expanded(
-            child: AppButton.secondary(text: l10n.chat_draft_edit, onPressed: onEdit),
+            child: AppButton(text: l10n.chat_draft_createOrder, onPressed: onCreate),
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: AppButton(
-              text: l10n.chat_draft_createOrder,
-              onPressed: draft.missingFields.isEmpty ? onCreate : null,
-            ),
-          ),
-        ],
-      ),
+        ]
+      ],
     );
   }
 }

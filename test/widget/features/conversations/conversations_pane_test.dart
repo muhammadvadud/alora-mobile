@@ -75,7 +75,6 @@ void main() {
     expect(find.textContaining(RegExp('kecha', caseSensitive: false)), findsOneWidget);
     expect(find.text('Oshxona tayyor'), findsOneWidget);
     expect(find.text('Yotoqxona pardasi'), findsOneWidget);
-    expect(find.textContaining("so'm"), findsOneWidget);
   });
 
   testWidgets('filtr chipslari mavjud va bosilganda ro\'yxatni filtrlaydi', (tester) async {

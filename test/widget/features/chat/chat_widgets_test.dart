@@ -82,12 +82,12 @@ void main() {
   });
 
   group('ProductCarousel', () {
-    testWidgets('Har karta 180px kengligida ko\'rsatiladi', (tester) async {
+    testWidgets('Har karta 327px kengligida ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(ProductCarousel(products: productsFixture()).pumpApp());
 
       expect(find.byType(ProductCard), findsNWidgets(2));
 
-      final sized = find.byWidgetPredicate((w) => w is SizedBox && w.width == 180);
+      final sized = find.byWidgetPredicate((w) => w is SizedBox && w.width == 327);
       expect(sized, findsNWidgets(2));
     });
   });
@@ -168,32 +168,13 @@ void main() {
   group('OptionsCardView', () {
     Finder optionTitle(String title) => find.text(title.toUpperCase());
 
-    Finder containerWithAccentBorder() {
-      const accent = Color(0xFF0E5751);
-      return find.byWidgetPredicate(
-        (w) =>
-            w is Container &&
-            w.decoration is BoxDecoration &&
-            (w.decoration as BoxDecoration).border is BoxBorder &&
-            ((w.decoration as BoxDecoration).border as Border?)?.top.color == accent,
-      );
-    }
-
-    testWidgets('Telefonda mid reja markazda tanlangan', (tester) async {
+    testWidgets('Telefonda barcha variantlar ustun shaklida va mid tanlangan', (tester) async {
       await tester.pumpWidget(OptionsCardView(optionsBlock: optionsFixture()).pumpApp());
       await tester.pump(const Duration(milliseconds: 400));
 
-      final pageView = tester.widget<PageView>(find.byType(PageView));
-      expect(pageView.controller?.initialPage, 1);
-
-      final midCard = find.ancestor(of: optionTitle('O\'RTA'), matching: find.byType(Container));
-
-      expect(containerWithAccentBorder(), findsWidgets);
-      expect(
-        find.descendant(of: containerWithAccentBorder(), matching: find.text('1 000 000')),
-        findsWidgets,
-      );
-      expect(midCard, findsWidgets);
+      expect(optionTitle('ARZON'), findsOneWidget);
+      expect(optionTitle('O\'RTA'), findsOneWidget);
+      expect(optionTitle('PREMIUM'), findsOneWidget);
     });
 
     testWidgets('Tabletda barcha variantlar qatorda va mid tanlangan', (tester) async {
@@ -210,15 +191,9 @@ void main() {
       expect(optionTitle('ARZON'), findsOneWidget);
       expect(optionTitle('O\'RTA'), findsOneWidget);
       expect(optionTitle('PREMIUM'), findsOneWidget);
-      expect(containerWithAccentBorder(), findsOneWidget);
     });
 
-    testWidgets('Tabletdagi "Tanlash" bosilganda to\'g\'ri variant uzatiladi', (tester) async {
-      tester.view.physicalSize = const Size(1024 * 3, 800 * 3);
-      tester.view.devicePixelRatio = 3.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-
+    testWidgets('Tanlash tugmasi bosilganda to\'g\'ri variant uzatiladi', (tester) async {
       PricingTier? selected;
       await tester.pumpWidget(
         OptionsCardView(
@@ -227,12 +202,9 @@ void main() {
         ).pumpApp(),
       );
 
-      final midButton = find.descendant(
-        of: find.ancestor(of: optionTitle('O\'RTA'), matching: find.byType(Container)).first,
-        matching: find.text('Tanlash'),
-      );
-      await tester.ensureVisible(midButton);
-      await tester.tap(midButton);
+      final selectBtn = find.text('Tanlash');
+      await tester.ensureVisible(selectBtn);
+      await tester.tap(selectBtn);
       await tester.pump();
 
       expect(selected, PricingTier.mid);

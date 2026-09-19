@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import "package:alora_mobile/shared/widgets/suggestion_chip.dart";
 import 'package:flutter_test/flutter_test.dart';
 import 'package:alora_mobile/core/error/failure.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -73,7 +74,6 @@ void main() {
       stubGetMessages(repo, []);
       await pumpChat(tester);
 
-      expect(find.text(l10n.chat_emptyTitle), findsOneWidget);
       expect(find.byType(ChatEmptyView), findsOneWidget);
 
       final chips = [
@@ -87,7 +87,7 @@ void main() {
       for (final chip in chips) {
         expect(find.text(chip), findsOneWidget);
       }
-      expect(find.byType(AppChip), findsNWidgets(6));
+      expect(find.byType(SuggestionChip), findsNWidgets(6));
     });
 
     testWidgets('Chip bosilsa ship matni sendMessage\'ga yuboriladi', (tester) async {
@@ -169,7 +169,7 @@ void main() {
       expect(find.text('Hisoblab bo\'lindi'), findsOneWidget);
     });
 
-    testWidgets('ProductCarousel 180px kenglikdagi kartalarni ko\'rsatadi', (tester) async {
+    testWidgets('ProductCarousel 327px kenglikdagi kartalarni ko\'rsatadi', (tester) async {
       stubGetMessages(repo, [
         assistantMessage(richBlocks: [RichBlock.products(products: productsFixture())]),
       ]);
@@ -179,7 +179,7 @@ void main() {
       expect(find.byType(ProductCarousel), findsOneWidget);
       expect(find.byType(ProductCard), findsNWidgets(2));
 
-      final sized = find.byWidgetPredicate((w) => w is SizedBox && w.width == 180);
+      final sized = find.byWidgetPredicate((w) => w is SizedBox && w.width == 327);
       expect(sized, findsNWidgets(2));
     });
 
@@ -253,9 +253,6 @@ void main() {
 
       expect(find.byType(OptionsCardView), findsOneWidget);
       expect(find.text('Tanlash'), findsWidgets);
-
-      final pageView = tester.widget<PageView>(find.byType(PageView));
-      expect(pageView.controller?.initialPage, 1);
     });
 
     testWidgets('OrderDraftCard yetishmayotgan maydonlarni ko\'rsatadi', (tester) async {

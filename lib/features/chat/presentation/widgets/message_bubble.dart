@@ -1,3 +1,4 @@
+import "package:alora_mobile/app/theme/app_spacing.dart";
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 
@@ -15,8 +16,8 @@ class UserBubble extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Container(
         constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width * 0.8),
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: const EdgeInsets.only(bottom: AppSpacing.l),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: 14),
         decoration: BoxDecoration(
           color: colors.surfaceMuted,
           borderRadius: const BorderRadius.only(
@@ -43,7 +44,7 @@ class AssistantMessageView extends StatelessWidget {
     final colors = context.colors;
 
     return Padding(
-      padding: const EdgeInsets.only(left: 2, bottom: 16),
+      padding: EdgeInsets.zero,
       child: _MarkdownLite(
         text: text,
         style: typography.bodyM.copyWith(color: colors.textPrimary),

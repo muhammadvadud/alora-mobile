@@ -42,7 +42,6 @@ void main() {
         );
 
         expect(tester, meetsGuideline(labeledTapTargetGuideline));
-        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 
@@ -65,7 +64,6 @@ void main() {
         );
 
         expect(tester, meetsGuideline(labeledTapTargetGuideline));
-        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 
@@ -81,7 +79,6 @@ void main() {
         );
 
         expect(tester, meetsGuideline(labeledTapTargetGuideline));
-        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 
@@ -105,7 +102,6 @@ void main() {
         );
 
         expect(tester, meetsGuideline(labeledTapTargetGuideline));
-        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 

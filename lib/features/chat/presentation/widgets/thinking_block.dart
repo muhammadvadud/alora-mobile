@@ -1,3 +1,4 @@
+import "package:alora_mobile/app/theme/app_spacing.dart";
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
@@ -12,7 +13,7 @@ class ThinkingBlockView extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0, left: 4.0),
+      padding: const EdgeInsets.only(bottom: AppSpacing.s, left: AppSpacing.xs),
       child: Text(
         l10n.chat_thinking,
         style: typography.bodyS.copyWith(color: colors.textSecondary, fontStyle: FontStyle.italic),

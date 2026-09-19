@@ -84,7 +84,7 @@ void main() {
     expect(find.byType(ConversationsScreen), findsOneWidget);
 
     // Yangi suhbat yaratish.
-    await tester.tap(find.text('Yangi suhbat'));
+    await tester.tap(find.byIcon(AppIcons.edit));
     await tester.pumpAndSettle();
     expect(find.byType(ChatScreen), findsOneWidget);
     expect(conversations.createCalls, 1);

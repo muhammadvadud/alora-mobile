@@ -4,8 +4,8 @@ import 'package:alora_mobile/core/error/failure_l10n.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
+import 'package:alora_mobile/app/theme/app_radius.dart';
 
-/// Chat maydonining yuqorisida ko'rsatiladigan xatolik banneri.
 class ChatErrorBanner extends StatelessWidget {
   const ChatErrorBanner({
     super.key,
@@ -23,8 +23,12 @@ class ChatErrorBanner extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
     return Container(
+      margin: const EdgeInsets.all(AppSpacing.l),
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.s),
-      color: colors.dangerSoft,
+      decoration: BoxDecoration(
+        color: colors.dangerSoft,
+        borderRadius: AppRadius.inputBorder,
+      ),
       child: Row(
         children: [
           Icon(AppIcons.alertTriangle, color: colors.danger, size: AppSpacing.l),
@@ -35,7 +39,15 @@ class ChatErrorBanner extends StatelessWidget {
               style: typography.bodyS.copyWith(color: colors.danger),
             ),
           ),
-          TextButton(onPressed: onRetry, child: Text(retryLabel)),
+          TextButton(
+            onPressed: onRetry,
+            style: TextButton.styleFrom(
+              foregroundColor: colors.danger,
+              textStyle: typography.labelM,
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
+            ),
+            child: Text(retryLabel),
+          ),
         ],
       ),
     );

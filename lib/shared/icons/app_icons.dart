@@ -8,6 +8,7 @@ class AppIcons {
   static const IconData management = LucideIcons.barChart2;
   static const IconData profile = LucideIcons.user;
   static const IconData mic = LucideIcons.mic;
+  static const IconData audioLines = LucideIcons.audioLines;
   static const IconData chevronRight = LucideIcons.chevronRight;
   static const IconData alertTriangle = LucideIcons.triangleAlert;
   static const IconData ban = LucideIcons.ban;

@@ -63,7 +63,7 @@ void main() {
     expect(find.byType(ConversationsScreen), findsOneWidget);
     expect(find.text('Internet yo\'q. Ulanish tiklanganda avtomatik yuboriladi'), findsNothing);
 
-    await tester.tap(find.text('Yangi suhbat'));
+    await tester.tap(find.byIcon(AppIcons.edit));
     await tester.pumpAndSettle();
     expect(find.byType(ChatScreen), findsOneWidget);
 

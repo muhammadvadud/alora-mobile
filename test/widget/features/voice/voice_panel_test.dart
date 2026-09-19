@@ -5,7 +5,7 @@ import 'package:alora_mobile/features/voice/presentation/widgets/voice_panel.dar
 import 'package:alora_mobile/features/voice/application/voice_notifier.dart';
 import 'package:alora_mobile/app/theme/app_theme.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:alora_mobile/shared/widgets/app_button.dart';
 
 class FakeVoiceNotifier extends VoiceNotifier {
   final VoiceState _fakeState;
@@ -29,8 +29,7 @@ void main() {
       ),
     );
 
-    expect(find.byIcon(LucideIcons.mic), findsOneWidget); // mic button
-    expect(find.byIcon(LucideIcons.keyboard), findsOneWidget); // keyboard button
-    expect(find.text("To'xtatish"), findsNothing);
+    expect(find.text("Kutmoqda..."), findsOneWidget);
+    expect(find.byType(AppButton), findsOneWidget); 
   });
 }

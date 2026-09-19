@@ -104,7 +104,7 @@ void main() {
     await tester.pumpWidget(wrapApp(container));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Yangi suhbat'));
+    await tester.tap(find.byIcon(AppIcons.edit));
     await tester.pumpAndSettle();
     expect(find.byType(ChatScreen), findsOneWidget);
 

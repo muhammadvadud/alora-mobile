@@ -18,7 +18,7 @@ import 'package:alora_mobile/features/chat/presentation/widgets/chat_empty_view.
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_error_banner.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_input_panel.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_message_list.dart';
-import 'package:alora_mobile/features/chat/presentation/widgets/chat_scroll_down_fab.dart';
+import "package:alora_mobile/shared/widgets/scroll_down_button.dart";
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_title_bar.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/conversations_pane_placeholder.dart';
 import 'package:alora_mobile/features/voice/presentation/widgets/voice_panel.dart';
@@ -147,7 +147,7 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: colors.surface,
       elevation: 0,
-      centerTitle: true,
+      centerTitle: false,
       leading: IconButton(
         icon: Icon(AppIcons.chevronRight, color: colors.textPrimary),
         onPressed: () => context.pop(),
@@ -301,9 +301,8 @@ class _ChatBody extends ConsumerWidget {
                   left: 0,
                   right: 0,
                   child: Center(
-                    child: ChatScrollDownFab(
+                    child: ScrollDownButton(
                       onPressed: onScrollToBottom,
-                      label: l10n.chat_newMessages,
                     ),
                   ),
                 ),

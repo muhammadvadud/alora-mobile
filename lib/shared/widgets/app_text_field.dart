@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:alora_mobile/app/theme/app_radius.dart";
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -132,6 +133,24 @@ class _InnerTextField extends StatelessWidget {
           fillColor: widget.isEnabled ? colors.surfaceMuted : colors.surfaceDisabled,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
           errorStyle: const TextStyle(height: 0, fontSize: 0),
+          border: widget.type == AppTextFieldType.search
+              ? OutlineInputBorder(
+                  borderRadius: AppRadius.pillBorder,
+                  borderSide: BorderSide.none,
+                )
+              : null,
+          enabledBorder: widget.type == AppTextFieldType.search
+              ? OutlineInputBorder(
+                  borderRadius: AppRadius.pillBorder,
+                  borderSide: BorderSide.none,
+                )
+              : null,
+          focusedBorder: widget.type == AppTextFieldType.search
+              ? OutlineInputBorder(
+                  borderRadius: AppRadius.pillBorder,
+                  borderSide: BorderSide(color: colors.accent, width: 2), // Should use accent, but I will get it via colors.accent. Wait, Colors.blue is a placeholder, let's use colors.accent
+                )
+              : null,
         ),
       ),
     );

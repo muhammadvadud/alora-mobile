@@ -31,9 +31,7 @@ class QuoteFabricsSection extends StatelessWidget {
         : (fabrics.length > 6 ? 4 : fabrics.length);
     final hiddenCount = fabrics.length - displayCount;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionLabel(l10n.chat_quote_fabrics),
@@ -41,10 +39,8 @@ class QuoteFabricsSection extends StatelessWidget {
           ...fabrics.take(displayCount).map((f) => _FabricRow(fabric: f)),
           if (hiddenCount > 0)
             TextButton(onPressed: onShowMore, child: Text(l10n.chat_quote_more(hiddenCount))),
-          const SizedBox(height: AppSpacing.l),
-        ],
-      ),
-    );
+          ],
+      );
   }
 }
 
@@ -60,7 +56,7 @@ class _FabricRow extends StatelessWidget {
     final f = fabric;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
+      padding: const EdgeInsets.only(bottom: AppSpacing.m),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,7 +67,7 @@ class _FabricRow extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs, vertical: 2),
                       decoration: BoxDecoration(
                         color: colors.surfaceMuted,
                         borderRadius: AppRadius.smallBorder,

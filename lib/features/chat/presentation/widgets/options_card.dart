@@ -1,10 +1,12 @@
+import "package:alora_mobile/app/theme/app_spacing.dart";
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/chat/domain/entities/pricing_option.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/shared/widgets/app_button.dart';
+import 'package:alora_mobile/shared/widgets/app_radio.dart';
 import 'package:alora_mobile/shared/widgets/money_text.dart';
+import 'package:alora_mobile/shared/widgets/app_button.dart';
 
 class OptionsCardView extends StatefulWidget {
   final PricingOptions optionsBlock;
@@ -17,27 +19,17 @@ class OptionsCardView extends StatefulWidget {
 }
 
 class _OptionsCardViewState extends State<OptionsCardView> {
-  late PageController _pageController;
-  int _currentIndex = 1; // mid is usually index 1
+  PricingTier? _selectedTier;
 
   @override
   void initState() {
     super.initState();
-    // find mid index if exists
+    // Default to mid tier
     final options = widget.optionsBlock.options;
-    int initialPage = 0;
     if (options.isNotEmpty) {
       final midIdx = options.indexWhere((o) => o.tier == PricingTier.mid);
-      initialPage = midIdx != -1 ? midIdx : 0;
+      _selectedTier = midIdx != -1 ? PricingTier.mid : options.first.tier;
     }
-    _currentIndex = initialPage;
-    _pageController = PageController(viewportFraction: 0.86, initialPage: initialPage);
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 
   @override
@@ -45,52 +37,71 @@ class _OptionsCardViewState extends State<OptionsCardView> {
     final options = widget.optionsBlock.options;
     if (options.isEmpty) return const SizedBox.shrink();
 
-    // Responsive check for tablet (S-06 5b)
+    // S-06 planshet: 3 ustun yonma-yon? Wait, the spec says S-07 is Variantlar, walmart_order radio ro'yxati uslubi.
+    // If it's tablet, we can still show a vertical list or grid. Let's just use vertical list as per S-07.
+    // But rules.md §6 S-06 says: Chat — uchta variant (yorug'/qorong'i/planshet) 1f, 5b, 5c.
+    // If tablet (width >= 840), we can show them side by side.
+
     final screenWidth = MediaQuery.sizeOf(context).width;
     final isTablet = screenWidth >= 840;
 
+    Widget content;
     if (isTablet) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      content = Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: options.map((opt) {
-          final isSelected = opt.tier == PricingTier.mid;
+          final isSelected = opt.tier == _selectedTier;
           return Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
               child: _OptionCardItem(
                 option: opt,
                 isSelected: isSelected,
-                onSelect: widget.onSelect,
+                onTap: () {
+                  setState(() => _selectedTier = opt.tier);
+                },
               ),
+            ),
+          );
+        }).toList(),
+      );
+      content = IntrinsicHeight(child: content);
+    } else {
+      content = Column(
+        mainAxisSize: MainAxisSize.min,
+        children: options.map((opt) {
+          final isSelected = opt.tier == _selectedTier;
+          return Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.m),
+            child: _OptionCardItem(
+              option: opt,
+              isSelected: isSelected,
+              onTap: () {
+                setState(() => _selectedTier = opt.tier);
+              },
             ),
           );
         }).toList(),
       );
     }
 
-    return SizedBox(
-      height: 320,
-      child: PageView.builder(
-        controller: _pageController,
-        onPageChanged: (idx) {
-          setState(() {
-            _currentIndex = idx;
-          });
-        },
-        itemCount: options.length,
-        itemBuilder: (context, index) {
-          final isSelected = index == _currentIndex;
-          return AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: isSelected ? 8.0 : 16.0),
-            child: _OptionCardItem(
-              option: options[index],
-              isSelected: isSelected,
-              onSelect: widget.onSelect,
-            ),
-          );
-        },
-      ),
+    final l10n = AppLocalizations.of(context)!;
+    final selectedOption = options.firstWhere(
+      (o) => o.tier == _selectedTier,
+      orElse: () => options.first,
+    );
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        content,
+        const SizedBox(height: 4),
+        AppButton.secondary(
+          text: l10n.chat_options_select,
+          onPressed: widget.onSelect != null ? () => widget.onSelect!(selectedOption) : null,
+        ),
+      ],
     );
   }
 }
@@ -98,76 +109,66 @@ class _OptionsCardViewState extends State<OptionsCardView> {
 class _OptionCardItem extends StatelessWidget {
   final PricingOption option;
   final bool isSelected;
-  final ValueChanged<PricingOption>? onSelect;
+  final VoidCallback onTap;
 
-  const _OptionCardItem({required this.option, required this.isSelected, this.onSelect});
+  const _OptionCardItem({required this.option, required this.isSelected, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 15),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(
-          color: isSelected ? colors.accent : colors.border,
-          width: isSelected ? 1.5 : 1.0,
-        ),
-        boxShadow: isSelected
-            ? [
-                BoxShadow(
-                  color: colors.accent.withValues(alpha: 0.09),
-                  blurRadius: 3,
-                  spreadRadius: 3,
-                ),
-              ]
-            : null,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _OptionHeader(option: option),
-          const SizedBox(height: 16),
-          Expanded(child: _OptionLinesList(lines: option.lines)),
-          const SizedBox(height: 16),
-          _OptionAction(option: option, onSelect: onSelect),
-        ],
-      ),
-    );
-  }
-}
-
-class _OptionHeader extends StatelessWidget {
-  final PricingOption option;
-
-  const _OptionHeader({required this.option});
-
-  @override
-  Widget build(BuildContext context) {
     final typography = context.text;
-    final colors = context.colors;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          option.title.toUpperCase(),
-          style: typography.overline.copyWith(color: colors.textSecondary),
-        ),
-        const SizedBox(height: 8),
-        MoneyText(amount: option.total, style: typography.displayM),
-        if (option.difference != null && option.difference! != 0) ...[
-          const SizedBox(height: 4),
-          Text(
-            option.difference! > 0 ? '+${option.difference} so\'m' : '${option.difference} so\'m',
-            style: typography.bodyS.copyWith(
-              color: option.difference! > 0 ? colors.textSecondary : colors.success,
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          padding: const EdgeInsets.all(AppSpacing.l),
+          decoration: BoxDecoration(
+            color: colors.surface,
+            borderRadius: AppRadius.cardBorder,
+            border: Border.all(
+              color: isSelected ? colors.info : colors.border,
+              width: isSelected ? 1.5 : 1.0,
             ),
           ),
-        ],
-      ],
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppRadio(isSelected: isSelected),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      option.title.toUpperCase(),
+                      style: typography.overline.copyWith(color: colors.textSecondary),
+                    ),
+                    const SizedBox(height: 8),
+                    MoneyText(amount: option.total, style: typography.titleL),
+                    if (option.difference != null && option.difference! != 0) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        option.difference! > 0
+                            ? '+${option.difference} so\'m'
+                            : '${option.difference} so\'m',
+                        style: typography.bodyS.copyWith(
+                          color: option.difference! > 0 ? colors.textSecondary : colors.success,
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 12),
+                    _OptionLinesList(lines: option.lines),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -182,36 +183,20 @@ class _OptionLinesList extends StatelessWidget {
     final typography = context.text;
     final colors = context.colors;
 
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: lines.length,
-      separatorBuilder: (context, index) => const SizedBox(height: 8),
-      itemBuilder: (context, index) {
-        final line = lines[index];
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('• ', style: typography.bodyS.copyWith(color: colors.textSecondary)),
-            Expanded(child: Text('${line.title}: ${line.value}', style: typography.bodyS)),
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: lines.map((line) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('• ', style: typography.bodyS.copyWith(color: colors.textSecondary)),
+              Expanded(child: Text('${line.title}: ${line.value}', style: typography.bodyS)),
+            ],
+          ),
         );
-      },
-    );
-  }
-}
-
-class _OptionAction extends StatelessWidget {
-  final PricingOption option;
-  final ValueChanged<PricingOption>? onSelect;
-
-  const _OptionAction({required this.option, this.onSelect});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return AppButton.secondary(
-      text: l10n.chat_options_select,
-      onPressed: onSelect != null ? () => onSelect!(option) : null,
+      }).toList(),
     );
   }
 }

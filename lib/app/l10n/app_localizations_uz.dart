@@ -1312,6 +1312,36 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get chat_send => 'Yuborish';
+
+  @override
+  String get chat_draft_customer => 'Mijoz';
+
+  @override
+  String get chat_draft_phone => 'Telefon raqam';
+
+  @override
+  String get chat_draft_address => 'Manzil';
+
+  @override
+  String get chat_draft_missingFields => 'To\'ldirish kerak bo\'lgan maydonlar';
+
+  @override
+  String get chat_start_livingRoom_sub => 'Katta derazalar uchun';
+
+  @override
+  String get chat_start_bedroom_sub => 'Yotoqxona';
+
+  @override
+  String get chat_start_couple_sub => 'Er-xotin';
+
+  @override
+  String get chat_start_kitchen_sub => 'Oshxona';
+
+  @override
+  String get chat_start_kids_sub => 'Bolalar xonasi';
+
+  @override
+  String get chat_start_office_sub => 'Ofis/ish xonasi';
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -2551,4 +2581,22 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get chat_send => 'Юбориш';
+
+  @override
+  String get chat_start_livingRoom_sub => 'Парда ва дизайн танлаш';
+
+  @override
+  String get chat_start_bedroom_sub => 'Қоронғи ва осойишта';
+
+  @override
+  String get chat_start_couple_sub => 'Романтик ва шинам';
+
+  @override
+  String get chat_start_kitchen_sub => 'Амалий ва ёруғ';
+
+  @override
+  String get chat_start_kids_sub => 'Ўйин ва қизиқарли';
+
+  @override
+  String get chat_start_office_sub => 'Сокин ва ишчан';
 }

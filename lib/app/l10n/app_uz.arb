@@ -624,5 +624,15 @@
   "settings_delete": "O'chirish",
   "chat_addAttachment": "Qo'shish",
   "chat_microphone": "Mikrofon",
-  "chat_send": "Yuborish"
+  "chat_send": "Yuborish",
+  "chat_draft_customer": "Mijoz",
+  "chat_draft_phone": "Telefon raqam",
+  "chat_draft_address": "Manzil",
+  "chat_draft_missingFields": "To'ldirish kerak bo'lgan maydonlar",
+  "chat_start_livingRoom_sub": "Katta derazalar uchun",
+  "chat_start_bedroom_sub": "Yotoqxona",
+  "chat_start_couple_sub": "Er-xotin",
+  "chat_start_kitchen_sub": "Oshxona",
+  "chat_start_kids_sub": "Bolalar xonasi",
+  "chat_start_office_sub": "Ofis/ish xonasi"
 }

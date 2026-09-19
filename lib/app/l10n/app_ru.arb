@@ -624,5 +624,11 @@
   "settings_delete": "Удалить",
   "chat_addAttachment": "Добавить",
   "chat_microphone": "Микрофон",
-  "chat_send": "Отправить"
+  "chat_send": "Отправить",
+  "chat_start_livingRoom_sub": "Шторы и дизайн",
+  "chat_start_bedroom_sub": "Темно и уютно",
+  "chat_start_couple_sub": "Романтично и уютно",
+  "chat_start_kitchen_sub": "Практично и светло",
+  "chat_start_kids_sub": "Игрово и интересно",
+  "chat_start_office_sub": "Тихо и рабоче"
 }

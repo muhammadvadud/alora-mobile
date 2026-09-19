@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 
 /// Planshet/keng ekranlar uchun adaptiv joylashuv.
 /// Kenglik >= [splitWidth] bo'lsa va [leading] berilgan bo'lsa
@@ -22,7 +23,13 @@ class AdaptiveShell extends StatelessWidget {
         }
         return Row(
           children: [
-            SizedBox(width: paneWidth, child: leading),
+            Container(
+              width: paneWidth,
+              decoration: BoxDecoration(
+                border: Border(right: BorderSide(color: context.colors.border, width: 1.0)),
+              ),
+              child: leading,
+            ),
             Expanded(child: TabletCentered(child: child)),
           ],
         );

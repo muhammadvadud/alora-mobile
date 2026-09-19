@@ -1,3 +1,4 @@
+import "package:alora_mobile/app/theme/app_spacing.dart";
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/features/chat/domain/entities/product_ref.dart';
@@ -16,11 +17,12 @@ class ProductCarousel extends StatelessWidget {
     if (products.isEmpty) return const SizedBox.shrink();
 
     return SizedBox(
-      height: 280,
+      height: 112, // 88 + 12*2 padding = 112
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
-        separatorBuilder: (context, index) => const SizedBox(width: 12),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l), // chetdan 16
+        separatorBuilder: (context, index) => const SizedBox(width: 20),
         itemBuilder: (context, index) {
           final p = products[index];
 
@@ -43,19 +45,12 @@ class ProductCarousel extends StatelessWidget {
             colorName: p.colorName,
           );
 
-          return Padding(
-            padding: EdgeInsets.only(
-              left: index == 0 ? 0 : 0,
-              right: index == products.length - 1 ? 0 : 0,
-              bottom: 8,
-            ),
-            child: ProductCard(
-              data: data,
-              isCarousel: true,
-              onTap: () {
-                context.push(AppRoutes.catalogProduct(p.id));
-              },
-            ),
+          return ProductCard.wide(
+            data: data,
+            isCarousel: true,
+            onTap: () {
+              context.push(AppRoutes.catalogProduct(p.id));
+            },
           );
         },
       ),

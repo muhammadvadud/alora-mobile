@@ -601,5 +601,11 @@
   "settings_delete": "Ўчириш",
   "chat_addAttachment": "Қўшиш",
   "chat_microphone": "Микрофон",
-  "chat_send": "Юбориш"
+  "chat_send": "Юбориш",
+  "chat_start_livingRoom_sub": "Парда ва дизайн танлаш",
+  "chat_start_bedroom_sub": "Қоронғи ва осойишта",
+  "chat_start_couple_sub": "Романтик ва шинам",
+  "chat_start_kitchen_sub": "Амалий ва ёруғ",
+  "chat_start_kids_sub": "Ўйин ва қизиқарли",
+  "chat_start_office_sub": "Сокин ва ишчан"
 }

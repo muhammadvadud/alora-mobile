@@ -4,6 +4,7 @@ class AppRadius {
   static const double pill = 999.0;
   static const double card = 20.0;
   static const double input = 16.0;
+  static const double multilineInput = 22.0;
   static const double avatar = 8.0;
   static const BorderRadius bubble = BorderRadius.all(Radius.circular(pill));
   static const BorderRadius sheet = BorderRadius.only(
@@ -15,6 +16,7 @@ class AppRadius {
   static final BorderRadius pillBorder = BorderRadius.circular(pill);
   static final BorderRadius cardBorder = BorderRadius.circular(card);
   static final BorderRadius inputBorder = BorderRadius.circular(input);
+  static final BorderRadius multilineInputBorder = BorderRadius.circular(multilineInput);
   static final BorderRadius avatarBorder = BorderRadius.circular(avatar);
   static final BorderRadius smallBorder = BorderRadius.circular(small);
   static final BorderRadius progressBorder = BorderRadius.circular(2.5);

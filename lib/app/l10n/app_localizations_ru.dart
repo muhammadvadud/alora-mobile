@@ -1312,4 +1312,34 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chat_send => 'Отправить';
+
+  @override
+  String get chat_draft_customer => 'Mijoz';
+
+  @override
+  String get chat_draft_phone => 'Telefon raqam';
+
+  @override
+  String get chat_draft_address => 'Manzil';
+
+  @override
+  String get chat_draft_missingFields => 'To\'ldirish kerak bo\'lgan maydonlar';
+
+  @override
+  String get chat_start_livingRoom_sub => 'Шторы и дизайн';
+
+  @override
+  String get chat_start_bedroom_sub => 'Темно и уютно';
+
+  @override
+  String get chat_start_couple_sub => 'Романтично и уютно';
+
+  @override
+  String get chat_start_kitchen_sub => 'Практично и светло';
+
+  @override
+  String get chat_start_kids_sub => 'Игрово и интересно';
+
+  @override
+  String get chat_start_office_sub => 'Тихо и рабоче';
 }

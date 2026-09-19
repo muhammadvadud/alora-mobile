@@ -6,6 +6,7 @@ import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class SetPinDialog extends ConsumerStatefulWidget {
   const SetPinDialog({super.key});
@@ -62,9 +63,11 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: AppRadius.cardBorder),
+      backgroundColor: colors.surface,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.xl),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.xl),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -72,7 +75,7 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
                 _confirmPin == null
                     ? context.l10n.chat_setPinTitle
                     : context.l10n.chat_confirmPinTitle,
-                style: context.text.titleL,
+                style: context.text.titleM,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.l),
@@ -164,13 +167,15 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
     }
 
     return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: AppRadius.cardBorder),
+      backgroundColor: colors.surface,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.xl),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.xl),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(context.l10n.chat_enterPinTitle, style: context.text.titleL),
+              Text(context.l10n.chat_enterPinTitle, style: context.text.titleM),
               const SizedBox(height: AppSpacing.l),
               _PinDots(pinLength: _pin.length),
               if (_error != null) ...[
@@ -226,18 +231,43 @@ class _Numpad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      childAspectRatio: 1.5,
-      mainAxisSpacing: AppSpacing.s,
-      crossAxisSpacing: AppSpacing.s,
+    return Column(
       children: [
-        for (var i = 1; i <= 9; i++)
-          _NumpadButton(text: i.toString(), onTap: isLocked ? null : () => onDigit(i.toString())),
-        const SizedBox(),
-        _NumpadButton(text: '0', onTap: isLocked ? null : () => onDigit('0')),
-        _NumpadButton(text: '<-', onTap: isLocked ? null : onDelete),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _NumpadButton(text: '1', onTap: isLocked ? null : () => onDigit('1')),
+            _NumpadButton(text: '2', onTap: isLocked ? null : () => onDigit('2')),
+            _NumpadButton(text: '3', onTap: isLocked ? null : () => onDigit('3')),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.l),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _NumpadButton(text: '4', onTap: isLocked ? null : () => onDigit('4')),
+            _NumpadButton(text: '5', onTap: isLocked ? null : () => onDigit('5')),
+            _NumpadButton(text: '6', onTap: isLocked ? null : () => onDigit('6')),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.l),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _NumpadButton(text: '7', onTap: isLocked ? null : () => onDigit('7')),
+            _NumpadButton(text: '8', onTap: isLocked ? null : () => onDigit('8')),
+            _NumpadButton(text: '9', onTap: isLocked ? null : () => onDigit('9')),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.l),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const SizedBox(width: 64),
+            _NumpadButton(text: '0', onTap: isLocked ? null : () => onDigit('0')),
+            _NumpadIconButton(icon: LucideIcons.delete, onTap: isLocked ? null : onDelete),
+          ],
+        ),
       ],
     );
   }
@@ -253,11 +283,48 @@ class _NumpadButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: const BorderRadius.all(Radius.circular(AppRadius.input)),
-      child: Center(
-        child: Text(
-          text,
-          style: context.text.titleL.copyWith(
+      borderRadius: AppRadius.pillBorder,
+      child: Container(
+        width: 64,
+        height: 64,
+        decoration: BoxDecoration(
+          color: context.colors.surfaceMuted,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: context.text.titleL.copyWith(
+              color: onTap == null ? context.colors.textDisabled : context.colors.textPrimary,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NumpadIconButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  const _NumpadIconButton({required this.icon, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: AppRadius.pillBorder,
+      child: Container(
+        width: 64,
+        height: 64,
+        decoration: BoxDecoration(
+          color: context.colors.surfaceMuted,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Icon(
+            icon,
             color: onTap == null ? context.colors.textDisabled : context.colors.textPrimary,
           ),
         ),

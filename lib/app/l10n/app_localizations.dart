@@ -2586,6 +2586,66 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Yuborish'**
   String get chat_send;
+
+  /// No description provided for @chat_draft_customer.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz'**
+  String get chat_draft_customer;
+
+  /// No description provided for @chat_draft_phone.
+  ///
+  /// In uz, this message translates to:
+  /// **'Telefon raqam'**
+  String get chat_draft_phone;
+
+  /// No description provided for @chat_draft_address.
+  ///
+  /// In uz, this message translates to:
+  /// **'Manzil'**
+  String get chat_draft_address;
+
+  /// No description provided for @chat_draft_missingFields.
+  ///
+  /// In uz, this message translates to:
+  /// **'To\'ldirish kerak bo\'lgan maydonlar'**
+  String get chat_draft_missingFields;
+
+  /// No description provided for @chat_start_livingRoom_sub.
+  ///
+  /// In uz, this message translates to:
+  /// **'Katta derazalar uchun'**
+  String get chat_start_livingRoom_sub;
+
+  /// No description provided for @chat_start_bedroom_sub.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yotoqxona'**
+  String get chat_start_bedroom_sub;
+
+  /// No description provided for @chat_start_couple_sub.
+  ///
+  /// In uz, this message translates to:
+  /// **'Er-xotin'**
+  String get chat_start_couple_sub;
+
+  /// No description provided for @chat_start_kitchen_sub.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oshxona'**
+  String get chat_start_kitchen_sub;
+
+  /// No description provided for @chat_start_kids_sub.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bolalar xonasi'**
+  String get chat_start_kids_sub;
+
+  /// No description provided for @chat_start_office_sub.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ofis/ish xonasi'**
+  String get chat_start_office_sub;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

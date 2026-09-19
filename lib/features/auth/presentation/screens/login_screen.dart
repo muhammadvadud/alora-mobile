@@ -7,6 +7,7 @@ import 'package:alora_mobile/app/router/adaptive_shell.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/features/auth/application/auth_notifier.dart';
+import "package:alora_mobile/app/theme/app_radius.dart";
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
@@ -53,7 +54,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submit() async {
     if (_isSubmitting) return;
 
-    // Maska bo'shliq bilan beradi (`+998 90 ...`), backend E.164 kutadi (§8.2)
     final phone = normalizePhone(_phoneController.text);
     final password = _passwordController.text.trim();
     if (phone.isEmpty || password.isEmpty) {
@@ -88,7 +88,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return Scaffold(
+      backgroundColor: colors.background,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -141,6 +143,18 @@ class _LoginHeader extends StatelessWidget {
 
     return Column(
       children: [
+        Container(
+          width: 64,
+          height: 64,
+          decoration: BoxDecoration(
+            color: colors.surfaceMuted,
+            borderRadius: AppRadius.inputBorder,
+          ),
+          child: Center(
+            child: Text('A', style: text.displayL.copyWith(color: colors.textPrimary)),
+          ),
+        ),
+        const SizedBox(height: 16),
         Text(
           l10n.app_name,
           style: text.displayL.copyWith(color: colors.textPrimary),
@@ -149,7 +163,7 @@ class _LoginHeader extends StatelessWidget {
         const SizedBox(height: AppSpacing.s),
         Text(
           l10n.login_tagline,
-          style: text.bodyM.copyWith(color: colors.textSecondary),
+          style: text.bodyS.copyWith(color: colors.textSecondary),
           textAlign: TextAlign.center,
         ),
       ],
@@ -183,20 +197,17 @@ class _LoginFormFields extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(l10n.login_phoneLabel, style: text.labelS.copyWith(color: colors.textSecondary)),
-        const SizedBox(height: AppSpacing.s),
         PhoneField(
           controller: phoneController,
           isEnabled: !isSubmitting,
           onChanged: (_) => onChanged(),
         ),
         const SizedBox(height: AppSpacing.m),
-        Text(l10n.login_passwordLabel, style: text.labelS.copyWith(color: colors.textSecondary)),
-        const SizedBox(height: AppSpacing.s),
         AppTextField(
           type: AppTextFieldType.password,
           controller: passwordController,
           isEnabled: !isSubmitting,
+          hintText: l10n.login_passwordLabel,
           errorText: errorText,
           onChanged: (_) => onChanged(),
         ),

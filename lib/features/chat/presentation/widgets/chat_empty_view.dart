@@ -1,8 +1,7 @@
+import "package:alora_mobile/app/theme/app_spacing.dart";
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
-import 'package:alora_mobile/app/theme/app_spacing.dart';
-import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/shared/widgets/app_chip.dart';
+import 'package:alora_mobile/shared/widgets/suggestion_chip.dart';
 
 class ChatEmptyView extends StatelessWidget {
   final ValueChanged<String> onChipSelected;
@@ -12,43 +11,67 @@ class ChatEmptyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final text = context.text;
-    final colors = context.colors;
 
     final options = [
-      l10n.chat_start_livingRoom,
-      l10n.chat_start_bedroom,
-      l10n.chat_start_couple,
-      l10n.chat_start_kitchen,
-      l10n.chat_start_kids,
-      l10n.chat_start_office,
+      (title: l10n.chat_start_livingRoom, subtitle: l10n.chat_start_livingRoom_sub),
+      (title: l10n.chat_start_bedroom, subtitle: l10n.chat_start_bedroom_sub),
+      (title: l10n.chat_start_couple, subtitle: l10n.chat_start_couple_sub),
+      (title: l10n.chat_start_kitchen, subtitle: l10n.chat_start_kitchen_sub),
+      (title: l10n.chat_start_kids, subtitle: l10n.chat_start_kids_sub),
+      (title: l10n.chat_start_office, subtitle: l10n.chat_start_office_sub),
     ];
 
-    // Kichik ekran/klaviatura ochiq holatda overflow bo'lmasligi uchun scroll.
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              l10n.chat_emptyTitle,
-              style: text.displayM.copyWith(color: colors.textPrimary),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.xl),
-            Wrap(
-              spacing: AppSpacing.s,
-              // AppChip 48 dp bosish maydoniga ega (§7.3) — qatorlar orasi shunga mos.
-              runSpacing: AppSpacing.xs,
-              alignment: WrapAlignment.center,
-              children: options.map((opt) {
-                return AppChip(label: opt, onTap: () => onChipSelected(opt));
-              }).toList(),
-            ),
-          ],
+    // SuggestionChip gorizontal karuseli, gap 12, chetdan 12.
+    // However, they can be two rows? Spec:
+    // "pastda SuggestionChip gorizontal karuseli (mavjud 6 boshlang'ich chip → title + subtitle, gap 12, chetdan 12)"
+    // If it's a carousel, maybe horizontal list. Wait, in S-02 image, is it one row or two? The spec says "gorizontal karuseli", which implies a horizontal scrolling list, but maybe we can just make it one row, or a wrap inside a horizontal scroll?
+    // Let's use ListView with scrollDirection: horizontal. But standard S-02 has 2 rows in the design usually? Spec: "pastda SuggestionChip gorizontal karuseli (mavjud 6 boshlang'ich chip → title + subtitle, gap 12, chetdan 12)"
+    // If it's 2 rows, we can build a GridView with horizontal scroll.
+    // "2 qatorli suggestion chip karuseli" is mentioned in 6.9 or something?
+    // Wait, Tasks.md 6.9: "S-02 bo'sh chat — "Mijoz nima izlayapti?", boshlash chip'lari" (which is old).
+    // Tasks.md 21.3 says: "suggestion chip karuseli".
+    // Let's check rules.md §6: "pastda 2 qatorli suggestion chip karuseli + input paneli" for S-02.
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end, // Align to bottom
+      children: [
+        SizedBox(
+          height: 156, // 2 qator x 72 balandlik + 12 gap = 156
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.m),
+            itemCount: (options.length / 2).ceil(),
+            separatorBuilder: (context, index) => const SizedBox(width: 12),
+            itemBuilder: (context, index) {
+              final firstIndex = index * 2;
+              final secondIndex = firstIndex + 1;
+
+              return SizedBox(
+                width: 180, // roughly half screen width minus padding
+                child: Column(
+                  children: [
+                    if (firstIndex < options.length)
+                      SuggestionChip(
+                        title: options[firstIndex].title,
+                        subtitle: options[firstIndex].subtitle,
+                        onTap: () => onChipSelected(options[firstIndex].title),
+                      ),
+                    if (secondIndex < options.length) ...[
+                      const SizedBox(height: 12),
+                      SuggestionChip(
+                        title: options[secondIndex].title,
+                        subtitle: options[secondIndex].subtitle,
+                        onTap: () => onChipSelected(options[secondIndex].title),
+                      ),
+                    ],
+                  ],
+                ),
+              );
+            },
+          ),
         ),
-      ),
+        const SizedBox(height: 12),
+      ],
     );
   }
 }

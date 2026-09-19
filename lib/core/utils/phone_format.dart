@@ -10,3 +10,13 @@ String formatPhone(String phone) {
   }
   return phone;
 }
+
+/// Kiritilgan raqamni backend kutadigan E.164 ko'rinishga keltiradi:
+/// `+998 90 123 45 67`, `998901234567`, `90 123 45 67` → `+998901234567`.
+/// Bo'shliq/tire/qavs olib tashlanadi; 9 xonali bo'lsa `998` qo'shiladi.
+String normalizePhone(String input) {
+  final digits = input.replaceAll(RegExp(r'\D'), '');
+  if (digits.isEmpty) return '';
+  if (digits.length == 9) return '+998$digits';
+  return '+$digits';
+}

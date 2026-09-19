@@ -10,6 +10,7 @@ import 'package:alora_mobile/features/auth/application/auth_notifier.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
+import 'package:alora_mobile/core/utils/phone_format.dart';
 import 'package:alora_mobile/shared/widgets/phone_field.dart';
 
 /// S-01 Login ekrani: telefon + parol, "Kirish" tugmasi.
@@ -52,7 +53,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submit() async {
     if (_isSubmitting) return;
 
-    final phone = _phoneController.text.trim();
+    // Maska bo'shliq bilan beradi (`+998 90 ...`), backend E.164 kutadi (§8.2)
+    final phone = normalizePhone(_phoneController.text);
     final password = _passwordController.text.trim();
     if (phone.isEmpty || password.isEmpty) {
       setState(() {

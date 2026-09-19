@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/features/customer_mode/application/pin_result.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
@@ -6,7 +7,6 @@ import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class SetPinDialog extends ConsumerStatefulWidget {
   const SetPinDialog({super.key});
@@ -265,7 +265,7 @@ class _Numpad extends StatelessWidget {
           children: [
             const SizedBox(width: 64),
             _NumpadButton(text: '0', onTap: isLocked ? null : () => onDigit('0')),
-            _NumpadIconButton(icon: LucideIcons.delete, onTap: isLocked ? null : onDelete),
+            _NumpadIconButton(icon: AppIcons.delete, onTap: isLocked ? null : onDelete),
           ],
         ),
       ],
@@ -287,10 +287,7 @@ class _NumpadButton extends StatelessWidget {
       child: Container(
         width: 64,
         height: 64,
-        decoration: BoxDecoration(
-          color: context.colors.surfaceMuted,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: context.colors.surfaceMuted, shape: BoxShape.circle),
         child: Center(
           child: Text(
             text,
@@ -318,10 +315,7 @@ class _NumpadIconButton extends StatelessWidget {
       child: Container(
         width: 64,
         height: 64,
-        decoration: BoxDecoration(
-          color: context.colors.surfaceMuted,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: context.colors.surfaceMuted, shape: BoxShape.circle),
         child: Center(
           child: Icon(
             icon,

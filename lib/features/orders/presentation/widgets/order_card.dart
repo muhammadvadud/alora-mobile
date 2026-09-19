@@ -114,10 +114,7 @@ class _OrderCardContent extends ConsumerWidget {
         ),
         if (order.customerPhone != null) ...[
           const SizedBox(height: AppSpacing.xs),
-          Text(
-            order.customerPhone!,
-            style: typography.bodyS.copyWith(color: colors.textSecondary),
-          ),
+          Text(order.customerPhone!, style: typography.bodyS.copyWith(color: colors.textSecondary)),
         ],
         const SizedBox(height: AppSpacing.xs),
         Text(

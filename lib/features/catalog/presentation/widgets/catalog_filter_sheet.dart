@@ -78,11 +78,11 @@ class _CatalogFilterSheetState extends ConsumerState<CatalogFilterSheet> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AppButton(
-            text: 'Qo\'llash (${_previewCount > 0 ? _previewCount : _defaultCount()})',
+            text: l10n.catalog_filterShow(_previewCount > 0 ? _previewCount : _defaultCount()),
             onPressed: _apply,
           ),
           const SizedBox(height: AppSpacing.m),
-          AppButton.text(text: 'Tozalash', onPressed: _clear),
+          AppButton.text(text: l10n.catalog_filterClear, onPressed: _clear),
         ],
       ),
     );
@@ -284,7 +284,7 @@ class _PriceRangeSectionState extends State<_PriceRangeSection> {
             Expanded(
               child: AppTextField(
                 controller: _minController,
-                hintText: 'Dan',
+                hintText: AppLocalizations.of(context)!.catalog_filterPriceFrom,
                 type: AppTextFieldType.number,
                 onChanged: (_) => _onInputChanged(),
               ),
@@ -293,7 +293,7 @@ class _PriceRangeSectionState extends State<_PriceRangeSection> {
             Expanded(
               child: AppTextField(
                 controller: _maxController,
-                hintText: 'Gacha',
+                hintText: AppLocalizations.of(context)!.catalog_filterPriceTo,
                 type: AppTextFieldType.number,
                 onChanged: (_) => _onInputChanged(),
               ),

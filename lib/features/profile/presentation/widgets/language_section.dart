@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/features/profile/application/locale_notifier.dart';
-import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
-import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
-import 'package:alora_mobile/shared/widgets/app_radio.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 
+import 'profile_radio_group.dart';
+
+/// Til tanlash (S-25): lotin / kirill / rus — tanlov darhol qo'llanadi.
 class LanguageSection extends ConsumerWidget {
   const LanguageSection({super.key});
 
@@ -15,55 +15,32 @@ class LanguageSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final current = Localizations.localeOf(context);
+    final notifier = ref.read(localeProvider.notifier);
 
-    final isUz = current.languageCode == 'uz' && current.countryCode != 'Cyrl';
     final isCyrl = current.countryCode == 'Cyrl';
     final isRu = current.languageCode == 'ru';
+    final isUz = !isCyrl && !isRu;
 
-    final String currentName = isUz ? l10n.profile_languageOptionUz : (isCyrl ? l10n.profile_languageOptionCyrl : l10n.profile_languageOptionRu);
-
-    return AppListTile(
+    return ProfileRadioGroup(
       title: l10n.profile_languageTitle,
-      leading: const Icon(LucideIcons.globe, size: 24),
-      trailing: Text(currentName),
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          backgroundColor: Colors.transparent,
-          builder: (context) => AppBottomSheet(
-            title: l10n.profile_languageTitle,
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AppListTile(
-                  title: l10n.profile_languageOptionUz,
-                  trailing: AppRadio(isSelected: isUz),
-                  onTap: () {
-                    ref.read(localeProvider.notifier).setLocale(const Locale('uz'));
-                    Navigator.pop(context);
-                  },
-                ),
-                AppListTile(
-                  title: l10n.profile_languageOptionCyrl,
-                  trailing: AppRadio(isSelected: isCyrl),
-                  onTap: () {
-                    ref.read(localeProvider.notifier).setLocale(const Locale('uz', 'Cyrl'));
-                    Navigator.pop(context);
-                  },
-                ),
-                AppListTile(
-                  title: l10n.profile_languageOptionRu,
-                  trailing: AppRadio(isSelected: isRu),
-                  onTap: () {
-                    ref.read(localeProvider.notifier).setLocale(const Locale('ru'));
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+      icon: AppIcons.globe,
+      options: [
+        ProfileRadioOption(
+          label: l10n.profile_languageOptionUz,
+          isSelected: isUz,
+          onSelect: () => notifier.setLocale(const Locale('uz')),
+        ),
+        ProfileRadioOption(
+          label: l10n.profile_languageOptionCyrl,
+          isSelected: isCyrl,
+          onSelect: () => notifier.setLocale(const Locale('uz', 'Cyrl')),
+        ),
+        ProfileRadioOption(
+          label: l10n.profile_languageOptionRu,
+          isSelected: isRu,
+          onSelect: () => notifier.setLocale(const Locale('ru')),
+        ),
+      ],
     );
   }
 }

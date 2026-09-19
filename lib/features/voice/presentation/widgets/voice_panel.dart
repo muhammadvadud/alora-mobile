@@ -5,8 +5,8 @@ import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/shared/widgets/waveform.dart';
-import 'package:alora_mobile/shared/widgets/typing_line.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
+
 import '../../application/voice_notifier.dart';
 
 class VoicePanel extends ConsumerWidget {
@@ -94,22 +94,13 @@ class _StatusView extends StatelessWidget {
         SizedBox(
           height: 100,
           child: Center(
-            child: Waveform(
-              amplitudes: waveformAmplitudes,
-              isAiSpeaking: isAiSpeaking,
-            ),
+            child: Waveform(amplitudes: waveformAmplitudes, isAiSpeaking: isAiSpeaking),
           ),
         ),
         const SizedBox(height: AppSpacing.m),
-        Text(
-          statusText,
-          style: typography.bodyL.copyWith(color: colors.textSecondary),
-        ),
+        Text(statusText, style: typography.bodyL.copyWith(color: colors.textSecondary)),
         const SizedBox(height: AppSpacing.xl),
-        AppButton.secondary(
-          text: l10n.common_cancel,
-          onPressed: onStop,
-        ),
+        AppButton.secondary(text: l10n.common_cancel, onPressed: onStop),
       ],
     );
   }

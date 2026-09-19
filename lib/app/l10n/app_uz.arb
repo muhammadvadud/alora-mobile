@@ -629,10 +629,12 @@
   "chat_draft_phone": "Telefon raqam",
   "chat_draft_address": "Manzil",
   "chat_draft_missingFields": "To'ldirish kerak bo'lgan maydonlar",
-  "chat_start_livingRoom_sub": "Katta derazalar uchun",
-  "chat_start_bedroom_sub": "Yotoqxona",
-  "chat_start_couple_sub": "Er-xotin",
-  "chat_start_kitchen_sub": "Oshxona",
-  "chat_start_kids_sub": "Bolalar xonasi",
-  "chat_start_office_sub": "Ofis/ish xonasi"
+  "chat_start_livingRoom_sub": "Parda va dizayn tanlash",
+  "chat_start_bedroom_sub": "Qorong'i va osoyishta",
+  "chat_start_couple_sub": "Romantik va shinam",
+  "chat_start_kitchen_sub": "Amaliy va yorug'",
+  "chat_start_kids_sub": "O'yin va qiziqarli",
+  "chat_start_office_sub": "Sokin va ishchan",
+  "catalog_filterPriceFrom": "Dan",
+  "catalog_filterPriceTo": "Gacha"
 }

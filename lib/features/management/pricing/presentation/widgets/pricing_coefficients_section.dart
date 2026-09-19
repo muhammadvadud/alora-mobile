@@ -112,7 +112,10 @@ class _RuleEditSheetState extends ConsumerState<_RuleEditSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.rule.key, style: context.text.bodyS.copyWith(color: context.colors.textSecondary)),
+          Text(
+            widget.rule.key,
+            style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
+          ),
           const SizedBox(height: AppSpacing.m),
           AppTextField(
             controller: _controller,

@@ -12,6 +12,7 @@ import 'package:alora_mobile/features/orders/application/providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/section_label.dart';
+
 class OrderFormScreen extends ConsumerStatefulWidget {
   /// [initialDraft] — chatdagi qoralamadan (S-07 "Tahrirlash") oldindan to'ldirish.
   const OrderFormScreen({super.key, this.initialDraft});
@@ -155,7 +156,11 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
                 color: colors.background,
                 border: Border(top: BorderSide(color: colors.border)),
               ),
-              child: AppButton(text: 'Saqlash', isLoading: _isLoading, onPressed: _submit),
+              child: AppButton(
+                text: context.l10n.common_save,
+                isLoading: _isLoading,
+                onPressed: _submit,
+              ),
             ),
           ),
         ],

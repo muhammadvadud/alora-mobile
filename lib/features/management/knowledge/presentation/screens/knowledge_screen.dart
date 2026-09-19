@@ -159,7 +159,9 @@ class _KnowledgeRuleCard extends ConsumerWidget {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (context) => Padding(
-                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
                           child: KnowledgeRuleForm(rule: rule),
                         ),
                       );

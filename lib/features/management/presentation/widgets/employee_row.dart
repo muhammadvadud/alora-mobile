@@ -6,7 +6,6 @@ import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
 import 'package:alora_mobile/shared/widgets/letter_avatar.dart';
 import 'package:alora_mobile/shared/widgets/limit_progress_bar.dart';
 
-
 /// Xodimlar ro'yxatidagi bitta qator (S-20).
 class EmployeeRow extends StatelessWidget {
   final Employee employee;
@@ -38,10 +37,7 @@ class EmployeeRow extends StatelessWidget {
           children: [
             LimitProgressBar(progress: progress),
             const SizedBox(height: 4),
-            Text(
-              '$percent%',
-              style: typography.labelS.copyWith(color: colors.textSecondary),
-            ),
+            Text('$percent%', style: typography.labelS.copyWith(color: colors.textSecondary)),
           ],
         ),
       ),

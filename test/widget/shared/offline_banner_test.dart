@@ -21,14 +21,16 @@ void main() {
       expect(size.width, screenW);
     });
 
-    testWidgets('inverse fon va onInverse matn rangi ishlatiladi', (WidgetTester tester) async {
+    testWidgets('surfaceMuted fon va textSecondary matn rangi ishlatiladi (SPEC v2)', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(const OfflineBanner().pumpApp());
 
       final container = tester.widget<Container>(find.byType(Container).first);
-      expect(container.color, AppColors.light.inverse);
+      expect(container.color, AppColors.light.surfaceMuted);
 
       final textWidget = tester.widget<Text>(find.byType(Text).first);
-      expect(textWidget.style?.color, AppColors.light.onInverse);
+      expect(textWidget.style?.color, AppColors.light.textSecondary);
     });
   });
 }

@@ -25,10 +25,7 @@ class ChatErrorBanner extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(AppSpacing.l),
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.s),
-      decoration: BoxDecoration(
-        color: colors.dangerSoft,
-        borderRadius: AppRadius.inputBorder,
-      ),
+      decoration: BoxDecoration(color: colors.dangerSoft, borderRadius: AppRadius.inputBorder),
       child: Row(
         children: [
           Icon(AppIcons.alertTriangle, color: colors.danger, size: AppSpacing.l),

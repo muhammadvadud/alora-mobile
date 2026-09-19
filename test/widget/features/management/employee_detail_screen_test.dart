@@ -70,7 +70,8 @@ void main() {
     expect(find.text('Xodim profili'), findsOneWidget);
     expect(find.text('Akmal Karimov'), findsWidgets);
     expect(find.text('+998901112233'), findsOneWidget);
-    expect(find.text('Saqlash'), findsWidgets);
+    expect(find.text('Saqlash'), findsOneWidget);
+    // v2: rol sarlavhada (chip) va tahrir formasida (tanlov) ko'rinadi
     expect(find.text('Menejer'), findsWidgets);
   });
 
@@ -83,18 +84,9 @@ void main() {
     await _pumpDetail(tester, teamRepository: teamRepository, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
-    final blockSwitch = find.descendant(
-      of: find.widgetWithText(ListTile, 'Bloklash'),
-      matching: find.byType(Switch),
-    );
-    
-    // If not found with ListTile, try checking the exact widget or just pick the last switch.
-    // In our new design, it's an AppListTile but we can just find by text 'Bloklash' and tap the switch next to it, or just tap the widget with text 'Bloklash' since it's a ListTile!
-    final blockTile = find.text('Bloklash');
-    await tester.ensureVisible(blockTile);
+    await tester.ensureVisible(find.byType(Switch).first);
     await tester.pumpAndSettle();
-    
-    await tester.tap(blockTile);
+    await tester.tap(find.byType(Switch).first);
     await tester.pumpAndSettle();
 
     expect(find.text('Xodimni bloklash?'), findsOneWidget);

@@ -134,16 +134,10 @@ class _InnerTextField extends StatelessWidget {
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
           errorStyle: const TextStyle(height: 0, fontSize: 0),
           border: widget.type == AppTextFieldType.search
-              ? OutlineInputBorder(
-                  borderRadius: AppRadius.pillBorder,
-                  borderSide: BorderSide.none,
-                )
+              ? OutlineInputBorder(borderRadius: AppRadius.pillBorder, borderSide: BorderSide.none)
               : null,
           enabledBorder: widget.type == AppTextFieldType.search
-              ? OutlineInputBorder(
-                  borderRadius: AppRadius.pillBorder,
-                  borderSide: BorderSide.none,
-                )
+              ? OutlineInputBorder(borderRadius: AppRadius.pillBorder, borderSide: BorderSide.none)
               : null,
           focusedBorder: widget.type == AppTextFieldType.search
               ? OutlineInputBorder(

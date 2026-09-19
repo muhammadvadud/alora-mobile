@@ -197,7 +197,7 @@ class _SheetActions extends StatelessWidget {
         const SizedBox(height: AppSpacing.m),
         AppTextField(controller: noteController, hintText: 'Izoh (ixtiyoriy)'),
         const SizedBox(height: AppSpacing.l),
-        AppButton(text: 'Saqlash', isEnabled: isEnabled, onPressed: onSave),
+        AppButton(text: context.l10n.common_save, isEnabled: isEnabled, onPressed: onSave),
         const SizedBox(height: AppSpacing.m),
       ],
     );

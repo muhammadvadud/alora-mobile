@@ -630,5 +630,11 @@
   "chat_start_couple_sub": "Романтично и уютно",
   "chat_start_kitchen_sub": "Практично и светло",
   "chat_start_kids_sub": "Игрово и интересно",
-  "chat_start_office_sub": "Тихо и рабоче"
+  "chat_start_office_sub": "Тихо и рабоче",
+  "catalog_filterPriceFrom": "От",
+  "catalog_filterPriceTo": "До",
+  "chat_draft_customer": "Клиент",
+  "chat_draft_phone": "Номер телефона",
+  "chat_draft_address": "Адрес",
+  "chat_draft_missingFields": "Поля, которые нужно заполнить"
 }

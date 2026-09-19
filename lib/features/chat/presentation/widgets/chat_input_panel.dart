@@ -75,7 +75,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
               semanticLabel: l10n.chat_addAttachment,
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppSpacing.s),
           Expanded(
             child: Container(
               constraints: const BoxConstraints(minHeight: 44),
@@ -106,19 +106,13 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
                     ),
                   ),
                   if (!_hasText)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0, right: AppSpacing.s, left: AppSpacing.s),
-                      child: Semantics(
-                        button: true,
-                        label: l10n.chat_microphone,
-                        child: GestureDetector(
-                          onTap: widget.disabled ? null : widget.onMicPressed,
-                          child: Icon(AppIcons.mic, color: colors.textSecondary, size: 24),
-                        ),
-                      ),
+                    _MicButton(
+                      enabled: !widget.disabled,
+                      onTap: widget.onMicPressed,
+                      label: l10n.chat_microphone,
                     ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 6.0, right: 6.0, left: AppSpacing.xs),
+                    padding: const EdgeInsets.only(bottom: 6, right: 6, left: AppSpacing.xs),
                     child: AppIconButton.accent(
                       icon: _hasText ? AppIcons.send : AppIcons.audioLines,
                       onPressed: _hasText
@@ -132,6 +126,30 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Pill ichidagi mikrofon ikonkasi (matn bo'sh bo'lganda ko'rinadi).
+class _MicButton extends StatelessWidget {
+  final bool enabled;
+  final VoidCallback? onTap;
+  final String label;
+
+  const _MicButton({required this.enabled, required this.onTap, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.s, right: AppSpacing.s, left: AppSpacing.s),
+      child: Semantics(
+        button: true,
+        label: label,
+        child: GestureDetector(
+          onTap: enabled ? onTap : null,
+          child: Icon(AppIcons.mic, color: context.colors.textSecondary, size: 24),
+        ),
       ),
     );
   }

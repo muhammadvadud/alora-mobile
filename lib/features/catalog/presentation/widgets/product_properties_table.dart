@@ -55,10 +55,7 @@ class ProductPropertiesTable extends StatelessWidget {
                       style: typography.bodyS.copyWith(color: colors.textSecondary),
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Text(value, style: typography.bodyL),
-                  ),
+                  Expanded(flex: 3, child: Text(value, style: typography.bodyL)),
                 ],
               ),
           ],

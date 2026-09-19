@@ -132,7 +132,9 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.textContaining('Sutli'), findsWidgets);
-    expect(find.textContaining('Grafit'), findsNothing);
+    // v2: selektor barcha variant nomlarini chip sifatida ko'rsatadi — tanlangan
+    // variant rasmi/narxi bilan aniqlanadi, «Grafit» chipi yo'qolmaydi.
+    expect(find.textContaining('Grafit'), findsWidgets);
   });
 
   testWidgets('AI and Add-to-account buttons are present', (tester) async {

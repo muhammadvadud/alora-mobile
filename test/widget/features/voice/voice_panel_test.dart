@@ -30,6 +30,6 @@ void main() {
     );
 
     expect(find.text("Kutmoqda..."), findsOneWidget);
-    expect(find.byType(AppButton), findsOneWidget); 
+    expect(find.byType(AppButton), findsOneWidget);
   });
 }

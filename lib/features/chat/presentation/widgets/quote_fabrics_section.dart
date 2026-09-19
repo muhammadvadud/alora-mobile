@@ -32,15 +32,15 @@ class QuoteFabricsSection extends StatelessWidget {
     final hiddenCount = fabrics.length - displayCount;
 
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionLabel(l10n.chat_quote_fabrics),
-          const SizedBox(height: AppSpacing.s),
-          ...fabrics.take(displayCount).map((f) => _FabricRow(fabric: f)),
-          if (hiddenCount > 0)
-            TextButton(onPressed: onShowMore, child: Text(l10n.chat_quote_more(hiddenCount))),
-          ],
-      );
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionLabel(l10n.chat_quote_fabrics),
+        const SizedBox(height: AppSpacing.s),
+        ...fabrics.take(displayCount).map((f) => _FabricRow(fabric: f)),
+        if (hiddenCount > 0)
+          TextButton(onPressed: onShowMore, child: Text(l10n.chat_quote_more(hiddenCount))),
+      ],
+    );
   }
 }
 

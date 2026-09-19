@@ -1314,16 +1314,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chat_send => 'Отправить';
 
   @override
-  String get chat_draft_customer => 'Mijoz';
+  String get chat_draft_customer => 'Клиент';
 
   @override
-  String get chat_draft_phone => 'Telefon raqam';
+  String get chat_draft_phone => 'Номер телефона';
 
   @override
-  String get chat_draft_address => 'Manzil';
+  String get chat_draft_address => 'Адрес';
 
   @override
-  String get chat_draft_missingFields => 'To\'ldirish kerak bo\'lgan maydonlar';
+  String get chat_draft_missingFields => 'Поля, которые нужно заполнить';
 
   @override
   String get chat_start_livingRoom_sub => 'Шторы и дизайн';
@@ -1342,4 +1342,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chat_start_office_sub => 'Тихо и рабоче';
+
+  @override
+  String get catalog_filterPriceFrom => 'От';
+
+  @override
+  String get catalog_filterPriceTo => 'До';
 }

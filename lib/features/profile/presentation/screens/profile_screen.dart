@@ -38,17 +38,9 @@ class ProfileScreen extends ConsumerWidget {
             if (user != null) ...[ProfileHeader(user: user), const SizedBox(height: AppSpacing.xl)],
             const SpendSection(),
             const SizedBox(height: AppSpacing.xl),
-            const AppCard(
-              padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  LanguageSection(),
-                  ThemeSection(),
-                  AboutSection(),
-                  LogoutButton(),
-                ],
-              ),
-            ),
+            const AppCard.sections(sections: [LanguageSection(), ThemeSection(), AboutSection()]),
+            const SizedBox(height: AppSpacing.xl),
+            const LogoutButton(),
           ],
         ),
       ),

@@ -2614,38 +2614,50 @@ abstract class AppLocalizations {
   /// No description provided for @chat_start_livingRoom_sub.
   ///
   /// In uz, this message translates to:
-  /// **'Katta derazalar uchun'**
+  /// **'Parda va dizayn tanlash'**
   String get chat_start_livingRoom_sub;
 
   /// No description provided for @chat_start_bedroom_sub.
   ///
   /// In uz, this message translates to:
-  /// **'Yotoqxona'**
+  /// **'Qorong\'i va osoyishta'**
   String get chat_start_bedroom_sub;
 
   /// No description provided for @chat_start_couple_sub.
   ///
   /// In uz, this message translates to:
-  /// **'Er-xotin'**
+  /// **'Romantik va shinam'**
   String get chat_start_couple_sub;
 
   /// No description provided for @chat_start_kitchen_sub.
   ///
   /// In uz, this message translates to:
-  /// **'Oshxona'**
+  /// **'Amaliy va yorug\''**
   String get chat_start_kitchen_sub;
 
   /// No description provided for @chat_start_kids_sub.
   ///
   /// In uz, this message translates to:
-  /// **'Bolalar xonasi'**
+  /// **'O\'yin va qiziqarli'**
   String get chat_start_kids_sub;
 
   /// No description provided for @chat_start_office_sub.
   ///
   /// In uz, this message translates to:
-  /// **'Ofis/ish xonasi'**
+  /// **'Sokin va ishchan'**
   String get chat_start_office_sub;
+
+  /// No description provided for @catalog_filterPriceFrom.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dan'**
+  String get catalog_filterPriceFrom;
+
+  /// No description provided for @catalog_filterPriceTo.
+  ///
+  /// In uz, this message translates to:
+  /// **'Gacha'**
+  String get catalog_filterPriceTo;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

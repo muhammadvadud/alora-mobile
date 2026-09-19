@@ -25,7 +25,6 @@ import 'package:alora_mobile/shared/models/order_status.dart';
 import 'package:alora_mobile/features/orders/domain/entities/order.dart';
 import 'package:alora_mobile/features/orders/application/providers.dart' as orders_providers;
 import 'package:alora_mobile/shared/widgets/app_button.dart';
-import 'package:alora_mobile/shared/widgets/app_chip.dart';
 import 'package:alora_mobile/shared/widgets/limit_exceeded_view.dart';
 import 'package:alora_mobile/shared/widgets/offline_banner.dart';
 import 'package:alora_mobile/shared/widgets/product_card.dart';

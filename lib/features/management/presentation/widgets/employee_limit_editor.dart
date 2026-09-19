@@ -140,10 +140,7 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
                     style: typography.labelL.copyWith(color: colors.textPrimary),
                   ),
                 ),
-                Switch(
-                  value: _unlimited,
-                  onChanged: (value) => setState(() => _unlimited = value),
-                ),
+                Switch(value: _unlimited, onChanged: (value) => setState(() => _unlimited = value)),
               ],
             ),
             if (!_unlimited) ...[

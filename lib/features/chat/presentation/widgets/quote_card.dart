@@ -74,7 +74,10 @@ class _QuoteHeaderSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('HISOB · ${m?.room?.toUpperCase() ?? "XONA"}', style: typography.overline.copyWith(color: colors.textSecondary)),
+        Text(
+          'HISOB · ${m?.room?.toUpperCase() ?? "XONA"}',
+          style: typography.overline.copyWith(color: colors.textSecondary),
+        ),
         const SizedBox(height: AppSpacing.xs),
         if (m != null)
           Text(
@@ -119,7 +122,11 @@ class _QuoteFormulaSection extends StatelessWidget {
   final bool showFormula;
   final VoidCallback onToggle;
 
-  const _QuoteFormulaSection({required this.quote, required this.showFormula, required this.onToggle});
+  const _QuoteFormulaSection({
+    required this.quote,
+    required this.showFormula,
+    required this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +148,7 @@ class _QuoteFormulaSection extends StatelessWidget {
         if (showFormula) ...[
           const SizedBox(height: AppSpacing.s),
           Text(quote.formula, style: typography.bodyS.copyWith(color: colors.textSecondary)),
-        ]
+        ],
       ],
     );
   }
@@ -177,7 +184,10 @@ class _QuoteTotalSection extends StatelessWidget {
             ),
             const SizedBox(width: AppSpacing.s),
             Expanded(
-              child: AppButton.secondary(text: l10n.chat_quote_showOptions, onPressed: onShowOptions),
+              child: AppButton.secondary(
+                text: l10n.chat_quote_showOptions,
+                onPressed: onShowOptions,
+              ),
             ),
           ],
         ),

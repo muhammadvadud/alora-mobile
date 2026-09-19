@@ -300,11 +300,7 @@ class _ChatBody extends ConsumerWidget {
                   bottom: AppSpacing.l,
                   left: 0,
                   right: 0,
-                  child: Center(
-                    child: ScrollDownButton(
-                      onPressed: onScrollToBottom,
-                    ),
-                  ),
+                  child: Center(child: ScrollDownButton(onPressed: onScrollToBottom)),
                 ),
             ],
           ),

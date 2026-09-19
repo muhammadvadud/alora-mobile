@@ -44,4 +44,13 @@ class AppIcons {
   static const IconData camera = LucideIcons.camera;
   static const IconData wifiOff = LucideIcons.wifiOff;
   static const IconData info = LucideIcons.info;
+
+  // Profil (S-25)
+  static const IconData globe = LucideIcons.globe;
+  static const IconData moon = LucideIcons.moon;
+  static const IconData logOut = LucideIcons.logOut;
+
+  // PIN numpad, xodim suhbatlari
+  static const IconData delete = LucideIcons.delete;
+  static const IconData messageSquare = LucideIcons.messageSquare;
 }

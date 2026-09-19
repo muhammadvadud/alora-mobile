@@ -607,5 +607,11 @@
   "chat_start_couple_sub": "Романтик ва шинам",
   "chat_start_kitchen_sub": "Амалий ва ёруғ",
   "chat_start_kids_sub": "Ўйин ва қизиқарли",
-  "chat_start_office_sub": "Сокин ва ишчан"
+  "chat_start_office_sub": "Сокин ва ишчан",
+  "catalog_filterPriceFrom": "Дан",
+  "catalog_filterPriceTo": "Гача",
+  "chat_draft_customer": "Мижоз",
+  "chat_draft_phone": "Телефон рақам",
+  "chat_draft_address": "Манзил",
+  "chat_draft_missingFields": "Тўлдириш керак бўлган майдонлар"
 }

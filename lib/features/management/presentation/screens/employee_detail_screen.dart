@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,7 +26,6 @@ import 'package:alora_mobile/shared/models/role.dart';
 import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
 import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class EmployeeDetailScreen extends ConsumerStatefulWidget {
   final String employeeId;
@@ -183,7 +183,7 @@ class _DetailBody extends StatelessWidget {
               ),
               AppListTile(
                 title: l10n.management_employeeViewThreads,
-                leading: const Icon(LucideIcons.messageSquare, size: 24),
+                leading: const Icon(AppIcons.messageSquare, size: 24),
                 onTap: onViewConversations,
                 showDivider: false,
               ),
@@ -291,10 +291,10 @@ class _BlockToggleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return AppListTile(
       title: isBlocked ? l10n.management_employeeBlock : l10n.management_employeeUnblock,
-      leading: const Icon(LucideIcons.ban, size: 24),
+      leading: const Icon(AppIcons.ban, size: 24),
       trailing: Switch(value: isBlocked, onChanged: onBlockChanged),
       showDivider: false,
     );

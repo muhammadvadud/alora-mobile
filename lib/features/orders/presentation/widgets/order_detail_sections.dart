@@ -6,12 +6,7 @@ class _OrderDetailBody extends StatelessWidget {
   final VoidCallback? onCall;
   final VoidCallback? onGeo;
 
-  const _OrderDetailBody({
-    required this.order,
-    required this.onConfirm,
-    this.onCall,
-    this.onGeo,
-  });
+  const _OrderDetailBody({required this.order, required this.onConfirm, this.onCall, this.onGeo});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +26,7 @@ class _OrderDetailBody extends StatelessWidget {
                       _CustomerSection(order: order, onCall: onCall, onGeo: onGeo),
                     if (order.measurements.isNotEmpty) _RoomsSection(order: order),
                     _FinanceSection(order: order),
-                    if (order.paymentStatusDisplay != null)
-                      _PaymentSection(order: order),
+                    if (order.paymentStatusDisplay != null) _PaymentSection(order: order),
                     _StatusHistorySection(order: order),
                   ],
                 ),
@@ -133,7 +127,10 @@ class _RoomsSection extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(m.roomName ?? 'Xona', style: typography.titleS.copyWith(color: colors.textPrimary)),
+                Text(
+                  m.roomName ?? 'Xona',
+                  style: typography.titleS.copyWith(color: colors.textPrimary),
+                ),
                 Text(
                   context.l10n.corniceAndHeight(
                     (m.corniceLengthM ?? 0).toString(),
@@ -252,10 +249,7 @@ class _BottomActions extends ConsumerWidget {
         child: Column(
           children: [
             if (order.status == OrderStatus.draft) ...[
-              AppButton(
-                text: context.l10n.orders_confirm,
-                onPressed: onConfirm,
-              ),
+              AppButton(text: context.l10n.orders_confirm, onPressed: onConfirm),
               const SizedBox(height: AppSpacing.m),
             ],
             Row(

@@ -29,10 +29,7 @@ class ConversationRow extends StatelessWidget {
       child: AppListTile(
         title: conversation.title,
         subtitle: conversation.lastMessagePreview,
-        trailing: Text(
-          timeLabel,
-          style: typography.labelS.copyWith(color: colors.textDisabled),
-        ),
+        trailing: Text(timeLabel, style: typography.labelS.copyWith(color: colors.textDisabled)),
         onTap: onTap,
         showDivider: false, // Maybe we don't want dividers if they are in a list with swipe-delete? The spec doesn't mention divider.
       ),

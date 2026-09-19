@@ -42,12 +42,13 @@ class ModelPricingsScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(AppSpacing.l),
             child: AppCard.sections(
               sections: models
-                  .map((model) => _ModelPricingCard(
-                        model: model,
-                        onDelete: () => ref
-                            .read(modelPricingsProvider.notifier)
-                            .deletePricing(model.id),
-                      ))
+                  .map(
+                    (model) => _ModelPricingCard(
+                      model: model,
+                      onDelete: () =>
+                          ref.read(modelPricingsProvider.notifier).deletePricing(model.id),
+                    ),
+                  )
                   .toList(),
             ),
           ),

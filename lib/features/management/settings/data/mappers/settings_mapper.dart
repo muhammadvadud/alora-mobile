@@ -20,7 +20,7 @@ extension PromptVersionDtoMapper on PromptVersionDto {
 extension PromptHistoryDtoMapper on PromptHistoryDto {
   PromptHistory toEntity() {
     return PromptHistory(
-      current: current.toEntity(),
+      current: current?.toEntity(),
       history: history.map((e) => e.toEntity()).toList(),
     );
   }

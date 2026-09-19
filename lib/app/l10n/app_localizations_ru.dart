@@ -1235,6 +1235,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settings_promptHint => 'Текст промпта';
 
   @override
+  String get settings_promptEmpty => 'Промпт ещё не создан';
+
+  @override
   String get settings_saveNewVersion => 'Сохранить новую версию';
 
   @override

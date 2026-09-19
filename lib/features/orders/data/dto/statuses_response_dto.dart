@@ -15,4 +15,19 @@ abstract class StatusesResponseDto with _$StatusesResponseDto {
 
   factory StatusesResponseDto.fromJson(Map<String, dynamic> json) =>
       _$StatusesResponseDtoFromJson(json);
+
+  factory StatusesResponseDto.fromList(List<dynamic> json) {
+    final statuses = <StatusTransitionDto>[];
+    final transitions = <String, List<String>>{};
+    for (final item in json) {
+      if (item is! Map<String, dynamic>) continue;
+      final value = item['value'];
+      final label = item['label'];
+      if (value is! String || label is! String) continue;
+      final allowed = item['allowed'];
+      statuses.add(StatusTransitionDto(code: value, label: label));
+      transitions[value] = allowed is List ? allowed.whereType<String>().toList() : <String>[];
+    }
+    return StatusesResponseDto(statuses: statuses, transitions: transitions);
+  }
 }

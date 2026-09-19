@@ -57,9 +57,7 @@ void main() {
     // flutter_test HTTP'ni bloklaydi — haqiqiy tarmoqqa ruxsat.
     HttpOverrides.global = null;
     storage = FakeSecureStorage();
-    container = ProviderContainer(
-      overrides: [secureStorageProvider.overrideWithValue(storage)],
-    );
+    container = ProviderContainer(overrides: [secureStorageProvider.overrideWithValue(storage)]);
     dio = container.read(dioProvider);
   });
 
@@ -153,10 +151,16 @@ void main() {
           .toList();
       final kinds = events.map((e) => e.runtimeType.toString()).toList();
       expect(events.first, isA<SseEvent>());
-      expect(events.any((e) => e.maybeWhen(content: (_) => true, orElse: () => false)), isTrue,
-          reason: 'content eventi kelmadi: $kinds');
-      expect(events.last.maybeWhen(done: (_, _) => true, orElse: () => false), isTrue,
-          reason: 'oxirgi event done emas: ${kinds.last}');
+      expect(
+        events.any((e) => e.maybeWhen(content: (_) => true, orElse: () => false)),
+        isTrue,
+        reason: 'content eventi kelmadi: $kinds',
+      );
+      expect(
+        events.last.maybeWhen(done: (_, _) => true, orElse: () => false),
+        isTrue,
+        reason: 'oxirgi event done emas: ${kinds.last}',
+      );
     });
 
     test('GET conversations/{id}/messages/ tarix (user + assistant)', () async {
@@ -244,7 +248,7 @@ void main() {
               parts: [
                 CalcPreviewPartDto(
                   variantId: variantId!,
-                  role: 'main',
+                  role: 'portyera',
                   widthM: '3.0',
                   heightM: '2.5',
                   coef: '2.0',
@@ -263,11 +267,13 @@ void main() {
       final ds = KnowledgeRemoteDataSourceImpl(dio);
       await ds.getRules();
       final created = await ds.createRule({
-        'title': 'LIVE TEST qoida',
-        'content': 'Avtomatik test — o\'chiriladi',
+        'kind': 'objection',
+        'condition': {'objection': 'expensive'},
+        'recommendation': 'Avtomatik test — o\'chiriladi',
+        'priority': 15,
         'is_active': true,
       });
-      final patched = await ds.patchRule(created.id, {'title': 'LIVE TEST qoida (2)'});
+      final patched = await ds.patchRule(created.id, {'recommendation': 'LIVE TEST qoida (2)'});
       expect(patched.id, created.id);
       await ds.deleteRule(created.id);
     });
@@ -283,10 +289,7 @@ void main() {
     test('POST auth/logout/ → keyin refresh 401', () async {
       final refresh = (await storage.getRefreshToken())!;
       await AuthRemoteDataSource(dio).logout(refresh);
-      await expectLater(
-        AuthRemoteDataSource(dio).refresh(refresh),
-        throwsA(isA<Failure>()),
-      );
+      await expectLater(AuthRemoteDataSource(dio).refresh(refresh), throwsA(isA<Failure>()));
     });
   });
 }

@@ -18,7 +18,10 @@ _CalcRuleDto _$CalcRuleDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
       value: $checkedConvert('value', (v) => v as String),
       unit: $checkedConvert('unit', (v) => v as String),
       description: $checkedConvert('description', (v) => v as String),
-      appliesTo: $checkedConvert('applies_to', (v) => v as String),
+      appliesTo: $checkedConvert(
+        'applies_to',
+        (v) => v == null ? const {} : mapFromJson(v),
+      ),
       isActive: $checkedConvert('is_active', (v) => v as bool),
       createdAt: $checkedConvert('created_at', (v) => v as String),
       updatedAt: $checkedConvert('updated_at', (v) => v as String),
@@ -33,14 +36,15 @@ _CalcRuleDto _$CalcRuleDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
   },
 );
 
-Map<String, dynamic> _$CalcRuleDtoToJson(_CalcRuleDto instance) => <String, dynamic>{
-  'id': instance.id,
-  'key': instance.key,
-  'value': instance.value,
-  'unit': instance.unit,
-  'description': instance.description,
-  'applies_to': instance.appliesTo,
-  'is_active': instance.isActive,
-  'created_at': instance.createdAt,
-  'updated_at': instance.updatedAt,
-};
+Map<String, dynamic> _$CalcRuleDtoToJson(_CalcRuleDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'key': instance.key,
+      'value': instance.value,
+      'unit': instance.unit,
+      'description': instance.description,
+      'applies_to': instance.appliesTo,
+      'is_active': instance.isActive,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+    };

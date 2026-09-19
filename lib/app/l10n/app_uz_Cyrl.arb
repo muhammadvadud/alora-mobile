@@ -522,6 +522,7 @@
   "settings_systemPromptTitle": "Тизим промпти",
   "settings_currentPrompt": "ЖОРИЙ ПРОМПТ",
   "settings_promptHint": "Промпт матни",
+  "settings_promptEmpty": "Ҳали промпт йўқ",
   "settings_saveNewVersion": "Янги версияни сақлаш",
   "settings_versionHistory": "ВЕРСИЯЛАР ТАРИХИ",
   "settings_version": "v{version}",

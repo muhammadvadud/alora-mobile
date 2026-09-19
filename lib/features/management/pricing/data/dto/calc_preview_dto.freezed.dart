@@ -1390,7 +1390,7 @@ as List<String>,
 /// @nodoc
 mixin _$CalcPreviewResponseMeasurementDto {
 
-@JsonKey(name: 'room_name') String get roomName; List<CalcPreviewResponsePartDto> get parts; List<CalcPreviewResponseAccessoryDto> get accessories;
+@JsonKey(name: 'room_name') String? get roomName; List<CalcPreviewResponsePartDto> get parts; List<CalcPreviewResponseAccessoryDto> get accessories;
 /// Create a copy of CalcPreviewResponseMeasurementDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1423,7 +1423,7 @@ abstract mixin class $CalcPreviewResponseMeasurementDtoCopyWith<$Res>  {
   factory $CalcPreviewResponseMeasurementDtoCopyWith(CalcPreviewResponseMeasurementDto value, $Res Function(CalcPreviewResponseMeasurementDto) _then) = _$CalcPreviewResponseMeasurementDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'room_name') String roomName, List<CalcPreviewResponsePartDto> parts, List<CalcPreviewResponseAccessoryDto> accessories
+@JsonKey(name: 'room_name') String? roomName, List<CalcPreviewResponsePartDto> parts, List<CalcPreviewResponseAccessoryDto> accessories
 });
 
 
@@ -1440,10 +1440,10 @@ class _$CalcPreviewResponseMeasurementDtoCopyWithImpl<$Res>
 
 /// Create a copy of CalcPreviewResponseMeasurementDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? roomName = null,Object? parts = null,Object? accessories = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? roomName = freezed,Object? parts = null,Object? accessories = null,}) {
   return _then(_self.copyWith(
-roomName: null == roomName ? _self.roomName : roomName // ignore: cast_nullable_to_non_nullable
-as String,parts: null == parts ? _self.parts : parts // ignore: cast_nullable_to_non_nullable
+roomName: freezed == roomName ? _self.roomName : roomName // ignore: cast_nullable_to_non_nullable
+as String?,parts: null == parts ? _self.parts : parts // ignore: cast_nullable_to_non_nullable
 as List<CalcPreviewResponsePartDto>,accessories: null == accessories ? _self.accessories : accessories // ignore: cast_nullable_to_non_nullable
 as List<CalcPreviewResponseAccessoryDto>,
   ));
@@ -1530,7 +1530,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'room_name')  String roomName,  List<CalcPreviewResponsePartDto> parts,  List<CalcPreviewResponseAccessoryDto> accessories)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'room_name')  String? roomName,  List<CalcPreviewResponsePartDto> parts,  List<CalcPreviewResponseAccessoryDto> accessories)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CalcPreviewResponseMeasurementDto() when $default != null:
 return $default(_that.roomName,_that.parts,_that.accessories);case _:
@@ -1551,7 +1551,7 @@ return $default(_that.roomName,_that.parts,_that.accessories);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'room_name')  String roomName,  List<CalcPreviewResponsePartDto> parts,  List<CalcPreviewResponseAccessoryDto> accessories)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'room_name')  String? roomName,  List<CalcPreviewResponsePartDto> parts,  List<CalcPreviewResponseAccessoryDto> accessories)  $default,) {final _that = this;
 switch (_that) {
 case _CalcPreviewResponseMeasurementDto():
 return $default(_that.roomName,_that.parts,_that.accessories);case _:
@@ -1571,7 +1571,7 @@ return $default(_that.roomName,_that.parts,_that.accessories);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'room_name')  String roomName,  List<CalcPreviewResponsePartDto> parts,  List<CalcPreviewResponseAccessoryDto> accessories)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'room_name')  String? roomName,  List<CalcPreviewResponsePartDto> parts,  List<CalcPreviewResponseAccessoryDto> accessories)?  $default,) {final _that = this;
 switch (_that) {
 case _CalcPreviewResponseMeasurementDto() when $default != null:
 return $default(_that.roomName,_that.parts,_that.accessories);case _:
@@ -1586,10 +1586,10 @@ return $default(_that.roomName,_that.parts,_that.accessories);case _:
 @JsonSerializable()
 
 class _CalcPreviewResponseMeasurementDto implements CalcPreviewResponseMeasurementDto {
-  const _CalcPreviewResponseMeasurementDto({@JsonKey(name: 'room_name') required this.roomName, required this.parts, required this.accessories});
+  const _CalcPreviewResponseMeasurementDto({@JsonKey(name: 'room_name') this.roomName, required this.parts, required this.accessories});
   factory _CalcPreviewResponseMeasurementDto.fromJson(Map<String, dynamic> json) => _$CalcPreviewResponseMeasurementDtoFromJson(json);
 
-@override@JsonKey(name: 'room_name') final  String roomName;
+@override@JsonKey(name: 'room_name') final  String? roomName;
 @override final  List<CalcPreviewResponsePartDto> parts;
 @override final  List<CalcPreviewResponseAccessoryDto> accessories;
 
@@ -1626,7 +1626,7 @@ abstract mixin class _$CalcPreviewResponseMeasurementDtoCopyWith<$Res> implement
   factory _$CalcPreviewResponseMeasurementDtoCopyWith(_CalcPreviewResponseMeasurementDto value, $Res Function(_CalcPreviewResponseMeasurementDto) _then) = __$CalcPreviewResponseMeasurementDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'room_name') String roomName, List<CalcPreviewResponsePartDto> parts, List<CalcPreviewResponseAccessoryDto> accessories
+@JsonKey(name: 'room_name') String? roomName, List<CalcPreviewResponsePartDto> parts, List<CalcPreviewResponseAccessoryDto> accessories
 });
 
 
@@ -1643,10 +1643,10 @@ class __$CalcPreviewResponseMeasurementDtoCopyWithImpl<$Res>
 
 /// Create a copy of CalcPreviewResponseMeasurementDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? roomName = null,Object? parts = null,Object? accessories = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? roomName = freezed,Object? parts = null,Object? accessories = null,}) {
   return _then(_CalcPreviewResponseMeasurementDto(
-roomName: null == roomName ? _self.roomName : roomName // ignore: cast_nullable_to_non_nullable
-as String,parts: null == parts ? _self.parts : parts // ignore: cast_nullable_to_non_nullable
+roomName: freezed == roomName ? _self.roomName : roomName // ignore: cast_nullable_to_non_nullable
+as String?,parts: null == parts ? _self.parts : parts // ignore: cast_nullable_to_non_nullable
 as List<CalcPreviewResponsePartDto>,accessories: null == accessories ? _self.accessories : accessories // ignore: cast_nullable_to_non_nullable
 as List<CalcPreviewResponseAccessoryDto>,
   ));
@@ -1659,7 +1659,7 @@ as List<CalcPreviewResponseAccessoryDto>,
 /// @nodoc
 mixin _$CalcPreviewResponsePartDto {
 
- String get role;@JsonKey(name: 'variant_id') String get variantId;@JsonKey(name: 'color_name') String get colorName;@JsonKey(name: 'width_m') String get widthM;@JsonKey(name: 'height_m') String get heightM; String get coef;@JsonKey(name: 'area_sqm') String get areaSqm;@JsonKey(name: 'price_per_sqm') String get pricePerSqm; String get total;
+@JsonKey(defaultValue: '') String get role;@JsonKey(name: 'variant_id', defaultValue: '') String get variantId;@JsonKey(name: 'color_name', defaultValue: '') String? get colorName;@JsonKey(name: 'width_m', defaultValue: '') String get widthM;@JsonKey(name: 'height_m', defaultValue: '') String get heightM;@JsonKey(defaultValue: '') String get coef;@JsonKey(name: 'area_sqm', defaultValue: '') String get areaSqm;@JsonKey(name: 'price_per_sqm', defaultValue: '') String get pricePerSqm;@JsonKey(defaultValue: '') String get total;
 /// Create a copy of CalcPreviewResponsePartDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1692,7 +1692,7 @@ abstract mixin class $CalcPreviewResponsePartDtoCopyWith<$Res>  {
   factory $CalcPreviewResponsePartDtoCopyWith(CalcPreviewResponsePartDto value, $Res Function(CalcPreviewResponsePartDto) _then) = _$CalcPreviewResponsePartDtoCopyWithImpl;
 @useResult
 $Res call({
- String role,@JsonKey(name: 'variant_id') String variantId,@JsonKey(name: 'color_name') String colorName,@JsonKey(name: 'width_m') String widthM,@JsonKey(name: 'height_m') String heightM, String coef,@JsonKey(name: 'area_sqm') String areaSqm,@JsonKey(name: 'price_per_sqm') String pricePerSqm, String total
+@JsonKey(defaultValue: '') String role,@JsonKey(name: 'variant_id', defaultValue: '') String variantId,@JsonKey(name: 'color_name', defaultValue: '') String? colorName,@JsonKey(name: 'width_m', defaultValue: '') String widthM,@JsonKey(name: 'height_m', defaultValue: '') String heightM,@JsonKey(defaultValue: '') String coef,@JsonKey(name: 'area_sqm', defaultValue: '') String areaSqm,@JsonKey(name: 'price_per_sqm', defaultValue: '') String pricePerSqm,@JsonKey(defaultValue: '') String total
 });
 
 
@@ -1709,12 +1709,12 @@ class _$CalcPreviewResponsePartDtoCopyWithImpl<$Res>
 
 /// Create a copy of CalcPreviewResponsePartDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? role = null,Object? variantId = null,Object? colorName = null,Object? widthM = null,Object? heightM = null,Object? coef = null,Object? areaSqm = null,Object? pricePerSqm = null,Object? total = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? role = null,Object? variantId = null,Object? colorName = freezed,Object? widthM = null,Object? heightM = null,Object? coef = null,Object? areaSqm = null,Object? pricePerSqm = null,Object? total = null,}) {
   return _then(_self.copyWith(
 role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,variantId: null == variantId ? _self.variantId : variantId // ignore: cast_nullable_to_non_nullable
-as String,colorName: null == colorName ? _self.colorName : colorName // ignore: cast_nullable_to_non_nullable
-as String,widthM: null == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
+as String,colorName: freezed == colorName ? _self.colorName : colorName // ignore: cast_nullable_to_non_nullable
+as String?,widthM: null == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
 as String,heightM: null == heightM ? _self.heightM : heightM // ignore: cast_nullable_to_non_nullable
 as String,coef: null == coef ? _self.coef : coef // ignore: cast_nullable_to_non_nullable
 as String,areaSqm: null == areaSqm ? _self.areaSqm : areaSqm // ignore: cast_nullable_to_non_nullable
@@ -1805,7 +1805,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String role, @JsonKey(name: 'variant_id')  String variantId, @JsonKey(name: 'color_name')  String colorName, @JsonKey(name: 'width_m')  String widthM, @JsonKey(name: 'height_m')  String heightM,  String coef, @JsonKey(name: 'area_sqm')  String areaSqm, @JsonKey(name: 'price_per_sqm')  String pricePerSqm,  String total)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(defaultValue: '')  String role, @JsonKey(name: 'variant_id', defaultValue: '')  String variantId, @JsonKey(name: 'color_name', defaultValue: '')  String? colorName, @JsonKey(name: 'width_m', defaultValue: '')  String widthM, @JsonKey(name: 'height_m', defaultValue: '')  String heightM, @JsonKey(defaultValue: '')  String coef, @JsonKey(name: 'area_sqm', defaultValue: '')  String areaSqm, @JsonKey(name: 'price_per_sqm', defaultValue: '')  String pricePerSqm, @JsonKey(defaultValue: '')  String total)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CalcPreviewResponsePartDto() when $default != null:
 return $default(_that.role,_that.variantId,_that.colorName,_that.widthM,_that.heightM,_that.coef,_that.areaSqm,_that.pricePerSqm,_that.total);case _:
@@ -1826,7 +1826,7 @@ return $default(_that.role,_that.variantId,_that.colorName,_that.widthM,_that.he
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String role, @JsonKey(name: 'variant_id')  String variantId, @JsonKey(name: 'color_name')  String colorName, @JsonKey(name: 'width_m')  String widthM, @JsonKey(name: 'height_m')  String heightM,  String coef, @JsonKey(name: 'area_sqm')  String areaSqm, @JsonKey(name: 'price_per_sqm')  String pricePerSqm,  String total)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(defaultValue: '')  String role, @JsonKey(name: 'variant_id', defaultValue: '')  String variantId, @JsonKey(name: 'color_name', defaultValue: '')  String? colorName, @JsonKey(name: 'width_m', defaultValue: '')  String widthM, @JsonKey(name: 'height_m', defaultValue: '')  String heightM, @JsonKey(defaultValue: '')  String coef, @JsonKey(name: 'area_sqm', defaultValue: '')  String areaSqm, @JsonKey(name: 'price_per_sqm', defaultValue: '')  String pricePerSqm, @JsonKey(defaultValue: '')  String total)  $default,) {final _that = this;
 switch (_that) {
 case _CalcPreviewResponsePartDto():
 return $default(_that.role,_that.variantId,_that.colorName,_that.widthM,_that.heightM,_that.coef,_that.areaSqm,_that.pricePerSqm,_that.total);case _:
@@ -1846,7 +1846,7 @@ return $default(_that.role,_that.variantId,_that.colorName,_that.widthM,_that.he
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String role, @JsonKey(name: 'variant_id')  String variantId, @JsonKey(name: 'color_name')  String colorName, @JsonKey(name: 'width_m')  String widthM, @JsonKey(name: 'height_m')  String heightM,  String coef, @JsonKey(name: 'area_sqm')  String areaSqm, @JsonKey(name: 'price_per_sqm')  String pricePerSqm,  String total)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(defaultValue: '')  String role, @JsonKey(name: 'variant_id', defaultValue: '')  String variantId, @JsonKey(name: 'color_name', defaultValue: '')  String? colorName, @JsonKey(name: 'width_m', defaultValue: '')  String widthM, @JsonKey(name: 'height_m', defaultValue: '')  String heightM, @JsonKey(defaultValue: '')  String coef, @JsonKey(name: 'area_sqm', defaultValue: '')  String areaSqm, @JsonKey(name: 'price_per_sqm', defaultValue: '')  String pricePerSqm, @JsonKey(defaultValue: '')  String total)?  $default,) {final _that = this;
 switch (_that) {
 case _CalcPreviewResponsePartDto() when $default != null:
 return $default(_that.role,_that.variantId,_that.colorName,_that.widthM,_that.heightM,_that.coef,_that.areaSqm,_that.pricePerSqm,_that.total);case _:
@@ -1861,18 +1861,18 @@ return $default(_that.role,_that.variantId,_that.colorName,_that.widthM,_that.he
 @JsonSerializable()
 
 class _CalcPreviewResponsePartDto implements CalcPreviewResponsePartDto {
-  const _CalcPreviewResponsePartDto({required this.role, @JsonKey(name: 'variant_id') required this.variantId, @JsonKey(name: 'color_name') required this.colorName, @JsonKey(name: 'width_m') required this.widthM, @JsonKey(name: 'height_m') required this.heightM, required this.coef, @JsonKey(name: 'area_sqm') required this.areaSqm, @JsonKey(name: 'price_per_sqm') required this.pricePerSqm, required this.total});
+  const _CalcPreviewResponsePartDto({@JsonKey(defaultValue: '') required this.role, @JsonKey(name: 'variant_id', defaultValue: '') required this.variantId, @JsonKey(name: 'color_name', defaultValue: '') this.colorName, @JsonKey(name: 'width_m', defaultValue: '') required this.widthM, @JsonKey(name: 'height_m', defaultValue: '') required this.heightM, @JsonKey(defaultValue: '') required this.coef, @JsonKey(name: 'area_sqm', defaultValue: '') required this.areaSqm, @JsonKey(name: 'price_per_sqm', defaultValue: '') required this.pricePerSqm, @JsonKey(defaultValue: '') required this.total});
   factory _CalcPreviewResponsePartDto.fromJson(Map<String, dynamic> json) => _$CalcPreviewResponsePartDtoFromJson(json);
 
-@override final  String role;
-@override@JsonKey(name: 'variant_id') final  String variantId;
-@override@JsonKey(name: 'color_name') final  String colorName;
-@override@JsonKey(name: 'width_m') final  String widthM;
-@override@JsonKey(name: 'height_m') final  String heightM;
-@override final  String coef;
-@override@JsonKey(name: 'area_sqm') final  String areaSqm;
-@override@JsonKey(name: 'price_per_sqm') final  String pricePerSqm;
-@override final  String total;
+@override@JsonKey(defaultValue: '') final  String role;
+@override@JsonKey(name: 'variant_id', defaultValue: '') final  String variantId;
+@override@JsonKey(name: 'color_name', defaultValue: '') final  String? colorName;
+@override@JsonKey(name: 'width_m', defaultValue: '') final  String widthM;
+@override@JsonKey(name: 'height_m', defaultValue: '') final  String heightM;
+@override@JsonKey(defaultValue: '') final  String coef;
+@override@JsonKey(name: 'area_sqm', defaultValue: '') final  String areaSqm;
+@override@JsonKey(name: 'price_per_sqm', defaultValue: '') final  String pricePerSqm;
+@override@JsonKey(defaultValue: '') final  String total;
 
 /// Create a copy of CalcPreviewResponsePartDto
 /// with the given fields replaced by the non-null parameter values.
@@ -1907,7 +1907,7 @@ abstract mixin class _$CalcPreviewResponsePartDtoCopyWith<$Res> implements $Calc
   factory _$CalcPreviewResponsePartDtoCopyWith(_CalcPreviewResponsePartDto value, $Res Function(_CalcPreviewResponsePartDto) _then) = __$CalcPreviewResponsePartDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String role,@JsonKey(name: 'variant_id') String variantId,@JsonKey(name: 'color_name') String colorName,@JsonKey(name: 'width_m') String widthM,@JsonKey(name: 'height_m') String heightM, String coef,@JsonKey(name: 'area_sqm') String areaSqm,@JsonKey(name: 'price_per_sqm') String pricePerSqm, String total
+@JsonKey(defaultValue: '') String role,@JsonKey(name: 'variant_id', defaultValue: '') String variantId,@JsonKey(name: 'color_name', defaultValue: '') String? colorName,@JsonKey(name: 'width_m', defaultValue: '') String widthM,@JsonKey(name: 'height_m', defaultValue: '') String heightM,@JsonKey(defaultValue: '') String coef,@JsonKey(name: 'area_sqm', defaultValue: '') String areaSqm,@JsonKey(name: 'price_per_sqm', defaultValue: '') String pricePerSqm,@JsonKey(defaultValue: '') String total
 });
 
 
@@ -1924,12 +1924,12 @@ class __$CalcPreviewResponsePartDtoCopyWithImpl<$Res>
 
 /// Create a copy of CalcPreviewResponsePartDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? role = null,Object? variantId = null,Object? colorName = null,Object? widthM = null,Object? heightM = null,Object? coef = null,Object? areaSqm = null,Object? pricePerSqm = null,Object? total = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? role = null,Object? variantId = null,Object? colorName = freezed,Object? widthM = null,Object? heightM = null,Object? coef = null,Object? areaSqm = null,Object? pricePerSqm = null,Object? total = null,}) {
   return _then(_CalcPreviewResponsePartDto(
 role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,variantId: null == variantId ? _self.variantId : variantId // ignore: cast_nullable_to_non_nullable
-as String,colorName: null == colorName ? _self.colorName : colorName // ignore: cast_nullable_to_non_nullable
-as String,widthM: null == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
+as String,colorName: freezed == colorName ? _self.colorName : colorName // ignore: cast_nullable_to_non_nullable
+as String?,widthM: null == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
 as String,heightM: null == heightM ? _self.heightM : heightM // ignore: cast_nullable_to_non_nullable
 as String,coef: null == coef ? _self.coef : coef // ignore: cast_nullable_to_non_nullable
 as String,areaSqm: null == areaSqm ? _self.areaSqm : areaSqm // ignore: cast_nullable_to_non_nullable

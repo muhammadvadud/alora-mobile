@@ -45,8 +45,11 @@ class SettingsRemoteDataSourceImpl implements SettingsRemoteDataSource {
 
   @override
   Future<List<ModelPricingDto>> getModelPricings() async {
-    final response = await dio.get<List<dynamic>>(ApiPaths.modelPricings);
-    return response.data!.map((e) => ModelPricingDto.fromJson(e as Map<String, dynamic>)).toList();
+    final response = await dio.get<dynamic>(ApiPaths.modelPricings);
+    final data = response.data;
+    final list = data is Map<String, dynamic> ? data['results'] : data;
+    if (list is! List) return const [];
+    return list.whereType<Map<String, dynamic>>().map(ModelPricingDto.fromJson).toList();
   }
 
   @override

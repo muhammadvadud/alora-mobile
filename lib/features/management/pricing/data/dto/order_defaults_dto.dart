@@ -10,7 +10,7 @@ abstract class OrderDefaultsDto with _$OrderDefaultsDto {
     @JsonKey(name: 'prepayment_percent') required String defaultPrepaymentPercent,
     @JsonKey(name: 'delivery_amount') required String defaultDeliveryAmount,
     @JsonKey(name: 'deadline_days') @Default(0) int deadlineDays,
-    @JsonKey(name: 'is_active') required bool isActive,
+    @JsonKey(name: 'is_active') @Default(true) bool isActive,
     @JsonKey(name: 'created_at') required String createdAt,
     @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _OrderDefaultsDto;

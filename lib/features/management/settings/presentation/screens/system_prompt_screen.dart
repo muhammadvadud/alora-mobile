@@ -40,7 +40,7 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
   }
 
   void _syncController(AsyncValue<PromptHistory> state) {
-    final content = state.asData?.value.current.content;
+    final content = state.asData?.value.current?.content;
     if (content != null && content != _lastSetContent) {
       _lastSetContent = content;
       _controller.text = content;
@@ -104,6 +104,13 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
                         type: AppTextFieldType.multiline,
                         maxLines: 10,
                       ),
+                      if (history.current == null) ...[
+                        const SizedBox(height: AppSpacing.s),
+                        Text(
+                          context.l10n.settings_promptEmpty,
+                          style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
+                        ),
+                      ],
                       const SizedBox(height: AppSpacing.m),
                       AppButton(
                         text: context.l10n.settings_saveNewVersion,

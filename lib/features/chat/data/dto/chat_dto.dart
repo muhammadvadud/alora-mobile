@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:alora_mobile/core/utils/json_converters.dart';
 // ignore_for_file: invalid_annotation_target
 
 part 'chat_dto.freezed.dart';
@@ -11,7 +12,7 @@ abstract class MessageDto with _$MessageDto {
     required String role,
     required String content,
     @JsonKey(name: 'tool_calls') List<Map<String, dynamic>>? toolCalls,
-    @JsonKey(name: 'tool_result') Map<String, dynamic>? toolResult,
+    @JsonKey(name: 'tool_result', fromJson: toolResultFromJson) Map<String, dynamic>? toolResult,
     @JsonKey(name: 'audio_url') String? audioUrl,
     @JsonKey(name: 'created_at') required DateTime createdAt,
   }) = _MessageDto;

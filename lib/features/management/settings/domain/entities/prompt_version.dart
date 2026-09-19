@@ -17,8 +17,6 @@ abstract class PromptVersion with _$PromptVersion {
 
 @freezed
 abstract class PromptHistory with _$PromptHistory {
-  const factory PromptHistory({
-    required PromptVersion current,
-    @Default([]) List<PromptVersion> history,
-  }) = _PromptHistory;
+  const factory PromptHistory({PromptVersion? current, @Default([]) List<PromptVersion> history}) =
+      _PromptHistory;
 }

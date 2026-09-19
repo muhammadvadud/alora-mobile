@@ -1235,6 +1235,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get settings_promptHint => 'Prompt matni';
 
   @override
+  String get settings_promptEmpty => 'Hali prompt yo‘q';
+
+  @override
   String get settings_saveNewVersion => 'Yangi versiya saqlash';
 
   @override
@@ -2522,6 +2525,9 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get settings_promptHint => 'Промпт матни';
+
+  @override
+  String get settings_promptEmpty => 'Ҳали промпт йўқ';
 
   @override
   String get settings_saveNewVersion => 'Янги версияни сақлаш';

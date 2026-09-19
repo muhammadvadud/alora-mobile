@@ -116,9 +116,15 @@ void main() {
   });
 
   test('getStatuses', () async {
-    when(() => mockDio.get<Map<String, dynamic>>(any())).thenAnswer(
-      (_) async => Response<Map<String, dynamic>>(
-        data: {'transitions': <String, dynamic>{}},
+    when(() => mockDio.get<dynamic>(any())).thenAnswer(
+      (_) async => Response<dynamic>(
+        data: [
+          {
+            'value': 'draft',
+            'label': 'Qoralama',
+            'allowed': ['confirmed'],
+          },
+        ],
         statusCode: 200,
         requestOptions: RequestOptions(path: ''),
       ),

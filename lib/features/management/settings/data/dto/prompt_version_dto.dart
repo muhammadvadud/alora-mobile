@@ -21,7 +21,7 @@ abstract class PromptVersionDto with _$PromptVersionDto {
 @freezed
 abstract class PromptHistoryDto with _$PromptHistoryDto {
   const factory PromptHistoryDto({
-    required PromptVersionDto current,
+    PromptVersionDto? current,
     @Default([]) List<PromptVersionDto> history,
   }) = _PromptHistoryDto;
 

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../core/utils/json_converters.dart';
 import '../../domain/entities/product_enums.dart';
 import 'category_dto.dart';
 import 'product_variant_dto.dart';
@@ -27,7 +28,9 @@ class ProductDto {
   final String? composition;
   final String? care;
   final List<String> recommendedRooms;
+  @JsonKey(fromJson: doubleFromJson, toJson: doubleToJson)
   final double? recommendedCoef;
+  @JsonKey(fromJson: doubleFromJson, toJson: doubleToJson)
   final double? defaultWidthM;
   final bool isSewingRequired;
   @JsonKey(unknownEnumValue: ProductSegment.unknown)

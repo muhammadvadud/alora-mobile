@@ -215,7 +215,7 @@ return $default(_that.id,_that.defaultPrepaymentPercent,_that.defaultDeliveryAmo
 @JsonSerializable()
 
 class _OrderDefaultsDto implements OrderDefaultsDto {
-  const _OrderDefaultsDto({required this.id, @JsonKey(name: 'prepayment_percent') required this.defaultPrepaymentPercent, @JsonKey(name: 'delivery_amount') required this.defaultDeliveryAmount, @JsonKey(name: 'deadline_days') this.deadlineDays = 0, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
+  const _OrderDefaultsDto({required this.id, @JsonKey(name: 'prepayment_percent') required this.defaultPrepaymentPercent, @JsonKey(name: 'delivery_amount') required this.defaultDeliveryAmount, @JsonKey(name: 'deadline_days') this.deadlineDays = 0, @JsonKey(name: 'is_active') this.isActive = true, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _OrderDefaultsDto.fromJson(Map<String, dynamic> json) => _$OrderDefaultsDtoFromJson(json);
 
 @override final  String id;

@@ -24,7 +24,7 @@ class KnowledgeRepositoryImpl implements KnowledgeRepository {
   ) async {
     final data = {
       'kind': kind,
-      'condition': condition,
+      'condition': {'values': condition},
       'recommendation': recommendation,
       'priority': priority,
       'is_active': isActive,

@@ -78,8 +78,10 @@ class OrdersRemoteDataSourceImpl implements OrdersRemoteDataSource {
 
   @override
   Future<StatusesResponseDto> getStatuses() async {
-    final response = await dio.get<Map<String, dynamic>>(ApiPaths.orderStatuses);
-    return StatusesResponseDto.fromJson(response.data!);
+    final response = await dio.get<dynamic>(ApiPaths.orderStatuses);
+    final data = response.data;
+    if (data is Map<String, dynamic>) return StatusesResponseDto.fromJson(data);
+    return StatusesResponseDto.fromList(data is List ? data : const <dynamic>[]);
   }
 
   @override

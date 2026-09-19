@@ -545,6 +545,7 @@
   "settings_systemPromptTitle": "Tizim prompti",
   "settings_currentPrompt": "JORIY PROMPT",
   "settings_promptHint": "Prompt matni",
+  "settings_promptEmpty": "Hali prompt yo‘q",
   "settings_saveNewVersion": "Yangi versiya saqlash",
   "settings_versionHistory": "VERSIYALAR TARIXI",
   "settings_version": "v{version}",

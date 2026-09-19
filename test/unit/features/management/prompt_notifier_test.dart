@@ -75,12 +75,12 @@ void main() {
 
     // Initial load
     await container.read(promptHistoryProvider.future);
-    expect(container.read(promptHistoryProvider).value?.current.content, 'a');
+    expect(container.read(promptHistoryProvider).value?.current?.content, 'a');
 
     // Create
     await notifier.createPrompt('new content');
     expect(
-      container.read(promptHistoryProvider).value?.current.content,
+      container.read(promptHistoryProvider).value?.current?.content,
       'a',
     ); // because mock getPromptHistory returns static
 

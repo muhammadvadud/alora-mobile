@@ -60,8 +60,16 @@ class ConversationsRemoteDataSource {
   /// Suhbat transkriptini olish
   Future<String> transcript(String id) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(ApiPaths.conversationTranscript(id));
-      return response.data.toString();
+      final response = await _dio.get<List<dynamic>>(ApiPaths.conversationTranscript(id));
+      final lines = <String>[];
+      for (final item in response.data ?? const <dynamic>[]) {
+        if (item is! Map<String, dynamic>) continue;
+        final role = item['role'];
+        final content = item['content'];
+        if (role == 'tool' || content is! String || content.isEmpty) continue;
+        lines.add('$role: $content');
+      }
+      return lines.join('\n\n');
     } on DioException catch (error) {
       throw _mapError(error);
     }

@@ -2461,6 +2461,12 @@ abstract class AppLocalizations {
   /// **'Prompt matni'**
   String get settings_promptHint;
 
+  /// No description provided for @settings_promptEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali prompt yo‘q'**
+  String get settings_promptEmpty;
+
   /// No description provided for @settings_saveNewVersion.
   ///
   /// In uz, this message translates to:

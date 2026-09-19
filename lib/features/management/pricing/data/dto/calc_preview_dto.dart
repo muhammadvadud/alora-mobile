@@ -76,7 +76,7 @@ abstract class CalcPreviewResponseDto with _$CalcPreviewResponseDto {
 @freezed
 abstract class CalcPreviewResponseMeasurementDto with _$CalcPreviewResponseMeasurementDto {
   const factory CalcPreviewResponseMeasurementDto({
-    @JsonKey(name: 'room_name') required String roomName,
+    @JsonKey(name: 'room_name') String? roomName,
     required List<CalcPreviewResponsePartDto> parts,
     required List<CalcPreviewResponseAccessoryDto> accessories,
   }) = _CalcPreviewResponseMeasurementDto;
@@ -88,15 +88,15 @@ abstract class CalcPreviewResponseMeasurementDto with _$CalcPreviewResponseMeasu
 @freezed
 abstract class CalcPreviewResponsePartDto with _$CalcPreviewResponsePartDto {
   const factory CalcPreviewResponsePartDto({
-    required String role,
-    @JsonKey(name: 'variant_id') required String variantId,
-    @JsonKey(name: 'color_name') required String colorName,
-    @JsonKey(name: 'width_m') required String widthM,
-    @JsonKey(name: 'height_m') required String heightM,
-    required String coef,
-    @JsonKey(name: 'area_sqm') required String areaSqm,
-    @JsonKey(name: 'price_per_sqm') required String pricePerSqm,
-    required String total,
+    @JsonKey(defaultValue: '') required String role,
+    @JsonKey(name: 'variant_id', defaultValue: '') required String variantId,
+    @JsonKey(name: 'color_name', defaultValue: '') String? colorName,
+    @JsonKey(name: 'width_m', defaultValue: '') required String widthM,
+    @JsonKey(name: 'height_m', defaultValue: '') required String heightM,
+    @JsonKey(defaultValue: '') required String coef,
+    @JsonKey(name: 'area_sqm', defaultValue: '') required String areaSqm,
+    @JsonKey(name: 'price_per_sqm', defaultValue: '') required String pricePerSqm,
+    @JsonKey(defaultValue: '') required String total,
   }) = _CalcPreviewResponsePartDto;
 
   factory CalcPreviewResponsePartDto.fromJson(Map<String, dynamic> json) =>

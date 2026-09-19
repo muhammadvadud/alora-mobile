@@ -1,6 +1,7 @@
 import 'package:alora_mobile/shared/models/price_unit.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../core/utils/json_converters.dart';
 import 'product_image_dto.dart';
 
 part 'product_variant_dto.g.dart';
@@ -12,6 +13,7 @@ class ProductVariantDto {
   final String sku;
   final String colorName;
   final String colorHex;
+  @JsonKey(fromJson: doubleFromJsonRequired, toJson: doubleToJson)
   final double widthM;
   final String price;
   @JsonKey(unknownEnumValue: PriceUnit.unknown)

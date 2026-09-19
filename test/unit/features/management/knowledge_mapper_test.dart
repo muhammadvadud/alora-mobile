@@ -9,7 +9,7 @@ void main() {
       final dto = KnowledgeRuleDto(
         id: '1',
         kind: 'general',
-        condition: ['a'],
+        condition: {'objection': 'a'},
         recommendation: 'b',
         priority: 1,
         isActive: true,
@@ -43,7 +43,9 @@ void main() {
 
       expect(dto.id, '1');
       expect(dto.kind, 'general');
-      expect(dto.condition, ['a']);
+      expect(dto.condition, {
+        'values': ['a'],
+      });
       expect(dto.recommendation, 'b');
       expect(dto.priority, 1);
       expect(dto.isActive, true);
@@ -53,7 +55,7 @@ void main() {
       final json = {
         'id': '1',
         'kind': 'style',
-        'condition': ['hi-tech', 'minimalizm'],
+        'condition': {'style': 'hi-tech'},
         'recommendation': 'use gray',
         'priority': 2,
         'is_active': true,
@@ -61,7 +63,7 @@ void main() {
         'updated_at': '2023-01-01T00:00:00.000Z',
       };
       final dto = KnowledgeRuleDto.fromJson(json);
-      expect(dto.condition, ['hi-tech', 'minimalizm']);
+      expect(dto.condition, {'style': 'hi-tech'});
     });
   });
 }

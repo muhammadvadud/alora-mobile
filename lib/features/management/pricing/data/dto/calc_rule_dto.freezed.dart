@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CalcRuleDto {
 
- String get id; String get key; String get value; String get unit; String get description;@JsonKey(name: 'applies_to') String get appliesTo;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') String get createdAt;@JsonKey(name: 'updated_at') String get updatedAt;
+ String get id; String get key; String get value; String get unit; String get description;@JsonKey(name: 'applies_to', fromJson: mapFromJson) Map<String, dynamic> get appliesTo;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') String get createdAt;@JsonKey(name: 'updated_at') String get updatedAt;
 /// Create a copy of CalcRuleDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,12 +28,12 @@ $CalcRuleDtoCopyWith<CalcRuleDto> get copyWith => _$CalcRuleDtoCopyWithImpl<Calc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CalcRuleDto&&(identical(other.id, id) || other.id == id)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.description, description) || other.description == description)&&(identical(other.appliesTo, appliesTo) || other.appliesTo == appliesTo)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CalcRuleDto&&(identical(other.id, id) || other.id == id)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.appliesTo, appliesTo)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,key,value,unit,description,appliesTo,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,key,value,unit,description,const DeepCollectionEquality().hash(appliesTo),isActive,createdAt,updatedAt);
 
 @override
 String toString() {
@@ -48,7 +48,7 @@ abstract mixin class $CalcRuleDtoCopyWith<$Res>  {
   factory $CalcRuleDtoCopyWith(CalcRuleDto value, $Res Function(CalcRuleDto) _then) = _$CalcRuleDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, String key, String value, String unit, String description,@JsonKey(name: 'applies_to') String appliesTo,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
+ String id, String key, String value, String unit, String description,@JsonKey(name: 'applies_to', fromJson: mapFromJson) Map<String, dynamic> appliesTo,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
 });
 
 
@@ -73,7 +73,7 @@ as String,value: null == value ? _self.value : value // ignore: cast_nullable_to
 as String,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,appliesTo: null == appliesTo ? _self.appliesTo : appliesTo // ignore: cast_nullable_to_non_nullable
-as String,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String,
@@ -161,7 +161,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String key,  String value,  String unit,  String description, @JsonKey(name: 'applies_to')  String appliesTo, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String key,  String value,  String unit,  String description, @JsonKey(name: 'applies_to', fromJson: mapFromJson)  Map<String, dynamic> appliesTo, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CalcRuleDto() when $default != null:
 return $default(_that.id,_that.key,_that.value,_that.unit,_that.description,_that.appliesTo,_that.isActive,_that.createdAt,_that.updatedAt);case _:
@@ -182,7 +182,7 @@ return $default(_that.id,_that.key,_that.value,_that.unit,_that.description,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String key,  String value,  String unit,  String description, @JsonKey(name: 'applies_to')  String appliesTo, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String key,  String value,  String unit,  String description, @JsonKey(name: 'applies_to', fromJson: mapFromJson)  Map<String, dynamic> appliesTo, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _CalcRuleDto():
 return $default(_that.id,_that.key,_that.value,_that.unit,_that.description,_that.appliesTo,_that.isActive,_that.createdAt,_that.updatedAt);case _:
@@ -202,7 +202,7 @@ return $default(_that.id,_that.key,_that.value,_that.unit,_that.description,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String key,  String value,  String unit,  String description, @JsonKey(name: 'applies_to')  String appliesTo, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String key,  String value,  String unit,  String description, @JsonKey(name: 'applies_to', fromJson: mapFromJson)  Map<String, dynamic> appliesTo, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  String createdAt, @JsonKey(name: 'updated_at')  String updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _CalcRuleDto() when $default != null:
 return $default(_that.id,_that.key,_that.value,_that.unit,_that.description,_that.appliesTo,_that.isActive,_that.createdAt,_that.updatedAt);case _:
@@ -217,7 +217,7 @@ return $default(_that.id,_that.key,_that.value,_that.unit,_that.description,_tha
 @JsonSerializable()
 
 class _CalcRuleDto implements CalcRuleDto {
-  const _CalcRuleDto({required this.id, required this.key, required this.value, required this.unit, required this.description, @JsonKey(name: 'applies_to') required this.appliesTo, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
+  const _CalcRuleDto({required this.id, required this.key, required this.value, required this.unit, required this.description, @JsonKey(name: 'applies_to', fromJson: mapFromJson) this.appliesTo = const {}, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _CalcRuleDto.fromJson(Map<String, dynamic> json) => _$CalcRuleDtoFromJson(json);
 
 @override final  String id;
@@ -225,7 +225,7 @@ class _CalcRuleDto implements CalcRuleDto {
 @override final  String value;
 @override final  String unit;
 @override final  String description;
-@override@JsonKey(name: 'applies_to') final  String appliesTo;
+@override@JsonKey(name: 'applies_to', fromJson: mapFromJson) final  Map<String, dynamic> appliesTo;
 @override@JsonKey(name: 'is_active') final  bool isActive;
 @override@JsonKey(name: 'created_at') final  String createdAt;
 @override@JsonKey(name: 'updated_at') final  String updatedAt;
@@ -243,12 +243,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CalcRuleDto&&(identical(other.id, id) || other.id == id)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.description, description) || other.description == description)&&(identical(other.appliesTo, appliesTo) || other.appliesTo == appliesTo)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CalcRuleDto&&(identical(other.id, id) || other.id == id)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.appliesTo, appliesTo)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,key,value,unit,description,appliesTo,isActive,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,key,value,unit,description,const DeepCollectionEquality().hash(appliesTo),isActive,createdAt,updatedAt);
 
 @override
 String toString() {
@@ -263,7 +263,7 @@ abstract mixin class _$CalcRuleDtoCopyWith<$Res> implements $CalcRuleDtoCopyWith
   factory _$CalcRuleDtoCopyWith(_CalcRuleDto value, $Res Function(_CalcRuleDto) _then) = __$CalcRuleDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String key, String value, String unit, String description,@JsonKey(name: 'applies_to') String appliesTo,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
+ String id, String key, String value, String unit, String description,@JsonKey(name: 'applies_to', fromJson: mapFromJson) Map<String, dynamic> appliesTo,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') String createdAt,@JsonKey(name: 'updated_at') String updatedAt
 });
 
 
@@ -288,7 +288,7 @@ as String,value: null == value ? _self.value : value // ignore: cast_nullable_to
 as String,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,appliesTo: null == appliesTo ? _self.appliesTo : appliesTo // ignore: cast_nullable_to_non_nullable
-as String,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as String,

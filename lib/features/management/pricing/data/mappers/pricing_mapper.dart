@@ -19,7 +19,7 @@ class PricingMapper {
       value: double.tryParse(dto.value) ?? 0.0,
       unit: dto.unit,
       description: dto.description,
-      appliesTo: dto.appliesTo,
+      appliesTo: dto.appliesTo.isEmpty ? '' : dto.appliesTo.toString(),
       isActive: dto.isActive,
       createdAt: DateTime.parse(dto.createdAt).toLocal(),
       updatedAt: DateTime.parse(dto.updatedAt).toLocal(),
@@ -84,7 +84,7 @@ class PricingMapper {
           QuoteFabric(
             role: p.role,
             variantId: p.variantId,
-            colorName: p.colorName,
+            colorName: p.colorName ?? '',
             colorHex: '', // Color hex is not present in CalcPreviewResponsePartDto
             widthM: double.tryParse(p.widthM) ?? 0.0,
             heightM: double.tryParse(p.heightM) ?? 0.0,

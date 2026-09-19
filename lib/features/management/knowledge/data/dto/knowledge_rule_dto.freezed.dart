@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$KnowledgeRuleDto {
 
- String get id; String get kind; List<String> get condition; String get recommendation; int get priority;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt;
+ String get id; String get kind;@JsonKey(fromJson: mapFromJson) Map<String, dynamic> get condition; String get recommendation; int get priority;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt;
 /// Create a copy of KnowledgeRuleDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $KnowledgeRuleDtoCopyWith<$Res>  {
   factory $KnowledgeRuleDtoCopyWith(KnowledgeRuleDto value, $Res Function(KnowledgeRuleDto) _then) = _$KnowledgeRuleDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, String kind, List<String> condition, String recommendation, int priority,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
+ String id, String kind,@JsonKey(fromJson: mapFromJson) Map<String, dynamic> condition, String recommendation, int priority,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 
@@ -70,7 +70,7 @@ class _$KnowledgeRuleDtoCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as String,condition: null == condition ? _self.condition : condition // ignore: cast_nullable_to_non_nullable
-as List<String>,recommendation: null == recommendation ? _self.recommendation : recommendation // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,recommendation: null == recommendation ? _self.recommendation : recommendation // ignore: cast_nullable_to_non_nullable
 as String,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
 as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -160,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String kind,  List<String> condition,  String recommendation,  int priority, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String kind, @JsonKey(fromJson: mapFromJson)  Map<String, dynamic> condition,  String recommendation,  int priority, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _KnowledgeRuleDto() when $default != null:
 return $default(_that.id,_that.kind,_that.condition,_that.recommendation,_that.priority,_that.isActive,_that.createdAt,_that.updatedAt);case _:
@@ -181,7 +181,7 @@ return $default(_that.id,_that.kind,_that.condition,_that.recommendation,_that.p
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String kind,  List<String> condition,  String recommendation,  int priority, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String kind, @JsonKey(fromJson: mapFromJson)  Map<String, dynamic> condition,  String recommendation,  int priority, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _KnowledgeRuleDto():
 return $default(_that.id,_that.kind,_that.condition,_that.recommendation,_that.priority,_that.isActive,_that.createdAt,_that.updatedAt);case _:
@@ -201,7 +201,7 @@ return $default(_that.id,_that.kind,_that.condition,_that.recommendation,_that.p
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String kind,  List<String> condition,  String recommendation,  int priority, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String kind, @JsonKey(fromJson: mapFromJson)  Map<String, dynamic> condition,  String recommendation,  int priority, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _KnowledgeRuleDto() when $default != null:
 return $default(_that.id,_that.kind,_that.condition,_that.recommendation,_that.priority,_that.isActive,_that.createdAt,_that.updatedAt);case _:
@@ -216,12 +216,12 @@ return $default(_that.id,_that.kind,_that.condition,_that.recommendation,_that.p
 @JsonSerializable()
 
 class _KnowledgeRuleDto implements KnowledgeRuleDto {
-  const _KnowledgeRuleDto({required this.id, required this.kind, required this.condition, required this.recommendation, required this.priority, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
+  const _KnowledgeRuleDto({required this.id, required this.kind, @JsonKey(fromJson: mapFromJson) required this.condition, required this.recommendation, required this.priority, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _KnowledgeRuleDto.fromJson(Map<String, dynamic> json) => _$KnowledgeRuleDtoFromJson(json);
 
 @override final  String id;
 @override final  String kind;
-@override final  List<String> condition;
+@override@JsonKey(fromJson: mapFromJson) final  Map<String, dynamic> condition;
 @override final  String recommendation;
 @override final  int priority;
 @override@JsonKey(name: 'is_active') final  bool isActive;
@@ -261,7 +261,7 @@ abstract mixin class _$KnowledgeRuleDtoCopyWith<$Res> implements $KnowledgeRuleD
   factory _$KnowledgeRuleDtoCopyWith(_KnowledgeRuleDto value, $Res Function(_KnowledgeRuleDto) _then) = __$KnowledgeRuleDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String kind, List<String> condition, String recommendation, int priority,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
+ String id, String kind,@JsonKey(fromJson: mapFromJson) Map<String, dynamic> condition, String recommendation, int priority,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 
@@ -283,7 +283,7 @@ class __$KnowledgeRuleDtoCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as String,condition: null == condition ? _self.condition : condition // ignore: cast_nullable_to_non_nullable
-as List<String>,recommendation: null == recommendation ? _self.recommendation : recommendation // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,recommendation: null == recommendation ? _self.recommendation : recommendation // ignore: cast_nullable_to_non_nullable
 as String,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
 as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable

@@ -6,7 +6,10 @@ class KnowledgeMapper {
     return KnowledgeRule(
       id: dto.id,
       kind: dto.kind,
-      condition: dto.condition,
+      condition: dto.condition.values.expand((value) {
+        if (value is List) return value.whereType<String>();
+        return value is String ? [value] : <String>[];
+      }).toList(),
       recommendation: dto.recommendation,
       priority: dto.priority,
       isActive: dto.isActive,
@@ -19,7 +22,7 @@ class KnowledgeMapper {
     return KnowledgeRuleDto(
       id: entity.id,
       kind: entity.kind,
-      condition: entity.condition,
+      condition: {'values': entity.condition},
       recommendation: entity.recommendation,
       priority: entity.priority,
       isActive: entity.isActive,

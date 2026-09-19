@@ -545,6 +545,7 @@
   "settings_systemPromptTitle": "Системный промпт",
   "settings_currentPrompt": "ТЕКУЩИЙ ПРОМПТ",
   "settings_promptHint": "Текст промпта",
+  "settings_promptEmpty": "Промпт ещё не создан",
   "settings_saveNewVersion": "Сохранить новую версию",
   "settings_versionHistory": "ИСТОРИЯ ВЕРСИЙ",
   "settings_version": "v{version}",

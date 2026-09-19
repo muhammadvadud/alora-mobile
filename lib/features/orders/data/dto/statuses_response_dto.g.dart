@@ -15,7 +15,10 @@ _StatusesResponseDto _$StatusesResponseDtoFromJson(Map<String, dynamic> json) =>
           'statuses',
           (v) =>
               (v as List<dynamic>?)
-                  ?.map((e) => StatusTransitionDto.fromJson(e as Map<String, dynamic>))
+                  ?.map(
+                    (e) =>
+                        StatusTransitionDto.fromJson(e as Map<String, dynamic>),
+                  )
                   .toList() ??
               const [],
         ),
@@ -23,7 +26,10 @@ _StatusesResponseDto _$StatusesResponseDtoFromJson(Map<String, dynamic> json) =>
           'transitions',
           (v) =>
               (v as Map<String, dynamic>?)?.map(
-                (k, e) => MapEntry(k, (e as List<dynamic>).map((e) => e as String).toList()),
+                (k, e) => MapEntry(
+                  k,
+                  (e as List<dynamic>).map((e) => e as String).toList(),
+                ),
               ) ??
               const {},
         ),
@@ -31,8 +37,9 @@ _StatusesResponseDto _$StatusesResponseDtoFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$StatusesResponseDtoToJson(_StatusesResponseDto instance) =>
-    <String, dynamic>{
-      'statuses': instance.statuses.map((e) => e.toJson()).toList(),
-      'transitions': instance.transitions,
-    };
+Map<String, dynamic> _$StatusesResponseDtoToJson(
+  _StatusesResponseDto instance,
+) => <String, dynamic>{
+  'statuses': instance.statuses.map((e) => e.toJson()).toList(),
+  'transitions': instance.transitions,
+};

@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 252 / 260 bajarildi (2 jarayonda: 15.11 backend streaming, 21.10 dizayn auditi) (2026-09-19)
+**Umumiy holat:** 253 / 261 bajarildi (2 jarayonda: 15.11 backend streaming, 21.10 dizayn auditi) (2026-09-19)
 
 ---
 
@@ -369,6 +369,7 @@
 - [x] 21.8 Profil va tizim holatlari S-25, S-26: avatar 64 + guruh kartochkalari, offline banner, limit/403/404 Empty state
 - [x] 21.9 Golden'lar to'liq qayta olinadi (yorug'/qorong'i/planshet), `test/widget/a11y` (48dp, kontrast) yashil, `check_build_len`, `analyze --fatal-infos`, `custom_lint`, `format_check` — alohida commit
 - [~] 21.10 Lead audit: har ekran `docs/design/figma-kit/*.png` bilan solishtiriladi (skrinshot), SPEC'dan chetlanishlar ro'yxati; `docs/DESIGN-TOKENS.md` v2 ga yangilanadi
+- [x] 21.11 Live API testi (`test/live/api_live_test.dart`, haqiqiy backend, ilovaning o'z Dio/datasource kodi): 25 endpoint yashil. Topilgan va tuzatilgan DTO nomuvofiqliklari: Decimal→String (`doubleFromJson`), `tool_result` string/map, transcript ro'yxat, `orders/statuses/` ro'yxat shakli, `applies_to` map, knowledge `condition` map, `prompt.current` null, model-pricings paginated
 
 ## Bajarish tartibi va bog'liqliklar
 

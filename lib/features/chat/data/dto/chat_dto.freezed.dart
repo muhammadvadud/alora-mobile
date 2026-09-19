@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MessageDto {
 
- String get id; String get role; String get content;@JsonKey(name: 'tool_calls') List<Map<String, dynamic>>? get toolCalls;@JsonKey(name: 'tool_result') Map<String, dynamic>? get toolResult;@JsonKey(name: 'audio_url') String? get audioUrl;@JsonKey(name: 'created_at') DateTime get createdAt;
+ String get id; String get role; String get content;@JsonKey(name: 'tool_calls') List<Map<String, dynamic>>? get toolCalls;@JsonKey(name: 'tool_result', fromJson: toolResultFromJson) Map<String, dynamic>? get toolResult;@JsonKey(name: 'audio_url') String? get audioUrl;@JsonKey(name: 'created_at') DateTime get createdAt;
 /// Create a copy of MessageDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $MessageDtoCopyWith<$Res>  {
   factory $MessageDtoCopyWith(MessageDto value, $Res Function(MessageDto) _then) = _$MessageDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, String role, String content,@JsonKey(name: 'tool_calls') List<Map<String, dynamic>>? toolCalls,@JsonKey(name: 'tool_result') Map<String, dynamic>? toolResult,@JsonKey(name: 'audio_url') String? audioUrl,@JsonKey(name: 'created_at') DateTime createdAt
+ String id, String role, String content,@JsonKey(name: 'tool_calls') List<Map<String, dynamic>>? toolCalls,@JsonKey(name: 'tool_result', fromJson: toolResultFromJson) Map<String, dynamic>? toolResult,@JsonKey(name: 'audio_url') String? audioUrl,@JsonKey(name: 'created_at') DateTime createdAt
 });
 
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String role,  String content, @JsonKey(name: 'tool_calls')  List<Map<String, dynamic>>? toolCalls, @JsonKey(name: 'tool_result')  Map<String, dynamic>? toolResult, @JsonKey(name: 'audio_url')  String? audioUrl, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String role,  String content, @JsonKey(name: 'tool_calls')  List<Map<String, dynamic>>? toolCalls, @JsonKey(name: 'tool_result', fromJson: toolResultFromJson)  Map<String, dynamic>? toolResult, @JsonKey(name: 'audio_url')  String? audioUrl, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MessageDto() when $default != null:
 return $default(_that.id,_that.role,_that.content,_that.toolCalls,_that.toolResult,_that.audioUrl,_that.createdAt);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.role,_that.content,_that.toolCalls,_that.toolResu
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String role,  String content, @JsonKey(name: 'tool_calls')  List<Map<String, dynamic>>? toolCalls, @JsonKey(name: 'tool_result')  Map<String, dynamic>? toolResult, @JsonKey(name: 'audio_url')  String? audioUrl, @JsonKey(name: 'created_at')  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String role,  String content, @JsonKey(name: 'tool_calls')  List<Map<String, dynamic>>? toolCalls, @JsonKey(name: 'tool_result', fromJson: toolResultFromJson)  Map<String, dynamic>? toolResult, @JsonKey(name: 'audio_url')  String? audioUrl, @JsonKey(name: 'created_at')  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _MessageDto():
 return $default(_that.id,_that.role,_that.content,_that.toolCalls,_that.toolResult,_that.audioUrl,_that.createdAt);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.role,_that.content,_that.toolCalls,_that.toolResu
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String role,  String content, @JsonKey(name: 'tool_calls')  List<Map<String, dynamic>>? toolCalls, @JsonKey(name: 'tool_result')  Map<String, dynamic>? toolResult, @JsonKey(name: 'audio_url')  String? audioUrl, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String role,  String content, @JsonKey(name: 'tool_calls')  List<Map<String, dynamic>>? toolCalls, @JsonKey(name: 'tool_result', fromJson: toolResultFromJson)  Map<String, dynamic>? toolResult, @JsonKey(name: 'audio_url')  String? audioUrl, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _MessageDto() when $default != null:
 return $default(_that.id,_that.role,_that.content,_that.toolCalls,_that.toolResult,_that.audioUrl,_that.createdAt);case _:
@@ -215,14 +215,14 @@ return $default(_that.id,_that.role,_that.content,_that.toolCalls,_that.toolResu
 @JsonSerializable()
 
 class _MessageDto implements MessageDto {
-  const _MessageDto({required this.id, required this.role, required this.content, @JsonKey(name: 'tool_calls') this.toolCalls, @JsonKey(name: 'tool_result') this.toolResult, @JsonKey(name: 'audio_url') this.audioUrl, @JsonKey(name: 'created_at') required this.createdAt});
+  const _MessageDto({required this.id, required this.role, required this.content, @JsonKey(name: 'tool_calls') this.toolCalls, @JsonKey(name: 'tool_result', fromJson: toolResultFromJson) this.toolResult, @JsonKey(name: 'audio_url') this.audioUrl, @JsonKey(name: 'created_at') required this.createdAt});
   factory _MessageDto.fromJson(Map<String, dynamic> json) => _$MessageDtoFromJson(json);
 
 @override final  String id;
 @override final  String role;
 @override final  String content;
 @override@JsonKey(name: 'tool_calls') final  List<Map<String, dynamic>>? toolCalls;
-@override@JsonKey(name: 'tool_result') final  Map<String, dynamic>? toolResult;
+@override@JsonKey(name: 'tool_result', fromJson: toolResultFromJson) final  Map<String, dynamic>? toolResult;
 @override@JsonKey(name: 'audio_url') final  String? audioUrl;
 @override@JsonKey(name: 'created_at') final  DateTime createdAt;
 
@@ -259,7 +259,7 @@ abstract mixin class _$MessageDtoCopyWith<$Res> implements $MessageDtoCopyWith<$
   factory _$MessageDtoCopyWith(_MessageDto value, $Res Function(_MessageDto) _then) = __$MessageDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String role, String content,@JsonKey(name: 'tool_calls') List<Map<String, dynamic>>? toolCalls,@JsonKey(name: 'tool_result') Map<String, dynamic>? toolResult,@JsonKey(name: 'audio_url') String? audioUrl,@JsonKey(name: 'created_at') DateTime createdAt
+ String id, String role, String content,@JsonKey(name: 'tool_calls') List<Map<String, dynamic>>? toolCalls,@JsonKey(name: 'tool_result', fromJson: toolResultFromJson) Map<String, dynamic>? toolResult,@JsonKey(name: 'audio_url') String? audioUrl,@JsonKey(name: 'created_at') DateTime createdAt
 });
 
 

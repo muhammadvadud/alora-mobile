@@ -296,7 +296,7 @@ as DateTime?,
 /// @nodoc
 mixin _$PromptHistoryDto {
 
- PromptVersionDto get current; List<PromptVersionDto> get history;
+ PromptVersionDto? get current; List<PromptVersionDto> get history;
 /// Create a copy of PromptHistoryDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -329,11 +329,11 @@ abstract mixin class $PromptHistoryDtoCopyWith<$Res>  {
   factory $PromptHistoryDtoCopyWith(PromptHistoryDto value, $Res Function(PromptHistoryDto) _then) = _$PromptHistoryDtoCopyWithImpl;
 @useResult
 $Res call({
- PromptVersionDto current, List<PromptVersionDto> history
+ PromptVersionDto? current, List<PromptVersionDto> history
 });
 
 
-$PromptVersionDtoCopyWith<$Res> get current;
+$PromptVersionDtoCopyWith<$Res>? get current;
 
 }
 /// @nodoc
@@ -346,10 +346,10 @@ class _$PromptHistoryDtoCopyWithImpl<$Res>
 
 /// Create a copy of PromptHistoryDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? current = null,Object? history = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? current = freezed,Object? history = null,}) {
   return _then(_self.copyWith(
-current: null == current ? _self.current : current // ignore: cast_nullable_to_non_nullable
-as PromptVersionDto,history: null == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
+current: freezed == current ? _self.current : current // ignore: cast_nullable_to_non_nullable
+as PromptVersionDto?,history: null == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
 as List<PromptVersionDto>,
   ));
 }
@@ -357,9 +357,12 @@ as List<PromptVersionDto>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$PromptVersionDtoCopyWith<$Res> get current {
-  
-  return $PromptVersionDtoCopyWith<$Res>(_self.current, (value) {
+$PromptVersionDtoCopyWith<$Res>? get current {
+    if (_self.current == null) {
+    return null;
+  }
+
+  return $PromptVersionDtoCopyWith<$Res>(_self.current!, (value) {
     return _then(_self.copyWith(current: value));
   });
 }
@@ -444,7 +447,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PromptVersionDto current,  List<PromptVersionDto> history)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PromptVersionDto? current,  List<PromptVersionDto> history)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PromptHistoryDto() when $default != null:
 return $default(_that.current,_that.history);case _:
@@ -465,7 +468,7 @@ return $default(_that.current,_that.history);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PromptVersionDto current,  List<PromptVersionDto> history)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PromptVersionDto? current,  List<PromptVersionDto> history)  $default,) {final _that = this;
 switch (_that) {
 case _PromptHistoryDto():
 return $default(_that.current,_that.history);case _:
@@ -485,7 +488,7 @@ return $default(_that.current,_that.history);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PromptVersionDto current,  List<PromptVersionDto> history)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PromptVersionDto? current,  List<PromptVersionDto> history)?  $default,) {final _that = this;
 switch (_that) {
 case _PromptHistoryDto() when $default != null:
 return $default(_that.current,_that.history);case _:
@@ -500,10 +503,10 @@ return $default(_that.current,_that.history);case _:
 @JsonSerializable()
 
 class _PromptHistoryDto implements PromptHistoryDto {
-  const _PromptHistoryDto({required this.current, this.history = const []});
+  const _PromptHistoryDto({this.current, this.history = const []});
   factory _PromptHistoryDto.fromJson(Map<String, dynamic> json) => _$PromptHistoryDtoFromJson(json);
 
-@override final  PromptVersionDto current;
+@override final  PromptVersionDto? current;
 @override@JsonKey() final  List<PromptVersionDto> history;
 
 /// Create a copy of PromptHistoryDto
@@ -539,11 +542,11 @@ abstract mixin class _$PromptHistoryDtoCopyWith<$Res> implements $PromptHistoryD
   factory _$PromptHistoryDtoCopyWith(_PromptHistoryDto value, $Res Function(_PromptHistoryDto) _then) = __$PromptHistoryDtoCopyWithImpl;
 @override @useResult
 $Res call({
- PromptVersionDto current, List<PromptVersionDto> history
+ PromptVersionDto? current, List<PromptVersionDto> history
 });
 
 
-@override $PromptVersionDtoCopyWith<$Res> get current;
+@override $PromptVersionDtoCopyWith<$Res>? get current;
 
 }
 /// @nodoc
@@ -556,10 +559,10 @@ class __$PromptHistoryDtoCopyWithImpl<$Res>
 
 /// Create a copy of PromptHistoryDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? current = null,Object? history = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? current = freezed,Object? history = null,}) {
   return _then(_PromptHistoryDto(
-current: null == current ? _self.current : current // ignore: cast_nullable_to_non_nullable
-as PromptVersionDto,history: null == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
+current: freezed == current ? _self.current : current // ignore: cast_nullable_to_non_nullable
+as PromptVersionDto?,history: null == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
 as List<PromptVersionDto>,
   ));
 }
@@ -568,9 +571,12 @@ as List<PromptVersionDto>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$PromptVersionDtoCopyWith<$Res> get current {
-  
-  return $PromptVersionDtoCopyWith<$Res>(_self.current, (value) {
+$PromptVersionDtoCopyWith<$Res>? get current {
+    if (_self.current == null) {
+    return null;
+  }
+
+  return $PromptVersionDtoCopyWith<$Res>(_self.current!, (value) {
     return _then(_self.copyWith(current: value));
   });
 }

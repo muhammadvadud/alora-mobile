@@ -30,13 +30,24 @@ class KnowledgeRemoteDataSourceImpl implements KnowledgeRemoteDataSource {
   @override
   Future<KnowledgeRuleDto> createRule(Map<String, dynamic> data) async {
     final res = await _dio.post(ApiPaths.knowledgeRules, data: data);
-    return KnowledgeRuleDto.fromJson(res.data as Map<String, dynamic>);
+    final response = res.data as Map<String, dynamic>;
+    if (response['id'] is String) return KnowledgeRuleDto.fromJson(response);
+    final rules = await getRules();
+    return rules.firstWhere(
+      (rule) =>
+          rule.kind == data['kind'] &&
+          rule.recommendation == data['recommendation'] &&
+          rule.priority == data['priority'],
+    );
   }
 
   @override
   Future<KnowledgeRuleDto> patchRule(String id, Map<String, dynamic> data) async {
     final res = await _dio.patch('${ApiPaths.knowledgeRules}$id/', data: data);
-    return KnowledgeRuleDto.fromJson(res.data as Map<String, dynamic>);
+    final response = res.data as Map<String, dynamic>;
+    if (response['id'] is String) return KnowledgeRuleDto.fromJson(response);
+    final rules = await getRules();
+    return rules.firstWhere((rule) => rule.id == id);
   }
 
   @override

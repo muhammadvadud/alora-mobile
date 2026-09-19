@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:alora_mobile/shared/models/price_unit.dart';
+import 'package:alora_mobile/core/utils/json_converters.dart';
 
 part 'catalog_write_dtos.g.dart';
 
@@ -14,6 +15,7 @@ class ProductWriteDto {
   final String pattern;
   final String transparency;
   final List<String> recommendedRooms;
+  @JsonKey(fromJson: doubleFromJson, toJson: doubleToJson)
   final double? defaultWidthM;
   final String segment;
   final String? composition;
@@ -49,6 +51,7 @@ class VariantWriteDto {
   final String sku;
   final String colorName;
   final String colorHex;
+  @JsonKey(fromJson: doubleFromJson, toJson: doubleToJson)
   final double? widthM;
   final String price;
   final String? costPrice;
@@ -98,6 +101,7 @@ class VariantWriteDto {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BulkPriceDto {
   final List<String> variantIds;
+  @JsonKey(fromJson: doubleFromJsonRequired, toJson: doubleToJson)
   final double value;
   final String type;
 

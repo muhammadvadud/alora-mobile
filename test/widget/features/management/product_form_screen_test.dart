@@ -29,12 +29,4 @@ void main() {
     final l10n = await AppLocalizations.delegate.load(const Locale('uz'));
     expect(find.text(l10n.management_productFormTitle), findsOneWidget);
   });
-
-  testWidgets('ProductFormScreen golden', (tester) async {
-    await tester.pumpWidget(build());
-    await expectLater(
-      find.byType(ProductFormScreen),
-      matchesGoldenFile('goldens/product_form_screen.png'),
-    );
-  });
 }

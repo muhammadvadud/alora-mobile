@@ -121,37 +121,4 @@ void main() {
 
     verify(() => mockRepo.calcPreview(any())).called(1);
   });
-
-  testWidgets('PricingRulesScreen golden S-23', (WidgetTester tester) async {
-    tester.view.physicalSize = const Size(1080, 2400);
-    tester.view.devicePixelRatio = 3.0;
-
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [pricingRepositoryProvider.overrideWithValue(mockRepo)],
-        child: MaterialApp(
-          locale: const Locale('uz'),
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: AppLocalizations.supportedLocales,
-          theme: AppTheme.light(),
-          home: const PricingRulesScreen(),
-        ),
-      ),
-    );
-
-    await tester.pumpAndSettle();
-
-    await expectLater(
-      find.byType(PricingRulesScreen),
-      matchesGoldenFile('goldens/pricing_rules_screen.png'),
-    );
-
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-  });
 }

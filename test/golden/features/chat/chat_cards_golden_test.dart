@@ -43,6 +43,18 @@ void main() {
     await screenMatchesGolden(tester, 's05_quote_card');
   });
 
+  testGoldens("S-05 QuoteCard — qorong'i", (tester) async {
+    final quote = quoteFromCalcCasesMaxParts();
+
+    await tester.pumpWidgetBuilder(
+      SingleChildScrollView(child: QuoteCardView(quote: quote))
+          .pumpApp(themeMode: ThemeMode.dark),
+      surfaceSize: const Size(390, 1200),
+    );
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(tester, 's05_quote_card_dark');
+  });
+
   testGoldens("S-06 OptionsCard — mid tanlangan (yorug')", (tester) async {
     await tester.pumpWidgetBuilder(
       OptionsCardView(optionsBlock: optionsFixture()).pumpApp(),

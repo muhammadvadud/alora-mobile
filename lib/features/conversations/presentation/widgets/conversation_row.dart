@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/conversations/domain/entities/conversation.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
@@ -24,14 +25,21 @@ class ConversationRow extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
 
-    return Container(
-      color: isSelected ? colors.surfaceMuted : Colors.transparent,
-      child: AppListTile(
-        title: conversation.title,
-        subtitle: conversation.lastMessagePreview,
-        trailing: Text(timeLabel, style: typography.labelS.copyWith(color: colors.textDisabled)),
-        onTap: onTap,
-        showDivider: false, // Maybe we don't want dividers if they are in a list with swipe-delete? The spec doesn't mention divider.
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: isSelected ? colors.surfaceMuted : colors.surface,
+        borderRadius: AppRadius.cardBorder,
+        border: Border.all(color: colors.border, width: 1),
+      ),
+      child: ClipRRect(
+        borderRadius: AppRadius.cardBorder,
+        child: AppListTile(
+          title: conversation.title,
+          subtitle: conversation.lastMessagePreview,
+          trailing: Text(timeLabel, style: typography.labelS.copyWith(color: colors.textDisabled)),
+          onTap: onTap,
+          showDivider: false,
+        ),
       ),
     );
   }

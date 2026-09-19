@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 
 class PhoneField extends StatelessWidget {
@@ -44,6 +45,22 @@ class PhoneField extends StatelessWidget {
           hintText: '+998 __ ___ __ __',
           fillColor: isEnabled ? colors.surfaceMuted : colors.surfaceDisabled,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+          border: OutlineInputBorder(
+            borderRadius: AppRadius.inputBorder,
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: AppRadius.inputBorder,
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: AppRadius.inputBorder,
+            borderSide: BorderSide(color: colors.accent, width: 1.5),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: AppRadius.inputBorder,
+            borderSide: BorderSide.none,
+          ),
           errorStyle: const TextStyle(height: 0, fontSize: 0),
         ),
       ),

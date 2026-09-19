@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
+import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/core/error/failure_l10n.dart';
 import 'package:alora_mobile/core/utils/date_format.dart';
@@ -87,24 +89,39 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
         const SizedBox(height: AppSpacing.m),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
-          child: Wrap(
-            spacing: AppSpacing.s,
-            runSpacing: AppSpacing.s,
+          child: Row(
             children: [
-              _FilterChip(
-                label: l10n.conversations_filterAll,
-                isSelected: filterType == ConversationFilterType.all,
-                onTap: () => notifier.setFilter(ConversationFilterType.all),
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: _FilterChip(
+                    label: l10n.conversations_filterAll,
+                    isSelected: filterType == ConversationFilterType.all,
+                    onTap: () => notifier.setFilter(ConversationFilterType.all),
+                  ),
+                ),
               ),
-              _FilterChip(
-                label: l10n.conversations_filterHasOrder,
-                isSelected: filterType == ConversationFilterType.hasOrder,
-                onTap: () => notifier.setFilter(ConversationFilterType.hasOrder),
+              const SizedBox(width: AppSpacing.s),
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: _FilterChip(
+                    label: l10n.conversations_filterHasOrder,
+                    isSelected: filterType == ConversationFilterType.hasOrder,
+                    onTap: () => notifier.setFilter(ConversationFilterType.hasOrder),
+                  ),
+                ),
               ),
-              _FilterChip(
-                label: l10n.conversations_filterInProgress,
-                isSelected: filterType == ConversationFilterType.inProgress,
-                onTap: () => notifier.setFilter(ConversationFilterType.inProgress),
+              const SizedBox(width: AppSpacing.s),
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: _FilterChip(
+                    label: l10n.conversations_filterInProgress,
+                    isSelected: filterType == ConversationFilterType.inProgress,
+                    onTap: () => notifier.setFilter(ConversationFilterType.inProgress),
+                  ),
+                ),
               ),
             ],
           ),
@@ -252,6 +269,7 @@ class _PaneLoaded extends ConsumerWidget {
                 conversation: conversation,
                 stageLabel: _stageLabel(context, conversation.stage),
                 timeLabel: _timeLabel(context, conversation, group),
+                onTap: () => context.go(AppRoutes.chatConversation(conversation.id)),
               ),
             ),
           ),

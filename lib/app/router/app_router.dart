@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -123,6 +123,7 @@ final _ordersNavKey = GlobalKey<NavigatorState>();
 final _catalogNavKey = GlobalKey<NavigatorState>();
 final _managementNavKey = GlobalKey<NavigatorState>();
 final _profileNavKey = GlobalKey<NavigatorState>();
+const _chatTransitionDuration = Duration(milliseconds: 220);
 
 List<RouteBase> _routes() {
   return [
@@ -143,8 +144,17 @@ List<RouteBase> _routes() {
               routes: [
                 GoRoute(
                   path: ':conversationId',
-                  builder: (_, state) =>
-                      ChatScreen(conversationId: state.pathParameters['conversationId']),
+                  pageBuilder: (_, state) => CustomTransitionPage<void>(
+                    key: state.pageKey,
+                    transitionDuration: _chatTransitionDuration,
+                    child: ChatScreen(conversationId: state.pathParameters['conversationId']),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                        child: child,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

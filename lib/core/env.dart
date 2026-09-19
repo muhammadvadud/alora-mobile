@@ -1,5 +1,11 @@
 class Env {
-  static const String apiBaseUrl = String.fromEnvironment('API_BASE_URL');
+  static const String _rawApiBaseUrl = String.fromEnvironment('API_BASE_URL');
+
+  /// `https://<host>/api/v1/` — doim `/` bilan tugaydi: `ApiPaths` yo'llari
+  /// boshida `/` siz (§8.1), Dio `baseUrl + path` ni shunchaki ulaydi.
+  static final String apiBaseUrl = _rawApiBaseUrl.isEmpty || _rawApiBaseUrl.endsWith('/')
+      ? _rawApiBaseUrl
+      : '$_rawApiBaseUrl/';
   static const String wsBaseUrl = String.fromEnvironment('WS_BASE_URL');
   static const String sentryDsn = String.fromEnvironment('SENTRY_DSN');
   static const String env = String.fromEnvironment('ENV', defaultValue: 'dev');

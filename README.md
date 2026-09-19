@@ -31,7 +31,7 @@ lefthook install
 
 Loyiha uch xil muhitda ishlashi mumkin. Tegishli muhit fayli ishga tushirishda ko'rsatiladi:
 
-- **dev**: `--dart-define-from-file=env/dev.json` (API_BASE_URL: `http://10.0.2.2/api/v1` - nginx 80-port)
+- **dev**: `--dart-define-from-file=env/dev.json` (API_BASE_URL: `http://10.0.2.2/api/v1/` - nginx 80-port; oxirida `/` majburiy)
 - **staging**: `--dart-define-from-file=env/staging.json`
 - **prod**: `--dart-define-from-file=env/prod.json`
 

@@ -7,6 +7,7 @@ import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
     show authProvider;
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
+import 'package:alora_mobile/features/profile/presentation/widgets/about_section.dart';
 import 'package:alora_mobile/features/profile/presentation/widgets/language_section.dart';
 import 'package:alora_mobile/features/profile/presentation/widgets/logout_button.dart';
 import 'package:alora_mobile/features/profile/presentation/widgets/profile_header.dart';
@@ -46,6 +47,10 @@ class ProfileScreen extends ConsumerWidget {
             SectionLabel(l10n.profile_themeTitle),
             const SizedBox(height: AppSpacing.m),
             const ThemeSection(),
+            const SizedBox(height: AppSpacing.xl),
+            SectionLabel(l10n.profile_aboutTitle),
+            const SizedBox(height: AppSpacing.m),
+            const AboutSection(),
             const SizedBox(height: AppSpacing.xl),
             const LogoutButton(),
           ],

@@ -80,6 +80,8 @@ Ilovani Play Store ga chiqarish uchun qadamlar:
 2. O'z kalit ma'lumotlaringizni `android/key.properties` ichiga yozing va `.jks` faylini joylashtiring.
 3. Release APK qurish:
    ```bash
-   flutter build apk --release --split-per-abi --analyze-size --target-platform android-arm64 --dart-define-from-file=env/prod.json
+   flutter build apk --release --split-per-abi --target-platform android-arm64 --dart-define-from-file=env/prod.json $(tool/version_defines.sh)
+   # tool/version_defines.sh pubspec `version` dan APP_VERSION/BUILD_NUMBER beradi (Profil → "Ilova haqida")
+   # Flutter 3.47.4 da `--analyze-size` integration_test plagini bilan xato beradi — CI hajmni fayldan o'lchaydi
    ```
    (yoki aab formati uchun `flutter build appbundle`).

@@ -45,7 +45,7 @@ jobs:
           fi
 
       # --analyze-size Flutter 3.47.4 da integration_test plagini bilan xato beradi — hajm fayldan o'lchanadi
-      - run: flutter build apk --release --split-per-abi --target-platform android-arm64 --dart-define-from-file=env/prod.json
+      - run: flutter build apk --release --split-per-abi --target-platform android-arm64 --dart-define-from-file=env/prod.json $(tool/version_defines.sh)
       - name: APK ≤ 40 MB (rules §13)
         run: |
           APK=build/app/outputs/flutter-apk/app-arm64-v8a-release.apk

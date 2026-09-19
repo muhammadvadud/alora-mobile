@@ -221,9 +221,9 @@
   "tool_label_order_draft": "Черновик заказа",
   "tool_label_variants": "Подготовка вариантов",
   "tool_label_unknown": "Получение данных",
-  "chat_quote_fabrics": "ТКАНИ",
-  "chat_quote_accessories": "АКСЕССУАРЫ",
-  "chat_quote_services": "УСЛУГИ",
+  "chat_quote_fabrics": "Ткани",
+  "chat_quote_accessories": "Аксессуары",
+  "chat_quote_services": "Услуги",
   "chat_quote_more": "Еще {count} частей",
   "@chat_quote_more": {
     "placeholders": {
@@ -232,7 +232,7 @@
       }
     }
   },
-  "chat_quote_total": "ИТОГО",
+  "chat_quote_total": "Итого",
   "chat_quote_howCalculated": "Как рассчитано?",
   "chat_quote_close": "Закрыть",
   "chat_quote_show": "Смотреть",
@@ -241,7 +241,7 @@
   "chat_options_select": "Выбрать",
   "chat_draft_edit": "Редактировать",
   "chat_draft_createOrder": "Создать заказ",
-  "chat_draft_title": "ЧЕРНОВИК",
+  "chat_draft_title": "Черновик",
   "orders": "Заказы",
   "errorLoadingStatuses": "Ошибка загрузки статусов",
   "orderDetail": "Детали заказа",
@@ -638,5 +638,7 @@
   "chat_draft_address": "Адрес",
   "chat_draft_missingFields": "Поля, которые нужно заполнить",
   "common_delete": "Удалить",
-  "management_pricingTierRow": "от {minAmount} сум"
+  "management_pricingTierRow": "от {minAmount} сум",
+  "chat_quote_title": "Расчёт",
+  "chat_quote_room": "Комната"
 }

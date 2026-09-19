@@ -53,4 +53,7 @@ class AppIcons {
   // PIN numpad, xodim suhbatlari
   static const IconData delete = LucideIcons.delete;
   static const IconData messageSquare = LucideIcons.messageSquare;
+
+  /// AppBar orqaga
+  static const IconData arrowLeft = LucideIcons.arrowLeft;
 }

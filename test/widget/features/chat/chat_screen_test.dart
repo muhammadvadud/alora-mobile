@@ -191,16 +191,16 @@ void main() {
       await tester.pump();
       expect(find.byType(QuoteCardView), findsOneWidget);
 
-      expect(find.text('MATOLAR'), findsOneWidget);
-      expect(find.text('BEZAKLAR'), findsOneWidget);
-      expect(find.text('XIZMATLAR'), findsOneWidget);
+      expect(find.text('Matolar'), findsOneWidget);
+      expect(find.text('Bezaklar'), findsOneWidget);
+      expect(find.text('Xizmatlar'), findsOneWidget);
 
       expect(find.text('Kesim ortigcha chiqadi'), findsOneWidget);
 
       expect(find.text('Qanday hisoblandi?'), findsOneWidget);
       expect(find.text('Yana 4 ta bo\'lak'), findsOneWidget);
 
-      expect(find.text('JAMI'), findsOneWidget);
+      expect(find.text('Jami'), findsOneWidget);
     });
 
     testWidgets('"Yana N ta bo\'lak" bosilsa barcha matolar ko\'rinadi', (tester) async {

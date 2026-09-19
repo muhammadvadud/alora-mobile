@@ -70,12 +70,13 @@ class _QuoteHeaderSection extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
     final m = quote.measurement;
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'HISOB · ${m?.room?.toUpperCase() ?? "XONA"}',
+          '${l10n.chat_quote_title} · ${m?.room ?? l10n.chat_quote_room}',
           style: typography.overline.copyWith(color: colors.textSecondary),
         ),
         const SizedBox(height: AppSpacing.xs),

@@ -149,7 +149,7 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: false,
       leading: IconButton(
-        icon: Icon(AppIcons.chevronRight, color: colors.textPrimary),
+        icon: Icon(AppIcons.arrowLeft, color: colors.textPrimary),
         onPressed: () => context.pop(),
       ),
       title: ChatTitleBar(isCustomerMode: isCustomerMode),

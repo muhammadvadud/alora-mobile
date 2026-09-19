@@ -221,9 +221,9 @@
   "tool_label_order_draft": "Буюртма шакллантирилмоқда",
   "tool_label_variants": "Вариантлар тайёрланмоқда",
   "tool_label_unknown": "Маълумот олинмоқда",
-  "chat_quote_fabrics": "МАТОЛАР",
-  "chat_quote_accessories": "БЕЗАКЛАР",
-  "chat_quote_services": "ХИЗМАТЛАР",
+  "chat_quote_fabrics": "Матолар",
+  "chat_quote_accessories": "Безаклар",
+  "chat_quote_services": "Хизматлар",
   "chat_quote_more": "Яна {count} та бўлак",
   "@chat_quote_more": {
     "placeholders": {
@@ -232,7 +232,7 @@
       }
     }
   },
-  "chat_quote_total": "ЖАМИ",
+  "chat_quote_total": "Жами",
   "chat_quote_howCalculated": "Қандай ҳисобланди?",
   "chat_quote_close": "Ёпиш",
   "chat_quote_show": "Кўриш",
@@ -241,7 +241,7 @@
   "chat_options_select": "Танлаш",
   "chat_draft_edit": "Таҳрирлаш",
   "chat_draft_createOrder": "Буюртма яратиш",
-  "chat_draft_title": "ҚОРАЛАМА",
+  "chat_draft_title": "Қоралама",
   "orders": "Буюртмалар",
   "errorLoadingStatuses": "Статусларни юклашда хатолик",
   "orderDetail": "Буюртма тафсилоти",
@@ -615,5 +615,7 @@
   "chat_draft_address": "Манзил",
   "chat_draft_missingFields": "Тўлдириш керак бўлган майдонлар",
   "common_delete": "Ўчириш",
-  "management_pricingTierRow": "{minAmount} сўм дан"
+  "management_pricingTierRow": "{minAmount} сўм дан",
+  "chat_quote_title": "Ҳисоб",
+  "chat_quote_room": "Хона"
 }

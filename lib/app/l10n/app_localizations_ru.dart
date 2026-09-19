@@ -505,13 +505,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tool_label_unknown => 'Получение данных';
 
   @override
-  String get chat_quote_fabrics => 'ТКАНИ';
+  String get chat_quote_fabrics => 'Ткани';
 
   @override
-  String get chat_quote_accessories => 'АКСЕССУАРЫ';
+  String get chat_quote_accessories => 'Аксессуары';
 
   @override
-  String get chat_quote_services => 'УСЛУГИ';
+  String get chat_quote_services => 'Услуги';
 
   @override
   String chat_quote_more(int count) {
@@ -519,7 +519,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get chat_quote_total => 'ИТОГО';
+  String get chat_quote_total => 'Итого';
 
   @override
   String get chat_quote_howCalculated => 'Как рассчитано?';
@@ -546,7 +546,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chat_draft_createOrder => 'Создать заказ';
 
   @override
-  String get chat_draft_title => 'ЧЕРНОВИК';
+  String get chat_draft_title => 'Черновик';
 
   @override
   String get orders => 'Заказы';
@@ -1356,4 +1356,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String management_pricingTierRow(String minAmount) {
     return 'от $minAmount сум';
   }
+
+  @override
+  String get chat_quote_title => 'Расчёт';
+
+  @override
+  String get chat_quote_room => 'Комната';
 }

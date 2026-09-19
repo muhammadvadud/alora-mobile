@@ -80,14 +80,18 @@ class _StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            value,
-            style: typography.displayM.copyWith(
-              color: colors.textPrimary,
-              fontFeatures: const [FontFeature.tabularFigures()],
+          // Uzun summa (725 000 so'm) kartochkaga sig'sin — kichraytiriladi, qirqilmaydi.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              value,
+              style: typography.displayM.copyWith(
+                color: colors.textPrimary,
+                fontFeatures: const [FontFeature.tabularFigures()],
+              ),
+              maxLines: 1,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: AppSpacing.s),
           Text(

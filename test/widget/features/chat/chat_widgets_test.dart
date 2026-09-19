@@ -100,10 +100,10 @@ void main() {
     testWidgets('Uch bo\'lim, JAMI, yana N ta va ogohlantirish ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(inScroll(QuoteCardView(quote: quoteFixture())));
 
-      expect(find.text('MATOLAR'), findsOneWidget);
-      expect(find.text('BEZAKLAR'), findsOneWidget);
-      expect(find.text('XIZMATLAR'), findsOneWidget);
-      expect(find.text('JAMI'), findsOneWidget);
+      expect(find.text('Matolar'), findsOneWidget);
+      expect(find.text('Bezaklar'), findsOneWidget);
+      expect(find.text('Xizmatlar'), findsOneWidget);
+      expect(find.text('Jami'), findsOneWidget);
 
       expect(find.text('Kesim ortigcha chiqadi'), findsOneWidget);
       expect(find.text('Yana 4 ta bo\'lak'), findsNWidgets(1));
@@ -166,15 +166,15 @@ void main() {
   });
 
   group('OptionsCardView', () {
-    Finder optionTitle(String title) => find.text(title.toUpperCase());
+    Finder optionTitle(String title) => find.text(title);
 
     testWidgets('Telefonda barcha variantlar ustun shaklida va mid tanlangan', (tester) async {
       await tester.pumpWidget(OptionsCardView(optionsBlock: optionsFixture()).pumpApp());
       await tester.pump(const Duration(milliseconds: 400));
 
-      expect(optionTitle('ARZON'), findsOneWidget);
-      expect(optionTitle('O\'RTA'), findsOneWidget);
-      expect(optionTitle('PREMIUM'), findsOneWidget);
+      expect(optionTitle('Arzon'), findsOneWidget);
+      expect(optionTitle('O\'rta'), findsOneWidget);
+      expect(optionTitle('Premium'), findsOneWidget);
     });
 
     testWidgets('Tabletda barcha variantlar qatorda va mid tanlangan', (tester) async {
@@ -188,9 +188,9 @@ void main() {
       );
 
       expect(find.byType(PageView), findsNothing);
-      expect(optionTitle('ARZON'), findsOneWidget);
-      expect(optionTitle('O\'RTA'), findsOneWidget);
-      expect(optionTitle('PREMIUM'), findsOneWidget);
+      expect(optionTitle('Arzon'), findsOneWidget);
+      expect(optionTitle('O\'rta'), findsOneWidget);
+      expect(optionTitle('Premium'), findsOneWidget);
     });
 
     testWidgets('Tanlash tugmasi bosilganda to\'g\'ri variant uzatiladi', (tester) async {
@@ -221,7 +221,7 @@ void main() {
 
       expect(find.text('Telefon raqam'), findsOneWidget);
       expect(find.text('Manzil'), findsOneWidget);
-      expect(find.text('QORALAMA'), findsOneWidget);
+      expect(find.text('Qoralama'), findsOneWidget);
 
       final create = tester.widget<AppButton>(find.widgetWithText(AppButton, 'Buyurtma yaratish'));
       expect(create.onPressed, isNull);

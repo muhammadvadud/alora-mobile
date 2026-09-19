@@ -1060,19 +1060,19 @@ abstract class AppLocalizations {
   /// No description provided for @chat_quote_fabrics.
   ///
   /// In uz, this message translates to:
-  /// **'MATOLAR'**
+  /// **'Matolar'**
   String get chat_quote_fabrics;
 
   /// No description provided for @chat_quote_accessories.
   ///
   /// In uz, this message translates to:
-  /// **'BEZAKLAR'**
+  /// **'Bezaklar'**
   String get chat_quote_accessories;
 
   /// No description provided for @chat_quote_services.
   ///
   /// In uz, this message translates to:
-  /// **'XIZMATLAR'**
+  /// **'Xizmatlar'**
   String get chat_quote_services;
 
   /// No description provided for @chat_quote_more.
@@ -1084,7 +1084,7 @@ abstract class AppLocalizations {
   /// No description provided for @chat_quote_total.
   ///
   /// In uz, this message translates to:
-  /// **'JAMI'**
+  /// **'Jami'**
   String get chat_quote_total;
 
   /// No description provided for @chat_quote_howCalculated.
@@ -1138,7 +1138,7 @@ abstract class AppLocalizations {
   /// No description provided for @chat_draft_title.
   ///
   /// In uz, this message translates to:
-  /// **'QORALAMA'**
+  /// **'Qoralama'**
   String get chat_draft_title;
 
   /// No description provided for @orders.
@@ -2670,6 +2670,18 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'{minAmount} so\'m dan'**
   String management_pricingTierRow(String minAmount);
+
+  /// No description provided for @chat_quote_title.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisob'**
+  String get chat_quote_title;
+
+  /// No description provided for @chat_quote_room.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xona'**
+  String get chat_quote_room;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

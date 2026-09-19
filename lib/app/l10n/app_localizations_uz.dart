@@ -505,13 +505,13 @@ class AppLocalizationsUz extends AppLocalizations {
   String get tool_label_unknown => 'Ma\'lumot olinmoqda';
 
   @override
-  String get chat_quote_fabrics => 'MATOLAR';
+  String get chat_quote_fabrics => 'Matolar';
 
   @override
-  String get chat_quote_accessories => 'BEZAKLAR';
+  String get chat_quote_accessories => 'Bezaklar';
 
   @override
-  String get chat_quote_services => 'XIZMATLAR';
+  String get chat_quote_services => 'Xizmatlar';
 
   @override
   String chat_quote_more(int count) {
@@ -519,7 +519,7 @@ class AppLocalizationsUz extends AppLocalizations {
   }
 
   @override
-  String get chat_quote_total => 'JAMI';
+  String get chat_quote_total => 'Jami';
 
   @override
   String get chat_quote_howCalculated => 'Qanday hisoblandi?';
@@ -546,7 +546,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get chat_draft_createOrder => 'Buyurtma yaratish';
 
   @override
-  String get chat_draft_title => 'QORALAMA';
+  String get chat_draft_title => 'Qoralama';
 
   @override
   String get orders => 'Buyurtmalar';
@@ -1356,6 +1356,12 @@ class AppLocalizationsUz extends AppLocalizations {
   String management_pricingTierRow(String minAmount) {
     return '$minAmount so\'m dan';
   }
+
+  @override
+  String get chat_quote_title => 'Hisob';
+
+  @override
+  String get chat_quote_room => 'Xona';
 }
 
 /// The translations for Uzbek, using the Cyrillic script (`uz_Cyrl`).
@@ -1857,13 +1863,13 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get tool_label_unknown => 'Маълумот олинмоқда';
 
   @override
-  String get chat_quote_fabrics => 'МАТОЛАР';
+  String get chat_quote_fabrics => 'Матолар';
 
   @override
-  String get chat_quote_accessories => 'БЕЗАКЛАР';
+  String get chat_quote_accessories => 'Безаклар';
 
   @override
-  String get chat_quote_services => 'ХИЗМАТЛАР';
+  String get chat_quote_services => 'Хизматлар';
 
   @override
   String chat_quote_more(int count) {
@@ -1871,7 +1877,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   }
 
   @override
-  String get chat_quote_total => 'ЖАМИ';
+  String get chat_quote_total => 'Жами';
 
   @override
   String get chat_quote_howCalculated => 'Қандай ҳисобланди?';
@@ -1898,7 +1904,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get chat_draft_createOrder => 'Буюртма яратиш';
 
   @override
-  String get chat_draft_title => 'ҚОРАЛАМА';
+  String get chat_draft_title => 'Қоралама';
 
   @override
   String get orders => 'Буюртмалар';
@@ -2639,4 +2645,10 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String management_pricingTierRow(String minAmount) {
     return '$minAmount сўм дан';
   }
+
+  @override
+  String get chat_quote_title => 'Ҳисоб';
+
+  @override
+  String get chat_quote_room => 'Хона';
 }

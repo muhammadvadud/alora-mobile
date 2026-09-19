@@ -221,9 +221,9 @@
   "tool_label_order_draft": "Buyurtma shakllantirilmoqda",
   "tool_label_variants": "Variantlar tayyorlanmoqda",
   "tool_label_unknown": "Ma'lumot olinmoqda",
-  "chat_quote_fabrics": "MATOLAR",
-  "chat_quote_accessories": "BEZAKLAR",
-  "chat_quote_services": "XIZMATLAR",
+  "chat_quote_fabrics": "Matolar",
+  "chat_quote_accessories": "Bezaklar",
+  "chat_quote_services": "Xizmatlar",
   "chat_quote_more": "Yana {count} ta bo'lak",
   "@chat_quote_more": {
     "placeholders": {
@@ -232,7 +232,7 @@
       }
     }
   },
-  "chat_quote_total": "JAMI",
+  "chat_quote_total": "Jami",
   "chat_quote_howCalculated": "Qanday hisoblandi?",
   "chat_quote_close": "Yopish",
   "chat_quote_show": "Ko'rish",
@@ -241,7 +241,7 @@
   "chat_options_select": "Tanlash",
   "chat_draft_edit": "Tahrirlash",
   "chat_draft_createOrder": "Buyurtma yaratish",
-  "chat_draft_title": "QORALAMA",
+  "chat_draft_title": "Qoralama",
   "orders": "Buyurtmalar",
   "errorLoadingStatuses": "Statuslarni yuklashda xatolik",
   "orderDetail": "Buyurtma tafsiloti",
@@ -639,5 +639,7 @@
   "catalog_filterPriceTo": "Gacha",
   "common_delete": "O'chirish",
   "management_pricingTierRow": "{minAmount} so'm dan",
-  "@management_pricingTierRow": {"placeholders": {"minAmount": {"type": "String"}}}
+  "@management_pricingTierRow": {"placeholders": {"minAmount": {"type": "String"}}},
+  "chat_quote_title": "Hisob",
+  "chat_quote_room": "Xona"
 }

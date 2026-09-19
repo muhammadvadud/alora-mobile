@@ -57,10 +57,7 @@ class ChatMessageRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Text(
-              l10n.chat_defaultTitle, // 'Alora'
-              style: typography.bodyL.copyWith(color: colors.textSecondary),
-            ),
+            Text(l10n.app_name, style: typography.bodyL.copyWith(color: colors.textSecondary)),
           ],
         ),
         const SizedBox(height: 8),

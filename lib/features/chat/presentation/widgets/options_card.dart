@@ -144,7 +144,7 @@ class _OptionCardItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      option.title.toUpperCase(),
+                      option.title,
                       style: typography.overline.copyWith(color: colors.textSecondary),
                     ),
                     const SizedBox(height: 8),

@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 243 / 250 bajarildi (1 jarayonda: 15.11 backend streaming) (2026-09-19)
+**Umumiy holat:** 243 / 260 bajarildi (1 jarayonda: 15.11 backend streaming; Bosqich 21 dizayn v2 boshlandi) (2026-09-19)
 
 ---
 
@@ -354,6 +354,21 @@
 - [x] 20.9 Ilova ichida "Ilova haqida": versiya, build, muhit (Profil ostida) — `AboutSection` — `Env.appVersion/buildNumber` (`tool/version_defines.sh`, package_info §17 da yo'q)
 
 ---
+
+## Bosqich 21 — Dizayn tizimi v2 (Figma «ChatGPT Apps UI Kit», rules §19.8) ★
+
+> Manba: `docs/design/FIGMA-KIT-SPEC.md` (yagona), render'lar `docs/design/figma-kit/`. Funksiya o'zgarmaydi.
+
+- [ ] 21.1 Tokenlar: `AppColors` (kit palitrasi, `brass`→`warning`), `AppTypography` (Inter, kit shkalasi), `AppRadius` (20/16/8, bubble=pill), `AppSpacing` (chatGap 24), yangi `AppShadows`; `pubspec.yaml` faqat Inter 400/500/600/700, eski shriftlar o'chiriladi; `AppTheme` light/dark; `StatusColors` §7.5 v2
+- [ ] 21.2 `shared/widgets` kit spetsifikatsiyasiga (SPEC §5): `AppButton` (44, qora primary, disabled `surfaceDisabled`), yangi `AppIconButton` (44 muted / 32 accent), `AppChip` (chegarasiz pill), yangi `SuggestionChip`, `ToolChip`, `StatusPill`, `AppTextField` (`surfaceMuted`, r16, chegarasiz), `AppCard` (r20 + divider bo'limlar), yangi `AppRadio`, `AppListTile`, `ScrollDownButton`, `AppDialog`, `AppBottomSheet`, `AppSnackbar`, `AppTabBar` (56, qora faol), `LetterAvatar` (r8), `Skeleton` (r12), `Empty/ErrorState`, `LimitProgressBar` (4px), `ProductCard`; `component_gallery` yangilanadi; widget testlari yashil
+- [ ] 21.3 Chat oqimi S-02…S-09: AppBar chapga tekis sarlavha, input paneli (44 «+», pill matn, 32 qora doira), suggestion chip karuseli, pufak pill, AI xabari ustida «Alora» avatar qatori, tool chip ustida izoh qatori, hisob/variant/qoralama kartochkalari MenuList uslubida, karusel 327/gap 20, ovozli rejim, mijoz rejimi indikatori
+- [ ] 21.4 Auth va suhbatlar S-01, S-10: login (oq, `displayL`, muted inputlar, qora tugma), suhbatlar ro'yxati (`AppListTile`, `overline` guruhlar)
+- [ ] 21.5 Buyurtmalar S-11…S-15: kartochka ro'yxati, detal MenuList bo'limlari, forma muted inputlar, status radio ro'yxati (bottom sheet), bo'sh holat
+- [ ] 21.6 Katalog S-16…S-18: kategoriya chiplari (r16, tanlangan `info`), grid, filtr sheet, mahsulot sahifasi
+- [ ] 21.7 Boshqaruv S-19…S-24 + sozlamalar: statistika kartochkalari `displayM`, `fl_chart` ranglari, xodimlar `AppListTile` + progress, mahsulot CRUD forma, narx qoidalari/bilimlar MenuList, prompt/model-pricing ekranlari
+- [ ] 21.8 Profil va tizim holatlari S-25, S-26: avatar 64 + guruh kartochkalari, offline banner, limit/403/404 Empty state
+- [ ] 21.9 Golden'lar to'liq qayta olinadi (yorug'/qorong'i/planshet), `test/widget/a11y` (48dp, kontrast) yashil, `check_build_len`, `analyze --fatal-infos`, `custom_lint`, `format_check` — alohida commit
+- [ ] 21.10 Lead audit: har ekran `docs/design/figma-kit/*.png` bilan solishtiriladi (skrinshot), SPEC'dan chetlanishlar ro'yxati; `docs/DESIGN-TOKENS.md` v2 ga yangilanadi
 
 ## Bajarish tartibi va bog'liqliklar
 

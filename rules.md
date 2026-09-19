@@ -284,114 +284,29 @@ faqat hujjat va commit'da ishlatiladi.
 
 ## 7. Dizayn tizimi (tokenlar) — yagona manba
 
-> Qiymatlar `docs/design/Alora-Mobil.dc.html` dan **aynan** olingan. Yangi rang/o'lcham
-> qo'shish — faqat §19 orqali. Yo'nalish: **«zig'ir va patina»** — tinch, matoli, bezaksiz.
+> **v2 (2026-09-19, §19.8):** dizayn manbasi — Figma «ChatGPT Apps UI Kit» (`HwGZovGFpezgJNUbsoKAZ9`).
+> Barcha qiymatlar `docs/design/FIGMA-KIT-SPEC.md` da (ranglar, Inter tipografikasi, radius/bo'shliq/soya,
+> komponentlar, ekran-ekran xarita). Shu fayl §7 ning **to'liq matni** hisoblanadi; bu yerda faqat
+> o'zgarmas qoidalar qoladi. Eski `Alora-Mobil.dc.html` («zig'ir va patina») — arxiv, manba emas.
 
 ### 7.1 Ranglar (`AppColors`)
-
-| Token | Yorug' | Qorong'i | Qayerda |
-|---|---|---|---|
-| `background` | `#F2F3F0` | `#101514` | ekran foni |
-| `surface` | `#FBFBF9` | `#181E1D` | kartochka, input, chip |
-| `surfaceMuted` | `#EEF0EC` | `#1C2523` | sotuvchi xabari foni, status pill neytral |
-| `surfaceDisabled` | `#EFF0EC` | `#151B1A` | disabled input |
-| `textPrimary` | `#151E1C` | `#E7EAE6` | asosiy matn |
-| `textSecondary` | `#5C6663` | `#96A09D` | ikkilamchi matn, placeholder |
-| `textDisabled` | `#96A09D` | `#5C6663` | disabled |
-| `border` | `#DCDFD9` | `#293230` | 1px chegara |
-| `borderSubtle` | `#EAEBE6` | `#232B29` | ro'yxat ajratgichi, progress fon |
-| `accent` | `#0E5751` | `#5CB8AB` | asosiy tugma, faol tab, AI belgisi, tanlangan chegara |
-| `accentPressed` | `#0A423E` | `#4AA396` | bosilgan holat |
-| `accentSoft` | `#E4EFED` | `#1A2E2C` | tanlangan chip foni, "Tayyor" pill |
-| `brass` | `#8A6620` | `#C9A257` | bo'lim label (uppercase), teg, "Tikuvda" pill |
-| `brassSoft` | `#F5EFE1` | `#2A2416` | brass pill foni |
-| `danger` | `#A6483C` | `#D98A7C` | xato, destruktiv, "Bekor qilingan" |
-| `dangerSoft` | `#F7ECEA` | `#3A1F1B` | danger pill foni |
-| `success` | `#2E7D4F` | `#5CB88A` | "Topshirildi", muvaffaqiyat |
-| `successSoft` | `#E5F0E9` | `#1B2E22` | |
-| `info` | `#4A6B7C` | `#8FB0C2` | "Tasdiqlangan" |
-| `infoSoft` | `#E7EDF0` | `#1E2A30` | |
-| `inverse` | `#151E1C` | `#E7EAE6` | snackbar foni, tanlangan chip foni |
-| `onInverse` | `#F2F3F0` | `#101514` | snackbar matni |
-| `onAccent` | `#F2F3F0` | `#101514` | asosiy tugma matni |
-
-Qorong'i mavzuda dizayn faylida bo'lmagan `*Soft` ranglar — yorug' qiymatning
-`accent`/`brass`/`danger` bilan 12% aralashmasi; `AppColors.dark` da yuqoridagi jadval aynan yoziladi.
+`FIGMA-KIT-SPEC.md` §1. Token nomlari: `background surface surfaceMuted surfaceDisabled textPrimary textSecondary
+textDisabled border borderSubtle accent accentPressed accentSoft onAccent info infoSoft warning warningSoft danger
+dangerSoft success successSoft inverse onInverse`. `brass`/`brassSoft` — yo'q (→ `warning`). Yorug' va qorong'i
+mavzu ikkalasi ham kitdan; `ColorScheme.fromSeed` — taqiq.
 
 ### 7.2 Tipografika (`AppTypography`)
+`FIGMA-KIT-SPEC.md` §2. Yagona shrift **Inter** (400/500/600/700, Latin Ext + Cyrillic, `assets/fonts/`).
+Boshqa shrift — taqiq. Raqamlar `tabularFigures`. Mijoz rejimida `body*`/`title*` +2 sp.
 
-Shriftlar `assets/fonts/` ga qo'shiladi (Google Fonts'dan yuklab, offline). Tarmoqdan shrift yuklash — taqiq.
+### 7.3 Radius, bo'shliq, soya
+`FIGMA-KIT-SPEC.md` §3. `AppRadius` (pill 999 · card 20 · input 16 · avatar 8 · bubble pill · sheet 20 · small 8),
+`AppSpacing` (4/8/12/16/24/32 · screenH 16 · chatGap 24), `AppShadows` (sm/md/lg — faqat suzuvchi elementlar).
+Kartochka — faqat 1px `border`, soya yo'q. Ikonkalar `lucide_icons_flutter`, stroke 2, 24/20/16.
+Rasm nisbati: mato 4:5, bezak 1:1. Minimal bosish maydoni 48×48 dp.
 
-| Token | Shrift | O'lcham/og'irlik | Qayerda |
-|---|---|---|---|
-| `displayL` | Spectral 500 | 28 / 1.2 | Login logotipi, katta sarlavha (kam) |
-| `displayM` | Spectral 500 | 22 / 1.25 | JAMI summa, bo'sh holat sarlavhasi |
-| `titleL` | IBM Plex Sans 600 | 18 / 1.3 | Ekran sarlavhasi (AppBar) |
-| `titleM` | IBM Plex Sans 600 | 16 / 1.3 | Dialog sarlavhasi, kartochka sarlavhasi |
-| `titleS` | IBM Plex Sans 600 | 14 / 1.3 | Ro'yxat satri nomi, mahsulot nomi |
-| `bodyL` | IBM Plex Sans 400 | 15 / 1.5 | Chat xabari (sotuvchi) |
-| `bodyM` | IBM Plex Sans 400 | 14.5 / 1.55 | Chat xabari (AI), input matni |
-| `bodyS` | IBM Plex Sans 400 | 13 / 1.45 | Chip, ikkilamchi matn, dialog tanasi |
-| `labelL` | IBM Plex Sans 600 | 14.5 / 1.2 | Tugma matni |
-| `labelM` | IBM Plex Sans 600 | 12 / 1.2 | Tool chip, "JAMI" label, tab bar (10) |
-| `labelS` | IBM Plex Sans 600 | 11 / 1.2 | Status pill (11.5), input label, kichik izoh |
-| `overline` | IBM Plex Sans 600 | 11 / 1.2, letterSpacing 0.8, UPPERCASE, `brass` | Bo'lim sarlavhasi (MATOLAR · BEZAKLAR · XIZMATLAR) |
-| `mono` | IBM Plex Mono 500 | 12 | Buyurtma raqami `ALR-2026-000123` |
-
-- Barcha raqamlar (narx, m², jadval) — `FontFeature.tabularFigures()` majburiy.
-- Mijoz rejimida (§12) barcha `body*` va `title*` +2 sp.
-- Diakritika (`o' g' '`) va kirill — shrift fayllari to'liq (Latin Ext + Cyrillic) yuklanadi; testda `Oʻzbek` va `Ўзбек` render qilinadi.
-
-### 7.3 Radius va bo'shliq
-
-| Token | Qiymat | Qayerda |
-|---|---|---|
-| `AppRadius.pill` | 999 | tugma, chip, status pill, input paneli (chat), avatar |
-| `AppRadius.card` | 16 | kartochka, dialog, ro'yxat konteyneri, mahsulot kartochkasi |
-| `AppRadius.input` | 12 | input maydoni, snackbar, ichki blok |
-| `AppRadius.avatar` | 11 | harfli avatar kvadrat |
-| `AppRadius.bubble` | `20 20 8 20` | sotuvchi xabari (o'ng-past burchak kichik) |
-| `AppRadius.sheet` | 20 (yuqori) | bottom sheet |
-| `AppRadius.small` | 4 | badge, ichki teg |
-| `AppSpacing.xs / s / m / l / xl / xxl` | 4 / 8 / 12 / 16 / 24 / 32 | |
-| `AppSpacing.screenH` | 16 | ekran gorizontal padding |
-| `AppSpacing.chatGap` | 16 | xabarlar orasidagi masofa |
-
-- **Soya deyarli yo'q.** Kartochka faqat `1px border`. Tanlangan kartochka: `1.5px accent` + `0 0 0 3px accent@9%`.
-- Ikonkalar: outline, stroke 1.5, o'lcham 22–24. `Icons.*` (Material filled) — taqiq; `lucide_icons_flutter` yoki
-  loyihaning SVG to'plami (`assets/icons/`) ishlatiladi.
-- Rasm nisbati: mato — **4:5** vertikal; bezak (gul, podxvat) — **1:1**. 16:9 — taqiq.
-- Minimal bosish maydoni 48×48 dp (tugma balandligi 46 + padding).
-
-### 7.4 Komponent o'lchamlari (dizayn faylidan)
-
-| Komponent | Spetsifikatsiya |
-|---|---|
-| AppBar | balandlik 56; sarlavha markazda **pill** ichida (`surface` + `border`), ostida 11px `textSecondary` bosqich matni |
-| Asosiy tugma | balandlik 46, `pill`, `accent` fon, `onAccent` matn `labelL`; bosilgan `accentPressed`; disabled `border` fon + `textDisabled`; yuklanmoqda — 14px spinner + matn |
-| Ikkilamchi tugma | 46, `pill`, `surface` + 1px `border`, `textPrimary` |
-| Matnli tugma | 46, `accent` matn, fon yo'q |
-| Destruktiv tugma | 46, `pill`, 1px `#E3CFCA` chegara, `danger` matn; dialogda to'ldirilgan `danger` |
-| Chip (quick reply) | padding 9×13, `pill`, `surface` + `border`, `bodyS`; tanlangan — `inverse` fon + `onInverse` 600; kategoriya tanlangan — `accentSoft` fon + `accent` chegara/matn; sonli — `brass` 600 raqam |
-| Tool chip | padding 6×11, `pill`, `surface` + `border`, 12px `textSecondary`; chapda 6px nuqta (`accent`) yoki 10px spinner; o'ngda chevron |
-| "Yozmoqda" indikatori | 120×2 px `border` chiziq, ustida 40px `accent` bo'lak, `translateX` animatsiya 1.4s |
-| Sotuvchi xabari | `surfaceMuted`, `bubble` radius, padding 12×16, max-width 80%, o'ngda |
-| AI xabari | fon yo'q, `bodyM`, chapda 2px padding; tool chip ustida |
-| Input paneli (chat) | `surface` + `border`, radius 26, padding 8; chapda "+" 38px, o'rtada matn, mikrofon 38px, yuborish 44px `accent` doira |
-| Input maydoni | balandlik 46, `input` radius, `surface` + 1px `border`; fokus 1.5px `accent`; xato 1.5px `danger` + ostida 11px `danger` matn; disabled `surfaceDisabled` |
-| Status pill | `pill`, padding 4×10, 11.5px 600, chapda 6px nuqta; ranglar §7.5 |
-| Mahsulot kartochkasi | eni 180 (karusel) / grid 2 ustun, `card` radius, rasm 4:5, nom `titleS`, rang doirasi 12px + rang nomi 12px, narx 15px 600 + birlik 12px `textSecondary` |
-| Hisob kartochkasi | `surface` + `border` + `card`; sarlavha `overline` brass; qator `bodyS` 13.5: chapda nom, o'rtada miqdor (`textSecondary`, eni 44), o'ngda summa (eni 82, 500, tabular); JAMI ustida 1px `textPrimary` chiziq; JAMI 22px 600 + "so'm" 13px |
-| Variant kartochkasi | `card`, padding 14×15; tanlangan — 1.5px `accent` + 3px halo |
-| Buyurtma kartochkasi | `card`; chap chetida 3px status rangli chiziq; raqam `mono`; status pill o'ngda; muddat matni: ≤3 kun `brass`, o'tgan `danger` |
-| Snackbar | `inverse` fon, `input` radius, 7px rangli nuqta (`accent`/`danger`), 13.5 matn, o'ngda 13px 600 amal |
-| Dialog | `surface` + `border` + `card`, sarlavha `titleM`, tana `bodyS` `textSecondary`, 2 tugma 44px |
-| Tab bar | balandlik 62 + safe area, `surface` + yuqorida 1px `border`; label 10px; faol `accent` 600 + to'lgan ikonka; badge `brass` |
-| Progress (limit) | 5px, `borderSubtle` fon; < 80% `accent`, 80–99% `brass`, 100% `danger` |
-| Skeleton | `borderSubtle` bloklar, radius 5–7, shimmer yo'q (tinch pulsatsiya 1.2s) |
-| Bottom sheet | yuqorida 36×4 tutqich `border`, sarlavha `titleM`, `sheet` radius |
-| Harfli avatar | 36×36, `avatar` radius, `accent` fon, `onAccent` 15px 600 |
-| Safe area | yuqori 47, pastki 34 (iOS); Android'da `MediaQuery.padding` |
+### 7.4 Komponent o'lchamlari
+`FIGMA-KIT-SPEC.md` §5 — har komponentning aniq o'lchami, holatlari va kit frame manbasi.
 
 ### 7.5 Buyurtma statuslari (`OrderStatus` + `StatusColors`)
 
@@ -399,33 +314,34 @@ Shriftlar `assets/fonts/` ga qo'shiladi (Google Fonts'dan yuklab, offline). Tarm
 |---|---|---|---|
 | `draft` | Qoralama | `surfaceMuted` | `textSecondary` |
 | `confirmed` | Tasdiqlangan | `infoSoft` | `info` |
-| `measuring` | O'lchovda | `brassSoft` | `brass` |
-| `production` | Tikuvda | `brassSoft` | `brass` |
-| `ready` | Tayyor | `accentSoft` | `accent` |
-| `installing` | O'rnatishda | `accentSoft` | `accent` |
-| `completed` | Topshirildi | `successSoft` | `success` |
+| `measuring` | O'lchovda | `warningSoft` | `warning` |
+| `production` | Tikuvda | `warningSoft` | `warning` |
+| `ready` | Tayyor | `successSoft` | `success` |
+| `installing` | O'rnatishda | `infoSoft` | `info` |
+| `completed` | Topshirildi | `inverse` | `onInverse` |
 | `cancelled` | Bekor qilingan | `dangerSoft` | `danger` |
 
-To'lov belgisi (alohida kichik chip): `Avans olindi` (`accentSoft`), `To'liq to'landi` (`successSoft`), `Qarz bor` (`dangerSoft`).
-Status ro'yxati va ruxsat etilgan o'tishlar `GET /orders/statuses/` dan olinadi; ilova o'tishni **o'zi hisoblamaydi**.
+To'lov belgisi: `Avans olindi` (`infoSoft`), `To'liq to'landi` (`successSoft`), `Qarz bor` (`dangerSoft`).
+Status ro'yxati va o'tishlar `GET /orders/statuses/` dan; ilova o'tishni **o'zi hisoblamaydi**.
 
 ### 7.6 Umumiy widgetlar (`lib/shared/widgets/`)
 
 Quyidagilar **bir marta** yoziladi va hamma joyda qayta ishlatiladi. Feature ichida nusxa yaratish — taqiq:
 
-`AppButton` (primary/secondary/text/destructive, `isLoading`, `isEnabled`) · `AppChip` · `AppCountChip` ·
-`ToolChip` · `StatusPill` · `PaymentChip` · `AppTextField` (text/password/number/search/multiline, `errorText`) ·
-`PhoneField` (+998 maskasi) · `MoneyText` (tabular, `so'm` suffiksi) · `UnitText` (`so'm/m²`, `so'm/dona`, `so'm/m`) ·
-`ColorDot` (`color_hex`) · `LetterAvatar` · `AppCard` · `SectionLabel` (overline brass) · `AppBottomSheet` ·
-`AppDialog` · `AppSnackbar` · `LimitProgressBar` · `SkeletonBox` / `SkeletonList` · `EmptyState` ·
-`ErrorState` (`onRetry`) · `OfflineBanner` · `LimitExceededView` · `ProductCard` · `AppTabBar` · `RoleGate` ·
-`TypingLine` (yozmoqda indikatori) · `Waveform`.
+`AppButton` (primary/secondary/text/destructive, `isLoading`, `isEnabled`) · `AppIconButton` (44 doira / 32 accent) ·
+`AppChip` · `AppCountChip` · `SuggestionChip` · `ToolChip` · `StatusPill` · `PaymentChip` ·
+`AppTextField` (text/password/number/search/multiline, `errorText`) · `PhoneField` (+998 maskasi) ·
+`MoneyText` · `UnitText` · `ColorDot` · `LetterAvatar` · `AppCard` (divider'li bo'limlar) · `SectionLabel` ·
+`AppRadio` · `AppListTile` · `AppBottomSheet` · `AppDialog` · `AppSnackbar` · `LimitProgressBar` ·
+`SkeletonBox` / `SkeletonList` · `EmptyState` · `ErrorState` (`onRetry`) · `OfflineBanner` · `LimitExceededView` ·
+`ProductCard` · `AppTabBar` · `RoleGate` · `TypingLine` · `Waveform` · `ScrollDownButton`.
 
-### 7.7 Nimadan qochish kerak (dizayn TZ §2)
+### 7.7 Nimadan qochish kerak
 
-Gradient · neon · emoji bilan bo'lim belgilash · AI'ni ✨ bilan belgilash · soyali "qog'oz" kartochkalar ·
-katta rangli illyustratsiyalar · Material 3 default ranglari (`ColorScheme.fromSeed` — taqiq) ·
-`CircularProgressIndicator` sahifa yuklanishida (skeleton ishlatiladi) · 3 nuqta "typing" (chiziq ishlatiladi).
+Gradient · neon · emoji bilan bo'lim belgilash · AI'ni ✨ bilan belgilash · soyali kartochkalar · katta rangli
+illyustratsiyalar · Material 3 default ranglari · `CircularProgressIndicator` sahifa yuklanishida (skeleton) ·
+3 nuqta «typing» (chiziq) · kitdan TZ'da yo'q elementlarni ko'chirish (drawer, model tanlovi, xabar ostidagi
+like/copy qatori, xarita, «liquid glass» blur).
 
 ---
 
@@ -815,3 +731,21 @@ release (20.6) mustaqil.
 
 **Qaror:** bandlar `[ ]` holatida BLOKER izohi bilan qoladi; backend `tasks.md` ga so'rov yuboriladi. iOS —
 Mac paydo bo'lganda; `ios/` konfiguratsiyasi (Info.plist ruxsat matnlari) tayyor.
+
+### 19.8 Dizayn manbasi: `Alora-Mobil.dc.html` → Figma «ChatGPT Apps UI Kit» (2026-09-19)
+
+**Chetlanish:** §0.4/§0.9 dagi dizayn manbasi (`docs/design/Alora-Mobil.dc.html`, «zig'ir va patina» —
+Spectral/IBM Plex, yashil-jigarrang palitra) buyurtmachi qarori bilan **to'liq** almashtirildi: Figma
+`HwGZovGFpezgJNUbsoKAZ9` (ChatGPT Apps UI Kit). Tokenlar `docs/design/FIGMA-KIT-SPEC.md` da.
+
+**Sabab:** buyurtmachi ko'rib, eski dizayn qabul qilinmadi; kit — sanoat standarti chat UI.
+
+**Ta'sir doirasi:** §7 to'liq (ranglar, shrift Inter, radius 16/20, komponent shakllari), barcha 26 ekran,
+`shared/widgets`, golden'lar. Funksiya, TZ doirasi, qatlamlar, backend shartnomasi — **o'zgarmaydi**.
+Kitda bor, TZ'da yo'q elementlar qo'shilmaydi; TZ'da bor, kitda yo'q ekranlar kit tokenlari bilan chiziladi.
+
+**Muqobil variantlar:** faqat chat ekranlari (rad — buyurtmachi barcha ekranlarni so'radi); Alora palitrasini
+saqlab shakl olish (rad — «to'liq kit palitrasi»).
+
+**Qaror:** tasdiqlandi (2026-09-19). `tasks.md` Bosqich 21. Eski dizayn fayli arxiv sifatida qoladi.
+

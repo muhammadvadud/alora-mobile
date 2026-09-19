@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:alora_mobile/core/error/failure.dart';
+import 'package:alora_mobile/core/utils/app_logger.dart';
 import 'package:alora_mobile/features/chat/application/providers.dart';
 import 'package:alora_mobile/features/chat/application/chat_state.dart';
 import 'package:alora_mobile/core/sse/sse_event.dart';
@@ -33,18 +34,25 @@ class ChatNotifier extends _$ChatNotifier {
 
   /// Turli manbalardan kelgan xatoni tiplangan [Failure]'ga keltiradi.
   /// Dio interceptor allaqachon [Failure] qaytargan bo'lsa — o'sha ishlatiladi;
-  /// aks holda matnda limit belgisi (429/limit) bor-yo'qligiga qarab
-  /// [Failure.limit] yoki [Failure.unknown] qaytariladi.
+  /// aks holda umumiy [Failure.unknown] (detail bo'sh → l10n matni).
   Failure _mapFailure(Object error) {
     if (error is Failure) return error;
     if (error is DioException && error.error is Failure) {
       return error.error! as Failure;
     }
-    final text = error.toString();
-    if (text.contains('429') || text.contains('limit')) {
-      return Failure.limit(text);
+    // Tiplanmagan xato: xom matn UI'ga chiqmaydi (§8.3), faqat log'ga.
+    logger.w('Chat: tiplanmagan xato', error: error);
+    return const Failure.unknown('');
+  }
+
+  /// SSE `error` eventining `detail` matni — backend'dan kelgan, foydalanuvchiga
+  /// ko'rsatiladi (§8.3). Limit haqidagi xabar `LimitExceededView` ga olib boradi.
+  Failure _mapSseErrorDetail(String detail) {
+    final lower = detail.toLowerCase();
+    if (lower.contains('429') || lower.contains('limit')) {
+      return Failure.limit(detail);
     }
-    return Failure.unknown(text);
+    return Failure.unknown(detail);
   }
 
   Future<void> _loadMessages() async {
@@ -86,8 +94,7 @@ class ChatNotifier extends _$ChatNotifier {
     if (state.isStreaming) return;
 
     final customerMode = ref.read(customerModeEnabledProvider);
-    final locale =
-        overrideLocale ?? 'uz'; // We can get this from LocaleNotifier later
+    final locale = overrideLocale ?? 'uz'; // We can get this from LocaleNotifier later
 
     final userMsg = Message(
       id: 'temp_user_${DateTime.now().millisecondsSinceEpoch}',
@@ -157,9 +164,7 @@ class ChatNotifier extends _$ChatNotifier {
       },
       toolCall: (String tool) {
         final blocks = List<RichBlock>.from(msg.richBlocks);
-        blocks.add(
-          RichBlock.toolChip(tool: tool, state: ToolChipState.running),
-        );
+        blocks.add(RichBlock.toolChip(tool: tool, state: ToolChipState.running));
         msg = msg.copyWith(richBlocks: blocks);
       },
       toolArgs: (String tool, String args) {
@@ -184,30 +189,26 @@ class ChatNotifier extends _$ChatNotifier {
         if (bIdx != -1) {
           final oldBlock = blocks[bIdx];
           blocks[bIdx] = oldBlock.maybeMap(
-            toolChip: (t) =>
-                t.copyWith(state: ToolChipState.done, rawResult: result),
+            toolChip: (t) => t.copyWith(state: ToolChipState.done, rawResult: result),
             orElse: () => oldBlock,
           );
         }
 
-        final parsedBlock = ref
-            .read(chatRepositoryProvider)
-            .parseToolResult(tool, result);
+        final parsedBlock = ref.read(chatRepositoryProvider).parseToolResult(tool, result);
         // We add the parsed block after the tool chip
         blocks.add(parsedBlock);
         msg = msg.copyWith(richBlocks: blocks);
       },
-      done:
-          (Map<String, dynamic>? usage, List<Map<String, dynamic>>? products) {
-            msg = msg.copyWith(status: MessageStatus.done);
-            if (products != null && products.isNotEmpty) {
-              // We might need to add quick replies here if provided in usage or something, but backend API says `quick_replies`?
-              // The backend doc for done says: done(usage, products). Maybe quickReplies are inside usage?
-            }
-          },
+      done: (Map<String, dynamic>? usage, List<Map<String, dynamic>>? products) {
+        msg = msg.copyWith(status: MessageStatus.done);
+        if (products != null && products.isNotEmpty) {
+          // We might need to add quick replies here if provided in usage or something, but backend API says `quick_replies`?
+          // The backend doc for done says: done(usage, products). Maybe quickReplies are inside usage?
+        }
+      },
       error: (String detail) {
         msg = msg.copyWith(status: MessageStatus.error);
-        streamError = _mapFailure(detail);
+        streamError = _mapSseErrorDetail(detail);
       },
       unknown: () {},
     );
@@ -216,11 +217,7 @@ class ChatNotifier extends _$ChatNotifier {
     _updateStateThrottled(
       streamError == null
           ? base.copyWith(messages: msgs)
-          : base.copyWith(
-              messages: msgs,
-              error: streamError,
-              isStreaming: false,
-            ),
+          : base.copyWith(messages: msgs, error: streamError, isStreaming: false),
     );
   }
 
@@ -232,11 +229,7 @@ class ChatNotifier extends _$ChatNotifier {
       msgs[idx] = msgs[idx].copyWith(status: MessageStatus.error);
     }
     _updateStateThrottled(
-      base.copyWith(
-        error: _mapFailure(error),
-        isStreaming: false,
-        messages: msgs,
-      ),
+      base.copyWith(error: _mapFailure(error), isStreaming: false, messages: msgs),
     );
   }
 

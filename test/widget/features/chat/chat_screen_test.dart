@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:alora_mobile/core/error/failure.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
@@ -21,8 +22,7 @@ import 'package:alora_mobile/features/orders/domain/repositories/orders_reposito
 import 'package:alora_mobile/shared/models/payment_status.dart';
 import 'package:alora_mobile/shared/models/order_status.dart';
 import 'package:alora_mobile/features/orders/domain/entities/order.dart';
-import 'package:alora_mobile/features/orders/application/providers.dart'
-    as orders_providers;
+import 'package:alora_mobile/features/orders/application/providers.dart' as orders_providers;
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
 import 'package:alora_mobile/shared/widgets/limit_exceeded_view.dart';
@@ -69,9 +69,7 @@ void main() {
   }
 
   group('ChatScreen — bo\'sh holat', () {
-    testWidgets('Boshlang\'ich holatda 6 ta boshlang\'ich chip ko\'rsatiladi', (
-      tester,
-    ) async {
+    testWidgets('Boshlang\'ich holatda 6 ta boshlang\'ich chip ko\'rsatiladi', (tester) async {
       stubGetMessages(repo, []);
       await pumpChat(tester);
 
@@ -92,9 +90,7 @@ void main() {
       expect(find.byType(AppChip), findsNWidgets(6));
     });
 
-    testWidgets('Chip bosilsa ship matni sendMessage\'ga yuboriladi', (
-      tester,
-    ) async {
+    testWidgets('Chip bosilsa ship matni sendMessage\'ga yuboriladi', (tester) async {
       stubGetMessages(repo, []);
 
       when(
@@ -127,9 +123,7 @@ void main() {
   });
 
   group('ChatScreen — xabarlar', () {
-    testWidgets('Foydalanuvchi xabari o\'ngga hizalangan pufakda chiqadi', (
-      tester,
-    ) async {
+    testWidgets('Foydalanuvchi xabari o\'ngga hizalangan pufakda chiqadi', (tester) async {
       repo = MockChatRepository();
       stubGetMessages(repo, [userMessage()]);
       await pumpChat(tester);
@@ -138,17 +132,13 @@ void main() {
       expect(find.byType(UserBubble), findsOneWidget);
 
       final align = tester.widget<Align>(
-        find
-            .ancestor(of: find.text('Mehmonxona'), matching: find.byType(Align))
-            .first,
+        find.ancestor(of: find.text('Mehmonxona'), matching: find.byType(Align)).first,
       );
       expect(align.alignment, Alignment.centerRight);
     });
 
     testWidgets('Assistent matni chap tomonda ko\'rsatiladi', (tester) async {
-      stubGetMessages(repo, [
-        assistantMessage(content: 'Salom, qanday yordam kerak?'),
-      ]);
+      stubGetMessages(repo, [assistantMessage(content: 'Salom, qanday yordam kerak?')]);
       await pumpChat(tester);
 
       await tester.pump();
@@ -158,16 +148,11 @@ void main() {
   });
 
   group('ChatScreen — rich bloklar', () {
-    testWidgets('ToolChip running/done holatlarini ko\'rsatadi', (
-      tester,
-    ) async {
+    testWidgets('ToolChip running/done holatlarini ko\'rsatadi', (tester) async {
       stubGetMessages(repo, [
         assistantMessage(
           richBlocks: const [
-            RichBlock.toolChip(
-              tool: 'product_search',
-              state: ToolChipState.running,
-            ),
+            RichBlock.toolChip(tool: 'product_search', state: ToolChipState.running),
             RichBlock.toolChip(
               tool: 'curtain_calculate',
               state: ToolChipState.done,
@@ -184,13 +169,9 @@ void main() {
       expect(find.text('Hisoblab bo\'lindi'), findsOneWidget);
     });
 
-    testWidgets('ProductCarousel 180px kenglikdagi kartalarni ko\'rsatadi', (
-      tester,
-    ) async {
+    testWidgets('ProductCarousel 180px kenglikdagi kartalarni ko\'rsatadi', (tester) async {
       stubGetMessages(repo, [
-        assistantMessage(
-          richBlocks: [RichBlock.products(products: productsFixture())],
-        ),
+        assistantMessage(richBlocks: [RichBlock.products(products: productsFixture())]),
       ]);
       await pumpChat(tester);
 
@@ -198,45 +179,34 @@ void main() {
       expect(find.byType(ProductCarousel), findsOneWidget);
       expect(find.byType(ProductCard), findsNWidgets(2));
 
-      final sized = find.byWidgetPredicate(
-        (w) => w is SizedBox && w.width == 180,
-      );
+      final sized = find.byWidgetPredicate((w) => w is SizedBox && w.width == 180);
       expect(sized, findsNWidgets(2));
     });
 
-    testWidgets(
-      'QuoteCard 3 ta bo\'lim, bo\'sh qoldiq va formula ko\'rsatadi',
-      (tester) async {
-        stubGetMessages(repo, [
-          assistantMessage(
-            richBlocks: [RichBlock.quote(quote: quoteFixture())],
-          ),
-        ]);
-        await pumpChat(tester);
-
-        await tester.pump();
-        expect(find.byType(QuoteCardView), findsOneWidget);
-
-        expect(find.text('MATOLAR'), findsOneWidget);
-        expect(find.text('BEZAKLAR'), findsOneWidget);
-        expect(find.text('XIZMATLAR'), findsOneWidget);
-
-        expect(find.text('Kesim ortigcha chiqadi'), findsOneWidget);
-
-        expect(find.text('Qanday hisoblandi?'), findsOneWidget);
-        expect(find.text('Yana 4 ta bo\'lak'), findsOneWidget);
-
-        expect(find.text('JAMI'), findsOneWidget);
-      },
-    );
-
-    testWidgets('"Yana N ta bo\'lak" bosilsa barcha matolar ko\'rinadi', (
-      tester,
-    ) async {
+    testWidgets('QuoteCard 3 ta bo\'lim, bo\'sh qoldiq va formula ko\'rsatadi', (tester) async {
       stubGetMessages(repo, [
-        assistantMessage(
-          richBlocks: [RichBlock.quote(quote: quoteFixture(fabricCount: 8))],
-        ),
+        assistantMessage(richBlocks: [RichBlock.quote(quote: quoteFixture())]),
+      ]);
+      await pumpChat(tester);
+
+      await tester.pump();
+      expect(find.byType(QuoteCardView), findsOneWidget);
+
+      expect(find.text('MATOLAR'), findsOneWidget);
+      expect(find.text('BEZAKLAR'), findsOneWidget);
+      expect(find.text('XIZMATLAR'), findsOneWidget);
+
+      expect(find.text('Kesim ortigcha chiqadi'), findsOneWidget);
+
+      expect(find.text('Qanday hisoblandi?'), findsOneWidget);
+      expect(find.text('Yana 4 ta bo\'lak'), findsOneWidget);
+
+      expect(find.text('JAMI'), findsOneWidget);
+    });
+
+    testWidgets('"Yana N ta bo\'lak" bosilsa barcha matolar ko\'rinadi', (tester) async {
+      stubGetMessages(repo, [
+        assistantMessage(richBlocks: [RichBlock.quote(quote: quoteFixture(fabricCount: 8))]),
       ]);
       await pumpChat(tester);
 
@@ -259,9 +229,7 @@ void main() {
 
     testWidgets('Formula bosilsa hisoblash formulasi ochiladi', (tester) async {
       stubGetMessages(repo, [
-        assistantMessage(
-          richBlocks: [RichBlock.quote(quote: quoteFixture(fabricCount: 1))],
-        ),
+        assistantMessage(richBlocks: [RichBlock.quote(quote: quoteFixture(fabricCount: 1))]),
       ]);
       await pumpChat(tester);
 
@@ -271,17 +239,12 @@ void main() {
       await tester.tap(formulaTile);
       await tester.pumpAndSettle();
 
-      expect(
-        find.text('2.5 m × 1.5 m × 2 × 120 000 = 900 000'),
-        findsOneWidget,
-      );
+      expect(find.text('2.5 m × 1.5 m × 2 × 120 000 = 900 000'), findsOneWidget);
     });
 
     testWidgets('OptionsCard mid reja ko\'rsatiladi', (tester) async {
       stubGetMessages(repo, [
-        assistantMessage(
-          richBlocks: [RichBlock.options(options: optionsFixture())],
-        ),
+        assistantMessage(richBlocks: [RichBlock.options(options: optionsFixture())]),
       ]);
       await pumpChat(tester);
 
@@ -295,13 +258,9 @@ void main() {
       expect(pageView.controller?.initialPage, 1);
     });
 
-    testWidgets('OrderDraftCard yetishmayotgan maydonlarni ko\'rsatadi', (
-      tester,
-    ) async {
+    testWidgets('OrderDraftCard yetishmayotgan maydonlarni ko\'rsatadi', (tester) async {
       stubGetMessages(repo, [
-        assistantMessage(
-          richBlocks: [RichBlock.orderDraft(draft: orderDraftFixture())],
-        ),
+        assistantMessage(richBlocks: [RichBlock.orderDraft(draft: orderDraftFixture())]),
       ]);
       await pumpChat(tester);
 
@@ -317,9 +276,7 @@ void main() {
       expect(button.onPressed, isNull);
     });
 
-    testWidgets("to'liq qoralamada 'Buyurtma yaratish' → POST orders/ (7.12)", (
-      tester,
-    ) async {
+    testWidgets("to'liq qoralamada 'Buyurtma yaratish' → POST orders/ (7.12)", (tester) async {
       final ordersRepo = MockOrdersRepo();
       when(() => ordersRepo.createOrder(any())).thenAnswer(
         (_) async => const Order(
@@ -332,20 +289,14 @@ void main() {
       );
       stubGetMessages(repo, [
         assistantMessage(
-          richBlocks: [
-            RichBlock.orderDraft(draft: orderDraftFixture(missingFields: [])),
-          ],
+          richBlocks: [RichBlock.orderDraft(draft: orderDraftFixture(missingFields: []))],
         ),
       ]);
       await tester.pumpWidget(
         chatApp(
           repo,
           withRouter: true,
-          extraOverrides: [
-            orders_providers.ordersRepositoryProvider.overrideWithValue(
-              ordersRepo,
-            ),
-          ],
+          extraOverrides: [orders_providers.ordersRepositoryProvider.overrideWithValue(ordersRepo)],
         ),
       );
       await tester.pump();
@@ -363,11 +314,10 @@ void main() {
   });
 
   group('ChatScreen — xatolik holatlari', () {
-    testWidgets('Xatolik banneri va "Qayta urinish" tugmasi ko\'rsatiladi', (
-      tester,
-    ) async {
+    testWidgets('Xatolik banneri va "Qayta urinish" tugmasi ko\'rsatiladi', (tester) async {
       repo = MockChatRepository();
-      stubGetMessages(repo, [], error: Exception('Tarmoq xatosi'));
+      // Repository tiplangan Failure beradi; xom Exception matni UI'ga chiqmaydi (§8.3)
+      stubGetMessages(repo, [], error: const Failure.network());
       when(
         () => repo.sendMessage(
           any(),
@@ -383,7 +333,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
 
-      expect(find.textContaining('Tarmoq xatosi'), findsOneWidget);
+      expect(find.textContaining('Ulanish yo\'q'), findsOneWidget);
       expect(find.text('Qayta yuborish'), findsOneWidget);
 
       await tester.tap(find.text('Qayta yuborish'));
@@ -394,7 +344,7 @@ void main() {
 
     testWidgets('429 xatosi LimitExceededView ko\'rsatadi', (tester) async {
       repo = MockChatRepository();
-      stubGetMessages(repo, [], error: Exception('429 limit exceeded'));
+      stubGetMessages(repo, [], error: const Failure.limit(''));
       await pumpChat(tester);
 
       await tester.pump();
@@ -404,40 +354,32 @@ void main() {
       expect(find.text('Limit tugadi'), findsOneWidget);
     });
 
-    testWidgets(
-      'Oflayn holatda input o\'chiq (banner shell darajasida — 17.1)',
-      (tester) async {
-        repo = MockChatRepository();
-        stubGetMessages(repo, []);
-        await tester.pumpWidget(chatApp(repo, online: false));
-        await tester.pump();
+    testWidgets('Oflayn holatda input o\'chiq (banner shell darajasida — 17.1)', (tester) async {
+      repo = MockChatRepository();
+      stubGetMessages(repo, []);
+      await tester.pumpWidget(chatApp(repo, online: false));
+      await tester.pump();
 
-        // Banner AppShell'da bitta marta ko'rsatiladi; ekran ichida dublikat yo'q.
-        expect(find.byType(OfflineBanner), findsNothing);
+      // Banner AppShell'da bitta marta ko'rsatiladi; ekran ichida dublikat yo'q.
+      expect(find.byType(OfflineBanner), findsNothing);
 
-        final textField = tester.widget<TextField>(find.byType(TextField));
-        expect(textField.enabled, isFalse);
-      },
-    );
+      final textField = tester.widget<TextField>(find.byType(TextField));
+      expect(textField.enabled, isFalse);
+    });
 
-    testWidgets('Menyuda PDF: orderId bor bo\'lsa openPdf chaqiradi', (
-      tester,
-    ) async {
+    testWidgets('Menyuda PDF: orderId bor bo\'lsa openPdf chaqiradi', (tester) async {
       PathProviderPlatform.instance = _FakePathProvider();
       repo = MockChatRepository();
       stubGetMessages(repo, []);
       final ordersRepo = MockOrdersRepo();
-      when(() => ordersRepo.getPdf('ord-9'))
-          .thenAnswer((_) async => Uint8List.fromList([1, 2, 3]));
+      when(() => ordersRepo.getPdf('ord-9')).thenAnswer((_) async => Uint8List.fromList([1, 2, 3]));
 
       await tester.pumpWidget(
         chatApp(
           repo,
           extraOverrides: [
             registerConversations(['conv-1'], orderId: 'ord-9'),
-            orders_providers.ordersRepositoryProvider.overrideWithValue(
-              ordersRepo,
-            ),
+            orders_providers.ordersRepositoryProvider.overrideWithValue(ordersRepo),
           ],
         ),
       );
@@ -454,9 +396,7 @@ void main() {
       verify(() => ordersRepo.getPdf('ord-9')).called(1);
     });
 
-    testWidgets('Menyuda PDF: orderId yo\'q bo\'lsa snackbar ko\'rsatadi', (
-      tester,
-    ) async {
+    testWidgets('Menyuda PDF: orderId yo\'q bo\'lsa snackbar ko\'rsatadi', (tester) async {
       repo = MockChatRepository();
       stubGetMessages(repo, []);
 

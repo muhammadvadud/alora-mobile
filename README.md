@@ -35,6 +35,9 @@ Loyiha uch xil muhitda ishlashi mumkin. Tegishli muhit fayli ishga tushirishda k
 - **staging**: `--dart-define-from-file=env/staging.json`
 - **prod**: `--dart-define-from-file=env/prod.json`
 
+`SENTRY_DSN` env fayllarda bo'sh (Sentry o'chiq). Real DSN faqat CI secret'dan beriladi:
+`--dart-define-from-file=env/prod.json --dart-define=SENTRY_DSN=$SENTRY_DSN` (keyingi `--dart-define` fayldagini bosib o'tadi).
+
 ## Ishga tushirish va tekshirish buyruqlari
 
 ```bash

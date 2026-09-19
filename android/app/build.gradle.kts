@@ -46,7 +46,9 @@ android {
                 storeFile = file(keystoreProperties["storeFile"] as String)
                 storePassword = keystoreProperties["storePassword"] as String
             } else {
-                // debug key fallback as per tz
+                // key.properties yo'q (CI / lokal tekshiruv) — debug kalit. Play'ga
+                // yuklanadigan build'da android/key.properties majburiy.
+                logger.warn("ALORA: android/key.properties topilmadi — release DEBUG kalit bilan imzolanadi!")
                 initWith(getByName("debug"))
             }
         }

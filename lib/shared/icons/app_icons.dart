@@ -23,6 +23,10 @@ class AppIcons {
       LucideIcons.arrowUp; // dizayn: yuborish — yuqoriga strelka (1c)
   static const IconData check = LucideIcons.check;
   static const IconData edit = LucideIcons.pencil;
+  static const IconData tags = LucideIcons.tags;
+  static const IconData calculator = LucideIcons.calculator;
+  static const IconData trash = LucideIcons.trash;
+  static const IconData keyboard = LucideIcons.keyboard;
   static const IconData dot = LucideIcons.dot;
   static const IconData close = LucideIcons.x;
   static const IconData arrowDown = LucideIcons.arrowDown;

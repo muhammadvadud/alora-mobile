@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 241 / 250 bajarildi (0 jarayonda) (2026-09-19)
+**Umumiy holat:** 242 / 250 bajarildi (0 jarayonda) (2026-09-19)
 
 ---
 
@@ -262,7 +262,7 @@
 - [x] 13.6 `KnowledgeScreen` (S-24) — qoida kartochkalari: shart chip'lari (`mehmonxona` + `hi-tech`) → tavsiya matni, priority, faol toggle; "+ Qoida qo'shish"
 - [x] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
 - [x] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
-- [ ] 13.9 `rules.md` §14.6 (fayl ≤400 qator): `pricing_rules_screen.dart` (760) → bo'limlar alohida widget fayllarga (`pricing_coefficients_section.dart`, `discount_tiers_section.dart`, `order_defaults_section.dart`, `calc_preview_sheet.dart`); `product_form_screen.dart` (468) va `product_form_notifier.dart` (474) → rasm/variant bo'laklari ajratiladi. Funksiya o'zgarmaydi, golden S-22/S-23 saqlanadi
+- [x] 13.9 `rules.md` §14.6 (fayl ≤400 qator): `pricing_rules_screen.dart` (760) → bo'limlar alohida widget fayllarga (`pricing_coefficients_section.dart`, `discount_tiers_section.dart`, `order_defaults_section.dart`, `calc_preview_sheet.dart`); `product_form_screen.dart` (468) va `product_form_notifier.dart` (474) → rasm/variant bo'laklari ajratiladi. Funksiya o'zgarmaydi, golden S-22/S-23 saqlanadi
 
 ## Bosqich 14 — `features/management` — sozlamalar (faqat admin)
 

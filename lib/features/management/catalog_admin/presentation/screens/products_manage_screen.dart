@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/core/error/failure_l10n.dart';
@@ -114,7 +113,7 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
             : Text(context.l10n.management_productsTitle),
         actions: [
           IconButton(
-            icon: const Icon(LucideIcons.tags),
+            icon: const Icon(AppIcons.tags),
             tooltip: context.l10n.management_bulkPriceTitle,
             onPressed: isSelectionMode ? _openBulkSheet : null,
           ),

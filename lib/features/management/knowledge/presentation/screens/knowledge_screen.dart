@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/management/knowledge/application/knowledge_notifier.dart';
@@ -161,7 +160,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
               Row(
                 children: [
                   IconButton(
-                    icon: const Icon(LucideIcons.pencil, size: 20),
+                    icon: const Icon(AppIcons.edit, size: 20),
                     color: colors.textSecondary,
                     onPressed: () {
                       showDialog<void>(
@@ -171,11 +170,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
                     },
                   ),
                   IconButton(
-                    icon: Icon(
-                      LucideIcons.trash,
-                      size: 20,
-                      color: colors.danger,
-                    ),
+                    icon: Icon(AppIcons.trash, size: 20, color: colors.danger),
                     onPressed: () => _confirmDelete(context, ref),
                   ),
                 ],

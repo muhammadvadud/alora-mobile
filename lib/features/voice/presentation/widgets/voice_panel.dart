@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
@@ -6,7 +7,6 @@ import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:alora_mobile/shared/widgets/waveform.dart';
 
 import 'package:alora_mobile/shared/widgets/typing_line.dart';
@@ -42,11 +42,11 @@ class VoicePanel extends ConsumerWidget {
               children: [
                 TextButton.icon(
                   onPressed: onClose,
-                  icon: const Icon(LucideIcons.keyboard),
+                  icon: const Icon(AppIcons.keyboard),
                   label: Text(l10n.chat_textMode),
                 ),
                 IconButton(
-                  icon: const Icon(LucideIcons.mic),
+                  icon: const Icon(AppIcons.mic),
                   onPressed: () => notifier.startListening(),
                 ),
               ],

@@ -1,26 +1,17 @@
-import "dart:io";
-
-import "package:flutter/foundation.dart";
-import "package:permission_handler/permission_handler.dart";
-import "package:image_picker/image_picker.dart";
-import "package:image_cropper/image_cropper.dart";
-import "package:flutter_image_compress/flutter_image_compress.dart";
-import "package:path_provider/path_provider.dart";
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/core/network/api_paths.dart';
-
-import '../providers/catalog_providers.dart';
-import '../../data/dto/catalog_write_dtos.dart';
-
-import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
-
 import 'package:alora_mobile/core/storage/offline_queue.dart';
 import 'package:alora_mobile/core/storage/offline_queue_item.dart';
-import 'package:alora_mobile/core/error/failure.dart';
-
-import 'product_form_state.dart';
-
+import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
+import 'package:alora_mobile/features/management/catalog_admin/data/dto/catalog_write_dtos.dart';
 import 'package:alora_mobile/shared/models/price_unit.dart';
+
+import '../providers/catalog_providers.dart';
+import 'product_form_image_handler.dart';
+import 'product_form_offline.dart';
+import 'product_form_state.dart';
 
 part 'product_form_notifier.g.dart';
 
@@ -286,7 +277,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
         );
         await repo.createProduct(dto);
       } else {
-        final patchData = <String, dynamic>{};
+        final patchData = <String, Object?>{};
         if (state.name != _initialState.name) patchData['name'] = state.name;
         if (state.code != _initialState.code) patchData['code'] = state.code;
         if (state.category != _initialState.category) {
@@ -298,7 +289,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
         }
 
         for (final variant in state.variants) {
-          final body = <String, dynamic>{
+          final body = <String, Object?>{
             'sku': variant.sku,
             'color_name': variant.colorName,
             'color_hex': variant.colorHex,
@@ -329,49 +320,16 @@ class ProductFormNotifier extends _$ProductFormNotifier {
       if (e is Failure) {
         e.whenOrNull(
           network: () {
-            // Queue on offline
             final method = productId == null ? 'POST' : 'PATCH';
             final path = productId == null
                 ? '/${ApiPaths.products}'
                 : '/${ApiPaths.product(productId)}';
-            final data = productId == null
-                ? {
-                    'name': state.name,
-                    'code': state.code,
-                    'category': state.category,
-                    'style': 'default',
-                    'pattern': 'default',
-                    'transparency': 'default',
-                    'recommended_rooms': state.recommendedRooms,
-                    'segment': state.segment.isEmpty
-                        ? 'default'
-                        : state.segment,
-                    if (state.description.isNotEmpty)
-                      'description': state.description,
-                    if (state.fabricType.isNotEmpty)
-                      'fabric_type': state.fabricType,
-                    if (state.composition.isNotEmpty)
-                      'composition': state.composition,
-                    if (state.care.isNotEmpty) 'care': state.care,
-                    'variants': [
-                      for (final v in variants)
-                        {
-                          'sku': v.sku,
-                          'color_name': v.colorName,
-                          'color_hex': v.colorHex,
-                          if (v.widthM != null) 'width_m': v.widthM,
-                          'price': v.price,
-                          'price_unit': v.priceUnit.name,
-                        },
-                    ],
-                  }
-                : {
-                    if (state.name != _initialState.name) 'name': state.name,
-                    if (state.code != _initialState.code) 'code': state.code,
-                    if (state.category != _initialState.category)
-                      'category': state.category,
-                  };
-
+            final data = productOfflineBody(
+              state: state,
+              initial: _initialState,
+              variants: variants,
+              isCreate: productId == null,
+            );
             final item = OfflineQueueItem.create(
               method: method,
               path: path,
@@ -398,63 +356,22 @@ class ProductFormNotifier extends _$ProductFormNotifier {
 
   // coverage:ignore-start
   Future<void> uploadImage(String productId) async {
-    // 1. permission (sababi bilan)
-    final status = await Permission.photos.request();
-    if (status.isDenied || status.isPermanentlyDenied) {
-      state = state.copyWith(
-        errors: {...state.errors, 'image': 'Ruxsat berilmadi'},
-      );
+    final result = await const ProductFormImageHandler().pickAndCompress();
+    final error = result.error;
+    if (error != null) {
+      state = state.copyWith(errors: {...state.errors, 'image': error});
       return;
     }
+    final path = result.path;
+    if (path == null) return;
 
-    // 2. picker
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile == null) return;
-
-    // 3. cropper
-    final croppedFile = await ImageCropper().cropImage(
-      sourcePath: pickedFile.path,
-      uiSettings: [
-        AndroidUiSettings(
-          toolbarTitle: 'Rasmni kesish',
-          initAspectRatio: CropAspectRatioPreset.ratio5x4,
-          lockAspectRatio: false,
-        ),
-        IOSUiSettings(
-          title: 'Rasmni kesish',
-          aspectRatioPresets: [
-            CropAspectRatioPreset.ratio5x4,
-            CropAspectRatioPreset.square,
-          ],
-        ),
-      ],
-    );
-    if (croppedFile == null) return;
-
-    // 4. compress
-    final compressedBytes = await FlutterImageCompress.compressWithFile(
-      croppedFile.path,
-      minWidth: 1200,
-      minHeight: 1200,
-      quality: 85,
-    );
-    if (compressedBytes == null) return;
-
-    final tempDir = await getTemporaryDirectory();
-    final compressedFile = File('${tempDir.path}/compressed_image.jpg');
-    await compressedFile.writeAsBytes(compressedBytes);
-
-    // 5. repo.uploadProductImage
     state = state.copyWith(isSaving: true);
     try {
       final repo = ref.read(catalogWriteRepositoryProvider);
       await repo.uploadProductImage(
         productId,
-        compressedFile.path,
-        onSendProgress: (sent, total) {
-          // You could update progress in state here
-        },
+        path,
+        onSendProgress: (sent, total) {},
       );
       state = state.copyWith(isSaving: false);
     } catch (e) {

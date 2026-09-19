@@ -263,6 +263,7 @@
 - [x] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
 - [x] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
 - [x] 13.9 `rules.md` §14.6 (fayl ≤400 qator): `pricing_rules_screen.dart` (760) → bo'limlar alohida widget fayllarga (`pricing_coefficients_section.dart`, `discount_tiers_section.dart`, `order_defaults_section.dart`, `calc_preview_sheet.dart`); `product_form_screen.dart` (468) va `product_form_notifier.dart` (474) → rasm/variant bo'laklari ajratiladi. Funksiya o'zgarmaydi, golden S-22/S-23 saqlanadi
+- [ ] 13.10 `rules.md` §14.6 (`build()` ≤80 qator, bo'laklar klass): 22 ta widgetda `build()` 80+ qator, 34 ta `Widget _build*()` metod — `_XxxSection extends StatelessWidget` klasslarga ajratiladi (orders, catalog, auth, chat, management, shared). Funksiya/vizual o'zgarmaydi, golden'lar saqlanadi
 
 ## Bosqich 14 — `features/management` — sozlamalar (faqat admin)
 

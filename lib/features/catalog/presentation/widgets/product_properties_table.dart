@@ -4,6 +4,8 @@ import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/widgets/section_label.dart';
 
 /// Mahsulot xususiyatlari jadvali (Mato turi, Rulon eni, Tarkib, Parvarish).
 class ProductPropertiesTable extends StatelessWidget {
@@ -38,23 +40,29 @@ class ProductPropertiesTable extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.product_properties, style: typography.overline.copyWith(color: colors.warning)),
+        SectionLabel(l10n.product_properties),
         const SizedBox(height: AppSpacing.s),
-        for (final (label, value) in rows) ...[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(label, style: typography.bodyM.copyWith(color: colors.textSecondary)),
-                ),
-                Expanded(flex: 3, child: Text(value, style: typography.bodyM)),
-              ],
-            ),
-          ),
-        ],
+        AppCard.sections(
+          sections: [
+            for (final (label, value) in rows)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      label,
+                      style: typography.bodyS.copyWith(color: colors.textSecondary),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Text(value, style: typography.bodyL),
+                  ),
+                ],
+              ),
+          ],
+        ),
       ],
     );
   }

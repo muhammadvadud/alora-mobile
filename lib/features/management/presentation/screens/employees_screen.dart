@@ -12,7 +12,6 @@ import 'package:alora_mobile/features/management/application/employees_state.dar
 import 'package:alora_mobile/features/management/presentation/widgets/employee_row.dart';
 import 'package:alora_mobile/features/management/presentation/widgets/employees_create_sheet.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
-import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 import 'package:alora_mobile/shared/widgets/empty_state.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
@@ -29,34 +28,26 @@ class EmployeesScreen extends ConsumerWidget {
     final notifier = ref.read(employeesProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.management_employeesTitle)),
+      appBar: AppBar(
+        title: Text(l10n.management_employeesTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(AppIcons.plus, size: 24),
+            onPressed: () => showEmployeeCreateSheet(context, ref),
+          ),
+          const SizedBox(width: AppSpacing.screenH),
+        ],
+      ),
       body: TabletCentered(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.screenH,
-                AppSpacing.l,
-                AppSpacing.screenH,
-                0,
-              ),
+              padding: const EdgeInsets.all(AppSpacing.screenH),
               child: AppTextField(
                 type: AppTextFieldType.search,
                 hintText: l10n.management_employeesSearchHint,
                 onChanged: notifier.search,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.screenH,
-                AppSpacing.m,
-                AppSpacing.screenH,
-                AppSpacing.l,
-              ),
-              child: AppButton(
-                text: l10n.management_employeeAdd,
-                onPressed: () => showEmployeeCreateSheet(context, ref),
               ),
             ),
             Expanded(

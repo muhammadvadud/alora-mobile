@@ -12,6 +12,7 @@ import 'package:alora_mobile/features/orders/domain/entities/order.dart';
 import 'package:alora_mobile/features/orders/domain/entities/status_transition.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
+import 'package:alora_mobile/shared/widgets/app_radio.dart';
 
 class StatusChangeSheet extends ConsumerStatefulWidget {
   final Order order;
@@ -140,29 +141,38 @@ class _StatusRadioList extends StatelessWidget {
 
     return Column(
       children: [
-        ...statuses.map((s) {
-          final isAllowed = allowed.contains(s.code);
+        for (int i = 0; i < statuses.length; i++) ...[
+          if (i > 0) Divider(height: 1, thickness: 1, color: colors.border),
+          () {
+            final s = statuses[i];
+            final isAllowed = allowed.contains(s.code);
+            final isSelected = selectedStatus == s.code;
 
-          return RadioListTile<String>(
-            value: s.code,
-            // ignore: deprecated_member_use
-            groupValue: selectedStatus,
-            // ignore: deprecated_member_use
-            onChanged: isAllowed
-                ? (val) {
-                    onChanged(val);
-                  }
-                : null,
-            title: Text(
-              s.label,
-              style: typography.bodyL.copyWith(
-                color: isAllowed ? colors.textPrimary : colors.textDisabled,
+            return InkWell(
+              onTap: isAllowed ? () => onChanged(s.code) : null,
+              child: SizedBox(
+                height: 56,
+                child: Row(
+                  children: [
+                    AppRadio(
+                      isSelected: isSelected,
+                      onTap: isAllowed ? () => onChanged(s.code) : null,
+                    ),
+                    const SizedBox(width: AppSpacing.m),
+                    Expanded(
+                      child: Text(
+                        s.label,
+                        style: typography.bodyL.copyWith(
+                          color: isAllowed ? colors.textPrimary : colors.textDisabled,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            activeColor: colors.accent,
-            contentPadding: EdgeInsets.zero,
-          );
-        }),
+            );
+          }(),
+        ],
       ],
     );
   }

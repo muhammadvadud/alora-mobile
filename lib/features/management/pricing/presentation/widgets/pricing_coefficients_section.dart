@@ -1,77 +1,99 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/management/pricing/application/pricing_notifier.dart';
 import 'package:alora_mobile/features/management/pricing/domain/entities/calc_rule.dart';
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
+import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 
-import 'pricing_field_row.dart';
-
-/// Koeffitsientlar bo'limi. Har bir `CalcRule` inline tahrirlanadi,
-/// saqlash tugmasida o'zgargan qiymatlar PATCH bilan yuboriladi.
-class PricingCoefficientsSection extends ConsumerStatefulWidget {
+/// Koeffitsientlar bo'limi (S-23).
+/// AppCard.sections ro'yxati (titleS kalit, bodyL qiymat). Tahrir - bottom sheet orqali.
+class PricingCoefficientsSection extends ConsumerWidget {
   const PricingCoefficientsSection({super.key, required this.rules});
 
   final List<CalcRule> rules;
 
   @override
-  ConsumerState<PricingCoefficientsSection> createState() => _PricingCoefficientsSectionState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (rules.isEmpty) {
+      return Text(
+        context.l10n.management_pricingCoefsEmpty,
+        style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
+      );
+    }
+
+    return AppCard.sections(
+      sections: rules.map((rule) {
+        return AppListTile(
+          title: rule.description,
+          subtitle: rule.key,
+          trailing: Text(
+            '${rule.value} ${rule.unit}',
+            style: context.text.bodyL.copyWith(color: context.colors.textPrimary),
+          ),
+          onTap: () => _editRule(context, ref, rule),
+          showDivider: false,
+        );
+      }).toList(),
+    );
+  }
+
+  void _editRule(BuildContext context, WidgetRef ref, CalcRule rule) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: _RuleEditSheet(rule: rule),
+      ),
+    );
+  }
 }
 
-class _PricingCoefficientsSectionState extends ConsumerState<PricingCoefficientsSection> {
-  final Map<String, TextEditingController> _controllers = {};
+class _RuleEditSheet extends ConsumerStatefulWidget {
+  final CalcRule rule;
+  const _RuleEditSheet({required this.rule});
+
+  @override
+  ConsumerState<_RuleEditSheet> createState() => _RuleEditSheetState();
+}
+
+class _RuleEditSheetState extends ConsumerState<_RuleEditSheet> {
+  late TextEditingController _controller;
   bool _isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    _syncControllers();
-  }
-
-  @override
-  void didUpdateWidget(covariant PricingCoefficientsSection oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _syncControllers();
-  }
-
-  void _syncControllers() {
-    for (final key in _controllers.keys.toList()) {
-      if (!widget.rules.any((r) => r.key == key)) {
-        _controllers.remove(key)?.dispose();
-      }
-    }
-    for (final rule in widget.rules) {
-      _controllers.putIfAbsent(rule.key, () => TextEditingController(text: rule.value.toString()));
-    }
+    _controller = TextEditingController(text: widget.rule.value.toString());
   }
 
   @override
   void dispose() {
-    for (final c in _controllers.values) {
-      c.dispose();
-    }
+    _controller.dispose();
     super.dispose();
   }
 
   Future<void> _save() async {
-    final changes = <String, String>{};
-    for (final rule in widget.rules) {
-      final raw = _controllers[rule.key]!.text.trim();
-      final parsed = double.tryParse(raw);
-      if (parsed == null || parsed == rule.value) continue;
-      changes[rule.key] = raw;
+    final raw = _controller.text.trim();
+    final parsed = double.tryParse(raw);
+    if (parsed == null || parsed == widget.rule.value) {
+      Navigator.pop(context);
+      return;
     }
-    if (changes.isEmpty) return;
 
     setState(() => _isSaving = true);
     final notifier = ref.read(pricingProvider.notifier);
     try {
-      await Future.wait([
-        for (final entry in changes.entries) notifier.updateCalcRule(entry.key, entry.value),
-      ]);
+      await notifier.updateCalcRule(widget.rule.key, raw);
+      if (mounted) Navigator.pop(context);
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context)
@@ -84,33 +106,27 @@ class _PricingCoefficientsSectionState extends ConsumerState<PricingCoefficients
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (widget.rules.isEmpty)
-          Text(
-            context.l10n.management_pricingCoefsEmpty,
-            style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
-          )
-        else
-          for (final rule in widget.rules)
-            PricingFieldRow(
-              label: rule.key,
-              description: rule.description,
-              field: AppTextField(
-                controller: _controllers[rule.key],
-                type: AppTextFieldType.number,
-                hintText: rule.unit,
-              ),
-            ),
-        if (widget.rules.isNotEmpty) ...[
+    return AppBottomSheet(
+      title: widget.rule.description,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.rule.key, style: context.text.bodyS.copyWith(color: context.colors.textSecondary)),
           const SizedBox(height: AppSpacing.m),
+          AppTextField(
+            controller: _controller,
+            type: AppTextFieldType.number,
+            hintText: widget.rule.unit,
+          ),
+          const SizedBox(height: AppSpacing.xl),
           AppButton(
             text: context.l10n.common_save,
             onPressed: _isSaving ? null : _save,
             isLoading: _isSaving,
           ),
         ],
-      ],
+      ),
     );
   }
 }

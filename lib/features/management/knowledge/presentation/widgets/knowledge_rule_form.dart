@@ -10,6 +10,7 @@ import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
+import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 
 class KnowledgeRuleForm extends ConsumerStatefulWidget {
@@ -121,71 +122,63 @@ class _KnowledgeRuleFormState extends ConsumerState<KnowledgeRuleForm> {
     final colors = context.colors;
     final l10n = context.l10n;
 
-    return Dialog(
-      insetPadding: const EdgeInsets.all(AppSpacing.m),
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.l),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                widget.rule == null
-                    ? l10n.management_knowledgeAddRule
-                    : l10n.management_knowledgeEditTitle,
-                style: context.text.titleL,
-              ),
-              const SizedBox(height: AppSpacing.l),
-              AppTextField(
-                controller: _kindCtrl,
-                hintText: l10n.management_knowledgeRuleType,
-                onChanged: (_) => setState(() {}),
-              ),
-              const SizedBox(height: AppSpacing.m),
-              Text(
-                l10n.management_knowledgeRuleConditions,
-                style: context.text.bodyS.copyWith(color: colors.textSecondary),
-              ),
-              const SizedBox(height: AppSpacing.s),
-              _ConditionsBuilder(
-                suggestions: _suggestions,
-                conditions: _conditions,
-                condCtrl: _condCtrl,
-                onToggleCondition: _toggleCondition,
-                onAddCondition: _addCondition,
-              ),
-              const SizedBox(height: AppSpacing.m),
-              AppTextField(
-                controller: _recCtrl,
-                type: AppTextFieldType.multiline,
-                hintText: l10n.management_knowledgeRuleRecommendation,
-                onChanged: (_) => setState(() {}),
-              ),
-              const SizedBox(height: AppSpacing.m),
-              AppTextField(
-                controller: _priorityCtrl,
-                type: AppTextFieldType.number,
-                hintText: l10n.management_knowledgeRulePriorityHint,
-                onChanged: (_) => setState(() {}),
-              ),
-              const SizedBox(height: AppSpacing.xs),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(l10n.management_knowledgeRuleIsActive, style: context.text.bodyM),
-                value: _isActive,
-                onChanged: (val) => setState(() => _isActive = val),
-              ),
-              const SizedBox(height: AppSpacing.m),
-              _ActionButtons(
-                isValid: _isValid,
-                isSaving: _isSaving,
-                onCancel: () => Navigator.of(context).pop(),
-                onSave: _save,
-                onTestInAi: _testInAi,
-              ),
-            ],
-          ),
+    return AppBottomSheet(
+      title: widget.rule == null
+          ? l10n.management_knowledgeAddRule
+          : l10n.management_knowledgeEditTitle,
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AppTextField(
+              controller: _kindCtrl,
+              hintText: l10n.management_knowledgeRuleType,
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: AppSpacing.m),
+            Text(
+              l10n.management_knowledgeRuleConditions,
+              style: context.text.bodyS.copyWith(color: colors.textSecondary),
+            ),
+            const SizedBox(height: AppSpacing.s),
+            _ConditionsBuilder(
+              suggestions: _suggestions,
+              conditions: _conditions,
+              condCtrl: _condCtrl,
+              onToggleCondition: _toggleCondition,
+              onAddCondition: _addCondition,
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppTextField(
+              controller: _recCtrl,
+              type: AppTextFieldType.multiline,
+              hintText: l10n.management_knowledgeRuleRecommendation,
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppTextField(
+              controller: _priorityCtrl,
+              type: AppTextFieldType.number,
+              hintText: l10n.management_knowledgeRulePriorityHint,
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l10n.management_knowledgeRuleIsActive, style: context.text.bodyM),
+              value: _isActive,
+              onChanged: (val) => setState(() => _isActive = val),
+            ),
+            const SizedBox(height: AppSpacing.m),
+            _ActionButtons(
+              isValid: _isValid,
+              isSaving: _isSaving,
+              onCancel: () => Navigator.of(context).pop(),
+              onSave: _save,
+              onTestInAi: _testInAi,
+            ),
+          ],
         ),
       ),
     );

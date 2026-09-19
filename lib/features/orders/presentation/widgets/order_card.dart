@@ -9,11 +9,12 @@ import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_colors.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
-import 'package:alora_mobile/app/theme/status_colors.dart';
+
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/status_pill.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/money_text.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/features/orders/domain/entities/order.dart';
 import 'package:alora_mobile/shared/models/order_status.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +42,6 @@ class OrderCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
-    final statusColors = getOrderStatusColors(order.status, colors);
 
     return Dismissible(
       key: ValueKey(order.id),
@@ -69,33 +69,10 @@ class OrderCard extends ConsumerWidget {
         iconColor: colors.accent,
         alignment: Alignment.centerRight,
       ),
-      child: GestureDetector(
+      child: AppCard(
         onTap: () => context.go(AppRoutes.order(order.id)),
-        child: Container(
-          decoration: BoxDecoration(
-            color: colors.surface,
-            borderRadius: AppRadius.cardBorder,
-            border: Border.all(color: colors.border, width: 1),
-          ),
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  width: 3,
-                  decoration: BoxDecoration(
-                    color: statusColors.textAndDot,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(AppRadius.card),
-                      bottomLeft: Radius.circular(AppRadius.card),
-                    ),
-                  ),
-                ),
-                Expanded(child: _OrderCardContent(order: order)),
-              ],
-            ),
-          ),
-        ),
+        padding: const EdgeInsets.all(AppSpacing.screenH),
+        child: _OrderCardContent(order: order),
       ),
     );
   }
@@ -115,65 +92,69 @@ class _OrderCardContent extends ConsumerWidget {
     final deadlineText = _getDeadlineText(order.deadlineDate, l10n);
     final deadlineColor = _getDeadlineColor(order.deadlineDate, colors);
 
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.m),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                order.number ?? 'Nomsiz',
-                style: typography.mono.copyWith(color: colors.textPrimary),
-              ),
-              StatusPill(status: order.status),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.s),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              order.number ?? 'Nomsiz',
+              style: typography.mono.copyWith(color: colors.textPrimary),
+            ),
+            StatusPill(status: order.status),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.m),
+        Text(
+          order.customerName ?? "Mijoz",
+          style: typography.titleS.copyWith(color: colors.textPrimary),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        if (order.customerPhone != null) ...[
+          const SizedBox(height: AppSpacing.xs),
           Text(
-            '${order.customerName ?? "Mijoz"} · ${order.customerPhone ?? "Raqam yo'q"}',
-            style: typography.titleM.copyWith(color: colors.textPrimary),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '${order.measurements.length} xona · ${order.measurements.expand((m) => m.parts).length} bo\'lak',
+            order.customerPhone!,
             style: typography.bodyS.copyWith(color: colors.textSecondary),
           ),
-          const SizedBox(height: AppSpacing.m),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MoneyText(
-                    amount: order.total ?? 0,
-                    style: typography.titleM.copyWith(color: colors.textPrimary),
-                  ),
-                  if (order.paymentStatusDisplay != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: PaymentChip(status: order.paymentStatus),
-                    ),
-                ],
-              ),
-              Text(deadlineText, style: typography.bodyS.copyWith(color: deadlineColor)),
-            ],
-          ),
-          if (order.status == OrderStatus.draft) ...[
-            const SizedBox(height: AppSpacing.m),
-            AppButton(
-              text: context.l10n.orders_confirm,
-              onPressed: () =>
-                  unawaited(ref.read(ordersListProvider.notifier).confirmOrder(order.id)),
-            ),
-          ],
         ],
-      ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          '${order.measurements.length} xona · ${order.measurements.expand((m) => m.parts).length} bo\'lak',
+          style: typography.bodyS.copyWith(color: colors.textSecondary),
+        ),
+        const SizedBox(height: AppSpacing.m),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MoneyText(
+                  amount: order.total ?? 0,
+                  style: typography.labelL.copyWith(color: colors.textPrimary),
+                ),
+                if (order.paymentStatusDisplay != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: PaymentChip(status: order.paymentStatus),
+                  ),
+              ],
+            ),
+            Text(deadlineText, style: typography.bodyS.copyWith(color: deadlineColor)),
+          ],
+        ),
+        if (order.status == OrderStatus.draft) ...[
+          const SizedBox(height: AppSpacing.m),
+          AppButton(
+            text: context.l10n.orders_confirm,
+            onPressed: () =>
+                unawaited(ref.read(ordersListProvider.notifier).confirmOrder(order.id)),
+          ),
+        ],
+      ],
     );
   }
 }

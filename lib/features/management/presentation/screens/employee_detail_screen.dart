@@ -11,18 +11,21 @@ import 'package:alora_mobile/core/error/failure_l10n.dart';
 import 'package:alora_mobile/features/management/application/employee_detail_notifier.dart';
 import 'package:alora_mobile/features/management/application/employee_detail_state.dart';
 import 'package:alora_mobile/features/management/domain/entities/employee.dart';
-import 'package:alora_mobile/features/management/presentation/widgets/employee_avatar.dart';
-import 'package:alora_mobile/features/management/presentation/widgets/employee_limit_editor.dart';
-import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/shared/models/role.dart';
-import 'package:alora_mobile/shared/widgets/app_button.dart';
-import 'package:alora_mobile/shared/widgets/app_card.dart';
-import 'package:alora_mobile/shared/widgets/app_chip.dart';
+import 'package:alora_mobile/features/management/presentation/widgets/employee_role_chip.dart';
 import 'package:alora_mobile/shared/widgets/app_dialog.dart';
 import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
+
+import 'package:alora_mobile/shared/widgets/letter_avatar.dart';
+import 'package:alora_mobile/features/management/presentation/widgets/employee_limit_editor.dart';
+import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
+import 'package:alora_mobile/shared/models/role.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/widgets/app_chip.dart';
+import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class EmployeeDetailScreen extends ConsumerStatefulWidget {
   final String employeeId;
@@ -171,20 +174,23 @@ class _DetailBody extends StatelessWidget {
         children: [
           _EmployeeHeader(employee: employee),
           const SizedBox(height: AppSpacing.xl),
-          _EmployeeEditForm(
-            nameController: nameController,
-            role: role,
-            onRoleChanged: onRoleChanged,
+          AppCard.sections(
+            sections: [
+              _EmployeeEditForm(
+                nameController: nameController,
+                role: role,
+                onRoleChanged: onRoleChanged,
+              ),
+              AppListTile(
+                title: l10n.management_employeeViewThreads,
+                leading: const Icon(LucideIcons.messageSquare, size: 24),
+                onTap: onViewConversations,
+                showDivider: false,
+              ),
+              _BlockToggleCard(isBlocked: employee.isBlocked, onBlockChanged: onBlockChanged),
+              limitEditor,
+            ],
           ),
-          const SizedBox(height: AppSpacing.l),
-          AppButton.secondary(
-            text: l10n.management_employeeViewThreads,
-            onPressed: onViewConversations,
-          ),
-          const SizedBox(height: AppSpacing.l),
-          _BlockToggleCard(isBlocked: employee.isBlocked, onBlockChanged: onBlockChanged),
-          const SizedBox(height: AppSpacing.xl),
-          limitEditor,
         ],
       ),
     );
@@ -201,26 +207,25 @@ class _EmployeeHeader extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
 
-    return Row(
-      children: [
-        EmployeeAvatar(name: employee.fullName),
-        const SizedBox(width: AppSpacing.l),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                employee.fullName,
-                style: typography.titleL.copyWith(color: colors.textPrimary),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: AppSpacing.xs),
-              Text(employee.phone, style: typography.bodyM.copyWith(color: colors.textSecondary)),
-            ],
-          ),
+    return AppCard(
+      child: Center(
+        child: Column(
+          children: [
+            LetterAvatar(name: employee.fullName, size: 64),
+            const SizedBox(height: AppSpacing.m),
+            Text(
+              employee.fullName,
+              style: typography.titleL.copyWith(color: colors.textPrimary),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(employee.phone, style: typography.bodyM.copyWith(color: colors.textSecondary)),
+            const SizedBox(height: AppSpacing.m),
+            EmployeeRoleChip(role: employee.role, showBlocked: employee.isBlocked),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -242,39 +247,37 @@ class _EmployeeEditForm extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
 
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.management_createName,
-            style: typography.labelM.copyWith(color: colors.textSecondary),
-          ),
-          const SizedBox(height: AppSpacing.s),
-          AppTextField(controller: nameController, onChanged: (_) => {}),
-          const SizedBox(height: AppSpacing.m),
-          Text(
-            l10n.management_createRole,
-            style: typography.labelM.copyWith(color: colors.textSecondary),
-          ),
-          const SizedBox(height: AppSpacing.s),
-          Wrap(
-            spacing: AppSpacing.s,
-            children: [
-              AppChip(
-                label: l10n.profile_roleEmployee,
-                onTap: () => onRoleChanged(Role.employee),
-                state: role == Role.employee ? AppChipState.selected : AppChipState.unselected,
-              ),
-              AppChip(
-                label: l10n.profile_roleManager,
-                onTap: () => onRoleChanged(Role.manager),
-                state: role == Role.manager ? AppChipState.selected : AppChipState.unselected,
-              ),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.management_createName,
+          style: typography.labelM.copyWith(color: colors.textSecondary),
+        ),
+        const SizedBox(height: AppSpacing.s),
+        AppTextField(controller: nameController, onChanged: (_) => {}),
+        const SizedBox(height: AppSpacing.m),
+        Text(
+          l10n.management_createRole,
+          style: typography.labelM.copyWith(color: colors.textSecondary),
+        ),
+        const SizedBox(height: AppSpacing.s),
+        Wrap(
+          spacing: AppSpacing.s,
+          children: [
+            AppChip(
+              label: l10n.profile_roleEmployee,
+              onTap: () => onRoleChanged(Role.employee),
+              state: role == Role.employee ? AppChipState.selected : AppChipState.unselected,
+            ),
+            AppChip(
+              label: l10n.profile_roleManager,
+              onTap: () => onRoleChanged(Role.manager),
+              state: role == Role.manager ? AppChipState.selected : AppChipState.unselected,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -288,21 +291,12 @@ class _BlockToggleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final colors = context.colors;
-    final typography = context.text;
-
-    return AppCard(
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              isBlocked ? l10n.management_employeeBlock : l10n.management_employeeUnblock,
-              style: typography.titleS.copyWith(color: colors.textPrimary),
-            ),
-          ),
-          Switch(value: isBlocked, onChanged: onBlockChanged),
-        ],
-      ),
+    
+    return AppListTile(
+      title: isBlocked ? l10n.management_employeeBlock : l10n.management_employeeUnblock,
+      leading: const Icon(LucideIcons.ban, size: 24),
+      trailing: Switch(value: isBlocked, onChanged: onBlockChanged),
+      showDivider: false,
     );
   }
 }

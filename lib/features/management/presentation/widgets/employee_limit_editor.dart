@@ -10,7 +10,6 @@ import 'package:alora_mobile/features/management/domain/entities/on_exceed.dart'
 import 'package:alora_mobile/features/management/domain/entities/usage_limit.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
-import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
 import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
@@ -129,39 +128,38 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
       children: [
         SectionLabel(l10n.management_limitTitle),
         const SizedBox(height: AppSpacing.m),
-        AppCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      l10n.management_limitUnlimited,
-                      style: typography.labelL.copyWith(color: colors.textPrimary),
-                    ),
+        const SizedBox(height: AppSpacing.m),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    l10n.management_limitUnlimited,
+                    style: typography.labelL.copyWith(color: colors.textPrimary),
                   ),
-                  Switch(
-                    value: _unlimited,
-                    onChanged: (value) => setState(() => _unlimited = value),
-                  ),
-                ],
-              ),
-              if (!_unlimited) ...[
-                const Divider(height: AppSpacing.l),
-                _LimitFormSection(
-                  period: _period,
-                  onExceed: _onExceed,
-                  tokensController: _tokensController,
-                  costController: _costController,
-                  messagesController: _messagesController,
-                  onPeriodChanged: (val) => setState(() => _period = val),
-                  onExceedChanged: (val) => setState(() => _onExceed = val),
+                ),
+                Switch(
+                  value: _unlimited,
+                  onChanged: (value) => setState(() => _unlimited = value),
                 ),
               ],
-              AppButton(text: l10n.management_limitSet, isLoading: _saving, onPressed: _save),
+            ),
+            if (!_unlimited) ...[
+              const Divider(height: AppSpacing.l),
+              _LimitFormSection(
+                period: _period,
+                onExceed: _onExceed,
+                tokensController: _tokensController,
+                costController: _costController,
+                messagesController: _messagesController,
+                onPeriodChanged: (val) => setState(() => _period = val),
+                onExceedChanged: (val) => setState(() => _onExceed = val),
+              ),
             ],
-          ),
+            AppButton(text: l10n.management_limitSet, isLoading: _saving, onPressed: _save),
+          ],
         ),
       ],
     );

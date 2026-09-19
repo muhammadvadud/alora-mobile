@@ -10,6 +10,7 @@ import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/empty_state.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
@@ -34,9 +35,14 @@ class KnowledgeScreen extends ConsumerWidget {
   }
 
   void _showRuleForm(BuildContext context, [KnowledgeRule? rule]) {
-    showDialog<void>(
+    showModalBottomSheet<void>(
       context: context,
-      builder: (context) => KnowledgeRuleForm(rule: rule),
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: KnowledgeRuleForm(rule: rule),
+      ),
     );
   }
 }
@@ -79,9 +85,10 @@ class _KnowledgeBody extends ConsumerWidget {
     }
     return RefreshIndicator(
       onRefresh: () => notifier.loadData(),
-      child: ListView.builder(
+      child: ListView.separated(
         padding: const EdgeInsets.all(AppSpacing.m),
         itemCount: state.rules.length,
+        separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.m),
         itemBuilder: (context, index) {
           final rule = state.rules[index];
           return _KnowledgeRuleCard(rule: rule);
@@ -102,14 +109,7 @@ class _KnowledgeRuleCard extends ConsumerWidget {
     final notifier = ref.read(knowledgeProvider.notifier);
     final l10n = context.l10n;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.m),
-      padding: const EdgeInsets.all(AppSpacing.l),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(color: colors.borderSubtle, width: 1.0),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -154,9 +154,14 @@ class _KnowledgeRuleCard extends ConsumerWidget {
                     icon: const Icon(AppIcons.edit, size: 20),
                     color: colors.textSecondary,
                     onPressed: () {
-                      showDialog<void>(
+                      showModalBottomSheet<void>(
                         context: context,
-                        builder: (context) => KnowledgeRuleForm(rule: rule),
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => Padding(
+                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: KnowledgeRuleForm(rule: rule),
+                        ),
                       );
                     },
                   ),

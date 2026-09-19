@@ -79,30 +79,28 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
     final state = ref.watch(catalogProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.tab_catalog)),
+      appBar: AppBar(
+        title: Text(l10n.tab_catalog),
+        actions: [
+          FilterButton(count: state.activeFilterCount, onTap: _openFilterSheet),
+          const SizedBox(width: AppSpacing.screenH),
+        ],
+      ),
       body: Column(
         children: [
           if (!isOnline) const OfflineBanner(),
           Padding(
             padding: const EdgeInsets.fromLTRB(
-              AppSpacing.l,
+              AppSpacing.screenH,
               AppSpacing.m,
-              AppSpacing.l,
+              AppSpacing.screenH,
               AppSpacing.s,
             ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: AppTextField(
-                    type: AppTextFieldType.search,
-                    hintText: l10n.catalog_searchHint,
-                    controller: _searchController,
-                    onChanged: (value) => ref.read(catalogProvider.notifier).setSearch(value),
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.s),
-                FilterButton(count: state.activeFilterCount, onTap: _openFilterSheet),
-              ],
+            child: AppTextField(
+              type: AppTextFieldType.search,
+              hintText: l10n.catalog_searchHint,
+              controller: _searchController,
+              onChanged: (value) => ref.read(catalogProvider.notifier).setSearch(value),
             ),
           ),
           CategoryBar(
@@ -129,35 +127,26 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typography = context.text;
 
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        SizedBox(
-          width: 46,
-          height: 46,
-          child: Material(
-            color: colors.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: AppRadius.pillBorder,
-              side: BorderSide(color: colors.border),
-            ),
-            child: InkWell(
-              onTap: onTap,
-              borderRadius: AppRadius.pillBorder,
-              child: Icon(AppIcons.filter, color: colors.textPrimary, size: 20),
-            ),
-          ),
+        IconButton(
+          icon: Icon(AppIcons.filter, color: colors.textPrimary, size: 24),
+          onPressed: onTap,
         ),
         if (count > 0)
           Positioned(
-            right: -4,
-            top: -4,
+            right: 8,
+            top: 8,
             child: Container(
-              padding: const EdgeInsets.all(AppSpacing.xs),
-              decoration: BoxDecoration(color: colors.warning, shape: BoxShape.circle),
-              child: Text('$count', style: typography.badgeLabel.copyWith(color: colors.onAccent)),
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                color: colors.danger,
+                shape: BoxShape.circle,
+                border: Border.all(color: colors.surface, width: 1.5),
+              ),
             ),
           ),
       ],
@@ -193,7 +182,7 @@ class CategoryBar extends StatelessWidget {
           if (index == 0) {
             return AppChip(
               label: l10n.catalog_allCategories,
-              state: categoryId == null ? AppChipState.categorySelected : AppChipState.unselected,
+              state: categoryId == null ? AppChipState.categorySelected : AppChipState.outlined,
               onTap: () => onSelect(null),
             );
           }
@@ -202,7 +191,7 @@ class CategoryBar extends StatelessWidget {
             label: category.name,
             state: categoryId == category.id
                 ? AppChipState.categorySelected
-                : AppChipState.unselected,
+                : AppChipState.outlined,
             onTap: () => onSelect(category.id),
           );
         },

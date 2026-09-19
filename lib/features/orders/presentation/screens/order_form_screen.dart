@@ -10,7 +10,8 @@ import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
 import 'package:alora_mobile/features/orders/application/providers.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/widgets/section_label.dart';
 class OrderFormScreen extends ConsumerStatefulWidget {
   /// [initialDraft] — chatdagi qoralamadan (S-07 "Tahrirlash") oldindan to'ldirish.
   const OrderFormScreen({super.key, this.initialDraft});
@@ -122,59 +123,132 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
     final typography = context.text;
 
     return Scaffold(
+      backgroundColor: colors.background,
       appBar: AppBar(
         title: Text(
           context.l10n.newOrder,
           style: typography.titleL.copyWith(color: colors.textPrimary),
         ),
+        backgroundColor: colors.surface,
+        elevation: 0,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSpacing.screenH),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(context.l10n.customer, style: typography.titleM),
-            const SizedBox(height: AppSpacing.s),
-            AppTextField(controller: _nameController, hintText: 'Ism *'),
-            const SizedBox(height: AppSpacing.s),
-            AppTextField(
-              controller: _phoneController,
-              hintText: 'Telefon *',
-              type: AppTextFieldType.number,
+      body: Column(
+        children: [
+          Expanded(
+            child: _OrderFormContent(
+              nameController: _nameController,
+              phoneController: _phoneController,
+              addressController: _addressController,
+              discountController: _discountController,
+              prepaymentController: _prepaymentController,
+              noteController: _noteController,
+              isDiscountPercent: _isDiscountPercent,
+              isPrepaymentPercent: _isPrepaymentPercent,
+              onDiscountPercentChanged: (val) => setState(() => _isDiscountPercent = val),
+              onPrepaymentPercentChanged: (val) => setState(() => _isPrepaymentPercent = val),
             ),
-            const SizedBox(height: AppSpacing.s),
-            AppTextField(controller: _addressController, hintText: 'Manzil (ixtiyoriy)'),
-            const SizedBox(height: AppSpacing.l),
-
-            Text(context.l10n.discount, style: typography.titleM),
-            _AmountToggleRow(
-              controller: _discountController,
-              isPercent: _isDiscountPercent,
-              onPercentChanged: (val) => setState(() => _isDiscountPercent = val),
+          ),
+          SafeArea(
+            child: Container(
+              padding: const EdgeInsets.all(AppSpacing.screenH),
+              decoration: BoxDecoration(
+                color: colors.background,
+                border: Border(top: BorderSide(color: colors.border)),
+              ),
+              child: AppButton(text: 'Saqlash', isLoading: _isLoading, onPressed: _submit),
             ),
-            const SizedBox(height: AppSpacing.l),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-            Text(context.l10n.prepayment, style: typography.titleM),
-            _AmountToggleRow(
-              controller: _prepaymentController,
-              isPercent: _isPrepaymentPercent,
-              onPercentChanged: (val) => setState(() => _isPrepaymentPercent = val),
+class _OrderFormContent extends StatelessWidget {
+  final TextEditingController nameController;
+  final TextEditingController phoneController;
+  final TextEditingController addressController;
+  final TextEditingController discountController;
+  final TextEditingController prepaymentController;
+  final TextEditingController noteController;
+  final bool isDiscountPercent;
+  final bool isPrepaymentPercent;
+  final ValueChanged<bool> onDiscountPercentChanged;
+  final ValueChanged<bool> onPrepaymentPercentChanged;
+
+  const _OrderFormContent({
+    required this.nameController,
+    required this.phoneController,
+    required this.addressController,
+    required this.discountController,
+    required this.prepaymentController,
+    required this.noteController,
+    required this.isDiscountPercent,
+    required this.isPrepaymentPercent,
+    required this.onDiscountPercentChanged,
+    required this.onPrepaymentPercentChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(AppSpacing.screenH),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SectionLabel(l10n.customer),
+          AppCard(
+            padding: const EdgeInsets.all(AppSpacing.m),
+            child: Column(
+              children: [
+                AppTextField(controller: nameController, hintText: 'Ism *'),
+                const SizedBox(height: AppSpacing.m),
+                AppTextField(
+                  controller: phoneController,
+                  hintText: 'Telefon *',
+                  type: AppTextFieldType.number,
+                ),
+                const SizedBox(height: AppSpacing.m),
+                AppTextField(controller: addressController, hintText: 'Manzil (ixtiyoriy)'),
+              ],
             ),
-            const SizedBox(height: AppSpacing.l),
+          ),
+          const SizedBox(height: AppSpacing.l),
 
-            Text(context.l10n.note, style: typography.titleM),
-            const SizedBox(height: AppSpacing.s),
-            AppTextField(
-              controller: _noteController,
+          SectionLabel(l10n.discount),
+          AppCard(
+            padding: const EdgeInsets.all(AppSpacing.m),
+            child: _AmountToggleRow(
+              controller: discountController,
+              isPercent: isDiscountPercent,
+              onPercentChanged: onDiscountPercentChanged,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.l),
+
+          SectionLabel(l10n.prepayment),
+          AppCard(
+            padding: const EdgeInsets.all(AppSpacing.m),
+            child: _AmountToggleRow(
+              controller: prepaymentController,
+              isPercent: isPrepaymentPercent,
+              onPercentChanged: onPrepaymentPercentChanged,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.l),
+
+          SectionLabel(l10n.note),
+          AppCard(
+            padding: const EdgeInsets.all(AppSpacing.m),
+            child: AppTextField(
+              controller: noteController,
               hintText: 'Qo\'shimcha izoh',
               type: AppTextFieldType.multiline,
               maxLines: 3,
             ),
-            const SizedBox(height: AppSpacing.xxl),
-
-            AppButton(text: 'Yaratish', isLoading: _isLoading, onPressed: _submit),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

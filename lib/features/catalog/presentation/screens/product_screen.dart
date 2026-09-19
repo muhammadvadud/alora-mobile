@@ -130,13 +130,13 @@ class _ProductContent extends StatelessWidget {
         const SizedBox(height: AppSpacing.m),
         Text(categoryLabel, style: typography.overline.copyWith(color: colors.warning)),
         const SizedBox(height: AppSpacing.xs),
-        Text(product.name, style: typography.titleL),
+        Text(product.name, style: typography.displayM),
         const SizedBox(height: AppSpacing.s),
         if (selectedVariant != null)
           UnitText(
             amount: selectedVariant.price,
             unit: selectedVariant.priceUnit,
-            style: typography.displayM.copyWith(color: colors.textPrimary),
+            style: typography.titleL.copyWith(color: colors.textPrimary),
           ),
         const SizedBox(height: AppSpacing.m),
         if (selectedVariant != null)

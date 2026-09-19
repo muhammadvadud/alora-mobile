@@ -14,6 +14,7 @@ import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/app_dialog.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
@@ -93,22 +94,34 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
               children: [
                 SectionLabel(context.l10n.settings_currentPrompt),
                 const SizedBox(height: AppSpacing.s),
-                AppTextField(
-                  controller: _controller,
-                  hintText: context.l10n.settings_promptHint,
-                  type: AppTextFieldType.multiline,
-                  maxLines: 10,
-                ),
-                const SizedBox(height: AppSpacing.m),
-                AppButton(
-                  text: context.l10n.settings_saveNewVersion,
-                  onPressed: _save,
-                  type: AppButtonType.primary,
+                AppCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      AppTextField(
+                        controller: _controller,
+                        hintText: context.l10n.settings_promptHint,
+                        type: AppTextFieldType.multiline,
+                        maxLines: 10,
+                      ),
+                      const SizedBox(height: AppSpacing.m),
+                      AppButton(
+                        text: context.l10n.settings_saveNewVersion,
+                        onPressed: _save,
+                        type: AppButtonType.primary,
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 SectionLabel(context.l10n.settings_versionHistory),
                 const SizedBox(height: AppSpacing.s),
-                ...history.history.map((v) => _VersionCard(version: v, onRollback: _rollback)),
+                if (history.history.isNotEmpty)
+                  AppCard.sections(
+                    sections: history.history
+                        .map((v) => _VersionCard(version: v, onRollback: _rollback))
+                        .toList(),
+                  ),
               ],
             ),
           ),
@@ -142,14 +155,8 @@ class _VersionCard extends StatelessWidget {
     final typography = context.text;
     final l10n = context.l10n;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.s),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(color: colors.borderSubtle, width: 1.0),
-      ),
-      padding: const EdgeInsets.all(AppSpacing.m),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

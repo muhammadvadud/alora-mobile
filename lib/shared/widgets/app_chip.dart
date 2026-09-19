@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 
-enum AppChipState { unselected, selected, categorySelected }
+enum AppChipState { unselected, selected, categorySelected, outlined }
 
 class AppChip extends StatelessWidget {
   final String label;
@@ -18,7 +18,7 @@ class AppChip extends StatelessWidget {
 
     Color bgColor;
     Color textColor;
-    final BorderSide borderSide = BorderSide.none;
+    BorderSide borderSide = BorderSide.none;
     BorderRadius radius = AppRadius.pillBorder;
     final TextStyle textStyle = typography.labelM;
 
@@ -34,6 +34,12 @@ class AppChip extends StatelessWidget {
       case AppChipState.categorySelected:
         bgColor = colors.info;
         textColor = Colors.white;
+        radius = AppRadius.inputBorder;
+        break;
+      case AppChipState.outlined:
+        bgColor = colors.surface;
+        textColor = colors.textPrimary;
+        borderSide = BorderSide(color: colors.border);
         radius = AppRadius.inputBorder;
         break;
     }

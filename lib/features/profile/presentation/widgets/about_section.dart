@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/core/env.dart';
+import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
-import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/widgets/app_list_tile.dart';
+import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
 
 /// "Ilova haqida" (20.9): versiya, build raqami, muhit — `Env` dan.
 class AboutSection extends StatelessWidget {
@@ -13,16 +15,30 @@ class AboutSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return AppCard(
-      child: Column(
-        children: [
-          _AboutRow(label: l10n.profile_aboutVersion, value: Env.appVersion),
-          const SizedBox(height: AppSpacing.s),
-          _AboutRow(label: l10n.profile_aboutBuild, value: Env.buildNumber),
-          const SizedBox(height: AppSpacing.s),
-          _AboutRow(label: l10n.profile_aboutEnv, value: Env.env),
-        ],
-      ),
+    
+    return AppListTile(
+      title: l10n.profile_aboutTitle,
+      leading: const Icon(AppIcons.info, size: 24),
+      trailing: const Text(Env.appVersion),
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          backgroundColor: Colors.transparent,
+          builder: (context) => AppBottomSheet(
+            title: l10n.profile_aboutTitle,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _AboutRow(label: l10n.profile_aboutVersion, value: Env.appVersion),
+                const SizedBox(height: AppSpacing.s),
+                _AboutRow(label: l10n.profile_aboutBuild, value: Env.buildNumber),
+                const SizedBox(height: AppSpacing.s),
+                _AboutRow(label: l10n.profile_aboutEnv, value: Env.env),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

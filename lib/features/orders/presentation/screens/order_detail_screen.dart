@@ -9,7 +9,7 @@ import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/status_pill.dart';
 import 'package:alora_mobile/core/utils/date_format.dart';
-import 'package:alora_mobile/core/utils/money_format.dart';
+import 'package:alora_mobile/shared/widgets/money_text.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/features/orders/presentation/widgets/status_change_sheet.dart';
-import 'package:alora_mobile/features/orders/presentation/widgets/status_timeline.dart';
+
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/orders/application/order_pdf_notifier.dart';

@@ -14,11 +14,11 @@ class OfflineBanner extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 40,
-      color: colors.inverse,
+      color: colors.surfaceMuted,
       alignment: Alignment.center,
       child: Text(
         l10n.common_noInternet,
-        style: typography.bodyS.copyWith(color: colors.onInverse),
+        style: typography.bodyS.copyWith(color: colors.textSecondary),
         textAlign: TextAlign.center,
       ),
     );

@@ -4,14 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/core/utils/debounce.dart';
-import 'package:alora_mobile/core/utils/money_format.dart';
 import 'package:alora_mobile/features/catalog/application/catalog_filter.dart';
 import 'package:alora_mobile/features/catalog/application/catalog_notifier.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product_enums.dart';
-import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
+import 'package:alora_mobile/shared/widgets/section_label.dart';
+import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 
 /// [CatalogFilterSheet] natijasi.
 class CatalogFilterSheetResult {
@@ -77,15 +77,12 @@ class _CatalogFilterSheetState extends ConsumerState<CatalogFilterSheet> {
       action: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: AppButton.text(text: l10n.catalog_filterClear, onPressed: _clear),
-          ),
-          const SizedBox(height: AppSpacing.m),
           AppButton(
-            text: l10n.catalog_filterShow(_previewCount > 0 ? _previewCount : _defaultCount()),
+            text: 'Qo\'llash (${_previewCount > 0 ? _previewCount : _defaultCount()})',
             onPressed: _apply,
           ),
+          const SizedBox(height: AppSpacing.m),
+          AppButton.text(text: 'Tozalash', onPressed: _clear),
         ],
       ),
     );
@@ -185,13 +182,10 @@ class _Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    final typography = context.text;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: typography.overline.copyWith(color: colors.warning)),
+        SectionLabel(label),
         const SizedBox(height: AppSpacing.s),
         Wrap(spacing: AppSpacing.s, runSpacing: AppSpacing.s, children: children),
         const SizedBox(height: AppSpacing.l),
@@ -233,47 +227,78 @@ class _EnumChipSection<T> extends StatelessWidget {
   }
 }
 
-class _PriceRangeSection extends StatelessWidget {
-  static const double _minPriceBound = 0;
-  static const double _maxPriceBound = 1000000;
-  static const double _priceStep = 10000;
-
+class _PriceRangeSection extends StatefulWidget {
   final CatalogFilter filter;
   final void Function(int? minPrice, int? maxPrice) onChanged;
 
   const _PriceRangeSection({required this.filter, required this.onChanged});
 
   @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final typography = context.text;
-    final l10n = AppLocalizations.of(context)!;
+  State<_PriceRangeSection> createState() => _PriceRangeSectionState();
+}
 
-    final minPrice = filter.minPrice ?? _minPriceBound.toInt();
-    final maxPrice = filter.maxPrice ?? _maxPriceBound.toInt();
+class _PriceRangeSectionState extends State<_PriceRangeSection> {
+  late TextEditingController _minController;
+  late TextEditingController _maxController;
+
+  @override
+  void initState() {
+    super.initState();
+    _minController = TextEditingController(text: widget.filter.minPrice?.toString() ?? '');
+    _maxController = TextEditingController(text: widget.filter.maxPrice?.toString() ?? '');
+  }
+
+  @override
+  void didUpdateWidget(covariant _PriceRangeSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.filter.minPrice != oldWidget.filter.minPrice) {
+      _minController.text = widget.filter.minPrice?.toString() ?? '';
+    }
+    if (widget.filter.maxPrice != oldWidget.filter.maxPrice) {
+      _maxController.text = widget.filter.maxPrice?.toString() ?? '';
+    }
+  }
+
+  @override
+  void dispose() {
+    _minController.dispose();
+    _maxController.dispose();
+    super.dispose();
+  }
+
+  void _onInputChanged() {
+    final min = int.tryParse(_minController.text);
+    final max = int.tryParse(_maxController.text);
+    widget.onChanged(min, max);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
     return _Section(
       label: l10n.catalog_filterPrice,
       children: [
-        Text(
-          l10n.catalog_filterPriceRangeFormatted(
-            formatMoneyPlain(minPrice),
-            formatMoneyPlain(maxPrice),
-          ),
-          style: typography.bodyM.copyWith(color: colors.textSecondary),
-        ),
-        const SizedBox(height: AppSpacing.s),
-        RangeSlider(
-          values: RangeValues(
-            minPrice.toDouble().clamp(_minPriceBound, _maxPriceBound),
-            maxPrice.toDouble().clamp(_minPriceBound, _maxPriceBound),
-          ),
-          min: _minPriceBound,
-          max: _maxPriceBound,
-          divisions: ((_maxPriceBound - _minPriceBound) / _priceStep).round(),
-          activeColor: colors.accent,
-          inactiveColor: colors.border,
-          onChanged: (values) => onChanged(values.start.round(), values.end.round()),
+        Row(
+          children: [
+            Expanded(
+              child: AppTextField(
+                controller: _minController,
+                hintText: 'Dan',
+                type: AppTextFieldType.number,
+                onChanged: (_) => _onInputChanged(),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.m),
+            Expanded(
+              child: AppTextField(
+                controller: _maxController,
+                hintText: 'Gacha',
+                type: AppTextFieldType.number,
+                onChanged: (_) => _onInputChanged(),
+              ),
+            ),
+          ],
         ),
       ],
     );

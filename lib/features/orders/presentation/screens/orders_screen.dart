@@ -181,12 +181,15 @@ class _OrdersBody extends ConsumerWidget {
           ),
         );
       },
-      loading: () => ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH, vertical: AppSpacing.s),
-        itemCount: 5,
-        separatorBuilder: (context, index) => const SizedBox(height: AppSpacing.m),
-        itemBuilder: (context, index) =>
-            const SkeletonBox(width: double.infinity, height: 120, borderRadius: AppRadius.card),
+      loading: () => const Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppSpacing.screenH, vertical: AppSpacing.s),
+        child: SkeletonList(
+          itemCount: 5,
+          itemBuilder: Padding(
+            padding: EdgeInsets.only(bottom: AppSpacing.m),
+            child: SkeletonBox(width: double.infinity, height: 120, borderRadius: AppRadius.card),
+          ),
+        ),
       ),
       error: (err, st) => ErrorState(onRetry: () => ref.invalidate(ordersListProvider)),
     );

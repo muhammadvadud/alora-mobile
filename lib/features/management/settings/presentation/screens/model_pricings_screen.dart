@@ -11,6 +11,7 @@ import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/shared/widgets/role_gate.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
@@ -37,13 +38,17 @@ class ModelPricingsScreen extends ConsumerWidget {
           elevation: 0,
         ),
         body: state.when(
-          data: (models) => ListView.builder(
+          data: (models) => SingleChildScrollView(
             padding: const EdgeInsets.all(AppSpacing.l),
-            itemCount: models.length,
-            itemBuilder: (context, index) => _ModelPricingCard(
-              model: models[index],
-              onDelete: () =>
-                  ref.read(modelPricingsProvider.notifier).deletePricing(models[index].id),
+            child: AppCard.sections(
+              sections: models
+                  .map((model) => _ModelPricingCard(
+                        model: model,
+                        onDelete: () => ref
+                            .read(modelPricingsProvider.notifier)
+                            .deletePricing(model.id),
+                      ))
+                  .toList(),
             ),
           ),
           loading: () => const Padding(
@@ -76,14 +81,8 @@ class _ModelPricingCard extends StatelessWidget {
     final typography = context.text;
     final m = model;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.m),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: AppRadius.cardBorder,
-        border: Border.all(color: colors.borderSubtle, width: 1.0),
-      ),
-      padding: const EdgeInsets.all(AppSpacing.m),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

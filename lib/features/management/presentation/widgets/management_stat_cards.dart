@@ -81,18 +81,18 @@ class _StatCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label.toUpperCase(),
-            style: typography.overline.copyWith(color: colors.textSecondary),
+            value,
+            style: typography.displayM.copyWith(
+              color: colors.textPrimary,
+              fontFeatures: const [FontFeature.tabularFigures()],
+            ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: AppSpacing.s),
           Text(
-            value,
-            style: typography.titleM.copyWith(
-              color: colors.textPrimary,
-              fontFeatures: const [FontFeature.tabularFigures()],
-            ),
+            label,
+            style: typography.bodyS.copyWith(color: colors.textSecondary),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

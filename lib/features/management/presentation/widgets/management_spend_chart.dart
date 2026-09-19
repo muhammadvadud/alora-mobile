@@ -77,9 +77,22 @@ class _LineChart extends StatelessWidget {
         gridData: FlGridData(
           show: true,
           drawVerticalLine: false,
-          getDrawingHorizontalLine: (value) => FlLine(color: colors.border, strokeWidth: 1),
+          getDrawingHorizontalLine: (value) => FlLine(color: colors.borderSubtle, strokeWidth: 1),
         ),
-        lineTouchData: const LineTouchData(enabled: false),
+        lineTouchData: LineTouchData(
+          enabled: true,
+          touchTooltipData: LineTouchTooltipData(
+            getTooltipColor: (touchedSpot) => colors.inverse,
+            getTooltipItems: (touchedSpots) {
+              return touchedSpots.map((spot) {
+                return LineTooltipItem(
+                  '${spot.y.round()}',
+                  context.text.labelS.copyWith(color: colors.onInverse),
+                );
+              }).toList();
+            },
+          ),
+        ),
       ),
       duration: Duration.zero,
     );
@@ -91,20 +104,7 @@ class _LineChart extends StatelessWidget {
       isCurved: false,
       color: colors.accent,
       barWidth: 2,
-      dotData: FlDotData(
-        show: true,
-        getDotPainter: (spot, percent, bar, index) {
-          if (index != daily.length - 1) {
-            return FlDotCirclePainter(radius: 0);
-          }
-          return FlDotCirclePainter(
-            radius: 4,
-            color: colors.accent,
-            strokeWidth: 2,
-            strokeColor: colors.surface,
-          );
-        },
-      ),
+      dotData: const FlDotData(show: false),
       belowBarData: BarAreaData(show: true, color: colors.accent.withValues(alpha: 0.08)),
     );
   }
@@ -127,7 +127,7 @@ class _LineChart extends StatelessWidget {
               return const SizedBox.shrink();
             }
             final day = daily[index].date.day;
-            return Text('$day', style: context.text.labelS.copyWith(color: colors.textSecondary));
+            return Text('$day', style: context.text.labelS.copyWith(color: colors.textDisabled));
           },
         ),
       ),

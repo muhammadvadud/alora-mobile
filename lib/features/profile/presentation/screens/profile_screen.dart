@@ -12,7 +12,8 @@ import 'package:alora_mobile/features/profile/presentation/widgets/logout_button
 import 'package:alora_mobile/features/profile/presentation/widgets/profile_header.dart';
 import 'package:alora_mobile/features/profile/presentation/widgets/spend_section.dart';
 import 'package:alora_mobile/features/profile/presentation/widgets/theme_section.dart';
-import 'package:alora_mobile/shared/widgets/section_label.dart';
+import 'package:alora_mobile/shared/widgets/app_card.dart';
+import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 
 /// Profil sahifasi (S-25).
 class ProfileScreen extends ConsumerWidget {
@@ -25,6 +26,7 @@ class ProfileScreen extends ConsumerWidget {
     final user = auth.maybeWhen(authenticated: (u) => u, orElse: () => null);
 
     return Scaffold(
+      backgroundColor: context.colors.background,
       appBar: AppBar(title: Text(l10n.tab_profile)),
       body: TabletCentered(
         child: ListView(
@@ -36,19 +38,17 @@ class ProfileScreen extends ConsumerWidget {
             if (user != null) ...[ProfileHeader(user: user), const SizedBox(height: AppSpacing.xl)],
             const SpendSection(),
             const SizedBox(height: AppSpacing.xl),
-            SectionLabel(l10n.profile_languageTitle),
-            const SizedBox(height: AppSpacing.m),
-            const LanguageSection(),
-            const SizedBox(height: AppSpacing.xl),
-            SectionLabel(l10n.profile_themeTitle),
-            const SizedBox(height: AppSpacing.m),
-            const ThemeSection(),
-            const SizedBox(height: AppSpacing.xl),
-            SectionLabel(l10n.profile_aboutTitle),
-            const SizedBox(height: AppSpacing.m),
-            const AboutSection(),
-            const SizedBox(height: AppSpacing.xl),
-            const LogoutButton(),
+            const AppCard(
+              padding: EdgeInsets.zero,
+              child: Column(
+                children: [
+                  LanguageSection(),
+                  ThemeSection(),
+                  AboutSection(),
+                  LogoutButton(),
+                ],
+              ),
+            ),
           ],
         ),
       ),

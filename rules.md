@@ -512,11 +512,10 @@ oxiridan 200px oldin keyingi sahifa). Sahifa raqami bilan ishlash — taqiq.
 Protokol backend `apps/chat/consumers.py` (`VoiceChatConsumer`) dan **aynan** olingan:
 
 - URL: `ws(s)://<host>/ws/voice/{conversation_id}/?locale=uz|ru`.
-- **Auth — ochiq masala.** Backend hozir `AuthMiddlewareStack` (session) ishlatadi, JWT'ni WS'da
-  qabul qilmaydi → mobil ilova ulanolmaydi (1008 bilan yopiladi). Backend jamoasi JWT middleware
-  (`?token=<access>` yoki `Sec-WebSocket-Protocol`) qo'shishi shart. Ilova tomonida `VoiceSocket`
-  `?token=` variantiga tayyorlanadi; backend usuli aniqlangach §19 ga yoziladi. Ungacha 15-bosqich
-  `[~]` dan nariga o'tmaydi.
+- **Auth — JWT (hal qilindi, 2026-09-19).** Backend `apps/chat/middleware.py` `JwtAuthMiddleware`:
+  `?token=<access>` query (ilova shu variantni ishlatadi) yoki `Sec-WebSocket-Protocol: bearer, <access>`.
+  Yaroqsiz/muddati o'tgan token yoki bloklangan foydalanuvchi → 1008. `access` 15 daqiqa — uzoq
+  sessiyada `VoiceSocket` yangi token bilan qayta ulanadi (backend `docs/API-GUIDE.md` §7).
 - **Yuborish (mijoz → server):** audio bo'laklar **binary frame** sifatida (PCM16/Opus 16 kHz mono,
   200 ms); gap tugaganda text frame `{"kind":"end"}`.
 - **Qabul (server → mijoz):** audio — **binary frame** (`just_audio` ga chunk); text frame'lar:

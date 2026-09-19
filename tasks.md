@@ -290,7 +290,7 @@
 - [x] 15.7 Transkript va AI javobi `ChatNotifier` ga xabar sifatida qo'shiladi (matn ham ekranda)
 - [x] 15.8 `wakelock_plus` yoqish/o'chirish; `audio_session` (qo'ng'iroq kelsa to'xtatish); `AppLifecycleState.paused` → to'xtatish, socket yopish
 - [x] 15.9 Raqamlar TTS'da to'g'ri o'qilishi backend vazifasi — ilova faqat matnni ko'rsatadi (test: `2 500 000 so'm` matni o'zgarmaydi)
-- [ ] 15.11 **Backend blokeri:** WS JWT auth (`AuthMiddlewareStack` → JWT middleware) va haqiqiy streaming (`list(...)` o'rniga event-by-event) — backend `tasks.md` ga so'rov; ilova tomonida 15.1–15.9 mock socket bilan yakunlanadi, real qurilma testi backend tuzatilgach
+- [~] 15.11 **Backend blokeri:** WS JWT auth ✅ (backend 16.1, `a33691f`) — (`AuthMiddlewareStack` → JWT middleware) va haqiqiy streaming (`list(...)` o'rniga event-by-event) — backend `tasks.md` ga so'rov; ilova tomonida 15.1–15.9 mock socket bilan yakunlanadi, real qurilma testi backend tuzatilgach
 - [x] 15.10 Testlar: `VoiceNotifier` holat mashinasi (fake recorder/player/socket), barge-in → player stop + `interrupt` xabari, lifecycle paused → cleanup; widget: panel holatlari; golden S-08
 
 ## Bosqich 16 — Mijoz rejimi (S-09)

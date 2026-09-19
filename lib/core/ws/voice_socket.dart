@@ -6,6 +6,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../utils/app_logger.dart';
 import '../env.dart';
+import '../network/api_paths.dart';
 import '../storage/secure_storage.dart';
 import '../error/failure.dart';
 
@@ -35,10 +36,13 @@ class VoiceSocket {
   }
 
   Future<void> _connectInternal({bool isRetry = false}) async {
+    final conversationId = _lastId;
+    if (conversationId == null) return;
     try {
       final token = await secureStorage.getAccessToken();
       final url =
-          '${Env.wsBaseUrl}/ws/voice/$_lastId/?locale=$_lastLocale&token=$token';
+          '${Env.wsBaseUrl}/${ApiPaths.voiceSocket(conversationId)}'
+          '?locale=$_lastLocale&token=$token';
 
       _channel = WebSocketChannel.connect(Uri.parse(url));
 

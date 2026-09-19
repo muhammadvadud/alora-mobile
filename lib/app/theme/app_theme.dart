@@ -54,7 +54,7 @@ class AppTheme {
         foregroundColor: colors.textPrimary,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: typography.titleL,
+        titleTextStyle: typography.titleL.copyWith(color: colors.textPrimary),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,

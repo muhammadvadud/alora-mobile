@@ -130,28 +130,34 @@ class AppButton extends StatelessWidget {
     }
 
     return SizedBox(
-      height: 46,
+      height: 48,
       width: double.infinity,
-      child: TextButton(
-        onPressed: effectiveOnPressed,
-        style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(backgroundColor),
-          foregroundColor: WidgetStateProperty.all(textColor),
-          overlayColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.pressed)) return overlayColor;
-            return const Color.fromARGB(0, 0, 0, 0);
-          }),
-          shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: AppRadius.pillBorder,
-              side: borderSide,
+      child: Center(
+        child: SizedBox(
+          height: 46,
+          width: double.infinity,
+          child: TextButton(
+            onPressed: effectiveOnPressed,
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(backgroundColor),
+              foregroundColor: WidgetStateProperty.all(textColor),
+              overlayColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.pressed)) return overlayColor;
+                return const Color.fromARGB(0, 0, 0, 0);
+              }),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: AppRadius.pillBorder,
+                  side: borderSide,
+                ),
+              ),
+              padding: WidgetStateProperty.all(
+                const EdgeInsets.symmetric(horizontal: 16),
+              ),
             ),
-          ),
-          padding: WidgetStateProperty.all(
-            const EdgeInsets.symmetric(horizontal: 16),
+            child: content,
           ),
         ),
-        child: content,
       ),
     );
   }

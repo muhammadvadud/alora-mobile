@@ -74,7 +74,8 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
           IconButton(
             onPressed: widget.disabled ? null : widget.onAddPressed,
             icon: Icon(AppIcons.plus, color: colors.textSecondary),
-            constraints: const BoxConstraints(minWidth: 38, minHeight: 38),
+            tooltip: l10n.chat_addAttachment,
+            constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
             padding: EdgeInsets.zero,
           ),
           Expanded(
@@ -93,7 +94,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 8,
-                  vertical: 10,
+                  vertical: 13,
                 ),
               ),
             ),
@@ -102,24 +103,34 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
             IconButton(
               onPressed: widget.disabled ? null : widget.onMicPressed,
               icon: Icon(AppIcons.mic, color: colors.textSecondary),
-              constraints: const BoxConstraints(minWidth: 38, minHeight: 38),
+              tooltip: l10n.chat_microphone,
+              constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
               padding: EdgeInsets.zero,
             ),
           const SizedBox(width: 4),
-          InkWell(
-            onTap: canSend ? _handleSend : null,
-            borderRadius: AppRadius.pillBorder,
+          Semantics(
+            button: true,
+            label: l10n.chat_send,
             child: Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: canSend ? colors.accent : colors.surfaceDisabled,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                AppIcons.send,
-                color: canSend ? colors.onAccent : colors.textDisabled,
-                size: 20,
+              width: 48,
+              height: 48,
+              alignment: Alignment.center,
+              child: InkWell(
+                onTap: canSend ? _handleSend : null,
+                borderRadius: AppRadius.pillBorder,
+                child: Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: canSend ? colors.accent : colors.surfaceDisabled,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    AppIcons.send,
+                    color: canSend ? colors.onAccent : colors.textDisabled,
+                    size: 20,
+                  ),
+                ),
               ),
             ),
           ),

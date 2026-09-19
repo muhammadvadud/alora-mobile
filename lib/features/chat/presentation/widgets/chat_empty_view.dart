@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
+import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
 
@@ -23,21 +24,23 @@ class ChatEmptyView extends StatelessWidget {
       l10n.chat_start_office,
     ];
 
+    // Kichik ekran/klaviatura ochiq holatda overflow bo'lmasligi uchun scroll.
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               l10n.chat_emptyTitle,
               style: text.displayM.copyWith(color: colors.textPrimary),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.xl),
             Wrap(
-              spacing: 8,
-              runSpacing: 12,
+              spacing: AppSpacing.s,
+              // AppChip 48 dp bosish maydoniga ega (§7.3) — qatorlar orasi shunga mos.
+              runSpacing: AppSpacing.xs,
               alignment: WrapAlignment.center,
               children: options.map((opt) {
                 return AppChip(label: opt, onTap: () => onChipSelected(opt));

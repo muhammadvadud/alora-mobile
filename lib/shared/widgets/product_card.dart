@@ -111,10 +111,17 @@ class ProductCard extends StatelessWidget {
       child: content,
     );
 
-    Widget result = GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: card,
+    Widget result = Semantics(
+      button: true,
+      label: '${data.name}, ${data.colorName}',
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
+          child: card,
+        ),
+      ),
     );
 
     if (isCarousel) {

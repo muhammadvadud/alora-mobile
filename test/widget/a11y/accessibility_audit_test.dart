@@ -13,14 +13,9 @@ import 'package:alora_mobile/shared/widgets/product_card.dart';
 
 import '../../helpers/pump_app.dart';
 
-/// 19.8 Accessibility auditi.
-/// Kamchiliklar testni yiqitmaydi — [collectedBugs] ga yoziladi (hisobot uchun).
-final List<String> collectedBugs = [];
-
 void main() {
   setUpAll(() async {
     await loadAppFonts();
-    collectedBugs.clear();
   });
 
   for (final themeMode in [ThemeMode.light, ThemeMode.dark]) {
@@ -52,19 +47,8 @@ void main() {
           ).pumpApp(themeMode: themeMode),
         );
 
-        if (!_hasSemanticsLabel(tester, find.byType(AppChip))) {
-          _bug(
-            'AppChip ($themeLabel): Semantics label yo\'q '
-            '(GestureDetector, label berilmagan)',
-          );
-        }
-
-        if (!await _checkGuideline(tester, androidTapTargetGuideline)) {
-          _bug(
-            'AppChip ($themeLabel): bosish maydoni < 48 dp '
-            '(androidTapTargetGuideline)',
-          );
-        }
+        expect(tester, meetsGuideline(labeledTapTargetGuideline));
+        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 
@@ -90,16 +74,8 @@ void main() {
           ).pumpApp(themeMode: themeMode),
         );
 
-        if (!_hasSemanticsLabel(tester, find.text('Chat'))) {
-          _bug(
-            'AppTabBar ($themeLabel): tab Semantics label yetarli emas '
-            '(faqat Text, birlashtirilgan Semantics yo\'q)',
-          );
-        }
-
-        if (!await _checkGuideline(tester, androidTapTargetGuideline)) {
-          _bug('AppTabBar ($themeLabel): bosish maydoni < 48 dp');
-        }
+        expect(tester, meetsGuideline(labeledTapTargetGuideline));
+        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 
@@ -114,22 +90,8 @@ void main() {
           ).pumpApp(themeMode: themeMode),
         );
 
-        final mic = find.byIcon(AppIcons.mic);
-        expect(mic, findsOneWidget);
-
-        if (!_hasSemanticsLabel(tester, mic)) {
-          _bug(
-            'ChatInputPanel ($themeLabel): mikrofon IconButton '
-            'Semantics label yo\'q (tooltip/semanticLabel berilmagan)',
-          );
-        }
-
-        if (!await _checkGuideline(tester, androidTapTargetGuideline)) {
-          _bug(
-            'ChatInputPanel ($themeLabel): mikrofon/yuborish '
-            'bosish maydoni < 48 dp (constraints 38/44)',
-          );
-        }
+        expect(tester, meetsGuideline(labeledTapTargetGuideline));
+        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 
@@ -152,16 +114,8 @@ void main() {
           ).pumpApp(themeMode: themeMode),
         );
 
-        if (!_hasSemanticsLabel(tester, find.byType(ProductCard))) {
-          _bug(
-            'ProductCard ($themeLabel): Semantics label yo\'q '
-            '(GestureDetector, mahsulot nomi semantikasiz)',
-          );
-        }
-
-        if (!await _checkGuideline(tester, androidTapTargetGuideline)) {
-          _bug('ProductCard ($themeLabel): bosish maydoni < 48 dp');
-        }
+        expect(tester, meetsGuideline(labeledTapTargetGuideline));
+        expect(tester, meetsGuideline(androidTapTargetGuideline));
         handle.dispose();
       });
 
@@ -180,9 +134,7 @@ void main() {
           ).pumpApp(themeMode: themeMode),
         );
 
-        if (!await _checkGuideline(tester, textContrastGuideline)) {
-          _bug('Matn kontrasti ($themeLabel): textContrastGuideline buzildi');
-        }
+        expect(tester, meetsGuideline(textContrastGuideline));
         handle.dispose();
       });
 
@@ -195,48 +147,10 @@ void main() {
         );
 
         final box = tester.getSize(find.byType(AppButton));
-        if (box.height < 48) {
-          _bug(
-            'AppButton ($themeLabel): balandlik ${box.height} < 48 dp '
-            '(SizedBox height: 46)',
-          );
-        }
+        expect(box.height, greaterThanOrEqualTo(48.0));
       });
     });
   }
-
-  test('19.8 audit yakuni — BUG ro\'yxati yig\'ildi', () {
-    expect(collectedBugs, isA<List<String>>());
-    for (final bug in collectedBugs) {
-      expect(bug.startsWith('BUG:'), isTrue);
-    }
-  });
 }
 
 void _noop() {}
-
-void _bug(String message) {
-  final entry = 'BUG: $message';
-  if (!collectedBugs.contains(entry)) {
-    collectedBugs.add(entry);
-  }
-}
-
-bool _hasSemanticsLabel(WidgetTester tester, Finder finder) {
-  try {
-    final node = tester.getSemantics(finder);
-    final label = node.label.trim();
-    final value = node.value.trim();
-    return label.isNotEmpty || value.isNotEmpty;
-  } catch (_) {
-    return false;
-  }
-}
-
-Future<bool> _checkGuideline(
-  WidgetTester tester,
-  AccessibilityGuideline guideline,
-) async {
-  final result = await guideline.evaluate(tester);
-  return result.passed;
-}

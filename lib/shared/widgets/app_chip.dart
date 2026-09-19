@@ -46,18 +46,32 @@ class AppChip extends StatelessWidget {
         break;
     }
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: AppRadius.pillBorder,
-          border: state == AppChipState.selected
-              ? null
-              : Border.fromBorderSide(borderSide),
+    return Semantics(
+      button: true,
+      label: label,
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        // 48 dp bosish maydoni (§7.3), lekin kenglik faqat matn bo'yicha —
+        // Wrap ichida chip'lar gorizontal qoladi (dizayn 1b).
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
+          child: Center(
+            widthFactor: 1,
+            heightFactor: 1,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: AppRadius.pillBorder,
+                border: state == AppChipState.selected
+                    ? null
+                    : Border.fromBorderSide(borderSide),
+              ),
+              child: Text(label, style: textStyle.copyWith(color: textColor)),
+            ),
+          ),
         ),
-        child: Text(label, style: textStyle.copyWith(color: textColor)),
       ),
     );
   }
@@ -98,30 +112,44 @@ class AppCountChip extends StatelessWidget {
       borderSide = BorderSide(color: colors.border, width: 1.0);
     }
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: AppRadius.pillBorder,
-          border: isSelected ? null : Border.fromBorderSide(borderSide),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(label, style: textStyle.copyWith(color: textColor)),
-            const SizedBox(width: 4),
-            Text(
-              count.toString(),
-              style: typography.bodyS
-                  .copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: isSelected ? colors.onInverse : colors.brass,
-                  )
-                  .tabular,
+    return Semantics(
+      button: true,
+      label: '$label, $count',
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        // 48 dp bosish maydoni (§7.3), lekin kenglik faqat matn bo'yicha —
+        // Wrap ichida chip'lar gorizontal qoladi (dizayn 1b).
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
+          child: Center(
+            widthFactor: 1,
+            heightFactor: 1,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: AppRadius.pillBorder,
+                border: isSelected ? null : Border.fromBorderSide(borderSide),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(label, style: textStyle.copyWith(color: textColor)),
+                  const SizedBox(width: 4),
+                  Text(
+                    count.toString(),
+                    style: typography.bodyS
+                        .copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: isSelected ? colors.onInverse : colors.brass,
+                        )
+                        .tabular,
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );

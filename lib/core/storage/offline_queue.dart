@@ -23,7 +23,7 @@ class OfflineQueue {
 
   static Future<Box<OfflineQueueItem>> get _getBox async {
     if (_box != null && _box!.isOpen) return _box!;
-    _box = await Hive.openBox<OfflineQueueItem>(HiveBoxes.offlineQueue);
+    _box = await HiveBoxes.open<OfflineQueueItem>(HiveBoxes.offlineQueue);
     return _box!;
   }
 

@@ -23,19 +23,11 @@ class CatalogLocalDataSource {
 
   static const _categoriesKey = 'all';
 
-  Future<Box<dynamic>> _productsBox() async {
-    if (Hive.isBoxOpen(HiveBoxes.catalogProducts)) {
-      return Hive.box(HiveBoxes.catalogProducts);
-    }
-    return Hive.openBox(HiveBoxes.catalogProducts);
-  }
+  Future<Box<dynamic>> _productsBox() =>
+      HiveBoxes.open<dynamic>(HiveBoxes.catalogProducts);
 
-  Future<Box<dynamic>> _categoriesBox() async {
-    if (Hive.isBoxOpen(HiveBoxes.catalogCategories)) {
-      return Hive.box(HiveBoxes.catalogCategories);
-    }
-    return Hive.openBox(HiveBoxes.catalogCategories);
-  }
+  Future<Box<dynamic>> _categoriesBox() =>
+      HiveBoxes.open<dynamic>(HiveBoxes.catalogCategories);
 
   bool _isExpired(DateTime savedAt) {
     return DateTime.now().difference(savedAt) > ttl;

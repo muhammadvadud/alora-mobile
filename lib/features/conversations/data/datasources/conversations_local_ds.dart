@@ -19,9 +19,7 @@ class ConversationsLocalDataSource {
   Future<Box<dynamic>> _box() {
     final existing = _boxFuture;
     if (existing != null) return existing;
-    final created = Hive.isBoxOpen(HiveBoxes.conversations)
-        ? Future<Box<dynamic>>.value(Hive.box(HiveBoxes.conversations))
-        : Hive.openBox(HiveBoxes.conversations);
+    final created = HiveBoxes.open<dynamic>(HiveBoxes.conversations);
     return _boxFuture = created;
   }
 

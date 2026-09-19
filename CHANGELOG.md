@@ -4,6 +4,9 @@ Loyihadagi barcha muhim o'zgarishlar shu faylda yoziladi (o'zbekcha, Conventiona
 
 ## 1.0.0 (2026-09-18)
 
+- **fix(core,security)**: 2026-09-19 audit — `settings` box ochilmay ilova ishga tushmasdi (tuzatildi), Hive keshi AES bilan shifrlandi (schemaVersion 2), logout'da suhbat/xabar keshi tozalanadi, refresh tarmoq xatosida sessiya saqlanadi, SSE 4xx/429 qayta urinilmaydi va xom xato ko'rsatilmaydi, VoiceSocket URI kodlash/dispose/`ready`, PIN qulfi saqlanadi, Android `allowBackup=false`, release'da cleartext yo'q
+- **refactor(presentation)**: `build()` ≤ 80 qator — 13.10 yakunlandi (`tool/check_build_len.py`)
+
 - **test(chat)**: chat uchun to'liq test to'plami; boshqaruv l10n/hardcode tozalash
 - **feat(management,profile)**: boshqaruv va profil karkasi — Bosqich 10–13 (jarayonda)
 - **feat(orders)**: buyurtmalar bo'limi — Bosqich 9; PaymentStatus backend bilan moslashtirildi

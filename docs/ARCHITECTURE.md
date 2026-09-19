@@ -592,6 +592,11 @@ Backend `detail` matni o'zbekcha — shu ko'rsatiladi.
 | `offline_queue` | Manager tahrirlari navbati | — |
 | `settings` | Tizim sozlamalari | — |
 
+Barcha box'lar `HiveBoxes.open<T>()` orqali **AES-256 shifrlangan** holda ochiladi — kalit
+`SecureStorage.getOrCreateCacheKey()` (Keystore/Keychain), `bootstrap` da `HiveBoxes.configureCipher`.
+`HiveBoxes.init()` sxema versiyasini tekshiradi (`schemaVersion` o'zgarsa box'lar o'chiriladi);
+`HiveBoxes.clearUserData()` logout'da `auth_prefs`, `conversations`, `messages`, `offline_queue` ni tozalaydi.
+
 ### Stale-while-revalidate strategiya
 
 ```

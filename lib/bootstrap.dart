@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'core/env.dart';
+import 'core/storage/hive_boxes.dart';
+import 'core/storage/secure_storage.dart';
 import 'core/utils/app_logger.dart';
 import 'core/error/failure.dart';
 import 'app/app.dart';
@@ -13,7 +14,11 @@ import 'core/error/failure_l10n.dart';
 import 'core/error/error_reporter.dart';
 
 Future<void> bootstrap() async {
-  await Hive.initFlutter();
+  // Hive: sxema versiyasi tekshiruvi, shifrlash kaliti (secure storage) va
+  // ilova ochilishida kerak bo'ladigan `settings` box'i (tema, til).
+  await HiveBoxes.init();
+  HiveBoxes.configureCipher(await const SecureStorage().getOrCreateCacheKey());
+  await HiveBoxes.open<dynamic>(HiveBoxes.settings);
 
   FlutterError.onError = (details) {
     logger.e(
@@ -61,7 +66,7 @@ Future<void> bootstrap() async {
   if (Env.isProd && Env.sentryDsn.isNotEmpty) {
     await SentryFlutter.init((options) {
       options.dsn = Env.sentryDsn;
-      options.tracesSampleRate = 1.0;
+      options.tracesSampleRate = 0.2;
       options.environment = Env.env;
       options.sendDefaultPii = false;
       options.beforeSend = (SentryEvent event, Hint hint) {

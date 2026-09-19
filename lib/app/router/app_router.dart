@@ -52,6 +52,12 @@ GoRouter appRouter(Ref ref) {
       router.refresh();
     }
   });
+  // Mijoz rejimi yoqilganda/o'chganda redirect qayta baholanadi (§4.3, §12).
+  ref.listen<bool>(customerModeEnabledProvider, (previous, next) {
+    if (previous != next) {
+      router.refresh();
+    }
+  });
 
   return router;
 }

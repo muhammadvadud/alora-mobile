@@ -66,8 +66,19 @@ class RefreshInterceptor extends Interceptor {
       final responseData = response.data as Map<String, dynamic>;
       fetchedAccess = responseData['access'] as String?;
       fetchedRefresh = responseData['refresh'] as String?;
+    } on DioException catch (e) {
+      // Tokenlar faqat backend refresh'ni rad etganda (4xx) tozalanadi.
+      // Tarmoq uzilishi/5xx da sessiya saqlanadi — foydalanuvchi bekorga
+      // login'ga tushmaydi, keyingi so'rov yana refresh qiladi.
+      final status = e.response?.statusCode;
+      if (status != null && status >= 400 && status < 500) {
+        await secureStorage.clearTokens();
+      }
+      _refreshTokenCompleter?.complete(null);
+      _isRefreshing = false;
+      _refreshTokenCompleter = null;
+      return handler.next(err);
     } catch (e) {
-      await secureStorage.clearTokens();
       _refreshTokenCompleter?.complete(null);
       _isRefreshing = false;
       _refreshTokenCompleter = null;

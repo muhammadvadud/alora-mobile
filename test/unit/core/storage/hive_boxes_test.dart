@@ -46,8 +46,8 @@ void main() {
     await HiveBoxes.init();
   });
 
-  test('schemaVersion 1 ga teng', () {
-    expect(HiveBoxes.schemaVersion, 1);
+  test('schemaVersion 2 ga teng (shifrlash kiritildi)', () {
+    expect(HiveBoxes.schemaVersion, 2);
   });
 
   test('box nomlari to\'g\'ri', () {
@@ -92,4 +92,34 @@ void main() {
     expect(reopened.get('access_token'), isNull);
     await reopened.close();
   });
+
+  test(
+    'open: cipher bilan yozilgan qiymat o\'qiladi, ochiq box qayta ishlatiladi',
+    () async {
+      HiveBoxes.configureCipher(List<int>.generate(32, (i) => i));
+      final box = await HiveBoxes.open<String>('cipher_box');
+      await box.put('k', 'v');
+      final same = await HiveBoxes.open<String>('cipher_box');
+      expect(identical(box, same), isTrue);
+      expect(same.get('k'), 'v');
+      await box.deleteFromDisk();
+    },
+  );
+
+  test(
+    'clearUserData: foydalanuvchi box\'lari tozalanadi, katalog qoladi',
+    () async {
+      final conv = await HiveBoxes.open<dynamic>(HiveBoxes.conversations);
+      final catalog = await HiveBoxes.open<dynamic>(HiveBoxes.catalogProducts);
+      await conv.put('a', '1');
+      await catalog.put('p', '1');
+
+      await HiveBoxes.clearUserData();
+
+      expect(conv.isEmpty, isTrue);
+      expect(catalog.get('p'), '1');
+      await conv.deleteFromDisk();
+      await catalog.deleteFromDisk();
+    },
+  );
 }

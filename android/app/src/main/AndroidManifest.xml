@@ -3,9 +3,14 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- allowBackup=false: tokenlar/kesh (Hive, EncryptedSharedPreferences)
+         qurilma zaxirasiga (ADB backup, Google auto-backup) tushmaydi. -->
     <application
         android:networkSecurityConfig="@xml/network_security_config"
-        android:label="alora_mobile"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:label="Alora"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

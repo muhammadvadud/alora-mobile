@@ -5,7 +5,7 @@
 > Har bir ish tugagach shu fayl **o'sha ishning commit'i ichida** yangilanadi.
 > **Har agent ishni `rules.md` ni to'liq o'qishdan boshlaydi** (§0.2). Ekran ID'lari (`S-xx`) `rules.md` §6 jadvaliga mos.
 
-**Umumiy holat:** 242 / 250 bajarildi (0 jarayonda) (2026-09-19)
+**Umumiy holat:** 243 / 250 bajarildi (1 jarayonda: 15.11 backend streaming) (2026-09-19)
 
 ---
 
@@ -263,7 +263,7 @@
 - [x] 13.7 `KnowledgeRuleForm` — tur, shart tanlovi (xona/uslub/yorug'lik/... chip'lar), tavsiya matni, priority, faol; "AI'da sinash" → yangi suhbat ochiladi
 - [x] 13.8 Testlar: inline qiymat → PATCH `{value}`, tier qo'shish/o'chirish, preview so'rov shakli, knowledge shart → JSON; golden S-23, S-24
 - [x] 13.9 `rules.md` §14.6 (fayl ≤400 qator): `pricing_rules_screen.dart` (760) → bo'limlar alohida widget fayllarga (`pricing_coefficients_section.dart`, `discount_tiers_section.dart`, `order_defaults_section.dart`, `calc_preview_sheet.dart`); `product_form_screen.dart` (468) va `product_form_notifier.dart` (474) → rasm/variant bo'laklari ajratiladi. Funksiya o'zgarmaydi, golden S-22/S-23 saqlanadi
-- [ ] 13.10 `rules.md` §14.6 (`build()` ≤80 qator, bo'laklar klass): 22 ta widgetda `build()` 80+ qator, 34 ta `Widget _build*()` metod — `_XxxSection extends StatelessWidget` klasslarga ajratiladi (orders, catalog, auth, chat, management, shared). Funksiya/vizual o'zgarmaydi, golden'lar saqlanadi
+- [x] 13.10 `rules.md` §14.6 (`build()` ≤80 qator, bo'laklar klass): barcha widgetlarda `build()` ≤ 80 qator, `Widget _build*()` metodlar yo'q (`lib/core/dev` galereyasidan tashqari) — `_XxxSection extends StatelessWidget` klasslarga ajratildi; tekshiruv `tool/check_build_len.py`; golden'lar saqlandi
 
 ## Bosqich 14 — `features/management` — sozlamalar (faqat admin)
 
@@ -336,7 +336,7 @@
 - [x] 19.4 Integration test: employee `/management` → 403; limit 429 → view — `integration_test/permissions_test.dart`
 - [ ] 19.5 Ishlash: sovuq start ≤ 2 s (`profile` o'lchov hujjatlashtiriladi `docs/PERF.md`), chat 100+ xabar 60 FPS (`flutter drive --profile` timeline), streaming rebuild ≤ 20/s (test) — APK o'lchandi (docs/PERF.md); start/FPS — real qurilma kerak
 - [x] 19.6 APK ≤ 40 MB (arm64) — CI gate; shriftlar subset (faqat kerakli og'irliklar)
-- [x] 19.7 Xavfsizlik: tokenlar faqat secure storage (test: Hive box'larda `token` kaliti yo'q), log maskalash testi, `usesCleartextTraffic=false`, iOS ATS default, root/jailbreak tekshiruvi **yo'q** (TZ'da yo'q)
+- [x] 19.7 Xavfsizlik: tokenlar faqat secure storage (test: Hive box'larda `token` kaliti yo'q), log maskalash testi, `usesCleartextTraffic=false`, iOS ATS default, root/jailbreak tekshiruvi **yo'q** (TZ'da yo'q) — 2026-09-19 audit: Hive box'lar AES shifrlangan (kalit secure storage'da), logout'da foydalanuvchi keshi tozalanadi, `allowBackup=false` + `dataExtractionRules`, release'da cleartext domenlar yo'q (faqat debug/profile), PIN qulfi qayta ochilganda saqlanadi, SSE/WS xom xato matni UI'ga chiqmaydi
 - [x] 19.8 Accessibility: `Semantics` label'lar tugma/ikonkalarda, min bosish maydoni 48 dp (test), kontrast — `accent` on `background` ≥ 4.5:1 tekshirildi — `test/widget/a11y` qat'iy assert (tap target 48, label, kontrast)
 - [x] 19.9 `dart analyze` 0 issue, `dart format` toza, `custom_lint` toza — CI gate
 - [x] 19.10 Sentry: `Failure` lar breadcrumb, foydalanuvchi `id`/`role` (telefon emas)

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:alora_mobile/core/utils/money_format.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/chat/domain/entities/quote.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
-import 'package:alora_mobile/shared/widgets/color_dot.dart';
 import 'package:alora_mobile/shared/widgets/money_text.dart';
-import 'package:alora_mobile/shared/widgets/section_label.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
+import 'package:alora_mobile/features/chat/presentation/widgets/quote_services_section.dart';
+import 'package:alora_mobile/features/chat/presentation/widgets/quote_accessories_section.dart';
+import 'package:alora_mobile/features/chat/presentation/widgets/quote_fabrics_section.dart';
 
 class QuoteCardView extends StatefulWidget {
   final Quote quote;
@@ -47,14 +47,14 @@ class _QuoteCardViewState extends State<QuoteCardView> {
         children: [
           _QuoteHeaderSection(quote: quote),
           if (quote.fabrics.isNotEmpty)
-            _QuoteFabricsSection(
+            QuoteFabricsSection(
               quote: quote,
               showAllFabrics: _showAllFabrics,
               onShowMore: () => setState(() => _showAllFabrics = true),
             ),
           if (quote.accessories.isNotEmpty)
-            _QuoteAccessoriesSection(quote: quote),
-          if (quote.services.isNotEmpty) _QuoteServicesSection(quote: quote),
+            QuoteAccessoriesSection(quote: quote),
+          if (quote.services.isNotEmpty) QuoteServicesSection(quote: quote),
           _QuoteWarningsSection(quote: quote),
           _QuoteFormulaSection(quote: quote),
           _QuoteTotalSection(quote: quote),
@@ -88,235 +88,12 @@ class _QuoteHeaderSection extends StatelessWidget {
             'HISOB · ${m?.room?.toUpperCase() ?? "XONA"}',
             style: typography.overline,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           if (m != null)
             Text(
               '${m.cornice} m × ${m.height} m',
               style: typography.bodyS.copyWith(color: colors.textSecondary),
             ),
-        ],
-      ),
-    );
-  }
-}
-
-class _QuoteFabricsSection extends StatelessWidget {
-  final Quote quote;
-  final bool showAllFabrics;
-  final VoidCallback onShowMore;
-
-  const _QuoteFabricsSection({
-    required this.quote,
-    required this.showAllFabrics,
-    required this.onShowMore,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final fabrics = quote.fabrics;
-
-    final displayCount = showAllFabrics
-        ? fabrics.length
-        : (fabrics.length > 6 ? 4 : fabrics.length);
-    final hiddenCount = fabrics.length - displayCount;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionLabel(l10n.chat_quote_fabrics),
-          const SizedBox(height: 8),
-          ...fabrics.take(displayCount).map((f) => _FabricRow(fabric: f)),
-          if (hiddenCount > 0)
-            TextButton(
-              onPressed: onShowMore,
-              child: Text(l10n.chat_quote_more(hiddenCount)),
-            ),
-          const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-}
-
-class _FabricRow extends StatelessWidget {
-  final QuoteFabric fabric;
-
-  const _FabricRow({required this.fabric});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final typography = context.text;
-    final f = fabric;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: colors.surfaceMuted,
-                        borderRadius: AppRadius.smallBorder,
-                      ),
-                      child: Text(
-                        f.role,
-                        style: typography.labelS.copyWith(
-                          color: colors.textSecondary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    if (f.colorHex.isNotEmpty) ...[
-                      ColorDot(colorHex: f.colorHex, size: 10),
-                      const SizedBox(width: 4),
-                    ],
-                    Expanded(
-                      child: Text(
-                        f.colorName,
-                        style: typography.bodyS,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '${f.widthM} m × ${f.heightM} m · K ${f.coef} · ${formatMoneyPlain(f.pricePerSqm)}/m²',
-                  style: typography.bodyS.copyWith(color: colors.textSecondary),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 44,
-            child: Text(
-              '${f.areaSqm} m²',
-              style: typography.bodyS.copyWith(color: colors.textSecondary),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          SizedBox(
-            width: 82,
-            child: Text(
-              formatMoneyPlain(f.total),
-              style: typography.bodyS.copyWith(fontWeight: FontWeight.w500),
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _QuoteAccessoriesSection extends StatelessWidget {
-  final Quote quote;
-
-  const _QuoteAccessoriesSection({required this.quote});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final typography = context.text;
-    final colors = context.colors;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionLabel(l10n.chat_quote_accessories),
-          const SizedBox(height: 8),
-          ...quote.accessories.map((a) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                children: [
-                  Expanded(child: Text(a.name, style: typography.bodyS)),
-                  SizedBox(
-                    width: 44,
-                    child: Text(
-                      '${a.qty} ${a.unit}',
-                      style: typography.bodyS.copyWith(
-                        color: colors.textSecondary,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 82,
-                    child: Text(
-                      formatMoneyPlain(a.total),
-                      style: typography.bodyS.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-          const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-}
-
-class _QuoteServicesSection extends StatelessWidget {
-  final Quote quote;
-
-  const _QuoteServicesSection({required this.quote});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final typography = context.text;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionLabel(l10n.chat_quote_services),
-          const SizedBox(height: 8),
-          ...quote.services.map((s) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                children: [
-                  Expanded(child: Text(s.name, style: typography.bodyS)),
-                  SizedBox(
-                    width: 82,
-                    child: Text(
-                      formatMoneyPlain(s.total),
-                      style: typography.bodyS.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-          const SizedBox(height: 16),
         ],
       ),
     );
@@ -343,7 +120,7 @@ class _QuoteWarningsSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(AppIcons.alertTriangle, size: 16, color: colors.danger),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.s),
               Expanded(
                 child: Text(
                   w,
@@ -441,7 +218,7 @@ class _QuoteActionsSection extends StatelessWidget {
               onPressed: onAddPart,
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppSpacing.s),
           Expanded(
             child: AppButton.secondary(
               text: l10n.chat_quote_showOptions,

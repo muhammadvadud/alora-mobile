@@ -90,6 +90,24 @@ void main() {
       );
     });
 
+    test('release network_security_config da cleartext domenlar yo\'q', () {
+      final config = File(
+        'android/app/src/main/res/xml/network_security_config.xml',
+      ).readAsStringSync();
+      expect(config.contains('cleartextTrafficPermitted="true"'), isFalse);
+      expect(config.contains('<domain'), isFalse);
+    });
+
+    test(
+      'AndroidManifest allowBackup="false" (tokenlar/kesh zaxiraga tushmaydi)',
+      () {
+        final manifest = File('android/app/src/main/AndroidManifest.xml')
+            .readAsStringSync();
+        expect(manifest.contains('android:allowBackup="false"'), isTrue);
+        expect(manifest.contains('android:dataExtractionRules='), isTrue);
+      },
+    );
+
     test('iOS Info.plist ATS ni o\'chirib qo\'ymagan (default)', () {
       final plist = File('ios/Runner/Info.plist').readAsStringSync();
       expect(plist.contains('NSAllowsArbitraryLoads'), isFalse);

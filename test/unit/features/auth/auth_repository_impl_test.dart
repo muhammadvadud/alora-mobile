@@ -140,6 +140,21 @@ void main() {
       },
     );
 
+    test('logout: suhbat/xabar keshi ham tozalanadi (boshqa foydalanuvchiga ko\'rinmasin)', () async {
+      when(() => storage.getRefreshToken()).thenAnswer((_) async => null);
+      final conversations = await Hive.openBox<dynamic>(
+        HiveBoxes.conversations,
+      );
+      final messages = await Hive.openBox<String>(HiveBoxes.messages);
+      await conversations.put('cached_conversations', '[{"id":"c1"}]');
+      await messages.put('c1', '[{"id":"m1"}]');
+
+      await repo.logout();
+
+      expect(conversations.isEmpty, isTrue);
+      expect(messages.isEmpty, isTrue);
+    });
+
     test('getCachedUser: buzilgan JSON → null', () async {
       await Hive.box<dynamic>(HiveBoxes.authPrefs).put('cached_user', '{bad');
       expect(await repo.getCachedUser(), isNull);

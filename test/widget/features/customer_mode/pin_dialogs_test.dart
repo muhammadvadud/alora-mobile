@@ -16,6 +16,15 @@ void main() {
 
   setUp(() {
     mockStorage = MockSecureStorage();
+    when(() => mockStorage.getPinErrorCount()).thenAnswer((_) async => 0);
+    when(() => mockStorage.getPinLockUntil()).thenAnswer((_) async => null);
+    when(
+      () => mockStorage.savePinLock(
+        errorCount: any(named: 'errorCount'),
+        lockUntil: any(named: 'lockUntil'),
+      ),
+    ).thenAnswer((_) async {});
+    when(() => mockStorage.clearPinLock()).thenAnswer((_) async {});
   });
 
   Widget wrapApp(Widget child) {

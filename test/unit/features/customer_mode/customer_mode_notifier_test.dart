@@ -13,6 +13,15 @@ void main() {
 
   setUp(() {
     mockStorage = MockSecureStorage();
+    when(() => mockStorage.getPinErrorCount()).thenAnswer((_) async => 0);
+    when(() => mockStorage.getPinLockUntil()).thenAnswer((_) async => null);
+    when(
+      () => mockStorage.savePinLock(
+        errorCount: any(named: 'errorCount'),
+        lockUntil: any(named: 'lockUntil'),
+      ),
+    ).thenAnswer((_) async {});
+    when(() => mockStorage.clearPinLock()).thenAnswer((_) async {});
     container = ProviderContainer(
       overrides: [secureStorageProvider.overrideWithValue(mockStorage)],
     );
@@ -96,5 +105,39 @@ void main() {
     expect(result, isA<PinOk>());
     verify(() => mockStorage.clearPin()).called(1);
     expect(container.read(customerModeNotifierProvider), false);
+  });
+
+  test(
+    'qulf muddati storage\'dan tiklanadi (ilova qayta ochilganda ham qulf)',
+    () async {
+      when(() => mockStorage.getPin()).thenAnswer((_) async => '1234');
+      when(() => mockStorage.getPinLockUntil()).thenAnswer(
+        (_) async => DateTime.now().add(const Duration(seconds: 20)),
+      );
+
+      final sub = container.listen(customerModeNotifierProvider, (_, _) {});
+      await Future<void>.delayed(Duration.zero);
+
+      final result = await container
+          .read(customerModeNotifierProvider.notifier)
+          .disable('1234');
+      expect(result, isA<PinLocked>());
+      verifyNever(() => mockStorage.clearPin());
+      sub.close();
+    },
+  );
+
+  test('xato urinish soni storage\'ga yoziladi', () async {
+    when(() => mockStorage.getPin()).thenAnswer((_) async => '1234');
+
+    final sub = container.listen(customerModeNotifierProvider, (_, _) {});
+    await Future<void>.delayed(Duration.zero);
+
+    final result = await container
+        .read(customerModeNotifierProvider.notifier)
+        .disable('0000');
+    expect(result, isA<PinWrong>());
+    verify(() => mockStorage.savePinLock(errorCount: 1)).called(1);
+    sub.close();
   });
 }

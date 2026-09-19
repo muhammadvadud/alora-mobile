@@ -7,7 +7,7 @@ import '../dto/chat_dto.dart';
 
 class ChatLocalDataSource {
   Future<Box<String>> _getBox() async {
-    return await Hive.openBox<String>(HiveBoxes.messages);
+    return HiveBoxes.open<String>(HiveBoxes.messages);
   }
 
   Future<void> saveMessages(

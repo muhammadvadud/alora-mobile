@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 
+import '../error/failure.dart';
 import '../utils/app_logger.dart';
 import 'sse_event.dart';
 
@@ -82,9 +83,16 @@ class SseClient {
           return;
         }
 
+        // Interceptor xaritalagan `Failure` — auth/limit/ruxsat/validatsiya
+        // qayta urinish bilan tuzalmaydi, darhol yuqoriga uzatiladi
+        // (foydalanuvchi 7 s kutmaydi, xom matn ko'rsatilmaydi — §8.3).
+        final failure = _failureOf(e);
+        if (failure != null && !_isRetryable(failure)) {
+          throw failure;
+        }
+
         if (retryCount >= 3) {
-          yield SseEvent.error(e.toString());
-          return;
+          throw failure ?? const Failure.network();
         }
 
         final delay = (1 << retryCount) * 1000;
@@ -93,4 +101,23 @@ class SseClient {
       }
     }
   }
+
+  /// `DioException.error` ichidagi `Failure` (ErrorMapperInterceptor) yoki
+  /// to'g'ridan-to'g'ri `Failure`.
+  static Failure? _failureOf(Object error) {
+    if (error is Failure) return error;
+    if (error is DioException && error.error is Failure) {
+      return error.error! as Failure;
+    }
+    return null;
+  }
+
+  /// Faqat tarmoq va server tomonidagi vaqtinchalik xatolar qayta uriniladi.
+  static bool _isRetryable(Failure failure) => failure.maybeWhen(
+    network: () => true,
+    server: () => true,
+    serviceUnavailable: () => true,
+    unknown: (_) => true,
+    orElse: () => false,
+  );
 }

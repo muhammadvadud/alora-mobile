@@ -92,6 +92,34 @@ class FakeSecureStorage extends SecureStorage {
 
   @override
   Future<void> clearPin() async => pin = null;
+
+  int pinErrorCount = 0;
+  DateTime? pinLockUntil;
+
+  @override
+  Future<void> savePinLock({
+    required int errorCount,
+    DateTime? lockUntil,
+  }) async {
+    pinErrorCount = errorCount;
+    pinLockUntil = lockUntil;
+  }
+
+  @override
+  Future<int> getPinErrorCount() async => pinErrorCount;
+
+  @override
+  Future<DateTime?> getPinLockUntil() async => pinLockUntil;
+
+  @override
+  Future<void> clearPinLock() async {
+    pinErrorCount = 0;
+    pinLockUntil = null;
+  }
+
+  @override
+  Future<List<int>> getOrCreateCacheKey() async =>
+      List<int>.generate(32, (i) => i);
 }
 
 /// [AuthRepository] fakesi. Chaqiruvlar hisoblanadi, xatoliklar testda

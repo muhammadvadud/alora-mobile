@@ -17,7 +17,7 @@ import 'package:alora_mobile/features/chat/application/chat_notifier.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_empty_view.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_error_banner.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_input_panel.dart';
-import 'package:alora_mobile/features/chat/presentation/widgets/chat_message_row.dart';
+import 'package:alora_mobile/features/chat/presentation/widgets/chat_message_list.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_scroll_down_fab.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_title_bar.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/conversations_pane_placeholder.dart';
@@ -282,7 +282,7 @@ class _ChatBody extends ConsumerWidget {
   final bool isVoiceMode;
   final bool showScrollDown;
   final ScrollController scrollController;
-  final Function(OrderDraft) onCreateOrder;
+  final void Function(OrderDraft draft) onCreateOrder;
   final VoidCallback onScrollToBottom;
   final ValueChanged<bool> onVoiceModeChanged;
 
@@ -327,26 +327,11 @@ class _ChatBody extends ConsumerWidget {
                             .sendMessage(text);
                       },
                     )
-                  : ListView.builder(
-                      controller: scrollController,
-                      reverse: true,
-                      itemCount: chatState.messages.length,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.l,
-                        vertical: AppSpacing.l,
-                      ),
-                      itemBuilder: (context, index) {
-                        final msg = chatState.messages[index];
-                        return RepaintBoundary(
-                          child: ChatMessageRow(
-                            message: msg,
-                            isCustomerMode: isCustomerMode,
-                            onEditOrder: (draft) =>
-                                context.push(AppRoutes.orderNew, extra: draft),
-                            onCreateOrder: (draft) => onCreateOrder(draft),
-                          ),
-                        );
-                      },
+                  : ChatMessageList(
+                      messages: chatState.messages,
+                      scrollController: scrollController,
+                      isCustomerMode: isCustomerMode,
+                      onCreateOrder: onCreateOrder,
                     ),
               if (showScrollDown)
                 Positioned(

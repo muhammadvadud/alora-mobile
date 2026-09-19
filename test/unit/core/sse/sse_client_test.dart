@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/core/sse/sse_client.dart';
 import 'package:alora_mobile/core/sse/sse_event.dart';
 
@@ -158,12 +159,49 @@ void main() {
       throw DioException(requestOptions: RequestOptions(path: ''));
     });
 
-    final events = await sseClient.connect('/chat').toList();
-    expect(events.length, 1);
-    events[0].maybeWhen(
-      error: (e) => expect(e, isNotNull),
-      orElse: () => fail('error kutilgan'),
+    // Tarmoq xatosi 3 marta qayta uriniladi, so'ng tiplangan Failure throw
+    // qilinadi (xom DioException matni UI'ga chiqmaydi, §8.3).
+    await expectLater(
+      sseClient.connect('/chat').toList(),
+      throwsA(const Failure.network()),
     );
+    verify(
+      () => mockDio.post<ResponseBody>(
+        any(),
+        data: any(named: 'data'),
+        cancelToken: any(named: 'cancelToken'),
+        options: any(named: 'options'),
+      ),
+    ).called(4);
+  });
+
+  test('429 limit xatosi qayta urinilmaydi — darhol Failure.limit', () async {
+    when(
+      () => mockDio.post<ResponseBody>(
+        any(),
+        data: any(named: 'data'),
+        cancelToken: any(named: 'cancelToken'),
+        options: any(named: 'options'),
+      ),
+    ).thenAnswer((_) async {
+      throw DioException(
+        requestOptions: RequestOptions(path: ''),
+        error: const Failure.limit('Limit tugadi'),
+      );
+    });
+
+    await expectLater(
+      sseClient.connect('/chat').toList(),
+      throwsA(const Failure.limit('Limit tugadi')),
+    );
+    verify(
+      () => mockDio.post<ResponseBody>(
+        any(),
+        data: any(named: 'data'),
+        cancelToken: any(named: 'cancelToken'),
+        options: any(named: 'options'),
+      ),
+    ).called(1);
   });
 
   test('done event usage va products bilan qaytadi', () async {

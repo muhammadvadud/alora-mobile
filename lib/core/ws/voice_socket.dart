@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../utils/app_logger.dart';
@@ -20,6 +20,8 @@ class VoiceSocket {
   final _failureController = StreamController<Failure>.broadcast();
 
   bool _isReconnecting = false;
+  bool _disposed = false;
+  Timer? _reconnectTimer;
   String? _lastId;
   String? _lastLocale;
 
@@ -37,14 +39,27 @@ class VoiceSocket {
 
   Future<void> _connectInternal({bool isRetry = false}) async {
     final conversationId = _lastId;
-    if (conversationId == null) return;
+    if (conversationId == null || _disposed) return;
     try {
       final token = await secureStorage.getAccessToken();
-      final url =
-          '${Env.wsBaseUrl}/${ApiPaths.voiceSocket(conversationId)}'
-          '?locale=$_lastLocale&token=$token';
+      if (token == null || _disposed) {
+        _failureController.add(const Failure.auth());
+        return;
+      }
+      final url = buildUri(
+        conversationId: conversationId,
+        locale: _lastLocale ?? 'uz',
+        token: token,
+      );
 
-      _channel = WebSocketChannel.connect(Uri.parse(url));
+      final channel = WebSocketChannel.connect(url);
+      // `ready` kutilmasa ulanish xatosi zone'da ushlanmagan xato bo'lib qoladi.
+      await channel.ready;
+      if (_disposed) {
+        await channel.sink.close();
+        return;
+      }
+      _channel = channel;
 
       _subscription = _channel!.stream.listen(
         (message) {
@@ -88,15 +103,31 @@ class VoiceSocket {
   }
 
   void _handleDisconnect(bool isRetry) {
+    if (_disposed) return;
     if (!isRetry && !_isReconnecting && _lastId != null) {
       _isReconnecting = true;
-      Future.delayed(const Duration(seconds: 1), () {
+      _reconnectTimer = Timer(const Duration(seconds: 1), () {
         _isReconnecting = false;
+        if (_disposed || _lastId == null) return;
         _connectInternal(isRetry: true);
       });
     } else {
       _failureController.add(const Failure.network());
     }
+  }
+
+  /// `ws(s)://<host>/ws/voice/{id}/?locale=&token=` — query parametrlar
+  /// `Uri` orqali kodlanadi (§8.6).
+  @visibleForTesting
+  static Uri buildUri({
+    required String conversationId,
+    required String locale,
+    required String token,
+    String? baseUrl,
+  }) {
+    return Uri.parse(
+      '${baseUrl ?? Env.wsBaseUrl}/${ApiPaths.voiceSocket(conversationId)}',
+    ).replace(queryParameters: {'locale': locale, 'token': token});
   }
 
   void sendAudio(Uint8List bytes) {
@@ -108,12 +139,17 @@ class VoiceSocket {
   }
 
   void disconnect() {
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
+    _isReconnecting = false;
+    _lastId = null;
     _subscription?.cancel();
     _channel?.sink.close();
     _channel = null;
   }
 
   void dispose() {
+    _disposed = true;
     disconnect();
     _audioController.close();
     _eventController.close();

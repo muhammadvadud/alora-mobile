@@ -35,9 +35,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Box<dynamic>> _box() {
     final existing = _boxFuture;
     if (existing != null) return existing;
-    final created = Hive.isBoxOpen(HiveBoxes.authPrefs)
-        ? Future<Box<dynamic>>.value(Hive.box(HiveBoxes.authPrefs))
-        : Hive.openBox(HiveBoxes.authPrefs);
+    final created = HiveBoxes.open<dynamic>(HiveBoxes.authPrefs);
     return _boxFuture = created;
   }
 
@@ -121,8 +119,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> clearSession() async {
     await _secureStorage.clearTokens();
-    final box = await _box();
-    await box.delete(_cachedUserKey);
+    // Suhbat/xabar/navbat keshi ham o'chadi — boshqa foydalanuvchiga ko'rinmasin.
+    await HiveBoxes.clearUserData();
     _sessionExpiredController.add(null);
   }
 

@@ -64,10 +64,7 @@ class FakeSecureStorage extends SecureStorage {
   String? pin;
 
   @override
-  Future<void> saveTokens({
-    required String access,
-    required String refresh,
-  }) async {
+  Future<void> saveTokens({required String access, required String refresh}) async {
     accessToken = access;
     refreshToken = refresh;
   }
@@ -97,10 +94,7 @@ class FakeSecureStorage extends SecureStorage {
   DateTime? pinLockUntil;
 
   @override
-  Future<void> savePinLock({
-    required int errorCount,
-    DateTime? lockUntil,
-  }) async {
+  Future<void> savePinLock({required int errorCount, DateTime? lockUntil}) async {
     pinErrorCount = errorCount;
     pinLockUntil = lockUntil;
   }
@@ -118,8 +112,7 @@ class FakeSecureStorage extends SecureStorage {
   }
 
   @override
-  Future<List<int>> getOrCreateCacheKey() async =>
-      List<int>.generate(32, (i) => i);
+  Future<List<int>> getOrCreateCacheKey() async => List<int>.generate(32, (i) => i);
 }
 
 /// [AuthRepository] fakesi. Chaqiruvlar hisoblanadi, xatoliklar testda
@@ -215,10 +208,7 @@ class FakeConversationsRepository implements ConversationsRepository {
     : conversations = List.of(initial ?? const []);
 
   @override
-  Future<(List<Conversation>, String?)> list({
-    String? cursor,
-    String? search,
-  }) async {
+  Future<(List<Conversation>, String?)> list({String? cursor, String? search}) async {
     loadCalls++;
     final query = search?.trim().toLowerCase() ?? '';
     final items = query.isEmpty
@@ -227,8 +217,7 @@ class FakeConversationsRepository implements ConversationsRepository {
               .where(
                 (c) =>
                     c.title.toLowerCase().contains(query) ||
-                    (c.lastMessagePreview?.toLowerCase().contains(query) ??
-                        false),
+                    (c.lastMessagePreview?.toLowerCase().contains(query) ?? false),
               )
               .toList();
     return (items, null);
@@ -259,8 +248,7 @@ class FakeConversationsRepository implements ConversationsRepository {
   Future<String> transcript(String id) async => '';
 
   @override
-  Future<List<Conversation>> getCached() async =>
-      List<Conversation>.from(conversations);
+  Future<List<Conversation>> getCached() async => List<Conversation>.from(conversations);
 }
 
 /// [ChatRepository] fakesi — SSE oqimini test boshqaradi.
@@ -283,12 +271,8 @@ class FakeChatRepository implements ChatRepository {
   String? lastStage;
 
   @override
-  Future<Paginated<Message>> getMessages(
-    String conversationId, {
-    String? cursor,
-  }) async {
-    return initialMessages ??
-        const Paginated(next: null, previous: null, results: []);
+  Future<Paginated<Message>> getMessages(String conversationId, {String? cursor}) async {
+    return initialMessages ?? const Paginated(next: null, previous: null, results: []);
   }
 
   @override
@@ -332,16 +316,10 @@ class FakeOrdersRepository implements OrdersRepository {
   int _counter = 0;
 
   FakeOrdersRepository({List<Order>? initial})
-    : orders = {
-        for (final order in initial ?? const <Order>[]) order.id: order,
-      };
+    : orders = {for (final order in initial ?? const <Order>[]) order.id: order};
 
   @override
-  Future<Paginated<Order>> getOrders({
-    String? status,
-    String? search,
-    String? url,
-  }) async {
+  Future<Paginated<Order>> getOrders({String? status, String? search, String? url}) async {
     final items = orders.values.where((order) {
       if (status != null && order.status.name != status) return false;
       if (search != null && search.isNotEmpty) {
@@ -372,8 +350,7 @@ class FakeOrdersRepository implements OrdersRepository {
       id: body['id']?.toString() ?? 'order-$_counter',
       number: _numberFor(_counter),
       customerName: body['customer_name']?.toString(),
-      customerPhone:
-          body['customer_phone']?.toString() ?? body['phone']?.toString(),
+      customerPhone: body['customer_phone']?.toString() ?? body['phone']?.toString(),
       address: body['address']?.toString(),
       status: OrderStatus.draft,
       statusDisplay: 'Qoralama',
@@ -411,12 +388,7 @@ class FakeOrdersRepository implements OrdersRepository {
   }
 
   @override
-  Future<Order> changeStatus(
-    String id,
-    String status, {
-    String? note,
-    String? actionDate,
-  }) async {
+  Future<Order> changeStatus(String id, String status, {String? note, String? actionDate}) async {
     changeStatusCalls++;
     final current = orders[id];
     if (current == null) throw const Failure.notFound();
@@ -431,11 +403,9 @@ class FakeOrdersRepository implements OrdersRepository {
   Future<StatusesResponse> getStatuses() async => const StatusesResponse();
 
   @override
-  Future<Uint8List> getPdf(String id) async =>
-      throw UnimplementedError('getPdf testda kutilmagan');
+  Future<Uint8List> getPdf(String id) async => throw UnimplementedError('getPdf testda kutilmagan');
 
-  static String _numberFor(int counter) =>
-      'ORD-${counter.toString().padLeft(6, '0')}';
+  static String _numberFor(int counter) => 'ORD-${counter.toString().padLeft(6, '0')}';
 }
 
 /// [CatalogRepository] fakesi — bo'sh katalog (offline rejimda bo'sh holat).
@@ -475,10 +445,7 @@ class FakeUsageRepository implements UsageRepository {
   int summaryCalls = 0;
 
   @override
-  Future<UsageSummary> summary({
-    required UsagePeriod period,
-    String? userId,
-  }) async {
+  Future<UsageSummary> summary({required UsagePeriod period, String? userId}) async {
     summaryCalls++;
     return UsageSummary(
       period: period.name,
@@ -538,12 +505,7 @@ String quoteToolResultJson() => jsonEncode({
         },
       ],
       'accessories': [
-        {
-          'sku': 'Karniz',
-          'qty': 1.5,
-          'unit_price': 80000,
-          'line_total': 120000,
-        },
+        {'sku': 'Karniz', 'qty': 1.5, 'unit_price': 80000, 'line_total': 120000},
       ],
     },
   ],
@@ -577,14 +539,9 @@ List<SseEvent> quoteAndDraftSseEvents() => [
   const SseEvent.thinking(),
   const SseEvent.content('Endilikda hisoblab beraman.'),
   const SseEvent.toolCall('curtain_calculate'),
-  const SseEvent.toolArgs(
-    'curtain_calculate',
-    '{"width_m": 1.5, "height_m": 2.5}',
-  ),
+  const SseEvent.toolArgs('curtain_calculate', '{"width_m": 1.5, "height_m": 2.5}'),
   SseEvent.toolResult('curtain_calculate', quoteToolResultJson()),
-  const SseEvent.content(
-    "Qo'shimcha ravishda buyurtma qoralamasini tayyorlayapman.",
-  ),
+  const SseEvent.content("Qo'shimcha ravishda buyurtma qoralamasini tayyorlayapman."),
   const SseEvent.toolCall('order_draft'),
   const SseEvent.toolArgs('order_draft', '{}'),
   SseEvent.toolResult('order_draft', orderDraftToolResultJson()),
@@ -592,6 +549,4 @@ List<SseEvent> quoteAndDraftSseEvents() => [
 ];
 
 /// 19.4 uchun: 429 limit xatosi SSE oqimi.
-List<SseEvent> limitErrorSseEvents() => [
-  const SseEvent.error('429: Kunlik limit tugadi'),
-];
+List<SseEvent> limitErrorSseEvents() => [const SseEvent.error('429: Kunlik limit tugadi')];

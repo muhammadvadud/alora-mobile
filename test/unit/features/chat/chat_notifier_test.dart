@@ -9,10 +9,8 @@ import 'package:alora_mobile/features/chat/application/chat_notifier.dart';
 import 'package:alora_mobile/features/chat/application/chat_state.dart';
 import 'package:alora_mobile/features/chat/domain/entities/message.dart';
 import 'package:alora_mobile/features/chat/domain/repositories/chat_repository.dart';
-import 'package:alora_mobile/features/chat/application/providers.dart'
-    as chat_providers;
-import 'package:alora_mobile/features/customer_mode/application/providers.dart'
-    as cm_providers;
+import 'package:alora_mobile/features/chat/application/providers.dart' as chat_providers;
+import 'package:alora_mobile/features/customer_mode/application/providers.dart' as cm_providers;
 
 class MockChatRepository extends Mock implements ChatRepository {}
 
@@ -42,9 +40,8 @@ void main() {
       ),
     ).thenAnswer((_) => sseController.stream);
 
-    when(() => mockRepo.parseToolResult(any(), any())).thenReturn(
-      const RichBlock.toolChip(tool: 'unknown', state: ToolChipState.done),
-    );
+    when(() => mockRepo.parseToolResult(any(), any()))
+        .thenReturn(const RichBlock.toolChip(tool: 'unknown', state: ToolChipState.done));
 
     container = ProviderContainer(
       overrides: [
@@ -63,12 +60,10 @@ void main() {
     }
   });
 
-  ChatState readState(String conversationId) =>
-      container.read(chatProvider(conversationId));
+  ChatState readState(String conversationId) => container.read(chatProvider(conversationId));
 
   // Har bir SSE xabarining throttle (50 ms) commit qilinishini kafolatlash
-  Future<void> chunkGap() =>
-      Future<void>.delayed(const Duration(milliseconds: 60));
+  Future<void> chunkGap() => Future<void>.delayed(const Duration(milliseconds: 60));
 
   group('Holat o\'tishlari', () {
     test('Boshlang\'ich holat — bo\'sh xabarlar, streaming yo\'q', () {
@@ -119,15 +114,11 @@ void main() {
       expect(state.isStreaming, isFalse);
       expect(state.messages, hasLength(2));
 
-      final assistantMsg = state.messages.firstWhere(
-        (m) => m.role == MessageRole.assistant,
-      );
+      final assistantMsg = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
       expect(assistantMsg.content, 'Salom dunyo!');
       expect(assistantMsg.status, MessageStatus.done);
 
-      final userMsg = state.messages.firstWhere(
-        (m) => m.role == MessageRole.user,
-      );
+      final userMsg = state.messages.firstWhere((m) => m.role == MessageRole.user);
       expect(userMsg.content, 'Salom');
       expect(userMsg.status, MessageStatus.done);
     });
@@ -159,9 +150,7 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       final state = readState('conv-2');
-      final assistantMsg = state.messages.firstWhere(
-        (m) => m.role == MessageRole.assistant,
-      );
+      final assistantMsg = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
 
       expect(assistantMsg.richBlocks, hasLength(2));
       expect(assistantMsg.richBlocks[0], isA<RichBlock>());
@@ -204,9 +193,7 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       final state = readState('conv-3');
-      final assistant = state.messages.firstWhere(
-        (m) => m.role == MessageRole.assistant,
-      );
+      final assistant = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
       expect(assistant.content, 'Bir ikki');
     });
   });
@@ -245,9 +232,7 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 250));
 
       final state = readState('throttle-1');
-      final assistant = state.messages.firstWhere(
-        (m) => m.role == MessageRole.assistant,
-      );
+      final assistant = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
       expect(assistant.status, MessageStatus.done);
       // 100 ta chunk uchun commit soni 3 dan oshmaydi (throttle birlashadi)...
       expect(stateUpdateCount, lessThanOrEqualTo(3));
@@ -287,41 +272,40 @@ void main() {
       expect(state.isStreaming, isFalse);
       expect(state.error, isNotNull);
 
-      final assistant = state.messages.firstWhere(
-        (m) => m.role == MessageRole.assistant,
-      );
+      final assistant = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
       expect(assistant.content, 'Qisman matn');
       expect(assistant.status, MessageStatus.error);
     });
 
-    test('error SSE event — assistant xabari error, state.error to\'ldiriladi, oqim to\'xtaydi', () async {
-      final notifier = container.read(chatProvider('err-2').notifier);
+    test(
+      'error SSE event — assistant xabari error, state.error to\'ldiriladi, oqim to\'xtaydi',
+      () async {
+        final notifier = container.read(chatProvider('err-2').notifier);
 
-      when(
-        () => mockRepo.sendMessage(
-          any(),
-          any(),
-          any(),
-          any(),
-          any(),
-          cancelToken: any(named: 'cancelToken'),
-        ),
-      ).thenAnswer((_) => sseController.stream);
+        when(
+          () => mockRepo.sendMessage(
+            any(),
+            any(),
+            any(),
+            any(),
+            any(),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenAnswer((_) => sseController.stream);
 
-      unawaited(notifier.sendMessage('Xato test'));
-      await Future<void>.delayed(Duration.zero);
+        unawaited(notifier.sendMessage('Xato test'));
+        await Future<void>.delayed(Duration.zero);
 
-      sseController.add(const SseEvent.error('Server xatosi'));
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+        sseController.add(const SseEvent.error('Server xatosi'));
+        await Future<void>.delayed(const Duration(milliseconds: 100));
 
-      final state = readState('err-2');
-      final assistant = state.messages.firstWhere(
-        (m) => m.role == MessageRole.assistant,
-      );
-      expect(assistant.status, MessageStatus.error);
-      expect(state.error, isNotNull);
-      expect(state.isStreaming, isFalse);
-    });
+        final state = readState('err-2');
+        final assistant = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
+        expect(assistant.status, MessageStatus.error);
+        expect(state.error, isNotNull);
+        expect(state.isStreaming, isFalse);
+      },
+    );
   });
 
   group('Retry', () {
@@ -382,9 +366,7 @@ void main() {
       expect(stateAfter.isStreaming, isFalse);
 
       // Verify the same content was sent
-      final sentMessages = stateAfter.messages
-          .where((m) => m.role == MessageRole.user)
-          .toList();
+      final sentMessages = stateAfter.messages.where((m) => m.role == MessageRole.user).toList();
       expect(sentMessages.length, 2);
       expect(sentMessages.every((m) => m.content == 'Birinchi xabar'), isTrue);
 
@@ -438,10 +420,7 @@ void main() {
       final users = state.messages.where((m) => m.role == MessageRole.user);
       expect(users.length, 1);
       expect(users.single.content, 'Parda kerak');
-      expect(
-        state.messages.any((m) => m.status == MessageStatus.error),
-        isFalse,
-      );
+      expect(state.messages.any((m) => m.status == MessageStatus.error), isFalse);
       verify(
         () => mockRepo.sendMessage(
           any(),
@@ -538,18 +517,14 @@ void main() {
 
       sseController.add(const SseEvent.toolCall('product_search'));
       await chunkGap();
-      sseController.add(
-        const SseEvent.toolArgs('product_search', '{"query":"velvet"}'),
-      );
+      sseController.add(const SseEvent.toolArgs('product_search', '{"query":"velvet"}'));
       await chunkGap();
       sseController.add(const SseEvent.done());
 
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       final state = readState('args-1');
-      final assistant = state.messages.firstWhere(
-        (m) => m.role == MessageRole.assistant,
-      );
+      final assistant = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
       final chipBlock = assistant.richBlocks.first;
       chipBlock.maybeWhen(
         toolChip: (tool, chipState, resultText, rawArgs, rawResult) {
@@ -595,66 +570,58 @@ void main() {
   });
 
   group('Done — user xabar status', () {
-    test(
-      'done event + oqim yopilishi — user xabari done, streaming tugaydi',
-      () async {
-        final notifier = container.read(chatProvider('done-1').notifier);
+    test('done event + oqim yopilishi — user xabari done, streaming tugaydi', () async {
+      final notifier = container.read(chatProvider('done-1').notifier);
 
-        when(
-          () => mockRepo.sendMessage(
-            any(),
-            any(),
-            any(),
-            any(),
-            any(),
-            cancelToken: any(named: 'cancelToken'),
-          ),
-        ).thenAnswer((_) => sseController.stream);
+      when(
+        () => mockRepo.sendMessage(
+          any(),
+          any(),
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).thenAnswer((_) => sseController.stream);
 
-        unawaited(notifier.sendMessage('Test xabar'));
-        await Future<void>.delayed(Duration.zero);
+      unawaited(notifier.sendMessage('Test xabar'));
+      await Future<void>.delayed(Duration.zero);
 
-        sseController.add(const SseEvent.done());
-        await chunkGap();
-        // Stream yopilsa onDone → _handleDone (user done, isStreaming false)
-        await sseController.close();
-        await Future<void>.delayed(const Duration(milliseconds: 100));
+      sseController.add(const SseEvent.done());
+      await chunkGap();
+      // Stream yopilsa onDone → _handleDone (user done, isStreaming false)
+      await sseController.close();
+      await Future<void>.delayed(const Duration(milliseconds: 100));
 
-        final state = readState('done-1');
-        expect(state.isStreaming, isFalse);
+      final state = readState('done-1');
+      expect(state.isStreaming, isFalse);
 
-        final userMsg = state.messages.firstWhere(
-          (m) => m.role == MessageRole.user,
-        );
-        expect(userMsg.status, MessageStatus.done);
+      final userMsg = state.messages.firstWhere((m) => m.role == MessageRole.user);
+      expect(userMsg.status, MessageStatus.done);
 
-        final assistant = state.messages.firstWhere(
-          (m) => m.role == MessageRole.assistant,
-        );
-        expect(assistant.status, MessageStatus.done);
-      },
-    );
+      final assistant = state.messages.firstWhere((m) => m.role == MessageRole.assistant);
+      expect(assistant.status, MessageStatus.done);
+    });
   });
 
   group('Yuklash (loadMessages)', () {
     test('Xabarlar yuklanadi', () async {
       final loadRepo = MockChatRepository();
-      when(() => loadRepo.getMessages(any(), cursor: any(named: 'cursor')))
-          .thenAnswer(
-            (_) async => Paginated<Message>(
-              next: null,
-              previous: null,
-              results: [
-                Message(
-                  id: 'msg-1',
-                  role: MessageRole.user,
-                  content: 'Salom',
-                  createdAt: DateTime(2026),
-                  status: MessageStatus.done,
-                ),
-              ],
+      when(() => loadRepo.getMessages(any(), cursor: any(named: 'cursor'))).thenAnswer(
+        (_) async => Paginated<Message>(
+          next: null,
+          previous: null,
+          results: [
+            Message(
+              id: 'msg-1',
+              role: MessageRole.user,
+              content: 'Salom',
+              createdAt: DateTime(2026),
+              status: MessageStatus.done,
             ),
-          );
+          ],
+        ),
+      );
 
       final container2 = ProviderContainer(
         overrides: [

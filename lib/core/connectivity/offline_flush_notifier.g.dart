@@ -49,8 +49,7 @@ final class OfflineFlushMessagesProvider
   }
 }
 
-String _$offlineFlushMessagesHash() =>
-    r'fc3595b6307f98e31ba3bc9adc11c9bcecdd7dd3';
+String _$offlineFlushMessagesHash() => r'fc3595b6307f98e31ba3bc9adc11c9bcecdd7dd3';
 
 /// Offline navbatni yuborishda muvaffaqiyatsiz bo'lgan amallar xabarlari.
 /// UI qatlami (GlobalListeners) shu xabarlarni tinglab snackbar ko'rsatadi.

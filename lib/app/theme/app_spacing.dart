@@ -11,10 +11,7 @@ class AppSpacing {
   static const double screenH = 16.0;
   static const double chatGap = 16.0;
 
-  static const EdgeInsets statusPillPadding = EdgeInsets.symmetric(
-    horizontal: 10,
-    vertical: 4,
-  );
+  static const EdgeInsets statusPillPadding = EdgeInsets.symmetric(horizontal: 10, vertical: 4);
 
   const AppSpacing._();
 }

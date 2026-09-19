@@ -55,8 +55,7 @@ void main() {
     test('GET calc-rules → CalcRule ro\'yxati', () async {
       adapter.onGet(
         ApiPaths.calcRules,
-        (s) =>
-            s.reply(200, [_rule('default_coef', '2.5'), _rule('waste', '0.1')]),
+        (s) => s.reply(200, [_rule('default_coef', '2.5'), _rule('waste', '0.1')]),
       );
       final rules = await repo.getCalcRules();
       expect(rules.map((r) => r.key), ['default_coef', 'waste']);
@@ -73,22 +72,19 @@ void main() {
       expect(rule.value, 3.0);
     });
 
-    test(
-      'GET discount-tiers — paginated ({results}) va oddiy ro\'yxat',
-      () async {
-        adapter.onGet(
-          ApiPaths.discountTiers,
-          (s) => s.reply(200, {
-            'next': null,
-            'previous': null,
-            'results': [_tier('t1', '5000000.00', '3.00')],
-          }),
-        );
-        final tiers = await repo.getDiscountTiers();
-        expect(tiers.single.minAmount, 5000000);
-        expect(tiers.single.percent, 3.0);
-      },
-    );
+    test('GET discount-tiers — paginated ({results}) va oddiy ro\'yxat', () async {
+      adapter.onGet(
+        ApiPaths.discountTiers,
+        (s) => s.reply(200, {
+          'next': null,
+          'previous': null,
+          'results': [_tier('t1', '5000000.00', '3.00')],
+        }),
+      );
+      final tiers = await repo.getDiscountTiers();
+      expect(tiers.single.minAmount, 5000000);
+      expect(tiers.single.percent, 3.0);
+    });
 
     test('POST discount-tiers — min_amount/percent string sifatida', () async {
       adapter.onPost(
@@ -118,10 +114,7 @@ void main() {
       adapter.onPatch(
         ApiPaths.discountPolicy,
         (s) => s.reply(200, {...policy, 'manual_max_percent_employee': '7.0'}),
-        data: {
-          'manual_max_percent_employee': '7.0',
-          'manual_max_percent_manager': '15.0',
-        },
+        data: {'manual_max_percent_employee': '7.0', 'manual_max_percent_manager': '15.0'},
       );
       final updated = await repo.patchDiscountPolicy(7.0, 15.0);
       expect(updated.manualMaxPercentEmployee, 7.0);
@@ -140,11 +133,7 @@ void main() {
       adapter.onPatch(
         ApiPaths.orderDefaults,
         (s) => s.reply(200, {...defaults, 'deadline_days': 21}),
-        data: {
-          'prepayment_percent': '50.0',
-          'delivery_amount': '80000',
-          'deadline_days': '21',
-        },
+        data: {'prepayment_percent': '50.0', 'delivery_amount': '80000', 'deadline_days': '21'},
       );
       expect((await repo.patchOrderDefaults(50.0, 80000, 21)).deadlineDays, 21);
     });

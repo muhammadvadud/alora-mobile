@@ -20,9 +20,7 @@ void main() {
     });
 
     testWidgets('ruscha lokalda sarlavhalar tarjima qilinadi', (tester) async {
-      await tester.pumpWidget(
-        const AboutSection().pumpApp(locale: const Locale('ru')),
-      );
+      await tester.pumpWidget(const AboutSection().pumpApp(locale: const Locale('ru')));
 
       expect(find.text('Версия'), findsOneWidget);
       expect(find.text('Среда'), findsOneWidget);

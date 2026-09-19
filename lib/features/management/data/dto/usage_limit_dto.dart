@@ -44,8 +44,7 @@ class UsageLimitDto {
     required this.isActive,
   });
 
-  factory UsageLimitDto.fromJson(Map<String, dynamic> json) =>
-      _$UsageLimitDtoFromJson(json);
+  factory UsageLimitDto.fromJson(Map<String, dynamic> json) => _$UsageLimitDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$UsageLimitDtoToJson(this);
 }

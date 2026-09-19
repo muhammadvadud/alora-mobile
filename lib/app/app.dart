@@ -10,8 +10,7 @@ import 'package:alora_mobile/app/theme/theme_mode_notifier.dart';
 import 'package:alora_mobile/features/profile/application/locale_notifier.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
 
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-    GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class AloraApp extends StatelessWidget {
   const AloraApp({super.key});
@@ -33,19 +32,14 @@ class AloraApp extends StatelessWidget {
           themeMode: themeMode,
           locale: locale,
           onGenerateTitle: (context) => AppLocalizations.of(context)!.app_name,
-          builder: (context, child) =>
-              GlobalListeners(child: child ?? const SizedBox.shrink()),
+          builder: (context, child) => GlobalListeners(child: child ?? const SizedBox.shrink()),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('uz'),
-            Locale('uz', 'Cyrl'),
-            Locale('ru'),
-          ],
+          supportedLocales: const [Locale('uz'), Locale('uz', 'Cyrl'), Locale('ru')],
         );
       },
     );

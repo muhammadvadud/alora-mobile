@@ -28,10 +28,7 @@ class VoicePanel extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.m,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.m),
       decoration: BoxDecoration(
         color: colors.background,
         border: Border(top: BorderSide(color: colors.borderSubtle)),
@@ -54,21 +51,13 @@ class VoicePanel extends ConsumerWidget {
                 ),
               ],
             ),
-            listening: (amplitude, duration) => _ListeningView(
-              notifier: notifier,
-              amplitude: amplitude,
-              duration: duration,
-            ),
-            transcribing: () => const Padding(
-              padding: EdgeInsets.all(AppSpacing.l),
-              child: TypingLine(),
-            ),
-            speaking: (amplitude) =>
-                _SpeakingView(notifier: notifier, amplitude: amplitude),
-            error: (msg) => Text(
-              context.l10n.errorOccurred(msg),
-              style: TextStyle(color: colors.danger),
-            ),
+            listening: (amplitude, duration) =>
+                _ListeningView(notifier: notifier, amplitude: amplitude, duration: duration),
+            transcribing: () =>
+                const Padding(padding: EdgeInsets.all(AppSpacing.l), child: TypingLine()),
+            speaking: (amplitude) => _SpeakingView(notifier: notifier, amplitude: amplitude),
+            error: (msg) =>
+                Text(context.l10n.errorOccurred(msg), style: TextStyle(color: colors.danger)),
           ),
         ],
       ),
@@ -81,11 +70,7 @@ class _ListeningView extends StatelessWidget {
   final double amplitude;
   final Duration duration;
 
-  const _ListeningView({
-    required this.notifier,
-    required this.amplitude,
-    required this.duration,
-  });
+  const _ListeningView({required this.notifier, required this.amplitude, required this.duration});
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +95,7 @@ class _ListeningView extends StatelessWidget {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(AppRadius.pill)),
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.xxl,
-              vertical: AppSpacing.m,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxl, vertical: AppSpacing.m),
           ),
           onPressed: () => notifier.stopListening(),
           child: Text("To'xtatish", style: TextStyle(color: colors.surface)),
@@ -143,16 +125,10 @@ class _SpeakingView extends StatelessWidget {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(AppRadius.pill)),
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.xxl,
-              vertical: AppSpacing.m,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxl, vertical: AppSpacing.m),
           ),
           onPressed: () => notifier.stopSpeaking(),
-          child: Text(
-            "To'xtatish",
-            style: TextStyle(color: colors.textPrimary),
-          ),
+          child: Text("To'xtatish", style: TextStyle(color: colors.textPrimary)),
         ),
       ],
     );

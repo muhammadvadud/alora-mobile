@@ -23,8 +23,7 @@ class VoiceState with _$VoiceState {
     @Default(Duration.zero) Duration duration,
   }) = _Listening;
   const factory VoiceState.transcribing() = _Transcribing;
-  const factory VoiceState.speaking({@Default(0.0) double amplitude}) =
-      _Speaking;
+  const factory VoiceState.speaking({@Default(0.0) double amplitude}) = _Speaking;
   const factory VoiceState.error(String message) = _Error;
 }
 

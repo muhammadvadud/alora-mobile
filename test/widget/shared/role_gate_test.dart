@@ -10,22 +10,14 @@ void main() {
   const replacement = Text('Ruxsat yo\'q');
 
   group('RoleGate Widget Testlari', () {
-    testWidgets('employee minRole: employee kiradi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('employee minRole: employee kiradi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const RoleGate(
-          minRole: Role.employee,
-          currentRole: Role.employee,
-          child: child,
-        ).pumpApp(),
+        const RoleGate(minRole: Role.employee, currentRole: Role.employee, child: child).pumpApp(),
       );
       expect(find.text('Bola'), findsOneWidget);
     });
 
-    testWidgets('employee minRole: manager kirmaydi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('employee minRole: manager kirmaydi', (WidgetTester tester) async {
       await tester.pumpWidget(
         const RoleGate(
           minRole: Role.manager,
@@ -37,9 +29,7 @@ void main() {
       expect(find.text('Ruxsat yo\'q'), findsOneWidget);
     });
 
-    testWidgets('employee minRole: admin kirmaydi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('employee minRole: admin kirmaydi', (WidgetTester tester) async {
       await tester.pumpWidget(
         const RoleGate(
           minRole: Role.admin,
@@ -51,26 +41,16 @@ void main() {
       expect(find.text('Ruxsat yo\'q'), findsOneWidget);
     });
 
-    testWidgets('manager minRole: employee kiradi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('manager minRole: employee kiradi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const RoleGate(
-          minRole: Role.employee,
-          currentRole: Role.manager,
-          child: child,
-        ).pumpApp(),
+        const RoleGate(minRole: Role.employee, currentRole: Role.manager, child: child).pumpApp(),
       );
       expect(find.text('Bola'), findsOneWidget);
     });
 
     testWidgets('manager minRole: manager kiradi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const RoleGate(
-          minRole: Role.manager,
-          currentRole: Role.manager,
-          child: child,
-        ).pumpApp(),
+        const RoleGate(minRole: Role.manager, currentRole: Role.manager, child: child).pumpApp(),
       );
       expect(find.text('Bola'), findsOneWidget);
     });
@@ -89,33 +69,21 @@ void main() {
 
     testWidgets('admin minRole: employee kiradi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const RoleGate(
-          minRole: Role.employee,
-          currentRole: Role.admin,
-          child: child,
-        ).pumpApp(),
+        const RoleGate(minRole: Role.employee, currentRole: Role.admin, child: child).pumpApp(),
       );
       expect(find.text('Bola'), findsOneWidget);
     });
 
     testWidgets('admin minRole: manager kiradi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const RoleGate(
-          minRole: Role.manager,
-          currentRole: Role.admin,
-          child: child,
-        ).pumpApp(),
+        const RoleGate(minRole: Role.manager, currentRole: Role.admin, child: child).pumpApp(),
       );
       expect(find.text('Bola'), findsOneWidget);
     });
 
     testWidgets('admin minRole: admin kiradi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const RoleGate(
-          minRole: Role.admin,
-          currentRole: Role.admin,
-          child: child,
-        ).pumpApp(),
+        const RoleGate(minRole: Role.admin, currentRole: Role.admin, child: child).pumpApp(),
       );
       expect(find.text('Bola'), findsOneWidget);
     });

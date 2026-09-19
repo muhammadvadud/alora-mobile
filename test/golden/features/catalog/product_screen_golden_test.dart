@@ -41,11 +41,7 @@ class _FakeCatalogRepository implements CatalogRepository {
     return Product(
       id: id,
       categoryId: 'cat-1',
-      categoryData: const Category(
-        id: 'cat-1',
-        name: 'Portyera',
-        slug: 'portyera',
-      ),
+      categoryData: const Category(id: 'cat-1', name: 'Portyera', slug: 'portyera'),
       name: 'Velvet Milano',
       code: 'VLM-204',
       description: 'Premium velvet mato',

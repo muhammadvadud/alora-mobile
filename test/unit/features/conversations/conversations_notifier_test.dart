@@ -17,17 +17,14 @@ void main() {
   setUp(() {
     repository = FakeConversationsRepository();
     container = ProviderContainer(
-      overrides: [
-        conversationsRepositoryProvider.overrideWithValue(repository),
-      ],
+      overrides: [conversationsRepositoryProvider.overrideWithValue(repository)],
     );
     addTearDown(container.dispose);
   });
 
   ConversationsState state() => container.read(conversationsProvider);
 
-  ConversationsNotifier notifier() =>
-      container.read(conversationsProvider.notifier);
+  ConversationsNotifier notifier() => container.read(conversationsProvider.notifier);
 
   test('boshlang\'ich holat initial bo\'ladi', () {
     expect(state().maybeWhen(initial: () => true, orElse: () => false), isTrue);
@@ -42,8 +39,7 @@ void main() {
     expect(repository.listCalls, 1);
     expect(
       state().maybeWhen(
-        loaded: (items, _, _, _, _) =>
-            items.length == 1 && items.first.title == 'Ali',
+        loaded: (items, _, _, _, _) => items.length == 1 && items.first.title == 'Ali',
         orElse: () => false,
       ),
       isTrue,
@@ -54,10 +50,7 @@ void main() {
     state();
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(empty: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(empty: (_, _) => true, orElse: () => false), isTrue);
   });
 
   test('xatolik -> error holat va retry qayta yuklaydi', () async {
@@ -65,10 +58,7 @@ void main() {
     state();
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(error: (_, _, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(error: (_, _, _) => true, orElse: () => false), isTrue);
 
     repository.listFailure = null;
     repository.listResult = ([testConversation()], null);
@@ -77,17 +67,11 @@ void main() {
     await pumpEventQueue();
 
     expect(repository.listCalls, 2);
-    expect(
-      state().maybeWhen(loaded: (_, _, _, _, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(loaded: (_, _, _, _, _) => true, orElse: () => false), isTrue);
   });
 
   test('qidiruv 300ms debounce bilan repository chaqiradi', () async {
-    repository.listResult = (
-      [testConversation(), testConversation(id: 'c2')],
-      null,
-    );
+    repository.listResult = ([testConversation(), testConversation(id: 'c2')], null);
     state();
     await pumpEventQueue();
 
@@ -117,8 +101,7 @@ void main() {
     notifier().setFilter(ConversationFilterType.hasOrder);
 
     final filtered = state().maybeWhen(
-      loaded: (items, _, _, _, filterType) =>
-          applyConversationFilter(items, filterType),
+      loaded: (items, _, _, _, filterType) => applyConversationFilter(items, filterType),
       orElse: () => <Conversation>[],
     );
     expect(filtered.length, 1);
@@ -126,10 +109,7 @@ void main() {
   });
 
   test('archive optimistic — ro\'yxatdan darhol olib tashlanadi', () async {
-    repository.listResult = (
-      [testConversation(id: 'a'), testConversation(id: 'b')],
-      null,
-    );
+    repository.listResult = ([testConversation(id: 'a'), testConversation(id: 'b')], null);
     state();
     await pumpEventQueue();
 
@@ -178,8 +158,7 @@ void main() {
     await notifier().loadMore();
 
     final after = state().maybeWhen(
-      loaded: (items, next, isLoadingMore, _, _) =>
-          (items.length, next, isLoadingMore),
+      loaded: (items, next, isLoadingMore, _, _) => (items.length, next, isLoadingMore),
       orElse: () => (0, null, true),
     );
     expect(after, (2, null, false));

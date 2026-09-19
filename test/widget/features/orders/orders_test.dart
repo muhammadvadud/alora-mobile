@@ -32,9 +32,7 @@ void main() {
     statusDisplay: 'Qoralama',
     total: 500000,
     paymentStatus: PaymentStatus.unpaid,
-    measurements: const [
-      OrderMeasurement(id: 'm1', roomName: 'Mehmonxona', parts: []),
-    ],
+    measurements: const [OrderMeasurement(id: 'm1', roomName: 'Mehmonxona', parts: [])],
     deadlineDate: DateTime.now().add(const Duration(days: 2)),
   );
 
@@ -51,18 +49,13 @@ void main() {
     );
   }
 
-  testWidgets('OrdersScreen ro\'yxat/bo\'sh (S-15)', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('OrdersScreen ro\'yxat/bo\'sh (S-15)', (WidgetTester tester) async {
     when(
       () => mockRepo.getOrders(
         status: any(named: 'status'),
         search: any(named: 'search'),
       ),
-    ).thenAnswer(
-      (_) async =>
-          const Paginated<Order>(next: null, previous: null, results: []),
-    );
+    ).thenAnswer((_) async => const Paginated<Order>(next: null, previous: null, results: []));
 
     await tester.pumpWidget(wrapWithProvider(const OrdersScreen()));
     await tester.pumpAndSettle();
@@ -105,10 +98,7 @@ void main() {
         status: any(named: 'status'),
         search: any(named: 'search'),
       ),
-    ).thenAnswer(
-      (_) async =>
-          Paginated<Order>(next: null, previous: null, results: [dummyOrder]),
-    );
+    ).thenAnswer((_) async => Paginated<Order>(next: null, previous: null, results: [dummyOrder]));
 
     await tester.pumpWidget(wrapWithProvider(const OrdersScreen()));
     await tester.pumpAndSettle();
@@ -124,15 +114,10 @@ void main() {
     expect(find.byType(StatusChangeSheet), findsOneWidget);
   });
 
-  testWidgets('OrderDetail 8 bo\'lim + yopishqoq panel', (
-    WidgetTester tester,
-  ) async {
-    when(() => mockRepo.getOrder('order-1'))
-        .thenAnswer((_) async => dummyOrder);
+  testWidgets('OrderDetail 8 bo\'lim + yopishqoq panel', (WidgetTester tester) async {
+    when(() => mockRepo.getOrder('order-1')).thenAnswer((_) async => dummyOrder);
 
-    await tester.pumpWidget(
-      wrapWithProvider(const OrderDetailScreen(orderId: 'order-1')),
-    );
+    await tester.pumpWidget(wrapWithProvider(const OrderDetailScreen(orderId: 'order-1')));
     await tester.pumpAndSettle();
 
     expect(find.text('ORD-1234'), findsOneWidget);

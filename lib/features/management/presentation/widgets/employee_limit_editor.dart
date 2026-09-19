@@ -36,15 +36,10 @@ class EmployeeLimitEditor extends ConsumerStatefulWidget {
   final String employeeId;
   final UsageLimit? initialLimit;
 
-  const EmployeeLimitEditor({
-    super.key,
-    required this.employeeId,
-    this.initialLimit,
-  });
+  const EmployeeLimitEditor({super.key, required this.employeeId, this.initialLimit});
 
   @override
-  ConsumerState<EmployeeLimitEditor> createState() =>
-      _EmployeeLimitEditorState();
+  ConsumerState<EmployeeLimitEditor> createState() => _EmployeeLimitEditorState();
 }
 
 class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
@@ -72,9 +67,7 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
 
   void _initFromLimit(UsageLimit? limit) {
     _unlimited = limit?.isUnlimited ?? true;
-    _period = limit == null
-        ? LimitPeriod.daily
-        : LimitPeriod.fromName(limit.period);
+    _period = limit == null ? LimitPeriod.daily : LimitPeriod.fromName(limit.period);
     _onExceed = limit?.onExceed ?? OnExceed.warn;
     _tokensController.text = limit?.maxTokens?.toString() ?? '';
     _costController.text = limit?.maxCost?.toString() ?? '';
@@ -95,18 +88,12 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
 
     setState(() => _saving = true);
     try {
-      await ref
-          .read(employeeDetailProvider(widget.employeeId).notifier)
-          .setLimit(body: body);
+      await ref.read(employeeDetailProvider(widget.employeeId).notifier).setLimit(body: body);
       if (!mounted) return;
       AppSnackbar.show(context, message: l10n.management_limitSet);
     } on Failure catch (error) {
       if (!mounted) return;
-      AppSnackbar.show(
-        context,
-        message: error.localizedMessage(context),
-        isError: true,
-      );
+      AppSnackbar.show(context, message: error.localizedMessage(context), isError: true);
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -151,9 +138,7 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
                   Expanded(
                     child: Text(
                       l10n.management_limitUnlimited,
-                      style: typography.labelL.copyWith(
-                        color: colors.textPrimary,
-                      ),
+                      style: typography.labelL.copyWith(color: colors.textPrimary),
                     ),
                   ),
                   Switch(
@@ -174,11 +159,7 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
                   onExceedChanged: (val) => setState(() => _onExceed = val),
                 ),
               ],
-              AppButton(
-                text: l10n.management_limitSet,
-                isLoading: _saving,
-                onPressed: _save,
-              ),
+              AppButton(text: l10n.management_limitSet, isLoading: _saving, onPressed: _save),
             ],
           ),
         ),
@@ -291,9 +272,7 @@ class _PeriodChip extends StatelessWidget {
     return AppChip(
       label: label,
       onTap: onTap,
-      state: currentPeriod == period
-          ? AppChipState.selected
-          : AppChipState.unselected,
+      state: currentPeriod == period ? AppChipState.selected : AppChipState.unselected,
     );
   }
 }
@@ -316,9 +295,7 @@ class _OnExceedChip extends StatelessWidget {
     return AppChip(
       label: label,
       onTap: onTap,
-      state: current == onExceed
-          ? AppChipState.selected
-          : AppChipState.unselected,
+      state: current == onExceed ? AppChipState.selected : AppChipState.unselected,
     );
   }
 }

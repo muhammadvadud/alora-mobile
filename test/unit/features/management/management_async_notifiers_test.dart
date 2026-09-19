@@ -35,9 +35,7 @@ void main() {
       ),
     ];
 
-    final items = await container.read(
-      employeeConversationsProvider('employee-1').future,
-    );
+    final items = await container.read(employeeConversationsProvider('employee-1').future);
 
     expect(teamRepository.conversationEmployeeIds, ['employee-1']);
     expect(items.single.id, 'conv-1');
@@ -46,10 +44,7 @@ void main() {
   test('employeeConversations xatosi error holatiga o\'tadi', () async {
     teamRepository.conversationsFailure = const Failure.network();
 
-    final sub = container.listen(
-      employeeConversationsProvider('employee-1'),
-      (_, _) {},
-    );
+    final sub = container.listen(employeeConversationsProvider('employee-1'), (_, _) {});
     await pumpEventQueue();
 
     expect(sub.read().hasError, isTrue);

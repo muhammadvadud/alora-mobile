@@ -38,10 +38,7 @@ class MoneyText extends StatelessWidget {
       textBaseline: TextBaseline.alphabetic,
       children: [
         Text(formatter(amount), style: effectiveStyle.tabular),
-        Text(
-          suffix,
-          style: effectiveStyle.copyWith(color: context.colors.textSecondary),
-        ),
+        Text(suffix, style: effectiveStyle.copyWith(color: context.colors.textSecondary)),
       ],
     );
   }

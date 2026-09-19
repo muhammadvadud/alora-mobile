@@ -26,9 +26,7 @@ class ProductFormPriceSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ProductFormSectionTitle(
-          text: context.l10n.management_productFormBasePrice,
-        ),
+        ProductFormSectionTitle(text: context.l10n.management_productFormBasePrice),
         const SizedBox(height: AppSpacing.s),
         AppTextField(
           hintText: context.l10n.management_productFormPrice,

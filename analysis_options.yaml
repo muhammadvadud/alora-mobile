@@ -22,3 +22,7 @@ linter:
     - prefer_const_constructors
     - use_key_in_widget_constructors
     - avoid_dynamic_calls
+
+formatter:
+  # rules.md §14.2 — dart format qator kengligi 100
+  page_width: 100

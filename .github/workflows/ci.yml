@@ -30,7 +30,7 @@ jobs:
           if [ -s l10n-errors.txt ] && [ "$(cat l10n-errors.txt)" != "{}" ]; then
             echo "Tarjima qilinmagan kalitlar bor:"; cat l10n-errors.txt; exit 1
           fi
-      - run: dart format --set-exit-if-changed lib test
+      - run: tool/format_check.sh
       - run: dart analyze --fatal-infos
       - run: dart run custom_lint
       - run: flutter test --coverage --concurrency=2 test/unit test/widget test/golden test/integration

@@ -77,8 +77,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
               isEnabled: !state.isSaving,
               onAddVariant: notifier.addVariant,
               onChanged: notifier.updateVariant,
-              onRemoveVariant: (index) =>
-                  _confirmRemoveVariant(notifier, index),
+              onRemoveVariant: (index) => _confirmRemoveVariant(notifier, index),
             ),
             const SizedBox(height: AppSpacing.l),
             AppButton(
@@ -94,19 +93,12 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
     );
   }
 
-  Future<void> _confirmRemoveVariant(
-    ProductFormNotifier notifier,
-    int index,
-  ) async {
+  Future<void> _confirmRemoveVariant(ProductFormNotifier notifier, int index) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(
-          dialogContext.l10n.management_productFormRemoveVariantTitle,
-        ),
-        content: Text(
-          dialogContext.l10n.management_productFormRemoveVariantMessage,
-        ),
+        title: Text(dialogContext.l10n.management_productFormRemoveVariantTitle),
+        content: Text(dialogContext.l10n.management_productFormRemoveVariantMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
@@ -127,10 +119,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
   Future<void> _save(ProductFormNotifier notifier) async {
     final ok = await notifier.save(productId: widget.productId);
     if (ok && mounted) {
-      AppSnackbar.show(
-        context,
-        message: context.l10n.management_productFormSaved,
-      );
+      AppSnackbar.show(context, message: context.l10n.management_productFormSaved);
     }
   }
 }

@@ -30,10 +30,7 @@ class ConversationsRepositoryImpl implements ConversationsRepository {
       return (entities, paginated.next);
     } on Failure catch (error) {
       // Tarmoq xatosi va birinchi sahifa bo'lsa — keshdan olish
-      final isNetwork = error.maybeWhen(
-        network: () => true,
-        orElse: () => false,
-      );
+      final isNetwork = error.maybeWhen(network: () => true, orElse: () => false);
       if (isNetwork && cursor == null) {
         final cached = await _local.getCached();
         if (cached.isNotEmpty) {

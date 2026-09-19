@@ -36,10 +36,7 @@ class ProductFormImageHandler {
         ),
         IOSUiSettings(
           title: 'Rasmni kesish',
-          aspectRatioPresets: [
-            CropAspectRatioPreset.ratio5x4,
-            CropAspectRatioPreset.square,
-          ],
+          aspectRatioPresets: [CropAspectRatioPreset.ratio5x4, CropAspectRatioPreset.square],
         ),
       ],
     );

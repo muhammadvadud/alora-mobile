@@ -16,6 +16,5 @@ abstract class KnowledgeRuleDto with _$KnowledgeRuleDto {
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _KnowledgeRuleDto;
 
-  factory KnowledgeRuleDto.fromJson(Map<String, dynamic> json) =>
-      _$KnowledgeRuleDtoFromJson(json);
+  factory KnowledgeRuleDto.fromJson(Map<String, dynamic> json) => _$KnowledgeRuleDtoFromJson(json);
 }

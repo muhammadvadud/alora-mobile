@@ -70,9 +70,7 @@ class CatalogWriteDataSourceImpl implements CatalogWriteDataSource {
     String imagePath, {
     void Function(int, int)? onSendProgress,
   }) async {
-    final formData = FormData.fromMap({
-      'image': await MultipartFile.fromFile(imagePath),
-    });
+    final formData = FormData.fromMap({'image': await MultipartFile.fromFile(imagePath)});
     await _dio.post(
       ApiPaths.productImages(productId),
       data: formData,

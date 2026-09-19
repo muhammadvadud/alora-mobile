@@ -18,12 +18,7 @@ final usageRemoteDataSourceProvider = UsageRemoteDataSourceProvider._();
 /// Usage statistika backend data source
 
 final class UsageRemoteDataSourceProvider
-    extends
-        $FunctionalProvider<
-          UsageRemoteDataSource,
-          UsageRemoteDataSource,
-          UsageRemoteDataSource
-        >
+    extends $FunctionalProvider<UsageRemoteDataSource, UsageRemoteDataSource, UsageRemoteDataSource>
     with $Provider<UsageRemoteDataSource> {
   /// Usage statistika backend data source
   UsageRemoteDataSourceProvider._()
@@ -42,9 +37,8 @@ final class UsageRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<UsageRemoteDataSource> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<UsageRemoteDataSource> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   UsageRemoteDataSource create(Ref ref) {
@@ -60,8 +54,7 @@ final class UsageRemoteDataSourceProvider
   }
 }
 
-String _$usageRemoteDataSourceHash() =>
-    r'cd76c108ed11d11581457bf15f6dd76ca06892fb';
+String _$usageRemoteDataSourceHash() => r'cd76c108ed11d11581457bf15f6dd76ca06892fb';
 
 /// Usage statistika repository
 
@@ -71,8 +64,7 @@ final usageRepositoryProvider = UsageRepositoryProvider._();
 /// Usage statistika repository
 
 final class UsageRepositoryProvider
-    extends
-        $FunctionalProvider<UsageRepository, UsageRepository, UsageRepository>
+    extends $FunctionalProvider<UsageRepository, UsageRepository, UsageRepository>
     with $Provider<UsageRepository> {
   /// Usage statistika repository
   UsageRepositoryProvider._()
@@ -118,12 +110,7 @@ final teamRemoteDataSourceProvider = TeamRemoteDataSourceProvider._();
 /// Jamoa backend data source
 
 final class TeamRemoteDataSourceProvider
-    extends
-        $FunctionalProvider<
-          TeamRemoteDataSource,
-          TeamRemoteDataSource,
-          TeamRemoteDataSource
-        >
+    extends $FunctionalProvider<TeamRemoteDataSource, TeamRemoteDataSource, TeamRemoteDataSource>
     with $Provider<TeamRemoteDataSource> {
   /// Jamoa backend data source
   TeamRemoteDataSourceProvider._()
@@ -142,9 +129,8 @@ final class TeamRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<TeamRemoteDataSource> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<TeamRemoteDataSource> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   TeamRemoteDataSource create(Ref ref) {
@@ -160,8 +146,7 @@ final class TeamRemoteDataSourceProvider
   }
 }
 
-String _$teamRemoteDataSourceHash() =>
-    r'b3ce06eedad4eaa9c6d6308cd20e3e2dca1f4457';
+String _$teamRemoteDataSourceHash() => r'b3ce06eedad4eaa9c6d6308cd20e3e2dca1f4457';
 
 /// Jamoa repository
 

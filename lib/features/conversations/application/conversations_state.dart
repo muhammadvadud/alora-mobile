@@ -10,10 +10,7 @@ enum ConversationFilterType { all, hasOrder, inProgress }
 
 /// Filtrni client-side qo'llaydi. Backend hozircha filtr parametrlarini
 /// qabul qilmaydi, shuning uchun yuklangan ro'yxat ustida bajariladi.
-List<Conversation> applyConversationFilter(
-  List<Conversation> items,
-  ConversationFilterType type,
-) {
+List<Conversation> applyConversationFilter(List<Conversation> items, ConversationFilterType type) {
   switch (type) {
     case ConversationFilterType.all:
       return items;

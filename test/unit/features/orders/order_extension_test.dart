@@ -24,9 +24,7 @@ void main() {
     });
 
     test('returns danger color when deadline is past', () {
-      final order = createOrder(
-        DateTime.now().subtract(const Duration(days: 1)),
-      );
+      final order = createOrder(DateTime.now().subtract(const Duration(days: 1)));
       expect(order.deadlineColor(colors), colors.danger);
     });
 
@@ -36,9 +34,7 @@ void main() {
     });
 
     test('returns null when deadline is > 3 days', () {
-      final order = createOrder(
-        DateTime.now().add(const Duration(days: 4, hours: 1)),
-      );
+      final order = createOrder(DateTime.now().add(const Duration(days: 4, hours: 1)));
       expect(order.deadlineColor(colors), isNull);
     });
   });

@@ -61,9 +61,7 @@ void main() {
 
   tearDown(() => container.dispose());
 
-  testWidgets('19.3: login → chat → hisob → qoralama → buyurtma → tasdiqlash', (
-    tester,
-  ) async {
+  testWidgets('19.3: login → chat → hisob → qoralama → buyurtma → tasdiqlash', (tester) async {
     chat.sendHandler = (content, locale, customerMode, stage) =>
         Stream.fromIterable(quoteAndDraftSseEvents());
 
@@ -79,9 +77,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(
-      container
-          .read(authProvider)
-          .maybeWhen(authenticated: (_) => true, orElse: () => false),
+      container.read(authProvider).maybeWhen(authenticated: (_) => true, orElse: () => false),
       isTrue,
       reason: 'Login muvaffaqiyatli bo\'lishi kerak',
     );
@@ -95,10 +91,7 @@ void main() {
 
     // Xabar yuborish.
     await tester.enterText(
-      find.descendant(
-        of: find.byType(ChatInputPanel),
-        matching: find.byType(TextField),
-      ),
+      find.descendant(of: find.byType(ChatInputPanel), matching: find.byType(TextField)),
       'Mehmonxona 1.5x2.5 parda hisoblash',
     );
     await tester.pump();
@@ -125,67 +118,63 @@ void main() {
     expect(find.text('Buyurtma tasdiqlandi'), findsOneWidget);
   });
 
-  testWidgets(
-    '19.3: buyurtmalar ro\'yxatida draft buyurtmani tasdiqlash → "Tasdiqlangan"',
-    (tester) async {
-      auth.refreshToken = 'refresh';
-      auth.user = testUser(role: Role.manager);
-      orders = FakeOrdersRepository(
-        initial: [
-          Order(
-            id: 'order-1',
-            number: 'ORD-000001',
-            customerName: 'Ali Valiyev',
-            customerPhone: '+998901234567',
-            status: OrderStatus.draft,
-            statusDisplay: 'Qoralama',
-            total: 1870000,
-            paymentStatus: PaymentStatus.unpaid,
-            createdAt: DateTime(2026, 1, 15),
-          ),
-        ],
-      );
-      container = createTestContainer(
-        auth: auth,
-        chat: chat,
-        conversations: conversations,
-        orders: orders,
-        catalog: catalog,
-        connectivity: connectivity,
-        usage: usage,
-      );
-
-      await tester.pumpWidget(wrapApp(container));
-      await tester.pumpAndSettle();
-
-      // Authenticated → to'g'ridan-to'g'ri /chat.
-      expect(find.byType(ConversationsScreen), findsOneWidget);
-
-      // Buyurtmalar tab.
-      await tester.tap(
-        find.descendant(
-          of: find.byType(AppTabBar),
-          matching: find.text('Buyurtmalar'),
+  testWidgets('19.3: buyurtmalar ro\'yxatida draft buyurtmani tasdiqlash → "Tasdiqlangan"', (
+    tester,
+  ) async {
+    auth.refreshToken = 'refresh';
+    auth.user = testUser(role: Role.manager);
+    orders = FakeOrdersRepository(
+      initial: [
+        Order(
+          id: 'order-1',
+          number: 'ORD-000001',
+          customerName: 'Ali Valiyev',
+          customerPhone: '+998901234567',
+          status: OrderStatus.draft,
+          statusDisplay: 'Qoralama',
+          total: 1870000,
+          paymentStatus: PaymentStatus.unpaid,
+          createdAt: DateTime(2026, 1, 15),
         ),
-      );
-      await tester.pumpAndSettle();
-      expect(find.byType(OrdersScreen), findsOneWidget);
+      ],
+    );
+    container = createTestContainer(
+      auth: auth,
+      chat: chat,
+      conversations: conversations,
+      orders: orders,
+      catalog: catalog,
+      connectivity: connectivity,
+      usage: usage,
+    );
 
-      // Draft buyurtma kartasidagi "Tasdiqlash" tugmasi ishlaydi.
-      final confirmButton = find.widgetWithText(AppButton, 'Tasdiqlash');
-      expect(confirmButton, findsOneWidget);
-      await tester.tap(confirmButton);
-      await settleReal(tester);
+    await tester.pumpWidget(wrapApp(container));
+    await tester.pumpAndSettle();
 
-      expect(orders.confirmCalls, 1);
-      expect(find.text('Tasdiqlangan'), findsOneWidget);
+    // Authenticated → to'g'ridan-to'g'ri /chat.
+    expect(find.byType(ConversationsScreen), findsOneWidget);
 
-      // Buyurtma tafsilotiga o'tish.
-      await tester.tap(find.text('ORD-000001'));
-      await tester.pumpAndSettle();
+    // Buyurtmalar tab.
+    await tester.tap(
+      find.descendant(of: find.byType(AppTabBar), matching: find.text('Buyurtmalar')),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(OrdersScreen), findsOneWidget);
 
-      // Tasdiqlangan buyurtma tafsilotida "Tasdiqlash" tugmasi ko'rinmaydi.
-      expect(find.widgetWithText(AppButton, 'Tasdiqlash'), findsNothing);
-    },
-  );
+    // Draft buyurtma kartasidagi "Tasdiqlash" tugmasi ishlaydi.
+    final confirmButton = find.widgetWithText(AppButton, 'Tasdiqlash');
+    expect(confirmButton, findsOneWidget);
+    await tester.tap(confirmButton);
+    await settleReal(tester);
+
+    expect(orders.confirmCalls, 1);
+    expect(find.text('Tasdiqlangan'), findsOneWidget);
+
+    // Buyurtma tafsilotiga o'tish.
+    await tester.tap(find.text('ORD-000001'));
+    await tester.pumpAndSettle();
+
+    // Tasdiqlangan buyurtma tafsilotida "Tasdiqlash" tugmasi ko'rinmaydi.
+    expect(find.widgetWithText(AppButton, 'Tasdiqlash'), findsNothing);
+  });
 }

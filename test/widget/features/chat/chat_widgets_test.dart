@@ -23,15 +23,10 @@ void main() {
 
   group('UserBubble', () {
     testWidgets('Matn o\'ng tomonda hizalanadi', (tester) async {
-      await tester.pumpWidget(
-        const UserBubble(text: 'Mehmonxona podorni').pumpApp(),
-      );
+      await tester.pumpWidget(const UserBubble(text: 'Mehmonxona podorni').pumpApp());
 
       final align = tester.widget<Align>(
-        find.ancestor(
-          of: find.text('Mehmonxona podorni'),
-          matching: find.byType(Align),
-        ),
+        find.ancestor(of: find.text('Mehmonxona podorni'), matching: find.byType(Align)),
       );
       expect(align.alignment, Alignment.centerRight);
     });
@@ -39,9 +34,7 @@ void main() {
 
   group('AssistantMessageView', () {
     testWidgets('** qalin** matnni RichText sifatida ajratadi', (tester) async {
-      await tester.pumpWidget(
-        const AssistantMessageView(text: '**Salom** dunyo').pumpApp(),
-      );
+      await tester.pumpWidget(const AssistantMessageView(text: '**Salom** dunyo').pumpApp());
 
       final richText = tester.widget<RichText>(find.byType(RichText));
       final text = richText.text.toPlainText();
@@ -50,14 +43,9 @@ void main() {
   });
 
   group('ToolChipBlockView', () {
-    testWidgets('running holatda chop etilmoqda belgisi va ... ko\'rinadi', (
-      tester,
-    ) async {
+    testWidgets('running holatda chop etilmoqda belgisi va ... ko\'rinadi', (tester) async {
       await tester.pumpWidget(
-        const ToolChipBlockView(
-          tool: 'product_search',
-          state: ToolChipState.running,
-        ).pumpApp(),
+        const ToolChipBlockView(tool: 'product_search', state: ToolChipState.running).pumpApp(),
       );
 
       expect(find.text('Mahsulot qidirilmoqda…'), findsOneWidget);
@@ -76,14 +64,9 @@ void main() {
       expect(find.text('3 bo\'lak hisoblandi'), findsOneWidget);
     });
 
-    testWidgets('done holatida resultText bo\'lmasa "Natija" ko\'rsatiladi', (
-      tester,
-    ) async {
+    testWidgets('done holatida resultText bo\'lmasa "Natija" ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(
-        const ToolChipBlockView(
-          tool: 'curtain_calculate',
-          state: ToolChipState.done,
-        ).pumpApp(),
+        const ToolChipBlockView(tool: 'curtain_calculate', state: ToolChipState.done).pumpApp(),
       );
 
       expect(find.text('Natija'), findsOneWidget);
@@ -91,10 +74,7 @@ void main() {
 
     testWidgets('error holatida xatolik ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(
-        const ToolChipBlockView(
-          tool: 'curtain_calculate',
-          state: ToolChipState.error,
-        ).pumpApp(),
+        const ToolChipBlockView(tool: 'curtain_calculate', state: ToolChipState.error).pumpApp(),
       );
 
       expect(find.text('Xatolik yuz berdi'), findsOneWidget);
@@ -103,15 +83,11 @@ void main() {
 
   group('ProductCarousel', () {
     testWidgets('Har karta 180px kengligida ko\'rsatiladi', (tester) async {
-      await tester.pumpWidget(
-        ProductCarousel(products: productsFixture()).pumpApp(),
-      );
+      await tester.pumpWidget(ProductCarousel(products: productsFixture()).pumpApp());
 
       expect(find.byType(ProductCard), findsNWidgets(2));
 
-      final sized = find.byWidgetPredicate(
-        (w) => w is SizedBox && w.width == 180,
-      );
+      final sized = find.byWidgetPredicate((w) => w is SizedBox && w.width == 180);
       expect(sized, findsNWidgets(2));
     });
   });
@@ -121,9 +97,7 @@ void main() {
       return SingleChildScrollView(child: child).pumpApp();
     }
 
-    testWidgets('Uch bo\'lim, JAMI, yana N ta va ogohlantirish ko\'rsatiladi', (
-      tester,
-    ) async {
+    testWidgets('Uch bo\'lim, JAMI, yana N ta va ogohlantirish ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(inScroll(QuoteCardView(quote: quoteFixture())));
 
       expect(find.text('MATOLAR'), findsOneWidget);
@@ -135,9 +109,7 @@ void main() {
       expect(find.text('Yana 4 ta bo\'lak'), findsNWidgets(1));
     });
 
-    testWidgets('"Yana N ta bo\'lak" bosilsa hammasi ko\'rinadi', (
-      tester,
-    ) async {
+    testWidgets('"Yana N ta bo\'lak" bosilsa hammasi ko\'rinadi', (tester) async {
       await tester.pumpWidget(inScroll(QuoteCardView(quote: quoteFixture())));
 
       final moreButton = find.text('Yana 4 ta bo\'lak');
@@ -160,10 +132,7 @@ void main() {
       await tester.tap(formulaTile);
       await tester.pumpAndSettle();
 
-      expect(
-        find.text('2.5 m × 1.5 m × 2 × 120 000 = 900 000'),
-        findsOneWidget,
-      );
+      expect(find.text('2.5 m × 1.5 m × 2 × 120 000 = 900 000'), findsOneWidget);
     });
 
     testWidgets('Jami summa MoneyText bilan ko\'rsatiladi', (tester) async {
@@ -206,49 +175,35 @@ void main() {
             w is Container &&
             w.decoration is BoxDecoration &&
             (w.decoration as BoxDecoration).border is BoxBorder &&
-            ((w.decoration as BoxDecoration).border as Border?)?.top.color ==
-                accent,
+            ((w.decoration as BoxDecoration).border as Border?)?.top.color == accent,
       );
     }
 
     testWidgets('Telefonda mid reja markazda tanlangan', (tester) async {
-      await tester.pumpWidget(
-        OptionsCardView(optionsBlock: optionsFixture()).pumpApp(),
-      );
+      await tester.pumpWidget(OptionsCardView(optionsBlock: optionsFixture()).pumpApp());
       await tester.pump(const Duration(milliseconds: 400));
 
       final pageView = tester.widget<PageView>(find.byType(PageView));
       expect(pageView.controller?.initialPage, 1);
 
-      final midCard = find.ancestor(
-        of: optionTitle('O\'RTA'),
-        matching: find.byType(Container),
-      );
+      final midCard = find.ancestor(of: optionTitle('O\'RTA'), matching: find.byType(Container));
 
       expect(containerWithAccentBorder(), findsWidgets);
       expect(
-        find.descendant(
-          of: containerWithAccentBorder(),
-          matching: find.text('1 000 000'),
-        ),
+        find.descendant(of: containerWithAccentBorder(), matching: find.text('1 000 000')),
         findsWidgets,
       );
       expect(midCard, findsWidgets);
     });
 
-    testWidgets('Tabletda barcha variantlar qatorda va mid tanlangan', (
-      tester,
-    ) async {
+    testWidgets('Tabletda barcha variantlar qatorda va mid tanlangan', (tester) async {
       tester.view.physicalSize = const Size(1024 * 3, 800 * 3);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
 
       await tester.pumpWidget(
-        OptionsCardView(
-          optionsBlock: optionsFixture(),
-          onSelect: (_) {},
-        ).pumpApp(),
+        OptionsCardView(optionsBlock: optionsFixture(), onSelect: (_) {}).pumpApp(),
       );
 
       expect(find.byType(PageView), findsNothing);
@@ -258,9 +213,7 @@ void main() {
       expect(containerWithAccentBorder(), findsOneWidget);
     });
 
-    testWidgets('Tabletdagi "Tanlash" bosilganda to\'g\'ri variant uzatiladi', (
-      tester,
-    ) async {
+    testWidgets('Tabletdagi "Tanlash" bosilganda to\'g\'ri variant uzatiladi', (tester) async {
       tester.view.physicalSize = const Size(1024 * 3, 800 * 3);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.resetPhysicalSize);
@@ -275,12 +228,7 @@ void main() {
       );
 
       final midButton = find.descendant(
-        of: find
-            .ancestor(
-              of: optionTitle('O\'RTA'),
-              matching: find.byType(Container),
-            )
-            .first,
+        of: find.ancestor(of: optionTitle('O\'RTA'), matching: find.byType(Container)).first,
         matching: find.text('Tanlash'),
       );
       await tester.ensureVisible(midButton);
@@ -296,31 +244,21 @@ void main() {
       return SingleChildScrollView(child: child).pumpApp();
     }
 
-    testWidgets('Yetishmayotgan maydonlar va bloklangan buyurtma tugmasi', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        inScroll(OrderDraftCardView(draft: orderDraftFixture())),
-      );
+    testWidgets('Yetishmayotgan maydonlar va bloklangan buyurtma tugmasi', (tester) async {
+      await tester.pumpWidget(inScroll(OrderDraftCardView(draft: orderDraftFixture())));
 
       expect(find.text('Telefon raqam'), findsOneWidget);
       expect(find.text('Manzil'), findsOneWidget);
       expect(find.text('QORALAMA'), findsOneWidget);
 
-      final create = tester.widget<AppButton>(
-        find.widgetWithText(AppButton, 'Buyurtma yaratish'),
-      );
+      final create = tester.widget<AppButton>(find.widgetWithText(AppButton, 'Buyurtma yaratish'));
       expect(create.onPressed, isNull);
 
-      final edit = tester.widget<AppButton>(
-        find.widgetWithText(AppButton, 'Tahrirlash'),
-      );
+      final edit = tester.widget<AppButton>(find.widgetWithText(AppButton, 'Tahrirlash'));
       expect(edit.onPressed, isNull);
     });
 
-    testWidgets('Maydonlar to\'liq bo\'lsa onEdit va onCreate ishlaydi', (
-      tester,
-    ) async {
+    testWidgets('Maydonlar to\'liq bo\'lsa onEdit va onCreate ishlaydi', (tester) async {
       var edited = false;
       var created = false;
       await tester.pumpWidget(

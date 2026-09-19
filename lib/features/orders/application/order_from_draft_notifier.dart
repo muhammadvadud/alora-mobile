@@ -18,8 +18,7 @@ class OrderFromDraftNotifier extends _$OrderFromDraftNotifier {
     state = const AsyncValue.loading();
     final repo = ref.read(ordersRepositoryProvider);
     final result = await AsyncValue.guard(
-      () =>
-          repo.createOrder(draftToBody(draft, conversationId: conversationId)),
+      () => repo.createOrder(draftToBody(draft, conversationId: conversationId)),
     );
     state = result;
     if (result.hasValue) {
@@ -38,14 +37,12 @@ Map<String, dynamic> draftToBody(OrderDraft draft, {String? conversationId}) {
     'address': ?draft.address,
     'conversation_id': ?conversationId,
     if (draft.prepayment != null) 'prepayment': draft.prepayment.toString(),
-    if (draft.deadline != null)
-      'deadline_date': draft.deadline!.toIso8601String().split('T').first,
+    if (draft.deadline != null) 'deadline_date': draft.deadline!.toIso8601String().split('T').first,
     'measurements': [
       for (final m in draft.measurements)
         <String, dynamic>{
           'room_name': ?m.roomName,
-          if (m.cornice != null)
-            'cornice_length_m': m.cornice!.toStringAsFixed(3),
+          if (m.cornice != null) 'cornice_length_m': m.cornice!.toStringAsFixed(3),
           if (m.height != null) 'height_m': m.height!.toStringAsFixed(3),
         },
     ],

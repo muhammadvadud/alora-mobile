@@ -42,9 +42,8 @@ final class ProfileRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<ProfileRemoteDataSource> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<ProfileRemoteDataSource> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   ProfileRemoteDataSource create(Ref ref) {
@@ -60,8 +59,7 @@ final class ProfileRemoteDataSourceProvider
   }
 }
 
-String _$profileRemoteDataSourceHash() =>
-    r'4f989a18889fe48c209bb169225914c758a8b2d4';
+String _$profileRemoteDataSourceHash() => r'4f989a18889fe48c209bb169225914c758a8b2d4';
 
 /// Profil repository (testlarda override qilinadi)
 
@@ -71,12 +69,7 @@ final profileRepositoryProvider = ProfileRepositoryProvider._();
 /// Profil repository (testlarda override qilinadi)
 
 final class ProfileRepositoryProvider
-    extends
-        $FunctionalProvider<
-          ProfileRepository,
-          ProfileRepository,
-          ProfileRepository
-        >
+    extends $FunctionalProvider<ProfileRepository, ProfileRepository, ProfileRepository>
     with $Provider<ProfileRepository> {
   /// Profil repository (testlarda override qilinadi)
   ProfileRepositoryProvider._()
@@ -95,9 +88,8 @@ final class ProfileRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<ProfileRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<ProfileRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   ProfileRepository create(Ref ref) {

@@ -15,21 +15,17 @@ _OfflineQueueItem _$OfflineQueueItemFromJson(Map<String, dynamic> json) =>
         method: $checkedConvert('method', (v) => v as String),
         path: $checkedConvert('path', (v) => v as String),
         body: $checkedConvert('body', (v) => v as Map<String, dynamic>?),
-        createdAt: $checkedConvert(
-          'created_at',
-          (v) => DateTime.parse(v as String),
-        ),
+        createdAt: $checkedConvert('created_at', (v) => DateTime.parse(v as String)),
         attempts: $checkedConvert('attempts', (v) => (v as num?)?.toInt() ?? 0),
       );
       return val;
     }, fieldKeyMap: const {'createdAt': 'created_at'});
 
-Map<String, dynamic> _$OfflineQueueItemToJson(_OfflineQueueItem instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'method': instance.method,
-      'path': instance.path,
-      'body': ?instance.body,
-      'created_at': instance.createdAt.toIso8601String(),
-      'attempts': instance.attempts,
-    };
+Map<String, dynamic> _$OfflineQueueItemToJson(_OfflineQueueItem instance) => <String, dynamic>{
+  'id': instance.id,
+  'method': instance.method,
+  'path': instance.path,
+  'body': ?instance.body,
+  'created_at': instance.createdAt.toIso8601String(),
+  'attempts': instance.attempts,
+};

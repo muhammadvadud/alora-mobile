@@ -65,9 +65,7 @@ class VoiceSocket {
         (message) {
           if (message is Uint8List || message is List<int>) {
             _audioController.add(
-              message is Uint8List
-                  ? message
-                  : Uint8List.fromList(message as List<int>),
+              message is Uint8List ? message : Uint8List.fromList(message as List<int>),
             );
           } else if (message is String) {
             try {
@@ -125,9 +123,8 @@ class VoiceSocket {
     required String token,
     String? baseUrl,
   }) {
-    return Uri.parse(
-      '${baseUrl ?? Env.wsBaseUrl}/${ApiPaths.voiceSocket(conversationId)}',
-    ).replace(queryParameters: {'locale': locale, 'token': token});
+    return Uri.parse('${baseUrl ?? Env.wsBaseUrl}/${ApiPaths.voiceSocket(conversationId)}')
+        .replace(queryParameters: {'locale': locale, 'token': token});
   }
 
   void sendAudio(Uint8List bytes) {

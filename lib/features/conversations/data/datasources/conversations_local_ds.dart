@@ -31,9 +31,7 @@ class ConversationsLocalDataSource {
       if (raw is! String || raw.isEmpty) return [];
       final list = jsonDecode(raw) as List;
       return list.map((e) {
-        final dto = ConversationDto.fromJson(
-          Map<String, dynamic>.from(e as Map),
-        );
+        final dto = ConversationDto.fromJson(Map<String, dynamic>.from(e as Map));
         return dto.toEntity();
       }).toList();
     } catch (error) {
@@ -46,9 +44,7 @@ class ConversationsLocalDataSource {
   Future<void> cache(List<ConversationDto> dtos) async {
     try {
       final box = await _box();
-      final toCache = dtos.length > _maxCachedCount
-          ? dtos.sublist(0, _maxCachedCount)
-          : dtos;
+      final toCache = dtos.length > _maxCachedCount ? dtos.sublist(0, _maxCachedCount) : dtos;
       final jsonList = toCache.map((dto) => dto.toJson()).toList();
       await box.put(_cacheKey, jsonEncode(jsonList));
     } catch (error) {
@@ -63,9 +59,7 @@ class ConversationsLocalDataSource {
       final raw = box.get(_cacheKey);
       if (raw is! String || raw.isEmpty) return;
       final list = jsonDecode(raw) as List;
-      final updated = list
-          .where((e) => Map<String, dynamic>.from(e as Map)['id'] != id)
-          .toList();
+      final updated = list.where((e) => Map<String, dynamic>.from(e as Map)['id'] != id).toList();
       await box.put(_cacheKey, jsonEncode(updated));
     } catch (error) {
       logger.w("Keshdan suhbatni o'chirishda xato: $error");

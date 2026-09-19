@@ -30,8 +30,7 @@ class ProductPropertiesTable extends StatelessWidget {
         ),
       if (product.composition != null && product.composition!.isNotEmpty)
         (l10n.product_composition, product.composition!),
-      if (product.care != null && product.care!.isNotEmpty)
-        (l10n.product_care, product.care!),
+      if (product.care != null && product.care!.isNotEmpty) (l10n.product_care, product.care!),
     ];
 
     if (rows.isEmpty) return const SizedBox.shrink();
@@ -39,10 +38,7 @@ class ProductPropertiesTable extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.product_properties,
-          style: typography.overline.copyWith(color: colors.brass),
-        ),
+        Text(l10n.product_properties, style: typography.overline.copyWith(color: colors.brass)),
         const SizedBox(height: AppSpacing.s),
         for (final (label, value) in rows) ...[
           Padding(
@@ -52,12 +48,7 @@ class ProductPropertiesTable extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 2,
-                  child: Text(
-                    label,
-                    style: typography.bodyM.copyWith(
-                      color: colors.textSecondary,
-                    ),
-                  ),
+                  child: Text(label, style: typography.bodyM.copyWith(color: colors.textSecondary)),
                 ),
                 Expanded(flex: 3, child: Text(value, style: typography.bodyM)),
               ],

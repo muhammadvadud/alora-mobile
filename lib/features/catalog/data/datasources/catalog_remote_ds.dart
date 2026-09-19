@@ -52,8 +52,7 @@ class CatalogRemoteDataSource {
           if (style != null && style.isNotEmpty) 'style': style,
           if (room != null && room.isNotEmpty) 'room': room,
           if (segment != null && segment.isNotEmpty) 'segment': segment,
-          if (priceUnit != null && priceUnit.isNotEmpty)
-            'price_unit': priceUnit,
+          if (priceUnit != null && priceUnit.isNotEmpty) 'price_unit': priceUnit,
           if (search != null && search.isNotEmpty) 'search': search,
           'min_price': ?minPrice,
           'max_price': ?maxPrice,
@@ -72,9 +71,7 @@ class CatalogRemoteDataSource {
   /// GET /catalog/products/{id}/ — bitta mahsulot
   Future<ProductDto> getProductDetail(String id) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        ApiPaths.product(id),
-      );
+      final response = await _dio.get<Map<String, dynamic>>(ApiPaths.product(id));
       return ProductDto.fromJson(response.data!);
     } on DioException catch (error) {
       throw _mapError(error);

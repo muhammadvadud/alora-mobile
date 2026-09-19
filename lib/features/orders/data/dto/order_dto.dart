@@ -45,6 +45,5 @@ abstract class OrderDto with _$OrderDto {
     @JsonKey(name: 'updated_at') String? updatedAt,
   }) = _OrderDto;
 
-  factory OrderDto.fromJson(Map<String, dynamic> json) =>
-      _$OrderDtoFromJson(json);
+  factory OrderDto.fromJson(Map<String, dynamic> json) => _$OrderDtoFromJson(json);
 }

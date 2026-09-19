@@ -28,8 +28,7 @@ class EmployeeCreateSheet extends ConsumerStatefulWidget {
   const EmployeeCreateSheet({super.key});
 
   @override
-  ConsumerState<EmployeeCreateSheet> createState() =>
-      _EmployeeCreateSheetState();
+  ConsumerState<EmployeeCreateSheet> createState() => _EmployeeCreateSheetState();
 }
 
 class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
@@ -90,18 +89,10 @@ class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
           _passwordError = validation.fieldErrors['password'];
         });
         if (validation.fieldErrors.isEmpty) {
-          AppSnackbar.show(
-            context,
-            message: error.localizedMessage(context),
-            isError: true,
-          );
+          AppSnackbar.show(context, message: error.localizedMessage(context), isError: true);
         }
       } else {
-        AppSnackbar.show(
-          context,
-          message: error.localizedMessage(context),
-          isError: true,
-        );
+        AppSnackbar.show(context, message: error.localizedMessage(context), isError: true);
       }
     }
   }
@@ -138,35 +129,24 @@ class _EmployeeCreateSheetState extends ConsumerState<EmployeeCreateSheet> {
               AppChip(
                 label: l10n.profile_roleEmployee,
                 onTap: () => setState(() => _role = Role.employee),
-                state: _role == Role.employee
-                    ? AppChipState.selected
-                    : AppChipState.unselected,
+                state: _role == Role.employee ? AppChipState.selected : AppChipState.unselected,
               ),
               AppChip(
                 label: l10n.profile_roleManager,
                 onTap: () => setState(() => _role = Role.manager),
-                state: _role == Role.manager
-                    ? AppChipState.selected
-                    : AppChipState.unselected,
+                state: _role == Role.manager ? AppChipState.selected : AppChipState.unselected,
               ),
             ],
           ),
         ],
       ),
-      action: AppButton(
-        text: l10n.common_save,
-        isLoading: _saving,
-        onPressed: _submit,
-      ),
+      action: AppButton(text: l10n.common_save, isLoading: _saving, onPressed: _submit),
     );
   }
 
-  ({String detail, Map<String, String> fieldErrors})? _validationFailure(
-    Failure failure,
-  ) {
+  ({String detail, Map<String, String> fieldErrors})? _validationFailure(Failure failure) {
     return failure.maybeWhen(
-      validation: (detail, fieldErrors) =>
-          (detail: detail, fieldErrors: fieldErrors),
+      validation: (detail, fieldErrors) => (detail: detail, fieldErrors: fieldErrors),
       orElse: () => null,
     );
   }

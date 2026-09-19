@@ -16,8 +16,7 @@ abstract class MessageDto with _$MessageDto {
     @JsonKey(name: 'created_at') required DateTime createdAt,
   }) = _MessageDto;
 
-  factory MessageDto.fromJson(Map<String, dynamic> json) =>
-      _$MessageDtoFromJson(json);
+  factory MessageDto.fromJson(Map<String, dynamic> json) => _$MessageDtoFromJson(json);
 }
 
 @freezed
@@ -52,6 +51,5 @@ abstract class UsageDto with _$UsageDto {
     @JsonKey(name: 'cost_uzs') required String costUzs,
   }) = _UsageDto;
 
-  factory UsageDto.fromJson(Map<String, dynamic> json) =>
-      _$UsageDtoFromJson(json);
+  factory UsageDto.fromJson(Map<String, dynamic> json) => _$UsageDtoFromJson(json);
 }

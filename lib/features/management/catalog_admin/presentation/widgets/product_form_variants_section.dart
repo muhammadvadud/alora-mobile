@@ -34,9 +34,7 @@ class ProductFormVariantsSection extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: ProductFormSectionTitle(
-                text: context.l10n.management_productFormVariants,
-              ),
+              child: ProductFormSectionTitle(text: context.l10n.management_productFormVariants),
             ),
             const SizedBox(width: AppSpacing.s),
             Flexible(
@@ -53,9 +51,7 @@ class ProductFormVariantsSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
             child: Text(
               context.l10n.management_productFormVariantsEmpty,
-              style: context.text.bodyM.copyWith(
-                color: context.colors.textSecondary,
-              ),
+              style: context.text.bodyM.copyWith(color: context.colors.textSecondary),
             ),
           )
         else

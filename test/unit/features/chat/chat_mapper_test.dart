@@ -185,8 +185,7 @@ void main() {
           expect(options.options[1].total, 1800000);
           expect(options.options[0].difference, -300000);
         },
-        orElse: () =>
-            fail('price_quote options → OptionsBlock bo\'lishi kerak'),
+        orElse: () => fail('price_quote options → OptionsBlock bo\'lishi kerak'),
       );
     });
   });
@@ -405,39 +404,27 @@ void main() {
     });
 
     test('assistant vs tool role', () {
-      final assistant = ChatMapper.fromDto(
-        dto(role: 'assistant', content: 'Javob', id: 'a1'),
-      );
+      final assistant = ChatMapper.fromDto(dto(role: 'assistant', content: 'Javob', id: 'a1'));
       expect(assistant.role, MessageRole.assistant);
 
       final tool = ChatMapper.fromDto(dto(role: 'tool', content: '', id: 't1'));
       expect(tool.role, MessageRole.system);
 
-      final unknown = ChatMapper.fromDto(
-        dto(role: 'robot', content: '', id: 'u1'),
-      );
+      final unknown = ChatMapper.fromDto(dto(role: 'robot', content: '', id: 'u1'));
       expect(unknown.role, MessageRole.unknown);
     });
 
     test('tool_calls → toolChip blocklar', () {
       final calls = [
         {
-          'function': {
-            'name': 'product_search',
-            'arguments': '{"query":"velvet"}',
-          },
+          'function': {'name': 'product_search', 'arguments': '{"query":"velvet"}'},
         },
         {
           'function': {'name': 'curtain_calculate', 'arguments': '{}'},
         },
       ];
       final msg = ChatMapper.fromDto(
-        dto(
-          role: 'assistant',
-          content: 'natija',
-          id: 'a-tool',
-          toolCalls: calls,
-        ),
+        dto(role: 'assistant', content: 'natija', id: 'a-tool', toolCalls: calls),
       );
       expect(msg.richBlocks, hasLength(2));
       msg.richBlocks[0].maybeWhen(
@@ -462,13 +449,7 @@ void main() {
       );
       final msg = ChatMapper.fromDto(msgDto);
       expect(msg.richBlocks, hasLength(1));
-      expect(
-        msg.richBlocks.single.maybeMap(
-          products: (_) => true,
-          orElse: () => false,
-        ),
-        isTrue,
-      );
+      expect(msg.richBlocks.single.maybeMap(products: (_) => true, orElse: () => false), isTrue);
     });
   });
 

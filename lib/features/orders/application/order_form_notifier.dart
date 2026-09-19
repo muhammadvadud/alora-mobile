@@ -12,10 +12,7 @@ class OrderFormNotifier extends _$OrderFormNotifier {
   }
 
   void initialize(Map<String, dynamic> initialValues) {
-    state = state.copyWith(
-      initialValues: Map.from(initialValues),
-      values: Map.from(initialValues),
-    );
+    state = state.copyWith(initialValues: Map.from(initialValues), values: Map.from(initialValues));
   }
 
   void updateField(String key, dynamic value) {
@@ -29,8 +26,7 @@ class OrderFormNotifier extends _$OrderFormNotifier {
 
     // validate discount limit
     final discountPercent =
-        double.tryParse(state.values['discount_percent']?.toString() ?? '0') ??
-        0;
+        double.tryParse(state.values['discount_percent']?.toString() ?? '0') ?? 0;
     if (userRole == 'employee' && discountPercent > 5) {
       state = state.copyWith(
         isSubmitting: false,

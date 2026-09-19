@@ -14,19 +14,12 @@ void main() {
     dataSource = OrdersRemoteDataSourceImpl(mockDio);
   });
 
-  final orderJson = {
-    'id': '1',
-    'number': 'ORD-1',
-    'status': 'draft',
-    'payment_status': 'debt',
-  };
+  final orderJson = {'id': '1', 'number': 'ORD-1', 'status': 'draft', 'payment_status': 'debt'};
 
   test('getOrders without url', () async {
     when(
-      () => mockDio.get<Map<String, dynamic>>(
-        any(),
-        queryParameters: any(named: 'queryParameters'),
-      ),
+      () =>
+          mockDio.get<Map<String, dynamic>>(any(), queryParameters: any(named: 'queryParameters')),
     ).thenAnswer(
       (_) async => Response<Map<String, dynamic>>(
         data: {
@@ -43,16 +36,15 @@ void main() {
   });
 
   test('getOrders with url', () async {
-    when(() => mockDio.get<Map<String, dynamic>>('http://test.com/next'))
-        .thenAnswer(
-          (_) async => Response<Map<String, dynamic>>(
-            data: {
-              'results': [orderJson],
-            },
-            statusCode: 200,
-            requestOptions: RequestOptions(path: ''),
-          ),
-        );
+    when(() => mockDio.get<Map<String, dynamic>>('http://test.com/next')).thenAnswer(
+      (_) async => Response<Map<String, dynamic>>(
+        data: {
+          'results': [orderJson],
+        },
+        statusCode: 200,
+        requestOptions: RequestOptions(path: ''),
+      ),
+    );
 
     final result = await dataSource.getOrders(url: 'http://test.com/next');
     expect(result.results.length, 1);
@@ -72,9 +64,7 @@ void main() {
   });
 
   test('createOrder', () async {
-    when(
-      () => mockDio.post<Map<String, dynamic>>(any(), data: any(named: 'data')),
-    ).thenAnswer(
+    when(() => mockDio.post<Map<String, dynamic>>(any(), data: any(named: 'data'))).thenAnswer(
       (_) async => Response<Map<String, dynamic>>(
         data: orderJson,
         statusCode: 200,
@@ -87,10 +77,7 @@ void main() {
   });
 
   test('patchOrder', () async {
-    when(
-      () =>
-          mockDio.patch<Map<String, dynamic>>(any(), data: any(named: 'data')),
-    ).thenAnswer(
+    when(() => mockDio.patch<Map<String, dynamic>>(any(), data: any(named: 'data'))).thenAnswer(
       (_) async => Response<Map<String, dynamic>>(
         data: orderJson,
         statusCode: 200,
@@ -116,9 +103,7 @@ void main() {
   });
 
   test('changeStatus', () async {
-    when(
-      () => mockDio.post<Map<String, dynamic>>(any(), data: any(named: 'data')),
-    ).thenAnswer(
+    when(() => mockDio.post<Map<String, dynamic>>(any(), data: any(named: 'data'))).thenAnswer(
       (_) async => Response<Map<String, dynamic>>(
         data: orderJson,
         statusCode: 200,
@@ -126,12 +111,7 @@ void main() {
       ),
     );
 
-    final result = await dataSource.changeStatus(
-      '1',
-      'confirmed',
-      'note',
-      '2023-01-01',
-    );
+    final result = await dataSource.changeStatus('1', 'confirmed', 'note', '2023-01-01');
     expect(result.id, '1');
   });
 
@@ -149,14 +129,13 @@ void main() {
   });
 
   test('getPdf', () async {
-    when(() => mockDio.get<List<int>>(any(), options: any(named: 'options')))
-        .thenAnswer(
-          (_) async => Response<List<int>>(
-            data: [1, 2, 3],
-            statusCode: 200,
-            requestOptions: RequestOptions(path: ''),
-          ),
-        );
+    when(() => mockDio.get<List<int>>(any(), options: any(named: 'options'))).thenAnswer(
+      (_) async => Response<List<int>>(
+        data: [1, 2, 3],
+        statusCode: 200,
+        requestOptions: RequestOptions(path: ''),
+      ),
+    );
 
     final result = await dataSource.getPdf('1');
     expect(result.length, 3);

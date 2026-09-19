@@ -29,9 +29,7 @@ void main() {
     statusDisplay: 'Qoralama',
     total: 500000,
     paymentStatus: PaymentStatus.unpaid,
-    measurements: const [
-      OrderMeasurement(id: 'm1', roomName: 'Mehmonxona', parts: []),
-    ],
+    measurements: const [OrderMeasurement(id: 'm1', roomName: 'Mehmonxona', parts: [])],
     deadlineDate: DateTime.now().add(const Duration(days: 2)),
   );
 
@@ -52,9 +50,7 @@ void main() {
     );
   }
 
-  testGoldens('S-11 yorug\'/qorong\'i (OrdersScreen) - loaded state', (
-    tester,
-  ) async {
+  testGoldens('S-11 yorug\'/qorong\'i (OrdersScreen) - loaded state', (tester) async {
     when(
       () => mockRepo.getOrders(
         status: any(named: 'status'),
@@ -73,9 +69,7 @@ void main() {
 
     // Light
     await tester.pumpWidgetBuilder(
-      wrapWithProvider(
-        const OrdersScreen().pumpApp(themeMode: ThemeMode.light),
-      ),
+      wrapWithProvider(const OrdersScreen().pumpApp(themeMode: ThemeMode.light)),
       surfaceSize: const Size(400, 800),
     );
     await tester.pumpAndSettle();
@@ -96,15 +90,10 @@ void main() {
         status: any(named: 'status'),
         search: any(named: 'search'),
       ),
-    ).thenAnswer(
-      (_) async =>
-          const Paginated<Order>(next: null, previous: null, results: []),
-    );
+    ).thenAnswer((_) async => const Paginated<Order>(next: null, previous: null, results: []));
 
     await tester.pumpWidgetBuilder(
-      wrapWithProvider(
-        const OrdersScreen().pumpApp(themeMode: ThemeMode.light),
-      ),
+      wrapWithProvider(const OrdersScreen().pumpApp(themeMode: ThemeMode.light)),
       surfaceSize: const Size(400, 800),
     );
     await tester.pumpAndSettle();
@@ -112,14 +101,12 @@ void main() {
   });
 
   testGoldens('S-12 yorug\'/qorong\'i (OrderDetailScreen)', (tester) async {
-    when(() => mockRepo.getOrder('order-1'))
-        .thenAnswer((_) async => dummyOrder);
+    when(() => mockRepo.getOrder('order-1')).thenAnswer((_) async => dummyOrder);
 
     // Light
     await tester.pumpWidgetBuilder(
       wrapWithProvider(
-        const OrderDetailScreen(orderId: 'order-1')
-            .pumpApp(themeMode: ThemeMode.light),
+        const OrderDetailScreen(orderId: 'order-1').pumpApp(themeMode: ThemeMode.light),
       ),
       surfaceSize: const Size(400, 800),
     );
@@ -129,8 +116,7 @@ void main() {
     // Dark
     await tester.pumpWidgetBuilder(
       wrapWithProvider(
-        const OrderDetailScreen(orderId: 'order-1')
-            .pumpApp(themeMode: ThemeMode.dark),
+        const OrderDetailScreen(orderId: 'order-1').pumpApp(themeMode: ThemeMode.dark),
       ),
       surfaceSize: const Size(400, 800),
     );
@@ -140,9 +126,7 @@ void main() {
 
   testGoldens('S-14 (OrderFormScreen)', (tester) async {
     await tester.pumpWidgetBuilder(
-      wrapWithProvider(
-        const OrderFormScreen().pumpApp(themeMode: ThemeMode.light),
-      ),
+      wrapWithProvider(const OrderFormScreen().pumpApp(themeMode: ThemeMode.light)),
       surfaceSize: const Size(400, 800),
     );
     await tester.pumpAndSettle();
@@ -152,8 +136,7 @@ void main() {
   testGoldens('S-13 (StatusChangeSheet)', (tester) async {
     await tester.pumpWidgetBuilder(
       wrapWithProvider(
-        Scaffold(body: StatusChangeSheet(order: dummyOrder))
-            .pumpApp(themeMode: ThemeMode.light),
+        Scaffold(body: StatusChangeSheet(order: dummyOrder)).pumpApp(themeMode: ThemeMode.light),
       ),
       surfaceSize: const Size(400, 600),
     );

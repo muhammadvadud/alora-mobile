@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
-import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
-    show authProvider;
+import 'package:alora_mobile/features/auth/application/auth_notifier.dart' show authProvider;
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/features/management/settings/application/settings_notifiers.dart';
 import 'package:alora_mobile/features/management/settings/domain/entities/model_pricing.dart';
@@ -26,10 +25,7 @@ class ModelPricingsScreen extends ConsumerWidget {
 
     final currentRole = ref
         .watch(authProvider)
-        .maybeWhen(
-          authenticated: (user) => user.role,
-          orElse: () => Role.employee,
-        );
+        .maybeWhen(authenticated: (user) => user.role, orElse: () => Role.employee);
 
     return RoleGate(
       minRole: Role.admin,
@@ -46,9 +42,8 @@ class ModelPricingsScreen extends ConsumerWidget {
             itemCount: models.length,
             itemBuilder: (context, index) => _ModelPricingCard(
               model: models[index],
-              onDelete: () => ref
-                  .read(modelPricingsProvider.notifier)
-                  .deletePricing(models[index].id),
+              onDelete: () =>
+                  ref.read(modelPricingsProvider.notifier).deletePricing(models[index].id),
             ),
           ),
           loading: () => const Padding(
@@ -62,8 +57,7 @@ class ModelPricingsScreen extends ConsumerWidget {
               ),
             ),
           ),
-          error: (e, st) =>
-              ErrorState(onRetry: () => ref.invalidate(modelPricingsProvider)),
+          error: (e, st) => ErrorState(onRetry: () => ref.invalidate(modelPricingsProvider)),
         ),
       ),
     );
@@ -98,37 +92,17 @@ class _ModelPricingCard extends StatelessWidget {
             style: typography.titleS,
           ),
           const SizedBox(height: AppSpacing.s),
-          Text(
-            context.l10n.settings_modelInput(m.inputPer1m),
-            style: typography.bodyS,
-          ),
-          Text(
-            context.l10n.settings_modelOutput(m.outputPer1m),
-            style: typography.bodyS,
-          ),
-          Text(
-            context.l10n.settings_modelCached(m.cachedInputPer1m),
-            style: typography.bodyS,
-          ),
-          Text(
-            context.l10n.settings_modelStt(m.sttPerMinute),
-            style: typography.bodyS,
-          ),
-          Text(
-            context.l10n.settings_modelTts(m.ttsPer1kChars),
-            style: typography.bodyS,
-          ),
-          Text(
-            context.l10n.settings_modelUsdToUzs(m.usdToUzs),
-            style: typography.bodyS,
-          ),
+          Text(context.l10n.settings_modelInput(m.inputPer1m), style: typography.bodyS),
+          Text(context.l10n.settings_modelOutput(m.outputPer1m), style: typography.bodyS),
+          Text(context.l10n.settings_modelCached(m.cachedInputPer1m), style: typography.bodyS),
+          Text(context.l10n.settings_modelStt(m.sttPerMinute), style: typography.bodyS),
+          Text(context.l10n.settings_modelTts(m.ttsPer1kChars), style: typography.bodyS),
+          Text(context.l10n.settings_modelUsdToUzs(m.usdToUzs), style: typography.bodyS),
           const SizedBox(height: AppSpacing.s),
           Row(
             children: [
               Text(
-                m.isActive
-                    ? context.l10n.settings_active
-                    : context.l10n.settings_inactive,
+                m.isActive ? context.l10n.settings_active : context.l10n.settings_inactive,
                 style: typography.bodyS.copyWith(
                   color: m.isActive ? colors.success : colors.danger,
                 ),

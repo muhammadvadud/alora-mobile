@@ -11,9 +11,6 @@ void main() {
     // Yomon formatlanganlarni test qilish
     expect(formatPhone('998 (90) 123-45-67'), '+998 90 123 45 67');
     expect(formatPhone('+998901234567x'), '+998 90 123 45 67'); // x ignores
-    expect(
-      formatPhone('1234567890'),
-      '+1234567890',
-    ); // boshqa format (>9 length)
+    expect(formatPhone('1234567890'), '+1234567890'); // boshqa format (>9 length)
   });
 }

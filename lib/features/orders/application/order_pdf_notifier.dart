@@ -45,9 +45,7 @@ class OrderPdfNotifier extends _$OrderPdfNotifier {
       await file.writeAsBytes(bytes);
 
       state = const AsyncValue.data(null);
-      await SharePlus.instance.share(
-        ShareParams(files: [XFile(file.path)], text: 'Buyurtma PDF'),
-      );
+      await SharePlus.instance.share(ShareParams(files: [XFile(file.path)], text: 'Buyurtma PDF'));
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }

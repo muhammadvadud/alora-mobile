@@ -41,19 +41,12 @@ void main() {
   test('summary userId berilsa user parametrini qo\'shadi', () async {
     adapter.onGet(
       ApiPaths.usageSummary,
-      (server) => server.reply(200, {
-        'period': 'day',
-        'tokens': 0,
-        'messages': 0,
-        'conversations': 0,
-      }),
+      (server) =>
+          server.reply(200, {'period': 'day', 'tokens': 0, 'messages': 0, 'conversations': 0}),
       queryParameters: {'period': 'day', 'user': 'employee-1'},
     );
 
-    final dto = await dataSource.summary(
-      period: UsagePeriod.day,
-      userId: 'employee-1',
-    );
+    final dto = await dataSource.summary(period: UsagePeriod.day, userId: 'employee-1');
 
     expect(dto.period, 'day');
   });
@@ -61,12 +54,8 @@ void main() {
   test('summary week davri query parametrini yuboradi', () async {
     adapter.onGet(
       ApiPaths.usageSummary,
-      (server) => server.reply(200, {
-        'period': 'week',
-        'tokens': 0,
-        'messages': 0,
-        'conversations': 0,
-      }),
+      (server) =>
+          server.reply(200, {'period': 'week', 'tokens': 0, 'messages': 0, 'conversations': 0}),
       queryParameters: {'period': 'week'},
     );
 
@@ -113,8 +102,7 @@ void main() {
   test('conversion: analytics/conversion yo\'lidan keladi', () async {
     adapter.onGet(
       ApiPaths.analyticsConversion,
-      (server) =>
-          server.reply(200, {'total_conversations': 20, 'with_order': 5}),
+      (server) => server.reply(200, {'total_conversations': 20, 'with_order': 5}),
     );
 
     final dto = await dataSource.conversion();

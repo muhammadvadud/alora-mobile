@@ -10,12 +10,7 @@ class AppChip extends StatelessWidget {
   final VoidCallback? onTap;
   final AppChipState state;
 
-  const AppChip({
-    super.key,
-    required this.label,
-    this.onTap,
-    this.state = AppChipState.unselected,
-  });
+  const AppChip({super.key, required this.label, this.onTap, this.state = AppChipState.unselected});
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +59,7 @@ class AppChip extends StatelessWidget {
               decoration: BoxDecoration(
                 color: backgroundColor,
                 borderRadius: AppRadius.pillBorder,
-                border: state == AppChipState.selected
-                    ? null
-                    : Border.fromBorderSide(borderSide),
+                border: state == AppChipState.selected ? null : Border.fromBorderSide(borderSide),
               ),
               child: Text(label, style: textStyle.copyWith(color: textColor)),
             ),

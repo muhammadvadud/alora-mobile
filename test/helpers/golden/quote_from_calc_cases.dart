@@ -5,19 +5,15 @@ import 'package:alora_mobile/features/chat/domain/entities/quote.dart';
 
 /// Backend `calc_cases.json` dan Quote fixture (S-05 golden).
 Quote quoteFromCalcCasesMaxParts() {
-  final file = File(
-    '/home/muhammadvadud/it/alora/projects/backend/tests/fixtures/calc_cases.json',
-  );
+  final file = File('/home/muhammadvadud/it/alora/projects/backend/tests/fixtures/calc_cases.json');
   final root = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
   final cases = root['cases'] as List<dynamic>;
   final caseMap = cases.cast<Map<String, dynamic>>().firstWhere(
     (c) => c['name'] == "Maksimal holat: 10 ta bo'lak",
   );
   final expected = caseMap['expected'] as Map<String, dynamic>;
-  final measurement =
-      (expected['measurements'] as List<dynamic>).first as Map<String, dynamic>;
-  final parts = (measurement['parts'] as List<dynamic>)
-      .cast<Map<String, dynamic>>();
+  final measurement = (expected['measurements'] as List<dynamic>).first as Map<String, dynamic>;
+  final parts = (measurement['parts'] as List<dynamic>).cast<Map<String, dynamic>>();
 
   final fabrics = <QuoteFabric>[];
   for (var i = 0; i < parts.length; i++) {
@@ -38,27 +34,13 @@ Quote quoteFromCalcCasesMaxParts() {
     );
   }
 
-  final warnings = (expected['warnings'] as List<dynamic>)
-      .map((e) => e as String)
-      .toList();
+  final warnings = (expected['warnings'] as List<dynamic>).map((e) => e as String).toList();
 
   return Quote(
     fabrics: fabrics,
     accessories: const [
-      QuoteAccessory(
-        name: 'Karniz',
-        qty: 6,
-        unit: 'm',
-        unitPrice: 80000,
-        total: 480000,
-      ),
-      QuoteAccessory(
-        name: 'Gul',
-        qty: 2,
-        unit: 'dona',
-        unitPrice: 45000,
-        total: 90000,
-      ),
+      QuoteAccessory(name: 'Karniz', qty: 6, unit: 'm', unitPrice: 80000, total: 480000),
+      QuoteAccessory(name: 'Gul', qty: 2, unit: 'dona', unitPrice: 45000, total: 90000),
     ],
     services: const [
       QuoteService(name: 'Tikuv', qty: 1, total: 125000),

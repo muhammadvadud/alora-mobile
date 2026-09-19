@@ -42,18 +42,13 @@ class EmployeeRow extends StatelessWidget {
                     Expanded(
                       child: Text(
                         employee.fullName,
-                        style: typography.titleS.copyWith(
-                          color: colors.textPrimary,
-                        ),
+                        style: typography.titleS.copyWith(color: colors.textPrimary),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const SizedBox(width: AppSpacing.s),
-                    EmployeeRoleChip(
-                      role: employee.role,
-                      showBlocked: employee.isBlocked,
-                    ),
+                    EmployeeRoleChip(role: employee.role, showBlocked: employee.isBlocked),
                   ],
                 ),
                 const SizedBox(height: AppSpacing.xs),
@@ -64,8 +59,7 @@ class EmployeeRow extends StatelessWidget {
                           formatRelativeDate(
                             lastActive,
                             context: context,
-                            overrideLocale: Localizations.localeOf(context)
-                                .toString(),
+                            overrideLocale: Localizations.localeOf(context).toString(),
                           ),
                         ),
                   style: typography.bodyS.copyWith(color: colors.textSecondary),
@@ -77,9 +71,7 @@ class EmployeeRow extends StatelessWidget {
           ),
           const SizedBox(width: AppSpacing.s),
           Text(
-            todayCost == null
-                ? '—'
-                : '${formatMoneyPlain(todayCost)} ${l10n.currency_som}',
+            todayCost == null ? '—' : '${formatMoneyPlain(todayCost)} ${l10n.currency_som}',
             style: typography.labelM.copyWith(
               color: colors.textPrimary,
               fontFeatures: const [FontFeature.tabularFigures()],

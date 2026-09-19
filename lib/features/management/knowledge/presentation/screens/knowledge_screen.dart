@@ -24,12 +24,7 @@ class KnowledgeScreen extends ConsumerWidget {
       body: const _KnowledgeBody(),
       bottomNavigationBar: SafeArea(
         top: false,
-        minimum: const EdgeInsets.fromLTRB(
-          AppSpacing.m,
-          0,
-          AppSpacing.m,
-          AppSpacing.m,
-        ),
+        minimum: const EdgeInsets.fromLTRB(AppSpacing.m, 0, AppSpacing.m, AppSpacing.m),
         child: AppButton(
           text: context.l10n.management_knowledgeAddRule,
           onPressed: () => _showRuleForm(context),
@@ -124,16 +119,12 @@ class _KnowledgeRuleCard extends ConsumerWidget {
               Expanded(
                 child: Text(
                   rule.kind.toUpperCase(),
-                  style: context.text.labelM.copyWith(
-                    color: colors.brass,
-                    letterSpacing: 0.4,
-                  ),
+                  style: context.text.labelM.copyWith(color: colors.brass, letterSpacing: 0.4),
                 ),
               ),
               Switch(
                 value: rule.isActive,
-                onChanged: (val) =>
-                    notifier.updateRule(rule.id, {'is_active': val}),
+                onChanged: (val) => notifier.updateRule(rule.id, {'is_active': val}),
               ),
             ],
           ),

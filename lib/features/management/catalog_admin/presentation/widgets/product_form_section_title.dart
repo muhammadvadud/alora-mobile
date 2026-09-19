@@ -9,9 +9,6 @@ class ProductFormSectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: context.text.bodyM.copyWith(fontWeight: FontWeight.w700),
-    );
+    return Text(text, style: context.text.bodyM.copyWith(fontWeight: FontWeight.w700));
   }
 }

@@ -5,8 +5,7 @@ import 'package:alora_mobile/core/utils/paginated.dart';
 import 'package:alora_mobile/features/catalog/application/catalog_notifier.dart';
 import 'package:alora_mobile/features/catalog/application/catalog_state.dart';
 import 'package:alora_mobile/features/catalog/application/catalog_filter.dart';
-import 'package:alora_mobile/features/catalog/application/providers.dart'
-    as catalog_providers;
+import 'package:alora_mobile/features/catalog/application/providers.dart' as catalog_providers;
 import 'package:alora_mobile/features/catalog/domain/entities/category.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
 import 'package:alora_mobile/features/catalog/domain/repositories/catalog_repository.dart';
@@ -53,17 +52,11 @@ void main() {
         cursor: any(named: 'cursor'),
       ),
     ).thenAnswer(
-      (_) async => Paginated(
-        results: [_product('p1'), _product('p2')],
-        next: null,
-        previous: null,
-      ),
+      (_) async => Paginated(results: [_product('p1'), _product('p2')], next: null, previous: null),
     );
 
     container = ProviderContainer(
-      overrides: [
-        catalog_providers.catalogRepositoryProvider.overrideWithValue(mockRepo),
-      ],
+      overrides: [catalog_providers.catalogRepositoryProvider.overrideWithValue(mockRepo)],
     );
   });
 

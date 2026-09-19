@@ -34,10 +34,7 @@ class KnowledgeRepositoryImpl implements KnowledgeRepository {
   }
 
   @override
-  Future<KnowledgeRule> patchRule(
-    String id,
-    Map<String, dynamic> updates,
-  ) async {
+  Future<KnowledgeRule> patchRule(String id, Map<String, dynamic> updates) async {
     final dto = await _remoteDs.patchRule(id, updates);
     return KnowledgeMapper.fromDto(dto);
   }

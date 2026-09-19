@@ -17,11 +17,7 @@ class RawStreamAudioSource extends StreamAudioSource {
   final int sampleRate;
   final int numChannels;
 
-  RawStreamAudioSource({
-    required this.stream,
-    this.sampleRate = 16000,
-    this.numChannels = 1,
-  });
+  RawStreamAudioSource({required this.stream, this.sampleRate = 16000, this.numChannels = 1});
 
   @override
   Future<StreamAudioResponse> request([int? start, int? end]) async {
@@ -46,10 +42,7 @@ class AppAudioPlayer {
   bool _isPlaying = false;
 
   // WAV header generator
-  List<int> _createWavHeader({
-    required int sampleRate,
-    required int numChannels,
-  }) {
+  List<int> _createWavHeader({required int sampleRate, required int numChannels}) {
     final byteRate = sampleRate * numChannels * 2;
     final blockAlign = numChannels * 2;
 

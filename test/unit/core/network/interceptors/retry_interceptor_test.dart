@@ -34,8 +34,7 @@ void main() {
   late Dio dio;
 
   _FailFactory makeError(DioExceptionType type, [String msg = '']) =>
-      (RequestOptions options) =>
-          DioException(requestOptions: options, type: type, error: msg);
+      (RequestOptions options) => DioException(requestOptions: options, type: type, error: msg);
 
   setUp(() {
     dio = Dio(BaseOptions());
@@ -84,21 +83,18 @@ void main() {
     expect(adapter.callCount, 4);
   });
 
-  test(
-    'connectionError GET uchun qayta yuboriladi, keyin muvaffaqiyat',
-    () async {
-      final adapter = _FakeAdapter([
-        makeError(DioExceptionType.connectionError, 'connection failed'),
-        makeError(DioExceptionType.connectionError, 'connection failed'),
-        makeError(DioExceptionType.connectionError, 'connection failed'),
-      ]);
-      dio.httpClientAdapter = adapter;
+  test('connectionError GET uchun qayta yuboriladi, keyin muvaffaqiyat', () async {
+    final adapter = _FakeAdapter([
+      makeError(DioExceptionType.connectionError, 'connection failed'),
+      makeError(DioExceptionType.connectionError, 'connection failed'),
+      makeError(DioExceptionType.connectionError, 'connection failed'),
+    ]);
+    dio.httpClientAdapter = adapter;
 
-      final response = await dio.get('/test');
-      expect(response.statusCode, 200);
-      expect(adapter.callCount, 4);
-    },
-  );
+    final response = await dio.get('/test');
+    expect(response.statusCode, 200);
+    expect(adapter.callCount, 4);
+  });
 
   test('3 urinishdan keyin xato qaytadi (exceeded)', () async {
     final adapter = _FakeAdapter([
@@ -132,9 +128,7 @@ void main() {
   });
 
   test('sendTimeout GET uchun qayta yuboriladi', () async {
-    final adapter = _FakeAdapter([
-      makeError(DioExceptionType.sendTimeout, 'send timeout'),
-    ]);
+    final adapter = _FakeAdapter([makeError(DioExceptionType.sendTimeout, 'send timeout')]);
     dio.httpClientAdapter = adapter;
 
     final response = await dio.get('/test');

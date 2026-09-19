@@ -7,9 +7,5 @@ class ConversionStats {
   final int withOrder;
   final double? conversionRate;
 
-  const ConversionStats({
-    this.totalConversations = 0,
-    this.withOrder = 0,
-    this.conversionRate,
-  });
+  const ConversionStats({this.totalConversations = 0, this.withOrder = 0, this.conversionRate});
 }

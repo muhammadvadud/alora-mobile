@@ -46,9 +46,7 @@ class _KnowledgeRuleFormState extends ConsumerState<KnowledgeRuleForm> {
     _conditions = widget.rule?.condition.toList() ?? [];
     _condCtrl = TextEditingController();
     _recCtrl = TextEditingController(text: widget.rule?.recommendation ?? '');
-    _priorityCtrl = TextEditingController(
-      text: widget.rule?.priority.toString() ?? '0',
-    );
+    _priorityCtrl = TextEditingController(text: widget.rule?.priority.toString() ?? '0');
     _isActive = widget.rule?.isActive ?? true;
   }
 
@@ -62,9 +60,7 @@ class _KnowledgeRuleFormState extends ConsumerState<KnowledgeRuleForm> {
   }
 
   bool get _isValid =>
-      _kindCtrl.text.trim().isNotEmpty &&
-      _conditions.isNotEmpty &&
-      _recCtrl.text.trim().isNotEmpty;
+      _kindCtrl.text.trim().isNotEmpty && _conditions.isNotEmpty && _recCtrl.text.trim().isNotEmpty;
 
   void _toggleCondition(String value) {
     setState(() {
@@ -176,10 +172,7 @@ class _KnowledgeRuleFormState extends ConsumerState<KnowledgeRuleForm> {
               const SizedBox(height: AppSpacing.xs),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(
-                  l10n.management_knowledgeRuleIsActive,
-                  style: context.text.bodyM,
-                ),
+                title: Text(l10n.management_knowledgeRuleIsActive, style: context.text.bodyM),
                 value: _isActive,
                 onChanged: (val) => setState(() => _isActive = val),
               ),
@@ -297,10 +290,7 @@ class _ActionButtons extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: AppButton.secondary(
-                text: l10n.common_cancel,
-                onPressed: onCancel,
-              ),
+              child: AppButton.secondary(text: l10n.common_cancel, onPressed: onCancel),
             ),
             const SizedBox(width: AppSpacing.s),
             Expanded(
@@ -314,10 +304,7 @@ class _ActionButtons extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppSpacing.m),
-        AppButton.secondary(
-          text: l10n.management_knowledgeRuleTestAI,
-          onPressed: onTestInAi,
-        ),
+        AppButton.secondary(text: l10n.management_knowledgeRuleTestAI, onPressed: onTestInAi),
       ],
     );
   }

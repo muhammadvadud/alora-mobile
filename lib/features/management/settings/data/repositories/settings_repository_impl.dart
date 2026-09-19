@@ -40,10 +40,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<ModelPricing> updateModelPricing(
-    String id,
-    Map<String, dynamic> body,
-  ) async {
+  Future<ModelPricing> updateModelPricing(String id, Map<String, dynamic> body) async {
     final dto = await remoteDataSource.updateModelPricing(id, body);
     return dto.toEntity();
   }

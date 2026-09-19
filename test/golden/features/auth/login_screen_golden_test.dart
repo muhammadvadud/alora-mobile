@@ -17,9 +17,7 @@ void main() {
 
   Widget widgetFor(ThemeMode mode) {
     return ProviderScope(
-      overrides: [
-        authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
-      ],
+      overrides: [authRepositoryProvider.overrideWithValue(FakeAuthRepository())],
       child: MaterialApp(
         theme: AppTheme.light(),
         darkTheme: AppTheme.dark(),

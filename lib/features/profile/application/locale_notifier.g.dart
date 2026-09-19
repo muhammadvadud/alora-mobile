@@ -20,8 +20,7 @@ final localeProvider = LocaleNotifierProvider._();
 /// Ilova tilini boshqaruvchi notifier.
 /// Tanlov darhol qo'llanadi va Hive 'settings' boxida saqlanadi.
 /// `null` holat — qurilma tili (uz/ru, aks holda uz).
-final class LocaleNotifierProvider
-    extends $NotifierProvider<LocaleNotifier, Locale?> {
+final class LocaleNotifierProvider extends $NotifierProvider<LocaleNotifier, Locale?> {
   /// Ilova tilini boshqaruvchi notifier.
   /// Tanlov darhol qo'llanadi va Hive 'settings' boxida saqlanadi.
   /// `null` holat — qurilma tili (uz/ru, aks holda uz).
@@ -45,10 +44,7 @@ final class LocaleNotifierProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(Locale? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Locale?>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<Locale?>(value));
   }
 }
 
@@ -66,12 +62,7 @@ abstract class _$LocaleNotifier extends $Notifier<Locale?> {
     final ref = this.ref as $Ref<Locale?, Locale?>;
     final element =
         ref.element
-            as $ClassProviderElement<
-              AnyNotifier<Locale?, Locale?>,
-              Locale?,
-              Object?,
-              Object?
-            >;
+            as $ClassProviderElement<AnyNotifier<Locale?, Locale?>, Locale?, Object?, Object?>;
     element.handleCreate(ref, build);
   }
 }

@@ -30,43 +30,29 @@ void main() {
     test('network failure xabari category: failure, level: warning bilan yuboriladi', () {
       reporter.breadcrumb(const Failure.network());
 
-      final captured =
-          verify(() => hub.addBreadcrumb(captureAny())).captured.single
-              as Breadcrumb;
+      final captured = verify(() => hub.addBreadcrumb(captureAny())).captured.single as Breadcrumb;
       expect(captured.category, 'failure');
       expect(captured.message, 'NetworkFailure');
       expect(captured.level, SentryLevel.warning);
       expect(captured.data, anyOf(isNull, isEmpty));
     });
 
-    test(
-      'server va serviceUnavailable xatolari level: error bilan yuboriladi',
-      () {
-        reporter.breadcrumb(const Failure.server());
-        final captured1 =
-            verify(() => hub.addBreadcrumb(captureAny())).captured.last
-                as Breadcrumb;
-        expect(captured1.level, SentryLevel.error);
+    test('server va serviceUnavailable xatolari level: error bilan yuboriladi', () {
+      reporter.breadcrumb(const Failure.server());
+      final captured1 = verify(() => hub.addBreadcrumb(captureAny())).captured.last as Breadcrumb;
+      expect(captured1.level, SentryLevel.error);
 
-        reporter.breadcrumb(const Failure.serviceUnavailable());
-        final captured2 =
-            verify(() => hub.addBreadcrumb(captureAny())).captured.last
-                as Breadcrumb;
-        expect(captured2.level, SentryLevel.error);
-      },
-    );
+      reporter.breadcrumb(const Failure.serviceUnavailable());
+      final captured2 = verify(() => hub.addBreadcrumb(captureAny())).captured.last as Breadcrumb;
+      expect(captured2.level, SentryLevel.error);
+    });
 
     test('breadcrumb data qismida phone, token, detail YO\'Q bo\'ladi', () {
       reporter.breadcrumb(
-        const Failure.validation('Batafsil xato', {
-          'phone': 'Xato',
-          'token': 'Yaroqsiz',
-        }),
+        const Failure.validation('Batafsil xato', {'phone': 'Xato', 'token': 'Yaroqsiz'}),
       );
 
-      final captured =
-          verify(() => hub.addBreadcrumb(captureAny())).captured.single
-              as Breadcrumb;
+      final captured = verify(() => hub.addBreadcrumb(captureAny())).captured.single as Breadcrumb;
       expect(captured.data, anyOf(isNull, isEmpty));
     });
 
@@ -82,8 +68,7 @@ void main() {
       reporter.setUser(id: '123', role: 'manager');
 
       final capturedUser =
-          verify(() => mockScope.setUser(captureAny())).captured.single
-              as SentryUser?;
+          verify(() => mockScope.setUser(captureAny())).captured.single as SentryUser?;
       expect(capturedUser, isNotNull);
       expect(capturedUser!.id, '123');
       expect(capturedUser.data?['role'], 'manager');
@@ -107,10 +92,7 @@ void main() {
   group('NoopErrorReporter', () {
     test('Hech qanday amal bajarmaydi', () {
       final reporter = NoopErrorReporter();
-      expect(
-        () => reporter.breadcrumb(const Failure.network()),
-        returnsNormally,
-      );
+      expect(() => reporter.breadcrumb(const Failure.network()), returnsNormally);
       expect(() => reporter.setUser(id: '1', role: 'admin'), returnsNormally);
       expect(() => reporter.clearUser(), returnsNormally);
       expect(() => reporter.captureException(Exception()), returnsNormally);

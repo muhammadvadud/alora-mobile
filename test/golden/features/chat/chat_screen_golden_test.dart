@@ -14,8 +14,7 @@ import 'package:alora_mobile/features/chat/presentation/widgets/message_bubble.d
 import 'package:alora_mobile/features/conversations/application/providers.dart';
 import 'package:alora_mobile/features/conversations/domain/entities/conversation_stage.dart';
 import 'package:alora_mobile/features/conversations/presentation/widgets/conversations_pane.dart';
-import 'package:alora_mobile/features/customer_mode/application/providers.dart'
-    as cm_providers;
+import 'package:alora_mobile/features/customer_mode/application/providers.dart' as cm_providers;
 
 import '../../../helpers/chat/chat_test_helpers.dart';
 import '../../../helpers/golden/chat_golden_devices.dart';
@@ -32,10 +31,7 @@ void main() {
       final repo = MockChatRepository();
       stubGetMessages(repo, []);
 
-      await tester.pumpWidgetBuilder(
-        chatApp(repo),
-        surfaceSize: chatPhone.size,
-      );
+      await tester.pumpWidgetBuilder(chatApp(repo), surfaceSize: chatPhone.size);
       await tester.pumpAndSettle();
       await screenMatchesGolden(tester, 's02_chat_empty');
     });
@@ -44,10 +40,7 @@ void main() {
       final repo = MockChatRepository();
       stubGetMessages(repo, _conversationMessages());
 
-      await tester.pumpWidgetBuilder(
-        chatApp(repo),
-        surfaceSize: chatPhone.size,
-      );
+      await tester.pumpWidgetBuilder(chatApp(repo), surfaceSize: chatPhone.size);
       await tester.pumpAndSettle();
       await screenMatchesGolden(tester, 's03_chat_conversation_light');
     });
@@ -64,24 +57,19 @@ void main() {
       await screenMatchesGolden(tester, 's03_chat_conversation_dark');
     });
 
-    testGoldens(
-      "S-09 mijoz rejimi — indikator, tab bar/menyu yo'q, katta shrift",
-      (tester) async {
-        final repo = MockChatRepository();
-        stubGetMessages(repo, _conversationMessages());
+    testGoldens("S-09 mijoz rejimi — indikator, tab bar/menyu yo'q, katta shrift", (tester) async {
+      final repo = MockChatRepository();
+      stubGetMessages(repo, _conversationMessages());
 
-        await tester.pumpWidgetBuilder(
-          chatApp(repo, customerMode: true),
-          surfaceSize: chatPhone.size,
-        );
-        await tester.pumpAndSettle();
-        await screenMatchesGolden(tester, 's09_chat_customer_mode');
-      },
-    );
+      await tester.pumpWidgetBuilder(
+        chatApp(repo, customerMode: true),
+        surfaceSize: chatPhone.size,
+      );
+      await tester.pumpAndSettle();
+      await screenMatchesGolden(tester, 's09_chat_customer_mode');
+    });
 
-    testGoldens('S-03 planshet AdaptiveShell + ConversationsPane (1024×768)', (
-      tester,
-    ) async {
+    testGoldens('S-03 planshet AdaptiveShell + ConversationsPane (1024×768)', (tester) async {
       final convRepo = FakeConversationsRepository()
         ..listResult = (
           [
@@ -126,16 +114,12 @@ List<Message> _conversationMessages() {
     userMessage(id: 'u2', content: 'Karniz 3.2 m, balandlik 2.7 m'),
     assistantMessage(
       id: 'a2',
-      content:
-          'Tushundim. Endi mato tanlaymiz yoki hisob kartochkasini ochamiz.',
+      content: 'Tushundim. Endi mato tanlaymiz yoki hisob kartochkasini ochamiz.',
     ),
   ];
 }
 
-Widget _tabletShell({
-  required FakeConversationsRepository convRepo,
-  required ThemeMode themeMode,
-}) {
+Widget _tabletShell({required FakeConversationsRepository convRepo, required ThemeMode themeMode}) {
   return ProviderScope(
     overrides: [
       cm_providers.customerModeEnabledProvider.overrideWithValue(false),
@@ -176,11 +160,7 @@ Widget _tabletShell({
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: ChatInputPanel(
-                  onSend: (_) {},
-                  onMicPressed: () {},
-                  onAddPressed: () {},
-                ),
+                child: ChatInputPanel(onSend: (_) {}, onMicPressed: () {}, onAddPressed: () {}),
               ),
             ],
           ),

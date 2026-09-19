@@ -35,28 +35,23 @@ void main() {
     container.read(authProvider);
     await pumpEventQueue();
     expect(
-      container
-          .read(authProvider)
-          .maybeWhen(authenticated: (_) => true, orElse: () => false),
+      container.read(authProvider).maybeWhen(authenticated: (_) => true, orElse: () => false),
       isTrue,
       reason: 'auth holati authenticated bo\'lishi kerak',
     );
   }
 
-  test(
-    'unauthenticated holatda bo\'sh data qaytadi, repo chaqirilmaydi',
-    () async {
-      container.read(authProvider);
-      await pumpEventQueue();
+  test('unauthenticated holatda bo\'sh data qaytadi, repo chaqirilmaydi', () async {
+    container.read(authProvider);
+    await pumpEventQueue();
 
-      final data = await container.read(profileSpendProvider.future);
+    final data = await container.read(profileSpendProvider.future);
 
-      expect(profileRepository.limitCalls, 0);
-      expect(profileRepository.todayCostCalls, 0);
-      expect(data.limit, isNull);
-      expect(data.todayCost, isNull);
-    },
-  );
+    expect(profileRepository.limitCalls, 0);
+    expect(profileRepository.todayCostCalls, 0);
+    expect(data.limit, isNull);
+    expect(data.todayCost, isNull);
+  });
 
   test('manager: limit va bugungi sarf olinadi', () async {
     profileRepository.limit = testProfileLimit(maxCostUzs: '100000.00');

@@ -8,10 +8,7 @@ import 'package:alora_mobile/app/theme/app_theme.dart';
 import 'package:alora_mobile/features/auth/presentation/screens/login_screen.dart';
 
 /// LoginScreen testlari uchun [WidgetTester] yordamchilari.
-Future<void> pumpLoginScreen(
-  WidgetTester tester,
-  ProviderContainer container,
-) async {
+Future<void> pumpLoginScreen(WidgetTester tester, ProviderContainer container) async {
   await tester.pumpWidget(
     UncontrolledProviderScope(
       container: container,

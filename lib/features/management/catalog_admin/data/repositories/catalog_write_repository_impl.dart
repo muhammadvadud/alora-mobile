@@ -48,11 +48,7 @@ class CatalogWriteRepositoryImpl implements CatalogWriteRepository {
     String imagePath, {
     void Function(int, int)? onSendProgress,
   }) {
-    return _dataSource.uploadProductImage(
-      productId,
-      imagePath,
-      onSendProgress: onSendProgress,
-    );
+    return _dataSource.uploadProductImage(productId, imagePath, onSendProgress: onSendProgress);
   }
 
   @override

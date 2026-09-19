@@ -28,17 +28,13 @@ class ChatMessageList extends StatelessWidget {
       controller: scrollController,
       reverse: true,
       itemCount: messages.length,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.l,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.l),
       itemBuilder: (context, index) {
         return RepaintBoundary(
           child: ChatMessageRow(
             message: messages[index],
             isCustomerMode: isCustomerMode,
-            onEditOrder: (draft) =>
-                context.push(AppRoutes.orderNew, extra: draft),
+            onEditOrder: (draft) => context.push(AppRoutes.orderNew, extra: draft),
             onCreateOrder: onCreateOrder,
           ),
         );

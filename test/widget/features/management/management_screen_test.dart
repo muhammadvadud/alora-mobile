@@ -52,10 +52,7 @@ Future<void> _pumpManagement(
 /// Bug 2 regressiyasi: provider buni [Failure.unknown] ga o'rashi kerak.
 class _ThrowingUsageRepository implements UsageRepository {
   @override
-  Future<UsageSummary> summary({
-    required UsagePeriod period,
-    String? userId,
-  }) async {
+  Future<UsageSummary> summary({required UsagePeriod period, String? userId}) async {
     throw Exception('kutilmagan xato');
   }
 
@@ -93,8 +90,7 @@ class _ControlledUsageRepository implements UsageRepository {
       summaryCompleter.future;
 
   @override
-  Future<List<UserUsage>> byUser({required UsagePeriod period}) =>
-      byUserCompleter.future;
+  Future<List<UserUsage>> byUser({required UsagePeriod period}) => byUserCompleter.future;
 
   @override
   Future<ConversionStats> conversion() => conversionCompleter.future;
@@ -128,9 +124,7 @@ void main() {
     ];
   });
 
-  testWidgets('yuklash avvalida skeleton, keyin statistika ko\'rinadi', (
-    tester,
-  ) async {
+  testWidgets('yuklash avvalida skeleton, keyin statistika ko\'rinadi', (tester) async {
     final summaryCompleter = Completer<UsageSummary>();
     final byUserCompleter = Completer<List<UserUsage>>();
     final conversionCompleter = Completer<ConversionStats>();
@@ -147,9 +141,7 @@ void main() {
 
     expect(find.byType(SkeletonBox), findsWidgets);
 
-    summaryCompleter.complete(
-      testUsageSummary(period: 'day', costUzs: 250000, conversations: 12),
-    );
+    summaryCompleter.complete(testUsageSummary(period: 'day', costUzs: 250000, conversations: 12));
     byUserCompleter.complete(usageRepository.byUserResult);
     conversionCompleter.complete(usageRepository.conversionResult);
     await tester.pumpAndSettle();
@@ -161,9 +153,7 @@ void main() {
     expect(find.text('Akmal Karimov'), findsWidgets); // reyting qatori
   });
 
-  testWidgets('davr "Hafta" tanlanganda repo yangi davr bilan chaqiriladi', (
-    tester,
-  ) async {
+  testWidgets('davr "Hafta" tanlanganda repo yangi davr bilan chaqiriladi', (tester) async {
     await _pumpManagement(tester, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
@@ -177,9 +167,7 @@ void main() {
     expect(usageRepository.byUserPeriods.last, UsagePeriod.week);
   });
 
-  testWidgets('non-Failure xato ErrorState ko\'rinadi (regressiya bug 2)', (
-    tester,
-  ) async {
+  testWidgets('non-Failure xato ErrorState ko\'rinadi (regressiya bug 2)', (tester) async {
     await _pumpManagement(tester, usageRepository: _ThrowingUsageRepository());
     await tester.pumpAndSettle();
 

@@ -60,12 +60,7 @@ class MockOrdersRepository implements OrdersRepository {
   }
 
   @override
-  Future<Order> changeStatus(
-    String id,
-    String status, {
-    String? note,
-    String? actionDate,
-  }) {
+  Future<Order> changeStatus(String id, String status, {String? note, String? actionDate}) {
     throw UnimplementedError();
   }
 
@@ -85,11 +80,7 @@ class MockOrdersRepository implements OrdersRepository {
   }
 
   @override
-  Future<Paginated<Order>> getOrders({
-    String? status,
-    String? search,
-    String? url,
-  }) {
+  Future<Paginated<Order>> getOrders({String? status, String? search, String? url}) {
     throw UnimplementedError();
   }
 
@@ -126,9 +117,7 @@ void main() {
   });
 
   ProviderContainer container() => ProviderContainer(
-    overrides: [
-      ordersRepositoryProvider.overrideWithValue(MockOrdersRepository()),
-    ],
+    overrides: [ordersRepositoryProvider.overrideWithValue(MockOrdersRepository())],
   );
 
   test('openPdf: PDF emas, vaqtincha fayl yaratiladi va yoziladi', () async {
@@ -155,9 +144,7 @@ void main() {
 
     expect(File('/tmp/order_123.pdf').existsSync(), true);
     expect(share.lastParams, isNotNull);
-    expect(share.lastParams!.files!.map((f) => f.path).toList(), [
-      '/tmp/order_123.pdf',
-    ]);
+    expect(share.lastParams!.files!.map((f) => f.path).toList(), ['/tmp/order_123.pdf']);
     expect(share.lastParams!.text, 'Buyurtma PDF');
     expect(c.read(orderPdfProvider('123')).hasError, false);
     sub.close();

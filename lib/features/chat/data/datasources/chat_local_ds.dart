@@ -10,10 +10,7 @@ class ChatLocalDataSource {
     return HiveBoxes.open<String>(HiveBoxes.messages);
   }
 
-  Future<void> saveMessages(
-    String conversationId,
-    List<MessageDto> messages,
-  ) async {
+  Future<void> saveMessages(String conversationId, List<MessageDto> messages) async {
     final box = await _getBox();
     // Oxirgi 50 tasini saqlaymiz
     final toSave = messages.take(50).toList();
@@ -28,9 +25,7 @@ class ChatLocalDataSource {
 
     try {
       final List<dynamic> list = jsonDecode(jsonString) as List<dynamic>;
-      return list
-          .map((e) => MessageDto.fromJson(e as Map<String, dynamic>))
-          .toList();
+      return list.map((e) => MessageDto.fromJson(e as Map<String, dynamic>)).toList();
     } catch (_) {
       return [];
     }

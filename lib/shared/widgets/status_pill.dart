@@ -20,20 +20,14 @@ class StatusPill extends StatelessWidget {
 
     return Container(
       padding: AppSpacing.statusPillPadding,
-      decoration: BoxDecoration(
-        color: colorPair.background,
-        borderRadius: AppRadius.pillBorder,
-      ),
+      decoration: BoxDecoration(color: colorPair.background, borderRadius: AppRadius.pillBorder),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: colorPair.textAndDot,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: colorPair.textAndDot, shape: BoxShape.circle),
           ),
           const SizedBox(width: 4),
           Text(
@@ -59,10 +53,7 @@ class PaymentChip extends StatelessWidget {
 
     return Container(
       padding: AppSpacing.statusPillPadding,
-      decoration: BoxDecoration(
-        color: colorPair.background,
-        borderRadius: AppRadius.pillBorder,
-      ),
+      decoration: BoxDecoration(color: colorPair.background, borderRadius: AppRadius.pillBorder),
       child: Text(
         status.getL10n(context),
         style: typography.labelS.copyWith(color: colorPair.textAndDot),

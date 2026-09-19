@@ -22,13 +22,7 @@ void main() {
     });
 
     test('HiveBoxes ro\'yxatida token/access/refresh kalit yo\'q', () {
-      const forbidden = [
-        'token',
-        'access',
-        'refresh',
-        'access_token',
-        'refresh_token',
-      ];
+      const forbidden = ['token', 'access', 'refresh', 'access_token', 'refresh_token'];
       final boxNames = [
         HiveBoxes.authPrefs,
         HiveBoxes.catalogProducts,
@@ -44,63 +38,55 @@ void main() {
           expect(
             name.toLowerCase().contains(key),
             isFalse,
-            reason:
-                'Box nomi "$name" taqiqlangan "$key" ni o\'z ichiga olmasligi kerak',
+            reason: 'Box nomi "$name" taqiqlangan "$key" ni o\'z ichiga olmasligi kerak',
           );
         }
       }
     });
 
-    test(
-      'lib/ ichida Hive.box(...).put(\'access|refresh|token\') naqshi yo\'q',
-      () {
-        final libDir = Directory('lib');
-        expect(libDir.existsSync(), isTrue);
+    test('lib/ ichida Hive.box(...).put(\'access|refresh|token\') naqshi yo\'q', () {
+      final libDir = Directory('lib');
+      expect(libDir.existsSync(), isTrue);
 
-        final pattern = RegExp(
-          r'''Hive\.box\([^)]*\)\.put\(\s*['"](access|refresh|token|access_token|refresh_token)['"]''',
-          multiLine: true,
-        );
-        final putKeyPattern = RegExp(
-          r'''\.put\(\s*['"](access|refresh|token|access_token|refresh_token)['"]''',
-        );
+      final pattern = RegExp(
+        r'''Hive\.box\([^)]*\)\.put\(\s*['"](access|refresh|token|access_token|refresh_token)['"]''',
+        multiLine: true,
+      );
+      final putKeyPattern = RegExp(
+        r'''\.put\(\s*['"](access|refresh|token|access_token|refresh_token)['"]''',
+      );
 
-        final offenders = <String>[];
-        for (final entity in libDir.listSync(recursive: true)) {
-          if (entity is! File || !entity.path.endsWith('.dart')) continue;
-          // SecureStorage token kalitlari ruxsat etiladi
-          if (entity.path.contains('secure_storage.dart')) continue;
-          final source = entity.readAsStringSync();
-          if (pattern.hasMatch(source) ||
-              (source.contains('Hive') && putKeyPattern.hasMatch(source))) {
-            // Faqat Hive kontekstida put
-            if (source.contains('Hive') && putKeyPattern.hasMatch(source)) {
-              // Auth API DTO/JSON 'access'/'refresh' maydonlari — ruxsat
-              if (entity.path.contains('/dto/') ||
-                  entity.path.contains('token_pair') ||
-                  entity.path.contains('auth_remote') ||
-                  entity.path.contains('refresh_interceptor')) {
-                continue;
-              }
-              // Yana tekshir: put chaqiruvi Hive box bilan bog'langanmi
-              for (final match in putKeyPattern.allMatches(source)) {
-                final start = match.start > 80 ? match.start - 80 : 0;
-                final snippet = source.substring(start, match.end);
-                if (snippet.contains('box') || snippet.contains('Hive')) {
-                  offenders.add('${entity.path}:${match.group(1)}');
-                }
+      final offenders = <String>[];
+      for (final entity in libDir.listSync(recursive: true)) {
+        if (entity is! File || !entity.path.endsWith('.dart')) continue;
+        // SecureStorage token kalitlari ruxsat etiladi
+        if (entity.path.contains('secure_storage.dart')) continue;
+        final source = entity.readAsStringSync();
+        if (pattern.hasMatch(source) ||
+            (source.contains('Hive') && putKeyPattern.hasMatch(source))) {
+          // Faqat Hive kontekstida put
+          if (source.contains('Hive') && putKeyPattern.hasMatch(source)) {
+            // Auth API DTO/JSON 'access'/'refresh' maydonlari — ruxsat
+            if (entity.path.contains('/dto/') ||
+                entity.path.contains('token_pair') ||
+                entity.path.contains('auth_remote') ||
+                entity.path.contains('refresh_interceptor')) {
+              continue;
+            }
+            // Yana tekshir: put chaqiruvi Hive box bilan bog'langanmi
+            for (final match in putKeyPattern.allMatches(source)) {
+              final start = match.start > 80 ? match.start - 80 : 0;
+              final snippet = source.substring(start, match.end);
+              if (snippet.contains('box') || snippet.contains('Hive')) {
+                offenders.add('${entity.path}:${match.group(1)}');
               }
             }
           }
         }
+      }
 
-        expect(
-          offenders,
-          isEmpty,
-          reason: 'Hive ga token yozish topildi: $offenders',
-        );
-      },
-    );
+      expect(offenders, isEmpty, reason: 'Hive ga token yozish topildi: $offenders');
+    });
 
     test('OfflineQueue / settings box\'larga token kaliti yozib bo\'lmasligi '
         '(runtime)', () async {
@@ -124,8 +110,7 @@ void main() {
     });
 
     test('SecureStorage token kalitlari flutter_secure_storage da', () {
-      final source = File('lib/core/storage/secure_storage.dart')
-          .readAsStringSync();
+      final source = File('lib/core/storage/secure_storage.dart').readAsStringSync();
       expect(source.contains("FlutterSecureStorage"), isTrue);
       expect(source.contains("'access_token'"), isTrue);
       expect(source.contains("'refresh_token'"), isTrue);

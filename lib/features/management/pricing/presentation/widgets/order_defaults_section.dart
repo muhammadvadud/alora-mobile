@@ -14,8 +14,7 @@ class OrderDefaultsSection extends ConsumerStatefulWidget {
   final OrderDefaults defaults;
 
   @override
-  ConsumerState<OrderDefaultsSection> createState() =>
-      _OrderDefaultsSectionState();
+  ConsumerState<OrderDefaultsSection> createState() => _OrderDefaultsSectionState();
 }
 
 class _OrderDefaultsSectionState extends ConsumerState<OrderDefaultsSection> {
@@ -27,15 +26,9 @@ class _OrderDefaultsSectionState extends ConsumerState<OrderDefaultsSection> {
   @override
   void initState() {
     super.initState();
-    _advCtrl = TextEditingController(
-      text: widget.defaults.defaultPrepaymentPercent.toString(),
-    );
-    _delCtrl = TextEditingController(
-      text: widget.defaults.defaultDeliveryAmount.toString(),
-    );
-    _daysCtrl = TextEditingController(
-      text: widget.defaults.deadlineDays.toString(),
-    );
+    _advCtrl = TextEditingController(text: widget.defaults.defaultPrepaymentPercent.toString());
+    _delCtrl = TextEditingController(text: widget.defaults.defaultDeliveryAmount.toString());
+    _daysCtrl = TextEditingController(text: widget.defaults.deadlineDays.toString());
   }
 
   @override
@@ -77,9 +70,8 @@ class _OrderDefaultsSectionState extends ConsumerState<OrderDefaultsSection> {
       await notifier.updateOrderDefaults(adv, del, days);
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.management_pricingSaveError)),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(context.l10n.management_pricingSaveError)));
       }
     } finally {
       if (mounted) setState(() => _isSaving = false);

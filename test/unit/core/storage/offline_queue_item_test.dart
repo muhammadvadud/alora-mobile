@@ -15,11 +15,7 @@ void main() {
   });
 
   test('create() factory id va createdAt ni avtomatik qo\'yadi', () {
-    final item = OfflineQueueItem.create(
-      method: 'POST',
-      path: '/orders/',
-      body: {'note': 'qayd'},
-    );
+    final item = OfflineQueueItem.create(method: 'POST', path: '/orders/', body: {'note': 'qayd'});
 
     expect(item.id, isNotEmpty);
     expect(item.method, 'POST');
@@ -108,10 +104,7 @@ void main() {
     expect(read.body, {'status': 'done'});
     expect(
       read.createdAt,
-      DateTime.fromMillisecondsSinceEpoch(
-        item.createdAt.millisecondsSinceEpoch,
-        isUtc: true,
-      ),
+      DateTime.fromMillisecondsSinceEpoch(item.createdAt.millisecondsSinceEpoch, isUtc: true),
     );
     expect(read.attempts, item.attempts);
 

@@ -14,23 +14,16 @@ void main() {
       expect(find.text(" so'm"), findsOneWidget);
     });
 
-    testWidgets('kustom formatter parametri ishlatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('kustom formatter parametri ishlatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MoneyText(
-          amount: 2748000,
-          formatter: (amount) => '$amount сум',
-        ).pumpApp(),
+        MoneyText(amount: 2748000, formatter: (amount) => '$amount сум').pumpApp(),
       );
 
       expect(find.text('2748000 сум'), findsOneWidget);
     });
 
     testWidgets('maxsus suffix ko\'rsatiladi', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MoneyText(amount: 5000, suffix: ' ming').pumpApp(),
-      );
+      await tester.pumpWidget(const MoneyText(amount: 5000, suffix: ' ming').pumpApp());
 
       expect(find.text('5 000'), findsOneWidget);
       expect(find.text(' ming'), findsOneWidget);
@@ -42,17 +35,13 @@ void main() {
       expect(find.text('0'), findsOneWidget);
     });
 
-    testWidgets('kichik miqdor uch guruhdan kam ajratilmaydi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('kichik miqdor uch guruhdan kam ajratilmaydi', (WidgetTester tester) async {
       await tester.pumpWidget(const MoneyText(amount: 999).pumpApp());
 
       expect(find.text('999'), findsOneWidget);
     });
 
-    testWidgets('millionlik miqdor ikki bo\'sh joy bilan ajratiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('millionlik miqdor ikki bo\'sh joy bilan ajratiladi', (WidgetTester tester) async {
       await tester.pumpWidget(const MoneyText(amount: 27000000).pumpApp());
 
       expect(find.text('27 000 000'), findsOneWidget);

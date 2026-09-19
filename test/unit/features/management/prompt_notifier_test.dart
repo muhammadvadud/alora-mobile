@@ -8,13 +8,7 @@ import 'package:alora_mobile/features/management/settings/domain/entities/model_
 
 class MockSettingsRepository implements SettingsRepository {
   final history = const PromptHistory(
-    current: PromptVersion(
-      id: '1',
-      version: 1,
-      content: 'a',
-      authorName: 'Admin',
-      isCurrent: true,
-    ),
+    current: PromptVersion(id: '1', version: 1, content: 'a', authorName: 'Admin', isCurrent: true),
     history: [],
   );
 
@@ -57,10 +51,7 @@ class MockSettingsRepository implements SettingsRepository {
   }
 
   @override
-  Future<ModelPricing> updateModelPricing(
-    String id,
-    Map<String, dynamic> body,
-  ) async {
+  Future<ModelPricing> updateModelPricing(String id, Map<String, dynamic> body) async {
     return const ModelPricing(
       id: '1',
       provider: 'a',
@@ -78,9 +69,7 @@ class MockSettingsRepository implements SettingsRepository {
 void main() {
   test('PromptHistoryNotifier create and rollback', () async {
     final container = ProviderContainer(
-      overrides: [
-        settingsRepositoryProvider.overrideWithValue(MockSettingsRepository()),
-      ],
+      overrides: [settingsRepositoryProvider.overrideWithValue(MockSettingsRepository())],
     );
     final notifier = container.read(promptHistoryProvider.notifier);
 

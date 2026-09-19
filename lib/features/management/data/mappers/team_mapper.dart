@@ -1,5 +1,4 @@
-import 'package:alora_mobile/features/auth/data/mappers/auth_me_mapper.dart'
-    show roleFromName;
+import 'package:alora_mobile/features/auth/data/mappers/auth_me_mapper.dart' show roleFromName;
 import 'package:alora_mobile/features/conversations/domain/entities/conversation.dart';
 import 'package:alora_mobile/features/conversations/domain/entities/conversation_mode.dart';
 import 'package:alora_mobile/features/conversations/domain/entities/conversation_stage.dart';

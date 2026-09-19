@@ -67,17 +67,13 @@ class SentryErrorReporter implements ErrorReporter {
       unknown: (_) => 'UnknownFailure',
     );
 
-    _hub.addBreadcrumb(
-      Breadcrumb(category: 'failure', message: failureType, level: level),
-    );
+    _hub.addBreadcrumb(Breadcrumb(category: 'failure', message: failureType, level: level));
   }
 
   @override
   void setUser({String? id, String? role}) {
     _hub.configureScope((scope) {
-      scope.setUser(
-        SentryUser(id: id, data: role != null ? {'role': role} : null),
-      );
+      scope.setUser(SentryUser(id: id, data: role != null ? {'role': role} : null));
     });
   }
 

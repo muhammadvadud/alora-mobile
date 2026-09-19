@@ -6,11 +6,7 @@ class Waveform extends StatelessWidget {
   final List<double> amplitudes; // 0.0 to 1.0, length up to 24
   final bool isAiSpeaking;
 
-  const Waveform({
-    super.key,
-    required this.amplitudes,
-    this.isAiSpeaking = false,
-  });
+  const Waveform({super.key, required this.amplitudes, this.isAiSpeaking = false});
 
   @override
   Widget build(BuildContext context) {

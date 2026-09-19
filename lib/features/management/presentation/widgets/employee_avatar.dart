@@ -21,15 +21,9 @@ class EmployeeAvatar extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        color: colors.accent,
-        borderRadius: AppRadius.cardBorder,
-      ),
+      decoration: BoxDecoration(color: colors.accent, borderRadius: AppRadius.cardBorder),
       alignment: Alignment.center,
-      child: Text(
-        _getLetter(),
-        style: context.text.titleL.copyWith(color: colors.onAccent),
-      ),
+      child: Text(_getLetter(), style: context.text.titleL.copyWith(color: colors.onAccent)),
     );
   }
 }

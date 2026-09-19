@@ -8,9 +8,7 @@ part of 'order_measurement_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_OrderMeasurementDto _$OrderMeasurementDtoFromJson(
-  Map<String, dynamic> json,
-) => $checkedCreate(
+_OrderMeasurementDto _$OrderMeasurementDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
   '_OrderMeasurementDto',
   json,
   ($checkedConvert) {
@@ -29,10 +27,7 @@ _OrderMeasurementDto _$OrderMeasurementDtoFromJson(
         'parts',
         (v) =>
             (v as List<dynamic>?)
-                ?.map(
-                  (e) =>
-                      OrderCurtainPartDto.fromJson(e as Map<String, dynamic>),
-                )
+                ?.map((e) => OrderCurtainPartDto.fromJson(e as Map<String, dynamic>))
                 .toList() ??
             const [],
       ),
@@ -40,9 +35,7 @@ _OrderMeasurementDto _$OrderMeasurementDtoFromJson(
         'accessories',
         (v) =>
             (v as List<dynamic>?)
-                ?.map(
-                  (e) => OrderAccessoryDto.fromJson(e as Map<String, dynamic>),
-                )
+                ?.map((e) => OrderAccessoryDto.fromJson(e as Map<String, dynamic>))
                 .toList() ??
             const [],
       ),
@@ -56,16 +49,15 @@ _OrderMeasurementDto _$OrderMeasurementDtoFromJson(
   },
 );
 
-Map<String, dynamic> _$OrderMeasurementDtoToJson(
-  _OrderMeasurementDto instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'room_name': ?instance.roomName,
-  'cornice_length_m': ?instance.corniceLengthM,
-  'height_m': ?instance.heightM,
-  'layers': ?instance.layers,
-  'coefficient': ?instance.coefficient,
-  'note': ?instance.note,
-  'parts': instance.parts.map((e) => e.toJson()).toList(),
-  'accessories': instance.accessories.map((e) => e.toJson()).toList(),
-};
+Map<String, dynamic> _$OrderMeasurementDtoToJson(_OrderMeasurementDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'room_name': ?instance.roomName,
+      'cornice_length_m': ?instance.corniceLengthM,
+      'height_m': ?instance.heightM,
+      'layers': ?instance.layers,
+      'coefficient': ?instance.coefficient,
+      'note': ?instance.note,
+      'parts': instance.parts.map((e) => e.toJson()).toList(),
+      'accessories': instance.accessories.map((e) => e.toJson()).toList(),
+    };

@@ -85,10 +85,7 @@ class FakeUsageRepository implements UsageRepository {
   int conversationsCalls = 0;
 
   @override
-  Future<UsageSummary> summary({
-    required UsagePeriod period,
-    String? userId,
-  }) async {
+  Future<UsageSummary> summary({required UsagePeriod period, String? userId}) async {
     summaryCalls.add((period: period, userId: userId));
     final failure = summaryFailure;
     if (failure != null) throw failure;

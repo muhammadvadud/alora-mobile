@@ -7,13 +7,10 @@ import 'package:alora_mobile/shared/models/order_status.dart';
 
 class StatusTimeline extends StatelessWidget {
   final OrderStatus currentStatus;
-  final DateTime? actionDate; // maybe list of actions, but we just highlight the current one for now
+  final DateTime?
+  actionDate; // maybe list of actions, but we just highlight the current one for now
 
-  const StatusTimeline({
-    super.key,
-    required this.currentStatus,
-    this.actionDate,
-  });
+  const StatusTimeline({super.key, required this.currentStatus, this.actionDate});
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +34,7 @@ class StatusTimeline extends StatelessWidget {
           const SizedBox(width: AppSpacing.s),
           Text(
             context.l10n.cancelled,
-            style: typography.bodyL.copyWith(
-              color: colors.danger,
-              fontWeight: FontWeight.bold,
-            ),
+            style: typography.bodyL.copyWith(color: colors.danger, fontWeight: FontWeight.bold),
           ),
         ],
       );
@@ -86,9 +80,7 @@ class _TimelineStep extends StatelessWidget {
     final typography = context.text;
 
     final color = isPassed || isCurrent ? colors.accent : colors.border;
-    final iconColor = isPassed || isCurrent
-        ? colors.onAccent
-        : colors.textDisabled;
+    final iconColor = isPassed || isCurrent ? colors.onAccent : colors.textDisabled;
     final bgColor = isPassed || isCurrent ? colors.accent : colors.surface;
 
     return IntrinsicHeight(
@@ -103,15 +95,11 @@ class _TimelineStep extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: bgColor,
                   shape: BoxShape.circle,
-                  border: isPassed || isCurrent
-                      ? null
-                      : Border.all(color: color),
+                  border: isPassed || isCurrent ? null : Border.all(color: color),
                 ),
                 child: isPassed
                     ? Icon(AppIcons.check, size: 14, color: iconColor)
-                    : (isCurrent
-                          ? Icon(AppIcons.dot, size: 8, color: iconColor)
-                          : null),
+                    : (isCurrent ? Icon(AppIcons.dot, size: 8, color: iconColor) : null),
               ),
               if (!isLast) Expanded(child: Container(width: 2, color: color)),
             ],
@@ -126,22 +114,14 @@ class _TimelineStep extends StatelessWidget {
                   Text(
                     name,
                     style: typography.bodyL.copyWith(
-                      color: isPassed || isCurrent
-                          ? colors.textPrimary
-                          : colors.textDisabled,
-                      fontWeight: isCurrent
-                          ? FontWeight.bold
-                          : FontWeight.normal,
+                      color: isPassed || isCurrent ? colors.textPrimary : colors.textDisabled,
+                      fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                   if (isCurrent && actionDate != null)
                     Text(
-                      actionDate!.toString().split(
-                        ' ',
-                      )[0], // Format properly in prod
-                      style: typography.bodyS.copyWith(
-                        color: colors.textSecondary,
-                      ),
+                      actionDate!.toString().split(' ')[0], // Format properly in prod
+                      style: typography.bodyS.copyWith(color: colors.textSecondary),
                     ),
                 ],
               ),

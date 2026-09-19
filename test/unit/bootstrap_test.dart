@@ -35,9 +35,7 @@ void main() {
     await tempDir.delete(recursive: true);
   });
 
-  testWidgets('App starts and displays login screen', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('App starts and displays login screen', (WidgetTester tester) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [authRepositoryProvider.overrideWithValue(repository)],

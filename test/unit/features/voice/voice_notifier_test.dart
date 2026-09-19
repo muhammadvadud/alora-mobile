@@ -24,8 +24,7 @@ void main() {
 
     when(() => mockRecorder.startRecording()).thenAnswer((_) async {});
     when(() => mockRecorder.stopRecording()).thenAnswer((_) async {});
-    when(() => mockRecorder.amplitudeStream)
-        .thenAnswer((_) => const Stream.empty());
+    when(() => mockRecorder.amplitudeStream).thenAnswer((_) => const Stream.empty());
 
     when(() => mockPlayer.startPlaying()).thenAnswer((_) async {});
     when(() => mockPlayer.stopPlaying()).thenAnswer((_) async {});

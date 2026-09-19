@@ -46,11 +46,7 @@ class ComponentGallery extends StatelessWidget {
             AppButton(text: 'Primary Button', onPressed: () {}),
             if (showAnimations) ...[
               const SizedBox(height: 8),
-              AppButton(
-                text: 'Primary Loading',
-                isLoading: true,
-                onPressed: () {},
-              ),
+              AppButton(text: 'Primary Loading', isLoading: true, onPressed: () {}),
             ],
             const SizedBox(height: 8),
             AppButton.secondary(text: 'Secondary Button', onPressed: () {}),
@@ -64,16 +60,8 @@ class ComponentGallery extends StatelessWidget {
               spacing: 8,
               children: [
                 AppChip(label: 'Unselected', onTap: () {}),
-                AppChip(
-                  label: 'Selected',
-                  state: AppChipState.selected,
-                  onTap: () {},
-                ),
-                AppChip(
-                  label: 'Category',
-                  state: AppChipState.categorySelected,
-                  onTap: () {},
-                ),
+                AppChip(label: 'Selected', state: AppChipState.selected, onTap: () {}),
+                AppChip(label: 'Category', state: AppChipState.categorySelected, onTap: () {}),
                 AppCountChip(label: 'Qoralama', count: 3, onTap: () {}),
               ],
             ),
@@ -83,21 +71,9 @@ class ComponentGallery extends StatelessWidget {
               spacing: 8,
               children: [
                 if (showAnimations)
-                  ToolChip(
-                    text: 'Qidirilmoqda',
-                    state: ToolChipState.running,
-                    onTap: () {},
-                  ),
-                ToolChip(
-                  text: 'Topildi',
-                  state: ToolChipState.done,
-                  onTap: () {},
-                ),
-                ToolChip(
-                  text: 'Xato',
-                  state: ToolChipState.error,
-                  onTap: () {},
-                ),
+                  ToolChip(text: 'Qidirilmoqda', state: ToolChipState.running, onTap: () {}),
+                ToolChip(text: 'Topildi', state: ToolChipState.done, onTap: () {}),
+                ToolChip(text: 'Xato', state: ToolChipState.error, onTap: () {}),
               ],
             ),
           ]),
@@ -106,35 +82,22 @@ class ComponentGallery extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: OrderStatus.values
-                  .map((s) => StatusPill(status: s))
-                  .toList(),
+              children: OrderStatus.values.map((s) => StatusPill(status: s)).toList(),
             ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
-              children: PaymentStatus.values
-                  .map((s) => PaymentChip(status: s))
-                  .toList(),
+              children: PaymentStatus.values.map((s) => PaymentChip(status: s)).toList(),
             ),
           ]),
           _buildSection('TextFields', [
             const AppTextField(hintText: 'Normal text field'),
             const SizedBox(height: 8),
-            const AppTextField(
-              hintText: 'Password',
-              type: AppTextFieldType.password,
-            ),
+            const AppTextField(hintText: 'Password', type: AppTextFieldType.password),
             const SizedBox(height: 8),
-            const AppTextField(
-              hintText: 'Search',
-              type: AppTextFieldType.search,
-            ),
+            const AppTextField(hintText: 'Search', type: AppTextFieldType.search),
             const SizedBox(height: 8),
-            const AppTextField(
-              hintText: 'Error state',
-              errorText: 'Invalid input',
-            ),
+            const AppTextField(hintText: 'Error state', errorText: 'Invalid input'),
             const SizedBox(height: 8),
             const PhoneField(),
           ]),
@@ -178,9 +141,7 @@ class ComponentGallery extends StatelessWidget {
             const SizedBox(height: 16),
             Container(
               height: 300,
-              decoration: BoxDecoration(
-                border: Border.all(color: context.colors.border),
-              ),
+              decoration: BoxDecoration(border: Border.all(color: context.colors.border)),
               child: EmptyState(
                 icon: AppIcons.inbox,
                 title: 'Hali buyurtma yo\'q',
@@ -192,9 +153,7 @@ class ComponentGallery extends StatelessWidget {
             const SizedBox(height: 16),
             Container(
               height: 300,
-              decoration: BoxDecoration(
-                border: Border.all(color: context.colors.border),
-              ),
+              decoration: BoxDecoration(border: Border.all(color: context.colors.border)),
               child: ErrorState(onRetry: () {}),
             ),
           ]),
@@ -247,11 +206,7 @@ class ComponentGallery extends StatelessWidget {
               currentIndex: 0,
               onTap: (_) {},
               items: const [
-                AppTabBarItem(
-                  icon: AppIcons.chat,
-                  activeIcon: AppIcons.chat,
-                  label: 'Chat',
-                ),
+                AppTabBarItem(icon: AppIcons.chat, activeIcon: AppIcons.chat, label: 'Chat'),
                 AppTabBarItem(
                   icon: AppIcons.orders,
                   activeIcon: AppIcons.orders,

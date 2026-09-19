@@ -35,9 +35,7 @@ class _SetPinDialogState extends ConsumerState<SetPinDialog> {
         });
       } else {
         if (_confirmPin == _pin) {
-          ref.read(customerModeNotifierProvider.notifier).enable(_pin).then((
-            _,
-          ) {
+          ref.read(customerModeNotifierProvider.notifier).enable(_pin).then((_) {
             if (mounted) Navigator.of(context).pop();
           });
         } else {
@@ -124,9 +122,7 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
         _isLoading = true;
       });
 
-      final result = await ref
-          .read(customerModeNotifierProvider.notifier)
-          .disable(_pin);
+      final result = await ref.read(customerModeNotifierProvider.notifier).disable(_pin);
       if (!mounted) return;
 
       switch (result) {
@@ -164,9 +160,7 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
     final lockUntil = notifier.lockUntil;
     final isLocked = lockUntil != null && DateTime.now().isBefore(lockUntil);
     if (isLocked && _error == null) {
-      _error = context.l10n.chat_pinAttemptsWait(
-        lockUntil.difference(DateTime.now()).inSeconds,
-      );
+      _error = context.l10n.chat_pinAttemptsWait(lockUntil.difference(DateTime.now()).inSeconds);
     }
 
     return Dialog(
@@ -188,11 +182,7 @@ class _EnterPinDialogState extends ConsumerState<EnterPinDialog> {
                 ),
               ],
               const SizedBox(height: AppSpacing.xl),
-              _Numpad(
-                isLocked: isLocked,
-                onDigit: _onDigit,
-                onDelete: _onDelete,
-              ),
+              _Numpad(isLocked: isLocked, onDigit: _onDigit, onDelete: _onDelete),
             ],
           ),
         ),
@@ -232,11 +222,7 @@ class _Numpad extends StatelessWidget {
   final ValueChanged<String> onDigit;
   final VoidCallback onDelete;
 
-  const _Numpad({
-    required this.isLocked,
-    required this.onDigit,
-    required this.onDelete,
-  });
+  const _Numpad({required this.isLocked, required this.onDigit, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -248,10 +234,7 @@ class _Numpad extends StatelessWidget {
       crossAxisSpacing: AppSpacing.s,
       children: [
         for (var i = 1; i <= 9; i++)
-          _NumpadButton(
-            text: i.toString(),
-            onTap: isLocked ? null : () => onDigit(i.toString()),
-          ),
+          _NumpadButton(text: i.toString(), onTap: isLocked ? null : () => onDigit(i.toString())),
         const SizedBox(),
         _NumpadButton(text: '0', onTap: isLocked ? null : () => onDigit('0')),
         _NumpadButton(text: '<-', onTap: isLocked ? null : onDelete),
@@ -275,9 +258,7 @@ class _NumpadButton extends StatelessWidget {
         child: Text(
           text,
           style: context.text.titleL.copyWith(
-            color: onTap == null
-                ? context.colors.textDisabled
-                : context.colors.textPrimary,
+            color: onTap == null ? context.colors.textDisabled : context.colors.textPrimary,
           ),
         ),
       ),

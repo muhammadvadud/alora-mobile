@@ -15,16 +15,10 @@ class FakeVoiceNotifier extends VoiceNotifier {
 }
 
 void main() {
-  testWidgets('VoicePanel shows initial idle state', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('VoicePanel shows initial idle state', (WidgetTester tester) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [
-          voiceProvider.overrideWith(
-            () => FakeVoiceNotifier(const VoiceState.idle()),
-          ),
-        ],
+        overrides: [voiceProvider.overrideWith(() => FakeVoiceNotifier(const VoiceState.idle()))],
         child: MaterialApp(
           theme: AppTheme.light(),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -36,10 +30,7 @@ void main() {
     );
 
     expect(find.byIcon(LucideIcons.mic), findsOneWidget); // mic button
-    expect(
-      find.byIcon(LucideIcons.keyboard),
-      findsOneWidget,
-    ); // keyboard button
+    expect(find.byIcon(LucideIcons.keyboard), findsOneWidget); // keyboard button
     expect(find.text("To'xtatish"), findsNothing);
   });
 }

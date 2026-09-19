@@ -23,11 +23,9 @@ class CatalogLocalDataSource {
 
   static const _categoriesKey = 'all';
 
-  Future<Box<dynamic>> _productsBox() =>
-      HiveBoxes.open<dynamic>(HiveBoxes.catalogProducts);
+  Future<Box<dynamic>> _productsBox() => HiveBoxes.open<dynamic>(HiveBoxes.catalogProducts);
 
-  Future<Box<dynamic>> _categoriesBox() =>
-      HiveBoxes.open<dynamic>(HiveBoxes.catalogCategories);
+  Future<Box<dynamic>> _categoriesBox() => HiveBoxes.open<dynamic>(HiveBoxes.catalogCategories);
 
   bool _isExpired(DateTime savedAt) {
     return DateTime.now().difference(savedAt) > ttl;
@@ -100,10 +98,7 @@ class CatalogLocalDataSource {
     }
   }
 
-  Future<void> saveProducts(
-    String filterKey,
-    Paginated<ProductDto> products,
-  ) async {
+  Future<void> saveProducts(String filterKey, Paginated<ProductDto> products) async {
     final box = await _productsBox();
     final data = {
       'next': products.next,
@@ -125,9 +120,7 @@ class CatalogLocalDataSource {
       final decoded = jsonDecode(raw) as Map<String, dynamic>;
       final savedAt = DateTime.parse(decoded['saved_at'] as String).toLocal();
       if (_isExpired(savedAt)) return null;
-      final dto = ProductDto.fromJson(
-        Map<String, dynamic>.from(decoded['data'] as Map),
-      );
+      final dto = ProductDto.fromJson(Map<String, dynamic>.from(decoded['data'] as Map));
       return productDtoToEntity(dto);
     } catch (error) {
       logger.w("Keshlangan mahsulotni o'qishda xato: $error");
@@ -139,18 +132,12 @@ class CatalogLocalDataSource {
     final box = await _productsBox();
     await box.put(
       'detail_${product.id}',
-      jsonEncode({
-        'saved_at': DateTime.now().toIso8601String(),
-        'data': product.toJson(),
-      }),
+      jsonEncode({'saved_at': DateTime.now().toIso8601String(), 'data': product.toJson()}),
     );
   }
 
   /// Yangi sahifa kelganda eski sahifani orqasiga qo'shib saqlaydi.
-  Future<void> saveProductsMerged(
-    String filterKey,
-    Paginated<ProductDto> products,
-  ) async {
+  Future<void> saveProductsMerged(String filterKey, Paginated<ProductDto> products) async {
     final existing = await getCachedProductsDto(filterKey);
     if (existing == null) {
       await saveProducts(filterKey, products);
@@ -163,11 +150,7 @@ class CatalogLocalDataSource {
     ];
     await saveProducts(
       filterKey,
-      Paginated(
-        next: products.next,
-        previous: products.previous,
-        results: merged,
-      ),
+      Paginated(next: products.next, previous: products.previous, results: merged),
     );
   }
 }

@@ -12,10 +12,8 @@ import 'package:alora_mobile/core/connectivity/connectivity_notifier.dart';
 import 'package:alora_mobile/core/storage/offline_queue_item.dart';
 import 'package:alora_mobile/core/storage/secure_storage.dart';
 import 'package:alora_mobile/features/auth/application/providers.dart';
-import 'package:alora_mobile/features/catalog/application/providers.dart'
-    as catalog_providers;
-import 'package:alora_mobile/features/chat/application/providers.dart'
-    as chat_providers;
+import 'package:alora_mobile/features/catalog/application/providers.dart' as catalog_providers;
+import 'package:alora_mobile/features/chat/application/providers.dart' as chat_providers;
 import 'package:alora_mobile/features/conversations/application/providers.dart';
 import 'package:alora_mobile/features/management/application/providers.dart'
     as management_providers;
@@ -52,16 +50,13 @@ ProviderContainer createTestContainer({
   return ProviderContainer(
     overrides: [
       authRepositoryProvider.overrideWithValue(auth),
-      secureStorageProvider.overrideWithValue(
-        secureStorage ?? FakeSecureStorage(),
-      ),
+      secureStorageProvider.overrideWithValue(secureStorage ?? FakeSecureStorage()),
       connectivityProvider.overrideWith(() => connectivity),
       chat_providers.chatRepositoryProvider.overrideWithValue(chat),
       conversationsRepositoryProvider.overrideWithValue(conversations),
       ordersRepositoryProvider.overrideWithValue(orders),
       catalog_providers.catalogRepositoryProvider.overrideWithValue(catalog),
-      if (usage != null)
-        management_providers.usageRepositoryProvider.overrideWithValue(usage),
+      if (usage != null) management_providers.usageRepositoryProvider.overrideWithValue(usage),
       themeModeProvider.overrideWithValue(ThemeMode.light),
       localeProvider.overrideWithValue(const Locale('uz')),
       ...extraOverrides,
@@ -71,17 +66,12 @@ ProviderContainer createTestContainer({
 
 /// Testda ishlatiladigan to'liq ilova (real router + shell + l10n).
 Widget wrapApp(ProviderContainer container) {
-  return UncontrolledProviderScope(
-    container: container,
-    child: const AloraApp(),
-  );
+  return UncontrolledProviderScope(container: container, child: const AloraApp());
 }
 
 /// SSE throttle (50 ms) va Hive I/O kabi haqiqiy timerlar tugashini kutib,
 /// keyin freymlarni settle qiladi (fake vaqt `pumpAndSettle(duration)` bularni kutmaydi).
 Future<void> settleReal(WidgetTester tester) async {
-  await tester.runAsync(
-    () => Future<void>.delayed(const Duration(milliseconds: 250)),
-  );
+  await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 250)));
   await tester.pumpAndSettle();
 }

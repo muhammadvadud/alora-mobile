@@ -23,9 +23,7 @@ void main() {
   });
 
   ProviderContainer container() {
-    final c = ProviderContainer(
-      overrides: [dioProvider.overrideWithValue(dio)],
-    );
+    final c = ProviderContainer(overrides: [dioProvider.overrideWithValue(dio)]);
     addTearDown(c.dispose);
     return c;
   }
@@ -68,9 +66,7 @@ void main() {
       queryParameters: {'period': 'month'},
     );
 
-    final rows = await container()
-        .read(usageRepositoryProvider)
-        .byUser(period: UsagePeriod.month);
+    final rows = await container().read(usageRepositoryProvider).byUser(period: UsagePeriod.month);
 
     expect(rows.single.userId, 'employee-1');
     expect(rows.single.costUzs, 120000);
@@ -91,9 +87,7 @@ void main() {
       ]),
     );
 
-    final employees = await container()
-        .read(teamRepositoryProvider)
-        .employees();
+    final employees = await container().read(teamRepositoryProvider).employees();
 
     expect(employees.single.id, 'employee-1');
     expect(employees.single.fullName, 'Akmal Karimov');
@@ -106,16 +100,13 @@ void main() {
           const EmployeesState.loaded(items: [], searchQuery: ''),
         ),
         managementPeriodProvider.overrideWithValue(UsagePeriod.week),
-        employeeDetailProvider('employee-1')
-            .overrideWithValue(const EmployeeDetailState.loading()),
+        employeeDetailProvider('employee-1').overrideWithValue(const EmployeeDetailState.loading()),
       ],
     );
     addTearDown(c.dispose);
 
     expect(
-      c
-          .read(employeesProvider)
-          .maybeWhen(loaded: (items, _) => items.isEmpty, orElse: () => false),
+      c.read(employeesProvider).maybeWhen(loaded: (items, _) => items.isEmpty, orElse: () => false),
       isTrue,
     );
     expect(c.read(managementPeriodProvider), UsagePeriod.week);
@@ -129,14 +120,8 @@ void main() {
 
   test('provider toString konsistent', () {
     expect(employeeDetailProvider.toString(), 'employeeDetailProvider');
-    expect(
-      employeeDetailProvider('employee-1').toString(),
-      contains('employeeDetailProvider'),
-    );
+    expect(employeeDetailProvider('employee-1').toString(), contains('employeeDetailProvider'));
     expect(employeesProvider.toString(), contains('employeesProvider'));
-    expect(
-      managementPeriodProvider.toString(),
-      contains('managementPeriodProvider'),
-    );
+    expect(managementPeriodProvider.toString(), contains('managementPeriodProvider'));
   });
 }

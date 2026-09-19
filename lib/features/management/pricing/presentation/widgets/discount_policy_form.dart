@@ -28,12 +28,8 @@ class _DiscountPolicyFormState extends ConsumerState<DiscountPolicyForm> {
   @override
   void initState() {
     super.initState();
-    _empCtrl = TextEditingController(
-      text: widget.policy.manualMaxPercentEmployee.toString(),
-    );
-    _mgrCtrl = TextEditingController(
-      text: widget.policy.manualMaxPercentManager.toString(),
-    );
+    _empCtrl = TextEditingController(text: widget.policy.manualMaxPercentEmployee.toString());
+    _mgrCtrl = TextEditingController(text: widget.policy.manualMaxPercentManager.toString());
     _stackWithTier = widget.policy.stackWithTier;
   }
 
@@ -69,16 +65,11 @@ class _DiscountPolicyFormState extends ConsumerState<DiscountPolicyForm> {
     setState(() => _isSaving = true);
     final notifier = ref.read(pricingProvider.notifier);
     try {
-      await notifier.updateDiscountPolicy(
-        emp,
-        mgr,
-        stackWithTier: _stackWithTier,
-      );
+      await notifier.updateDiscountPolicy(emp, mgr, stackWithTier: _stackWithTier);
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.management_pricingSaveError)),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(context.l10n.management_pricingSaveError)));
       }
     } finally {
       if (mounted) setState(() => _isSaving = false);
@@ -111,10 +102,7 @@ class _DiscountPolicyFormState extends ConsumerState<DiscountPolicyForm> {
         const SizedBox(height: AppSpacing.s),
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
-          title: Text(
-            context.l10n.management_pricingStackWithTier,
-            style: context.text.bodyM,
-          ),
+          title: Text(context.l10n.management_pricingStackWithTier, style: context.text.bodyM),
           value: _stackWithTier,
           onChanged: (v) => setState(() => _stackWithTier = v),
         ),

@@ -87,8 +87,7 @@ class CatalogRepositoryImpl implements CatalogRepository {
     return productDtoToEntity(remote);
   }
 
-  Future<({Paginated<ProductDto> raw, Paginated<Product> entities})>
-  _fetchFromRemote({
+  Future<({Paginated<ProductDto> raw, Paginated<Product> entities})> _fetchFromRemote({
     String? category,
     String? style,
     String? room,

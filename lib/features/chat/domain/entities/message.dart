@@ -23,15 +23,13 @@ sealed class RichBlock with _$RichBlock {
     String? rawResult,
   }) = _ToolChip;
 
-  const factory RichBlock.products({required List<ProductRef> products}) =
-      _Products;
+  const factory RichBlock.products({required List<ProductRef> products}) = _Products;
 
   const factory RichBlock.quote({required Quote quote}) = _QuoteBlock;
 
   const factory RichBlock.options({required PricingOptions options}) = _Options;
 
-  const factory RichBlock.orderDraft({required OrderDraft draft}) =
-      _OrderDraftBlock;
+  const factory RichBlock.orderDraft({required OrderDraft draft}) = _OrderDraftBlock;
 
   const factory RichBlock.warning({required String message}) = _Warning;
 }

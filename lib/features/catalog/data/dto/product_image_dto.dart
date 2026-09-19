@@ -28,8 +28,7 @@ class ProductImageDto {
     this.isActive = true,
   });
 
-  factory ProductImageDto.fromJson(Map<String, dynamic> json) =>
-      _$ProductImageDtoFromJson(json);
+  factory ProductImageDto.fromJson(Map<String, dynamic> json) => _$ProductImageDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductImageDtoToJson(this);
 }

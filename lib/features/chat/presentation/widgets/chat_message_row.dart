@@ -44,19 +44,12 @@ class ChatMessageRow extends StatelessWidget {
 
         ...message.richBlocks.map(
           (b) => b.when(
-            toolChip: (tool, state, resultText, rawArgs, rawResult) =>
-                isCustomerMode
+            toolChip: (tool, state, resultText, rawArgs, rawResult) => isCustomerMode
                 ? const SizedBox.shrink()
-                : ToolChipBlockView(
-                    tool: tool,
-                    state: state,
-                    resultText: resultText,
-                  ),
+                : ToolChipBlockView(tool: tool, state: state, resultText: resultText),
             products: (products) => ProductCarousel(products: products),
             quote: (quote) => QuoteCardView(
-              quote: isCustomerMode
-                  ? quote.copyWith(formula: '', wasteWarnings: const [])
-                  : quote,
+              quote: isCustomerMode ? quote.copyWith(formula: '', wasteWarnings: const []) : quote,
             ),
             options: (options) => OptionsCardView(optionsBlock: options),
             orderDraft: (draft) => OrderDraftCardView(
@@ -70,14 +63,11 @@ class ChatMessageRow extends StatelessWidget {
           ),
         ),
 
-        if (message.content.isNotEmpty)
-          AssistantMessageView(text: message.content),
+        if (message.content.isNotEmpty) AssistantMessageView(text: message.content),
 
         if (!isCustomerMode &&
             message.status == MessageStatus.streaming &&
-            message.richBlocks.any(
-              (b) => b.mapOrNull(toolChip: (_) => true) == true,
-            ))
+            message.richBlocks.any((b) => b.mapOrNull(toolChip: (_) => true) == true))
           const ThinkingBlockView(),
 
         const SizedBox(height: AppSpacing.l),

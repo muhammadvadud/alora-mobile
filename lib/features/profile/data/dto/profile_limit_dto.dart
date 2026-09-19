@@ -45,8 +45,7 @@ class ProfileLimitDto {
     required this.isActive,
   });
 
-  factory ProfileLimitDto.fromJson(Map<String, dynamic> json) =>
-      _$ProfileLimitDtoFromJson(json);
+  factory ProfileLimitDto.fromJson(Map<String, dynamic> json) => _$ProfileLimitDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileLimitDtoToJson(this);
 }

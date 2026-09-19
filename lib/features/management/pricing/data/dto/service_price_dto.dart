@@ -16,6 +16,5 @@ abstract class ServicePriceDto with _$ServicePriceDto {
     @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _ServicePriceDto;
 
-  factory ServicePriceDto.fromJson(Map<String, dynamic> json) =>
-      _$ServicePriceDtoFromJson(json);
+  factory ServicePriceDto.fromJson(Map<String, dynamic> json) => _$ServicePriceDtoFromJson(json);
 }

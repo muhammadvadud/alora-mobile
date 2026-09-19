@@ -21,8 +21,7 @@ void main() {
     addTearDown(container.dispose);
   });
 
-  EmployeeDetailState state() =>
-      container.read(employeeDetailProvider('employee-1'));
+  EmployeeDetailState state() => container.read(employeeDetailProvider('employee-1'));
 
   EmployeeDetailNotifier notifier() =>
       container.read(employeeDetailProvider('employee-1').notifier);
@@ -42,10 +41,7 @@ void main() {
     final employee = state().maybeWhen(loaded: (e, _) => e, orElse: () => null);
     expect(employee?.fullName, 'Akmal Karimov');
     expect(employee?.isBlocked, isTrue);
-    expect(
-      state().maybeWhen(loaded: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(loaded: (_, _) => true, orElse: () => false), isTrue);
   });
 
   test('xatolik error holatga olib keladi va load() qayta yuklaydi', () async {
@@ -59,36 +55,28 @@ void main() {
     await notifier().load();
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(loaded: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(loaded: (_, _) => true, orElse: () => false), isTrue);
   });
 
-  test(
-    'setLimit: body to\'g\'ri uzatiladi va limit state ga yoziladi',
-    () async {
-      teamRepository.employeeResult = testEmployee(id: 'employee-1');
-      teamRepository.setLimitResult = testUsageLimit(
-        id: 'limit-1',
-        isUnlimited: false,
-        maxCostUzs: '500000.00',
-      );
-      container.read(employeeDetailProvider('employee-1'));
-      await pumpEventQueue();
+  test('setLimit: body to\'g\'ri uzatiladi va limit state ga yoziladi', () async {
+    teamRepository.employeeResult = testEmployee(id: 'employee-1');
+    teamRepository.setLimitResult = testUsageLimit(
+      id: 'limit-1',
+      isUnlimited: false,
+      maxCostUzs: '500000.00',
+    );
+    container.read(employeeDetailProvider('employee-1'));
+    await pumpEventQueue();
 
-      await notifier().setLimit(
-        body: {'is_unlimited': false, 'period': 'daily'},
-      );
+    await notifier().setLimit(body: {'is_unlimited': false, 'period': 'daily'});
 
-      expect(teamRepository.setLimits.single.id, 'employee-1');
-      expect(teamRepository.setLimits.single.body['is_unlimited'], isFalse);
+    expect(teamRepository.setLimits.single.id, 'employee-1');
+    expect(teamRepository.setLimits.single.body['is_unlimited'], isFalse);
 
-      final limit = state().maybeWhen(loaded: (_, l) => l, orElse: () => null);
-      expect(limit?.id, 'limit-1');
-      expect(limit?.maxCost, 500000);
-    },
-  );
+    final limit = state().maybeWhen(loaded: (_, l) => l, orElse: () => null);
+    expect(limit?.id, 'limit-1');
+    expect(limit?.maxCost, 500000);
+  });
 
   test('setLimit loaded bo\'lmagan holatda state ni o\'zgartirmaydi', () async {
     teamRepository.employeeFailure = const Failure.network();
@@ -113,28 +101,19 @@ void main() {
     await notifier().updateProfile(fullName: 'Yangi Ism', role: Role.manager);
 
     expect(teamRepository.updates.single.id, 'employee-1');
-    expect(teamRepository.updates.single.patch, {
-      'full_name': 'Yangi Ism',
-      'role': 'manager',
-    });
+    expect(teamRepository.updates.single.patch, {'full_name': 'Yangi Ism', 'role': 'manager'});
   });
 
-  test(
-    'toggleBlocked: is_active patch bilan teskari holatga o\'tkazadi',
-    () async {
-      teamRepository.employeeResult = testEmployee(
-        id: 'employee-1',
-        isActive: true,
-      );
-      container.read(employeeDetailProvider('employee-1'));
-      await pumpEventQueue();
-      teamRepository.updates.clear();
+  test('toggleBlocked: is_active patch bilan teskari holatga o\'tkazadi', () async {
+    teamRepository.employeeResult = testEmployee(id: 'employee-1', isActive: true);
+    container.read(employeeDetailProvider('employee-1'));
+    await pumpEventQueue();
+    teamRepository.updates.clear();
 
-      await notifier().toggleBlocked(true);
+    await notifier().toggleBlocked(true);
 
-      expect(teamRepository.updates.single.patch, {'is_active': false});
-    },
-  );
+    expect(teamRepository.updates.single.patch, {'is_active': false});
+  });
 
   test('updateProfile Failure bo\'lsa qayta throw qiladi', () async {
     teamRepository.employeeResult = testEmployee(id: 'employee-1');

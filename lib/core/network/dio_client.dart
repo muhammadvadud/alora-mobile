@@ -30,8 +30,7 @@ Dio dio(Ref ref) {
     RefreshInterceptor(secureStorage, dio),
     RetryInterceptor(dio),
     ErrorMapperInterceptor(
-      onFailure: (failure) =>
-          ref.read(errorReporterProvider).breadcrumb(failure),
+      onFailure: (failure) => ref.read(errorReporterProvider).breadcrumb(failure),
     ),
     if (Env.isDev) LoggingInterceptor(),
   ]);

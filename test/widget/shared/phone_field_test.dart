@@ -6,9 +6,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('PhoneField Widget Tests', () {
-    testWidgets('PhoneField ni to\'g\'ri formatda to\'ldirish', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('PhoneField ni to\'g\'ri formatda to\'ldirish', (WidgetTester tester) async {
       String typedValue = '';
       await tester.pumpWidget(
         PhoneField(
@@ -27,12 +25,8 @@ void main() {
       expect(find.text('+998 90 123 45 67'), findsOneWidget);
     });
 
-    testWidgets('PhoneField validation xatosi bilan', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        const PhoneField(errorText: 'Telefon raqam xato').pumpApp(),
-      );
+    testWidgets('PhoneField validation xatosi bilan', (WidgetTester tester) async {
+      await tester.pumpWidget(const PhoneField(errorText: 'Telefon raqam xato').pumpApp());
 
       expect(find.text('Telefon raqam xato'), findsOneWidget);
     });

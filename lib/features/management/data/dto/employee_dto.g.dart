@@ -20,18 +20,9 @@ EmployeeDto _$EmployeeDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
       isActive: $checkedConvert('is_active', (v) => v as bool),
       lastLogin: $checkedConvert('last_login', (v) => v as String?),
       createdAt: $checkedConvert('created_at', (v) => v as String?),
-      todayTokens: $checkedConvert(
-        'today_tokens',
-        (v) => (v as num?)?.toInt() ?? 0,
-      ),
-      todayMessages: $checkedConvert(
-        'today_messages',
-        (v) => (v as num?)?.toInt() ?? 0,
-      ),
-      todayConversations: $checkedConvert(
-        'today_conversations',
-        (v) => (v as num?)?.toInt() ?? 0,
-      ),
+      todayTokens: $checkedConvert('today_tokens', (v) => (v as num?)?.toInt() ?? 0),
+      todayMessages: $checkedConvert('today_messages', (v) => (v as num?)?.toInt() ?? 0),
+      todayConversations: $checkedConvert('today_conversations', (v) => (v as num?)?.toInt() ?? 0),
     );
     return val;
   },
@@ -46,16 +37,15 @@ EmployeeDto _$EmployeeDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
   },
 );
 
-Map<String, dynamic> _$EmployeeDtoToJson(EmployeeDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'phone': instance.phone,
-      'full_name': instance.fullName,
-      'role': instance.role,
-      'is_active': instance.isActive,
-      'last_login': ?instance.lastLogin,
-      'created_at': ?instance.createdAt,
-      'today_tokens': instance.todayTokens,
-      'today_messages': instance.todayMessages,
-      'today_conversations': instance.todayConversations,
-    };
+Map<String, dynamic> _$EmployeeDtoToJson(EmployeeDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'phone': instance.phone,
+  'full_name': instance.fullName,
+  'role': instance.role,
+  'is_active': instance.isActive,
+  'last_login': ?instance.lastLogin,
+  'created_at': ?instance.createdAt,
+  'today_tokens': instance.todayTokens,
+  'today_messages': instance.todayMessages,
+  'today_conversations': instance.todayConversations,
+};

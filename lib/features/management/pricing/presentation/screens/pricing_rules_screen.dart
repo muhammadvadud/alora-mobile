@@ -53,15 +53,11 @@ class PricingRulesScreen extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.all(AppSpacing.m),
                 children: [
-                  PricingSectionTitle(
-                    title: context.l10n.management_pricingCoefs,
-                  ),
+                  PricingSectionTitle(title: context.l10n.management_pricingCoefs),
                   PricingCoefficientsSection(rules: state.calcRules),
                   const SizedBox(height: AppSpacing.xl),
 
-                  PricingSectionTitle(
-                    title: context.l10n.management_pricingTiersTitle,
-                  ),
+                  PricingSectionTitle(title: context.l10n.management_pricingTiersTitle),
                   DiscountTiersSection(
                     tiers: state.discountTiers,
                     onAdd: (min, pct) => notifier.addDiscountTier(min, pct),
@@ -73,16 +69,12 @@ class PricingRulesScreen extends ConsumerWidget {
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       context.l10n.management_pricingPolicyHint,
-                      style: context.text.bodyS.copyWith(
-                        color: context.colors.textSecondary,
-                      ),
+                      style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
                     ),
                   ],
                   const SizedBox(height: AppSpacing.xl),
 
-                  PricingSectionTitle(
-                    title: context.l10n.management_pricingDefaultsTitle,
-                  ),
+                  PricingSectionTitle(title: context.l10n.management_pricingDefaultsTitle),
                   if (state.orderDefaults != null)
                     OrderDefaultsSection(defaults: state.orderDefaults!),
                 ],

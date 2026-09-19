@@ -44,9 +44,7 @@ class AuthNotifier extends _$AuthNotifier {
     try {
       await repository.refresh();
       final user = await repository.me();
-      ref
-          .read(errorReporterProvider)
-          .setUser(id: user.id, role: user.role.name);
+      ref.read(errorReporterProvider).setUser(id: user.id, role: user.role.name);
       state = AuthState.authenticated(user: user);
     } on Failure catch (error) {
       if (error.maybeWhen(auth: () => true, orElse: () => false)) {
@@ -58,17 +56,12 @@ class AuthNotifier extends _$AuthNotifier {
 
   /// Telefon va parol bilan kirish.
   /// Muvaffaqiyatli bo'lsa null, aks holda [Failure] qaytaradi.
-  Future<Failure?> login({
-    required String phone,
-    required String password,
-  }) async {
+  Future<Failure?> login({required String phone, required String password}) async {
     final repository = ref.read(authRepositoryProvider);
     try {
       await repository.login(phone: phone, password: password);
       final user = await repository.me();
-      ref
-          .read(errorReporterProvider)
-          .setUser(id: user.id, role: user.role.name);
+      ref.read(errorReporterProvider).setUser(id: user.id, role: user.role.name);
       state = AuthState.authenticated(user: user);
       return null;
     } on Failure catch (error) {

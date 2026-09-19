@@ -15,12 +15,7 @@ part of 'providers.dart';
 final knowledgeRepositoryProvider = KnowledgeRepositoryProvider._();
 
 final class KnowledgeRepositoryProvider
-    extends
-        $FunctionalProvider<
-          KnowledgeRepository,
-          KnowledgeRepository,
-          KnowledgeRepository
-        >
+    extends $FunctionalProvider<KnowledgeRepository, KnowledgeRepository, KnowledgeRepository>
     with $Provider<KnowledgeRepository> {
   KnowledgeRepositoryProvider._()
     : super(
@@ -38,9 +33,8 @@ final class KnowledgeRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<KnowledgeRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<KnowledgeRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   KnowledgeRepository create(Ref ref) {
@@ -56,5 +50,4 @@ final class KnowledgeRepositoryProvider
   }
 }
 
-String _$knowledgeRepositoryHash() =>
-    r'dfc01d0ece38cc2a315c191b3421c657cb8769df';
+String _$knowledgeRepositoryHash() => r'dfc01d0ece38cc2a315c191b3421c657cb8769df';

@@ -19,25 +19,17 @@ void main() {
     ];
 
     for (final status in orderStatuses) {
-      testWidgets('StatusPill ${status.name} holatida tekshiriladi', (
-        WidgetTester tester,
-      ) async {
+      testWidgets('StatusPill ${status.name} holatida tekshiriladi', (WidgetTester tester) async {
         await tester.pumpWidget(StatusPill(status: status).pumpApp());
 
         expect(find.byType(StatusPill), findsOneWidget);
       });
     }
 
-    final paymentStatuses = [
-      PaymentStatus.prepaid,
-      PaymentStatus.paid,
-      PaymentStatus.unpaid,
-    ];
+    final paymentStatuses = [PaymentStatus.prepaid, PaymentStatus.paid, PaymentStatus.unpaid];
 
     for (final status in paymentStatuses) {
-      testWidgets('PaymentChip ${status.name} holatida tekshiriladi', (
-        WidgetTester tester,
-      ) async {
+      testWidgets('PaymentChip ${status.name} holatida tekshiriladi', (WidgetTester tester) async {
         await tester.pumpWidget(PaymentChip(status: status).pumpApp());
 
         expect(find.byType(PaymentChip), findsOneWidget);

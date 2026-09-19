@@ -17,13 +17,7 @@ import 'package:alora_mobile/features/management/settings/presentation/screens/s
 import 'package:alora_mobile/shared/models/role.dart';
 import 'package:alora_mobile/shared/widgets/app_dialog.dart';
 
-const _admin = User(
-  id: '1',
-  role: Role.admin,
-  phone: '123',
-  fullName: 'Admin',
-  tenant: 'a',
-);
+const _admin = User(id: '1', role: Role.admin, phone: '123', fullName: 'Admin', tenant: 'a');
 
 const _history = PromptHistory(
   current: PromptVersion(
@@ -71,10 +65,7 @@ class _FakeSettingsRepository implements SettingsRepository {
   }
 
   @override
-  Future<ModelPricing> updateModelPricing(
-    String id,
-    Map<String, dynamic> body,
-  ) async {
+  Future<ModelPricing> updateModelPricing(String id, Map<String, dynamic> body) async {
     throw UnimplementedError();
   }
 
@@ -103,12 +94,8 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          authProvider.overrideWithValue(
-            const AuthState.authenticated(user: _admin),
-          ),
-          promptHistoryProvider.overrideWith(
-            () => _FakePromptHistoryNotifier(),
-          ),
+          authProvider.overrideWithValue(const AuthState.authenticated(user: _admin)),
+          promptHistoryProvider.overrideWith(() => _FakePromptHistoryNotifier()),
           settingsRepositoryProvider.overrideWithValue(repo),
         ],
         child: MaterialApp(
@@ -137,9 +124,7 @@ void main() {
     expect(find.text(l10n.settings_rollbackConfirmMessage), findsOneWidget);
   });
 
-  testWidgets('Rollback tasdiqlansa rollbackPrompt chaqiriladi', (
-    tester,
-  ) async {
+  testWidgets('Rollback tasdiqlansa rollbackPrompt chaqiriladi', (tester) async {
     await pumpScreen(tester);
 
     await tester.tap(find.text(l10n.settings_rollback));
@@ -156,9 +141,7 @@ void main() {
     expect(find.byType(AppDialog), findsNothing);
   });
 
-  testWidgets('Rollback bekor qilinsa rollbackPrompt chaqirilmaydi', (
-    tester,
-  ) async {
+  testWidgets('Rollback bekor qilinsa rollbackPrompt chaqirilmaydi', (tester) async {
     await pumpScreen(tester);
 
     await tester.tap(find.text(l10n.settings_rollback));

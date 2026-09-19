@@ -16,16 +16,8 @@ class OrdersRepositoryImpl implements OrdersRepository {
   OrdersRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<Paginated<Order>> getOrders({
-    String? status,
-    String? search,
-    String? url,
-  }) async {
-    final responseDto = await remoteDataSource.getOrders(
-      status: status,
-      search: search,
-      url: url,
-    );
+  Future<Paginated<Order>> getOrders({String? status, String? search, String? url}) async {
+    final responseDto = await remoteDataSource.getOrders(status: status, search: search, url: url);
     return Paginated<Order>(
       next: responseDto.next,
       previous: responseDto.previous,
@@ -58,18 +50,8 @@ class OrdersRepositoryImpl implements OrdersRepository {
   }
 
   @override
-  Future<Order> changeStatus(
-    String id,
-    String status, {
-    String? note,
-    String? actionDate,
-  }) async {
-    final responseDto = await remoteDataSource.changeStatus(
-      id,
-      status,
-      note,
-      actionDate,
-    );
+  Future<Order> changeStatus(String id, String status, {String? note, String? actionDate}) async {
+    final responseDto = await remoteDataSource.changeStatus(id, status, note, actionDate);
     return responseDto.toEntity();
   }
 

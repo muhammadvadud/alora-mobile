@@ -6,8 +6,7 @@ part 'order_curtain_part.freezed.dart';
 abstract class OrderCurtainPart with _$OrderCurtainPart {
   const factory OrderCurtainPart({
     required String id,
-    Map<String, dynamic>?
-    variant, // simplified for now, could be its own entity
+    Map<String, dynamic>? variant, // simplified for now, could be its own entity
     String? role,
     double? widthM,
     double? heightM,

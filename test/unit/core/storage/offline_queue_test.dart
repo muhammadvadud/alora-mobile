@@ -40,16 +40,10 @@ void main() {
     await OfflineQueue.add(item3);
 
     dioAdapter.onPost('/test1', (server) => server.reply(200, {}));
-    dioAdapter.onPost(
-      '/test2',
-      (server) => server.reply(400, {'detail': 'xato'}),
-    );
+    dioAdapter.onPost('/test2', (server) => server.reply(400, {'detail': 'xato'}));
     dioAdapter.onPost(
       '/test3',
-      (server) => server.throws(
-        500,
-        DioException(requestOptions: RequestOptions(path: '/test3')),
-      ),
+      (server) => server.throws(500, DioException(requestOptions: RequestOptions(path: '/test3'))),
     );
 
     final results = await OfflineQueue.flush(dio);

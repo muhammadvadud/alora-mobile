@@ -10,10 +10,7 @@ class FakeSecureStorage extends SecureStorage {
   String? _refresh;
 
   @override
-  Future<void> saveTokens({
-    required String access,
-    required String refresh,
-  }) async {
+  Future<void> saveTokens({required String access, required String refresh}) async {
     _access = access;
     _refresh = refresh;
   }
@@ -45,10 +42,7 @@ void main() {
   });
 
   test('3 parallel so\'rovlar uchun faqat bitta refresh yuboriladi', () async {
-    await secureStorage.saveTokens(
-      access: 'old_access',
-      refresh: 'old_refresh',
-    );
+    await secureStorage.saveTokens(access: 'old_access', refresh: 'old_refresh');
 
     dioAdapter.onGet('/protected1', (server) => server.reply(401, {}));
     dioAdapter.onGet('/protected2', (server) => server.reply(401, {}));
@@ -76,60 +70,42 @@ void main() {
     expect(await secureStorage.getAccessToken(), 'new_access');
   });
 
-  test(
-    'refresh endpoint o\'zi 401 qaytarsa tokenlar tozalanadi (logout)',
-    () async {
-      await secureStorage.saveTokens(
-        access: 'old_access',
-        refresh: 'bad_refresh',
-      );
+  test('refresh endpoint o\'zi 401 qaytarsa tokenlar tozalanadi (logout)', () async {
+    await secureStorage.saveTokens(access: 'old_access', refresh: 'bad_refresh');
 
-      dioAdapter.onGet('/protected', (server) => server.reply(401, {}));
+    dioAdapter.onGet('/protected', (server) => server.reply(401, {}));
 
-      // Refresh endpoint ham 401 qaytaradi → refresh xato
-      dioAdapter.onPost(ApiPaths.refresh, (server) => server.reply(401, {}));
+    // Refresh endpoint ham 401 qaytaradi → refresh xato
+    dioAdapter.onPost(ApiPaths.refresh, (server) => server.reply(401, {}));
 
-      try {
-        await dio.get('/protected');
-      } catch (_) {}
+    try {
+      await dio.get('/protected');
+    } catch (_) {}
 
-      expect(await secureStorage.getAccessToken(), isNull);
-      expect(await secureStorage.getRefreshToken(), isNull);
-    },
-  );
+    expect(await secureStorage.getAccessToken(), isNull);
+    expect(await secureStorage.getRefreshToken(), isNull);
+  });
 
-  test(
-    'login endpointi uchun refresh boshlanmaydi (Interceptor o\'tlaydi)',
-    () async {
-      // login endpointi RefreshInterceptor tomonidan e'tiborsiz qoldirilishi kerak
-      // Lekin login 401 qaytarmaydi, shuning uchun test oddiyroq
-      final handler = _FakeErrorInterceptorHandler();
-      final err = DioException(
-        requestOptions: RequestOptions(path: ApiPaths.login),
-        response: Response(
-          statusCode: 401,
-          requestOptions: RequestOptions(path: ApiPaths.login),
-        ),
-      );
+  test('login endpointi uchun refresh boshlanmaydi (Interceptor o\'tlaydi)', () async {
+    // login endpointi RefreshInterceptor tomonidan e'tiborsiz qoldirilishi kerak
+    // Lekin login 401 qaytarmaydi, shuning uchun test oddiyroq
+    final handler = _FakeErrorInterceptorHandler();
+    final err = DioException(
+      requestOptions: RequestOptions(path: ApiPaths.login),
+      response: Response(statusCode: 401, requestOptions: RequestOptions(path: ApiPaths.login)),
+    );
 
-      final interceptor = RefreshInterceptor(secureStorage, dio);
-      await interceptor.onError(err, handler);
+    final interceptor = RefreshInterceptor(secureStorage, dio);
+    await interceptor.onError(err, handler);
 
-      expect(handler.isNextCalled, isTrue);
-    },
-  );
+    expect(handler.isNextCalled, isTrue);
+  });
 
   test('retry so\'rovida 401 kelsa refresh boshlanmaydi', () async {
     final handler = _FakeErrorInterceptorHandler();
     final err = DioException(
-      requestOptions: RequestOptions(
-        path: '/protected',
-        extra: {'is_retry': true},
-      ),
-      response: Response(
-        statusCode: 401,
-        requestOptions: RequestOptions(path: '/protected'),
-      ),
+      requestOptions: RequestOptions(path: '/protected', extra: {'is_retry': true}),
+      response: Response(statusCode: 401, requestOptions: RequestOptions(path: '/protected')),
     );
 
     final interceptor = RefreshInterceptor(secureStorage, dio);
@@ -144,10 +120,7 @@ void main() {
     final handler = _FakeErrorInterceptorHandler();
     final err = DioException(
       requestOptions: RequestOptions(path: '/protected'),
-      response: Response(
-        statusCode: 401,
-        requestOptions: RequestOptions(path: '/protected'),
-      ),
+      response: Response(statusCode: 401, requestOptions: RequestOptions(path: '/protected')),
     );
 
     final interceptor = RefreshInterceptor(secureStorage, dio);

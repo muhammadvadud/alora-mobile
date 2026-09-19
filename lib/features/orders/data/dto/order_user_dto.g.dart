@@ -18,9 +18,8 @@ _OrderUserDto _$OrderUserDtoFromJson(Map<String, dynamic> json) =>
       return val;
     }, fieldKeyMap: const {'fullName': 'full_name'});
 
-Map<String, dynamic> _$OrderUserDtoToJson(_OrderUserDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'full_name': ?instance.fullName,
-      'phone': ?instance.phone,
-    };
+Map<String, dynamic> _$OrderUserDtoToJson(_OrderUserDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'full_name': ?instance.fullName,
+  'phone': ?instance.phone,
+};

@@ -11,85 +11,56 @@ void main() {
     });
 
     test('type fabric → price_unit per_sqm', () {
-      final q = CatalogQueryMapper.toQuery(
-        const CatalogFilter(type: ProductType.fabric),
-      );
+      final q = CatalogQueryMapper.toQuery(const CatalogFilter(type: ProductType.fabric));
       expect(q, {'price_unit': 'per_sqm'});
     });
 
     test('type accessory → price_unit per_piece', () {
-      final q = CatalogQueryMapper.toQuery(
-        const CatalogFilter(type: ProductType.accessory),
-      );
+      final q = CatalogQueryMapper.toQuery(const CatalogFilter(type: ProductType.accessory));
       expect(q, {'price_unit': 'per_piece'});
     });
 
     test('type unknown → price_unit not sent', () {
-      final q = CatalogQueryMapper.toQuery(
-        const CatalogFilter(type: ProductType.unknown),
-      );
+      final q = CatalogQueryMapper.toQuery(const CatalogFilter(type: ProductType.unknown));
       expect(q, isEmpty);
     });
 
     test('style → correct value', () {
-      expect(
-        CatalogQueryMapper.toQuery(
-          const CatalogFilter(style: ProductStyle.klassik),
-        ),
-        {'style': 'klassik'},
-      );
-      expect(
-        CatalogQueryMapper.toQuery(
-          const CatalogFilter(style: ProductStyle.zamonaviy),
-        ),
-        {'style': 'zamonaviy'},
-      );
-      expect(
-        CatalogQueryMapper.toQuery(
-          const CatalogFilter(style: ProductStyle.minimalist),
-        ),
-        {'style': 'minimalist'},
-      );
+      expect(CatalogQueryMapper.toQuery(const CatalogFilter(style: ProductStyle.klassik)), {
+        'style': 'klassik',
+      });
+      expect(CatalogQueryMapper.toQuery(const CatalogFilter(style: ProductStyle.zamonaviy)), {
+        'style': 'zamonaviy',
+      });
+      expect(CatalogQueryMapper.toQuery(const CatalogFilter(style: ProductStyle.minimalist)), {
+        'style': 'minimalist',
+      });
     });
 
     test('room → correct snake_case value', () {
-      expect(
-        CatalogQueryMapper.toQuery(
-          const CatalogFilter(room: ProductRoom.mehmonxona),
-        ),
-        {'room': 'mehmonxona'},
-      );
-      expect(
-        CatalogQueryMapper.toQuery(
-          const CatalogFilter(room: ProductRoom.bolalarXonasi),
-        ),
-        {'room': 'bolalar_xonasi'},
-      );
+      expect(CatalogQueryMapper.toQuery(const CatalogFilter(room: ProductRoom.mehmonxona)), {
+        'room': 'mehmonxona',
+      });
+      expect(CatalogQueryMapper.toQuery(const CatalogFilter(room: ProductRoom.bolalarXonasi)), {
+        'room': 'bolalar_xonasi',
+      });
     });
 
     test('segment → correct value', () {
-      expect(
-        CatalogQueryMapper.toQuery(
-          const CatalogFilter(segment: ProductSegment.economy),
-        ),
-        {'segment': 'economy'},
-      );
+      expect(CatalogQueryMapper.toQuery(const CatalogFilter(segment: ProductSegment.economy)), {
+        'segment': 'economy',
+      });
     });
 
     test('min_price and max_price → string values', () {
-      final q = CatalogQueryMapper.toQuery(
-        const CatalogFilter(minPrice: 60000, maxPrice: 220000),
-      );
+      final q = CatalogQueryMapper.toQuery(const CatalogFilter(minPrice: 60000, maxPrice: 220000));
       expect(q['min_price'], '60000');
       expect(q['max_price'], '220000');
     });
 
     test('pattern and transparency are NOT sent to backend', () {
       final q = CatalogQueryMapper.toQuery(
-        const CatalogFilter(
-          pattern: ProductPattern.gulli,
-          transparency: ProductTransparency.yorug,
-        ),
+        const CatalogFilter(pattern: ProductPattern.gulli, transparency: ProductTransparency.yorug),
       );
       expect(q, isEmpty);
     });
@@ -118,20 +89,14 @@ void main() {
 
   group('CatalogQueryMapper.filterKey', () {
     test('same filter → same key', () {
-      final f = const CatalogFilter(
-        style: ProductStyle.klassik,
-        minPrice: 10000,
-      );
+      final f = const CatalogFilter(style: ProductStyle.klassik, minPrice: 10000);
       expect(CatalogQueryMapper.filterKey(f), CatalogQueryMapper.filterKey(f));
     });
 
     test('different filter → different key', () {
       final a = const CatalogFilter(style: ProductStyle.klassik);
       final b = const CatalogFilter(style: ProductStyle.zamonaviy);
-      expect(
-        CatalogQueryMapper.filterKey(a),
-        isNot(CatalogQueryMapper.filterKey(b)),
-      );
+      expect(CatalogQueryMapper.filterKey(a), isNot(CatalogQueryMapper.filterKey(b)));
     });
   });
 }

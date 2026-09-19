@@ -14,10 +14,7 @@ class AuthRemoteDataSource {
   final Dio _dio;
 
   /// POST /auth/login/ - tokenlar juftligini qaytaradi
-  Future<TokenPairDto> login({
-    required String phone,
-    required String password,
-  }) async {
+  Future<TokenPairDto> login({required String phone, required String password}) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         ApiPaths.login,
@@ -45,10 +42,7 @@ class AuthRemoteDataSource {
   /// POST /auth/logout/ - refresh tokenni backend da blacklist'ga kiritadi
   Future<void> logout(String refreshToken) async {
     try {
-      await _dio.post<Map<String, dynamic>>(
-        ApiPaths.logout,
-        data: {'refresh': refreshToken},
-      );
+      await _dio.post<Map<String, dynamic>>(ApiPaths.logout, data: {'refresh': refreshToken});
     } on DioException catch (error) {
       throw _mapError(error);
     }

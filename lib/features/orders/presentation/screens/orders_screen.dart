@@ -65,9 +65,7 @@ class _OrdersSearchField extends ConsumerWidget {
         type: AppTextFieldType.search,
         hintText: 'Qidiruv (raqam, ism, telefon)',
         onChanged: (val) {
-          ref
-              .read(ordersListFilterProvider.notifier)
-              .updateSearch(val.isEmpty ? null : val);
+          ref.read(ordersListFilterProvider.notifier).updateSearch(val.isEmpty ? null : val);
         },
       ),
     );
@@ -93,19 +91,14 @@ class _OrdersStatusChips extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
             scrollDirection: Axis.horizontal,
             itemCount: statuses.length + 1,
-            separatorBuilder: (context, index) =>
-                const SizedBox(width: AppSpacing.s),
+            separatorBuilder: (context, index) => const SizedBox(width: AppSpacing.s),
             itemBuilder: (context, index) {
               if (index == 0) {
                 final isSelected = filter.status == null;
                 return AppChip(
                   label: 'Barchasi',
-                  state: isSelected
-                      ? AppChipState.selected
-                      : AppChipState.unselected,
-                  onTap: () => ref
-                      .read(ordersListFilterProvider.notifier)
-                      .updateStatus(null),
+                  state: isSelected ? AppChipState.selected : AppChipState.unselected,
+                  onTap: () => ref.read(ordersListFilterProvider.notifier).updateStatus(null),
                 );
               }
               final s = statuses[index - 1];
@@ -115,19 +108,13 @@ class _OrdersStatusChips extends ConsumerWidget {
                   label: s.label,
                   count: draftCount,
                   isSelected: isSelected,
-                  onTap: () => ref
-                      .read(ordersListFilterProvider.notifier)
-                      .updateStatus(s.code),
+                  onTap: () => ref.read(ordersListFilterProvider.notifier).updateStatus(s.code),
                 );
               }
               return AppChip(
                 label: s.label,
-                state: isSelected
-                    ? AppChipState.selected
-                    : AppChipState.unselected,
-                onTap: () => ref
-                    .read(ordersListFilterProvider.notifier)
-                    .updateStatus(s.code),
+                state: isSelected ? AppChipState.selected : AppChipState.unselected,
+                onTap: () => ref.read(ordersListFilterProvider.notifier).updateStatus(s.code),
               );
             },
           );
@@ -136,16 +123,11 @@ class _OrdersStatusChips extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
           scrollDirection: Axis.horizontal,
           itemCount: 4,
-          separatorBuilder: (context, index) =>
-              const SizedBox(width: AppSpacing.s),
-          itemBuilder: (context, index) => const SkeletonBox(
-            width: 80,
-            height: 40,
-            borderRadius: AppRadius.pill,
-          ),
+          separatorBuilder: (context, index) => const SizedBox(width: AppSpacing.s),
+          itemBuilder: (context, index) =>
+              const SkeletonBox(width: 80, height: 40, borderRadius: AppRadius.pill),
         ),
-        error: (err, _) =>
-            Center(child: Text(context.l10n.errorLoadingStatuses)),
+        error: (err, _) => Center(child: Text(context.l10n.errorLoadingStatuses)),
       ),
     );
   }
@@ -174,8 +156,7 @@ class _OrdersBody extends ConsumerWidget {
 
         return NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification scrollInfo) {
-            if (scrollInfo.metrics.pixels ==
-                scrollInfo.metrics.maxScrollExtent) {
+            if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
               ref.read(ordersListProvider.notifier).loadMore();
             }
             return false;
@@ -186,19 +167,12 @@ class _OrdersBody extends ConsumerWidget {
               vertical: AppSpacing.s,
             ),
             itemCount: pagingState.items.length + (pagingState.hasMore ? 1 : 0),
-            separatorBuilder: (context, index) =>
-                const SizedBox(height: AppSpacing.m),
+            separatorBuilder: (context, index) => const SizedBox(height: AppSpacing.m),
             itemBuilder: (context, index) {
               if (index == pagingState.items.length) {
                 return const Padding(
                   padding: EdgeInsets.all(AppSpacing.m),
-                  child: Center(
-                    child: SkeletonBox(
-                      width: 32,
-                      height: 32,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+                  child: Center(child: SkeletonBox(width: 32, height: 32, shape: BoxShape.circle)),
                 );
               }
               final order = pagingState.items[index];
@@ -208,21 +182,13 @@ class _OrdersBody extends ConsumerWidget {
         );
       },
       loading: () => ListView.separated(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.screenH,
-          vertical: AppSpacing.s,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH, vertical: AppSpacing.s),
         itemCount: 5,
-        separatorBuilder: (context, index) =>
-            const SizedBox(height: AppSpacing.m),
-        itemBuilder: (context, index) => const SkeletonBox(
-          width: double.infinity,
-          height: 120,
-          borderRadius: AppRadius.card,
-        ),
+        separatorBuilder: (context, index) => const SizedBox(height: AppSpacing.m),
+        itemBuilder: (context, index) =>
+            const SkeletonBox(width: double.infinity, height: 120, borderRadius: AppRadius.card),
       ),
-      error: (err, st) =>
-          ErrorState(onRetry: () => ref.invalidate(ordersListProvider)),
+      error: (err, st) => ErrorState(onRetry: () => ref.invalidate(ordersListProvider)),
     );
   }
 }

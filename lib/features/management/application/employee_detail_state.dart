@@ -14,11 +14,8 @@ sealed class EmployeeDetailState with _$EmployeeDetailState {
 
   const factory EmployeeDetailState.loading() = _EmployeeDetailLoading;
 
-  const factory EmployeeDetailState.loaded({
-    required Employee employee,
-    UsageLimit? limit,
-  }) = _EmployeeDetailLoaded;
+  const factory EmployeeDetailState.loaded({required Employee employee, UsageLimit? limit}) =
+      _EmployeeDetailLoaded;
 
-  const factory EmployeeDetailState.error({required Failure failure}) =
-      _EmployeeDetailError;
+  const factory EmployeeDetailState.error({required Failure failure}) = _EmployeeDetailError;
 }

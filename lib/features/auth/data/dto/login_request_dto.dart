@@ -10,8 +10,7 @@ class LoginRequestDto {
 
   const LoginRequestDto({required this.phone, required this.password});
 
-  factory LoginRequestDto.fromJson(Map<String, dynamic> json) =>
-      _$LoginRequestDtoFromJson(json);
+  factory LoginRequestDto.fromJson(Map<String, dynamic> json) => _$LoginRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginRequestDtoToJson(this);
 }

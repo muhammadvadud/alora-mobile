@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
-import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
-    show authProvider;
+import 'package:alora_mobile/features/auth/application/auth_notifier.dart' show authProvider;
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/features/orders/application/providers.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
@@ -36,22 +35,14 @@ class AloraShell extends ConsumerWidget {
 
     final branchIndices = <int>[];
     final tabItems = <AppTabBarItem>[
-      AppTabBarItem(
-        icon: AppIcons.chat,
-        activeIcon: AppIcons.chat,
-        label: l10n.tab_chat,
-      ),
+      AppTabBarItem(icon: AppIcons.chat, activeIcon: AppIcons.chat, label: l10n.tab_chat),
       AppTabBarItem(
         icon: AppIcons.orders,
         activeIcon: AppIcons.orders,
         label: l10n.tab_orders,
         badgeCount: draftCount,
       ),
-      AppTabBarItem(
-        icon: AppIcons.catalog,
-        activeIcon: AppIcons.catalog,
-        label: l10n.tab_catalog,
-      ),
+      AppTabBarItem(icon: AppIcons.catalog, activeIcon: AppIcons.catalog, label: l10n.tab_catalog),
     ];
     branchIndices.addAll([0, 1, 2]);
 
@@ -68,11 +59,7 @@ class AloraShell extends ConsumerWidget {
 
     branchIndices.add(4);
     tabItems.add(
-      AppTabBarItem(
-        icon: AppIcons.profile,
-        activeIcon: AppIcons.profile,
-        label: l10n.tab_profile,
-      ),
+      AppTabBarItem(icon: AppIcons.profile, activeIcon: AppIcons.profile, label: l10n.tab_profile),
     );
 
     final currentTab = branchIndices
@@ -94,10 +81,7 @@ class AloraShell extends ConsumerWidget {
         items: tabItems,
         onTap: (tabIndex) {
           final branchIndex = branchIndices[tabIndex];
-          navigationShell.goBranch(
-            branchIndex,
-            initialLocation: tabIndex == currentTab,
-          );
+          navigationShell.goBranch(branchIndex, initialLocation: tabIndex == currentTab);
         },
       ),
     );

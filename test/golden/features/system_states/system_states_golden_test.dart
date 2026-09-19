@@ -53,10 +53,7 @@ void main() {
                 const Text('2. Error State', textAlign: TextAlign.center),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: AppSpacing.l),
-                  child: ErrorState(
-                    message: 'Something went wrong',
-                    onRetry: () {},
-                  ),
+                  child: ErrorState(message: 'Something went wrong', onRetry: () {}),
                 ),
                 const SizedBox(height: 20),
                 const Text('3. Empty State', textAlign: TextAlign.center),
@@ -74,10 +71,7 @@ void main() {
                   padding: EdgeInsets.all(AppSpacing.m),
                   child: SkeletonList(
                     itemCount: 2,
-                    itemBuilder: SkeletonBox(
-                      height: 60,
-                      borderRadius: AppRadius.card,
-                    ),
+                    itemBuilder: SkeletonBox(height: 60, borderRadius: AppRadius.card),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -101,10 +95,6 @@ void main() {
       ..addScenario(name: 'Dark Mode', widget: buildScenarios(ThemeMode.dark));
 
     await tester.pumpDeviceBuilder(builder);
-    await screenMatchesGolden(
-      tester,
-      'system_states_s26',
-      customPump: (tester) => tester.pump(),
-    );
+    await screenMatchesGolden(tester, 'system_states_s26', customPump: (tester) => tester.pump());
   });
 }

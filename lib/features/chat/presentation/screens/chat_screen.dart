@@ -97,9 +97,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.conversationId == null) {
-      return Scaffold(
-        body: Center(child: Text(context.l10n.chat_noConversation)),
-      );
+      return Scaffold(body: Center(child: Text(context.l10n.chat_noConversation)));
     }
 
     final isCustomerMode = ref.watch(customerModeEnabledProvider);
@@ -107,15 +105,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final isOnline = ref.watch(connectivityProvider);
     final chatState = ref.watch(chatProvider(widget.conversationId!));
     final error = chatState.error;
-    final isLimitExceeded =
-        error?.maybeWhen(limit: (_) => true, orElse: () => false) == true;
+    final isLimitExceeded = error?.maybeWhen(limit: (_) => true, orElse: () => false) == true;
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: _ChatAppBar(
-        conversationId: widget.conversationId,
-        isCustomerMode: isCustomerMode,
-      ),
+      appBar: _ChatAppBar(conversationId: widget.conversationId, isCustomerMode: isCustomerMode),
       body: AdaptiveShell(
         leading: const ConversationsPanePlaceholder(),
         child: isLimitExceeded
@@ -140,10 +134,7 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String? conversationId;
   final bool isCustomerMode;
 
-  const _ChatAppBar({
-    required this.conversationId,
-    required this.isCustomerMode,
-  });
+  const _ChatAppBar({required this.conversationId, required this.isCustomerMode});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -167,24 +158,17 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
           IconButton(
             icon: Icon(AppIcons.lock, color: colors.textPrimary),
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => const EnterPinDialog(),
-              );
+              showDialog(context: context, builder: (context) => const EnterPinDialog());
             },
           )
         else
           PopupMenuButton<String>(
             icon: Icon(AppIcons.more, color: colors.textPrimary),
-            onSelected: (value) =>
-                _handleMenuSelection(context, ref, value, l10n),
+            onSelected: (value) => _handleMenuSelection(context, ref, value, l10n),
             itemBuilder: (context) => [
               PopupMenuItem(value: 'new', child: Text(l10n.chat_menuNew)),
               PopupMenuItem(value: 'reset', child: Text(l10n.chat_menuReset)),
-              PopupMenuItem(
-                value: 'customer',
-                child: Text(l10n.chat_menuCustomerMode),
-              ),
+              PopupMenuItem(value: 'customer', child: Text(l10n.chat_menuCustomerMode)),
               PopupMenuItem(value: 'pdf', child: Text(l10n.chat_menuPdf)),
               PopupMenuItem(value: 'share', child: Text(l10n.chat_menuShare)),
             ],
@@ -202,30 +186,17 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     if (value == 'reset') {
       final confirmed = await _showResetConfirm(context, l10n);
       if (confirmed == true && conversationId != null) {
-        await ref
-            .read(chatProvider(conversationId!).notifier)
-            .resetConversation();
+        await ref.read(chatProvider(conversationId!).notifier).resetConversation();
       }
     } else if (value == 'customer') {
-      await showDialog(
-        context: context,
-        builder: (context) => const SetPinDialog(),
-      );
+      await showDialog(context: context, builder: (context) => const SetPinDialog());
     } else if (value == 'pdf' || value == 'share') {
       final conversation = _findConversation(ref);
       if (conversation != null && conversation.orderId != null) {
         if (value == 'pdf') {
-          unawaited(
-            ref
-                .read(orderPdfProvider(conversation.orderId!).notifier)
-                .openPdf(),
-          );
+          unawaited(ref.read(orderPdfProvider(conversation.orderId!).notifier).openPdf());
         } else {
-          unawaited(
-            ref
-                .read(orderPdfProvider(conversation.orderId!).notifier)
-                .sharePdf(),
-          );
+          unawaited(ref.read(orderPdfProvider(conversation.orderId!).notifier).sharePdf());
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -244,9 +215,7 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   Conversation? _findConversation(WidgetRef ref) {
     if (conversationId == null) return null;
-    final items = ref
-        .read(conversationsProvider)
-        .whenOrNull(loaded: (items, _, _, _, _) => items);
+    final items = ref.read(conversationsProvider).whenOrNull(loaded: (items, _, _, _, _) => items);
     if (items == null) return null;
     for (final c in items) {
       if (c.id == conversationId) return c;
@@ -265,10 +234,7 @@ class _ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
             onPressed: () => Navigator.pop(context, false),
             child: Text(l10n.common_cancel),
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(l10n.common_ok),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context, true), child: Text(l10n.common_ok)),
         ],
       ),
     );
@@ -311,9 +277,7 @@ class _ChatBody extends ConsumerWidget {
             error: error,
             retryLabel: l10n.chat_retry,
             onRetry: () {
-              unawaited(
-                ref.read(chatProvider(conversationId).notifier).retryLast(),
-              );
+              unawaited(ref.read(chatProvider(conversationId).notifier).retryLast());
             },
           ),
         Expanded(
@@ -322,9 +286,7 @@ class _ChatBody extends ConsumerWidget {
               chatState.messages.isEmpty
                   ? ChatEmptyView(
                       onChipSelected: (text) {
-                        ref
-                            .read(chatProvider(conversationId).notifier)
-                            .sendMessage(text);
+                        ref.read(chatProvider(conversationId).notifier).sendMessage(text);
                       },
                     )
                   : ChatMessageList(
@@ -352,15 +314,12 @@ class _ChatBody extends ConsumerWidget {
           VoicePanel(onClose: () => onVoiceModeChanged(false))
         else
           Padding(
-            padding: const EdgeInsets.all(AppSpacing.l)
-                .copyWith(top: AppSpacing.s),
+            padding: const EdgeInsets.all(AppSpacing.l).copyWith(top: AppSpacing.s),
             child: ChatInputPanel(
               isStreaming: chatState.isStreaming,
               disabled: !isOnline,
               onSend: (text) {
-                ref
-                    .read(chatProvider(conversationId).notifier)
-                    .sendMessage(text);
+                ref.read(chatProvider(conversationId).notifier).sendMessage(text);
                 onScrollToBottom();
               },
               onMicPressed: () => onVoiceModeChanged(true),

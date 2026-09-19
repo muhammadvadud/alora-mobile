@@ -6,26 +6,16 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('AppTabBar testlari', () {
-    testWidgets('AppTabBar 4 ta tab bilan to\'g\'ri ko\'rsatiladi', (
-      tester,
-    ) async {
+    testWidgets('AppTabBar 4 ta tab bilan to\'g\'ri ko\'rsatiladi', (tester) async {
       int tappedIndex = -1;
       final items = [
-        const AppTabBarItem(
-          icon: Icons.home_outlined,
-          activeIcon: Icons.home,
-          label: 'Asosiy',
-        ),
+        const AppTabBarItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Asosiy'),
         const AppTabBarItem(
           icon: Icons.search_outlined,
           activeIcon: Icons.search,
           label: 'Qidiruv',
         ),
-        const AppTabBarItem(
-          icon: Icons.person_outline,
-          activeIcon: Icons.person,
-          label: 'Profil',
-        ),
+        const AppTabBarItem(icon: Icons.person_outline, activeIcon: Icons.person, label: 'Profil'),
         const AppTabBarItem(
           icon: Icons.settings_outlined,
           activeIcon: Icons.settings,
@@ -54,15 +44,9 @@ void main() {
       expect(tappedIndex, 1);
     });
 
-    testWidgets('AppTabBar badge count to\'g\'ri ko\'rsatiladi', (
-      tester,
-    ) async {
+    testWidgets('AppTabBar badge count to\'g\'ri ko\'rsatiladi', (tester) async {
       final items = [
-        const AppTabBarItem(
-          icon: Icons.home_outlined,
-          activeIcon: Icons.home,
-          label: 'Asosiy',
-        ),
+        const AppTabBarItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Asosiy'),
         const AppTabBarItem(
           icon: Icons.notifications_outlined,
           activeIcon: Icons.notifications,

@@ -25,18 +25,13 @@ class Vad {
     } else {
       if (_isSpeaking) {
         if (_lastSpeechTime != null) {
-          final timeSinceLastSpeech = DateTime.now().difference(
-            _lastSpeechTime!,
-          );
+          final timeSinceLastSpeech = DateTime.now().difference(_lastSpeechTime!);
           if (timeSinceLastSpeech >= _silenceThreshold) {
             _triggerSpeechEnd();
           } else {
             // Start or reset timer
             _silenceTimer?.cancel();
-            _silenceTimer = Timer(
-              _silenceThreshold - timeSinceLastSpeech,
-              _triggerSpeechEnd,
-            );
+            _silenceTimer = Timer(_silenceThreshold - timeSinceLastSpeech, _triggerSpeechEnd);
           }
         }
       }

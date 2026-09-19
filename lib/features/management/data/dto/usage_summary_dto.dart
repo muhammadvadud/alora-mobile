@@ -51,8 +51,7 @@ class UsageSummaryDto {
     this.daily = const [],
   });
 
-  factory UsageSummaryDto.fromJson(Map<String, dynamic> json) =>
-      _$UsageSummaryDtoFromJson(json);
+  factory UsageSummaryDto.fromJson(Map<String, dynamic> json) => _$UsageSummaryDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$UsageSummaryDtoToJson(this);
 

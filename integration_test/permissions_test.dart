@@ -54,37 +54,33 @@ void main() {
 
   tearDown(() => container.dispose());
 
-  testWidgets(
-    '19.4: employee → /management va sub-route\'lari forbidden, boshqaruv tab yo\'q',
-    (tester) async {
-      auth.user = testUser(role: Role.employee);
+  testWidgets('19.4: employee → /management va sub-route\'lari forbidden, boshqaruv tab yo\'q', (
+    tester,
+  ) async {
+    auth.user = testUser(role: Role.employee);
 
-      await tester.pumpWidget(wrapApp(container));
-      await tester.pumpAndSettle();
+    await tester.pumpWidget(wrapApp(container));
+    await tester.pumpAndSettle();
 
-      expect(find.byType(ConversationsScreen), findsOneWidget);
+    expect(find.byType(ConversationsScreen), findsOneWidget);
 
-      // Employee uchun boshqaruv tab (AppTabBar) ko'rsatilmaydi.
-      expect(
-        find.descendant(
-          of: find.byType(AppTabBar),
-          matching: find.text('Boshqaruv'),
-        ),
-        findsNothing,
-      );
+    // Employee uchun boshqaruv tab (AppTabBar) ko'rsatilmaydi.
+    expect(
+      find.descendant(of: find.byType(AppTabBar), matching: find.text('Boshqaruv')),
+      findsNothing,
+    );
 
-      // /management ga to'g'ridan-to'g'ri kirish → forbidden (403).
-      container.read(appRouterProvider).go(AppRoutes.management);
-      await tester.pumpAndSettle();
-      expect(find.byType(ForbiddenScreen), findsOneWidget);
-      expect(find.text('Ruxsat yo\'q'), findsWidgets);
+    // /management ga to'g'ridan-to'g'ri kirish → forbidden (403).
+    container.read(appRouterProvider).go(AppRoutes.management);
+    await tester.pumpAndSettle();
+    expect(find.byType(ForbiddenScreen), findsOneWidget);
+    expect(find.text('Ruxsat yo\'q'), findsWidgets);
 
-      // Sub-route ham xuddi shunday qaytariladi.
-      container.read(appRouterProvider).go(AppRoutes.managementEmployees);
-      await tester.pumpAndSettle();
-      expect(find.byType(ForbiddenScreen), findsOneWidget);
-    },
-  );
+    // Sub-route ham xuddi shunday qaytariladi.
+    container.read(appRouterProvider).go(AppRoutes.managementEmployees);
+    await tester.pumpAndSettle();
+    expect(find.byType(ForbiddenScreen), findsOneWidget);
+  });
 
   testWidgets('19.4: manager boshqaruv sahifasiga kira oladi', (tester) async {
     auth.user = testUser(role: Role.manager);
@@ -94,12 +90,7 @@ void main() {
 
     expect(find.byType(ConversationsScreen), findsOneWidget);
 
-    await tester.tap(
-      find.descendant(
-        of: find.byType(AppTabBar),
-        matching: find.text('Boshqaruv'),
-      ),
-    );
+    await tester.tap(find.descendant(of: find.byType(AppTabBar), matching: find.text('Boshqaruv')));
     await tester.pumpAndSettle();
 
     expect(find.byType(ManagementScreen), findsOneWidget);
@@ -107,33 +98,29 @@ void main() {
     expect(usage.summaryCalls, greaterThanOrEqualTo(1));
   });
 
-  testWidgets(
-    '19.4: chatda 429 limit xatosi → LimitExceededView va input yo\'qoladi',
-    (tester) async {
-      await tester.pumpWidget(wrapApp(container));
-      await tester.pumpAndSettle();
+  testWidgets('19.4: chatda 429 limit xatosi → LimitExceededView va input yo\'qoladi', (
+    tester,
+  ) async {
+    await tester.pumpWidget(wrapApp(container));
+    await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Yangi suhbat'));
-      await tester.pumpAndSettle();
-      expect(find.byType(ChatScreen), findsOneWidget);
+    await tester.tap(find.text('Yangi suhbat'));
+    await tester.pumpAndSettle();
+    expect(find.byType(ChatScreen), findsOneWidget);
 
-      chat.sendHandler = (content, locale, customerMode, stage) =>
-          Stream.fromIterable(limitErrorSseEvents());
+    chat.sendHandler = (content, locale, customerMode, stage) =>
+        Stream.fromIterable(limitErrorSseEvents());
 
-      await tester.enterText(
-        find.descendant(
-          of: find.byType(ChatInputPanel),
-          matching: find.byType(TextField),
-        ),
-        'Mehmonxona hisoblash',
-      );
-      await tester.pump();
-      await tester.tap(find.byIcon(AppIcons.send));
-      await settleReal(tester);
+    await tester.enterText(
+      find.descendant(of: find.byType(ChatInputPanel), matching: find.byType(TextField)),
+      'Mehmonxona hisoblash',
+    );
+    await tester.pump();
+    await tester.tap(find.byIcon(AppIcons.send));
+    await settleReal(tester);
 
-      expect(chat.sendCalls, 1);
-      expect(find.byType(LimitExceededView), findsOneWidget);
-      expect(find.byType(ChatInputPanel), findsNothing);
-    },
-  );
+    expect(chat.sendCalls, 1);
+    expect(find.byType(LimitExceededView), findsOneWidget);
+    expect(find.byType(ChatInputPanel), findsNothing);
+  });
 }

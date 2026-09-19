@@ -6,9 +6,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('AppCard testlari', () {
-    testWidgets('AppCard normal holatda ko\'rsatiladi va bosiladi', (
-      tester,
-    ) async {
+    testWidgets('AppCard normal holatda ko\'rsatiladi va bosiladi', (tester) async {
       bool isTapped = false;
 
       await tester.pumpWidget(
@@ -31,10 +29,7 @@ void main() {
 
     testWidgets('AppCard selected holatda ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(
-        const AppCard(
-          isSelected: true,
-          child: Text('Tanlangan karta'),
-        ).pumpApp(),
+        const AppCard(isSelected: true, child: Text('Tanlangan karta')).pumpApp(),
       );
 
       expect(find.text('Tanlangan karta'), findsOneWidget);

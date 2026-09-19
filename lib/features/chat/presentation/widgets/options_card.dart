@@ -31,10 +31,7 @@ class _OptionsCardViewState extends State<OptionsCardView> {
       initialPage = midIdx != -1 ? midIdx : 0;
     }
     _currentIndex = initialPage;
-    _pageController = PageController(
-      viewportFraction: 0.86,
-      initialPage: initialPage,
-    );
+    _pageController = PageController(viewportFraction: 0.86, initialPage: initialPage);
   }
 
   @override
@@ -85,10 +82,7 @@ class _OptionsCardViewState extends State<OptionsCardView> {
           final isSelected = index == _currentIndex;
           return AnimatedContainer(
             duration: const Duration(milliseconds: 250),
-            margin: EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: isSelected ? 8.0 : 16.0,
-            ),
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: isSelected ? 8.0 : 16.0),
             child: _OptionCardItem(
               option: options[index],
               isSelected: isSelected,
@@ -106,11 +100,7 @@ class _OptionCardItem extends StatelessWidget {
   final bool isSelected;
   final ValueChanged<PricingOption>? onSelect;
 
-  const _OptionCardItem({
-    required this.option,
-    required this.isSelected,
-    this.onSelect,
-  });
+  const _OptionCardItem({required this.option, required this.isSelected, this.onSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -171,13 +161,9 @@ class _OptionHeader extends StatelessWidget {
         if (option.difference != null && option.difference! != 0) ...[
           const SizedBox(height: 4),
           Text(
-            option.difference! > 0
-                ? '+${option.difference} so\'m'
-                : '${option.difference} so\'m',
+            option.difference! > 0 ? '+${option.difference} so\'m' : '${option.difference} so\'m',
             style: typography.bodyS.copyWith(
-              color: option.difference! > 0
-                  ? colors.textSecondary
-                  : colors.success,
+              color: option.difference! > 0 ? colors.textSecondary : colors.success,
             ),
           ),
         ],
@@ -205,16 +191,8 @@ class _OptionLinesList extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '• ',
-              style: typography.bodyS.copyWith(color: colors.textSecondary),
-            ),
-            Expanded(
-              child: Text(
-                '${line.title}: ${line.value}',
-                style: typography.bodyS,
-              ),
-            ),
+            Text('• ', style: typography.bodyS.copyWith(color: colors.textSecondary)),
+            Expanded(child: Text('${line.title}: ${line.value}', style: typography.bodyS)),
           ],
         );
       },

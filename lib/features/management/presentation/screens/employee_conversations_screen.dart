@@ -33,14 +33,10 @@ class EmployeeConversationsScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.management_employeeConversationsTitle)),
       body: TabletCentered(
         child: conversations.maybeWhen(
-          loading: () => const SkeletonList(
-            itemCount: 5,
-            itemBuilder: SkeletonBox(height: 84),
-          ),
+          loading: () => const SkeletonList(itemCount: 5, itemBuilder: SkeletonBox(height: 84)),
           error: (error, _) => ErrorState(
             message: (error as Failure).localizedMessage(context),
-            onRetry: () =>
-                ref.invalidate(employeeConversationsProvider(employeeId)),
+            onRetry: () => ref.invalidate(employeeConversationsProvider(employeeId)),
           ),
           data: (items) => items.isEmpty
               ? EmptyState(
@@ -54,8 +50,7 @@ class EmployeeConversationsScreen extends ConsumerWidget {
                     vertical: AppSpacing.l,
                   ),
                   itemCount: items.length,
-                  separatorBuilder: (_, _) =>
-                      const SizedBox(height: AppSpacing.s),
+                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.s),
                   itemBuilder: (context, index) {
                     final conversation = items[index];
                     return ConversationRow(
@@ -63,10 +58,7 @@ class EmployeeConversationsScreen extends ConsumerWidget {
                       stageLabel: _stageLabel(context, conversation.stage),
                       timeLabel: _timeLabel(context, conversation),
                       onTap: () => context.go(
-                        AppRoutes.managementConversationTranscript(
-                          employeeId,
-                          conversation.id,
-                        ),
+                        AppRoutes.managementConversationTranscript(employeeId, conversation.id),
                       ),
                     );
                   },
@@ -94,8 +86,7 @@ class EmployeeConversationsScreen extends ConsumerWidget {
     final date = conversation.lastMessageAt;
     if (date == null) return '';
     final now = DateTime.now();
-    final isToday =
-        date.year == now.year && date.month == now.month && date.day == now.day;
+    final isToday = date.year == now.year && date.month == now.month && date.day == now.day;
     if (!isToday) {
       return formatDate(date, context: context, short: true);
     }

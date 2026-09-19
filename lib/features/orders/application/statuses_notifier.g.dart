@@ -15,8 +15,7 @@ part of 'statuses_notifier.dart';
 final orderStatusesProvider = OrderStatusesNotifierProvider._();
 
 final class OrderStatusesNotifierProvider
-    extends
-        $AsyncNotifierProvider<OrderStatusesNotifier, List<StatusTransition>> {
+    extends $AsyncNotifierProvider<OrderStatusesNotifier, List<StatusTransition>> {
   OrderStatusesNotifierProvider._()
     : super(
         from: null,
@@ -36,25 +35,18 @@ final class OrderStatusesNotifierProvider
   OrderStatusesNotifier create() => OrderStatusesNotifier();
 }
 
-String _$orderStatusesNotifierHash() =>
-    r'1706ecc11f5b4191d6696eee43118b3c7e1347d4';
+String _$orderStatusesNotifierHash() => r'1706ecc11f5b4191d6696eee43118b3c7e1347d4';
 
-abstract class _$OrderStatusesNotifier
-    extends $AsyncNotifier<List<StatusTransition>> {
+abstract class _$OrderStatusesNotifier extends $AsyncNotifier<List<StatusTransition>> {
   FutureOr<List<StatusTransition>> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref
-            as $Ref<AsyncValue<List<StatusTransition>>, List<StatusTransition>>;
+    final ref = this.ref as $Ref<AsyncValue<List<StatusTransition>>, List<StatusTransition>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<
-                AsyncValue<List<StatusTransition>>,
-                List<StatusTransition>
-              >,
+              AnyNotifier<AsyncValue<List<StatusTransition>>, List<StatusTransition>>,
               AsyncValue<List<StatusTransition>>,
               Object?,
               Object?
@@ -67,11 +59,7 @@ abstract class _$OrderStatusesNotifier
 final orderTransitionsProvider = OrderTransitionsNotifierProvider._();
 
 final class OrderTransitionsNotifierProvider
-    extends
-        $AsyncNotifierProvider<
-          OrderTransitionsNotifier,
-          Map<String, List<String>>
-        > {
+    extends $AsyncNotifierProvider<OrderTransitionsNotifier, Map<String, List<String>>> {
   OrderTransitionsNotifierProvider._()
     : super(
         from: null,
@@ -91,28 +79,18 @@ final class OrderTransitionsNotifierProvider
   OrderTransitionsNotifier create() => OrderTransitionsNotifier();
 }
 
-String _$orderTransitionsNotifierHash() =>
-    r'd5c5499cc0b60213a14cbf415e10eb6cc2c7db04';
+String _$orderTransitionsNotifierHash() => r'd5c5499cc0b60213a14cbf415e10eb6cc2c7db04';
 
-abstract class _$OrderTransitionsNotifier
-    extends $AsyncNotifier<Map<String, List<String>>> {
+abstract class _$OrderTransitionsNotifier extends $AsyncNotifier<Map<String, List<String>>> {
   FutureOr<Map<String, List<String>>> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref
-            as $Ref<
-              AsyncValue<Map<String, List<String>>>,
-              Map<String, List<String>>
-            >;
+    final ref = this.ref as $Ref<AsyncValue<Map<String, List<String>>>, Map<String, List<String>>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<
-                AsyncValue<Map<String, List<String>>>,
-                Map<String, List<String>>
-              >,
+              AnyNotifier<AsyncValue<Map<String, List<String>>>, Map<String, List<String>>>,
               AsyncValue<Map<String, List<String>>>,
               Object?,
               Object?

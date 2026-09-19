@@ -33,14 +33,10 @@ void main() {
     return container;
   }
 
-  testWidgets('oflayn navbatda xatolar bo\'lsa snackbar ko\'rsatiladi', (
-    tester,
-  ) async {
+  testWidgets('oflayn navbatda xatolar bo\'lsa snackbar ko\'rsatiladi', (tester) async {
     final container = await pumpListeners(tester);
 
-    container
-        .read(offlineFlushMessagesProvider.notifier)
-        .add("Saqlanmadi: Noma'lum xato");
+    container.read(offlineFlushMessagesProvider.notifier).add("Saqlanmadi: Noma'lum xato");
     await tester.pump();
     await tester.pumpAndSettle();
 

@@ -10,12 +10,7 @@ class ToolChip extends StatelessWidget {
   final ToolChipState state;
   final VoidCallback? onTap;
 
-  const ToolChip({
-    super.key,
-    required this.text,
-    required this.state,
-    this.onTap,
-  });
+  const ToolChip({super.key, required this.text, required this.state, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -41,28 +36,18 @@ class ToolChip extends StatelessWidget {
         leading = Container(
           width: 6,
           height: 6,
-          decoration: BoxDecoration(
-            color: colors.accent,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: colors.accent, shape: BoxShape.circle),
         );
         trailing = Padding(
           padding: const EdgeInsets.only(left: 4.0),
-          child: Icon(
-            AppIcons.chevronRight,
-            size: 14,
-            color: colors.textSecondary,
-          ),
+          child: Icon(AppIcons.chevronRight, size: 14, color: colors.textSecondary),
         );
         break;
       case ToolChipState.error:
         leading = Container(
           width: 6,
           height: 6,
-          decoration: BoxDecoration(
-            color: colors.danger,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: colors.danger, shape: BoxShape.circle),
         );
         textColor = colors.danger;
         trailing = Padding(
@@ -88,10 +73,7 @@ class ToolChip extends StatelessWidget {
           children: [
             leading,
             const SizedBox(width: 6),
-            Text(
-              displayText,
-              style: typography.labelM.copyWith(color: textColor),
-            ),
+            Text(displayText, style: typography.labelM.copyWith(color: textColor)),
             trailing,
           ],
         ),

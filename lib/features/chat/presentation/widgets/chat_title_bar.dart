@@ -35,10 +35,7 @@ class ChatTitleBar extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.m,
-            vertical: AppSpacing.xs,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.m, vertical: AppSpacing.xs),
           decoration: BoxDecoration(
             color: colors.surface,
             borderRadius: AppRadius.pillBorder,

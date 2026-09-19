@@ -23,23 +23,17 @@ class ThemeSection extends ConsumerWidget {
         AppChip(
           label: l10n.profile_themeSystem,
           onTap: () => notifier.setThemeMode(ThemeMode.system),
-          state: themeMode == ThemeMode.system
-              ? AppChipState.selected
-              : AppChipState.unselected,
+          state: themeMode == ThemeMode.system ? AppChipState.selected : AppChipState.unselected,
         ),
         AppChip(
           label: l10n.profile_themeLight,
           onTap: () => notifier.setThemeMode(ThemeMode.light),
-          state: themeMode == ThemeMode.light
-              ? AppChipState.selected
-              : AppChipState.unselected,
+          state: themeMode == ThemeMode.light ? AppChipState.selected : AppChipState.unselected,
         ),
         AppChip(
           label: l10n.profile_themeDark,
           onTap: () => notifier.setThemeMode(ThemeMode.dark),
-          state: themeMode == ThemeMode.dark
-              ? AppChipState.selected
-              : AppChipState.unselected,
+          state: themeMode == ThemeMode.dark ? AppChipState.selected : AppChipState.unselected,
         ),
       ],
     );

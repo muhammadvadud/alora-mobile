@@ -14,9 +14,7 @@ void main() {
   });
 
   ProviderContainer containerWith(MockErrorReporter reporter) =>
-      ProviderContainer(
-        overrides: [errorReporterProvider.overrideWithValue(reporter)],
-      );
+      ProviderContainer(overrides: [errorReporterProvider.overrideWithValue(reporter)]);
 
   void run(ProviderContainer container, Failure failure) {
     final testProvider = Provider((ref) => reportFailure(ref, failure));

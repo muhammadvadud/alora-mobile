@@ -8,10 +8,8 @@ sealed class Failure with _$Failure {
   const factory Failure.network() = _NetworkFailure;
 
   /// 400 validation_error. detail - xato matni, fieldErrors - maydonlar bo'yicha xatolar
-  const factory Failure.validation(
-    String detail,
-    Map<String, String> fieldErrors,
-  ) = _ValidationFailure;
+  const factory Failure.validation(String detail, Map<String, String> fieldErrors) =
+      _ValidationFailure;
 
   /// 401 Auth (login talab qilinadi)
   const factory Failure.auth() = _AuthFailure;

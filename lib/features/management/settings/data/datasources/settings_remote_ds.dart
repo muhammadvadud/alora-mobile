@@ -11,10 +11,7 @@ abstract class SettingsRemoteDataSource {
 
   Future<List<ModelPricingDto>> getModelPricings();
   Future<ModelPricingDto> createModelPricing(Map<String, dynamic> body);
-  Future<ModelPricingDto> updateModelPricing(
-    String id,
-    Map<String, dynamic> body,
-  );
+  Future<ModelPricingDto> updateModelPricing(String id, Map<String, dynamic> body);
   Future<void> deleteModelPricing(String id);
 }
 
@@ -25,9 +22,7 @@ class SettingsRemoteDataSourceImpl implements SettingsRemoteDataSource {
 
   @override
   Future<PromptHistoryDto> getPromptHistory() async {
-    final response = await dio.get<Map<String, dynamic>>(
-      ApiPaths.settingsPrompt,
-    );
+    final response = await dio.get<Map<String, dynamic>>(ApiPaths.settingsPrompt);
     return PromptHistoryDto.fromJson(response.data!);
   }
 
@@ -51,25 +46,17 @@ class SettingsRemoteDataSourceImpl implements SettingsRemoteDataSource {
   @override
   Future<List<ModelPricingDto>> getModelPricings() async {
     final response = await dio.get<List<dynamic>>(ApiPaths.modelPricings);
-    return response.data!
-        .map((e) => ModelPricingDto.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return response.data!.map((e) => ModelPricingDto.fromJson(e as Map<String, dynamic>)).toList();
   }
 
   @override
   Future<ModelPricingDto> createModelPricing(Map<String, dynamic> body) async {
-    final response = await dio.post<Map<String, dynamic>>(
-      ApiPaths.modelPricings,
-      data: body,
-    );
+    final response = await dio.post<Map<String, dynamic>>(ApiPaths.modelPricings, data: body);
     return ModelPricingDto.fromJson(response.data!);
   }
 
   @override
-  Future<ModelPricingDto> updateModelPricing(
-    String id,
-    Map<String, dynamic> body,
-  ) async {
+  Future<ModelPricingDto> updateModelPricing(String id, Map<String, dynamic> body) async {
     final response = await dio.patch<Map<String, dynamic>>(
       '${ApiPaths.modelPricings}$id/',
       data: body,

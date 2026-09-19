@@ -10,10 +10,7 @@ import 'package:alora_mobile/shared/models/product_card_data.dart';
 ProductCardData productToCardData(Product product) {
   final ProductVariant? variant = product.variants.isEmpty
       ? null
-      : product.variants.firstWhere(
-          (v) => v.isActive,
-          orElse: () => product.variants.first,
-        );
+      : product.variants.firstWhere((v) => v.isActive, orElse: () => product.variants.first);
   final List<ProductImage> images = variant?.images ?? const [];
   final ProductImage? image = images.isEmpty
       ? null

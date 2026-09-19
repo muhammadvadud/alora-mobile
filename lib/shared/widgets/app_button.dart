@@ -61,10 +61,7 @@ class AppButton extends StatelessWidget {
     final effectiveEnabled = isEnabled && !isLoading;
     final style = _AppButtonStyle(type, effectiveEnabled, colors);
 
-    Widget content = Text(
-      text,
-      style: typography.labelL.copyWith(color: style.textColor),
-    );
+    Widget content = Text(text, style: typography.labelL.copyWith(color: style.textColor));
 
     if (isLoading) {
       content = Row(
@@ -104,14 +101,9 @@ class AppButton extends StatelessWidget {
                 return const Color.fromARGB(0, 0, 0, 0);
               }),
               shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: AppRadius.pillBorder,
-                  side: style.borderSide,
-                ),
+                RoundedRectangleBorder(borderRadius: AppRadius.pillBorder, side: style.borderSide),
               ),
-              padding: WidgetStateProperty.all(
-                const EdgeInsets.symmetric(horizontal: 16),
-              ),
+              padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 16)),
             ),
             child: content,
           ),
@@ -140,10 +132,7 @@ class _AppButtonStyle {
       case AppButtonType.secondary:
         backgroundColor = enabled ? colors.surface : colors.surfaceDisabled;
         textColor = enabled ? colors.textPrimary : colors.textDisabled;
-        borderSide = BorderSide(
-          color: enabled ? colors.border : colors.borderSubtle,
-          width: 1.0,
-        );
+        borderSide = BorderSide(color: enabled ? colors.border : colors.borderSubtle, width: 1.0);
         overlayColor = colors.borderSubtle;
         break;
       case AppButtonType.text:

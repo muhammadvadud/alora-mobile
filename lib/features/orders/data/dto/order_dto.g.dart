@@ -21,62 +21,40 @@ _OrderDto _$OrderDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
       address: $checkedConvert('address', (v) => v as String?),
       status: $checkedConvert(
         'status',
-        (v) => $enumDecodeNullable(
-          _$OrderStatusEnumMap,
-          v,
-          unknownValue: OrderStatus.unknown,
-        ),
+        (v) => $enumDecodeNullable(_$OrderStatusEnumMap, v, unknownValue: OrderStatus.unknown),
       ),
       statusDisplay: $checkedConvert('status_display', (v) => v as String?),
       subtotal: $checkedConvert('subtotal', (v) => v as String?),
       discountPercent: $checkedConvert('discount_percent', (v) => v as String?),
       discountAmount: $checkedConvert('discount_amount', (v) => v as String?),
       discountSource: $checkedConvert('discount_source', (v) => v as String?),
-      discountSourceDisplay: $checkedConvert(
-        'discount_source_display',
-        (v) => v as String?,
-      ),
+      discountSourceDisplay: $checkedConvert('discount_source_display', (v) => v as String?),
       deliveryAmount: $checkedConvert('delivery_amount', (v) => v as String?),
       total: $checkedConvert('total', (v) => v as String?),
-      prepaymentPercent: $checkedConvert(
-        'prepayment_percent',
-        (v) => v as String?,
-      ),
+      prepaymentPercent: $checkedConvert('prepayment_percent', (v) => v as String?),
       prepayment: $checkedConvert('prepayment', (v) => v as String?),
       balance: $checkedConvert('balance', (v) => v as String?),
       paymentStatus: $checkedConvert(
         'payment_status',
-        (v) => $enumDecodeNullable(
-          _$PaymentStatusEnumMap,
-          v,
-          unknownValue: PaymentStatus.unknown,
-        ),
+        (v) => $enumDecodeNullable(_$PaymentStatusEnumMap, v, unknownValue: PaymentStatus.unknown),
       ),
-      paymentStatusDisplay: $checkedConvert(
-        'payment_status_display',
-        (v) => v as String?,
-      ),
+      paymentStatusDisplay: $checkedConvert('payment_status_display', (v) => v as String?),
       deadlineDate: $checkedConvert('deadline_date', (v) => v as String?),
       note: $checkedConvert('note', (v) => v as String?),
       confirmedBy: $checkedConvert(
         'confirmed_by',
-        (v) =>
-            v == null ? null : OrderUserDto.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : OrderUserDto.fromJson(v as Map<String, dynamic>),
       ),
       confirmedAt: $checkedConvert('confirmed_at', (v) => v as String?),
       user: $checkedConvert(
         'user',
-        (v) =>
-            v == null ? null : OrderUserDto.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : OrderUserDto.fromJson(v as Map<String, dynamic>),
       ),
       measurements: $checkedConvert(
         'measurements',
         (v) =>
             (v as List<dynamic>?)
-                ?.map(
-                  (e) =>
-                      OrderMeasurementDto.fromJson(e as Map<String, dynamic>),
-                )
+                ?.map((e) => OrderMeasurementDto.fromJson(e as Map<String, dynamic>))
                 .toList() ??
             const [],
       ),

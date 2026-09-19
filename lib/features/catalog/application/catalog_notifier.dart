@@ -77,12 +77,8 @@ class CatalogNotifier extends _$CatalogNotifier {
         segment: query['segment'],
         priceUnit: query['price_unit'],
         search: state.searchQuery.isEmpty ? null : state.searchQuery,
-        minPrice: query['min_price'] != null
-            ? int.tryParse(query['min_price']!)
-            : null,
-        maxPrice: query['max_price'] != null
-            ? int.tryParse(query['max_price']!)
-            : null,
+        minPrice: query['min_price'] != null ? int.tryParse(query['min_price']!) : null,
+        maxPrice: query['max_price'] != null ? int.tryParse(query['max_price']!) : null,
       );
       return paginated.results.length;
     } on Failure catch (_) {
@@ -110,18 +106,12 @@ class CatalogNotifier extends _$CatalogNotifier {
         segment: query['segment'],
         priceUnit: query['price_unit'],
         search: state.searchQuery.isEmpty ? null : state.searchQuery,
-        minPrice: query['min_price'] != null
-            ? int.tryParse(query['min_price']!)
-            : null,
-        maxPrice: query['max_price'] != null
-            ? int.tryParse(query['max_price']!)
-            : null,
+        minPrice: query['min_price'] != null ? int.tryParse(query['min_price']!) : null,
+        maxPrice: query['max_price'] != null ? int.tryParse(query['max_price']!) : null,
         cursor: state.nextUrl,
       );
       final ids = state.products.map((p) => p.id).toSet();
-      final newProducts = paginated.results
-          .where((p) => !ids.contains(p.id))
-          .toList();
+      final newProducts = paginated.results.where((p) => !ids.contains(p.id)).toList();
       state = state.copyWith(
         products: [...state.products, ...newProducts],
         nextUrl: paginated.next,
@@ -151,12 +141,8 @@ class CatalogNotifier extends _$CatalogNotifier {
         segment: query['segment'],
         priceUnit: query['price_unit'],
         search: state.searchQuery.isEmpty ? null : state.searchQuery,
-        minPrice: query['min_price'] != null
-            ? int.tryParse(query['min_price']!)
-            : null,
-        maxPrice: query['max_price'] != null
-            ? int.tryParse(query['max_price']!)
-            : null,
+        minPrice: query['min_price'] != null ? int.tryParse(query['min_price']!) : null,
+        maxPrice: query['max_price'] != null ? int.tryParse(query['max_price']!) : null,
       );
       state = state.copyWith(
         products: paginated.results,

@@ -30,20 +30,14 @@ class LoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onResponse(
-    Response<dynamic> response,
-    ResponseInterceptorHandler handler,
-  ) {
+  void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
     logger.i('<-- ${response.statusCode} ${response.requestOptions.path}');
     handler.next(response);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    logger.e(
-      '<-- Error ${err.response?.statusCode} ${err.requestOptions.path}',
-      error: err.error,
-    );
+    logger.e('<-- Error ${err.response?.statusCode} ${err.requestOptions.path}', error: err.error);
     handler.next(err);
   }
 }

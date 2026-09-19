@@ -83,8 +83,7 @@ class ChatMapper {
                 id: p['id']?.toString() ?? '',
                 name: p['name']?.toString() ?? '',
                 category: p['category']?.toString() ?? '',
-                price:
-                    num.tryParse(p['price']?.toString() ?? '0')?.toInt() ?? 0,
+                price: num.tryParse(p['price']?.toString() ?? '0')?.toInt() ?? 0,
                 priceUnit: p['price_unit']?.toString() ?? '',
                 imageUrl: p['image_url']?.toString() ?? '',
                 colorHex: p['color_hex']?.toString() ?? '',
@@ -124,17 +123,14 @@ class ChatMapper {
                 return PricingOption(
                   tier: tier,
                   title: o['title']?.toString() ?? '',
-                  total:
-                      num.tryParse(o['total']?.toString() ?? '0')?.toInt() ?? 0,
+                  total: num.tryParse(o['total']?.toString() ?? '0')?.toInt() ?? 0,
                   lines: lines,
                   difference: o['difference'] != null
                       ? num.tryParse(o['difference'].toString())?.toInt()
                       : null,
                 );
               }).toList();
-              return RichBlock.options(
-                options: PricingOptions(options: options),
-              );
+              return RichBlock.options(options: PricingOptions(options: options));
             } else {
               // Parse QuoteCard
               return RichBlock.quote(quote: parseQuote(data));
@@ -163,9 +159,7 @@ class ChatMapper {
                 phone: data['phone']?.toString(),
                 address: data['address']?.toString(),
                 measurements: ms,
-                total:
-                    num.tryParse(data['total']?.toString() ?? '0')?.toInt() ??
-                    0,
+                total: num.tryParse(data['total']?.toString() ?? '0')?.toInt() ?? 0,
                 prepayment: data['prepayment'] != null
                     ? num.tryParse(data['prepayment'].toString())?.toInt()
                     : null,
@@ -173,10 +167,7 @@ class ChatMapper {
                     ? DateTime.tryParse(data['deadline'].toString())
                     : null,
                 missingFields:
-                    (data['missing_fields'] as List?)
-                        ?.map((e) => e.toString())
-                        .toList() ??
-                    [],
+                    (data['missing_fields'] as List?)?.map((e) => e.toString()).toList() ?? [],
               ),
             );
           }
@@ -207,8 +198,7 @@ class ChatMapper {
               return PricingOption(
                 tier: tier,
                 title: o['title']?.toString() ?? '',
-                total:
-                    num.tryParse(o['total']?.toString() ?? '0')?.toInt() ?? 0,
+                total: num.tryParse(o['total']?.toString() ?? '0')?.toInt() ?? 0,
                 lines: lines,
                 difference: o['difference'] != null
                     ? num.tryParse(o['difference'].toString())?.toInt()
@@ -224,11 +214,7 @@ class ChatMapper {
     }
 
     // Parse xatosi bo'lsa
-    return RichBlock.toolChip(
-      tool: tool,
-      state: ToolChipState.done,
-      rawResult: resultStr,
-    );
+    return RichBlock.toolChip(tool: tool, state: ToolChipState.done, rawResult: resultStr);
   }
 
   static Quote parseQuote(Map<String, dynamic> data) {
@@ -240,18 +226,12 @@ class ChatMapper {
       final measures = data['measurements'] as List;
       for (final mRaw in measures) {
         final m = mRaw as Map<String, dynamic>;
-        final length =
-            num.tryParse(m['length']?.toString() ?? '0')?.toDouble() ?? 0.0;
-        final height =
-            num.tryParse(m['height']?.toString() ?? '0')?.toDouble() ?? 0.0;
+        final length = num.tryParse(m['length']?.toString() ?? '0')?.toDouble() ?? 0.0;
+        final height = num.tryParse(m['height']?.toString() ?? '0')?.toDouble() ?? 0.0;
 
         // Take the first measurement's dimensions if quoteMeasurement is null
         if (quoteMeasurement == null && length > 0) {
-          quoteMeasurement = QuoteMeasurement(
-            cornice: length,
-            height: height,
-            coef: 0,
-          );
+          quoteMeasurement = QuoteMeasurement(cornice: length, height: height, coef: 0);
         }
 
         if (m['parts'] != null && m['parts'] is List) {
@@ -261,39 +241,23 @@ class ChatMapper {
               QuoteFabric(
                 role: p['role']?.toString() ?? '',
                 variantId: p['variant_id']?.toString() ?? '',
-                colorName:
-                    p['color_name']?.toString() ?? p['sku']?.toString() ?? '',
+                colorName: p['color_name']?.toString() ?? p['sku']?.toString() ?? '',
                 colorHex: p['color_hex']?.toString() ?? '',
-                widthM:
-                    num.tryParse(p['width_m']?.toString() ?? '0')?.toDouble() ??
-                    0.0,
-                heightM:
-                    num.tryParse(p['height_m']?.toString() ?? '0')
+                widthM: num.tryParse(p['width_m']?.toString() ?? '0')?.toDouble() ?? 0.0,
+                heightM: num.tryParse(p['height_m']?.toString() ?? '0')?.toDouble() ?? 0.0,
+                coef: num.tryParse(p['coef']?.toString() ?? '0')?.toDouble() ?? 0.0,
+                areaSqm:
+                    num.tryParse(p['area_m2']?.toString() ?? p['raw_area_m2']?.toString() ?? '0')
                         ?.toDouble() ??
                     0.0,
-                coef:
-                    num.tryParse(p['coef']?.toString() ?? '0')?.toDouble() ??
-                    0.0,
-                areaSqm:
-                    num.tryParse(
-                      p['area_m2']?.toString() ??
-                          p['raw_area_m2']?.toString() ??
-                          '0',
-                    )?.toDouble() ??
-                    0.0,
-                pricePerSqm:
-                    num.tryParse(p['unit_price']?.toString() ?? '0')?.toInt() ??
-                    0,
-                total:
-                    num.tryParse(p['line_total']?.toString() ?? '0')?.toInt() ??
-                    0,
+                pricePerSqm: num.tryParse(p['unit_price']?.toString() ?? '0')?.toInt() ?? 0,
+                total: num.tryParse(p['line_total']?.toString() ?? '0')?.toInt() ?? 0,
               ),
             );
 
             // If quoteMeasurement has no coef yet, try to set one
             if (quoteMeasurement != null && quoteMeasurement.coef == 0.0) {
-              final coef =
-                  num.tryParse(p['coef']?.toString() ?? '0')?.toDouble() ?? 0.0;
+              final coef = num.tryParse(p['coef']?.toString() ?? '0')?.toDouble() ?? 0.0;
               if (coef > 0) {
                 quoteMeasurement = quoteMeasurement.copyWith(coef: coef);
               }
@@ -306,16 +270,10 @@ class ChatMapper {
             accessories.add(
               QuoteAccessory(
                 name: a['sku']?.toString() ?? '',
-                qty:
-                    num.tryParse(a['qty']?.toString() ?? '0')?.toDouble() ??
-                    0.0,
+                qty: num.tryParse(a['qty']?.toString() ?? '0')?.toDouble() ?? 0.0,
                 unit: 'dona',
-                unitPrice:
-                    num.tryParse(a['unit_price']?.toString() ?? '0')?.toInt() ??
-                    0,
-                total:
-                    num.tryParse(a['line_total']?.toString() ?? '0')?.toInt() ??
-                    0,
+                unitPrice: num.tryParse(a['unit_price']?.toString() ?? '0')?.toInt() ?? 0,
+                total: num.tryParse(a['line_total']?.toString() ?? '0')?.toInt() ?? 0,
               ),
             );
           }
@@ -330,13 +288,8 @@ class ChatMapper {
           services.add(
             QuoteService(
               name: sRaw['name']?.toString() ?? sRaw['key']?.toString() ?? '',
-              qty: sRaw['qty'] != null
-                  ? num.tryParse(sRaw['qty'].toString())?.toDouble()
-                  : null,
-              total:
-                  num.tryParse(sRaw['line_total']?.toString() ?? '0')
-                      ?.toInt() ??
-                  0,
+              qty: sRaw['qty'] != null ? num.tryParse(sRaw['qty'].toString())?.toDouble() : null,
+              total: num.tryParse(sRaw['line_total']?.toString() ?? '0')?.toInt() ?? 0,
             ),
           );
         }
@@ -355,20 +308,12 @@ class ChatMapper {
       accessories: accessories,
       services: services,
       wasteWarnings: warnings,
-      formula:
-          data['formula']?.toString() ??
-          'Hisob formulasi: (Eni * K) * Balandlik',
+      formula: data['formula']?.toString() ?? 'Hisob formulasi: (Eni * K) * Balandlik',
       subtotal: num.tryParse(data['subtotal']?.toString() ?? '0')?.toInt() ?? 0,
-      discount:
-          num.tryParse(data['discount_amount']?.toString() ?? '0')?.toInt() ??
-          0,
-      delivery:
-          num.tryParse(data['delivery_amount']?.toString() ?? '0')?.toInt() ??
-          0,
+      discount: num.tryParse(data['discount_amount']?.toString() ?? '0')?.toInt() ?? 0,
+      delivery: num.tryParse(data['delivery_amount']?.toString() ?? '0')?.toInt() ?? 0,
       total: num.tryParse(data['total']?.toString() ?? '0')?.toInt() ?? 0,
-      measurement:
-          quoteMeasurement ??
-          const QuoteMeasurement(cornice: 0, height: 0, coef: 0),
+      measurement: quoteMeasurement ?? const QuoteMeasurement(cornice: 0, height: 0, coef: 0),
     );
   }
 }

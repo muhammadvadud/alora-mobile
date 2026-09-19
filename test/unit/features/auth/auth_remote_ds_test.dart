@@ -79,53 +79,36 @@ void main() {
       (server) => server.reply(200, {'access': 'a1', 'refresh': 'r1'}),
     );
 
-    final pair = await dataSource.login(
-      phone: '+998901234567',
-      password: 'secret',
-    );
+    final pair = await dataSource.login(phone: '+998901234567', password: 'secret');
 
     expect(pair.access, 'a1');
     expect(pair.refresh, 'r1');
   });
 
-  test(
-    'login 401 + detail bo\'lsa matn Failure.unknown da saqlanadi',
-    () async {
-      adapter.onPost(
-        ApiPaths.login,
-        (server) =>
-            server.reply(401, {'detail': "Parol yoki telefon noto'g'ri"}),
-      );
+  test('login 401 + detail bo\'lsa matn Failure.unknown da saqlanadi', () async {
+    adapter.onPost(
+      ApiPaths.login,
+      (server) => server.reply(401, {'detail': "Parol yoki telefon noto'g'ri"}),
+    );
 
-      final failure = await loginAndCapture(password: 'xato');
+    final failure = await loginAndCapture(password: 'xato');
 
-      final detail = failure.maybeWhen(
-        unknown: (detail) => detail,
-        orElse: () => '',
-      );
-      expect(detail, "Parol yoki telefon noto'g'ri");
-    },
-  );
+    final detail = failure.maybeWhen(unknown: (detail) => detail, orElse: () => '');
+    expect(detail, "Parol yoki telefon noto'g'ri");
+  });
 
-  test(
-    'login 401 + detail ErrorMapper tartibidan ustun keladi (unknown detail)',
-    () async {
-      dio.interceptors.add(_FakeErrorMapperInterceptor());
-      adapter.onPost(
-        ApiPaths.login,
-        (server) =>
-            server.reply(401, {'detail': "Parol yoki telefon noto'g'ri"}),
-      );
+  test('login 401 + detail ErrorMapper tartibidan ustun keladi (unknown detail)', () async {
+    dio.interceptors.add(_FakeErrorMapperInterceptor());
+    adapter.onPost(
+      ApiPaths.login,
+      (server) => server.reply(401, {'detail': "Parol yoki telefon noto'g'ri"}),
+    );
 
-      final failure = await loginAndCapture(password: 'xato');
+    final failure = await loginAndCapture(password: 'xato');
 
-      final detail = failure.maybeWhen(
-        unknown: (detail) => detail,
-        orElse: () => '',
-      );
-      expect(detail, "Parol yoki telefon noto'g'ri");
-    },
-  );
+    final detail = failure.maybeWhen(unknown: (detail) => detail, orElse: () => '');
+    expect(detail, "Parol yoki telefon noto'g'ri");
+  });
 
   test('login 401 detailsiz Failure.auth ni saqlaydi', () async {
     dio.interceptors.add(_FakeErrorMapperInterceptor());
@@ -138,17 +121,11 @@ void main() {
 
   test('login 429 limit xatosiga aylantiriladi', () async {
     dio.interceptors.add(_FakeErrorMapperInterceptor());
-    adapter.onPost(
-      ApiPaths.login,
-      (server) => server.reply(429, {'detail': 'Limit yetdi'}),
-    );
+    adapter.onPost(ApiPaths.login, (server) => server.reply(429, {'detail': 'Limit yetdi'}));
 
     final failure = await loginAndCapture(password: 'xato');
 
-    final detail = failure.maybeWhen(
-      limit: (detail) => detail,
-      orElse: () => '',
-    );
+    final detail = failure.maybeWhen(limit: (detail) => detail, orElse: () => '');
     expect(detail, 'Limit yetdi');
   });
 

@@ -11,11 +11,7 @@ class EmployeeRoleChip extends StatelessWidget {
   final Role role;
   final bool showBlocked;
 
-  const EmployeeRoleChip({
-    super.key,
-    required this.role,
-    this.showBlocked = false,
-  });
+  const EmployeeRoleChip({super.key, required this.role, this.showBlocked = false});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +26,7 @@ class EmployeeRoleChip extends StatelessWidget {
       ),
       child: Text(
         _roleLabel(l10n, role),
-        style: context.text.labelS.copyWith(
-          color: showBlocked ? colors.danger : colors.accent,
-        ),
+        style: context.text.labelS.copyWith(color: showBlocked ? colors.danger : colors.accent),
       ),
     );
   }

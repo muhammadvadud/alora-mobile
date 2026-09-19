@@ -40,10 +40,7 @@ class _AboutRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: typography.bodyS.copyWith(color: colors.textSecondary),
-        ),
+        Text(label, style: typography.bodyS.copyWith(color: colors.textSecondary)),
         Text(
           value,
           style: typography.bodyS.copyWith(

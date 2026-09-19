@@ -14,8 +14,7 @@ part of 'connectivity_notifier.dart';
 @ProviderFor(ConnectivityNotifier)
 final connectivityProvider = ConnectivityNotifierProvider._();
 
-final class ConnectivityNotifierProvider
-    extends $NotifierProvider<ConnectivityNotifier, bool> {
+final class ConnectivityNotifierProvider extends $NotifierProvider<ConnectivityNotifier, bool> {
   ConnectivityNotifierProvider._()
     : super(
         from: null,
@@ -36,15 +35,11 @@ final class ConnectivityNotifierProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(bool value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<bool>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<bool>(value));
   }
 }
 
-String _$connectivityNotifierHash() =>
-    r'f8faa4c7542dfdfc37da02384c2801975f73d0f6';
+String _$connectivityNotifierHash() => r'f8faa4c7542dfdfc37da02384c2801975f73d0f6';
 
 abstract class _$ConnectivityNotifier extends $Notifier<bool> {
   bool build();
@@ -53,13 +48,7 @@ abstract class _$ConnectivityNotifier extends $Notifier<bool> {
   void runBuild() {
     final ref = this.ref as $Ref<bool, bool>;
     final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<bool, bool>,
-              bool,
-              Object?,
-              Object?
-            >;
+        ref.element as $ClassProviderElement<AnyNotifier<bool, bool>, bool, Object?, Object?>;
     element.handleCreate(ref, build);
   }
 }

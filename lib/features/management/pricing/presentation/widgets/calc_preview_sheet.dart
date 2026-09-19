@@ -51,31 +51,18 @@ class _CalcPreviewSheetState extends ConsumerState<CalcPreviewSheet> {
     try {
       final request = CalcPreviewRequestDto(
         measurements: [
-          CalcPreviewMeasurementDto(
-            length: w,
-            height: h,
-            parts: const [],
-            accessories: const [],
-          ),
+          CalcPreviewMeasurementDto(length: w, height: h, parts: const [], accessories: const []),
           for (var i = 1; i < qty; i++)
-            CalcPreviewMeasurementDto(
-              length: w,
-              height: h,
-              parts: const [],
-              accessories: const [],
-            ),
+            CalcPreviewMeasurementDto(length: w, height: h, parts: const [], accessories: const []),
         ],
         services: const [],
       );
-      final quote = await ref
-          .read(pricingProvider.notifier)
-          .calcPreview(request);
+      final quote = await ref.read(pricingProvider.notifier).calcPreview(request);
       if (mounted) setState(() => _quote = quote);
     } on Exception {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.management_pricingPreviewError)),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(context.l10n.management_pricingPreviewError)));
       }
     } finally {
       if (mounted) setState(() => _loading = false);
@@ -121,9 +108,7 @@ class _CalcPreviewSheetState extends ConsumerState<CalcPreviewSheet> {
           if (_quote != null) ...[
             SizedBox(
               height: 360,
-              child: SingleChildScrollView(
-                child: QuoteCardView(quote: _quote!),
-              ),
+              child: SingleChildScrollView(child: QuoteCardView(quote: _quote!)),
             ),
             const SizedBox(height: AppSpacing.m),
           ],

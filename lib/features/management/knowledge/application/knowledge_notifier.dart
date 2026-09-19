@@ -47,13 +47,7 @@ class KnowledgeNotifier extends _$KnowledgeNotifier {
   ) async {
     try {
       final repo = ref.read(knowledgeRepositoryProvider);
-      final newRule = await repo.createRule(
-        kind,
-        condition,
-        recommendation,
-        priority,
-        isActive,
-      );
+      final newRule = await repo.createRule(kind, condition, recommendation, priority, isActive);
       state = state.copyWith(rules: [...state.rules, newRule]);
     } catch (e) {
       state = state.copyWith(error: e.toString());
@@ -65,9 +59,7 @@ class KnowledgeNotifier extends _$KnowledgeNotifier {
     try {
       final repo = ref.read(knowledgeRepositoryProvider);
       final updatedRule = await repo.patchRule(id, updates);
-      state = state.copyWith(
-        rules: state.rules.map((r) => r.id == id ? updatedRule : r).toList(),
-      );
+      state = state.copyWith(rules: state.rules.map((r) => r.id == id ? updatedRule : r).toList());
     } catch (e) {
       state = state.copyWith(error: e.toString());
       rethrow;
@@ -78,9 +70,7 @@ class KnowledgeNotifier extends _$KnowledgeNotifier {
     try {
       final repo = ref.read(knowledgeRepositoryProvider);
       await repo.deleteRule(id);
-      state = state.copyWith(
-        rules: state.rules.where((r) => r.id != id).toList(),
-      );
+      state = state.copyWith(rules: state.rules.where((r) => r.id != id).toList());
     } catch (e) {
       state = state.copyWith(error: e.toString());
       rethrow;

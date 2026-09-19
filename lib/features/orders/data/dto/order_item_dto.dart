@@ -17,6 +17,5 @@ abstract class OrderItemDto with _$OrderItemDto {
     @JsonKey(name: 'sort_order') int? sortOrder,
   }) = _OrderItemDto;
 
-  factory OrderItemDto.fromJson(Map<String, dynamic> json) =>
-      _$OrderItemDtoFromJson(json);
+  factory OrderItemDto.fromJson(Map<String, dynamic> json) => _$OrderItemDtoFromJson(json);
 }

@@ -10,10 +10,8 @@ import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_theme.dart';
 import 'package:alora_mobile/core/connectivity/connectivity_notifier.dart';
 import 'package:alora_mobile/core/utils/paginated.dart';
-import 'package:alora_mobile/features/chat/application/providers.dart'
-    as chat_providers;
-import 'package:alora_mobile/features/customer_mode/application/providers.dart'
-    as cm_providers;
+import 'package:alora_mobile/features/chat/application/providers.dart' as chat_providers;
+import 'package:alora_mobile/features/customer_mode/application/providers.dart' as cm_providers;
 import 'package:alora_mobile/features/conversations/application/conversations_state.dart';
 import 'package:alora_mobile/features/conversations/application/conversations_notifier.dart';
 import 'package:alora_mobile/features/conversations/domain/entities/conversation.dart';
@@ -50,19 +48,14 @@ Override registerConversations(List<String> ids, {String? orderId}) {
   );
 }
 
-void stubGetMessages(
-  MockChatRepository repo,
-  List<Message> messages, {
-  Object? error,
-}) {
+void stubGetMessages(MockChatRepository repo, List<Message> messages, {Object? error}) {
   if (error != null) {
     when(() => repo.getMessages(any(), cursor: any(named: 'cursor')))
         .thenAnswer((_) async => throw error);
     return;
   }
-  when(() => repo.getMessages(any(), cursor: any(named: 'cursor'))).thenAnswer(
-    (_) async => Paginated(next: null, previous: null, results: messages),
-  );
+  when(() => repo.getMessages(any(), cursor: any(named: 'cursor')))
+      .thenAnswer((_) async => Paginated(next: null, previous: null, results: messages));
 }
 
 /// ChatScreen uchun ProviderScope + MaterialApp qurilishi.
@@ -81,15 +74,13 @@ Widget chatApp(
           routes: [
             GoRoute(
               path: '${AppRoutes.chat}/:conversationId',
-              builder: (_, state) => ChatScreen(
-                conversationId: state.pathParameters['conversationId'],
-              ),
+              builder: (_, state) =>
+                  ChatScreen(conversationId: state.pathParameters['conversationId']),
             ),
             GoRoute(
               path: '${AppRoutes.orders}/:orderId',
-              builder: (_, state) => Scaffold(
-                body: Text('order:${state.pathParameters['orderId']}'),
-              ),
+              builder: (_, state) =>
+                  Scaffold(body: Text('order:${state.pathParameters['orderId']}')),
             ),
           ],
         )
@@ -102,8 +93,7 @@ Widget chatApp(
       ...extraOverrides,
     ],
     child: MaterialApp.router(
-      routerConfig:
-          router ?? _homeRouter(ChatScreen(conversationId: conversationId)),
+      routerConfig: router ?? _homeRouter(ChatScreen(conversationId: conversationId)),
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(isCustomerMode: customerMode),
       darkTheme: AppTheme.dark(isCustomerMode: customerMode),
@@ -182,30 +172,17 @@ Quote quoteFixture({
     fabrics: List.generate(fabricCount, quoteFabric),
     accessories: withAccessories
         ? const [
-            QuoteAccessory(
-              name: 'Karniz',
-              qty: 1.5,
-              unit: 'm',
-              unitPrice: 80000,
-              total: 120000,
-            ),
+            QuoteAccessory(name: 'Karniz', qty: 1.5, unit: 'm', unitPrice: 80000, total: 120000),
           ]
         : const [],
-    services: withServices
-        ? const [QuoteService(name: 'O\'rnatish', total: 150000)]
-        : const [],
+    services: withServices ? const [QuoteService(name: 'O\'rnatish', total: 150000)] : const [],
     wasteWarnings: wasteWarnings,
     formula: '2.5 m × 1.5 m × 2 × 120 000 = 900 000',
     subtotal: 2190000,
     discount: 100000,
     delivery: 50000,
     total: 2140000,
-    measurement: const QuoteMeasurement(
-      room: 'Mehmonxona',
-      cornice: 1.5,
-      height: 2.5,
-      coef: 2,
-    ),
+    measurement: const QuoteMeasurement(room: 'Mehmonxona', cornice: 1.5, height: 2.5, coef: 2),
   );
 }
 
@@ -246,16 +223,12 @@ PricingOptions optionsFixture() {
   );
 }
 
-OrderDraft orderDraftFixture({
-  List<String> missingFields = const ['Telefon raqam', 'Manzil'],
-}) {
+OrderDraft orderDraftFixture({List<String> missingFields = const ['Telefon raqam', 'Manzil']}) {
   return OrderDraft(
     customerName: 'Ali Valiyev',
     phone: '+998 90 123 45 67',
     address: null,
-    measurements: const [
-      OrderDraftMeasurement(roomName: 'Mehmonxona', cornice: 1.5, height: 2.5),
-    ],
+    measurements: const [OrderDraftMeasurement(roomName: 'Mehmonxona', cornice: 1.5, height: 2.5)],
     total: 2140000,
     missingFields: missingFields,
   );

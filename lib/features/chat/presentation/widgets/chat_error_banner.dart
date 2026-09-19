@@ -23,18 +23,11 @@ class ChatErrorBanner extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.s,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.s),
       color: colors.dangerSoft,
       child: Row(
         children: [
-          Icon(
-            AppIcons.alertTriangle,
-            color: colors.danger,
-            size: AppSpacing.l,
-          ),
+          Icon(AppIcons.alertTriangle, color: colors.danger, size: AppSpacing.l),
           const SizedBox(width: AppSpacing.s),
           Expanded(
             child: Text(

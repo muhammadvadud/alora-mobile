@@ -41,8 +41,7 @@ void main() {
           lastLoginAt: null,
         ),
       ];
-    final usageRepository = FakeUsageRepository()
-      ..summaryResult = testUsageSummary(costUzs: 64000);
+    final usageRepository = FakeUsageRepository()..summaryResult = testUsageSummary(costUzs: 64000);
 
     Widget widgetFor(ThemeMode mode) {
       return ProviderScope(

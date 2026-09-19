@@ -9,10 +9,7 @@ class AuthInterceptor extends Interceptor {
   AuthInterceptor(this.secureStorage);
 
   @override
-  Future<void> onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
+  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     if (options.path == ApiPaths.login || options.path == ApiPaths.refresh) {
       return handler.next(options);
     }

@@ -31,9 +31,7 @@ class PricingFieldRow extends StatelessWidget {
                 if (description.isNotEmpty)
                   Text(
                     description,
-                    style: context.text.bodyS.copyWith(
-                      color: context.colors.textSecondary,
-                    ),
+                    style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
                   ),
               ],
             ),

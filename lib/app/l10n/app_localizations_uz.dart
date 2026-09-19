@@ -28,8 +28,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get common_loading => 'Yuklanmoqda…';
 
   @override
-  String get common_noInternet =>
-      'Internet yo\'q. Ulanish tiklanganda avtomatik yuboriladi';
+  String get common_noInternet => 'Internet yo\'q. Ulanish tiklanganda avtomatik yuboriladi';
 
   @override
   String get common_error => 'Xatolik yuz berdi';
@@ -153,8 +152,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get login_signIn => 'Kirish';
 
   @override
-  String get login_forgotPassword =>
-      'Parolni unutdingizmi? Menejer bilan bog\'laning';
+  String get login_forgotPassword => 'Parolni unutdingizmi? Menejer bilan bog\'laning';
 
   @override
   String get login_errorAuthFailed => 'Kirish ma\'lumotlari noto\'g\'ri';
@@ -184,8 +182,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get forbidden_title => 'Ruxsat yo\'q';
 
   @override
-  String get forbidden_text =>
-      'Bu bo\'limga faqat menejer yoki admin kirishi mumkin';
+  String get forbidden_text => 'Bu bo\'limga faqat menejer yoki admin kirishi mumkin';
 
   @override
   String get catalog_searchHint => 'Mahsulot qidirish';
@@ -208,8 +205,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get catalog_emptyTitle => 'Hech narsa topilmadi';
 
   @override
-  String get catalog_emptyMessage =>
-      'Filtrlarni o\'zgartiring yoki qidiruv so\'zini o\'zgartiring';
+  String get catalog_emptyMessage => 'Filtrlarni o\'zgartiring yoki qidiruv so\'zini o\'zgartiring';
 
   @override
   String get catalog_filterType => 'Tur';
@@ -423,8 +419,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get conversations_archiveDialogTitle => 'Suhbatni arxivlaysizmi?';
 
   @override
-  String get conversations_archiveDialogMessage =>
-      'Suhbat arxivga ko\'chiriladi';
+  String get conversations_archiveDialogMessage => 'Suhbat arxivga ko\'chiriladi';
 
   @override
   String get chat_emptyTitle => 'Mijoz nima izlayapti?';
@@ -685,8 +680,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get profile_todaySpend => 'Bugungi sarf';
 
   @override
-  String get profile_limitDailyReset =>
-      'Kunlik limit soat 24:00 da yangilanadi';
+  String get profile_limitDailyReset => 'Kunlik limit soat 24:00 da yangilanadi';
 
   @override
   String get profile_limitNotSet => 'Limit o\'rnatilmagan';
@@ -829,8 +823,7 @@ class AppLocalizationsUz extends AppLocalizations {
       'Bloklangan xodim tizimga kira olmaydi. Davom etasizmi?';
 
   @override
-  String get management_employeeUnblockConfirmTitle =>
-      'Xodimni faollashtirish?';
+  String get management_employeeUnblockConfirmTitle => 'Xodimni faollashtirish?';
 
   @override
   String get management_employeeUnblockConfirmMessage =>
@@ -840,8 +833,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_conversationsEmptyTitle => 'Suhbatlar yo\'q';
 
   @override
-  String get management_conversationsEmptyMessage =>
-      'Bu xodimning hozircha suhbatlari yo\'q';
+  String get management_conversationsEmptyMessage => 'Bu xodimning hozircha suhbatlari yo\'q';
 
   @override
   String get management_transcriptTitle => 'Transkript';
@@ -865,15 +857,13 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_employeeUnblock => 'Faollashtirish';
 
   @override
-  String get management_employeesEmptyMessage =>
-      'Jamoada hozircha xodimlar yo\'q';
+  String get management_employeesEmptyMessage => 'Jamoada hozircha xodimlar yo\'q';
 
   @override
   String get management_employeesEmptyTitle => 'Xodimlar topilmadi';
 
   @override
-  String get management_employeesSearchEmptyMessage =>
-      'Boshqa so\'z bilan qidirib ko\'ring';
+  String get management_employeesSearchEmptyMessage => 'Boshqa so\'z bilan qidirib ko\'ring';
 
   @override
   String get management_employeesSearchEmptyTitle => 'Natija topilmadi';
@@ -1024,8 +1014,7 @@ class AppLocalizationsUz extends AppLocalizations {
       'Qo\'lda maksimal chegirma limitlari. AI taklifi bu limitdan oshmaydi.';
 
   @override
-  String get management_pricingStackWithTier =>
-      'Bosqichli chegirma bilan jamlash';
+  String get management_pricingStackWithTier => 'Bosqichli chegirma bilan jamlash';
 
   @override
   String get management_pricingDeadlineDays => 'Muddat (kun)';
@@ -1034,8 +1023,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_pricingCoefsEmpty => 'Koeffitsientlar topilmadi';
 
   @override
-  String get management_pricingTiersEmpty =>
-      'Chegirma bosqichlari hozircha yo\'q';
+  String get management_pricingTiersEmpty => 'Chegirma bosqichlari hozircha yo\'q';
 
   @override
   String get management_pricingSaveError => 'Saqlashda xatolik yuz berdi';
@@ -1050,8 +1038,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_knowledgeEmptyTitle => 'Qoidalar yo\'q';
 
   @override
-  String get management_knowledgeEmptyMessage =>
-      'Hozircha bilim qoidalari qo\'shilmagan';
+  String get management_knowledgeEmptyMessage => 'Hozircha bilim qoidalari qo\'shilmagan';
 
   @override
   String get management_knowledgeErrorTitle => 'Yuklab bo\'lmadi';
@@ -1090,8 +1077,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_productsEmptyTitle => 'Mahsulotlar topilmadi';
 
   @override
-  String get management_productsEmptyMessage =>
-      'Qidiruv yoki filtr shartini o\'zgartirib ko\'ring';
+  String get management_productsEmptyMessage => 'Qidiruv yoki filtr shartini o\'zgartirib ko\'ring';
 
   @override
   String get management_productsLoadError => 'Yuklab bo\'lmadi';
@@ -1135,8 +1121,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_productFormSegment => 'Segment';
 
   @override
-  String get management_productFormRecommendedRooms =>
-      'Tavsiya qilinadigan xonalar';
+  String get management_productFormRecommendedRooms => 'Tavsiya qilinadigan xonalar';
 
   @override
   String get management_productFormBasePrice => 'Asosiy narx';
@@ -1154,8 +1139,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_productFormAddVariant => 'Variant qo\'shish';
 
   @override
-  String get management_productFormVariantsEmpty =>
-      'Hali variant qo\'shilmagan';
+  String get management_productFormVariantsEmpty => 'Hali variant qo\'shilmagan';
 
   @override
   String management_productFormVariantLabel(int index) {
@@ -1163,12 +1147,10 @@ class AppLocalizationsUz extends AppLocalizations {
   }
 
   @override
-  String get management_productFormRemoveVariantTitle =>
-      'Variant o\'chirilsinmi?';
+  String get management_productFormRemoveVariantTitle => 'Variant o\'chirilsinmi?';
 
   @override
-  String get management_productFormRemoveVariantMessage =>
-      'Bu amalni qaytarib bo\'lmaydi';
+  String get management_productFormRemoveVariantMessage => 'Bu amalni qaytarib bo\'lmaydi';
 
   @override
   String get management_productFormRemoveVariant => 'O\'chirish';
@@ -1270,8 +1252,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get settings_rollbackConfirmTitle => 'Versiyaga qaytish?';
 
   @override
-  String get settings_rollbackConfirmMessage =>
-      'Haqiqatan ham ushbu versiyaga qaytasizmi?';
+  String get settings_rollbackConfirmMessage => 'Haqiqatan ham ushbu versiyaga qaytasizmi?';
 
   @override
   String get settings_authorUnknown => 'Noma\'lum';
@@ -1356,8 +1337,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get common_loading => 'Юкланмоқда…';
 
   @override
-  String get common_noInternet =>
-      'Интернет йўқ. Уланиш тикланганда автоматик юборилади';
+  String get common_noInternet => 'Интернет йўқ. Уланиш тикланганда автоматик юборилади';
 
   @override
   String get common_error => 'Хатолик юз берди';
@@ -1375,8 +1355,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get error_auth => 'Сессия муддати тугади. Илтимос, қайта киринг.';
 
   @override
-  String get offline_flushFailed =>
-      'Серверда янги маълумот бор. Баъзи ўзгаришлар сақланмади.';
+  String get offline_flushFailed => 'Серверда янги маълумот бор. Баъзи ўзгаришлар сақланмади.';
 
   @override
   String get error_permission => 'Рухсат йўқ';
@@ -1481,8 +1460,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get login_signIn => 'Кириш';
 
   @override
-  String get login_forgotPassword =>
-      'Паролни унутдингизми? Менеджер билан боғланинг';
+  String get login_forgotPassword => 'Паролни унутдингизми? Менеджер билан боғланинг';
 
   @override
   String get login_errorAuthFailed => 'Кириш маълумотлари нотўғри';
@@ -1535,8 +1513,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get catalog_emptyTitle => 'Ҳеч нарса топилмади';
 
   @override
-  String get catalog_emptyMessage =>
-      'Фильтрларни ўзгартиргинг ёки қидирув сўзини ўзгартириш';
+  String get catalog_emptyMessage => 'Фильтрларни ўзгартиргинг ёки қидирув сўзини ўзгартириш';
 
   @override
   String get catalog_filterType => 'Тур';
@@ -2164,8 +2141,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get management_conversationsEmptyTitle => 'Суҳбатлар йўқ';
 
   @override
-  String get management_conversationsEmptyMessage =>
-      'Бу ходимнинг ҳозирча суҳбатлари йўқ';
+  String get management_conversationsEmptyMessage => 'Бу ходимнинг ҳозирча суҳбатлари йўқ';
 
   @override
   String get management_transcriptTitle => 'Транскрипт';
@@ -2195,8 +2171,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get management_employeesEmptyTitle => 'Ходимлар топилмади';
 
   @override
-  String get management_employeesSearchEmptyMessage =>
-      'Бошқа сўз билан қидириб кўринг';
+  String get management_employeesSearchEmptyMessage => 'Бошқа сўз билан қидириб кўринг';
 
   @override
   String get management_employeesSearchEmptyTitle => 'Натижа топилмади';
@@ -2302,8 +2277,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get management_knowledgeEmptyTitle => 'Қоидалар йўқ';
 
   @override
-  String get management_knowledgeEmptyMessage =>
-      'Ҳозирча билим қоидалари қўшилмаган';
+  String get management_knowledgeEmptyMessage => 'Ҳозирча билим қоидалари қўшилмаган';
 
   @override
   String get management_knowledgeErrorTitle => 'Юклаб бўлмади';
@@ -2342,8 +2316,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get management_productsEmptyTitle => 'Маҳсулотлар топилмади';
 
   @override
-  String get management_productsEmptyMessage =>
-      'Қидирув ёки фильтр шартини ўзгартириб кўринг';
+  String get management_productsEmptyMessage => 'Қидирув ёки фильтр шартини ўзгартириб кўринг';
 
   @override
   String get management_productsLoadError => 'Юклаб бўлмади';
@@ -2387,8 +2360,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get management_productFormSegment => 'Сегмент';
 
   @override
-  String get management_productFormRecommendedRooms =>
-      'Тавсия қилинадиган хоналар';
+  String get management_productFormRecommendedRooms => 'Тавсия қилинадиган хоналар';
 
   @override
   String get management_productFormBasePrice => 'Асосий нарх';
@@ -2417,8 +2389,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get management_productFormRemoveVariantTitle => 'Вариант ўчирилсинми?';
 
   @override
-  String get management_productFormRemoveVariantMessage =>
-      'Бу амални қайтариб бўлмайди';
+  String get management_productFormRemoveVariantMessage => 'Бу амални қайтариб бўлмайди';
 
   @override
   String get management_productFormRemoveVariant => 'Ўчириш';
@@ -2520,8 +2491,7 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get settings_rollbackConfirmTitle => 'Версияга қайтиш?';
 
   @override
-  String get settings_rollbackConfirmMessage =>
-      'Ҳақиқатан ҳам ушбу версияга қайтасизми?';
+  String get settings_rollbackConfirmMessage => 'Ҳақиқатан ҳам ушбу версияга қайтасизми?';
 
   @override
   String get settings_authorUnknown => 'Номаълум';

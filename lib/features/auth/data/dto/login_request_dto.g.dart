@@ -17,5 +17,7 @@ LoginRequestDto _$LoginRequestDtoFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$LoginRequestDtoToJson(LoginRequestDto instance) =>
-    <String, dynamic>{'phone': instance.phone, 'password': instance.password};
+Map<String, dynamic> _$LoginRequestDtoToJson(LoginRequestDto instance) => <String, dynamic>{
+  'phone': instance.phone,
+  'password': instance.password,
+};

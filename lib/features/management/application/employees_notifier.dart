@@ -81,9 +81,7 @@ class EmployeesNotifier extends _$EmployeesNotifier {
   List<Employee> _applyQuery(List<Employee> items, String query) {
     if (query.isEmpty) return items;
     final needle = query.toLowerCase();
-    return items
-        .where((e) => e.fullName.toLowerCase().contains(needle))
-        .toList();
+    return items.where((e) => e.fullName.toLowerCase().contains(needle)).toList();
   }
 
   /// Xodimlar ro'yxatidagi `today_cost` no'q backend'da mavjud emas —

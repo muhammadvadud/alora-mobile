@@ -13,10 +13,7 @@ class ConversationsRemoteDataSource {
   final Dio _dio;
 
   /// Suhbatlar ro'yxatini olish (cursor pagination + qidiruv)
-  Future<Paginated<ConversationDto>> list({
-    String? cursor,
-    String? search,
-  }) async {
+  Future<Paginated<ConversationDto>> list({String? cursor, String? search}) async {
     try {
       final queryParams = <String, dynamic>{};
       if (cursor != null) queryParams['cursor'] = cursor;
@@ -63,9 +60,7 @@ class ConversationsRemoteDataSource {
   /// Suhbat transkriptini olish
   Future<String> transcript(String id) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        ApiPaths.conversationTranscript(id),
-      );
+      final response = await _dio.get<Map<String, dynamic>>(ApiPaths.conversationTranscript(id));
       return response.data.toString();
     } on DioException catch (error) {
       throw _mapError(error);

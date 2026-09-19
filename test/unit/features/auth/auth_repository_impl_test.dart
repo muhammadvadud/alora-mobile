@@ -61,9 +61,8 @@ void main() {
 
   group('AuthRepositoryImpl (§8.2 — tokenlar faqat secure storage)', () {
     test('login → tokenlar secure storage\'ga yoziladi', () async {
-      when(
-        () => remote.login(phone: '+998901234567', password: 'pw'),
-      ).thenAnswer((_) async => const TokenPairDto(access: 'a', refresh: 'r'));
+      when(() => remote.login(phone: '+998901234567', password: 'pw'))
+          .thenAnswer((_) async => const TokenPairDto(access: 'a', refresh: 'r'));
 
       await repo.login(phone: '+998901234567', password: 'pw');
 
@@ -77,30 +76,25 @@ void main() {
 
     test('refresh: rotation — yangi juftlik saqlanadi', () async {
       when(() => storage.getRefreshToken()).thenAnswer((_) async => 'r1');
-      when(() => remote.refresh('r1')).thenAnswer(
-        (_) async => const TokenPairDto(access: 'a2', refresh: 'r2'),
-      );
+      when(() => remote.refresh('r1'))
+          .thenAnswer((_) async => const TokenPairDto(access: 'a2', refresh: 'r2'));
 
       await repo.refresh();
 
       verify(() => storage.saveTokens(access: 'a2', refresh: 'r2')).called(1);
     });
 
-    test(
-      'me → foydalanuvchi Hive\'da keshlanadi (telefon emas, token yo\'q)',
-      () async {
-        when(() => remote.me()).thenAnswer((_) async => _me);
+    test('me → foydalanuvchi Hive\'da keshlanadi (telefon emas, token yo\'q)', () async {
+      when(() => remote.me()).thenAnswer((_) async => _me);
 
-        final user = await repo.me();
-        expect(user.role, Role.manager);
+      final user = await repo.me();
+      expect(user.role, Role.manager);
 
-        final cached = await repo.getCachedUser();
-        expect(cached?.id, 'u1');
-        final raw =
-            Hive.box<dynamic>(HiveBoxes.authPrefs).get('cached_user') as String;
-        expect(raw.contains('token'), isFalse);
-      },
-    );
+      final cached = await repo.getCachedUser();
+      expect(cached?.id, 'u1');
+      final raw = Hive.box<dynamic>(HiveBoxes.authPrefs).get('cached_user') as String;
+      expect(raw.contains('token'), isFalse);
+    });
 
     test('me: tarmoq yo\'q → keshlangan foydalanuvchi qaytadi (§11)', () async {
       when(() => remote.me()).thenAnswer((_) async => _me);
@@ -123,37 +117,35 @@ void main() {
       expect(repo.me(), throwsA(const Failure.auth()));
     });
 
+    test('logout: API xatosi bo\'lsa ham sessiya tozalanadi, signal chiqadi', () async {
+      when(() => storage.getRefreshToken()).thenAnswer((_) async => 'r1');
+      when(() => remote.logout('r1')).thenThrow(const Failure.server());
+      when(() => remote.me()).thenAnswer((_) async => _me);
+      await repo.me();
+
+      final expired = expectLater(repo.onSessionExpired, emits(anything));
+      await repo.logout();
+      await expired;
+
+      verify(() => storage.clearTokens()).called(1);
+      expect(await repo.getCachedUser(), isNull);
+    });
+
     test(
-      'logout: API xatosi bo\'lsa ham sessiya tozalanadi, signal chiqadi',
+      'logout: suhbat/xabar keshi ham tozalanadi (boshqa foydalanuvchiga ko\'rinmasin)',
       () async {
-        when(() => storage.getRefreshToken()).thenAnswer((_) async => 'r1');
-        when(() => remote.logout('r1')).thenThrow(const Failure.server());
-        when(() => remote.me()).thenAnswer((_) async => _me);
-        await repo.me();
+        when(() => storage.getRefreshToken()).thenAnswer((_) async => null);
+        final conversations = await Hive.openBox<dynamic>(HiveBoxes.conversations);
+        final messages = await Hive.openBox<String>(HiveBoxes.messages);
+        await conversations.put('cached_conversations', '[{"id":"c1"}]');
+        await messages.put('c1', '[{"id":"m1"}]');
 
-        final expired = expectLater(repo.onSessionExpired, emits(anything));
         await repo.logout();
-        await expired;
 
-        verify(() => storage.clearTokens()).called(1);
-        expect(await repo.getCachedUser(), isNull);
+        expect(conversations.isEmpty, isTrue);
+        expect(messages.isEmpty, isTrue);
       },
     );
-
-    test('logout: suhbat/xabar keshi ham tozalanadi (boshqa foydalanuvchiga ko\'rinmasin)', () async {
-      when(() => storage.getRefreshToken()).thenAnswer((_) async => null);
-      final conversations = await Hive.openBox<dynamic>(
-        HiveBoxes.conversations,
-      );
-      final messages = await Hive.openBox<String>(HiveBoxes.messages);
-      await conversations.put('cached_conversations', '[{"id":"c1"}]');
-      await messages.put('c1', '[{"id":"m1"}]');
-
-      await repo.logout();
-
-      expect(conversations.isEmpty, isTrue);
-      expect(messages.isEmpty, isTrue);
-    });
 
     test('getCachedUser: buzilgan JSON → null', () async {
       await Hive.box<dynamic>(HiveBoxes.authPrefs).put('cached_user', '{bad');

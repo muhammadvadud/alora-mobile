@@ -13,8 +13,7 @@ class AuthMeDto {
 
   const AuthMeDto({required this.profile, this.limit});
 
-  factory AuthMeDto.fromJson(Map<String, dynamic> json) =>
-      _$AuthMeDtoFromJson(json);
+  factory AuthMeDto.fromJson(Map<String, dynamic> json) => _$AuthMeDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthMeDtoToJson(this);
 }

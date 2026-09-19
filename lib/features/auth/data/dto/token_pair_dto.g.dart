@@ -17,5 +17,7 @@ TokenPairDto _$TokenPairDtoFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$TokenPairDtoToJson(TokenPairDto instance) =>
-    <String, dynamic>{'access': instance.access, 'refresh': instance.refresh};
+Map<String, dynamic> _$TokenPairDtoToJson(TokenPairDto instance) => <String, dynamic>{
+  'access': instance.access,
+  'refresh': instance.refresh,
+};

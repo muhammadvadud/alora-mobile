@@ -4,11 +4,8 @@ part 'order_draft.freezed.dart';
 
 @freezed
 abstract class OrderDraftMeasurement with _$OrderDraftMeasurement {
-  const factory OrderDraftMeasurement({
-    String? roomName,
-    double? cornice,
-    double? height,
-  }) = _OrderDraftMeasurement;
+  const factory OrderDraftMeasurement({String? roomName, double? cornice, double? height}) =
+      _OrderDraftMeasurement;
 }
 
 @freezed

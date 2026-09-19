@@ -14,12 +14,7 @@ class ProductCard extends StatelessWidget {
   final bool isCarousel;
   final VoidCallback? onTap;
 
-  const ProductCard({
-    super.key,
-    required this.data,
-    this.isCarousel = false,
-    this.onTap,
-  });
+  const ProductCard({super.key, required this.data, this.isCarousel = false, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -112,19 +107,11 @@ class _ProductCardDetails extends StatelessWidget {
     final typography = context.text;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.s,
-        vertical: AppSpacing.s,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s, vertical: AppSpacing.s),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            data.name,
-            style: typography.titleS,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+          Text(data.name, style: typography.titleS, maxLines: 1, overflow: TextOverflow.ellipsis),
           const SizedBox(height: 4),
           Row(
             children: [
@@ -144,11 +131,7 @@ class _ProductCardDetails extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSpacing.s),
-          UnitText(
-            amount: data.price,
-            unit: data.priceUnit,
-            style: typography.priceM,
-          ),
+          UnitText(amount: data.price, unit: data.priceUnit, style: typography.priceM),
         ],
       ),
     );

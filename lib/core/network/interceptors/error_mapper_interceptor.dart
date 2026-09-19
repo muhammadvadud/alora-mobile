@@ -23,15 +23,11 @@ class ErrorMapperInterceptor extends Interceptor {
     } else if (err.response != null) {
       final statusCode = err.response!.statusCode;
       final data = err.response!.data;
-      final detail = (data is Map && data['detail'] != null)
-          ? data['detail'].toString()
-          : '';
+      final detail = (data is Map && data['detail'] != null) ? data['detail'].toString() : '';
 
       if (statusCode == 400) {
         final errors = (data is Map && data['errors'] is Map)
-            ? (data['errors'] as Map).map(
-                (k, v) => MapEntry(k.toString(), v.toString()),
-              )
+            ? (data['errors'] as Map).map((k, v) => MapEntry(k.toString(), v.toString()))
             : <String, String>{};
         failure = Failure.validation(detail, errors);
       } else if (statusCode == 401) {

@@ -54,8 +54,7 @@ final class EmployeeDetailNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is EmployeeDetailNotifierProvider &&
-        other.argument == argument;
+    return other is EmployeeDetailNotifierProvider && other.argument == argument;
   }
 
   @override
@@ -64,8 +63,7 @@ final class EmployeeDetailNotifierProvider
   }
 }
 
-String _$employeeDetailNotifierHash() =>
-    r'd55b1f9d525d02a94ef21927c1207c10c1a11df4';
+String _$employeeDetailNotifierHash() => r'd55b1f9d525d02a94ef21927c1207c10c1a11df4';
 
 /// Bitta xodim tafsiloti (S-21): profilni yangilash, bloklash, limit o'rnatish.
 

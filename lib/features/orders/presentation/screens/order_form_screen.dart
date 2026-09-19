@@ -59,11 +59,9 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
   }
 
   Future<void> _submit() async {
-    if (_nameController.text.trim().isEmpty ||
-        _phoneController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.nameAndPhoneRequired)),
-      );
+    if (_nameController.text.trim().isEmpty || _phoneController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(context.l10n.nameAndPhoneRequired)));
       return;
     }
 
@@ -108,9 +106,8 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.errorOccurred(e.toString()))),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(context.l10n.errorOccurred(e.toString()))));
       }
     } finally {
       if (mounted) {
@@ -146,18 +143,14 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
               type: AppTextFieldType.number,
             ),
             const SizedBox(height: AppSpacing.s),
-            AppTextField(
-              controller: _addressController,
-              hintText: 'Manzil (ixtiyoriy)',
-            ),
+            AppTextField(controller: _addressController, hintText: 'Manzil (ixtiyoriy)'),
             const SizedBox(height: AppSpacing.l),
 
             Text(context.l10n.discount, style: typography.titleM),
             _AmountToggleRow(
               controller: _discountController,
               isPercent: _isDiscountPercent,
-              onPercentChanged: (val) =>
-                  setState(() => _isDiscountPercent = val),
+              onPercentChanged: (val) => setState(() => _isDiscountPercent = val),
             ),
             const SizedBox(height: AppSpacing.l),
 
@@ -165,8 +158,7 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
             _AmountToggleRow(
               controller: _prepaymentController,
               isPercent: _isPrepaymentPercent,
-              onPercentChanged: (val) =>
-                  setState(() => _isPrepaymentPercent = val),
+              onPercentChanged: (val) => setState(() => _isPrepaymentPercent = val),
             ),
             const SizedBox(height: AppSpacing.l),
 
@@ -180,11 +172,7 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
             ),
             const SizedBox(height: AppSpacing.xxl),
 
-            AppButton(
-              text: 'Yaratish',
-              isLoading: _isLoading,
-              onPressed: _submit,
-            ),
+            AppButton(text: 'Yaratish', isLoading: _isLoading, onPressed: _submit),
           ],
         ),
       ),
@@ -218,11 +206,7 @@ class _AmountToggleRow extends StatelessWidget {
         ),
         const SizedBox(width: AppSpacing.m),
         Text(context.l10n.amount),
-        Switch(
-          value: isPercent,
-          onChanged: onPercentChanged,
-          activeTrackColor: colors.accent,
-        ),
+        Switch(value: isPercent, onChanged: onPercentChanged, activeTrackColor: colors.accent),
         const Text('%'),
       ],
     );

@@ -46,12 +46,7 @@ class ProductFormVariantCard extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _VariantHeader(
-            index: index,
-            variant: variant,
-            isEnabled: isEnabled,
-            onRemove: onRemove,
-          ),
+          _VariantHeader(index: index, variant: variant, isEnabled: isEnabled, onRemove: onRemove),
           const SizedBox(height: AppSpacing.s),
           _VariantBasicFields(
             variant: variant,
@@ -74,10 +69,7 @@ class ProductFormVariantCard extends ConsumerWidget {
             child: SwitchListTile(
               contentPadding: EdgeInsets.zero,
               dense: true,
-              title: Text(
-                context.l10n.management_productFormIsActive,
-                style: context.text.bodyM,
-              ),
+              title: Text(context.l10n.management_productFormIsActive, style: context.text.bodyM),
               value: variant.isActive ?? true,
               onChanged: isEnabled ? (v) => onChanged('isActive', v) : null,
             ),
@@ -195,11 +187,8 @@ class _VariantMetricsFields extends StatelessWidget {
           hintText: context.l10n.management_productFormWidth,
           isEnabled: isEnabled,
           type: AppTextFieldType.number,
-          controller: TextEditingController(
-            text: variant.widthM?.toString() ?? '',
-          ),
-          onChanged: (v) =>
-              onChanged('widthM', num.tryParse(v == '' ? '0' : v) ?? 0),
+          controller: TextEditingController(text: variant.widthM?.toString() ?? ''),
+          onChanged: (v) => onChanged('widthM', num.tryParse(v == '' ? '0' : v) ?? 0),
         ),
         const SizedBox(height: AppSpacing.s),
         AppTextField(
@@ -215,19 +204,14 @@ class _VariantMetricsFields extends StatelessWidget {
           minRole: Role.admin,
           currentRole: ref
               .watch(authProvider)
-              .maybeWhen(
-                authenticated: (user) => user.role,
-                orElse: () => Role.employee,
-              ),
+              .maybeWhen(authenticated: (user) => user.role, orElse: () => Role.employee),
           child: Column(
             children: [
               AppTextField(
                 hintText: context.l10n.management_productFormCost,
                 isEnabled: isEnabled,
                 type: AppTextFieldType.number,
-                controller: TextEditingController(
-                  text: variant.costPrice ?? '',
-                ),
+                controller: TextEditingController(text: variant.costPrice ?? ''),
                 onChanged: (v) => onChanged('costPrice', v),
               ),
               const SizedBox(height: AppSpacing.s),

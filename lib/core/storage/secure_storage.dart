@@ -25,10 +25,7 @@ class SecureStorage {
   static const _keyPinLockUntil = 'customer_mode_pin_lock_until';
   static const _keyPinErrors = 'customer_mode_pin_errors';
 
-  Future<void> saveTokens({
-    required String access,
-    required String refresh,
-  }) async {
+  Future<void> saveTokens({required String access, required String refresh}) async {
     await Future.wait([
       _storage.write(key: _keyAccess, value: access),
       _storage.write(key: _keyRefresh, value: refresh),
@@ -40,10 +37,7 @@ class SecureStorage {
   Future<String?> getRefreshToken() => _storage.read(key: _keyRefresh);
 
   Future<void> clearTokens() async {
-    await Future.wait([
-      _storage.delete(key: _keyAccess),
-      _storage.delete(key: _keyRefresh),
-    ]);
+    await Future.wait([_storage.delete(key: _keyAccess), _storage.delete(key: _keyRefresh)]);
   }
 
   Future<void> savePin(String pin) => _storage.write(key: _keyPin, value: pin);
@@ -54,10 +48,7 @@ class SecureStorage {
 
   /// PIN brute-force holati (xato soni va qulf muddati) — ilova qayta
   /// ochilganda ham saqlanib qoladi (§12).
-  Future<void> savePinLock({
-    required int errorCount,
-    DateTime? lockUntil,
-  }) async {
+  Future<void> savePinLock({required int errorCount, DateTime? lockUntil}) async {
     await Future.wait([
       _storage.write(key: _keyPinErrors, value: errorCount.toString()),
       lockUntil == null

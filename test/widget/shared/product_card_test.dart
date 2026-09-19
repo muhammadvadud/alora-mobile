@@ -21,18 +21,14 @@ void main() {
   Widget wrap(Widget card) => SizedBox(width: 300, child: card);
 
   group('ProductCard Widget Testlari', () {
-    testWidgets('perSqm uchun 4:5 nisbat ishlatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('perSqm uchun 4:5 nisbat ishlatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(wrap(const ProductCard(data: product)).pumpApp());
 
       final aspectRatio = tester.widget<AspectRatio>(find.byType(AspectRatio));
       expect(aspectRatio.aspectRatio, 0.8);
     });
 
-    testWidgets('perPiece uchun 1:1 nisbat ishlatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('perPiece uchun 1:1 nisbat ishlatiladi', (WidgetTester tester) async {
       const productPerPiece = ProductCardData(
         id: 'p2',
         name: 'Pul',
@@ -42,9 +38,7 @@ void main() {
         colorName: 'Brass',
       );
 
-      await tester.pumpWidget(
-        wrap(const ProductCard(data: productPerPiece)).pumpApp(),
-      );
+      await tester.pumpWidget(wrap(const ProductCard(data: productPerPiece)).pumpApp());
 
       final aspectRatio = tester.widget<AspectRatio>(find.byType(AspectRatio));
       expect(aspectRatio.aspectRatio, 1.0);
@@ -56,9 +50,7 @@ void main() {
       expect(find.text('Atlas'), findsOneWidget);
     });
 
-    testWidgets('rang doirasi va rang nomi ko\'rsatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('rang doirasi va rang nomi ko\'rsatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(wrap(const ProductCard(data: product)).pumpApp());
 
       expect(find.text('Yashil'), findsOneWidget);
@@ -84,16 +76,12 @@ void main() {
         colorName: 'Oq',
       );
 
-      await tester.pumpWidget(
-        wrap(const ProductCard(data: perPieceProduct)).pumpApp(),
-      );
+      await tester.pumpWidget(wrap(const ProductCard(data: perPieceProduct)).pumpApp());
 
       expect(find.textContaining('so\'m/dona'), findsOneWidget);
     });
 
-    testWidgets('onTap callback bosilganda chaqiriladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('onTap callback bosilganda chaqiriladi', (WidgetTester tester) async {
       bool tapped = false;
 
       await tester.pumpWidget(
@@ -113,9 +101,7 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    testWidgets('isCarousel rejimda eni 180 ga cheklanadi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('isCarousel rejimda eni 180 ga cheklanadi', (WidgetTester tester) async {
       const shortProduct = ProductCardData(
         id: 'p6',
         name: 'Ip',
@@ -125,9 +111,7 @@ void main() {
         colorName: 'Yashil',
       );
 
-      await tester.pumpWidget(
-        const ProductCard(data: shortProduct, isCarousel: true).pumpApp(),
-      );
+      await tester.pumpWidget(const ProductCard(data: shortProduct, isCarousel: true).pumpApp());
 
       final sizedBoxes = find.descendant(
         of: find.byType(ProductCard),
@@ -155,16 +139,12 @@ void main() {
         colorName: 'Ko\'k',
       );
 
-      await tester.pumpWidget(
-        wrap(const ProductCard(data: noImageProduct)).pumpApp(),
-      );
+      await tester.pumpWidget(wrap(const ProductCard(data: noImageProduct)).pumpApp());
 
       expect(find.byType(Icon), findsWidgets);
     });
 
-    testWidgets('rasm xatosi holatida errorWidget ko\'rsatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('rasm xatosi holatida errorWidget ko\'rsatiladi', (WidgetTester tester) async {
       const imageProduct = ProductCardData(
         id: 'p5',
         name: 'Rasmli chapga',
@@ -175,9 +155,7 @@ void main() {
         colorName: 'Qizil',
       );
 
-      await tester.pumpWidget(
-        wrap(const ProductCard(data: imageProduct)).pumpApp(),
-      );
+      await tester.pumpWidget(wrap(const ProductCard(data: imageProduct)).pumpApp());
 
       expect(find.byType(ProductCard), findsOneWidget);
     });

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
-import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
-    show authProvider;
+import 'package:alora_mobile/features/auth/application/auth_notifier.dart' show authProvider;
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_dialog.dart';
 

@@ -6,10 +6,8 @@ enum PricingTier { cheap, mid, premium, unknown }
 
 @freezed
 abstract class PricingOptionLine with _$PricingOptionLine {
-  const factory PricingOptionLine({
-    required String title,
-    required String value,
-  }) = _PricingOptionLine;
+  const factory PricingOptionLine({required String title, required String value}) =
+      _PricingOptionLine;
 }
 
 @freezed
@@ -25,6 +23,5 @@ abstract class PricingOption with _$PricingOption {
 
 @freezed
 abstract class PricingOptions with _$PricingOptions {
-  const factory PricingOptions({required List<PricingOption> options}) =
-      _PricingOptions;
+  const factory PricingOptions({required List<PricingOption> options}) = _PricingOptions;
 }

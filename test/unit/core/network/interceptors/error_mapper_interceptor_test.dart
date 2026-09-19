@@ -17,19 +17,16 @@ void main() {
     dioAdapter = DioAdapter(dio: dio);
   });
 
-  test(
-    "har xaritalangan Failure onFailure callback'iga uzatiladi (19.10)",
-    () async {
-      dioAdapter.onGet('/test', (server) => server.reply(503, {'detail': 'x'}));
+  test("har xaritalangan Failure onFailure callback'iga uzatiladi (19.10)", () async {
+    dioAdapter.onGet('/test', (server) => server.reply(503, {'detail': 'x'}));
 
-      try {
-        await dio.get('/test');
-        fail('Exception kutilgan edi');
-      } on DioException catch (_) {
-        expect(reported, [const Failure.serviceUnavailable()]);
-      }
-    },
-  );
+    try {
+      await dio.get('/test');
+      fail('Exception kutilgan edi');
+    } on DioException catch (_) {
+      expect(reported, [const Failure.serviceUnavailable()]);
+    }
+  });
 
   test('400 Bad Request -> ValidationFailure', () async {
     dioAdapter.onGet(
@@ -57,38 +54,35 @@ void main() {
     }
   });
 
-  test(
-    '400 nested fieldErrors (variants.0.price) to\'g\'ri parse qilinadi',
-    () async {
-      dioAdapter.onGet(
-        '/test',
-        (server) => server.reply(400, {
-          'detail': 'Validatsiya xatosi',
-          'code': 'validation_error',
-          'errors': {
-            'variants': {
-              '0': {'price': 'Manfiy bo\'lmasligi kerak'},
-            },
+  test('400 nested fieldErrors (variants.0.price) to\'g\'ri parse qilinadi', () async {
+    dioAdapter.onGet(
+      '/test',
+      (server) => server.reply(400, {
+        'detail': 'Validatsiya xatosi',
+        'code': 'validation_error',
+        'errors': {
+          'variants': {
+            '0': {'price': 'Manfiy bo\'lmasligi kerak'},
           },
-        }),
-      );
+        },
+      }),
+    );
 
-      try {
-        await dio.get('/test');
-        fail('Exception kutilgan edi');
-      } on DioException catch (e) {
-        final failure = e.error as Failure;
-        failure.maybeWhen(
-          validation: (detail, errors) {
-            expect(detail, 'Validatsiya xatosi');
-            // nested errors string formatda qaytariladi
-            expect(errors.isNotEmpty, isTrue);
-          },
-          orElse: () => fail('Noto\'g\'ri failure turi'),
-        );
-      }
-    },
-  );
+    try {
+      await dio.get('/test');
+      fail('Exception kutilgan edi');
+    } on DioException catch (e) {
+      final failure = e.error as Failure;
+      failure.maybeWhen(
+        validation: (detail, errors) {
+          expect(detail, 'Validatsiya xatosi');
+          // nested errors string formatda qaytariladi
+          expect(errors.isNotEmpty, isTrue);
+        },
+        orElse: () => fail('Noto\'g\'ri failure turi'),
+      );
+    }
+  });
 
   test('timeout -> NetworkFailure', () async {
     dioAdapter.onGet(
@@ -198,10 +192,7 @@ void main() {
   });
 
   test('429 -> LimitFailure', () async {
-    dioAdapter.onGet(
-      '/test',
-      (server) => server.reply(429, {'detail': 'Limit oshdi'}),
-    );
+    dioAdapter.onGet('/test', (server) => server.reply(429, {'detail': 'Limit oshdi'}));
     try {
       await dio.get('/test');
     } on DioException catch (e) {
@@ -246,10 +237,7 @@ void main() {
   });
 
   test('400 Bad Request without errors -> ValidationFailure(empty)', () async {
-    dioAdapter.onGet(
-      '/test',
-      (server) => server.reply(400, {'detail': 'xato'}),
-    );
+    dioAdapter.onGet('/test', (server) => server.reply(400, {'detail': 'xato'}));
     try {
       await dio.get('/test');
     } on DioException catch (e) {

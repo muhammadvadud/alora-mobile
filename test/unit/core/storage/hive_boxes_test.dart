@@ -12,9 +12,7 @@ class _PathProviderChannelMock {
 
   static void setDocumentsPath(String path) {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    binding.defaultBinaryMessenger.setMockMethodCallHandler(_channel, (
-      call,
-    ) async {
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(_channel, (call) async {
       if (call.method == 'getApplicationDocumentsDirectory') return path;
       return null;
     });
@@ -93,33 +91,27 @@ void main() {
     await reopened.close();
   });
 
-  test(
-    'open: cipher bilan yozilgan qiymat o\'qiladi, ochiq box qayta ishlatiladi',
-    () async {
-      HiveBoxes.configureCipher(List<int>.generate(32, (i) => i));
-      final box = await HiveBoxes.open<String>('cipher_box');
-      await box.put('k', 'v');
-      final same = await HiveBoxes.open<String>('cipher_box');
-      expect(identical(box, same), isTrue);
-      expect(same.get('k'), 'v');
-      await box.deleteFromDisk();
-    },
-  );
+  test('open: cipher bilan yozilgan qiymat o\'qiladi, ochiq box qayta ishlatiladi', () async {
+    HiveBoxes.configureCipher(List<int>.generate(32, (i) => i));
+    final box = await HiveBoxes.open<String>('cipher_box');
+    await box.put('k', 'v');
+    final same = await HiveBoxes.open<String>('cipher_box');
+    expect(identical(box, same), isTrue);
+    expect(same.get('k'), 'v');
+    await box.deleteFromDisk();
+  });
 
-  test(
-    'clearUserData: foydalanuvchi box\'lari tozalanadi, katalog qoladi',
-    () async {
-      final conv = await HiveBoxes.open<dynamic>(HiveBoxes.conversations);
-      final catalog = await HiveBoxes.open<dynamic>(HiveBoxes.catalogProducts);
-      await conv.put('a', '1');
-      await catalog.put('p', '1');
+  test('clearUserData: foydalanuvchi box\'lari tozalanadi, katalog qoladi', () async {
+    final conv = await HiveBoxes.open<dynamic>(HiveBoxes.conversations);
+    final catalog = await HiveBoxes.open<dynamic>(HiveBoxes.catalogProducts);
+    await conv.put('a', '1');
+    await catalog.put('p', '1');
 
-      await HiveBoxes.clearUserData();
+    await HiveBoxes.clearUserData();
 
-      expect(conv.isEmpty, isTrue);
-      expect(catalog.get('p'), '1');
-      await conv.deleteFromDisk();
-      await catalog.deleteFromDisk();
-    },
-  );
+    expect(conv.isEmpty, isTrue);
+    expect(catalog.get('p'), '1');
+    await conv.deleteFromDisk();
+    await catalog.deleteFromDisk();
+  });
 }

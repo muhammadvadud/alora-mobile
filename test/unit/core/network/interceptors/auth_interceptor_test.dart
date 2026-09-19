@@ -39,8 +39,7 @@ void main() {
   });
 
   test('oddiy so\'rovga Bearer token qo\'shiladi', () async {
-    when(() => secureStorage.getAccessToken())
-        .thenAnswer((_) async => 'my_token');
+    when(() => secureStorage.getAccessToken()).thenAnswer((_) async => 'my_token');
 
     final options = RequestOptions(path: 'orders/');
     final handler = _FakeHandler();
@@ -75,10 +74,7 @@ class _FakeHandler extends RequestInterceptorHandler {
   }
 
   @override
-  void resolve(
-    Response<Object?> response, [
-    bool callFollowingResponseInterceptor = false,
-  ]) {
+  void resolve(Response<Object?> response, [bool callFollowingResponseInterceptor = false]) {
     this.response = response;
   }
 }

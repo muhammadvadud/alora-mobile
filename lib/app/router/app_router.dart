@@ -69,10 +69,7 @@ String? resolveRedirect({
   required bool customerModeEnabled,
   required String location,
 }) {
-  final isAuthenticated = auth.maybeWhen(
-    authenticated: (_) => true,
-    orElse: () => false,
-  );
+  final isAuthenticated = auth.maybeWhen(authenticated: (_) => true, orElse: () => false);
   final isUnknown = auth.maybeWhen(unknown: () => true, orElse: () => false);
 
   if (isUnknown) return null;
@@ -129,23 +126,13 @@ final _profileNavKey = GlobalKey<NavigatorState>();
 
 List<RouteBase> _routes() {
   return [
-    GoRoute(
-      path: AppRoutes.login,
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.forbidden,
-      builder: (context, state) => const ForbiddenScreen(),
-    ),
+    GoRoute(path: AppRoutes.login, builder: (context, state) => const LoginScreen()),
+    GoRoute(path: AppRoutes.forbidden, builder: (context, state) => const ForbiddenScreen()),
     if (Env.isDev)
-      GoRoute(
-        path: AppRoutes.devGallery,
-        builder: (context, state) => const ComponentGallery(),
-      ),
+      GoRoute(path: AppRoutes.devGallery, builder: (context, state) => const ComponentGallery()),
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) => CustomerModePopScope(
-        child: AloraShell(navigationShell: navigationShell),
-      ),
+      builder: (context, state, navigationShell) =>
+          CustomerModePopScope(child: AloraShell(navigationShell: navigationShell)),
       branches: [
         StatefulShellBranch(
           navigatorKey: _chatNavKey,
@@ -156,9 +143,8 @@ List<RouteBase> _routes() {
               routes: [
                 GoRoute(
                   path: ':conversationId',
-                  builder: (_, state) => ChatScreen(
-                    conversationId: state.pathParameters['conversationId'],
-                  ),
+                  builder: (_, state) =>
+                      ChatScreen(conversationId: state.pathParameters['conversationId']),
                 ),
               ],
             ),
@@ -174,15 +160,12 @@ List<RouteBase> _routes() {
                 GoRoute(
                   path: 'new',
                   builder: (_, state) => OrderFormScreen(
-                    initialDraft: state.extra is OrderDraft
-                        ? state.extra as OrderDraft
-                        : null,
+                    initialDraft: state.extra is OrderDraft ? state.extra as OrderDraft : null,
                   ),
                 ),
                 GoRoute(
                   path: ':orderId',
-                  builder: (_, state) =>
-                      OrdersScreen(orderId: state.pathParameters['orderId']),
+                  builder: (_, state) => OrdersScreen(orderId: state.pathParameters['orderId']),
                 ),
               ],
             ),
@@ -197,9 +180,8 @@ List<RouteBase> _routes() {
               routes: [
                 GoRoute(
                   path: 'products/:productId',
-                  builder: (_, state) => ProductScreen(
-                    productId: state.pathParameters['productId']!,
-                  ),
+                  builder: (_, state) =>
+                      ProductScreen(productId: state.pathParameters['productId']!),
                 ),
               ],
             ),
@@ -216,43 +198,26 @@ List<RouteBase> _routes() {
                   path: 'products',
                   builder: (_, _) => const ProductsManageScreen(),
                   routes: [
-                    GoRoute(
-                      path: 'new',
-                      builder: (_, _) => const ProductFormScreen(),
-                    ),
+                    GoRoute(path: 'new', builder: (_, _) => const ProductFormScreen()),
                     GoRoute(
                       path: ':id/edit',
-                      builder: (_, state) => ProductFormScreen(
-                        productId: state.pathParameters['id'],
-                      ),
+                      builder: (_, state) =>
+                          ProductFormScreen(productId: state.pathParameters['id']),
                     ),
                   ],
                 ),
-                GoRoute(
-                  path: 'pricing',
-                  builder: (_, _) => const PricingRulesScreen(),
-                ),
-                GoRoute(
-                  path: 'knowledge',
-                  builder: (_, _) => const KnowledgeScreen(),
-                ),
-                GoRoute(
-                  path: 'settings/prompt',
-                  builder: (_, _) => const SystemPromptScreen(),
-                ),
-                GoRoute(
-                  path: 'settings/models',
-                  builder: (_, _) => const ModelPricingsScreen(),
-                ),
+                GoRoute(path: 'pricing', builder: (_, _) => const PricingRulesScreen()),
+                GoRoute(path: 'knowledge', builder: (_, _) => const KnowledgeScreen()),
+                GoRoute(path: 'settings/prompt', builder: (_, _) => const SystemPromptScreen()),
+                GoRoute(path: 'settings/models', builder: (_, _) => const ModelPricingsScreen()),
                 GoRoute(
                   path: 'employees',
                   builder: (_, _) => const EmployeesScreen(),
                   routes: [
                     GoRoute(
                       path: ':employeeId',
-                      builder: (_, state) => EmployeeDetailScreen(
-                        employeeId: state.pathParameters['employeeId']!,
-                      ),
+                      builder: (_, state) =>
+                          EmployeeDetailScreen(employeeId: state.pathParameters['employeeId']!),
                       routes: [
                         GoRoute(
                           path: 'conversations',
@@ -263,8 +228,7 @@ List<RouteBase> _routes() {
                             GoRoute(
                               path: ':conversationId',
                               builder: (_, state) => TranscriptScreen(
-                                conversationId:
-                                    state.pathParameters['conversationId']!,
+                                conversationId: state.pathParameters['conversationId']!,
                               ),
                             ),
                           ],
@@ -279,12 +243,7 @@ List<RouteBase> _routes() {
         ),
         StatefulShellBranch(
           navigatorKey: _profileNavKey,
-          routes: [
-            GoRoute(
-              path: AppRoutes.profile,
-              builder: (_, _) => const ProfileScreen(),
-            ),
-          ],
+          routes: [GoRoute(path: AppRoutes.profile, builder: (_, _) => const ProfileScreen())],
         ),
       ],
     ),

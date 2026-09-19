@@ -62,8 +62,7 @@ class ProductDto {
     this.variants = const [],
   });
 
-  factory ProductDto.fromJson(Map<String, dynamic> json) =>
-      _$ProductDtoFromJson(json);
+  factory ProductDto.fromJson(Map<String, dynamic> json) => _$ProductDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductDtoToJson(this);
 }

@@ -152,9 +152,7 @@ class _OrderCardContent extends ConsumerWidget {
                 children: [
                   MoneyText(
                     amount: order.total ?? 0,
-                    style: typography.titleM.copyWith(
-                      color: colors.textPrimary,
-                    ),
+                    style: typography.titleM.copyWith(color: colors.textPrimary),
                   ),
                   if (order.paymentStatusDisplay != null)
                     Padding(
@@ -163,19 +161,15 @@ class _OrderCardContent extends ConsumerWidget {
                     ),
                 ],
               ),
-              Text(
-                deadlineText,
-                style: typography.bodyS.copyWith(color: deadlineColor),
-              ),
+              Text(deadlineText, style: typography.bodyS.copyWith(color: deadlineColor)),
             ],
           ),
           if (order.status == OrderStatus.draft) ...[
             const SizedBox(height: AppSpacing.m),
             AppButton(
               text: context.l10n.orders_confirm,
-              onPressed: () => unawaited(
-                ref.read(ordersListProvider.notifier).confirmOrder(order.id),
-              ),
+              onPressed: () =>
+                  unawaited(ref.read(ordersListProvider.notifier).confirmOrder(order.id)),
             ),
           ],
         ],
@@ -202,10 +196,7 @@ class _SwipeBackground extends StatelessWidget {
     return Container(
       alignment: alignment,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: AppRadius.cardBorder,
-      ),
+      decoration: BoxDecoration(color: color, borderRadius: AppRadius.cardBorder),
       child: Icon(icon, color: iconColor),
     );
   }

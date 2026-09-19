@@ -40,9 +40,7 @@ class ProfileHeader extends StatelessWidget {
                   Flexible(
                     child: Text(
                       user.phone,
-                      style: typography.bodyM.copyWith(
-                        color: colors.textSecondary,
-                      ),
+                      style: typography.bodyM.copyWith(color: colors.textSecondary),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -67,18 +65,9 @@ class _RolePill extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.m,
-        vertical: AppSpacing.xs,
-      ),
-      decoration: BoxDecoration(
-        color: colors.accentSoft,
-        borderRadius: AppRadius.pillBorder,
-      ),
-      child: Text(
-        roleLabel,
-        style: context.text.labelS.copyWith(color: colors.accent),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.m, vertical: AppSpacing.xs),
+      decoration: BoxDecoration(color: colors.accentSoft, borderRadius: AppRadius.pillBorder),
+      child: Text(roleLabel, style: context.text.labelS.copyWith(color: colors.accent)),
     );
   }
 }

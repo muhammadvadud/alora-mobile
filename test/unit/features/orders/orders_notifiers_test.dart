@@ -77,11 +77,7 @@ void main() {
           url: 'nextUrl',
         ),
       ).thenAnswer(
-        (_) async => Paginated<Order>(
-          next: null,
-          previous: null,
-          results: [_mockOrder(id: '2')],
-        ),
+        (_) async => Paginated<Order>(next: null, previous: null, results: [_mockOrder(id: '2')]),
       );
 
       await container.read(ordersListProvider.notifier).loadMore();
@@ -92,9 +88,7 @@ void main() {
       expect(state.nextUrl, null);
 
       // Test filter by status
-      container
-          .read(ordersListFilterProvider.notifier)
-          .updateStatus('confirmed');
+      container.read(ordersListFilterProvider.notifier).updateStatus('confirmed');
       // updating filter invalidates provider, wait we just call build again manually or read future.
       // Actually OrdersListNotifier depends on filter so reading future should trigger a new fetch.
       when(
@@ -103,11 +97,7 @@ void main() {
           search: any(named: 'search'),
         ),
       ).thenAnswer(
-        (_) async => Paginated<Order>(
-          next: null,
-          previous: null,
-          results: [_mockOrder(id: '3')],
-        ),
+        (_) async => Paginated<Order>(next: null, previous: null, results: [_mockOrder(id: '3')]),
       );
 
       state = await container.read(ordersListProvider.future);
@@ -115,31 +105,23 @@ void main() {
 
       // Test search
       container.read(ordersListFilterProvider.notifier).updateSearch('John');
-      when(() => mockRepo.getOrders(status: 'confirmed', search: 'John'))
-          .thenAnswer(
-            (_) async => Paginated<Order>(
-              next: null,
-              previous: null,
-              results: [_mockOrder(id: '4')],
-            ),
-          );
+      when(() => mockRepo.getOrders(status: 'confirmed', search: 'John')).thenAnswer(
+        (_) async => Paginated<Order>(next: null, previous: null, results: [_mockOrder(id: '4')]),
+      );
 
       state = await container.read(ordersListProvider.future);
       expect(state.items.first.id, '4');
     });
 
     test('OrderDetailNotifier confirm updates detail', () async {
-      when(() => mockRepo.getOrder('1')).thenAnswer(
-        (_) async => _mockOrder(id: '1').copyWith(status: OrderStatus.draft),
-      );
+      when(() => mockRepo.getOrder('1'))
+          .thenAnswer((_) async => _mockOrder(id: '1').copyWith(status: OrderStatus.draft));
 
       var detail = await container.read(orderDetailProvider('1').future);
       expect(detail.status, OrderStatus.draft);
 
-      when(() => mockRepo.confirmOrder('1')).thenAnswer(
-        (_) async =>
-            _mockOrder(id: '1').copyWith(status: OrderStatus.confirmed),
-      );
+      when(() => mockRepo.confirmOrder('1'))
+          .thenAnswer((_) async => _mockOrder(id: '1').copyWith(status: OrderStatus.confirmed));
 
       await container.read(orderDetailProvider('1').notifier).confirmOrder();
 

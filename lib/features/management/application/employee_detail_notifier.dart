@@ -32,10 +32,7 @@ class EmployeeDetailNotifier extends _$EmployeeDetailNotifier {
   }
 
   /// Profil (ism, rol) yangilash.
-  Future<void> updateProfile({
-    required String fullName,
-    required Role role,
-  }) async {
+  Future<void> updateProfile({required String fullName, required Role role}) async {
     try {
       final repository = ref.read(teamRepositoryProvider);
       await repository.updateEmployee(
@@ -52,10 +49,7 @@ class EmployeeDetailNotifier extends _$EmployeeDetailNotifier {
   Future<void> toggleBlocked(bool blocked) async {
     try {
       final repository = ref.read(teamRepositoryProvider);
-      await repository.updateEmployee(
-        id: employeeId,
-        patch: {'is_active': !blocked},
-      );
+      await repository.updateEmployee(id: employeeId, patch: {'is_active': !blocked});
       await load();
     } on Failure catch (_) {
       rethrow;
@@ -66,15 +60,11 @@ class EmployeeDetailNotifier extends _$EmployeeDetailNotifier {
   Future<void> setLimit({required Map<String, dynamic> body}) async {
     final repository = ref.read(teamRepositoryProvider);
     final limit = await repository.setEmployeeLimit(id: employeeId, body: body);
-    final current = state.maybeWhen(
-      loaded: (employee, _) => employee,
-      orElse: () => null,
-    );
+    final current = state.maybeWhen(loaded: (employee, _) => employee, orElse: () => null);
     if (current != null) {
       state = EmployeeDetailState.loaded(employee: current, limit: limit);
     }
   }
 
-  UsageLimit? get limit =>
-      state.maybeWhen(loaded: (_, limit) => limit, orElse: () => null);
+  UsageLimit? get limit => state.maybeWhen(loaded: (_, limit) => limit, orElse: () => null);
 }

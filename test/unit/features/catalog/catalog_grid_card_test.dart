@@ -32,14 +32,13 @@ ProductVariant _makeVariant({
   images: images,
 );
 
-ProductImage _makeImage({required String id, bool isPrimary = false}) =>
-    ProductImage(
-      id: id,
-      productId: 'prod-1',
-      variantId: 'var-1',
-      imageUrl: 'https://example.com/$id.jpg',
-      isPrimary: isPrimary,
-    );
+ProductImage _makeImage({required String id, bool isPrimary = false}) => ProductImage(
+  id: id,
+  productId: 'prod-1',
+  variantId: 'var-1',
+  imageUrl: 'https://example.com/$id.jpg',
+  isPrimary: isPrimary,
+);
 
 void main() {
   group('productToCardData', () {

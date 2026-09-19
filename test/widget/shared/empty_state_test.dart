@@ -8,19 +8,14 @@ void main() {
   group('EmptyState Widget Testlari', () {
     testWidgets('sarlavha va matn ko\'rsatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const EmptyState(
-          title: 'Suhbat yo\'q',
-          message: 'Yangi suhbat boshlang',
-        ).pumpApp(),
+        const EmptyState(title: 'Suhbat yo\'q', message: 'Yangi suhbat boshlang').pumpApp(),
       );
 
       expect(find.text('Suhbat yo\'q'), findsOneWidget);
       expect(find.text('Yangi suhbat boshlang'), findsOneWidget);
     });
 
-    testWidgets('tugma bosilganda onTap callback chaqiriladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('tugma bosilganda onTap callback chaqiriladi', (WidgetTester tester) async {
       bool tapped = false;
 
       await tester.pumpWidget(
@@ -40,9 +35,7 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    testWidgets('actionText yo\'q bo\'lsa tugma ko\'rinmaydi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('actionText yo\'q bo\'lsa tugma ko\'rinmaydi', (WidgetTester tester) async {
       await tester.pumpWidget(const EmptyState(title: 'Sarlavha').pumpApp());
 
       expect(find.text('Sarlavha'), findsOneWidget);
@@ -50,9 +43,7 @@ void main() {
     });
 
     testWidgets('icon ko\'rsatiladi', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const EmptyState(title: 'Sarlavha', icon: Icons.inbox).pumpApp(),
-      );
+      await tester.pumpWidget(const EmptyState(title: 'Sarlavha', icon: Icons.inbox).pumpApp());
 
       expect(find.byIcon(Icons.inbox), findsOneWidget);
     });

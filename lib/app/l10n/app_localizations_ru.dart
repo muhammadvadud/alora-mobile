@@ -28,8 +28,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get common_loading => 'Загрузка…';
 
   @override
-  String get common_noInternet =>
-      'Нет интернета. Будет отправлено при восстановлении';
+  String get common_noInternet => 'Нет интернета. Будет отправлено при восстановлении';
 
   @override
   String get common_error => 'Произошла ошибка';
@@ -183,8 +182,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get forbidden_title => 'Нет доступа';
 
   @override
-  String get forbidden_text =>
-      'В этот раздел могут входить только менеджер или администратор';
+  String get forbidden_text => 'В этот раздел могут входить только менеджер или администратор';
 
   @override
   String get catalog_searchHint => 'Поиск товаров';
@@ -421,8 +419,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get conversations_archiveDialogTitle => 'Архивировать чат?';
 
   @override
-  String get conversations_archiveDialogMessage =>
-      'Чат будет перемещён в архив';
+  String get conversations_archiveDialogMessage => 'Чат будет перемещён в архив';
 
   @override
   String get chat_emptyTitle => 'Что ищет клиент?';
@@ -665,8 +662,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profile_logoutConfirmTitle => 'Выйти?';
 
   @override
-  String get profile_logoutConfirmMessage =>
-      'Вы уверены, что хотите выйти из аккаунта?';
+  String get profile_logoutConfirmMessage => 'Вы уверены, что хотите выйти из аккаунта?';
 
   @override
   String get profile_roleEmployee => 'Сотрудник';
@@ -820,16 +816,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_employeeConversationsTitle => 'Диалоги сотрудника';
 
   @override
-  String get management_employeeBlockConfirmTitle =>
-      'Заблокировать сотрудника?';
+  String get management_employeeBlockConfirmTitle => 'Заблокировать сотрудника?';
 
   @override
   String get management_employeeBlockConfirmMessage =>
       'Заблокированный сотрудник не сможет войти в систему. Продолжить?';
 
   @override
-  String get management_employeeUnblockConfirmTitle =>
-      'Разблокировать сотрудника?';
+  String get management_employeeUnblockConfirmTitle => 'Разблокировать сотрудника?';
 
   @override
   String get management_employeeUnblockConfirmMessage =>
@@ -839,8 +833,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_conversationsEmptyTitle => 'Диалогов нет';
 
   @override
-  String get management_conversationsEmptyMessage =>
-      'У этого сотрудника пока нет диалогов';
+  String get management_conversationsEmptyMessage => 'У этого сотрудника пока нет диалогов';
 
   @override
   String get management_transcriptTitle => 'Транскрипт';
@@ -864,15 +857,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_employeeUnblock => 'Разблокировать';
 
   @override
-  String get management_employeesEmptyMessage =>
-      'В команде пока нет сотрудников';
+  String get management_employeesEmptyMessage => 'В команде пока нет сотрудников';
 
   @override
   String get management_employeesEmptyTitle => 'Сотрудники не найдены';
 
   @override
-  String get management_employeesSearchEmptyMessage =>
-      'Попробуйте другой запрос';
+  String get management_employeesSearchEmptyMessage => 'Попробуйте другой запрос';
 
   @override
   String get management_employeesSearchEmptyTitle => 'Ничего не найдено';
@@ -917,8 +908,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_pricingTitle => 'Правила ценообразования';
 
   @override
-  String get management_pricingCoefficients =>
-      'Коэффициенты — инлайн-редактирование';
+  String get management_pricingCoefficients => 'Коэффициенты — инлайн-редактирование';
 
   @override
   String get management_pricingTiers => 'Таблица уровней скидок';
@@ -1024,8 +1014,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Максимальные лимиты ручной скидки. Предложение ИИ не превышает лимит.';
 
   @override
-  String get management_pricingStackWithTier =>
-      'Складывать со ступенчатой скидкой';
+  String get management_pricingStackWithTier => 'Складывать со ступенчатой скидкой';
 
   @override
   String get management_pricingDeadlineDays => 'Срок (дней)';
@@ -1049,8 +1038,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_knowledgeEmptyTitle => 'Правил нет';
 
   @override
-  String get management_knowledgeEmptyMessage =>
-      'Пока не добавлены правила знаний';
+  String get management_knowledgeEmptyMessage => 'Пока не добавлены правила знаний';
 
   @override
   String get management_knowledgeErrorTitle => 'Не удалось загрузить';
@@ -1089,8 +1077,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_productsEmptyTitle => 'Товары не найдены';
 
   @override
-  String get management_productsEmptyMessage =>
-      'Измените условия поиска или фильтра';
+  String get management_productsEmptyMessage => 'Измените условия поиска или фильтра';
 
   @override
   String get management_productsLoadError => 'Не удалось загрузить';
@@ -1163,8 +1150,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_productFormRemoveVariantTitle => 'Удалить вариант?';
 
   @override
-  String get management_productFormRemoveVariantMessage =>
-      'Это действие нельзя отменить';
+  String get management_productFormRemoveVariantMessage => 'Это действие нельзя отменить';
 
   @override
   String get management_productFormRemoveVariant => 'Удалить';
@@ -1266,8 +1252,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settings_rollbackConfirmTitle => 'Вернуться к версии?';
 
   @override
-  String get settings_rollbackConfirmMessage =>
-      'Действительно вернуться к этой версии?';
+  String get settings_rollbackConfirmMessage => 'Действительно вернуться к этой версии?';
 
   @override
   String get settings_authorUnknown => 'Неизвестно';

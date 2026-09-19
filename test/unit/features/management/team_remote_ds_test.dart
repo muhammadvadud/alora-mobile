@@ -21,9 +21,7 @@ class _ValidationErrorInterceptor extends InterceptorsWrapper {
           fieldErrors[key.toString()] = value.toString();
         });
       }
-      final detail = data is Map<String, dynamic>
-          ? data['detail']?.toString() ?? ''
-          : '';
+      final detail = data is Map<String, dynamic> ? data['detail']?.toString() ?? '' : '';
       handler.next(
         DioException(
           requestOptions: err.requestOptions,
@@ -147,10 +145,7 @@ void main() {
       }),
     );
 
-    final dto = await dataSource.setEmployeeLimit(
-      id: 'employee-1',
-      body: {'is_unlimited': true},
-    );
+    final dto = await dataSource.setEmployeeLimit(id: 'employee-1', body: {'is_unlimited': true});
 
     expect(lastBody, {'is_unlimited': true});
     expect(dto.isUnlimited, isFalse);

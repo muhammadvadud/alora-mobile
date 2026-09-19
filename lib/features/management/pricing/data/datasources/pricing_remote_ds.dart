@@ -13,15 +13,10 @@ abstract class PricingRemoteDataSource {
   Future<List<CalcRuleDto>> patchCalcRules(List<Map<String, dynamic>> rules);
   Future<CalcRuleDto> patchCalcRule(String key, Map<String, dynamic> data);
   Future<List<ServicePriceDto>> getServices();
-  Future<List<ServicePriceDto>> patchServices(
-    List<Map<String, dynamic>> services,
-  );
+  Future<List<ServicePriceDto>> patchServices(List<Map<String, dynamic>> services);
   Future<List<DiscountTierDto>> getDiscountTiers();
   Future<DiscountTierDto> createDiscountTier(Map<String, dynamic> data);
-  Future<DiscountTierDto> patchDiscountTier(
-    String id,
-    Map<String, dynamic> data,
-  );
+  Future<DiscountTierDto> patchDiscountTier(String id, Map<String, dynamic> data);
   Future<void> deleteDiscountTier(String id);
   Future<DiscountPolicyDto> getDiscountPolicy();
   Future<DiscountPolicyDto> patchDiscountPolicy(Map<String, dynamic> data);
@@ -35,9 +30,7 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
   PricingRemoteDataSourceImpl(this._dio);
 
   @override
-  Future<CalcPreviewResponseDto> calcPreview(
-    CalcPreviewRequestDto request,
-  ) async {
+  Future<CalcPreviewResponseDto> calcPreview(CalcPreviewRequestDto request) async {
     final res = await _dio.post(ApiPaths.calcPreview, data: request.toJson());
     return CalcPreviewResponseDto.fromJson(res.data as Map<String, dynamic>);
   }
@@ -45,15 +38,11 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
   @override
   Future<List<CalcRuleDto>> getCalcRules() async {
     final res = await _dio.get(ApiPaths.calcRules);
-    return (res.data as List)
-        .map((e) => CalcRuleDto.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return (res.data as List).map((e) => CalcRuleDto.fromJson(e as Map<String, dynamic>)).toList();
   }
 
   @override
-  Future<List<CalcRuleDto>> patchCalcRules(
-    List<Map<String, dynamic>> rules,
-  ) async {
+  Future<List<CalcRuleDto>> patchCalcRules(List<Map<String, dynamic>> rules) async {
     final res = await _dio.patch(ApiPaths.calcRules, data: {'items': rules});
     if (res.data is List) {
       return (res.data as List)
@@ -64,10 +53,7 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
   }
 
   @override
-  Future<CalcRuleDto> patchCalcRule(
-    String key,
-    Map<String, dynamic> data,
-  ) async {
+  Future<CalcRuleDto> patchCalcRule(String key, Map<String, dynamic> data) async {
     final res = await _dio.patch(ApiPaths.calcRule(key), data: data);
     return CalcRuleDto.fromJson(res.data as Map<String, dynamic>);
   }
@@ -81,9 +67,7 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
   }
 
   @override
-  Future<List<ServicePriceDto>> patchServices(
-    List<Map<String, dynamic>> services,
-  ) async {
+  Future<List<ServicePriceDto>> patchServices(List<Map<String, dynamic>> services) async {
     final res = await _dio.patch(ApiPaths.services, data: {'items': services});
     if (res.data is List) {
       return (res.data as List)
@@ -96,8 +80,7 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
   @override
   Future<List<DiscountTierDto>> getDiscountTiers() async {
     final res = await _dio.get(ApiPaths.discountTiers);
-    if (res.data is Map<String, dynamic> &&
-        (res.data as Map<String, dynamic>)['results'] != null) {
+    if (res.data is Map<String, dynamic> && (res.data as Map<String, dynamic>)['results'] != null) {
       return ((res.data as Map<String, dynamic>)['results'] as List)
           .map((e) => DiscountTierDto.fromJson(e as Map<String, dynamic>))
           .toList();
@@ -114,10 +97,7 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
   }
 
   @override
-  Future<DiscountTierDto> patchDiscountTier(
-    String id,
-    Map<String, dynamic> data,
-  ) async {
+  Future<DiscountTierDto> patchDiscountTier(String id, Map<String, dynamic> data) async {
     final res = await _dio.patch('${ApiPaths.discountTiers}$id/', data: data);
     return DiscountTierDto.fromJson(res.data as Map<String, dynamic>);
   }
@@ -134,9 +114,7 @@ class PricingRemoteDataSourceImpl implements PricingRemoteDataSource {
   }
 
   @override
-  Future<DiscountPolicyDto> patchDiscountPolicy(
-    Map<String, dynamic> data,
-  ) async {
+  Future<DiscountPolicyDto> patchDiscountPolicy(Map<String, dynamic> data) async {
     final res = await _dio.patch(ApiPaths.discountPolicy, data: data);
     return DiscountPolicyDto.fromJson(res.data as Map<String, dynamic>);
   }

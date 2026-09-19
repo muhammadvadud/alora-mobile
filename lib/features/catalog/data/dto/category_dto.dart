@@ -21,8 +21,7 @@ class CategoryDto {
     this.isActive = true,
   });
 
-  factory CategoryDto.fromJson(Map<String, dynamic> json) =>
-      _$CategoryDtoFromJson(json);
+  factory CategoryDto.fromJson(Map<String, dynamic> json) => _$CategoryDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryDtoToJson(this);
 }

@@ -41,20 +41,17 @@ final class ManagementHomeNotifierProvider
   ManagementHomeNotifier create() => ManagementHomeNotifier();
 }
 
-String _$managementHomeNotifierHash() =>
-    r'70f09e31d9caa96a416ca7ded9bdfae1c0d40c3a';
+String _$managementHomeNotifierHash() => r'70f09e31d9caa96a416ca7ded9bdfae1c0d40c3a';
 
 /// Boshqaruv bosh sahifasi (S-19) ma'lumotlarini parallel yuklaydi.
 /// Davr o'zgarsa [managementPeriodProvider] orqali qayta yuklanadi.
 
-abstract class _$ManagementHomeNotifier
-    extends $AsyncNotifier<ManagementHomeData> {
+abstract class _$ManagementHomeNotifier extends $AsyncNotifier<ManagementHomeData> {
   FutureOr<ManagementHomeData> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<ManagementHomeData>, ManagementHomeData>;
+    final ref = this.ref as $Ref<AsyncValue<ManagementHomeData>, ManagementHomeData>;
     final element =
         ref.element
             as $ClassProviderElement<

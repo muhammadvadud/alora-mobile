@@ -39,10 +39,8 @@ class ManagementScreen extends ConsumerWidget {
               const ManagementPeriodToggle(),
               const SizedBox(height: AppSpacing.xl),
               home.maybeWhen(
-                loading: () => const SkeletonList(
-                  itemCount: 4,
-                  itemBuilder: SkeletonBox(height: 84),
-                ),
+                loading: () =>
+                    const SkeletonList(itemCount: 4, itemBuilder: SkeletonBox(height: 84)),
                 error: (error, _) => ErrorState(
                   message: (error as Failure).localizedMessage(context),
                   onRetry: () => ref.invalidate(managementHomeProvider),
@@ -50,10 +48,7 @@ class ManagementScreen extends ConsumerWidget {
                 data: (data) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ManagementStatCards(
-                      usage: data.usage,
-                      conversion: data.conversion,
-                    ),
+                    ManagementStatCards(usage: data.usage, conversion: data.conversion),
                     const SizedBox(height: AppSpacing.xl),
                     ManagementSpendChart(daily: data.usage.daily),
                     const SizedBox(height: AppSpacing.xl),

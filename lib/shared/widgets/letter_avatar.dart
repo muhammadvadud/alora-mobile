@@ -19,17 +19,11 @@ class LetterAvatar extends StatelessWidget {
     return Container(
       width: 36,
       height: 36,
-      decoration: BoxDecoration(
-        color: colors.accent,
-        borderRadius: AppRadius.avatarBorder,
-      ),
+      decoration: BoxDecoration(color: colors.accent, borderRadius: AppRadius.avatarBorder),
       alignment: Alignment.center,
       child: Text(
         _getLetter(),
-        style: context.text.bodyL.copyWith(
-          fontWeight: FontWeight.w600,
-          color: colors.onAccent,
-        ),
+        style: context.text.bodyL.copyWith(fontWeight: FontWeight.w600, color: colors.onAccent),
       ),
     );
   }

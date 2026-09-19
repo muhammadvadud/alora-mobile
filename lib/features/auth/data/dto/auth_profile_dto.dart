@@ -23,8 +23,7 @@ class AuthProfileDto {
     this.managerPhone,
   });
 
-  factory AuthProfileDto.fromJson(Map<String, dynamic> json) =>
-      _$AuthProfileDtoFromJson(json);
+  factory AuthProfileDto.fromJson(Map<String, dynamic> json) => _$AuthProfileDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthProfileDtoToJson(this);
 }

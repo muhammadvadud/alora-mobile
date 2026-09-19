@@ -74,8 +74,7 @@ String formatDate(
   bool short = false,
 }) {
   final locale =
-      overrideLocale ??
-      (context != null ? Localizations.localeOf(context).toString() : 'uz');
+      overrideLocale ?? (context != null ? Localizations.localeOf(context).toString() : 'uz');
   final now = DateTime.now();
   final monthName = short
       ? _getShortMonthName(date.month, locale)
@@ -97,14 +96,9 @@ String formatDate(
 }
 
 /// Sanani nisbiy formatlaydi: Bugun, Kecha, Bu hafta
-String formatRelativeDate(
-  DateTime date, {
-  BuildContext? context,
-  String? overrideLocale,
-}) {
+String formatRelativeDate(DateTime date, {BuildContext? context, String? overrideLocale}) {
   final locale =
-      overrideLocale ??
-      (context != null ? Localizations.localeOf(context).toString() : 'uz');
+      overrideLocale ?? (context != null ? Localizations.localeOf(context).toString() : 'uz');
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   final target = DateTime(date.year, date.month, date.day);

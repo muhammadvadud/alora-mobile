@@ -25,9 +25,8 @@ _OrdersResponseDto _$OrdersResponseDtoFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$OrdersResponseDtoToJson(_OrdersResponseDto instance) =>
-    <String, dynamic>{
-      'next': ?instance.next,
-      'previous': ?instance.previous,
-      'results': instance.results.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$OrdersResponseDtoToJson(_OrdersResponseDto instance) => <String, dynamic>{
+  'next': ?instance.next,
+  'previous': ?instance.previous,
+  'results': instance.results.map((e) => e.toJson()).toList(),
+};

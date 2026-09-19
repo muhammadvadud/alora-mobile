@@ -18,8 +18,7 @@ final sessionExpiredProvider = SessionExpiredNotifierProvider._();
 
 /// Sessiya muddati tugaganligi haqidagi signal (sanoq).
 /// UI qatlami (GlobalListeners) shu o'zgarishni tinglab snackbar ko'rsatadi.
-final class SessionExpiredNotifierProvider
-    extends $NotifierProvider<SessionExpiredNotifier, int> {
+final class SessionExpiredNotifierProvider extends $NotifierProvider<SessionExpiredNotifier, int> {
   /// Sessiya muddati tugaganligi haqidagi signal (sanoq).
   /// UI qatlami (GlobalListeners) shu o'zgarishni tinglab snackbar ko'rsatadi.
   SessionExpiredNotifierProvider._()
@@ -42,15 +41,11 @@ final class SessionExpiredNotifierProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(int value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<int>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<int>(value));
   }
 }
 
-String _$sessionExpiredNotifierHash() =>
-    r'894e426ebad90e5f30af01d9798d3c1c562ba81f';
+String _$sessionExpiredNotifierHash() => r'894e426ebad90e5f30af01d9798d3c1c562ba81f';
 
 /// Sessiya muddati tugaganligi haqidagi signal (sanoq).
 /// UI qatlami (GlobalListeners) shu o'zgarishni tinglab snackbar ko'rsatadi.
@@ -62,13 +57,7 @@ abstract class _$SessionExpiredNotifier extends $Notifier<int> {
   void runBuild() {
     final ref = this.ref as $Ref<int, int>;
     final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<int, int>,
-              int,
-              Object?,
-              Object?
-            >;
+        ref.element as $ClassProviderElement<AnyNotifier<int, int>, int, Object?, Object?>;
     element.handleCreate(ref, build);
   }
 }

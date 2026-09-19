@@ -16,8 +16,7 @@ part of 'employees_notifier.dart';
 final employeesProvider = EmployeesNotifierProvider._();
 
 /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
-final class EmployeesNotifierProvider
-    extends $NotifierProvider<EmployeesNotifier, EmployeesState> {
+final class EmployeesNotifierProvider extends $NotifierProvider<EmployeesNotifier, EmployeesState> {
   /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
   EmployeesNotifierProvider._()
     : super(

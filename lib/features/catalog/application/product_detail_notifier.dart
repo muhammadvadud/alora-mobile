@@ -27,9 +27,7 @@ class ProductDetailNotifier extends _$ProductDetailNotifier {
       state = state.copyWith(
         product: product,
         isLoading: false,
-        selectedVariantId: product.variants.isNotEmpty
-            ? product.variants.first.id
-            : null,
+        selectedVariantId: product.variants.isNotEmpty ? product.variants.first.id : null,
       );
     } on Failure catch (error) {
       state = state.copyWith(isLoading: false, error: error);
@@ -49,9 +47,7 @@ class ProductDetailNotifier extends _$ProductDetailNotifier {
   ProductVariant? get selectedVariant {
     final product = state.product;
     if (product == null || state.selectedVariantId == null) return null;
-    return product.variants
-        .where((v) => v.id == state.selectedVariantId)
-        .firstOrNull;
+    return product.variants.where((v) => v.id == state.selectedVariantId).firstOrNull;
   }
 }
 
@@ -62,12 +58,7 @@ class ProductState {
   final bool isLoading;
   final Failure? error;
 
-  const ProductState({
-    this.product,
-    this.selectedVariantId,
-    this.isLoading = true,
-    this.error,
-  });
+  const ProductState({this.product, this.selectedVariantId, this.isLoading = true, this.error});
 
   ProductState copyWith({
     Product? product,

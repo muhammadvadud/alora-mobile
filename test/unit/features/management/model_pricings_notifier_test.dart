@@ -10,15 +10,13 @@ class MockSettingsRepository implements SettingsRepository {
   List<ModelPricing> models = [];
 
   @override
-  Future<PromptVersion> createPrompt(String content) async =>
-      throw UnimplementedError();
+  Future<PromptVersion> createPrompt(String content) async => throw UnimplementedError();
 
   @override
   Future<PromptHistory> getPromptHistory() async => throw UnimplementedError();
 
   @override
-  Future<PromptVersion> rollbackPrompt(String versionId) async =>
-      throw UnimplementedError();
+  Future<PromptVersion> rollbackPrompt(String versionId) async => throw UnimplementedError();
 
   @override
   Future<ModelPricing> createModelPricing(Map<String, dynamic> body) async {
@@ -48,10 +46,7 @@ class MockSettingsRepository implements SettingsRepository {
   }
 
   @override
-  Future<ModelPricing> updateModelPricing(
-    String id,
-    Map<String, dynamic> body,
-  ) async {
+  Future<ModelPricing> updateModelPricing(String id, Map<String, dynamic> body) async {
     final idx = models.indexWhere((e) => e.id == id);
     if (idx >= 0) {
       models[idx] = ModelPricing(
@@ -73,9 +68,7 @@ class MockSettingsRepository implements SettingsRepository {
 void main() {
   test('ModelPricingsNotifier CRUD', () async {
     final container = ProviderContainer(
-      overrides: [
-        settingsRepositoryProvider.overrideWithValue(MockSettingsRepository()),
-      ],
+      overrides: [settingsRepositoryProvider.overrideWithValue(MockSettingsRepository())],
     );
     final notifier = container.read(modelPricingsProvider.notifier);
 
@@ -86,10 +79,7 @@ void main() {
     expect(container.read(modelPricingsProvider).value?.length, 1);
 
     await notifier.updatePricing('1', {'model': 'gpt-4-turbo'});
-    expect(
-      container.read(modelPricingsProvider).value?.first.model,
-      'gpt-4-turbo',
-    );
+    expect(container.read(modelPricingsProvider).value?.first.model, 'gpt-4-turbo');
 
     await notifier.deletePricing('1');
     expect(container.read(modelPricingsProvider).value?.length, 0);

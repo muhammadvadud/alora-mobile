@@ -25,18 +25,12 @@ class LimitProgressBar extends StatelessWidget {
     return Container(
       height: 5,
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: colors.borderSubtle,
-        borderRadius: AppRadius.progressBorder,
-      ),
+      decoration: BoxDecoration(color: colors.borderSubtle, borderRadius: AppRadius.progressBorder),
       alignment: Alignment.centerLeft,
       child: FractionallySizedBox(
         widthFactor: clamped,
         child: Container(
-          decoration: BoxDecoration(
-            color: progressColor,
-            borderRadius: AppRadius.progressBorder,
-          ),
+          decoration: BoxDecoration(color: progressColor, borderRadius: AppRadius.progressBorder),
         ),
       ),
     );

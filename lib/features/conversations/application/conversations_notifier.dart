@@ -59,21 +59,17 @@ class ConversationsNotifier extends _$ConversationsNotifier {
   /// Filtrni almashtirish (client-side, ro'yxat holati saqlanadi)
   void setFilter(ConversationFilterType type) {
     state = state.maybeWhen(
-      loaded: (items, nextCursor, isLoadingMore, searchQuery, _) =>
-          ConversationsState.loaded(
-            items: items,
-            nextCursor: nextCursor,
-            isLoadingMore: isLoadingMore,
-            searchQuery: searchQuery,
-            filterType: type,
-          ),
-      empty: (searchQuery, _) =>
-          ConversationsState.empty(searchQuery: searchQuery, filterType: type),
-      error: (failure, searchQuery, _) => ConversationsState.error(
-        failure: failure,
+      loaded: (items, nextCursor, isLoadingMore, searchQuery, _) => ConversationsState.loaded(
+        items: items,
+        nextCursor: nextCursor,
+        isLoadingMore: isLoadingMore,
         searchQuery: searchQuery,
         filterType: type,
       ),
+      empty: (searchQuery, _) =>
+          ConversationsState.empty(searchQuery: searchQuery, filterType: type),
+      error: (failure, searchQuery, _) =>
+          ConversationsState.error(failure: failure, searchQuery: searchQuery, filterType: type),
       orElse: () => state,
     );
   }
@@ -111,8 +107,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
         orElse: () => null,
       );
       if (loaded != null) {
-        final (items, nextCursor, isLoadingMore, searchQuery, filterType) =
-            loaded;
+        final (items, nextCursor, isLoadingMore, searchQuery, filterType) = loaded;
         state = ConversationsState.loaded(
           items: [conversation, ...items],
           nextCursor: nextCursor,
@@ -137,16 +132,10 @@ class ConversationsNotifier extends _$ConversationsNotifier {
       orElse: () => null,
     );
     if (loaded != null) {
-      final (items, nextCursor, isLoadingMore, searchQuery, filterType) =
-          loaded;
-      final updated = items
-          .where((conversation) => conversation.id != id)
-          .toList();
+      final (items, nextCursor, isLoadingMore, searchQuery, filterType) = loaded;
+      final updated = items.where((conversation) => conversation.id != id).toList();
       if (updated.isEmpty) {
-        state = ConversationsState.empty(
-          searchQuery: searchQuery,
-          filterType: filterType,
-        );
+        state = ConversationsState.empty(searchQuery: searchQuery, filterType: filterType);
       } else {
         state = ConversationsState.loaded(
           items: updated,
@@ -173,10 +162,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     orElse: () => '',
   );
 
-  Future<void> _fetch({
-    required String search,
-    ConversationFilterType? filterType,
-  }) async {
+  Future<void> _fetch({required String search, ConversationFilterType? filterType}) async {
     final repository = ref.read(conversationsRepositoryProvider);
     final effectiveFilter = filterType ?? _currentFilter;
     try {
@@ -241,10 +227,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     required ConversationFilterType filterType,
   }) {
     if (items.isEmpty) {
-      state = ConversationsState.empty(
-        searchQuery: searchQuery,
-        filterType: filterType,
-      );
+      state = ConversationsState.empty(searchQuery: searchQuery, filterType: filterType);
     } else {
       state = ConversationsState.loaded(
         items: items,

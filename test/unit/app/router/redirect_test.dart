@@ -10,24 +10,15 @@ import '../../features/auth/auth_test_helpers.dart';
 void main() {
   AuthState unknown() => const AuthState.unknown();
   AuthState unauthenticated() => const AuthState.unauthenticated();
-  AuthState authenticated(Role role) =>
-      AuthState.authenticated(user: testUser(role: role));
+  AuthState authenticated(Role role) => AuthState.authenticated(user: testUser(role: role));
 
   test('unknown holatda hech qanday qayta yo\'naltirish bo\'lmaydi', () {
     expect(
-      resolveRedirect(
-        auth: unknown(),
-        customerModeEnabled: false,
-        location: AppRoutes.chat,
-      ),
+      resolveRedirect(auth: unknown(), customerModeEnabled: false, location: AppRoutes.chat),
       isNull,
     );
     expect(
-      resolveRedirect(
-        auth: unknown(),
-        customerModeEnabled: false,
-        location: AppRoutes.management,
-      ),
+      resolveRedirect(auth: unknown(), customerModeEnabled: false, location: AppRoutes.management),
       isNull,
     );
   });
@@ -133,27 +124,15 @@ void main() {
     final manager = authenticated(Role.manager);
 
     expect(
-      resolveRedirect(
-        auth: manager,
-        customerModeEnabled: false,
-        location: AppRoutes.management,
-      ),
+      resolveRedirect(auth: manager, customerModeEnabled: false, location: AppRoutes.management),
       isNull,
     );
     expect(
-      resolveRedirect(
-        auth: manager,
-        customerModeEnabled: false,
-        location: AppRoutes.catalog,
-      ),
+      resolveRedirect(auth: manager, customerModeEnabled: false, location: AppRoutes.catalog),
       isNull,
     );
     expect(
-      resolveRedirect(
-        auth: manager,
-        customerModeEnabled: false,
-        location: AppRoutes.profile,
-      ),
+      resolveRedirect(auth: manager, customerModeEnabled: false, location: AppRoutes.profile),
       isNull,
     );
   });
@@ -162,27 +141,15 @@ void main() {
     final employee = authenticated(Role.employee);
 
     expect(
-      resolveRedirect(
-        auth: employee,
-        customerModeEnabled: false,
-        location: AppRoutes.management,
-      ),
+      resolveRedirect(auth: employee, customerModeEnabled: false, location: AppRoutes.management),
       AppRoutes.forbidden,
     );
     expect(
-      resolveRedirect(
-        auth: employee,
-        customerModeEnabled: false,
-        location: AppRoutes.forbidden,
-      ),
+      resolveRedirect(auth: employee, customerModeEnabled: false, location: AppRoutes.forbidden),
       isNull,
     );
     expect(
-      resolveRedirect(
-        auth: employee,
-        customerModeEnabled: false,
-        location: AppRoutes.orders,
-      ),
+      resolveRedirect(auth: employee, customerModeEnabled: false, location: AppRoutes.orders),
       isNull,
     );
   });
@@ -203,11 +170,7 @@ void main() {
 
     for (final location in managementLocations) {
       expect(
-        resolveRedirect(
-          auth: employee,
-          customerModeEnabled: false,
-          location: location,
-        ),
+        resolveRedirect(auth: employee, customerModeEnabled: false, location: location),
         AppRoutes.forbidden,
         reason: '$location employee uchun forbidden bo\'lishi kerak',
       );
@@ -218,11 +181,7 @@ void main() {
     final admin = authenticated(Role.admin);
 
     expect(
-      resolveRedirect(
-        auth: admin,
-        customerModeEnabled: false,
-        location: AppRoutes.management,
-      ),
+      resolveRedirect(auth: admin, customerModeEnabled: false, location: AppRoutes.management),
       isNull,
     );
     expect(

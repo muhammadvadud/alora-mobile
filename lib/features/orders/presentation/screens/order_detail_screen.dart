@@ -68,14 +68,9 @@ class OrderDetailScreen extends ConsumerWidget {
         actions: [
           state.maybeWhen(
             data: (order) => _OrderDetailMenu(
-              onPdf: () => unawaited(
-                ref.read(orderPdfProvider(orderId).notifier).openPdf(),
-              ),
-              onShare: () => unawaited(
-                ref
-                    .read(orderPdfProvider(orderId).notifier)
-                    .shareOrderText(order),
-              ),
+              onPdf: () => unawaited(ref.read(orderPdfProvider(orderId).notifier).openPdf()),
+              onShare: () =>
+                  unawaited(ref.read(orderPdfProvider(orderId).notifier).shareOrderText(order)),
               onCancel: () => unawaited(StatusChangeSheet.show(context, order)),
             ),
             orElse: () => const SizedBox.shrink(),
@@ -85,41 +80,24 @@ class OrderDetailScreen extends ConsumerWidget {
       body: state.when(
         data: (order) => _OrderDetailBody(
           order: order,
-          onConfirm: () => unawaited(
-            ref.read(orderDetailProvider(orderId).notifier).confirmOrder(),
-          ),
-          onCall: order.customerPhone != null
-              ? () => _call(order.customerPhone!)
-              : null,
+          onConfirm: () =>
+              unawaited(ref.read(orderDetailProvider(orderId).notifier).confirmOrder()),
+          onCall: order.customerPhone != null ? () => _call(order.customerPhone!) : null,
           onGeo: order.address != null ? () => _geo(order.address!) : null,
         ),
         loading: () => const Padding(
           padding: EdgeInsets.all(AppSpacing.m),
           child: Column(
             children: [
-              SkeletonBox(
-                width: double.infinity,
-                height: 40,
-                borderRadius: AppRadius.card,
-              ),
+              SkeletonBox(width: double.infinity, height: 40, borderRadius: AppRadius.card),
               SizedBox(height: AppSpacing.l),
-              SkeletonBox(
-                width: double.infinity,
-                height: 100,
-                borderRadius: AppRadius.card,
-              ),
+              SkeletonBox(width: double.infinity, height: 100, borderRadius: AppRadius.card),
               SizedBox(height: AppSpacing.l),
-              SkeletonBox(
-                width: double.infinity,
-                height: 200,
-                borderRadius: AppRadius.card,
-              ),
+              SkeletonBox(width: double.infinity, height: 200, borderRadius: AppRadius.card),
             ],
           ),
         ),
-        error: (err, st) => ErrorState(
-          onRetry: () => ref.invalidate(orderDetailProvider(orderId)),
-        ),
+        error: (err, st) => ErrorState(onRetry: () => ref.invalidate(orderDetailProvider(orderId))),
       ),
     );
   }

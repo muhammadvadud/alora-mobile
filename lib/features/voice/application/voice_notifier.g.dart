@@ -14,8 +14,7 @@ part of 'voice_notifier.dart';
 @ProviderFor(VoiceNotifier)
 final voiceProvider = VoiceNotifierProvider._();
 
-final class VoiceNotifierProvider
-    extends $NotifierProvider<VoiceNotifier, VoiceState> {
+final class VoiceNotifierProvider extends $NotifierProvider<VoiceNotifier, VoiceState> {
   VoiceNotifierProvider._()
     : super(
         from: null,
@@ -36,10 +35,7 @@ final class VoiceNotifierProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(VoiceState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<VoiceState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<VoiceState>(value));
   }
 }
 

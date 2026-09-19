@@ -56,10 +56,7 @@ Map<String, dynamic> _productJson() => {
 
 void main() {
   group('parsePriceString (§9.3 — int so\'m)', () {
-    test(
-      '"180000.00" → 180000',
-      () => expect(parsePriceString('180000.00'), 180000),
-    );
+    test('"180000.00" → 180000', () => expect(parsePriceString('180000.00'), 180000));
     test('kasr yaxlitlanadi: "2748000.50" → 2748001', () {
       expect(parsePriceString('2748000.50'), 2748001);
     });
@@ -72,9 +69,7 @@ void main() {
 
   group('categoryDtoToEntity', () {
     test('barcha maydonlar ko\'chadi', () {
-      final dto = CategoryDto.fromJson(
-        _productJson()['category_data'] as Map<String, dynamic>,
-      );
+      final dto = CategoryDto.fromJson(_productJson()['category_data'] as Map<String, dynamic>);
       final c = categoryDtoToEntity(dto);
       expect(c.id, 'c1');
       expect(c.name, 'Matolar');
@@ -107,16 +102,13 @@ void main() {
       expect(v.images.single.isPrimary, isTrue);
     });
 
-    test(
-      'category_data yo\'q bo\'lsa null, variantsiz mahsulot bo\'sh ro\'yxat',
-      () {
-        final json = _productJson()
-          ..remove('category_data')
-          ..['variants'] = <Map<String, dynamic>>[];
-        final product = productDtoToEntity(ProductDto.fromJson(json));
-        expect(product.categoryData, isNull);
-        expect(product.variants, isEmpty);
-      },
-    );
+    test('category_data yo\'q bo\'lsa null, variantsiz mahsulot bo\'sh ro\'yxat', () {
+      final json = _productJson()
+        ..remove('category_data')
+        ..['variants'] = <Map<String, dynamic>>[];
+      final product = productDtoToEntity(ProductDto.fromJson(json));
+      expect(product.categoryData, isNull);
+      expect(product.variants, isEmpty);
+    });
   });
 }

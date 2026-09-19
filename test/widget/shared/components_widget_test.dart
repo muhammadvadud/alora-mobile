@@ -7,9 +7,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   testWidgets('ComponentGallery renders without errors', (tester) async {
-    await tester.pumpWidget(
-      const ComponentGallery(showAnimations: false).pumpApp(),
-    );
+    await tester.pumpWidget(const ComponentGallery(showAnimations: false).pumpApp());
     await tester.pumpAndSettle();
 
     expect(find.byType(AppButton), findsWidgets);
@@ -18,9 +16,7 @@ void main() {
 
   testWidgets('AppButton onTap works', (tester) async {
     bool tapped = false;
-    await tester.pumpWidget(
-      AppButton(text: 'Tap me', onPressed: () => tapped = true).pumpApp(),
-    );
+    await tester.pumpWidget(AppButton(text: 'Tap me', onPressed: () => tapped = true).pumpApp());
 
     await tester.tap(find.byType(AppButton));
     await tester.pumpAndSettle();

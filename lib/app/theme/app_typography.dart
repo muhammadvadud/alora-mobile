@@ -121,11 +121,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
       fontWeight: FontWeight.w600,
       letterSpacing: 0.8,
     ),
-    mono: TextStyle(
-      fontFamily: _ibmPlexMono,
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-    ),
+    mono: TextStyle(fontFamily: _ibmPlexMono, fontSize: 12, fontWeight: FontWeight.w500),
     priceM: TextStyle(
       fontFamily: _ibmPlexSans,
       fontSize: 15,
@@ -232,11 +228,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
       fontWeight: FontWeight.w600,
       letterSpacing: 0.8,
     ),
-    mono: TextStyle(
-      fontFamily: _ibmPlexMono,
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-    ),
+    mono: TextStyle(fontFamily: _ibmPlexMono, fontSize: 12, fontWeight: FontWeight.w500),
     priceM: TextStyle(
       fontFamily: _ibmPlexSans,
       fontSize: 17, // customer mode increases size by ~2
@@ -341,6 +333,5 @@ class AppTypography extends ThemeExtension<AppTypography> {
 }
 
 extension TextStyleTabular on TextStyle {
-  TextStyle get tabular =>
-      copyWith(fontFeatures: const [FontFeature.tabularFigures()]);
+  TextStyle get tabular => copyWith(fontFeatures: const [FontFeature.tabularFigures()]);
 }

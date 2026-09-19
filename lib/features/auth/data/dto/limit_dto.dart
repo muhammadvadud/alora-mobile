@@ -28,8 +28,7 @@ class LimitDto {
     required this.isActive,
   });
 
-  factory LimitDto.fromJson(Map<String, dynamic> json) =>
-      _$LimitDtoFromJson(json);
+  factory LimitDto.fromJson(Map<String, dynamic> json) => _$LimitDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$LimitDtoToJson(this);
 }

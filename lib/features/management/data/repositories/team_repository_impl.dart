@@ -46,10 +46,7 @@ class TeamRepositoryImpl implements TeamRepository {
   }
 
   @override
-  Future<Employee> updateEmployee({
-    required String id,
-    required Map<String, dynamic> patch,
-  }) async {
+  Future<Employee> updateEmployee({required String id, required Map<String, dynamic> patch}) async {
     final dto = await _remoteDataSource.updateEmployee(id: id, body: patch);
     return dto.toEntity();
   }

@@ -34,8 +34,7 @@ class UserUsageDto {
     this.conversations = 0,
   });
 
-  factory UserUsageDto.fromJson(Map<String, dynamic> json) =>
-      _$UserUsageDtoFromJson(json);
+  factory UserUsageDto.fromJson(Map<String, dynamic> json) => _$UserUsageDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserUsageDtoToJson(this);
 

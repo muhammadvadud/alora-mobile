@@ -46,8 +46,7 @@ final class ManagementPeriodNotifierProvider
   }
 }
 
-String _$managementPeriodNotifierHash() =>
-    r'775314beb4b03b970061bcd40d1330828c93f447';
+String _$managementPeriodNotifierHash() => r'775314beb4b03b970061bcd40d1330828c93f447';
 
 /// Boshqaruv sahifasidagi davr o'tkazgich holati (Bugun/Hafta/Oy).
 

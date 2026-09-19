@@ -26,9 +26,7 @@ void main() {
     await screenMatchesGolden(tester, 's04_product_carousel');
   });
 
-  testGoldens('S-05 QuoteCard — 3 guruh, Yana N, ogohlantirish', (
-    tester,
-  ) async {
+  testGoldens('S-05 QuoteCard — 3 guruh, Yana N, ogohlantirish', (tester) async {
     final quote = quoteFromCalcCasesMaxParts();
     expect(quote.fabrics.length, greaterThanOrEqualTo(7));
     expect(quote.accessories, isNotEmpty);
@@ -47,8 +45,7 @@ void main() {
     final quote = quoteFromCalcCasesMaxParts();
 
     await tester.pumpWidgetBuilder(
-      SingleChildScrollView(child: QuoteCardView(quote: quote))
-          .pumpApp(themeMode: ThemeMode.dark),
+      SingleChildScrollView(child: QuoteCardView(quote: quote)).pumpApp(themeMode: ThemeMode.dark),
       surfaceSize: const Size(390, 1200),
     );
     await tester.pumpAndSettle();
@@ -66,8 +63,7 @@ void main() {
 
   testGoldens("S-06 OptionsCard — qorong'i", (tester) async {
     await tester.pumpWidgetBuilder(
-      OptionsCardView(optionsBlock: optionsFixture())
-          .pumpApp(themeMode: ThemeMode.dark),
+      OptionsCardView(optionsBlock: optionsFixture()).pumpApp(themeMode: ThemeMode.dark),
       surfaceSize: chatPhone.size,
     );
     await tester.pump(const Duration(milliseconds: 400));
@@ -76,10 +72,7 @@ void main() {
 
   testGoldens('S-06 OptionsCard — planshet 3 ustun (1024×768)', (tester) async {
     await tester.pumpWidgetBuilder(
-      OptionsCardView(
-        optionsBlock: optionsFixture(),
-        onSelect: (_) {},
-      ).pumpApp(),
+      OptionsCardView(optionsBlock: optionsFixture(), onSelect: (_) {}).pumpApp(),
       surfaceSize: chatTablet.size,
     );
     await tester.pumpAndSettle();
@@ -88,9 +81,7 @@ void main() {
 
   testGoldens('S-07 OrderDraftCard — yetishmayotgan maydonlar', (tester) async {
     await tester.pumpWidgetBuilder(
-      SingleChildScrollView(
-        child: OrderDraftCardView(draft: orderDraftFixture()),
-      ).pumpApp(),
+      SingleChildScrollView(child: OrderDraftCardView(draft: orderDraftFixture())).pumpApp(),
       surfaceSize: chatPhone.size,
     );
     await tester.pumpAndSettle();

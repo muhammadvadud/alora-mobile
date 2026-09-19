@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/router/adaptive_shell.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
-import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
-    show authProvider;
+import 'package:alora_mobile/features/auth/application/auth_notifier.dart' show authProvider;
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/features/profile/presentation/widgets/about_section.dart';
 import 'package:alora_mobile/features/profile/presentation/widgets/language_section.dart';
@@ -34,10 +33,7 @@ class ProfileScreen extends ConsumerWidget {
             vertical: AppSpacing.l,
           ),
           children: [
-            if (user != null) ...[
-              ProfileHeader(user: user),
-              const SizedBox(height: AppSpacing.xl),
-            ],
+            if (user != null) ...[ProfileHeader(user: user), const SizedBox(height: AppSpacing.xl)],
             const SpendSection(),
             const SizedBox(height: AppSpacing.xl),
             SectionLabel(l10n.profile_languageTitle),

@@ -21,24 +21,15 @@ void main() {
 
     final date10 = DateTime(DateTime.now().year, 10, 12);
     expect(formatDate(date10, overrideLocale: 'uz', short: true), '12-okt');
-    expect(
-      formatDate(date10, overrideLocale: 'uz_Cyrl', short: true),
-      '12-окт',
-    );
+    expect(formatDate(date10, overrideLocale: 'uz_Cyrl', short: true), '12-окт');
 
     final date11 = DateTime(DateTime.now().year, 11, 12);
     expect(formatDate(date11, overrideLocale: 'uz', short: true), '12-noy');
-    expect(
-      formatDate(date11, overrideLocale: 'uz_Cyrl', short: true),
-      '12-ноя',
-    );
+    expect(formatDate(date11, overrideLocale: 'uz_Cyrl', short: true), '12-ноя');
 
     final date12 = DateTime(DateTime.now().year, 12, 12);
     expect(formatDate(date12, overrideLocale: 'uz', short: true), '12-dek');
-    expect(
-      formatDate(date12, overrideLocale: 'uz_Cyrl', short: true),
-      '12-дек',
-    );
+    expect(formatDate(date12, overrideLocale: 'uz_Cyrl', short: true), '12-дек');
 
     final date1 = DateTime(DateTime.now().year, 1, 12);
     expect(formatDate(date1, overrideLocale: 'uz', short: true), '12-yan');

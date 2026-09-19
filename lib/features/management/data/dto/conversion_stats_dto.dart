@@ -17,11 +17,7 @@ class ConversionStatsDto {
   @JsonKey(name: 'conversion_rate')
   final String? conversionRate;
 
-  const ConversionStatsDto({
-    this.totalConversations = 0,
-    this.withOrder = 0,
-    this.conversionRate,
-  });
+  const ConversionStatsDto({this.totalConversations = 0, this.withOrder = 0, this.conversionRate});
 
   factory ConversionStatsDto.fromJson(Map<String, dynamic> json) =>
       _$ConversionStatsDtoFromJson(json);

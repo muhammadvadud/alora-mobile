@@ -14,10 +14,8 @@ class ApiPaths {
   static const String conversations = 'conversations/';
   static String conversation(String id) => 'conversations/$id/';
   static String conversationReset(String id) => 'conversations/$id/reset/';
-  static String conversationTranscript(String id) =>
-      'conversations/$id/transcript/';
-  static String conversationMessages(String id) =>
-      'conversations/$id/messages/';
+  static String conversationTranscript(String id) => 'conversations/$id/transcript/';
+  static String conversationMessages(String id) => 'conversations/$id/messages/';
 
   // Ovoz
   static String voiceSocket(String id) => 'ws/voice/$id/';
@@ -65,8 +63,7 @@ class ApiPaths {
   static const String employees = 'team/employees/';
   static String employee(String id) => 'team/employees/$id/';
   static String employeeLimit(String id) => 'team/employees/$id/limit/';
-  static String employeeConversations(String id) =>
-      'team/employees/$id/conversations/';
+  static String employeeConversations(String id) => 'team/employees/$id/conversations/';
 
   // Statistika
   static const String usageSummary = 'usage/summary/';
@@ -76,6 +73,5 @@ class ApiPaths {
 
   // Sozlamalar
   static const String settingsPrompt = 'settings/prompt/';
-  static String settingsPromptRollback(String id) =>
-      'settings/prompt/$id/rollback/';
+  static String settingsPromptRollback(String id) => 'settings/prompt/$id/rollback/';
 }

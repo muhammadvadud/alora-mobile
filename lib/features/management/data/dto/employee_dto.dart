@@ -48,8 +48,7 @@ class EmployeeDto {
     this.todayConversations = 0,
   });
 
-  factory EmployeeDto.fromJson(Map<String, dynamic> json) =>
-      _$EmployeeDtoFromJson(json);
+  factory EmployeeDto.fromJson(Map<String, dynamic> json) => _$EmployeeDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$EmployeeDtoToJson(this);
 }

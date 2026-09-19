@@ -33,15 +33,14 @@ _CalcRuleDto _$CalcRuleDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
   },
 );
 
-Map<String, dynamic> _$CalcRuleDtoToJson(_CalcRuleDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'key': instance.key,
-      'value': instance.value,
-      'unit': instance.unit,
-      'description': instance.description,
-      'applies_to': instance.appliesTo,
-      'is_active': instance.isActive,
-      'created_at': instance.createdAt,
-      'updated_at': instance.updatedAt,
-    };
+Map<String, dynamic> _$CalcRuleDtoToJson(_CalcRuleDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'key': instance.key,
+  'value': instance.value,
+  'unit': instance.unit,
+  'description': instance.description,
+  'applies_to': instance.appliesTo,
+  'is_active': instance.isActive,
+  'created_at': instance.createdAt,
+  'updated_at': instance.updatedAt,
+};

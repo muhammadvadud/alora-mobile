@@ -29,9 +29,7 @@ void main() {
     );
   }
 
-  testWidgets('chiqish: tasdiqlash dialogi ochiladi va logout chaqiriladi', (
-    tester,
-  ) async {
+  testWidgets('chiqish: tasdiqlash dialogi ochiladi va logout chaqiriladi', (tester) async {
     final auth = FakeAuthRepository()
       ..accessToken = 'access-token'
       ..refreshToken = 'refresh-token'

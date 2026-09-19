@@ -6,8 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/core/utils/date_format.dart';
-import 'package:alora_mobile/features/auth/application/auth_notifier.dart'
-    show authProvider;
+import 'package:alora_mobile/features/auth/application/auth_notifier.dart' show authProvider;
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/features/management/settings/application/settings_notifiers.dart';
 import 'package:alora_mobile/features/management/settings/domain/entities/prompt_version.dart';
@@ -48,9 +47,7 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
   }
 
   void _save() {
-    unawaited(
-      ref.read(promptHistoryProvider.notifier).createPrompt(_controller.text),
-    );
+    unawaited(ref.read(promptHistoryProvider.notifier).createPrompt(_controller.text));
   }
 
   Future<void> _rollback(String id) async {
@@ -81,10 +78,7 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
 
     final currentRole = ref
         .watch(authProvider)
-        .maybeWhen(
-          authenticated: (user) => user.role,
-          orElse: () => Role.employee,
-        );
+        .maybeWhen(authenticated: (user) => user.role, orElse: () => Role.employee);
 
     return RoleGate(
       minRole: Role.admin,
@@ -114,9 +108,7 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
                 const SizedBox(height: AppSpacing.xl),
                 SectionLabel(context.l10n.settings_versionHistory),
                 const SizedBox(height: AppSpacing.s),
-                ...history.history.map(
-                  (v) => _VersionCard(version: v, onRollback: _rollback),
-                ),
+                ...history.history.map((v) => _VersionCard(version: v, onRollback: _rollback)),
               ],
             ),
           ),
@@ -131,8 +123,7 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
               ),
             ),
           ),
-          error: (e, st) =>
-              ErrorState(onRetry: () => ref.invalidate(promptHistoryProvider)),
+          error: (e, st) => ErrorState(onRetry: () => ref.invalidate(promptHistoryProvider)),
         ),
       ),
     );
@@ -165,10 +156,7 @@ class _VersionCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                l10n.settings_version(version.version),
-                style: typography.titleS,
-              ),
+              Text(l10n.settings_version(version.version), style: typography.titleS),
               if (version.createdAt != null)
                 Text(
                   formatDate(version.createdAt!, context: context),

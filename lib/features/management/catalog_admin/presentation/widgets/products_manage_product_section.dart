@@ -42,10 +42,7 @@ class ProductsManageProductSection extends StatelessWidget {
         children: [
           Text(product.name, style: context.text.titleS),
           if (product.code.isNotEmpty)
-            Text(
-              product.code,
-              style: context.text.bodyS.copyWith(color: colors.textSecondary),
-            ),
+            Text(product.code, style: context.text.bodyS.copyWith(color: colors.textSecondary)),
           if (product.variants.isNotEmpty) const Divider(height: AppSpacing.xl),
           for (final variant in product.variants)
             _VariantRow(
@@ -96,9 +93,7 @@ class _VariantRow extends StatelessWidget {
                   Text(variant.colorName, style: context.text.bodyM),
                   Text(
                     variant.sku,
-                    style: context.text.bodyS.copyWith(
-                      color: colors.textSecondary,
-                    ),
+                    style: context.text.bodyS.copyWith(color: colors.textSecondary),
                   ),
                 ],
               ),

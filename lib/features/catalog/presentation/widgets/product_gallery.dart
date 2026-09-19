@@ -11,11 +11,7 @@ class ProductGallery extends StatefulWidget {
   final List<ProductImage> images;
   final int initialIndex;
 
-  const ProductGallery({
-    super.key,
-    required this.images,
-    this.initialIndex = 0,
-  });
+  const ProductGallery({super.key, required this.images, this.initialIndex = 0});
 
   @override
   State<ProductGallery> createState() => _ProductGalleryState();

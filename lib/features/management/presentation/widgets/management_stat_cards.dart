@@ -13,11 +13,7 @@ class ManagementStatCards extends StatelessWidget {
   final UsageSummary usage;
   final ConversionStats conversion;
 
-  const ManagementStatCards({
-    super.key,
-    required this.usage,
-    required this.conversion,
-  });
+  const ManagementStatCards({super.key, required this.usage, required this.conversion});
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +52,7 @@ class ManagementStatCards extends StatelessWidget {
             Expanded(
               child: _StatCard(
                 label: l10n.management_statCost,
-                value:
-                    '${formatMoneyPlain(usage.costUzs)} ${l10n.currency_som}',
+                value: '${formatMoneyPlain(usage.costUzs)} ${l10n.currency_som}',
                 isMoney: true,
               ),
             ),
@@ -73,11 +68,7 @@ class _StatCard extends StatelessWidget {
   final String value;
   final bool isMoney;
 
-  const _StatCard({
-    required this.label,
-    required this.value,
-    this.isMoney = false,
-  });
+  const _StatCard({required this.label, required this.value, this.isMoney = false});
 
   @override
   Widget build(BuildContext context) {

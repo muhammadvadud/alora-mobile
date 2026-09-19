@@ -16,11 +16,7 @@ class GlobalListeners extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(offlineFlushMessagesProvider, (previous, next) {
       if (next.isNotEmpty) {
-        AppSnackbar.show(
-          context,
-          message: context.l10n.offline_flushFailed,
-          isError: true,
-        );
+        AppSnackbar.show(context, message: context.l10n.offline_flushFailed, isError: true);
         ref.read(offlineFlushMessagesProvider.notifier).clear();
       }
     });
@@ -28,11 +24,7 @@ class GlobalListeners extends ConsumerWidget {
     ref.listen(sessionExpiredProvider, (previous, next) {
       final prevCount = previous ?? 0;
       if (next > prevCount) {
-        AppSnackbar.show(
-          context,
-          message: context.l10n.error_auth,
-          isError: true,
-        );
+        AppSnackbar.show(context, message: context.l10n.error_auth, isError: true);
       }
     });
 

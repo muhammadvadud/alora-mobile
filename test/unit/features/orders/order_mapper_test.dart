@@ -86,15 +86,12 @@ Map<String, dynamic> _orderJson() => {
 
 void main() {
   group('order_mapper yordamchilari (§9.3)', () {
-    test(
-      'parseMoney: "2748000.00" → 2748000; null → null; buzilgan → null',
-      () {
-        expect(parseMoney('2748000.00'), 2748000);
-        expect(parseMoney('0.50'), 1);
-        expect(parseMoney(null), isNull);
-        expect(parseMoney('x'), isNull);
-      },
-    );
+    test('parseMoney: "2748000.00" → 2748000; null → null; buzilgan → null', () {
+      expect(parseMoney('2748000.00'), 2748000);
+      expect(parseMoney('0.50'), 1);
+      expect(parseMoney(null), isNull);
+      expect(parseMoney('x'), isNull);
+    });
     test('parseDouble / parseDate', () {
       expect(parseDouble('2.500'), 2.5);
       expect(parseDouble(null), isNull);
@@ -104,52 +101,46 @@ void main() {
   });
 
   group('OrderDto → Order', () {
-    test(
-      'barcha pul maydonlari int, statuslar enum, ichma-ich ro\'yxatlar',
-      () {
-        final order = OrderDto.fromJson(_orderJson()).toEntity();
+    test('barcha pul maydonlari int, statuslar enum, ichma-ich ro\'yxatlar', () {
+      final order = OrderDto.fromJson(_orderJson()).toEntity();
 
-        expect(order.number, 'ALR-2026-000123');
-        expect(order.conversationId, 'conv-1');
-        expect(order.status, OrderStatus.confirmed);
-        expect(order.paymentStatus, PaymentStatus.prepaid);
-        expect(order.subtotal, 2645000);
-        expect(order.discountPercent, 5.0);
-        expect(order.discountAmount, 132250);
-        expect(order.deliveryAmount, 80000);
-        expect(order.total, 2592750);
-        expect(order.prepayment, 1296375);
-        expect(order.balance, 1296375);
-        expect(order.deadlineDate, DateTime(2026, 9, 30));
-        expect(order.confirmedBy?.fullName, 'Manager');
-        expect(order.user?.phone, '+998900000001');
+      expect(order.number, 'ALR-2026-000123');
+      expect(order.conversationId, 'conv-1');
+      expect(order.status, OrderStatus.confirmed);
+      expect(order.paymentStatus, PaymentStatus.prepaid);
+      expect(order.subtotal, 2645000);
+      expect(order.discountPercent, 5.0);
+      expect(order.discountAmount, 132250);
+      expect(order.deliveryAmount, 80000);
+      expect(order.total, 2592750);
+      expect(order.prepayment, 1296375);
+      expect(order.balance, 1296375);
+      expect(order.deadlineDate, DateTime(2026, 9, 30));
+      expect(order.confirmedBy?.fullName, 'Manager');
+      expect(order.user?.phone, '+998900000001');
 
-        final m = order.measurements.single;
-        expect(m.roomName, 'Mehmonxona');
-        expect(m.corniceLengthM, 4.2);
-        expect(m.layers, ['portyera', 'tul']);
-        expect(m.parts.single.pricePerSqm, 120000);
-        expect(m.parts.single.total, 3276000);
-        expect(m.parts.single.areaSqm, 27.3);
-        expect(m.accessories.single.qty, 2.0);
-        expect(m.accessories.single.total, 90000);
+      final m = order.measurements.single;
+      expect(m.roomName, 'Mehmonxona');
+      expect(m.corniceLengthM, 4.2);
+      expect(m.layers, ['portyera', 'tul']);
+      expect(m.parts.single.pricePerSqm, 120000);
+      expect(m.parts.single.total, 3276000);
+      expect(m.parts.single.areaSqm, 27.3);
+      expect(m.accessories.single.qty, 2.0);
+      expect(m.accessories.single.total, 90000);
 
-        expect(order.items.single.serviceKey, 'sewing');
-        expect(order.items.single.total, 125000);
-      },
-    );
+      expect(order.items.single.serviceKey, 'sewing');
+      expect(order.items.single.total, 125000);
+    });
 
-    test(
-      'noma\'lum status/payment_status → unknown, ilova yiqilmaydi (§9.5)',
-      () {
-        final json = _orderJson()
-          ..['status'] = 'brand_new_status'
-          ..['payment_status'] = 'weird';
-        final order = OrderDto.fromJson(json).toEntity();
-        expect(order.status, OrderStatus.unknown);
-        expect(order.paymentStatus, PaymentStatus.unknown);
-      },
-    );
+    test('noma\'lum status/payment_status → unknown, ilova yiqilmaydi (§9.5)', () {
+      final json = _orderJson()
+        ..['status'] = 'brand_new_status'
+        ..['payment_status'] = 'weird';
+      final order = OrderDto.fromJson(json).toEntity();
+      expect(order.status, OrderStatus.unknown);
+      expect(order.paymentStatus, PaymentStatus.unknown);
+    });
 
     test('minimal javob (faqat id) — null maydonlar bilan', () {
       final order = OrderDto.fromJson({'id': 'o2'}).toEntity();
@@ -161,10 +152,7 @@ void main() {
   });
 
   test('StatusTransitionDto → StatusTransition', () {
-    final t = StatusTransitionDto.fromJson({
-      'code': 'measuring',
-      'label': "O'lchovda",
-    }).toEntity();
+    final t = StatusTransitionDto.fromJson({'code': 'measuring', 'label': "O'lchovda"}).toEntity();
     expect(t.code, 'measuring');
     expect(t.label, "O'lchovda");
   });

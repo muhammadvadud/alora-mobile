@@ -31,29 +31,21 @@ class TranscriptScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.management_transcriptTitle)),
       body: TabletCentered(
         child: transcript.maybeWhen(
-          loading: () => const SkeletonList(
-            itemCount: 6,
-            itemBuilder: SkeletonBox(height: 84),
-          ),
+          loading: () => const SkeletonList(itemCount: 6, itemBuilder: SkeletonBox(height: 84)),
           error: (error, _) => ErrorState(
             message: (error as Failure).localizedMessage(context),
             onRetry: () => ref.invalidate(transcriptProvider(conversationId)),
           ),
           data: (messages) => messages.isEmpty
-              ? EmptyState(
-                  icon: AppIcons.chat,
-                  title: l10n.management_transcriptEmpty,
-                )
+              ? EmptyState(icon: AppIcons.chat, title: l10n.management_transcriptEmpty)
               : ListView.separated(
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.screenH,
                     vertical: AppSpacing.l,
                   ),
                   itemCount: messages.length,
-                  separatorBuilder: (_, _) =>
-                      const SizedBox(height: AppSpacing.m),
-                  itemBuilder: (context, index) =>
-                      _MessageBubble(message: messages[index]),
+                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.m),
+                  itemBuilder: (context, index) => _MessageBubble(message: messages[index]),
                 ),
           orElse: () => const SizedBox.shrink(),
         ),
@@ -84,47 +76,30 @@ class _MessageBubble extends StatelessWidget {
     final labelColor = isUser ? colors.onAccent : colors.textSecondary;
 
     return Column(
-      crossAxisAlignment: isUser
-          ? CrossAxisAlignment.end
-          : CrossAxisAlignment.start,
+      crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        Text(
-          label.toUpperCase(),
-          style: typography.labelS.copyWith(color: labelColor),
-        ),
+        Text(label.toUpperCase(), style: typography.labelS.copyWith(color: labelColor)),
         const SizedBox(height: AppSpacing.xs),
         Align(
           alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             constraints: const BoxConstraints(maxWidth: 520),
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.l,
-              vertical: AppSpacing.m,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.m),
             decoration: BoxDecoration(
               color: bubbleColor,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(AppRadius.card),
                 topRight: const Radius.circular(AppRadius.card),
-                bottomLeft: Radius.circular(
-                  isUser ? AppRadius.card : AppRadius.input,
-                ),
-                bottomRight: Radius.circular(
-                  isUser ? AppRadius.input : AppRadius.card,
-                ),
+                bottomLeft: Radius.circular(isUser ? AppRadius.card : AppRadius.input),
+                bottomRight: Radius.circular(isUser ? AppRadius.input : AppRadius.card),
               ),
-              border: isUser
-                  ? null
-                  : Border.all(color: colors.border, width: 1),
+              border: isUser ? null : Border.all(color: colors.border, width: 1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (message.content.isNotEmpty)
-                  Text(
-                    message.content,
-                    style: typography.bodyM.copyWith(color: textColor),
-                  ),
+                  Text(message.content, style: typography.bodyM.copyWith(color: textColor)),
                 if (message.toolNames.isNotEmpty) ...[
                   const SizedBox(height: AppSpacing.s),
                   Wrap(

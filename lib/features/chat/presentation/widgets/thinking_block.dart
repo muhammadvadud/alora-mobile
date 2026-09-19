@@ -15,10 +15,7 @@ class ThinkingBlockView extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0, left: 4.0),
       child: Text(
         l10n.chat_thinking,
-        style: typography.bodyS.copyWith(
-          color: colors.textSecondary,
-          fontStyle: FontStyle.italic,
-        ),
+        style: typography.bodyS.copyWith(color: colors.textSecondary, fontStyle: FontStyle.italic),
       ),
     );
   }

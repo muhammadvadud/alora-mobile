@@ -63,8 +63,7 @@ final class ProductDetailNotifierProvider
   }
 }
 
-String _$productDetailNotifierHash() =>
-    r'fcceb5e29678f39a54e126d950680ebeb10d09dc';
+String _$productDetailNotifierHash() => r'fcceb5e29678f39a54e126d950680ebeb10d09dc';
 
 /// Bitta mahsulotni boshqaruvchi notifier (family — productId bo'yicha).
 

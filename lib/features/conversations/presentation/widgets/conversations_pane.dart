@@ -99,25 +99,19 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
               _FilterChip(
                 label: l10n.conversations_filterHasOrder,
                 isSelected: filterType == ConversationFilterType.hasOrder,
-                onTap: () =>
-                    notifier.setFilter(ConversationFilterType.hasOrder),
+                onTap: () => notifier.setFilter(ConversationFilterType.hasOrder),
               ),
               _FilterChip(
                 label: l10n.conversations_filterInProgress,
                 isSelected: filterType == ConversationFilterType.inProgress,
-                onTap: () =>
-                    notifier.setFilter(ConversationFilterType.inProgress),
+                onTap: () => notifier.setFilter(ConversationFilterType.inProgress),
               ),
             ],
           ),
         ),
         const SizedBox(height: AppSpacing.l),
         Expanded(
-          child: _PaneBody(
-            state: state,
-            clock: widget.clock,
-            scrollController: _scrollController,
-          ),
+          child: _PaneBody(state: state, clock: widget.clock, scrollController: _scrollController),
         ),
       ],
     );
@@ -129,11 +123,7 @@ class _PaneBody extends ConsumerWidget {
   final DateTime Function()? clock;
   final ScrollController scrollController;
 
-  const _PaneBody({
-    required this.state,
-    required this.clock,
-    required this.scrollController,
-  });
+  const _PaneBody({required this.state, required this.clock, required this.scrollController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -256,11 +246,8 @@ class _PaneLoaded extends ConsumerWidget {
               direction: DismissDirection.endToStart,
               background: const _ArchiveBackground(),
               confirmDismiss: (_) => _confirmArchive(context, conversation.id),
-              onDismissed: (_) => unawaited(
-                ref
-                    .read(conversationsProvider.notifier)
-                    .archive(conversation.id),
-              ),
+              onDismissed: (_) =>
+                  unawaited(ref.read(conversationsProvider.notifier).archive(conversation.id)),
               child: ConversationRow(
                 conversation: conversation,
                 stageLabel: _stageLabel(context, conversation.stage),
@@ -296,11 +283,7 @@ class _PaneLoaded extends ConsumerWidget {
     };
   }
 
-  String _timeLabel(
-    BuildContext context,
-    Conversation conversation,
-    ConversationDateGroup group,
-  ) {
+  String _timeLabel(BuildContext context, Conversation conversation, ConversationDateGroup group) {
     final date = conversation.lastMessageAt;
     if (date == null) return '';
     if (group == ConversationDateGroup.older) {
@@ -331,11 +314,7 @@ class _FilterChip extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _FilterChip({
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
+  const _FilterChip({required this.label, required this.isSelected, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

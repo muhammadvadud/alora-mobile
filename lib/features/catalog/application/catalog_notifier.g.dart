@@ -18,8 +18,7 @@ final catalogProvider = CatalogNotifierProvider._();
 
 /// Katalog holatini boshqaruvchi notifier: kategoriyalar, qidiruv (300 ms debounce),
 /// filtrlar, sahifalash.
-final class CatalogNotifierProvider
-    extends $NotifierProvider<CatalogNotifier, CatalogState> {
+final class CatalogNotifierProvider extends $NotifierProvider<CatalogNotifier, CatalogState> {
   /// Katalog holatini boshqaruvchi notifier: kategoriyalar, qidiruv (300 ms debounce),
   /// filtrlar, sahifalash.
   CatalogNotifierProvider._()

@@ -13,12 +13,7 @@ class OrderDraftCardView extends StatelessWidget {
   final VoidCallback? onEdit;
   final VoidCallback? onCreate;
 
-  const OrderDraftCardView({
-    super.key,
-    required this.draft,
-    this.onEdit,
-    this.onCreate,
-  });
+  const OrderDraftCardView({super.key, required this.draft, this.onEdit, this.onCreate});
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +30,9 @@ class OrderDraftCardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _DraftHeader(draft: draft),
-          if (draft.missingFields.isNotEmpty)
-            _DraftWarnings(missingFields: draft.missingFields),
+          if (draft.missingFields.isNotEmpty) _DraftWarnings(missingFields: draft.missingFields),
           _DraftFieldsSection(draft: draft),
-          _DraftActionsSection(
-            draft: draft,
-            onEdit: onEdit,
-            onCreate: onCreate,
-          ),
+          _DraftActionsSection(draft: draft, onEdit: onEdit, onCreate: onCreate),
         ],
       ),
     );
@@ -83,10 +73,7 @@ class _DraftWarnings extends StatelessWidget {
     final typography = context.text;
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.m,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.m),
       color: colors.dangerSoft,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,10 +83,7 @@ class _DraftWarnings extends StatelessWidget {
               Icon(AppIcons.alertTriangle, size: 16, color: colors.danger),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  f,
-                  style: typography.bodyS.copyWith(color: colors.danger),
-                ),
+                child: Text(f, style: typography.bodyS.copyWith(color: colors.danger)),
               ),
             ],
           );
@@ -126,9 +110,7 @@ class _DraftFieldsSection extends StatelessWidget {
           _DraftField(label: 'Manzil', value: draft.address),
           _DraftField(
             label: 'Xonalar',
-            value: draft.measurements
-                .map((m) => m.roomName ?? 'Noma\'lum')
-                .join(', '),
+            value: draft.measurements.map((m) => m.roomName ?? 'Noma\'lum').join(', '),
           ),
         ],
       ),
@@ -155,10 +137,7 @@ class _DraftField extends StatelessWidget {
         children: [
           SizedBox(
             width: 80,
-            child: Text(
-              label,
-              style: typography.bodyS.copyWith(color: colors.textSecondary),
-            ),
+            child: Text(label, style: typography.bodyS.copyWith(color: colors.textSecondary)),
           ),
           Expanded(child: Text(value!, style: typography.bodyS)),
         ],
@@ -179,18 +158,11 @@ class _DraftActionsSection extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Padding(
-      padding: const EdgeInsets.only(
-        left: AppSpacing.l,
-        right: AppSpacing.l,
-        bottom: AppSpacing.l,
-      ),
+      padding: const EdgeInsets.only(left: AppSpacing.l, right: AppSpacing.l, bottom: AppSpacing.l),
       child: Row(
         children: [
           Expanded(
-            child: AppButton.secondary(
-              text: l10n.chat_draft_edit,
-              onPressed: onEdit,
-            ),
+            child: AppButton.secondary(text: l10n.chat_draft_edit, onPressed: onEdit),
           ),
           const SizedBox(width: 8),
           Expanded(

@@ -7,9 +7,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('AppTextField Widget Tests', () {
-    testWidgets('AppTextField normal holatda kiritiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('AppTextField normal holatda kiritiladi', (WidgetTester tester) async {
       String changedValue = '';
       await tester.pumpWidget(
         AppTextField(
@@ -28,22 +26,14 @@ void main() {
       expect(changedValue, 'Sardor');
     });
 
-    testWidgets('AppTextField error holatda tekshiriladi', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        const AppTextField(errorText: 'Xato kiritildi').pumpApp(),
-      );
+    testWidgets('AppTextField error holatda tekshiriladi', (WidgetTester tester) async {
+      await tester.pumpWidget(const AppTextField(errorText: 'Xato kiritildi').pumpApp());
 
       expect(find.text('Xato kiritildi'), findsOneWidget);
     });
 
-    testWidgets('AppTextField disabled holatda kiritish mumkin emas', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        const AppTextField(isEnabled: false, hintText: 'Manzil').pumpApp(),
-      );
+    testWidgets('AppTextField disabled holatda kiritish mumkin emas', (WidgetTester tester) async {
+      await tester.pumpWidget(const AppTextField(isEnabled: false, hintText: 'Manzil').pumpApp());
 
       final textField = tester.widget<TextField>(find.byType(TextField));
       expect(textField.enabled, isFalse);
@@ -53,10 +43,7 @@ void main() {
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const AppTextField(
-          type: AppTextFieldType.password,
-          hintText: 'Parol',
-        ).pumpApp(),
+        const AppTextField(type: AppTextFieldType.password, hintText: 'Parol').pumpApp(),
       );
 
       final textFieldFinder = find.byType(TextField);
@@ -73,14 +60,9 @@ void main() {
       expect(textField.obscureText, isFalse);
     });
 
-    testWidgets('AppTextField search holatida icon tekshiriladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('AppTextField search holatida icon tekshiriladi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const AppTextField(
-          type: AppTextFieldType.search,
-          hintText: 'Qidirish',
-        ).pumpApp(),
+        const AppTextField(type: AppTextFieldType.search, hintText: 'Qidirish').pumpApp(),
       );
 
       expect(find.byIcon(AppIcons.search), findsOneWidget);

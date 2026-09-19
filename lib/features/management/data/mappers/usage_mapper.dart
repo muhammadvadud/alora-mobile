@@ -29,10 +29,7 @@ extension UsageSummaryDtoMapper on UsageSummaryDto {
 
 extension UsageDailyPointDtoMapper on UsageDailyPointDto {
   UsageDailyPoint toEntity() {
-    return UsageDailyPoint(
-      date: DateTime.tryParse(date ?? '') ?? DateTime.now(),
-      costUzs: cost,
-    );
+    return UsageDailyPoint(date: DateTime.tryParse(date ?? '') ?? DateTime.now(), costUzs: cost);
   }
 }
 

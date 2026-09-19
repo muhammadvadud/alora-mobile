@@ -31,8 +31,7 @@ class ConversationDto {
     this.updatedAt,
   });
 
-  factory ConversationDto.fromJson(Map<String, dynamic> json) =>
-      _$ConversationDtoFromJson(json);
+  factory ConversationDto.fromJson(Map<String, dynamic> json) => _$ConversationDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$ConversationDtoToJson(this);
 }

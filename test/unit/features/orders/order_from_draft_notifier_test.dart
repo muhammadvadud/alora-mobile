@@ -38,22 +38,19 @@ void main() {
       expect(body['deadline_date'], '2026-09-30');
     });
 
-    test(
-      "o'lchovlar snake_case va 3 kasr bilan; narx/hisob maydoni yo'q (§0.8)",
-      () {
-        final body = draftToBody(_draft());
-        final measurements = body['measurements'] as List<Map<String, dynamic>>;
+    test("o'lchovlar snake_case va 3 kasr bilan; narx/hisob maydoni yo'q (§0.8)", () {
+      final body = draftToBody(_draft());
+      final measurements = body['measurements'] as List<Map<String, dynamic>>;
 
-        expect(measurements, hasLength(2));
-        expect(measurements.first, {
-          'room_name': 'Mehmonxona',
-          'cornice_length_m': '3.200',
-          'height_m': '2.700',
-        });
-        expect(measurements.last, isEmpty);
-        expect(body.containsKey('total'), isFalse);
-      },
-    );
+      expect(measurements, hasLength(2));
+      expect(measurements.first, {
+        'room_name': 'Mehmonxona',
+        'cornice_length_m': '3.200',
+        'height_m': '2.700',
+      });
+      expect(measurements.last, isEmpty);
+      expect(body.containsKey('total'), isFalse);
+    });
   });
 
   group('OrderFromDraftNotifier', () {
@@ -62,43 +59,35 @@ void main() {
 
     setUp(() {
       repo = MockOrdersRepository();
-      container = ProviderContainer(
-        overrides: [ordersRepositoryProvider.overrideWithValue(repo)],
-      );
+      container = ProviderContainer(overrides: [ordersRepositoryProvider.overrideWithValue(repo)]);
       addTearDown(container.dispose);
     });
 
-    test(
-      'create → POST body bilan createOrder, natija Order qaytadi',
-      () async {
-        const created = Order(
-          id: 'o1',
-          number: 'ALR-2026-000001',
-          status: OrderStatus.draft,
-          paymentStatus: PaymentStatus.unpaid,
-          total: 2140000,
-        );
-        when(() => repo.createOrder(any())).thenAnswer((_) async => created);
+    test('create → POST body bilan createOrder, natija Order qaytadi', () async {
+      const created = Order(
+        id: 'o1',
+        number: 'ALR-2026-000001',
+        status: OrderStatus.draft,
+        paymentStatus: PaymentStatus.unpaid,
+        total: 2140000,
+      );
+      when(() => repo.createOrder(any())).thenAnswer((_) async => created);
 
-        final result = await container
-            .read(orderFromDraftProvider.notifier)
-            .create(_draft(), conversationId: 'conv-1');
+      final result = await container
+          .read(orderFromDraftProvider.notifier)
+          .create(_draft(), conversationId: 'conv-1');
 
-        expect(result, created);
-        final body =
-            verify(() => repo.createOrder(captureAny())).captured.single
-                as Map<String, dynamic>;
-        expect(body['conversation_id'], 'conv-1');
-        expect(container.read(orderFromDraftProvider).value, created);
-      },
-    );
+      expect(result, created);
+      final body =
+          verify(() => repo.createOrder(captureAny())).captured.single as Map<String, dynamic>;
+      expect(body['conversation_id'], 'conv-1');
+      expect(container.read(orderFromDraftProvider).value, created);
+    });
 
     test('xatoda null qaytadi va holat error bo\'ladi', () async {
       when(() => repo.createOrder(any())).thenThrow(Exception('server'));
 
-      final result = await container
-          .read(orderFromDraftProvider.notifier)
-          .create(_draft());
+      final result = await container.read(orderFromDraftProvider.notifier).create(_draft());
 
       expect(result, isNull);
       expect(container.read(orderFromDraftProvider).hasError, isTrue);

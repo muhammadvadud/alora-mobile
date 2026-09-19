@@ -7,31 +7,21 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('OfflineBanner Widget Testlari', () {
-    testWidgets('internet yo\'q matni ko\'rsatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('internet yo\'q matni ko\'rsatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(const OfflineBanner().pumpApp());
 
-      expect(
-        find.text('Internet yo\'q. Ulanish tiklanganda avtomatik yuboriladi'),
-        findsOneWidget,
-      );
+      expect(find.text('Internet yo\'q. Ulanish tiklanganda avtomatik yuboriladi'), findsOneWidget);
     });
 
-    testWidgets('yuqoridan to\'liq eni bo\'ylab cho\'ziladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('yuqoridan to\'liq eni bo\'ylab cho\'ziladi', (WidgetTester tester) async {
       await tester.pumpWidget(const OfflineBanner().pumpApp());
 
       final size = tester.getSize(find.byType(OfflineBanner));
-      final screenW =
-          tester.view.physicalSize.width / tester.view.devicePixelRatio;
+      final screenW = tester.view.physicalSize.width / tester.view.devicePixelRatio;
       expect(size.width, screenW);
     });
 
-    testWidgets('inverse fon va onInverse matn rangi ishlatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('inverse fon va onInverse matn rangi ishlatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(const OfflineBanner().pumpApp());
 
       final container = tester.widget<Container>(find.byType(Container).first);

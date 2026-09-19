@@ -53,10 +53,7 @@ class OrdersListNotifier extends _$OrdersListNotifier {
     final filter = ref.watch(ordersListFilterProvider);
     final repo = ref.watch(ordersRepositoryProvider);
 
-    final paginated = await repo.getOrders(
-      status: filter.status,
-      search: filter.search,
-    );
+    final paginated = await repo.getOrders(status: filter.status, search: filter.search);
 
     return CursorPagingState<Order>(
       items: paginated.results,
@@ -67,9 +64,7 @@ class OrdersListNotifier extends _$OrdersListNotifier {
   }
 
   Future<void> loadMore() async {
-    if (state.value == null ||
-        !state.value!.hasMore ||
-        state.value!.isLoadingMore) {
+    if (state.value == null || !state.value!.hasMore || state.value!.isLoadingMore) {
       return;
     }
 
@@ -95,9 +90,7 @@ class OrdersListNotifier extends _$OrdersListNotifier {
         ),
       );
     } catch (e) {
-      state = AsyncValue.data(
-        currentState.copyWith(isLoadingMore: false, hasError: true),
-      );
+      state = AsyncValue.data(currentState.copyWith(isLoadingMore: false, hasError: true));
       // You could optionally set state to error depending on how you want to show it.
     }
   }
@@ -110,9 +103,7 @@ class OrdersListNotifier extends _$OrdersListNotifier {
     final repo = ref.read(ordersRepositoryProvider);
     final updated = await repo.confirmOrder(id);
     state = AsyncValue.data(
-      current.copyWith(
-        items: [for (final o in current.items) o.id == id ? updated : o],
-      ),
+      current.copyWith(items: [for (final o in current.items) o.id == id ? updated : o]),
     );
     ref.invalidate(orderDetailProvider(id));
     ref.invalidate(draftOrdersCountProvider);
@@ -143,11 +134,7 @@ class OrderDetailNotifier extends _$OrderDetailNotifier {
     }
   }
 
-  Future<void> changeStatus(
-    String newStatus, {
-    String? note,
-    String? actionDate,
-  }) async {
+  Future<void> changeStatus(String newStatus, {String? note, String? actionDate}) async {
     final repo = ref.read(ordersRepositoryProvider);
     final currentOrder = state.value;
     if (currentOrder == null) return;

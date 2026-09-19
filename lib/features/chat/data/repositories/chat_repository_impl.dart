@@ -15,15 +15,9 @@ class ChatRepositoryImpl implements ChatRepository {
   ChatRepositoryImpl(this._remoteDS, this._localDS);
 
   @override
-  Future<Paginated<Message>> getMessages(
-    String conversationId, {
-    String? cursor,
-  }) async {
+  Future<Paginated<Message>> getMessages(String conversationId, {String? cursor}) async {
     try {
-      final paginatedDto = await _remoteDS.getMessages(
-        conversationId,
-        cursor: cursor,
-      );
+      final paginatedDto = await _remoteDS.getMessages(conversationId, cursor: cursor);
 
       // Keshni yangilaymiz (faqat birinchi sahifa bo'lsa)
       if (cursor == null) {
@@ -31,11 +25,7 @@ class ChatRepositoryImpl implements ChatRepository {
       }
 
       final messages = paginatedDto.results.map(ChatMapper.fromDto).toList();
-      return Paginated(
-        next: paginatedDto.next,
-        previous: paginatedDto.previous,
-        results: messages,
-      );
+      return Paginated(next: paginatedDto.next, previous: paginatedDto.previous, results: messages);
     } catch (_) {
       // Oflayn bo'lsa, keshdan qaytaramiz (faqat birinchi sahifa)
       if (cursor == null) {
@@ -61,11 +51,7 @@ class ChatRepositoryImpl implements ChatRepository {
       locale: locale,
       context: SendMessageContextDto(customerMode: customerMode, stage: stage),
     );
-    return _remoteDS.sendMessage(
-      conversationId,
-      request,
-      cancelToken: cancelToken,
-    );
+    return _remoteDS.sendMessage(conversationId, request, cancelToken: cancelToken);
   }
 
   @override

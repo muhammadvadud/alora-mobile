@@ -14,8 +14,7 @@ part of 'catalog_providers.dart';
 @ProviderFor(dio)
 final dioProvider = DioProvider._();
 
-final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
-    with $Provider<Dio> {
+final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio> with $Provider<Dio> {
   DioProvider._()
     : super(
         from: null,
@@ -32,8 +31,7 @@ final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
 
   @$internal
   @override
-  $ProviderElement<Dio> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<Dio> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   Dio create(Ref ref) {
@@ -42,10 +40,7 @@ final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(Dio value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Dio>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<Dio>(value));
   }
 }
 
@@ -56,11 +51,7 @@ final catalogWriteRepositoryProvider = CatalogWriteRepositoryProvider._();
 
 final class CatalogWriteRepositoryProvider
     extends
-        $FunctionalProvider<
-          CatalogWriteRepository,
-          CatalogWriteRepository,
-          CatalogWriteRepository
-        >
+        $FunctionalProvider<CatalogWriteRepository, CatalogWriteRepository, CatalogWriteRepository>
     with $Provider<CatalogWriteRepository> {
   CatalogWriteRepositoryProvider._()
     : super(
@@ -78,9 +69,8 @@ final class CatalogWriteRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<CatalogWriteRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<CatalogWriteRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   CatalogWriteRepository create(Ref ref) {
@@ -96,5 +86,4 @@ final class CatalogWriteRepositoryProvider
   }
 }
 
-String _$catalogWriteRepositoryHash() =>
-    r'48819369b8920cf7e467f204d1e2edf10a4ac58a';
+String _$catalogWriteRepositoryHash() => r'48819369b8920cf7e467f204d1e2edf10a4ac58a';

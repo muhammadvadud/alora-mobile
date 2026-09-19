@@ -62,8 +62,7 @@ class _CatalogFilterSheetState extends ConsumerState<CatalogFilterSheet> {
   }
 
   void _apply() {
-    Navigator.of(context)
-        .pop(CatalogFilterSheetResult(filter: _draft, applied: true));
+    Navigator.of(context).pop(CatalogFilterSheetResult(filter: _draft, applied: true));
   }
 
   int _defaultCount() => ref.read(catalogProvider).products.length;
@@ -80,16 +79,11 @@ class _CatalogFilterSheetState extends ConsumerState<CatalogFilterSheet> {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: AppButton.text(
-              text: l10n.catalog_filterClear,
-              onPressed: _clear,
-            ),
+            child: AppButton.text(text: l10n.catalog_filterClear, onPressed: _clear),
           ),
           const SizedBox(height: AppSpacing.m),
           AppButton(
-            text: l10n.catalog_filterShow(
-              _previewCount > 0 ? _previewCount : _defaultCount(),
-            ),
+            text: l10n.catalog_filterShow(_previewCount > 0 ? _previewCount : _defaultCount()),
             onPressed: _apply,
           ),
         ],
@@ -108,10 +102,9 @@ class _FilterContent extends StatelessWidget {
   static final List<ProductPattern> _patternValues = ProductPattern.values
       .where((p) => p != ProductPattern.unknown)
       .toList();
-  static final List<ProductTransparency> _transparencyValues =
-      ProductTransparency.values
-          .where((t) => t != ProductTransparency.unknown)
-          .toList();
+  static final List<ProductTransparency> _transparencyValues = ProductTransparency.values
+      .where((t) => t != ProductTransparency.unknown)
+      .toList();
   static final List<ProductSegment> _segmentValues = ProductSegment.values
       .where((s) => s != ProductSegment.unknown)
       .toList();
@@ -136,59 +129,48 @@ class _FilterContent extends StatelessWidget {
           labelFor: (l10n, v) => v == ProductType.fabric
               ? l10n.catalog_filterTypeFabric
               : l10n.catalog_filterTypeAccessory,
-          onSelect: (v) =>
-              onUpdate(current.copyWith(type: current.type == v ? null : v)),
+          onSelect: (v) => onUpdate(current.copyWith(type: current.type == v ? null : v)),
         ),
         _EnumChipSection<ProductStyle>(
           label: l10n.catalog_filterStyle,
           values: _styleValues,
           current: current.style,
           labelFor: _styleLabel,
-          onSelect: (v) =>
-              onUpdate(current.copyWith(style: current.style == v ? null : v)),
+          onSelect: (v) => onUpdate(current.copyWith(style: current.style == v ? null : v)),
         ),
         _EnumChipSection<ProductRoom>(
           label: l10n.catalog_filterRoom,
           values: _roomValues,
           current: current.room,
           labelFor: _roomLabel,
-          onSelect: (v) =>
-              onUpdate(current.copyWith(room: current.room == v ? null : v)),
+          onSelect: (v) => onUpdate(current.copyWith(room: current.room == v ? null : v)),
         ),
         _EnumChipSection<ProductPattern>(
           label: l10n.catalog_filterPattern,
           values: _patternValues,
           current: current.pattern,
           labelFor: _patternLabel,
-          onSelect: (v) => onUpdate(
-            current.copyWith(pattern: current.pattern == v ? null : v),
-          ),
+          onSelect: (v) => onUpdate(current.copyWith(pattern: current.pattern == v ? null : v)),
         ),
         _EnumChipSection<ProductTransparency>(
           label: l10n.catalog_filterTransparency,
           values: _transparencyValues,
           current: current.transparency,
           labelFor: _transparencyLabel,
-          onSelect: (v) => onUpdate(
-            current.copyWith(
-              transparency: current.transparency == v ? null : v,
-            ),
-          ),
+          onSelect: (v) =>
+              onUpdate(current.copyWith(transparency: current.transparency == v ? null : v)),
         ),
         _EnumChipSection<ProductSegment>(
           label: l10n.catalog_filterSegment,
           values: _segmentValues,
           current: current.segment,
           labelFor: _segmentLabel,
-          onSelect: (v) => onUpdate(
-            current.copyWith(segment: current.segment == v ? null : v),
-          ),
+          onSelect: (v) => onUpdate(current.copyWith(segment: current.segment == v ? null : v)),
         ),
         _PriceRangeSection(
           filter: current,
-          onChanged: (minPrice, maxPrice) => onUpdate(
-            current.copyWith(minPrice: minPrice, maxPrice: maxPrice),
-          ),
+          onChanged: (minPrice, maxPrice) =>
+              onUpdate(current.copyWith(minPrice: minPrice, maxPrice: maxPrice)),
         ),
       ],
     );
@@ -211,11 +193,7 @@ class _Section extends StatelessWidget {
       children: [
         Text(label, style: typography.overline.copyWith(color: colors.brass)),
         const SizedBox(height: AppSpacing.s),
-        Wrap(
-          spacing: AppSpacing.s,
-          runSpacing: AppSpacing.s,
-          children: children,
-        ),
+        Wrap(spacing: AppSpacing.s, runSpacing: AppSpacing.s, children: children),
         const SizedBox(height: AppSpacing.l),
       ],
     );
@@ -247,9 +225,7 @@ class _EnumChipSection<T> extends StatelessWidget {
         for (final value in values)
           AppChip(
             label: labelFor(l10n, value),
-            state: current == value
-                ? AppChipState.selected
-                : AppChipState.unselected,
+            state: current == value ? AppChipState.selected : AppChipState.unselected,
             onTap: () => onSelect(value),
           ),
       ],
@@ -297,8 +273,7 @@ class _PriceRangeSection extends StatelessWidget {
           divisions: ((_maxPriceBound - _minPriceBound) / _priceStep).round(),
           activeColor: colors.accent,
           inactiveColor: colors.border,
-          onChanged: (values) =>
-              onChanged(values.start.round(), values.end.round()),
+          onChanged: (values) => onChanged(values.start.round(), values.end.round()),
         ),
       ],
     );
@@ -350,10 +325,7 @@ String _patternLabel(AppLocalizations l10n, ProductPattern pattern) {
   }
 }
 
-String _transparencyLabel(
-  AppLocalizations l10n,
-  ProductTransparency transparency,
-) {
+String _transparencyLabel(AppLocalizations l10n, ProductTransparency transparency) {
   switch (transparency) {
     case ProductTransparency.yopiq:
       return l10n.catalog_filterTransparencyYopiq;

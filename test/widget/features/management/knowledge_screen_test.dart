@@ -64,9 +64,7 @@ Widget _app(_FakeKnowledgeRepository repo) {
 
 void main() {
   group('KnowledgeScreen (S-24)', () {
-    testWidgets("yuklanayotganda skeleton ko'rsatiladi, spinner emas", (
-      tester,
-    ) async {
+    testWidgets("yuklanayotganda skeleton ko'rsatiladi, spinner emas", (tester) async {
       final repo = _FakeKnowledgeRepository();
       await tester.pumpWidget(_app(repo));
 
@@ -78,9 +76,7 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets("qoidalar kelganda kartochka shart chip'lari bilan chiqadi", (
-      tester,
-    ) async {
+    testWidgets("qoidalar kelganda kartochka shart chip'lari bilan chiqadi", (tester) async {
       final repo = _FakeKnowledgeRepository();
       await tester.pumpWidget(_app(repo));
 

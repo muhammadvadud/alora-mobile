@@ -15,10 +15,7 @@ class RefreshInterceptor extends Interceptor {
   RefreshInterceptor(this.secureStorage, this.dio);
 
   @override
-  Future<void> onError(
-    DioException err,
-    ErrorInterceptorHandler handler,
-  ) async {
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode != 401 ||
         err.requestOptions.path == ApiPaths.login ||
         err.requestOptions.path == ApiPaths.refresh ||
@@ -86,10 +83,7 @@ class RefreshInterceptor extends Interceptor {
     }
 
     if (fetchedAccess != null && fetchedRefresh != null) {
-      await secureStorage.saveTokens(
-        access: fetchedAccess,
-        refresh: fetchedRefresh,
-      );
+      await secureStorage.saveTokens(access: fetchedAccess, refresh: fetchedRefresh);
       _refreshTokenCompleter?.complete(fetchedAccess);
 
       final options = err.requestOptions;

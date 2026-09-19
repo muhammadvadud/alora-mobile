@@ -10,8 +10,7 @@ import 'package:alora_mobile/features/management/catalog_admin/data/dto/catalog_
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:alora_mobile/core/storage/hive_boxes.dart';
 
-class MockCatalogWriteRepository extends Mock
-    implements CatalogWriteRepository {}
+class MockCatalogWriteRepository extends Mock implements CatalogWriteRepository {}
 
 class ProductWriteDtoFake extends Fake implements ProductWriteDto {}
 
@@ -72,9 +71,7 @@ void main() {
 
     await notifier.save(productId: 'p1');
 
-    final verification = verify(
-      () => mockRepo.updateProduct('p1', captureAny()),
-    );
+    final verification = verify(() => mockRepo.updateProduct('p1', captureAny()));
     verification.called(1);
 
     final patchData = verification.captured.first as Map<String, dynamic>;
@@ -95,9 +92,7 @@ void main() {
     notifier.updateField('category', 'Cat');
     notifier.updateField('price', '100');
 
-    final serverError = const Failure.validation('Xato', {
-      'variants.0.price': 'Noldan katta',
-    });
+    final serverError = const Failure.validation('Xato', {'variants.0.price': 'Noldan katta'});
     when(() => mockRepo.updateProduct('p1', any())).thenThrow(serverError);
 
     final success = await notifier.save(productId: 'p1');
@@ -107,8 +102,7 @@ void main() {
     expect(state.errors['variants.0.price'], 'Noldan katta');
 
     // Konflikt testi
-    when(() => mockRepo.updateProduct('p1', any()))
-        .thenThrow(const Failure.server());
+    when(() => mockRepo.updateProduct('p1', any())).thenThrow(const Failure.server());
     await notifier.save(productId: 'p1');
     state = container.read(productFormProvider);
     expect(state.errors['form'], contains('Konflikt'));
@@ -121,8 +115,7 @@ void main() {
     notifier.updateField('category', 'Cat');
     notifier.updateField('price', '100');
 
-    when(() => mockRepo.createProduct(any()))
-        .thenThrow(const Failure.network());
+    when(() => mockRepo.createProduct(any())).thenThrow(const Failure.network());
 
     await notifier.save();
 

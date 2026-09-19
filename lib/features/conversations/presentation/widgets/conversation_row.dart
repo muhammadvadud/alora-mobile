@@ -35,12 +35,7 @@ class ConversationRow extends StatelessWidget {
     return AppCard(
       isSelected: isSelected,
       onTap: onTap,
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.l,
-        AppSpacing.m,
-        AppSpacing.l,
-        AppSpacing.m,
-      ),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.l, AppSpacing.m, AppSpacing.l, AppSpacing.m),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,10 +77,7 @@ class ConversationRow extends StatelessWidget {
                 stageLabel.toUpperCase(),
                 style: typography.labelS.copyWith(color: colors.accent),
               ),
-              Text(
-                ' · $timeLabel',
-                style: typography.bodyS.copyWith(color: colors.textSecondary),
-              ),
+              Text(' · $timeLabel', style: typography.bodyS.copyWith(color: colors.textSecondary)),
             ],
           ),
         ],

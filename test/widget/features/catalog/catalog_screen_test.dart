@@ -8,8 +8,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_theme.dart';
 import 'package:alora_mobile/core/utils/paginated.dart';
-import 'package:alora_mobile/features/catalog/application/providers.dart'
-    as catalog_providers;
+import 'package:alora_mobile/features/catalog/application/providers.dart' as catalog_providers;
 import 'package:alora_mobile/features/catalog/domain/entities/category.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product_variant.dart';
@@ -107,9 +106,7 @@ Future<ProviderContainer> _pumpCatalog(
 }
 
 void main() {
-  testWidgets('shows skeleton while loading, then grid of products', (
-    tester,
-  ) async {
+  testWidgets('shows skeleton while loading, then grid of products', (tester) async {
     final mockRepo = MockCatalogRepository();
     when(() => mockRepo.getCategories()).thenAnswer(
       (_) async => const Paginated<Category>(
@@ -155,15 +152,10 @@ void main() {
     expect(find.text('Velvet Milano'), findsOneWidget);
     expect(find.text('Chiffon'), findsOneWidget);
     // "Omborda"/stock UI bo'lmasligi kerak (Q8)
-    expect(
-      find.textContaining(RegExp('omborda|stock', caseSensitive: false)),
-      findsNothing,
-    );
+    expect(find.textContaining(RegExp('omborda|stock', caseSensitive: false)), findsNothing);
   });
 
-  testWidgets('shows category chips (Hammasi + backend categories)', (
-    tester,
-  ) async {
+  testWidgets('shows category chips (Hammasi + backend categories)', (tester) async {
     final mockRepo = MockCatalogRepository();
     _stubRepo(mockRepo);
     await _pumpCatalog(tester, mockRepo: mockRepo);
@@ -176,10 +168,9 @@ void main() {
 
   testWidgets('empty products → EmptyState', (tester) async {
     final mockRepo = MockCatalogRepository();
-    when(() => mockRepo.getCategories()).thenAnswer(
-      (_) async =>
-          const Paginated<Category>(results: [], next: null, previous: null),
-    );
+    when(
+      () => mockRepo.getCategories(),
+    ).thenAnswer((_) async => const Paginated<Category>(results: [], next: null, previous: null));
     when(
       () => mockRepo.getProducts(
         category: any(named: 'category'),
@@ -192,10 +183,7 @@ void main() {
         maxPrice: any(named: 'maxPrice'),
         cursor: any(named: 'cursor'),
       ),
-    ).thenAnswer(
-      (_) async =>
-          const Paginated<Product>(results: [], next: null, previous: null),
-    );
+    ).thenAnswer((_) async => const Paginated<Product>(results: [], next: null, previous: null));
 
     await _pumpCatalog(tester, mockRepo: mockRepo);
     await tester.pumpAndSettle();

@@ -12,6 +12,5 @@ abstract class OrderUserDto with _$OrderUserDto {
     String? phone,
   }) = _OrderUserDto;
 
-  factory OrderUserDto.fromJson(Map<String, dynamic> json) =>
-      _$OrderUserDtoFromJson(json);
+  factory OrderUserDto.fromJson(Map<String, dynamic> json) => _$OrderUserDtoFromJson(json);
 }

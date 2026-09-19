@@ -42,9 +42,8 @@ final class SettingsRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<SettingsRemoteDataSource> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<SettingsRemoteDataSource> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   SettingsRemoteDataSource create(Ref ref) {
@@ -60,8 +59,7 @@ final class SettingsRemoteDataSourceProvider
   }
 }
 
-String _$settingsRemoteDataSourceHash() =>
-    r'1dbb31e86f8b17eb9c4a00ad13de27eaeef7317e';
+String _$settingsRemoteDataSourceHash() => r'1dbb31e86f8b17eb9c4a00ad13de27eaeef7317e';
 
 /// Sozlamalar repository
 
@@ -71,12 +69,7 @@ final settingsRepositoryProvider = SettingsRepositoryProvider._();
 /// Sozlamalar repository
 
 final class SettingsRepositoryProvider
-    extends
-        $FunctionalProvider<
-          SettingsRepository,
-          SettingsRepository,
-          SettingsRepository
-        >
+    extends $FunctionalProvider<SettingsRepository, SettingsRepository, SettingsRepository>
     with $Provider<SettingsRepository> {
   /// Sozlamalar repository
   SettingsRepositoryProvider._()
@@ -95,9 +88,8 @@ final class SettingsRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<SettingsRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<SettingsRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   SettingsRepository create(Ref ref) {
@@ -113,5 +105,4 @@ final class SettingsRepositoryProvider
   }
 }
 
-String _$settingsRepositoryHash() =>
-    r'65fa5deaf7438cc6ed86b2b3c45e433fb0841408';
+String _$settingsRepositoryHash() => r'65fa5deaf7438cc6ed86b2b3c45e433fb0841408';

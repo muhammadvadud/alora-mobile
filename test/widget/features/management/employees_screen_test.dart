@@ -58,16 +58,11 @@ void main() {
         testEmployee(id: 'employee-1', fullName: 'Akmal Karimov'),
         testEmployee(id: 'employee-2', fullName: 'Jasur Toshmatov'),
       ];
-    usageRepository = FakeUsageRepository()
-      ..summaryResult = testUsageSummary(costUzs: 50000);
+    usageRepository = FakeUsageRepository()..summaryResult = testUsageSummary(costUzs: 50000);
   });
 
   testWidgets('yuklangach xodimlar ro\'yxati ko\'rinadi', (tester) async {
-    await _pumpEmployees(
-      tester,
-      teamRepository: teamRepository,
-      usageRepository: usageRepository,
-    );
+    await _pumpEmployees(tester, teamRepository: teamRepository, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
     expect(find.byType(SkeletonBox), findsNothing);
@@ -76,14 +71,8 @@ void main() {
     expect(find.text('Jasur Toshmatov'), findsOneWidget);
   });
 
-  testWidgets('qidiruv client-side filtrlaydi (debounce 300ms)', (
-    tester,
-  ) async {
-    await _pumpEmployees(
-      tester,
-      teamRepository: teamRepository,
-      usageRepository: usageRepository,
-    );
+  testWidgets('qidiruv client-side filtrlaydi (debounce 300ms)', (tester) async {
+    await _pumpEmployees(tester, teamRepository: teamRepository, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
     await tester.enterText(find.byType(TextField), 'jasur');
@@ -98,26 +87,16 @@ void main() {
 
   testWidgets('bo\'sh ro\'yxat EmptyState ko\'rsatadi', (tester) async {
     teamRepository.employeesResult = [];
-    await _pumpEmployees(
-      tester,
-      teamRepository: teamRepository,
-      usageRepository: usageRepository,
-    );
+    await _pumpEmployees(tester, teamRepository: teamRepository, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
     expect(find.byType(EmployeeRow), findsNothing);
     expect(find.byType(EmptyState), findsOneWidget);
   });
 
-  testWidgets('xatolik ErrorState ko\'rsatadi va retry qayta yuklaydi', (
-    tester,
-  ) async {
+  testWidgets('xatolik ErrorState ko\'rsatadi va retry qayta yuklaydi', (tester) async {
     teamRepository.employeesFailure = const Failure.network();
-    await _pumpEmployees(
-      tester,
-      teamRepository: teamRepository,
-      usageRepository: usageRepository,
-    );
+    await _pumpEmployees(tester, teamRepository: teamRepository, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
     expect(find.byType(ErrorState), findsOneWidget);

@@ -65,9 +65,7 @@ class PricingNotifier extends _$PricingNotifier {
       final repo = ref.read(pricingRepositoryProvider);
       final updatedRule = await repo.patchCalcRule(key, value);
       state = state.copyWith(
-        calcRules: state.calcRules
-            .map((r) => r.key == key ? updatedRule : r)
-            .toList(),
+        calcRules: state.calcRules.map((r) => r.key == key ? updatedRule : r).toList(),
       );
     } catch (e) {
       state = state.copyWith(error: e.toString());
@@ -90,9 +88,7 @@ class PricingNotifier extends _$PricingNotifier {
     try {
       final repo = ref.read(pricingRepositoryProvider);
       await repo.deleteDiscountTier(id);
-      state = state.copyWith(
-        discountTiers: state.discountTiers.where((t) => t.id != id).toList(),
-      );
+      state = state.copyWith(discountTiers: state.discountTiers.where((t) => t.id != id).toList());
     } catch (e) {
       state = state.copyWith(error: e.toString());
       rethrow;
@@ -118,18 +114,10 @@ class PricingNotifier extends _$PricingNotifier {
     }
   }
 
-  Future<void> updateOrderDefaults(
-    double prepayment,
-    int deliveryAmount,
-    int deadlineDays,
-  ) async {
+  Future<void> updateOrderDefaults(double prepayment, int deliveryAmount, int deadlineDays) async {
     try {
       final repo = ref.read(pricingRepositoryProvider);
-      final updated = await repo.patchOrderDefaults(
-        prepayment,
-        deliveryAmount,
-        deadlineDays,
-      );
+      final updated = await repo.patchOrderDefaults(prepayment, deliveryAmount, deadlineDays);
       state = state.copyWith(orderDefaults: updated);
     } catch (e) {
       state = state.copyWith(error: e.toString());

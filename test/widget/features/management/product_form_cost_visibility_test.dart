@@ -13,21 +13,9 @@ import 'package:alora_mobile/features/management/catalog_admin/presentation/scre
 import 'package:alora_mobile/shared/models/price_unit.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 
-const _admin = User(
-  id: '1',
-  role: Role.admin,
-  phone: '123',
-  fullName: 'Admin',
-  tenant: 'a',
-);
+const _admin = User(id: '1', role: Role.admin, phone: '123', fullName: 'Admin', tenant: 'a');
 
-const _manager = User(
-  id: '2',
-  role: Role.manager,
-  phone: '456',
-  fullName: 'Manager',
-  tenant: 'a',
-);
+const _manager = User(id: '2', role: Role.manager, phone: '456', fullName: 'Manager', tenant: 'a');
 
 class _FormWithVariant extends ProductFormNotifier {
   @override
@@ -52,11 +40,7 @@ class _FormWithVariant extends ProductFormNotifier {
   }
 }
 
-Future<void> pumpForm(
-  WidgetTester tester,
-  User user,
-  AppLocalizations l10n,
-) async {
+Future<void> pumpForm(WidgetTester tester, User user, AppLocalizations l10n) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [

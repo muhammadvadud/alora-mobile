@@ -15,8 +15,7 @@ abstract class PromptVersionDto with _$PromptVersionDto {
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _PromptVersionDto;
 
-  factory PromptVersionDto.fromJson(Map<String, dynamic> json) =>
-      _$PromptVersionDtoFromJson(json);
+  factory PromptVersionDto.fromJson(Map<String, dynamic> json) => _$PromptVersionDtoFromJson(json);
 }
 
 @freezed
@@ -26,6 +25,5 @@ abstract class PromptHistoryDto with _$PromptHistoryDto {
     @Default([]) List<PromptVersionDto> history,
   }) = _PromptHistoryDto;
 
-  factory PromptHistoryDto.fromJson(Map<String, dynamic> json) =>
-      _$PromptHistoryDtoFromJson(json);
+  factory PromptHistoryDto.fromJson(Map<String, dynamic> json) => _$PromptHistoryDtoFromJson(json);
 }

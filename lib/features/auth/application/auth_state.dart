@@ -12,6 +12,5 @@ sealed class AuthState with _$AuthState {
 
   const factory AuthState.unauthenticated() = _AuthStateUnauthenticated;
 
-  const factory AuthState.authenticated({required User user}) =
-      _AuthStateAuthenticated;
+  const factory AuthState.authenticated({required User user}) = _AuthStateAuthenticated;
 }

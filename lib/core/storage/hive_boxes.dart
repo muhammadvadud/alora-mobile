@@ -23,12 +23,7 @@ class HiveBoxes {
   static const String _schemaVersionKey = 'schema_version';
 
   /// Foydalanuvchiga tegishli box'lar — logout'da tozalanadi (§8.2, §11).
-  static const List<String> userScoped = [
-    authPrefs,
-    conversations,
-    messages,
-    offlineQueue,
-  ];
+  static const List<String> userScoped = [authPrefs, conversations, messages, offlineQueue];
 
   static HiveCipher? _cipher;
 

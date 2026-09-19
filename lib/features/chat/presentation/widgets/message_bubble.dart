@@ -14,9 +14,7 @@ class UserBubble extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.sizeOf(context).width * 0.8,
-        ),
+        constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width * 0.8),
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
@@ -28,10 +26,7 @@ class UserBubble extends StatelessWidget {
             bottomRight: Radius.circular(8),
           ),
         ),
-        child: Text(
-          text,
-          style: typography.bodyL.copyWith(color: colors.textPrimary),
-        ),
+        child: Text(text, style: typography.bodyL.copyWith(color: colors.textPrimary)),
       ),
     );
   }

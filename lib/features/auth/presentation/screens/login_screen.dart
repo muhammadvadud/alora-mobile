@@ -44,10 +44,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       serviceUnavailable: (_) => l10n.error_serviceUnavailable,
       server: (_) => l10n.error_server,
       limit: (f) => f.detail.isNotEmpty ? f.detail : l10n.error_limit,
-      validation: (f) =>
-          f.detail.isNotEmpty ? f.detail : l10n.login_errorAuthFailed,
-      unknown: (f) =>
-          f.detail.isNotEmpty ? f.detail : l10n.login_errorAuthFailed,
+      validation: (f) => f.detail.isNotEmpty ? f.detail : l10n.login_errorAuthFailed,
+      unknown: (f) => f.detail.isNotEmpty ? f.detail : l10n.login_errorAuthFailed,
     );
   }
 
@@ -69,9 +67,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _errorText = null;
     });
 
-    final failure = await ref
-        .read(authProvider.notifier)
-        .login(phone: phone, password: password);
+    final failure = await ref.read(authProvider.notifier).login(phone: phone, password: password);
 
     if (!mounted) return;
     setState(() {
@@ -185,10 +181,7 @@ class _LoginFormFields extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          l10n.login_phoneLabel,
-          style: text.labelS.copyWith(color: colors.textSecondary),
-        ),
+        Text(l10n.login_phoneLabel, style: text.labelS.copyWith(color: colors.textSecondary)),
         const SizedBox(height: AppSpacing.s),
         PhoneField(
           controller: phoneController,
@@ -196,10 +189,7 @@ class _LoginFormFields extends StatelessWidget {
           onChanged: (_) => onChanged(),
         ),
         const SizedBox(height: AppSpacing.m),
-        Text(
-          l10n.login_passwordLabel,
-          style: text.labelS.copyWith(color: colors.textSecondary),
-        ),
+        Text(l10n.login_passwordLabel, style: text.labelS.copyWith(color: colors.textSecondary)),
         const SizedBox(height: AppSpacing.s),
         AppTextField(
           type: AppTextFieldType.password,
@@ -209,11 +199,7 @@ class _LoginFormFields extends StatelessWidget {
           onChanged: (_) => onChanged(),
         ),
         const SizedBox(height: AppSpacing.m),
-        AppButton(
-          text: l10n.login_signIn,
-          isLoading: isSubmitting,
-          onPressed: onSubmit,
-        ),
+        AppButton(text: l10n.login_signIn, isLoading: isSubmitting, onPressed: onSubmit),
         const SizedBox(height: AppSpacing.l),
         Text(
           l10n.login_forgotPassword,

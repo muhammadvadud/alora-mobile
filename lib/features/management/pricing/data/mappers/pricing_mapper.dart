@@ -53,10 +53,8 @@ class PricingMapper {
   static DiscountPolicy toDiscountPolicy(DiscountPolicyDto dto) {
     return DiscountPolicy(
       id: dto.id,
-      manualMaxPercentEmployee:
-          double.tryParse(dto.manualMaxPercentEmployee) ?? 0.0,
-      manualMaxPercentManager:
-          double.tryParse(dto.manualMaxPercentManager) ?? 0.0,
+      manualMaxPercentEmployee: double.tryParse(dto.manualMaxPercentEmployee) ?? 0.0,
+      manualMaxPercentManager: double.tryParse(dto.manualMaxPercentManager) ?? 0.0,
       stackWithTier: dto.stackWithTier,
       isActive: dto.isActive,
       createdAt: DateTime.parse(dto.createdAt).toLocal(),
@@ -67,10 +65,8 @@ class PricingMapper {
   static OrderDefaults toOrderDefaults(OrderDefaultsDto dto) {
     return OrderDefaults(
       id: dto.id,
-      defaultPrepaymentPercent:
-          double.tryParse(dto.defaultPrepaymentPercent) ?? 0.0,
-      defaultDeliveryAmount:
-          double.tryParse(dto.defaultDeliveryAmount)?.toInt() ?? 0,
+      defaultPrepaymentPercent: double.tryParse(dto.defaultPrepaymentPercent) ?? 0.0,
+      defaultDeliveryAmount: double.tryParse(dto.defaultDeliveryAmount)?.toInt() ?? 0,
       deadlineDays: dto.deadlineDays,
       isActive: dto.isActive,
       createdAt: DateTime.parse(dto.createdAt).toLocal(),
@@ -89,8 +85,7 @@ class PricingMapper {
             role: p.role,
             variantId: p.variantId,
             colorName: p.colorName,
-            colorHex:
-                '', // Color hex is not present in CalcPreviewResponsePartDto
+            colorHex: '', // Color hex is not present in CalcPreviewResponsePartDto
             widthM: double.tryParse(p.widthM) ?? 0.0,
             heightM: double.tryParse(p.heightM) ?? 0.0,
             coef: double.tryParse(p.coef) ?? 0.0,
@@ -114,12 +109,7 @@ class PricingMapper {
     }
 
     final services = dto.services
-        .map(
-          (s) => QuoteService(
-            name: s.name,
-            total: double.tryParse(s.total)?.toInt() ?? 0,
-          ),
-        )
+        .map((s) => QuoteService(name: s.name, total: double.tryParse(s.total)?.toInt() ?? 0))
         .toList();
 
     return Quote(

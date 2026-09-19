@@ -6,9 +6,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('AppSnackbar Widget Testlari', () {
-    testWidgets('success snackbar xabar matni bilan ko\'rsatiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('success snackbar xabar matni bilan ko\'rsatiladi', (WidgetTester tester) async {
       await tester.pumpWidget(
         Builder(
           builder: (context) {
@@ -45,11 +43,7 @@ void main() {
                 builder: (ctx) {
                   return TextButton(
                     onPressed: () {
-                      AppSnackbar.show(
-                        ctx,
-                        message: 'Xatolik yuz berdi',
-                        isError: true,
-                      );
+                      AppSnackbar.show(ctx, message: 'Xatolik yuz berdi', isError: true);
                     },
                     child: const Text('Show'),
                   );
@@ -107,38 +101,33 @@ void main() {
       expect(actionCalled, isTrue);
     });
 
-    testWidgets(
-      'actionText berilgan lekin onAction null bo\'lsa tugma ko\'rinmaydi',
-      (WidgetTester tester) async {
-        await tester.pumpWidget(
-          Builder(
-            builder: (context) {
-              return Scaffold(
-                body: Builder(
-                  builder: (ctx) {
-                    return TextButton(
-                      onPressed: () {
-                        AppSnackbar.show(
-                          ctx,
-                          message: 'Xabar',
-                          actionText: 'Tugma',
-                        );
-                      },
-                      child: const Text('Show'),
-                    );
-                  },
-                ),
-              );
-            },
-          ).pumpApp(),
-        );
+    testWidgets('actionText berilgan lekin onAction null bo\'lsa tugma ko\'rinmaydi', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        Builder(
+          builder: (context) {
+            return Scaffold(
+              body: Builder(
+                builder: (ctx) {
+                  return TextButton(
+                    onPressed: () {
+                      AppSnackbar.show(ctx, message: 'Xabar', actionText: 'Tugma');
+                    },
+                    child: const Text('Show'),
+                  );
+                },
+              ),
+            );
+          },
+        ).pumpApp(),
+      );
 
-        await tester.tap(find.text('Show'));
-        await tester.pumpAndSettle();
+      await tester.tap(find.text('Show'));
+      await tester.pumpAndSettle();
 
-        expect(find.text('Xabar'), findsOneWidget);
-        expect(find.text('Tugma'), findsNothing);
-      },
-    );
+      expect(find.text('Xabar'), findsOneWidget);
+      expect(find.text('Tugma'), findsNothing);
+    });
   });
 }

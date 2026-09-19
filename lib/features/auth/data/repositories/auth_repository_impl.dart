@@ -24,8 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   static const _cachedUserKey = 'cached_user';
 
-  final StreamController<void> _sessionExpiredController =
-      StreamController<void>.broadcast();
+  final StreamController<void> _sessionExpiredController = StreamController<void>.broadcast();
 
   Future<Box<dynamic>>? _boxFuture;
 
@@ -42,10 +41,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> login({required String phone, required String password}) async {
     final tokens = await _remote.login(phone: phone, password: password);
-    await _secureStorage.saveTokens(
-      access: tokens.access,
-      refresh: tokens.refresh,
-    );
+    await _secureStorage.saveTokens(access: tokens.access, refresh: tokens.refresh);
   }
 
   @override
@@ -55,10 +51,7 @@ class AuthRepositoryImpl implements AuthRepository {
       throw const Failure.auth();
     }
     final tokens = await _remote.refresh(refreshToken);
-    await _secureStorage.saveTokens(
-      access: tokens.access,
-      refresh: tokens.refresh,
-    );
+    await _secureStorage.saveTokens(access: tokens.access, refresh: tokens.refresh);
   }
 
   @override
@@ -80,10 +73,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       dto = await _remote.me();
     } on Failure catch (error) {
-      final isNetwork = error.maybeWhen(
-        network: () => true,
-        orElse: () => false,
-      );
+      final isNetwork = error.maybeWhen(network: () => true, orElse: () => false);
       if (isNetwork) {
         final cached = await getCachedUser();
         if (cached != null) return cached;
@@ -106,9 +96,7 @@ class AuthRepositoryImpl implements AuthRepository {
     final raw = box.get(_cachedUserKey);
     if (raw is! String || raw.isEmpty) return null;
     try {
-      final dto = AuthMeDto.fromJson(
-        Map<String, dynamic>.from(jsonDecode(raw) as Map),
-      );
+      final dto = AuthMeDto.fromJson(Map<String, dynamic>.from(jsonDecode(raw) as Map));
       return dto.toUser();
     } catch (error) {
       logger.w("Keshlangan foydalanuvchini o'qishda xato: $error");

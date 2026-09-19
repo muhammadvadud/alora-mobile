@@ -17,6 +17,5 @@ _StatusTransitionDto _$StatusTransitionDtoFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$StatusTransitionDtoToJson(
-  _StatusTransitionDto instance,
-) => <String, dynamic>{'code': instance.code, 'label': instance.label};
+Map<String, dynamic> _$StatusTransitionDtoToJson(_StatusTransitionDto instance) =>
+    <String, dynamic>{'code': instance.code, 'label': instance.label};

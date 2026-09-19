@@ -35,8 +35,7 @@ final class PromptHistoryNotifierProvider
   PromptHistoryNotifier create() => PromptHistoryNotifier();
 }
 
-String _$promptHistoryNotifierHash() =>
-    r'fcd8b046ae8970d48620f3eb45c9cfbc605f1048';
+String _$promptHistoryNotifierHash() => r'fcd8b046ae8970d48620f3eb45c9cfbc605f1048';
 
 abstract class _$PromptHistoryNotifier extends $AsyncNotifier<PromptHistory> {
   FutureOr<PromptHistory> build();
@@ -80,17 +79,14 @@ final class ModelPricingsNotifierProvider
   ModelPricingsNotifier create() => ModelPricingsNotifier();
 }
 
-String _$modelPricingsNotifierHash() =>
-    r'171caffe035f926392c5ff556ac7f9ca0ce64fad';
+String _$modelPricingsNotifierHash() => r'171caffe035f926392c5ff556ac7f9ca0ce64fad';
 
-abstract class _$ModelPricingsNotifier
-    extends $AsyncNotifier<List<ModelPricing>> {
+abstract class _$ModelPricingsNotifier extends $AsyncNotifier<List<ModelPricing>> {
   FutureOr<List<ModelPricing>> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<List<ModelPricing>>, List<ModelPricing>>;
+    final ref = this.ref as $Ref<AsyncValue<List<ModelPricing>>, List<ModelPricing>>;
     final element =
         ref.element
             as $ClassProviderElement<

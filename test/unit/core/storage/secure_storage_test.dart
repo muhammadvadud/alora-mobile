@@ -46,39 +46,27 @@ void main() {
     test('saveTokens qayta yozish — eski qiymatlar almashtiriladi', () async {
       const storage = SecureStorage();
 
-      await storage.saveTokens(
-        access: 'first_access',
-        refresh: 'first_refresh',
-      );
+      await storage.saveTokens(access: 'first_access', refresh: 'first_refresh');
 
-      await storage.saveTokens(
-        access: 'second_access',
-        refresh: 'second_refresh',
-      );
+      await storage.saveTokens(access: 'second_access', refresh: 'second_refresh');
 
       expect(await storage.getAccessToken(), 'second_access');
       expect(await storage.getRefreshToken(), 'second_refresh');
     });
 
-    test(
-      'secureStorageProvider ishlaydi va bir xil instansiyani qaytaradi',
-      () async {
-        final container = ProviderContainer();
-        addTearDown(container.dispose);
+    test('secureStorageProvider ishlaydi va bir xil instansiyani qaytaradi', () async {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
 
-        final storage = container.read(secureStorageProvider);
-        expect(storage, isA<SecureStorage>());
+      final storage = container.read(secureStorageProvider);
+      expect(storage, isA<SecureStorage>());
 
-        // keepAlive: yana o'qilganda bir xil instansiya
-        expect(container.read(secureStorageProvider), same(storage));
+      // keepAlive: yana o'qilganda bir xil instansiya
+      expect(container.read(secureStorageProvider), same(storage));
 
-        await storage.saveTokens(
-          access: 'test_access',
-          refresh: 'test_refresh',
-        );
-        expect(await storage.getAccessToken(), 'test_access');
-      },
-    );
+      await storage.saveTokens(access: 'test_access', refresh: 'test_refresh');
+      expect(await storage.getAccessToken(), 'test_access');
+    });
 
     test('PIN bo\'sh holatda null qaytaradi', () async {
       const storage = SecureStorage();

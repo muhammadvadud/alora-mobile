@@ -62,11 +62,7 @@ class ToolChipBlockView extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0, top: 4.0),
-      child: ui_tool_chip.ToolChip(
-        text: label,
-        state: widgetState,
-        onTap: onTap,
-      ),
+      child: ui_tool_chip.ToolChip(text: label, state: widgetState, onTap: onTap),
     );
   }
 }

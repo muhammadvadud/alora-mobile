@@ -17,6 +17,5 @@ abstract class CalcRuleDto with _$CalcRuleDto {
     @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _CalcRuleDto;
 
-  factory CalcRuleDto.fromJson(Map<String, dynamic> json) =>
-      _$CalcRuleDtoFromJson(json);
+  factory CalcRuleDto.fromJson(Map<String, dynamic> json) => _$CalcRuleDtoFromJson(json);
 }

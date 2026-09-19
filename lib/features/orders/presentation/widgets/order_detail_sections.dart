@@ -6,12 +6,7 @@ class _OrderDetailBody extends StatelessWidget {
   final VoidCallback? onCall;
   final VoidCallback? onGeo;
 
-  const _OrderDetailBody({
-    required this.order,
-    required this.onConfirm,
-    this.onCall,
-    this.onGeo,
-  });
+  const _OrderDetailBody({required this.order, required this.onConfirm, this.onCall, this.onGeo});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +17,7 @@ class _OrderDetailBody extends StatelessWidget {
         children: [
           _OrderDetailHeader(order: order),
           const SizedBox(height: AppSpacing.l),
-          StatusTimeline(
-            currentStatus: order.status,
-            actionDate: order.updatedAt,
-          ),
+          StatusTimeline(currentStatus: order.status, actionDate: order.updatedAt),
           const SizedBox(height: AppSpacing.l),
           if (order.status == OrderStatus.draft) ...[
             AppButton(text: context.l10n.orders_confirm, onPressed: onConfirm),
@@ -57,10 +49,7 @@ class _OrderDetailHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              order.number ?? '',
-              style: typography.titleL.copyWith(color: colors.textPrimary),
-            ),
+            Text(order.number ?? '', style: typography.titleL.copyWith(color: colors.textPrimary)),
             StatusPill(status: order.status),
           ],
         ),
@@ -70,9 +59,7 @@ class _OrderDetailHeader extends StatelessWidget {
           children: [
             if (order.createdAt != null)
               Text(
-                context.l10n.dateLabel(
-                  formatDate(order.createdAt!, context: context),
-                ),
+                context.l10n.dateLabel(formatDate(order.createdAt!, context: context)),
                 style: typography.bodyS.copyWith(color: colors.textSecondary),
               ),
             if (order.user != null)
@@ -103,10 +90,7 @@ class _OrderCustomerSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (order.customerName != null) ...[
-          Text(
-            context.l10n.customer,
-            style: typography.titleM.copyWith(color: colors.textPrimary),
-          ),
+          Text(context.l10n.customer, style: typography.titleM.copyWith(color: colors.textPrimary)),
           const SizedBox(height: AppSpacing.s),
           ListTile(
             leading: Icon(AppIcons.profile, color: colors.textSecondary),
@@ -241,10 +225,7 @@ class _FinanceRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: typography.bodyL.copyWith(color: colors.textSecondary),
-          ),
+          Text(label, style: typography.bodyL.copyWith(color: colors.textSecondary)),
           Text(
             value,
             style: typography.bodyL.copyWith(
@@ -263,11 +244,7 @@ class _OrderDetailMenu extends StatelessWidget {
   final VoidCallback onShare;
   final VoidCallback onCancel;
 
-  const _OrderDetailMenu({
-    required this.onPdf,
-    required this.onShare,
-    required this.onCancel,
-  });
+  const _OrderDetailMenu({required this.onPdf, required this.onShare, required this.onCancel});
 
   @override
   Widget build(BuildContext context) {

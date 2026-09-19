@@ -23,83 +23,58 @@ void main() {
       );
     });
 
-    test(
-      'validates discount limit for employee (5%) and updates field errors',
-      () async {
-        final OrderFormNotifier notifier = container.read(
-          orderFormProvider.notifier,
-        );
+    test('validates discount limit for employee (5%) and updates field errors', () async {
+      final OrderFormNotifier notifier = container.read(orderFormProvider.notifier);
 
-        notifier.initialize({});
-        notifier.updateField('discount_percent', '6');
+      notifier.initialize({});
+      notifier.updateField('discount_percent', '6');
 
-        expect(
-          () => notifier.submit(null, 'employee'),
-          throwsA(isA<ValidationFailure>()),
-        );
+      expect(() => notifier.submit(null, 'employee'), throwsA(isA<ValidationFailure>()));
 
-        final state = container.read(orderFormProvider);
-        expect(state.fieldErrors.containsKey('discount_percent'), isTrue);
-        expect(state.fieldErrors['discount_percent'], contains('5%'));
-      },
-    );
+      final state = container.read(orderFormProvider);
+      expect(state.fieldErrors.containsKey('discount_percent'), isTrue);
+      expect(state.fieldErrors['discount_percent'], contains('5%'));
+    });
 
-    test(
-      'validates discount limit for manager (15%) and updates field errors',
-      () async {
-        final OrderFormNotifier notifier = container.read(
-          orderFormProvider.notifier,
-        );
+    test('validates discount limit for manager (15%) and updates field errors', () async {
+      final OrderFormNotifier notifier = container.read(orderFormProvider.notifier);
 
-        notifier.initialize({});
-        notifier.updateField('discount_percent', '16');
+      notifier.initialize({});
+      notifier.updateField('discount_percent', '16');
 
-        expect(
-          () => notifier.submit(null, 'manager'),
-          throwsA(isA<ValidationFailure>()),
-        );
+      expect(() => notifier.submit(null, 'manager'), throwsA(isA<ValidationFailure>()));
 
-        final state = container.read(orderFormProvider);
-        expect(state.fieldErrors.containsKey('discount_percent'), isTrue);
-        expect(state.fieldErrors['discount_percent'], contains('15%'));
-      },
-    );
+      final state = container.read(orderFormProvider);
+      expect(state.fieldErrors.containsKey('discount_percent'), isTrue);
+      expect(state.fieldErrors['discount_percent'], contains('15%'));
+    });
 
-    test(
-      'dirty tracking and sends only modified fields in PATCH request',
-      () async {
-        final OrderFormNotifier notifier = container.read(
-          orderFormProvider.notifier,
-        );
+    test('dirty tracking and sends only modified fields in PATCH request', () async {
+      final OrderFormNotifier notifier = container.read(orderFormProvider.notifier);
 
-        when(() => mockRepo.patchOrder(any(), any())).thenAnswer(
-          (_) async => const Order(
-            id: '1',
-            status: OrderStatus.draft,
-            paymentStatus: PaymentStatus.unpaid,
-          ),
-        );
+      when(() => mockRepo.patchOrder(any(), any())).thenAnswer(
+        (_) async =>
+            const Order(id: '1', status: OrderStatus.draft, paymentStatus: PaymentStatus.unpaid),
+      );
 
-        notifier.initialize({
-          'customer_name': 'Ali',
-          'customer_phone': '998901234567',
-          'address': 'Tashkent',
-        });
+      notifier.initialize({
+        'customer_name': 'Ali',
+        'customer_phone': '998901234567',
+        'address': 'Tashkent',
+      });
 
-        // Initially not dirty
-        expect(notifier.state.isDirty, isFalse);
+      // Initially not dirty
+      expect(notifier.state.isDirty, isFalse);
 
-        notifier.updateField('address', 'Samarqand');
+      notifier.updateField('address', 'Samarqand');
 
-        // Now it's dirty
-        expect(notifier.state.isDirty, isTrue);
-        expect(notifier.state.changedFields, {'address': 'Samarqand'});
+      // Now it's dirty
+      expect(notifier.state.isDirty, isTrue);
+      expect(notifier.state.changedFields, {'address': 'Samarqand'});
 
-        await notifier.submit('1', 'manager');
+      await notifier.submit('1', 'manager');
 
-        verify(() => mockRepo.patchOrder('1', {'address': 'Samarqand'}))
-            .called(1);
-      },
-    );
+      verify(() => mockRepo.patchOrder('1', {'address': 'Samarqand'})).called(1);
+    });
   });
 }

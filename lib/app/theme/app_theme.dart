@@ -26,9 +26,7 @@ class AppTheme {
     required bool isCustomerMode,
     required Brightness brightness,
   }) {
-    final typography = isCustomerMode
-        ? AppTypography.customer
-        : AppTypography.regular;
+    final typography = isCustomerMode ? AppTypography.customer : AppTypography.regular;
 
     final colorScheme = ColorScheme(
       brightness: brightness,
@@ -83,10 +81,7 @@ class AppTheme {
           borderRadius: AppRadius.inputBorder,
           borderSide: BorderSide(color: colors.border, width: 1.0),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.l,
-          vertical: 0,
-        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: 0),
         hintStyle: typography.bodyM.copyWith(color: colors.textSecondary),
         errorStyle: typography.labelS.copyWith(color: colors.danger),
       ),
@@ -111,9 +106,7 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: colors.inverse,
-        contentTextStyle: typography.snackbarText.copyWith(
-          color: colors.onInverse,
-        ),
+        contentTextStyle: typography.snackbarText.copyWith(color: colors.onInverse),
         shape: RoundedRectangleBorder(borderRadius: AppRadius.inputBorder),
         behavior: SnackBarBehavior.floating,
       ),
@@ -125,15 +118,12 @@ class AppTheme {
         ),
         elevation: 0,
         titleTextStyle: typography.titleM.copyWith(color: colors.textPrimary),
-        contentTextStyle: typography.bodyS.copyWith(
-          color: colors.textSecondary,
-        ),
+        contentTextStyle: typography.bodyS.copyWith(color: colors.textSecondary),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: colors.surface,
         elevation: 0,
-        indicatorColor:
-            colors.background, // we will customize the active tab in AppTabBar
+        indicatorColor: colors.background, // we will customize the active tab in AppTabBar
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
             return typography.tabLabel.copyWith(color: colors.accent);

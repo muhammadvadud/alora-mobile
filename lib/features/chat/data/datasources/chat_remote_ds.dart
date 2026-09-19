@@ -12,10 +12,7 @@ class ChatRemoteDataSource {
 
   ChatRemoteDataSource(this._dio, this._sseClient);
 
-  Future<Paginated<MessageDto>> getMessages(
-    String conversationId, {
-    String? cursor,
-  }) async {
+  Future<Paginated<MessageDto>> getMessages(String conversationId, {String? cursor}) async {
     final path = ApiPaths.conversationMessages(conversationId);
     final response = await _dio.get(
       path,
@@ -33,11 +30,7 @@ class ChatRemoteDataSource {
     CancelToken? cancelToken,
   }) {
     final path = ApiPaths.conversationMessages(conversationId);
-    return _sseClient.connect(
-      path,
-      data: request.toJson(),
-      cancelToken: cancelToken,
-    );
+    return _sseClient.connect(path, data: request.toJson(), cancelToken: cancelToken);
   }
 
   Future<void> resetConversation(String conversationId) async {

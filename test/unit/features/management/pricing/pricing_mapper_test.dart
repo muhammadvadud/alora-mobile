@@ -18,85 +18,82 @@ Map<String, dynamic> _base() => {
 };
 
 void main() {
-  group(
-    'PricingMapper — DTO → entity (§9.3: pul int, koeffitsient double)',
-    () {
-      test('CalcRule: value string → double, sana lokal', () {
-        final dto = CalcRuleDto.fromJson({
-          ..._base(),
-          'key': 'default_coef',
-          'value': '2.500',
-          'unit': 'x',
-          'description': 'Standart burma koeffitsienti',
-          'applies_to': 'fabric',
-        });
-        final rule = PricingMapper.toCalcRule(dto);
-        expect(rule.key, 'default_coef');
-        expect(rule.value, 2.5);
-        expect(rule.description, 'Standart burma koeffitsienti');
-        expect(rule.createdAt, DateTime.parse(_ts).toLocal());
+  group('PricingMapper — DTO → entity (§9.3: pul int, koeffitsient double)', () {
+    test('CalcRule: value string → double, sana lokal', () {
+      final dto = CalcRuleDto.fromJson({
+        ..._base(),
+        'key': 'default_coef',
+        'value': '2.500',
+        'unit': 'x',
+        'description': 'Standart burma koeffitsienti',
+        'applies_to': 'fabric',
       });
+      final rule = PricingMapper.toCalcRule(dto);
+      expect(rule.key, 'default_coef');
+      expect(rule.value, 2.5);
+      expect(rule.description, 'Standart burma koeffitsienti');
+      expect(rule.createdAt, DateTime.parse(_ts).toLocal());
+    });
 
-      test('ServicePrice: "150000.00" → 150000 (int)', () {
-        final dto = ServicePriceDto.fromJson({
-          ..._base(),
-          'key': 'sewing',
-          'name': 'Tikuv',
-          'price': '150000.00',
-          'unit': 'per_meter',
-        });
-        expect(PricingMapper.toServicePrice(dto).price, 150000);
+    test('ServicePrice: "150000.00" → 150000 (int)', () {
+      final dto = ServicePriceDto.fromJson({
+        ..._base(),
+        'key': 'sewing',
+        'name': 'Tikuv',
+        'price': '150000.00',
+        'unit': 'per_meter',
       });
+      expect(PricingMapper.toServicePrice(dto).price, 150000);
+    });
 
-      test('DiscountTier: min_amount int, percent double', () {
-        final dto = DiscountTierDto.fromJson({
-          ..._base(),
-          'min_amount': '5000000.00',
-          'percent': '3.00',
-        });
-        final tier = PricingMapper.toDiscountTier(dto);
-        expect(tier.minAmount, 5000000);
-        expect(tier.percent, 3.0);
+    test('DiscountTier: min_amount int, percent double', () {
+      final dto = DiscountTierDto.fromJson({
+        ..._base(),
+        'min_amount': '5000000.00',
+        'percent': '3.00',
       });
+      final tier = PricingMapper.toDiscountTier(dto);
+      expect(tier.minAmount, 5000000);
+      expect(tier.percent, 3.0);
+    });
 
-      test('DiscountPolicy: employee/manager chegaralari API\'dan (§5)', () {
-        final dto = DiscountPolicyDto.fromJson({
-          ..._base(),
-          'manual_max_percent_employee': '5.00',
-          'manual_max_percent_manager': '15.00',
-          'stack_with_tier': false,
-        });
-        final p = PricingMapper.toDiscountPolicy(dto);
-        expect(p.manualMaxPercentEmployee, 5.0);
-        expect(p.manualMaxPercentManager, 15.0);
-        expect(p.stackWithTier, isFalse);
+    test('DiscountPolicy: employee/manager chegaralari API\'dan (§5)', () {
+      final dto = DiscountPolicyDto.fromJson({
+        ..._base(),
+        'manual_max_percent_employee': '5.00',
+        'manual_max_percent_manager': '15.00',
+        'stack_with_tier': false,
       });
+      final p = PricingMapper.toDiscountPolicy(dto);
+      expect(p.manualMaxPercentEmployee, 5.0);
+      expect(p.manualMaxPercentManager, 15.0);
+      expect(p.stackWithTier, isFalse);
+    });
 
-      test('OrderDefaults: avans %, yetkazish summasi, muddat kun', () {
-        final dto = OrderDefaultsDto.fromJson({
-          ..._base(),
-          'prepayment_percent': '50.00',
-          'delivery_amount': '80000.00',
-          'deadline_days': 14,
-        });
-        final d = PricingMapper.toOrderDefaults(dto);
-        expect(d.defaultPrepaymentPercent, 50.0);
-        expect(d.defaultDeliveryAmount, 80000);
-        expect(d.deadlineDays, 14);
+    test('OrderDefaults: avans %, yetkazish summasi, muddat kun', () {
+      final dto = OrderDefaultsDto.fromJson({
+        ..._base(),
+        'prepayment_percent': '50.00',
+        'delivery_amount': '80000.00',
+        'deadline_days': 14,
       });
+      final d = PricingMapper.toOrderDefaults(dto);
+      expect(d.defaultPrepaymentPercent, 50.0);
+      expect(d.defaultDeliveryAmount, 80000);
+      expect(d.deadlineDays, 14);
+    });
 
-      test('buzilgan raqam string → 0 (ilova yiqilmaydi)', () {
-        final dto = ServicePriceDto.fromJson({
-          ..._base(),
-          'key': 'k',
-          'name': 'n',
-          'price': 'abc',
-          'unit': 'u',
-        });
-        expect(PricingMapper.toServicePrice(dto).price, 0);
+    test('buzilgan raqam string → 0 (ilova yiqilmaydi)', () {
+      final dto = ServicePriceDto.fromJson({
+        ..._base(),
+        'key': 'k',
+        'name': 'n',
+        'price': 'abc',
+        'unit': 'u',
       });
-    },
-  );
+      expect(PricingMapper.toServicePrice(dto).price, 0);
+    });
+  });
 
   group('PricingMapper.toQuote (calc/preview → Quote, 3 guruh)', () {
     test('fabrics/accessories/services taqsimlanadi; jami backend total', () {

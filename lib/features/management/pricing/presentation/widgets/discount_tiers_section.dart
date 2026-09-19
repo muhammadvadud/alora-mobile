@@ -30,9 +30,7 @@ class DiscountTiersSection extends StatelessWidget {
         children: [
           Text(
             context.l10n.management_pricingTiersEmpty,
-            style: context.text.bodyS.copyWith(
-              color: context.colors.textSecondary,
-            ),
+            style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
           ),
           const SizedBox(height: AppSpacing.s),
           AppButton.secondary(
@@ -53,13 +51,8 @@ class DiscountTiersSection extends StatelessWidget {
             dataRowMinHeight: 48,
             dataRowMaxHeight: 48,
             columns: [
-              DataColumn(
-                label: Text(context.l10n.management_pricingTierMinAmount),
-              ),
-              DataColumn(
-                numeric: true,
-                label: Text(context.l10n.management_pricingTierPercent),
-              ),
+              DataColumn(label: Text(context.l10n.management_pricingTierMinAmount)),
+              DataColumn(numeric: true, label: Text(context.l10n.management_pricingTierPercent)),
               const DataColumn(label: Text('')),
             ],
             rows: [
@@ -72,11 +65,7 @@ class DiscountTiersSection extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: IconButton(
-                          icon: Icon(
-                            AppIcons.trash,
-                            size: 18,
-                            color: context.colors.danger,
-                          ),
+                          icon: Icon(AppIcons.trash, size: 18, color: context.colors.danger),
                           onPressed: () => onDelete(t.id),
                         ),
                       ),

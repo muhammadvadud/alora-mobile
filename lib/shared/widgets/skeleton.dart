@@ -19,17 +19,14 @@ class SkeletonBox extends StatefulWidget {
   State<SkeletonBox> createState() => _SkeletonBoxState();
 }
 
-class _SkeletonBoxState extends State<SkeletonBox>
-    with SingleTickerProviderStateMixin {
+class _SkeletonBoxState extends State<SkeletonBox> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    )..repeat(reverse: true);
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200))
+      ..repeat(reverse: true);
   }
 
   @override
@@ -67,12 +64,7 @@ class SkeletonList extends StatelessWidget {
   final Widget itemBuilder;
   final EdgeInsetsGeometry? padding;
 
-  const SkeletonList({
-    super.key,
-    this.itemCount = 3,
-    required this.itemBuilder,
-    this.padding,
-  });
+  const SkeletonList({super.key, this.itemCount = 3, required this.itemBuilder, this.padding});
 
   @override
   Widget build(BuildContext context) {

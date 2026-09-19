@@ -30,8 +30,7 @@ class EmployeeDetailScreen extends ConsumerStatefulWidget {
   const EmployeeDetailScreen({super.key, required this.employeeId});
 
   @override
-  ConsumerState<EmployeeDetailScreen> createState() =>
-      _EmployeeDetailScreenState();
+  ConsumerState<EmployeeDetailScreen> createState() => _EmployeeDetailScreenState();
 }
 
 class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
@@ -60,11 +59,7 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
       AppSnackbar.show(context, message: l10n.common_save);
     } on Failure catch (error) {
       if (!mounted) return;
-      AppSnackbar.show(
-        context,
-        message: error.localizedMessage(context),
-        isError: true,
-      );
+      AppSnackbar.show(context, message: error.localizedMessage(context), isError: true);
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -93,16 +88,10 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
     if (confirmed != true) return;
 
     try {
-      await ref
-          .read(employeeDetailProvider(widget.employeeId).notifier)
-          .toggleBlocked(blocked);
+      await ref.read(employeeDetailProvider(widget.employeeId).notifier).toggleBlocked(blocked);
     } on Failure catch (error) {
       if (!mounted) return;
-      AppSnackbar.show(
-        context,
-        message: error.localizedMessage(context),
-        isError: true,
-      );
+      AppSnackbar.show(context, message: error.localizedMessage(context), isError: true);
     }
   }
 
@@ -124,31 +113,22 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
         title: Text(l10n.management_employeeProfileTitle),
         actions: [
           if (loaded != null)
-            TextButton(
-              onPressed: _saving ? null : _saveProfile,
-              child: Text(l10n.common_save),
-            ),
+            TextButton(onPressed: _saving ? null : _saveProfile, child: Text(l10n.common_save)),
         ],
       ),
       body: state.maybeWhen(
-        loading: () => const SkeletonList(
-          itemCount: 4,
-          itemBuilder: SkeletonBox(height: 84),
-        ),
+        loading: () => const SkeletonList(itemCount: 4, itemBuilder: SkeletonBox(height: 84)),
         error: (failure) => ErrorState(
           message: failure.localizedMessage(context),
-          onRetry: () => ref
-              .read(employeeDetailProvider(widget.employeeId).notifier)
-              .load(),
+          onRetry: () => ref.read(employeeDetailProvider(widget.employeeId).notifier).load(),
         ),
         loaded: (employee, _) => _DetailBody(
           employee: employee,
           nameController: _nameController,
           role: _role,
           onRoleChanged: (role) => setState(() => _role = role),
-          onViewConversations: () => context.go(
-            AppRoutes.managementEmployeeConversations(employee.id),
-          ),
+          onViewConversations: () =>
+              context.go(AppRoutes.managementEmployeeConversations(employee.id)),
           onBlockChanged: (blocked) => _toggleBlocked(blocked),
           limitEditor: EmployeeLimitEditor(
             key: ValueKey(limit?.id),
@@ -187,10 +167,7 @@ class _DetailBody extends StatelessWidget {
 
     return TabletCentered(
       child: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.screenH,
-          vertical: AppSpacing.l,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH, vertical: AppSpacing.l),
         children: [
           _EmployeeHeader(employee: employee),
           const SizedBox(height: AppSpacing.xl),
@@ -205,10 +182,7 @@ class _DetailBody extends StatelessWidget {
             onPressed: onViewConversations,
           ),
           const SizedBox(height: AppSpacing.l),
-          _BlockToggleCard(
-            isBlocked: employee.isBlocked,
-            onBlockChanged: onBlockChanged,
-          ),
+          _BlockToggleCard(isBlocked: employee.isBlocked, onBlockChanged: onBlockChanged),
           const SizedBox(height: AppSpacing.xl),
           limitEditor,
         ],
@@ -242,10 +216,7 @@ class _EmployeeHeader extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: AppSpacing.xs),
-              Text(
-                employee.phone,
-                style: typography.bodyM.copyWith(color: colors.textSecondary),
-              ),
+              Text(employee.phone, style: typography.bodyM.copyWith(color: colors.textSecondary)),
             ],
           ),
         ),
@@ -293,16 +264,12 @@ class _EmployeeEditForm extends StatelessWidget {
               AppChip(
                 label: l10n.profile_roleEmployee,
                 onTap: () => onRoleChanged(Role.employee),
-                state: role == Role.employee
-                    ? AppChipState.selected
-                    : AppChipState.unselected,
+                state: role == Role.employee ? AppChipState.selected : AppChipState.unselected,
               ),
               AppChip(
                 label: l10n.profile_roleManager,
                 onTap: () => onRoleChanged(Role.manager),
-                state: role == Role.manager
-                    ? AppChipState.selected
-                    : AppChipState.unselected,
+                state: role == Role.manager ? AppChipState.selected : AppChipState.unselected,
               ),
             ],
           ),
@@ -316,10 +283,7 @@ class _BlockToggleCard extends StatelessWidget {
   final bool isBlocked;
   final ValueChanged<bool> onBlockChanged;
 
-  const _BlockToggleCard({
-    required this.isBlocked,
-    required this.onBlockChanged,
-  });
+  const _BlockToggleCard({required this.isBlocked, required this.onBlockChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -332,9 +296,7 @@ class _BlockToggleCard extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              isBlocked
-                  ? l10n.management_employeeBlock
-                  : l10n.management_employeeUnblock,
+              isBlocked ? l10n.management_employeeBlock : l10n.management_employeeUnblock,
               style: typography.titleS.copyWith(color: colors.textPrimary),
             ),
           ),

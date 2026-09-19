@@ -31,9 +31,7 @@ class SpendSection extends ConsumerWidget {
         AppCard(
           child: spend.maybeWhen(
             loading: () => const SkeletonBox(height: 60),
-            error: (error, _) => _SpendError(
-              message: (error as Failure).localizedMessage(context),
-            ),
+            error: (error, _) => _SpendError(message: (error as Failure).localizedMessage(context)),
             data: (data) => _SpendContent(data: data),
             orElse: () => const SkeletonBox(height: 60),
           ),
@@ -55,10 +53,7 @@ class _SpendError extends ConsumerWidget {
     return Row(
       children: [
         Expanded(
-          child: Text(
-            message,
-            style: context.text.bodyS.copyWith(color: colors.textSecondary),
-          ),
+          child: Text(message, style: context.text.bodyS.copyWith(color: colors.textSecondary)),
         ),
         AppButton.text(
           text: l10n.common_retry,
@@ -98,10 +93,7 @@ class _SpendContent extends StatelessWidget {
                   style: typography.bodyM.copyWith(color: colors.textSecondary),
                 ),
               ),
-              Text(
-                '∞',
-                style: typography.displayM.copyWith(color: colors.accent),
-              ),
+              Text('∞', style: typography.displayM.copyWith(color: colors.accent)),
             ],
           ),
           const SizedBox(height: AppSpacing.xs),
@@ -133,10 +125,7 @@ class _SpendContent extends StatelessWidget {
                 style: typography.bodyM.copyWith(color: colors.textSecondary),
               ),
             ),
-            Text(
-              fractionText,
-              style: typography.titleS.copyWith(color: colors.textPrimary),
-            ),
+            Text(fractionText, style: typography.titleS.copyWith(color: colors.textPrimary)),
           ],
         ),
         if (todayCost != null) ...[

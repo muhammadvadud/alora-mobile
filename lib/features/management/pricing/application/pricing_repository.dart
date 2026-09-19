@@ -50,11 +50,7 @@ class PricingRepository {
     return PricingMapper.toDiscountTier(dto);
   }
 
-  Future<DiscountTier> patchDiscountTier(
-    String id,
-    int minAmount,
-    double percent,
-  ) async {
+  Future<DiscountTier> patchDiscountTier(String id, int minAmount, double percent) async {
     final dto = await _remoteDs.patchDiscountTier(id, {
       'min_amount': minAmount.toString(),
       'percent': percent.toString(),

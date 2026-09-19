@@ -9,10 +9,8 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_theme.dart';
-import 'package:alora_mobile/features/auth/application/providers.dart'
-    as auth_providers;
-import 'package:alora_mobile/features/profile/application/providers.dart'
-    as profile_providers;
+import 'package:alora_mobile/features/auth/application/providers.dart' as auth_providers;
+import 'package:alora_mobile/features/profile/application/providers.dart' as profile_providers;
 import 'package:alora_mobile/features/profile/presentation/screens/profile_screen.dart';
 
 import '../../../helpers/fake_profile_repository.dart';
@@ -44,12 +42,8 @@ void main() {
     Widget widgetFor(ThemeMode mode) {
       return ProviderScope(
         overrides: [
-          auth_providers.authRepositoryProvider.overrideWithValue(
-            authRepository,
-          ),
-          profile_providers.profileRepositoryProvider.overrideWithValue(
-            profileRepository,
-          ),
+          auth_providers.authRepositoryProvider.overrideWithValue(authRepository),
+          profile_providers.profileRepositoryProvider.overrideWithValue(profileRepository),
         ],
         child: MaterialApp(
           theme: AppTheme.light(),

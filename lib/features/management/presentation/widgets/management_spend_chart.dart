@@ -64,8 +64,7 @@ class _LineChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final spots = [
-      for (var i = 0; i < daily.length; i++)
-        FlSpot(i.toDouble(), daily[i].costUzs.toDouble()),
+      for (var i = 0; i < daily.length; i++) FlSpot(i.toDouble(), daily[i].costUzs.toDouble()),
     ];
 
     return LineChart(
@@ -78,8 +77,7 @@ class _LineChart extends StatelessWidget {
         gridData: FlGridData(
           show: true,
           drawVerticalLine: false,
-          getDrawingHorizontalLine: (value) =>
-              FlLine(color: colors.border, strokeWidth: 1),
+          getDrawingHorizontalLine: (value) => FlLine(color: colors.border, strokeWidth: 1),
         ),
         lineTouchData: const LineTouchData(enabled: false),
       ),
@@ -107,10 +105,7 @@ class _LineChart extends StatelessWidget {
           );
         },
       ),
-      belowBarData: BarAreaData(
-        show: true,
-        color: colors.accent.withValues(alpha: 0.08),
-      ),
+      belowBarData: BarAreaData(show: true, color: colors.accent.withValues(alpha: 0.08)),
     );
   }
 
@@ -132,10 +127,7 @@ class _LineChart extends StatelessWidget {
               return const SizedBox.shrink();
             }
             final day = daily[index].date.day;
-            return Text(
-              '$day',
-              style: context.text.labelS.copyWith(color: colors.textSecondary),
-            );
+            return Text('$day', style: context.text.labelS.copyWith(color: colors.textSecondary));
           },
         ),
       ),

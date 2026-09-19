@@ -7,10 +7,8 @@ part 'discount_policy_dto.g.dart';
 abstract class DiscountPolicyDto with _$DiscountPolicyDto {
   const factory DiscountPolicyDto({
     required String id,
-    @JsonKey(name: 'manual_max_percent_employee')
-    required String manualMaxPercentEmployee,
-    @JsonKey(name: 'manual_max_percent_manager')
-    required String manualMaxPercentManager,
+    @JsonKey(name: 'manual_max_percent_employee') required String manualMaxPercentEmployee,
+    @JsonKey(name: 'manual_max_percent_manager') required String manualMaxPercentManager,
     @JsonKey(name: 'stack_with_tier') @Default(true) bool stackWithTier,
     @JsonKey(name: 'is_active') @Default(true) bool isActive,
     @JsonKey(name: 'created_at') required String createdAt,

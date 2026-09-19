@@ -61,10 +61,8 @@ class EmployeesScreen extends ConsumerWidget {
             ),
             Expanded(
               child: state.maybeWhen(
-                loading: (_) => const SkeletonList(
-                  itemCount: 5,
-                  itemBuilder: SkeletonBox(height: 84),
-                ),
+                loading: (_) =>
+                    const SkeletonList(itemCount: 5, itemBuilder: SkeletonBox(height: 84)),
                 error: (failure, _) => ErrorState(
                   message: failure.localizedMessage(context),
                   onRetry: () => ref.read(employeesProvider.notifier).retry(),
@@ -84,14 +82,12 @@ class EmployeesScreen extends ConsumerWidget {
                     vertical: AppSpacing.s,
                   ),
                   itemCount: items.length,
-                  separatorBuilder: (_, _) =>
-                      const SizedBox(height: AppSpacing.s),
+                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.s),
                   itemBuilder: (context, index) {
                     final employee = items[index];
                     return EmployeeRow(
                       employee: employee,
-                      onTap: () =>
-                          context.go(AppRoutes.managementEmployee(employee.id)),
+                      onTap: () => context.go(AppRoutes.managementEmployee(employee.id)),
                     );
                   },
                 ),

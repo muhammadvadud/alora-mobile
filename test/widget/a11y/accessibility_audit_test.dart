@@ -26,10 +26,7 @@ void main() {
         final handle = tester.ensureSemantics();
 
         await tester.pumpWidget(
-          const AppButton(
-            text: 'Tasdiqlash',
-            onPressed: _noop,
-          ).pumpApp(themeMode: themeMode),
+          const AppButton(text: 'Tasdiqlash', onPressed: _noop).pumpApp(themeMode: themeMode),
         );
 
         final node = tester.getSemantics(find.text('Tasdiqlash'));
@@ -41,10 +38,7 @@ void main() {
         final handle = tester.ensureSemantics();
 
         await tester.pumpWidget(
-          const AppChip(
-            label: 'Mehmonxona',
-            onTap: _noop,
-          ).pumpApp(themeMode: themeMode),
+          const AppChip(label: 'Mehmonxona', onTap: _noop).pumpApp(themeMode: themeMode),
         );
 
         expect(tester, meetsGuideline(labeledTapTargetGuideline));
@@ -60,11 +54,7 @@ void main() {
             currentIndex: 0,
             onTap: (_) {},
             items: const [
-              AppTabBarItem(
-                icon: AppIcons.chat,
-                activeIcon: AppIcons.chat,
-                label: 'Chat',
-              ),
+              AppTabBarItem(icon: AppIcons.chat, activeIcon: AppIcons.chat, label: 'Chat'),
               AppTabBarItem(
                 icon: AppIcons.orders,
                 activeIcon: AppIcons.orders,
@@ -119,9 +109,7 @@ void main() {
         handle.dispose();
       });
 
-      testWidgets('Matn kontrasti (textContrastGuideline) audit', (
-        tester,
-      ) async {
+      testWidgets('Matn kontrasti (textContrastGuideline) audit', (tester) async {
         final handle = tester.ensureSemantics();
 
         await tester.pumpWidget(
@@ -140,10 +128,7 @@ void main() {
 
       testWidgets('AppButton minimal balandlik audit (≥48 dp)', (tester) async {
         await tester.pumpWidget(
-          const AppButton(
-            text: 'Tasdiqlash',
-            onPressed: _noop,
-          ).pumpApp(themeMode: themeMode),
+          const AppButton(text: 'Tasdiqlash', onPressed: _noop).pumpApp(themeMode: themeMode),
         );
 
         final box = tester.getSize(find.byType(AppButton));

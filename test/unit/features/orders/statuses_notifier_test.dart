@@ -10,34 +10,35 @@ class MockOrdersRepository extends Mock implements OrdersRepository {}
 
 void main() {
   group('OrderTransitionsNotifier', () {
-    test('isAllowed handles active/inactive transitions correctly based on mock StatusesResponse', () async {
-      final mockRepo = MockOrdersRepository();
+    test(
+      'isAllowed handles active/inactive transitions correctly based on mock StatusesResponse',
+      () async {
+        final mockRepo = MockOrdersRepository();
 
-      when(() => mockRepo.getStatuses()).thenAnswer(
-        (_) async => const StatusesResponse(
-          transitions: {
-            'draft': ['confirmed', 'cancelled'],
-            'confirmed': ['measuring'],
-          },
-        ),
-      );
+        when(() => mockRepo.getStatuses()).thenAnswer(
+          (_) async => const StatusesResponse(
+            transitions: {
+              'draft': ['confirmed', 'cancelled'],
+              'confirmed': ['measuring'],
+            },
+          ),
+        );
 
-      final container = ProviderContainer(
-        overrides: [ordersRepositoryProvider.overrideWithValue(mockRepo)],
-      );
+        final container = ProviderContainer(
+          overrides: [ordersRepositoryProvider.overrideWithValue(mockRepo)],
+        );
 
-      // Await the future
-      await container.read(orderTransitionsProvider.future);
+        // Await the future
+        await container.read(orderTransitionsProvider.future);
 
-      final OrderTransitionsNotifier notifier = container.read(
-        orderTransitionsProvider.notifier,
-      );
+        final OrderTransitionsNotifier notifier = container.read(orderTransitionsProvider.notifier);
 
-      expect(notifier.isAllowed('draft', 'confirmed'), isTrue);
-      expect(notifier.isAllowed('draft', 'cancelled'), isTrue);
-      expect(notifier.isAllowed('draft', 'measuring'), isFalse); // not allowed
-      expect(notifier.isAllowed('confirmed', 'measuring'), isTrue);
-      expect(notifier.isAllowed('confirmed', 'ready'), isFalse);
-    });
+        expect(notifier.isAllowed('draft', 'confirmed'), isTrue);
+        expect(notifier.isAllowed('draft', 'cancelled'), isTrue);
+        expect(notifier.isAllowed('draft', 'measuring'), isFalse); // not allowed
+        expect(notifier.isAllowed('confirmed', 'measuring'), isTrue);
+        expect(notifier.isAllowed('confirmed', 'ready'), isFalse);
+      },
+    );
   });
 }

@@ -21,25 +21,19 @@ class ManagementPeriodToggle extends ConsumerWidget {
         AppChip(
           label: l10n.management_periodToday,
           onTap: () => notifier.setPeriod(UsagePeriod.day),
-          state: period == UsagePeriod.day
-              ? AppChipState.selected
-              : AppChipState.unselected,
+          state: period == UsagePeriod.day ? AppChipState.selected : AppChipState.unselected,
         ),
         const SizedBox(width: AppSpacing.s),
         AppChip(
           label: l10n.management_periodWeek,
           onTap: () => notifier.setPeriod(UsagePeriod.week),
-          state: period == UsagePeriod.week
-              ? AppChipState.selected
-              : AppChipState.unselected,
+          state: period == UsagePeriod.week ? AppChipState.selected : AppChipState.unselected,
         ),
         const SizedBox(width: AppSpacing.s),
         AppChip(
           label: l10n.management_periodMonth,
           onTap: () => notifier.setPeriod(UsagePeriod.month),
-          state: period == UsagePeriod.month
-              ? AppChipState.selected
-              : AppChipState.unselected,
+          state: period == UsagePeriod.month ? AppChipState.selected : AppChipState.unselected,
         ),
       ],
     );

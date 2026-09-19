@@ -69,21 +69,11 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          _AddButton(
-            disabled: widget.disabled,
-            onAddPressed: widget.onAddPressed,
-          ),
+          _AddButton(disabled: widget.disabled, onAddPressed: widget.onAddPressed),
           Expanded(
-            child: _InputField(
-              controller: _controller,
-              disabled: widget.disabled,
-            ),
+            child: _InputField(controller: _controller, disabled: widget.disabled),
           ),
-          if (!_hasText)
-            _MicButton(
-              disabled: widget.disabled,
-              onMicPressed: widget.onMicPressed,
-            ),
+          if (!_hasText) _MicButton(disabled: widget.disabled, onMicPressed: widget.onMicPressed),
           const SizedBox(width: 4),
           _SendButton(canSend: canSend, onSend: _handleSend),
         ],

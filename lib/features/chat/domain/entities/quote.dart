@@ -31,11 +31,8 @@ abstract class QuoteAccessory with _$QuoteAccessory {
 
 @freezed
 abstract class QuoteService with _$QuoteService {
-  const factory QuoteService({
-    required String name,
-    double? qty,
-    required int total,
-  }) = _QuoteService;
+  const factory QuoteService({required String name, double? qty, required int total}) =
+      _QuoteService;
 }
 
 @freezed

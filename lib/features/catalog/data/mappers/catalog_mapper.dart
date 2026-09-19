@@ -63,9 +63,7 @@ Product productDtoToEntity(ProductDto dto) {
   return Product(
     id: dto.id,
     categoryId: dto.category,
-    categoryData: dto.categoryData == null
-        ? null
-        : categoryDtoToEntity(dto.categoryData!),
+    categoryData: dto.categoryData == null ? null : categoryDtoToEntity(dto.categoryData!),
     name: dto.name,
     code: dto.code,
     description: dto.description,

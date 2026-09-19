@@ -5,9 +5,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('AppChip va AppCountChip Widget Tests', () {
-    testWidgets('AppChip unselected holatda korsatiladi va bosiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('AppChip unselected holatda korsatiladi va bosiladi', (WidgetTester tester) async {
       bool isTapped = false;
       await tester.pumpWidget(
         AppChip(
@@ -26,14 +24,9 @@ void main() {
       expect(isTapped, isTrue);
     });
 
-    testWidgets('AppChip selected holatda tekshiriladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('AppChip selected holatda tekshiriladi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const AppChip(
-          label: 'Tanlangan',
-          state: AppChipState.selected,
-        ).pumpApp(),
+        const AppChip(label: 'Tanlangan', state: AppChipState.selected).pumpApp(),
       );
 
       expect(find.text('Tanlangan'), findsOneWidget);
@@ -63,15 +56,9 @@ void main() {
       expect(isTapped, isTrue);
     });
 
-    testWidgets('AppCountChip selected holatda tekshiriladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('AppCountChip selected holatda tekshiriladi', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const AppCountChip(
-          label: 'Jarayonda',
-          count: 12,
-          isSelected: true,
-        ).pumpApp(),
+        const AppCountChip(label: 'Jarayonda', count: 12, isSelected: true).pumpApp(),
       );
 
       expect(find.text('Jarayonda'), findsOneWidget);

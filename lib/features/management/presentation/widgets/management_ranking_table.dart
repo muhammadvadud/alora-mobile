@@ -64,10 +64,7 @@ class _HeaderRow extends StatelessWidget {
       children: [
         Expanded(
           flex: 3,
-          child: Text(
-            l10n.management_rankingEmployeeCol.toUpperCase(),
-            style: style,
-          ),
+          child: Text(l10n.management_rankingEmployeeCol.toUpperCase(), style: style),
         ),
         Expanded(
           flex: 1,
@@ -109,10 +106,7 @@ class _RankingRow extends StatelessWidget {
           flex: 3,
           child: Row(
             children: [
-              Text(
-                '${index + 1}.',
-                style: typography.bodyS.copyWith(color: colors.textSecondary),
-              ),
+              Text('${index + 1}.', style: typography.bodyS.copyWith(color: colors.textSecondary)),
               const SizedBox(width: AppSpacing.s),
               Expanded(
                 child: Text(

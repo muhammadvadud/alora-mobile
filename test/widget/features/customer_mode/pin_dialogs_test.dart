@@ -87,9 +87,7 @@ void main() {
     expect(find.byType(SetPinDialog), findsNothing);
   });
 
-  testWidgets('EnterPinDialog wrong pin shows error', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('EnterPinDialog wrong pin shows error', (WidgetTester tester) async {
     when(() => mockStorage.getPin()).thenAnswer((_) async => '1234');
     when(() => mockStorage.savePin('1234')).thenAnswer((_) async {});
 
@@ -101,10 +99,7 @@ void main() {
     await container.read(customerModeNotifierProvider.notifier).enable('1234');
 
     await tester.pumpWidget(
-      UncontrolledProviderScope(
-        container: container,
-        child: wrapApp(const EnterPinDialog()),
-      ),
+      UncontrolledProviderScope(container: container, child: wrapApp(const EnterPinDialog())),
     );
     await tester.pumpAndSettle();
 
@@ -120,9 +115,6 @@ void main() {
     await tester.tap(find.text('1'));
     await tester.pumpAndSettle();
 
-    expect(
-      find.text('PIN kod noto\'g\'ri. Yana 2 urinish qoldi.'),
-      findsOneWidget,
-    );
+    expect(find.text('PIN kod noto\'g\'ri. Yana 2 urinish qoldi.'), findsOneWidget);
   });
 }

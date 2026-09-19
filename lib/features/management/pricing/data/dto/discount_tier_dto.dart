@@ -14,6 +14,5 @@ abstract class DiscountTierDto with _$DiscountTierDto {
     @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _DiscountTierDto;
 
-  factory DiscountTierDto.fromJson(Map<String, dynamic> json) =>
-      _$DiscountTierDtoFromJson(json);
+  factory DiscountTierDto.fromJson(Map<String, dynamic> json) => _$DiscountTierDtoFromJson(json);
 }

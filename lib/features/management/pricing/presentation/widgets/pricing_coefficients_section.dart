@@ -18,12 +18,10 @@ class PricingCoefficientsSection extends ConsumerStatefulWidget {
   final List<CalcRule> rules;
 
   @override
-  ConsumerState<PricingCoefficientsSection> createState() =>
-      _PricingCoefficientsSectionState();
+  ConsumerState<PricingCoefficientsSection> createState() => _PricingCoefficientsSectionState();
 }
 
-class _PricingCoefficientsSectionState
-    extends ConsumerState<PricingCoefficientsSection> {
+class _PricingCoefficientsSectionState extends ConsumerState<PricingCoefficientsSection> {
   final Map<String, TextEditingController> _controllers = {};
   bool _isSaving = false;
 
@@ -46,10 +44,7 @@ class _PricingCoefficientsSectionState
       }
     }
     for (final rule in widget.rules) {
-      _controllers.putIfAbsent(
-        rule.key,
-        () => TextEditingController(text: rule.value.toString()),
-      );
+      _controllers.putIfAbsent(rule.key, () => TextEditingController(text: rule.value.toString()));
     }
   }
 
@@ -75,14 +70,12 @@ class _PricingCoefficientsSectionState
     final notifier = ref.read(pricingProvider.notifier);
     try {
       await Future.wait([
-        for (final entry in changes.entries)
-          notifier.updateCalcRule(entry.key, entry.value),
+        for (final entry in changes.entries) notifier.updateCalcRule(entry.key, entry.value),
       ]);
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.management_pricingSaveError)),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(context.l10n.management_pricingSaveError)));
       }
     } finally {
       if (mounted) setState(() => _isSaving = false);
@@ -96,9 +89,7 @@ class _PricingCoefficientsSectionState
         if (widget.rules.isEmpty)
           Text(
             context.l10n.management_pricingCoefsEmpty,
-            style: context.text.bodyS.copyWith(
-              color: context.colors.textSecondary,
-            ),
+            style: context.text.bodyS.copyWith(color: context.colors.textSecondary),
           )
         else
           for (final rule in widget.rules)

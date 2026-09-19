@@ -15,21 +15,17 @@ CategoryDto _$CategoryDtoFromJson(Map<String, dynamic> json) =>
         name: $checkedConvert('name', (v) => v as String),
         slug: $checkedConvert('slug', (v) => v as String),
         parent: $checkedConvert('parent', (v) => v as String?),
-        sortOrder: $checkedConvert(
-          'sort_order',
-          (v) => (v as num?)?.toInt() ?? 0,
-        ),
+        sortOrder: $checkedConvert('sort_order', (v) => (v as num?)?.toInt() ?? 0),
         isActive: $checkedConvert('is_active', (v) => v as bool? ?? true),
       );
       return val;
     }, fieldKeyMap: const {'sortOrder': 'sort_order', 'isActive': 'is_active'});
 
-Map<String, dynamic> _$CategoryDtoToJson(CategoryDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'slug': instance.slug,
-      'parent': ?instance.parent,
-      'sort_order': instance.sortOrder,
-      'is_active': instance.isActive,
-    };
+Map<String, dynamic> _$CategoryDtoToJson(CategoryDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'slug': instance.slug,
+  'parent': ?instance.parent,
+  'sort_order': instance.sortOrder,
+  'is_active': instance.isActive,
+};

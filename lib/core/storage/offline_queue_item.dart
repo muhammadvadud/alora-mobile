@@ -15,8 +15,7 @@ abstract class OfflineQueueItem with _$OfflineQueueItem {
     @Default(0) int attempts,
   }) = _OfflineQueueItem;
 
-  factory OfflineQueueItem.fromJson(Map<String, dynamic> json) =>
-      _$OfflineQueueItemFromJson(json);
+  factory OfflineQueueItem.fromJson(Map<String, dynamic> json) => _$OfflineQueueItemFromJson(json);
 
   factory OfflineQueueItem.create({
     required String method,

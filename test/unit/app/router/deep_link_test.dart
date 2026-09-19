@@ -25,8 +25,7 @@ void main() {
 
   GoRouter router() => container.read(appRouterProvider);
 
-  RouteMatchList matchFor(String location) =>
-      router().configuration.findMatch(Uri.parse(location));
+  RouteMatchList matchFor(String location) => router().configuration.findMatch(Uri.parse(location));
 
   test('/chat/conv-1 conversationId ni parsi qiladi', () {
     final match = matchFor(AppRoutes.chatConversation('conv-1'));

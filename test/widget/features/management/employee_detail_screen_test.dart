@@ -63,11 +63,7 @@ void main() {
       phone: '+998901112233',
       role: Role.manager,
     );
-    await _pumpDetail(
-      tester,
-      teamRepository: teamRepository,
-      usageRepository: usageRepository,
-    );
+    await _pumpDetail(tester, teamRepository: teamRepository, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
     expect(find.byType(SkeletonBox), findsNothing);
@@ -78,51 +74,35 @@ void main() {
     expect(find.text('Menejer'), findsOneWidget);
   });
 
-  testWidgets(
-    'bloklash: switch bosilganda tasdiq dialogi va patch jo\'natiladi',
-    (tester) async {
-      teamRepository.employeeResult = testEmployee(
-        id: 'employee-1',
-        fullName: 'Akmal Karimov',
-        isActive: true,
-      );
-      await _pumpDetail(
-        tester,
-        teamRepository: teamRepository,
-        usageRepository: usageRepository,
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byType(Switch).first);
-      await tester.pumpAndSettle();
-
-      expect(find.text('Xodimni bloklash?'), findsOneWidget);
-      await tester.tap(find.text('Bloklash').last);
-      await tester.pumpAndSettle();
-
-      expect(teamRepository.updates.single.id, 'employee-1');
-      expect(teamRepository.updates.single.patch, {'is_active': false});
-    },
-  );
-
-  testWidgets('xatolik ErrorState ko\'rsatadi va retry qayta yuklaydi', (
-    tester,
-  ) async {
-    teamRepository.employeeFailure = const Failure.network();
-    await _pumpDetail(
-      tester,
-      teamRepository: teamRepository,
-      usageRepository: usageRepository,
+  testWidgets('bloklash: switch bosilganda tasdiq dialogi va patch jo\'natiladi', (tester) async {
+    teamRepository.employeeResult = testEmployee(
+      id: 'employee-1',
+      fullName: 'Akmal Karimov',
+      isActive: true,
     );
+    await _pumpDetail(tester, teamRepository: teamRepository, usageRepository: usageRepository);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(Switch).first);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Xodimni bloklash?'), findsOneWidget);
+    await tester.tap(find.text('Bloklash').last);
+    await tester.pumpAndSettle();
+
+    expect(teamRepository.updates.single.id, 'employee-1');
+    expect(teamRepository.updates.single.patch, {'is_active': false});
+  });
+
+  testWidgets('xatolik ErrorState ko\'rsatadi va retry qayta yuklaydi', (tester) async {
+    teamRepository.employeeFailure = const Failure.network();
+    await _pumpDetail(tester, teamRepository: teamRepository, usageRepository: usageRepository);
     await tester.pumpAndSettle();
 
     expect(find.byType(ErrorState), findsOneWidget);
 
     teamRepository.employeeFailure = null;
-    teamRepository.employeeResult = testEmployee(
-      id: 'employee-1',
-      fullName: 'Akmal Karimov',
-    );
+    teamRepository.employeeResult = testEmployee(id: 'employee-1', fullName: 'Akmal Karimov');
     await tester.tap(find.text('Qayta urinish'));
     await tester.pumpAndSettle();
 

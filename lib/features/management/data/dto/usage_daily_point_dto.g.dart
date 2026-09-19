@@ -17,5 +17,7 @@ UsageDailyPointDto _$UsageDailyPointDtoFromJson(Map<String, dynamic> json) =>
       return val;
     }, fieldKeyMap: const {'costUzs': 'cost_uzs'});
 
-Map<String, dynamic> _$UsageDailyPointDtoToJson(UsageDailyPointDto instance) =>
-    <String, dynamic>{'date': ?instance.date, 'cost_uzs': ?instance.costUzs};
+Map<String, dynamic> _$UsageDailyPointDtoToJson(UsageDailyPointDto instance) => <String, dynamic>{
+  'date': ?instance.date,
+  'cost_uzs': ?instance.costUzs,
+};

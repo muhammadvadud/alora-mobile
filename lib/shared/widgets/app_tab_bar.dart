@@ -67,19 +67,14 @@ class AppTabBar extends StatelessWidget {
                   top: -2,
                   right: -4,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.xs,
-                      vertical: 2,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs, vertical: 2),
                     decoration: BoxDecoration(
                       color: colors.brass,
                       borderRadius: AppRadius.badgeBorder,
                     ),
                     child: Text(
                       item.badgeCount.toString(),
-                      style: typography.badgeLabel
-                          .copyWith(color: colors.onInverse)
-                          .tabular,
+                      style: typography.badgeLabel.copyWith(color: colors.onInverse).tabular,
                     ),
                   ),
                 ),

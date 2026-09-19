@@ -9,11 +9,7 @@ class OfflineQueueResult {
   final bool success;
   final String? errorMessage;
 
-  const OfflineQueueResult({
-    required this.item,
-    required this.success,
-    this.errorMessage,
-  });
+  const OfflineQueueResult({required this.item, required this.success, this.errorMessage});
 }
 
 class OfflineQueue {

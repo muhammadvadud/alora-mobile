@@ -7,9 +7,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('ToolChip Widget Tests', () {
-    testWidgets('ToolChip running holatda tekshiriladi, bosilmaydi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('ToolChip running holatda tekshiriladi, bosilmaydi', (WidgetTester tester) async {
       bool isTapped = false;
       await tester.pumpWidget(
         ToolChip(
@@ -29,9 +27,7 @@ void main() {
       expect(isTapped, isFalse);
     });
 
-    testWidgets('ToolChip done holatda tekshiriladi va bosiladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('ToolChip done holatda tekshiriladi va bosiladi', (WidgetTester tester) async {
       bool isTapped = false;
       await tester.pumpWidget(
         ToolChip(
@@ -51,9 +47,7 @@ void main() {
       expect(isTapped, isTrue);
     });
 
-    testWidgets('ToolChip error holatda tekshiriladi', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('ToolChip error holatda tekshiriladi', (WidgetTester tester) async {
       await tester.pumpWidget(
         const ToolChip(text: 'Xatolik', state: ToolChipState.error).pumpApp(),
       );

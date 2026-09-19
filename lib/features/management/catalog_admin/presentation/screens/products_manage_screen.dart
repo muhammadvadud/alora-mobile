@@ -23,8 +23,7 @@ class ProductsManageScreen extends ConsumerStatefulWidget {
   const ProductsManageScreen({super.key});
 
   @override
-  ConsumerState<ProductsManageScreen> createState() =>
-      _ProductsManageScreenState();
+  ConsumerState<ProductsManageScreen> createState() => _ProductsManageScreenState();
 }
 
 class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
@@ -49,8 +48,7 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
   }
 
   void _maybeLoadMore() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 400) {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 400) {
       ref.read(catalogProvider.notifier).loadMore();
     }
   }
@@ -101,11 +99,7 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
     return Scaffold(
       appBar: AppBar(
         title: isSelectionMode
-            ? Text(
-                context.l10n.management_productsSelected(
-                  _selectedVariantIds.length,
-                ),
-              )
+            ? Text(context.l10n.management_productsSelected(_selectedVariantIds.length))
             : Text(context.l10n.management_productsTitle),
         actions: [
           IconButton(
@@ -137,10 +131,7 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
               children: [
-                _CategoryChip(
-                  id: null,
-                  label: context.l10n.management_productsAll,
-                ),
+                _CategoryChip(id: null, label: context.l10n.management_productsAll),
                 for (final category in state.categories)
                   _CategoryChip(id: category.id, label: category.name),
               ],
@@ -175,10 +166,8 @@ class _ProductsManageScreenState extends ConsumerState<ProductsManageScreen> {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
-      builder: (context) => BulkPriceSheet(
-        selectedVariants: variants,
-        onSave: (dto) => _applyBulkPrice(dto),
-      ),
+      builder: (context) =>
+          BulkPriceSheet(selectedVariants: variants, onSave: (dto) => _applyBulkPrice(dto)),
     );
   }
 }
@@ -252,12 +241,7 @@ class _ProductList extends StatelessWidget {
 
     return ListView(
       controller: scrollController,
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.l,
-        AppSpacing.xs,
-        AppSpacing.l,
-        AppSpacing.xl,
-      ),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.l, AppSpacing.xs, AppSpacing.l, AppSpacing.xl),
       children: [
         for (final product in state.products)
           ProductsManageProductSection(
@@ -270,9 +254,7 @@ class _ProductList extends StatelessWidget {
         if (state.isLoadingMore)
           const Padding(
             padding: EdgeInsets.all(AppSpacing.l),
-            child: Center(
-              child: SkeletonBox(width: 32, height: 32, shape: BoxShape.circle),
-            ),
+            child: Center(child: SkeletonBox(width: 32, height: 32, shape: BoxShape.circle)),
           ),
       ],
     );

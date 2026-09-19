@@ -47,11 +47,7 @@ void main() {
   test('data ichida password va phone maskalanadi', () async {
     final data = {'phone': '+998901234567', 'password': 'supersecret'};
 
-    dioAdapter.onPost(
-      '/auth/login/',
-      (server) => server.reply(200, {}),
-      data: data,
-    );
+    dioAdapter.onPost('/auth/login/', (server) => server.reply(200, {}), data: data);
 
     final response = await dio.post('/auth/login/', data: data);
 

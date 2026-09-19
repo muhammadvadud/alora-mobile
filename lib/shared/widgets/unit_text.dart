@@ -8,12 +8,7 @@ class UnitText extends StatelessWidget {
   final PriceUnit unit;
   final TextStyle? style;
 
-  const UnitText({
-    super.key,
-    required this.amount,
-    required this.unit,
-    this.style,
-  });
+  const UnitText({super.key, required this.amount, required this.unit, this.style});
 
   String _getSuffix(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;

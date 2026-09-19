@@ -10,12 +10,7 @@ class ErrorState extends StatelessWidget {
   final String? message;
   final VoidCallback onRetry;
 
-  const ErrorState({
-    super.key,
-    this.title,
-    this.message,
-    required this.onRetry,
-  });
+  const ErrorState({super.key, this.title, this.message, required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +19,14 @@ class ErrorState extends StatelessWidget {
     final typography = context.text;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xxl,
-        vertical: AppSpacing.xxl,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxl, vertical: AppSpacing.xxl),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(AppIcons.alertTriangle, size: 64, color: colors.danger),
           const SizedBox(height: AppSpacing.l),
-          Text(
-            title ?? l10n.common_error,
-            style: typography.displayM,
-            textAlign: TextAlign.center,
-          ),
+          Text(title ?? l10n.common_error, style: typography.displayM, textAlign: TextAlign.center),
           if (message != null) ...[
             const SizedBox(height: AppSpacing.s),
             Text(

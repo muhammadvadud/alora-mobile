@@ -89,10 +89,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
     }
     state = state.copyWith(
       recommendedRooms: rooms,
-      isDirty: !setEquals(
-        rooms.toSet(),
-        _initialState.recommendedRooms.toSet(),
-      ),
+      isDirty: !setEquals(rooms.toSet(), _initialState.recommendedRooms.toSet()),
     );
   }
 
@@ -115,12 +112,8 @@ class ProductFormNotifier extends _$ProductFormNotifier {
       name: product.name,
       code: product.code,
       category: product.categoryId,
-      price: product.variants.isEmpty
-          ? ''
-          : product.variants.first.price.toString(),
-      priceUnit: product.variants.isEmpty
-          ? PriceUnit.perSqm
-          : product.variants.first.priceUnit,
+      price: product.variants.isEmpty ? '' : product.variants.first.price.toString(),
+      priceUnit: product.variants.isEmpty ? PriceUnit.perSqm : product.variants.first.priceUnit,
       variants: variants,
       description: product.description ?? '',
       fabricType: product.fabricType ?? '',
@@ -140,10 +133,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
       price: state.price,
       priceUnit: state.priceUnit,
     );
-    state = state.copyWith(
-      variants: [...state.variants, variant],
-      isDirty: true,
-    );
+    state = state.copyWith(variants: [...state.variants, variant], isDirty: true);
   }
 
   void updateVariant(int index, String field, Object? value) {
@@ -179,10 +169,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
 
   void removeVariant(int index) {
     if (index < 0 || index >= state.variants.length) return;
-    state = state.copyWith(
-      variants: [...state.variants]..removeAt(index),
-      isDirty: true,
-    );
+    state = state.copyWith(variants: [...state.variants]..removeAt(index), isDirty: true);
   }
 
   VariantWriteDto _defaultVariant() {
@@ -252,9 +239,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
       return false;
     }
 
-    final variants = state.variants.isEmpty
-        ? [_defaultVariant()]
-        : state.variants;
+    final variants = state.variants.isEmpty ? [_defaultVariant()] : state.variants;
 
     state = state.copyWith(isSaving: true);
     try {
@@ -306,8 +291,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
         }
 
         for (final removed in _initialState.variants) {
-          if (removed.id != null &&
-              !state.variants.any((v) => v.id == removed.id)) {
+          if (removed.id != null && !state.variants.any((v) => v.id == removed.id)) {
             await repo.deleteVariant(removed.id!);
           }
         }
@@ -330,11 +314,7 @@ class ProductFormNotifier extends _$ProductFormNotifier {
               variants: variants,
               isCreate: productId == null,
             );
-            final item = OfflineQueueItem.create(
-              method: method,
-              path: path,
-              body: data,
-            );
+            final item = OfflineQueueItem.create(method: method, path: path, body: data);
             OfflineQueue.add(item);
           },
           validation: (detail, fieldErrors) {
@@ -368,20 +348,14 @@ class ProductFormNotifier extends _$ProductFormNotifier {
     state = state.copyWith(isSaving: true);
     try {
       final repo = ref.read(catalogWriteRepositoryProvider);
-      await repo.uploadProductImage(
-        productId,
-        path,
-        onSendProgress: (sent, total) {},
-      );
+      await repo.uploadProductImage(productId, path, onSendProgress: (sent, total) {});
       state = state.copyWith(isSaving: false);
     } catch (e) {
       state = state.copyWith(isSaving: false);
       if (e is Failure) {
         e.whenOrNull(
           server: () {
-            state = state.copyWith(
-              errors: {...state.errors, 'image': 'Xatolik yuz berdi'},
-            );
+            state = state.copyWith(errors: {...state.errors, 'image': 'Xatolik yuz berdi'});
           },
         );
       }

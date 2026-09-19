@@ -39,8 +39,7 @@ class ProductWriteDto {
     this.variants,
   });
 
-  factory ProductWriteDto.fromJson(Map<String, dynamic> json) =>
-      _$ProductWriteDtoFromJson(json);
+  factory ProductWriteDto.fromJson(Map<String, dynamic> json) => _$ProductWriteDtoFromJson(json);
   Map<String, dynamic> toJson() => _$ProductWriteDtoToJson(this);
 }
 
@@ -68,8 +67,7 @@ class VariantWriteDto {
     this.isActive,
   });
 
-  factory VariantWriteDto.fromJson(Map<String, dynamic> json) =>
-      _$VariantWriteDtoFromJson(json);
+  factory VariantWriteDto.fromJson(Map<String, dynamic> json) => _$VariantWriteDtoFromJson(json);
   Map<String, dynamic> toJson() => _$VariantWriteDtoToJson(this);
 
   VariantWriteDto copyWith({
@@ -103,13 +101,8 @@ class BulkPriceDto {
   final double value;
   final String type;
 
-  const BulkPriceDto({
-    required this.variantIds,
-    required this.value,
-    required this.type,
-  });
+  const BulkPriceDto({required this.variantIds, required this.value, required this.type});
 
-  factory BulkPriceDto.fromJson(Map<String, dynamic> json) =>
-      _$BulkPriceDtoFromJson(json);
+  factory BulkPriceDto.fromJson(Map<String, dynamic> json) => _$BulkPriceDtoFromJson(json);
   Map<String, dynamic> toJson() => _$BulkPriceDtoToJson(this);
 }

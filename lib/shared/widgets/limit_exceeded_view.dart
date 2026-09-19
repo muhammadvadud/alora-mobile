@@ -30,20 +30,13 @@ class LimitExceededView extends ConsumerWidget {
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.xxl,
-          vertical: AppSpacing.xxl,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxl, vertical: AppSpacing.xxl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(AppIcons.ban, size: 64, color: colors.danger),
             const SizedBox(height: AppSpacing.l),
-            Text(
-              l10n.error_limit,
-              style: typography.displayM,
-              textAlign: TextAlign.center,
-            ),
+            Text(l10n.error_limit, style: typography.displayM, textAlign: TextAlign.center),
             if (managerPhone != null) ...[
               const SizedBox(height: AppSpacing.xl),
               Row(
@@ -52,16 +45,14 @@ class LimitExceededView extends ConsumerWidget {
                   Expanded(
                     child: AppButton.secondary(
                       text: l10n.limit_callManager,
-                      onPressed: () =>
-                          launchUrl(Uri.parse('tel:$managerPhone')),
+                      onPressed: () => launchUrl(Uri.parse('tel:$managerPhone')),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.m),
                   Expanded(
                     child: AppButton.secondary(
                       text: l10n.limit_smsManager,
-                      onPressed: () =>
-                          launchUrl(Uri.parse('sms:$managerPhone')),
+                      onPressed: () => launchUrl(Uri.parse('sms:$managerPhone')),
                     ),
                   ),
                 ],

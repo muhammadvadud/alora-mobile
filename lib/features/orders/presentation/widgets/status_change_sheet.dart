@@ -24,9 +24,7 @@ class StatusChangeSheet extends ConsumerStatefulWidget {
       isScrollControlled: true,
       useRootNavigator: true,
       builder: (context) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: StatusChangeSheet(order: order),
       ),
     );
@@ -102,8 +100,7 @@ class _StatusChangeSheetState extends ConsumerState<StatusChangeSheet> {
                 ),
               ),
             ),
-            error: (err, st) =>
-                Center(child: Text(context.l10n.errorLoadingStatuses)),
+            error: (err, st) => Center(child: Text(context.l10n.errorLoadingStatuses)),
           );
         },
         loading: () => const Padding(
@@ -117,8 +114,7 @@ class _StatusChangeSheetState extends ConsumerState<StatusChangeSheet> {
             ),
           ),
         ),
-        error: (err, st) =>
-            Center(child: Text(context.l10n.errorLoadingTransitions)),
+        error: (err, st) => Center(child: Text(context.l10n.errorLoadingTransitions)),
       ),
     );
   }

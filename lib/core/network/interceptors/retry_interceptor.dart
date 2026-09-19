@@ -8,10 +8,7 @@ class RetryInterceptor extends Interceptor {
   RetryInterceptor(this.dio);
 
   @override
-  Future<void> onError(
-    DioException err,
-    ErrorInterceptorHandler handler,
-  ) async {
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
     final method = err.requestOptions.method.toUpperCase();
     if (method != 'GET') {
       return handler.next(err);

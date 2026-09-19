@@ -16,10 +16,7 @@ class UsageRemoteDataSource {
   final Dio _dio;
 
   /// GET `/usage/summary/?period=<query>&user=<userId?>`
-  Future<UsageSummaryDto> summary({
-    required UsagePeriod period,
-    String? userId,
-  }) async {
+  Future<UsageSummaryDto> summary({required UsagePeriod period, String? userId}) async {
     try {
       final params = <String, dynamic>{'period': period.query};
       if (userId != null) params['user'] = userId;
@@ -52,9 +49,7 @@ class UsageRemoteDataSource {
   /// GET /analytics/conversion/
   Future<ConversionStatsDto> conversion() async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        ApiPaths.analyticsConversion,
-      );
+      final response = await _dio.get<Map<String, dynamic>>(ApiPaths.analyticsConversion);
       return ConversionStatsDto.fromJson(response.data!);
     } on DioException catch (error) {
       throw _mapError(error);
@@ -64,9 +59,7 @@ class UsageRemoteDataSource {
   /// GET /usage/conversations/ — eng qimmat suhbatlar.
   Future<List<UsageConversationDto>> conversations() async {
     try {
-      final response = await _dio.get<List<dynamic>>(
-        ApiPaths.usageConversations,
-      );
+      final response = await _dio.get<List<dynamic>>(ApiPaths.usageConversations);
       return (response.data ?? [])
           .map((e) => UsageConversationDto.fromJson(e as Map<String, dynamic>))
           .toList();

@@ -56,9 +56,7 @@ void main() {
     );
 
     return ProviderScope(
-      overrides: [
-        conversationsRepositoryProvider.overrideWithValue(repository),
-      ],
+      overrides: [conversationsRepositoryProvider.overrideWithValue(repository)],
       child: MaterialApp(
         theme: AppTheme.light(),
         darkTheme: AppTheme.dark(),

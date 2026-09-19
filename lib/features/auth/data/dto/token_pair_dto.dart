@@ -10,8 +10,7 @@ class TokenPairDto {
 
   const TokenPairDto({required this.access, required this.refresh});
 
-  factory TokenPairDto.fromJson(Map<String, dynamic> json) =>
-      _$TokenPairDtoFromJson(json);
+  factory TokenPairDto.fromJson(Map<String, dynamic> json) => _$TokenPairDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$TokenPairDtoToJson(this);
 }

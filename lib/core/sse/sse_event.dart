@@ -9,12 +9,9 @@ sealed class SseEvent with _$SseEvent {
   const factory SseEvent.content(String content) = _SseEventContent;
   const factory SseEvent.toolCall(String tool) = _SseEventToolCall;
   const factory SseEvent.toolArgs(String tool, String args) = _SseEventToolArgs;
-  const factory SseEvent.toolResult(String tool, String result) =
-      _SseEventToolResult;
-  const factory SseEvent.done({
-    Map<String, dynamic>? usage,
-    List<Map<String, dynamic>>? products,
-  }) = _SseEventDone;
+  const factory SseEvent.toolResult(String tool, String result) = _SseEventToolResult;
+  const factory SseEvent.done({Map<String, dynamic>? usage, List<Map<String, dynamic>>? products}) =
+      _SseEventDone;
   const factory SseEvent.error(String detail) = _SseEventError;
   const factory SseEvent.unknown() = _SseEventUnknown;
 
@@ -30,15 +27,9 @@ sealed class SseEvent with _$SseEvent {
       case 'tool_call':
         return SseEvent.toolCall(json['tool'] as String? ?? '');
       case 'tool_args':
-        return SseEvent.toolArgs(
-          json['tool'] as String? ?? '',
-          json['args'] as String? ?? '',
-        );
+        return SseEvent.toolArgs(json['tool'] as String? ?? '', json['args'] as String? ?? '');
       case 'tool_result':
-        return SseEvent.toolResult(
-          json['tool'] as String? ?? '',
-          json['result'] as String? ?? '',
-        );
+        return SseEvent.toolResult(json['tool'] as String? ?? '', json['result'] as String? ?? '');
       case 'done':
         return SseEvent.done(
           usage: json['usage'] as Map<String, dynamic>?,

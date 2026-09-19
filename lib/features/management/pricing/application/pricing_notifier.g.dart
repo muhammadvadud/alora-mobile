@@ -14,8 +14,7 @@ part of 'pricing_notifier.dart';
 @ProviderFor(PricingNotifier)
 final pricingProvider = PricingNotifierProvider._();
 
-final class PricingNotifierProvider
-    extends $NotifierProvider<PricingNotifier, PricingState> {
+final class PricingNotifierProvider extends $NotifierProvider<PricingNotifier, PricingState> {
   PricingNotifierProvider._()
     : super(
         from: null,

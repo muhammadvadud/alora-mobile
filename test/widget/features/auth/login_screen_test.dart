@@ -15,10 +15,7 @@ import 'package:alora_mobile/features/auth/application/providers.dart';
 import '../../../unit/features/auth/auth_test_helpers.dart';
 
 /// LoginScreen ni zarur provider hamda l10n bilan chizadi.
-Future<void> pumpLogin(
-  WidgetTester tester,
-  FakeAuthRepository repository,
-) async {
+Future<void> pumpLogin(WidgetTester tester, FakeAuthRepository repository) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [authRepositoryProvider.overrideWithValue(repository)],
@@ -55,9 +52,7 @@ void main() {
     expect(find.byType(AppButton), findsOneWidget);
   });
 
-  testWidgets('bo\'sh maydonlar bilan submit xato matnini ko\'rsatadi', (
-    tester,
-  ) async {
+  testWidgets('bo\'sh maydonlar bilan submit xato matnini ko\'rsatadi', (tester) async {
     await pumpLogin(tester, repository);
 
     await tester.tap(find.byType(AppButton));
@@ -79,9 +74,7 @@ void main() {
     expect(find.textContaining('Kirish'), findsWidgets);
   });
 
-  testWidgets('muvaffaqiyatli login notifierga murojaat qiladi', (
-    tester,
-  ) async {
+  testWidgets('muvaffaqiyatli login notifierga murojaat qiladi', (tester) async {
     repository.user = testUser();
 
     await pumpLogin(tester, repository);

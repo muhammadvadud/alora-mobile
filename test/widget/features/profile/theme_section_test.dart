@@ -41,9 +41,7 @@ void main() {
     );
   }
 
-  testWidgets('mavzu chipi bosilganda Hive shu mavzuni saqlaydi', (
-    tester,
-  ) async {
+  testWidgets('mavzu chipi bosilganda Hive shu mavzuni saqlaydi', (tester) async {
     // Hive yozuvi FakeAsync zonasida tugamaydi — haqiqiy async zonada bajariladi.
     await tester.runAsync(() async {
       final box = Hive.box('settings');

@@ -27,11 +27,7 @@ void main() {
       ..overrideDevicesForAllScenarios(devices: [Device.phone])
       ..addScenario(
         widget: ProviderScope(
-          overrides: [
-            voiceProvider.overrideWith(
-              () => FakeVoiceNotifier(const VoiceState.idle()),
-            ),
-          ],
+          overrides: [voiceProvider.overrideWith(() => FakeVoiceNotifier(const VoiceState.idle()))],
           child: MaterialApp(
             theme: AppTheme.light(),
             localizationsDelegates: AppLocalizations.localizationsDelegates,

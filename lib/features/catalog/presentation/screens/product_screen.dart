@@ -45,10 +45,7 @@ class ProductScreen extends ConsumerWidget {
     if (state.product == null && state.error != null) {
       return Scaffold(
         appBar: AppBar(),
-        body: ErrorState(
-          message: state.error?.localizedMessage(context),
-          onRetry: notifier.retry,
-        ),
+        body: ErrorState(message: state.error?.localizedMessage(context), onRetry: notifier.retry),
       );
     }
 
@@ -69,9 +66,7 @@ class ProductScreen extends ConsumerWidget {
         ? l10n.product_askAiMessage(product.name, selectedVariant.colorName)
         : product.name;
     final addToAccountMessage = selectedVariant != null
-        ? l10n.product_addToAccountMessage(
-            '${product.name}, ${selectedVariant.colorName}',
-          )
+        ? l10n.product_addToAccountMessage('${product.name}, ${selectedVariant.colorName}')
         : product.name;
 
     void openChat(String message) {
@@ -133,10 +128,7 @@ class _ProductContent extends StatelessWidget {
       children: [
         ProductGallery(images: images),
         const SizedBox(height: AppSpacing.m),
-        Text(
-          categoryLabel,
-          style: typography.overline.copyWith(color: colors.brass),
-        ),
+        Text(categoryLabel, style: typography.overline.copyWith(color: colors.brass)),
         const SizedBox(height: AppSpacing.xs),
         Text(product.name, style: typography.titleL),
         const SizedBox(height: AppSpacing.s),
@@ -182,21 +174,13 @@ class _ProductActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.l,
-          AppSpacing.s,
-          AppSpacing.l,
-          AppSpacing.m,
-        ),
+        padding: const EdgeInsets.fromLTRB(AppSpacing.l, AppSpacing.s, AppSpacing.l, AppSpacing.m),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             AppButton(text: askAiLabel, onPressed: onAskAi),
             const SizedBox(height: AppSpacing.s),
-            AppButton.secondary(
-              text: addToAccountLabel,
-              onPressed: onAddToAccount,
-            ),
+            AppButton.secondary(text: addToAccountLabel, onPressed: onAddToAccount),
           ],
         ),
       ),

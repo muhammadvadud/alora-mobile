@@ -17,8 +17,7 @@ final appRouterProvider = AppRouterProvider._();
 
 /// Ilova marshrut tuzilishi (GoRouter).
 
-final class AppRouterProvider
-    extends $FunctionalProvider<GoRouter, GoRouter, GoRouter>
+final class AppRouterProvider extends $FunctionalProvider<GoRouter, GoRouter, GoRouter>
     with $Provider<GoRouter> {
   /// Ilova marshrut tuzilishi (GoRouter).
   AppRouterProvider._()
@@ -37,8 +36,7 @@ final class AppRouterProvider
 
   @$internal
   @override
-  $ProviderElement<GoRouter> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<GoRouter> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   GoRouter create(Ref ref) {
@@ -47,11 +45,8 @@ final class AppRouterProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(GoRouter value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GoRouter>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<GoRouter>(value));
   }
 }
 
-String _$appRouterHash() => r'b38812681e9acbaeb2e260295327b3d3f104d43e';
+String _$appRouterHash() => r'39da20f64d0d09f2fef81a825bab883faccebda7';

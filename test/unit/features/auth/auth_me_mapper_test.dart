@@ -41,10 +41,7 @@ void main() {
   });
 
   test('LimitDto null bo\'lsa LimitStatus null qaytadi', () {
-    final dto = AuthMeDto.fromJson({
-      'profile': meJson['profile'],
-      'limit': null,
-    });
+    final dto = AuthMeDto.fromJson({'profile': meJson['profile'], 'limit': null});
 
     expect(dto.toUser().role, Role.manager);
     expect(dto.toLimitStatus(), isNull);

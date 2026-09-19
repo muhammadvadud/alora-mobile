@@ -27,10 +27,7 @@ void main() {
       ),
     );
 
-    expect(
-      const Failure.network().localizedMessage(ctx),
-      "Ulanish yo'q. Internetni tekshiring.",
-    );
+    expect(const Failure.network().localizedMessage(ctx), "Ulanish yo'q. Internetni tekshiring.");
     expect(const Failure.validation('Test', {}).localizedMessage(ctx), 'Test');
     expect(
       const Failure.auth().localizedMessage(ctx),
@@ -44,14 +41,8 @@ void main() {
       const Failure.serviceUnavailable().localizedMessage(ctx),
       "AI xizmati vaqtincha ishlamayapti",
     );
-    expect(
-      const Failure.server().localizedMessage(ctx),
-      "Server javob bermadi",
-    );
-    expect(
-      const Failure.unknown('Unknown msg').localizedMessage(ctx),
-      "Unknown msg",
-    );
+    expect(const Failure.server().localizedMessage(ctx), "Server javob bermadi");
+    expect(const Failure.unknown('Unknown msg').localizedMessage(ctx), "Unknown msg");
     expect(const Failure.unknown('').localizedMessage(ctx), "Noma'lum xatolik");
   });
 }

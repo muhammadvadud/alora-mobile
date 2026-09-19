@@ -71,8 +71,7 @@ void main() {
       updatedAt: DateTime.now(),
     );
 
-    when(() => mockRepo.patchCalcRule('test_key', '12.0'))
-        .thenAnswer((_) async => updatedRule);
+    when(() => mockRepo.patchCalcRule('test_key', '12.0')).thenAnswer((_) async => updatedRule);
 
     // Inject a dummy rule
     container.read(pricingProvider.notifier).state = PricingState(
@@ -110,8 +109,7 @@ void main() {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
-    when(() => mockRepo.createDiscountTier(10000, 5.0))
-        .thenAnswer((_) async => newTier);
+    when(() => mockRepo.createDiscountTier(10000, 5.0)).thenAnswer((_) async => newTier);
     when(() => mockRepo.deleteDiscountTier('t1')).thenAnswer((_) async => {});
 
     await notifier.addDiscountTier(10000, 5.0);

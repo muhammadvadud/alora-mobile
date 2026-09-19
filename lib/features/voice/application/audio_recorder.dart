@@ -16,10 +16,8 @@ class AppAudioRecorder {
 
   Stream<Uint8List>? _audioStream;
   StreamSubscription<Uint8List>? _audioStreamSubscription;
-  final StreamController<Uint8List> _chunkController =
-      StreamController<Uint8List>.broadcast();
-  final StreamController<double> _amplitudeController =
-      StreamController<double>.broadcast();
+  final StreamController<Uint8List> _chunkController = StreamController<Uint8List>.broadcast();
+  final StreamController<double> _amplitudeController = StreamController<double>.broadcast();
 
   Timer? _amplitudeTimer;
 
@@ -37,11 +35,7 @@ class AppAudioRecorder {
   Future<void> startRecording() async {
     if (await _recorder.hasPermission()) {
       _audioStream = await _recorder.startStream(
-        const RecordConfig(
-          encoder: AudioEncoder.pcm16bits,
-          sampleRate: 16000,
-          numChannels: 1,
-        ),
+        const RecordConfig(encoder: AudioEncoder.pcm16bits, sampleRate: 16000, numChannels: 1),
       );
 
       _audioStreamSubscription = _audioStream?.listen((data) {
@@ -49,9 +43,7 @@ class AppAudioRecorder {
       });
 
       // Provide amplitude updates at roughly 200ms intervals
-      _amplitudeTimer = Timer.periodic(const Duration(milliseconds: 200), (
-        _,
-      ) async {
+      _amplitudeTimer = Timer.periodic(const Duration(milliseconds: 200), (_) async {
         if (await _recorder.isRecording()) {
           final amplitude = await _recorder.getAmplitude();
           // Map amplitude (which is roughly -160 to 0 dB) to 0.0 - 1.0

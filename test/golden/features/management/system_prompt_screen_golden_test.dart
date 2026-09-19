@@ -59,12 +59,8 @@ void main() {
     Widget widgetFor(ThemeMode mode) {
       return ProviderScope(
         overrides: [
-          authProvider.overrideWithValue(
-            const AuthState.authenticated(user: _adminUser),
-          ),
-          promptHistoryProvider.overrideWith(
-            () => _FakePromptHistoryNotifier(),
-          ),
+          authProvider.overrideWithValue(const AuthState.authenticated(user: _adminUser)),
+          promptHistoryProvider.overrideWith(() => _FakePromptHistoryNotifier()),
         ],
         child: MaterialApp(
           theme: AppTheme.light(),

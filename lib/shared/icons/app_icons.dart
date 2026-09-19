@@ -19,8 +19,7 @@ class AppIcons {
   static const IconData image = LucideIcons.image;
   // Chat va umumiy amallar
   static const IconData plus = LucideIcons.plus;
-  static const IconData send =
-      LucideIcons.arrowUp; // dizayn: yuborish — yuqoriga strelka (1c)
+  static const IconData send = LucideIcons.arrowUp; // dizayn: yuborish — yuqoriga strelka (1c)
   static const IconData check = LucideIcons.check;
   static const IconData edit = LucideIcons.pencil;
   static const IconData tags = LucideIcons.tags;

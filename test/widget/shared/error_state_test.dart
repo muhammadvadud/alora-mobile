@@ -13,9 +13,7 @@ void main() {
     });
 
     testWidgets('maxsus sarlavha ko\'rsatiladi', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        ErrorState(title: 'Tarmoq xatosi', onRetry: () {}).pumpApp(),
-      );
+      await tester.pumpWidget(ErrorState(title: 'Tarmoq xatosi', onRetry: () {}).pumpApp());
 
       expect(find.text('Tarmoq xatosi'), findsOneWidget);
     });

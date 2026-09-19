@@ -16,12 +16,7 @@ class QuoteCardView extends StatefulWidget {
   final VoidCallback? onAddPart;
   final VoidCallback? onShowOptions;
 
-  const QuoteCardView({
-    super.key,
-    required this.quote,
-    this.onAddPart,
-    this.onShowOptions,
-  });
+  const QuoteCardView({super.key, required this.quote, this.onAddPart, this.onShowOptions});
 
   @override
   State<QuoteCardView> createState() => _QuoteCardViewState();
@@ -52,16 +47,12 @@ class _QuoteCardViewState extends State<QuoteCardView> {
               showAllFabrics: _showAllFabrics,
               onShowMore: () => setState(() => _showAllFabrics = true),
             ),
-          if (quote.accessories.isNotEmpty)
-            QuoteAccessoriesSection(quote: quote),
+          if (quote.accessories.isNotEmpty) QuoteAccessoriesSection(quote: quote),
           if (quote.services.isNotEmpty) QuoteServicesSection(quote: quote),
           _QuoteWarningsSection(quote: quote),
           _QuoteFormulaSection(quote: quote),
           _QuoteTotalSection(quote: quote),
-          _QuoteActionsSection(
-            onAddPart: widget.onAddPart,
-            onShowOptions: widget.onShowOptions,
-          ),
+          _QuoteActionsSection(onAddPart: widget.onAddPart, onShowOptions: widget.onShowOptions),
         ],
       ),
     );
@@ -84,10 +75,7 @@ class _QuoteHeaderSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'HISOB · ${m?.room?.toUpperCase() ?? "XONA"}',
-            style: typography.overline,
-          ),
+          Text('HISOB · ${m?.room?.toUpperCase() ?? "XONA"}', style: typography.overline),
           const SizedBox(height: AppSpacing.xs),
           if (m != null)
             Text(
@@ -122,10 +110,7 @@ class _QuoteWarningsSection extends StatelessWidget {
               Icon(AppIcons.alertTriangle, size: 16, color: colors.danger),
               const SizedBox(width: AppSpacing.s),
               Expanded(
-                child: Text(
-                  w,
-                  style: typography.bodyS.copyWith(color: colors.danger),
-                ),
+                child: Text(w, style: typography.bodyS.copyWith(color: colors.danger)),
               ),
             ],
           );
@@ -162,10 +147,7 @@ class _QuoteFormulaSection extends StatelessWidget {
         bottom: AppSpacing.l,
       ),
       children: [
-        Text(
-          quote.formula,
-          style: typography.bodyS.copyWith(color: colors.textSecondary),
-        ),
+        Text(quote.formula, style: typography.bodyS.copyWith(color: colors.textSecondary)),
       ],
     );
   }
@@ -213,17 +195,11 @@ class _QuoteActionsSection extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: AppButton.secondary(
-              text: l10n.chat_quote_addPart,
-              onPressed: onAddPart,
-            ),
+            child: AppButton.secondary(text: l10n.chat_quote_addPart, onPressed: onAddPart),
           ),
           const SizedBox(width: AppSpacing.s),
           Expanded(
-            child: AppButton.secondary(
-              text: l10n.chat_quote_showOptions,
-              onPressed: onShowOptions,
-            ),
+            child: AppButton.secondary(text: l10n.chat_quote_showOptions, onPressed: onShowOptions),
           ),
         ],
       ),

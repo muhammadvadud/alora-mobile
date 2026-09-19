@@ -43,18 +43,10 @@ class AppCard extends StatelessWidget {
       );
     }
 
-    Widget content = Container(
-      padding: padding,
-      decoration: decoration,
-      child: child,
-    );
+    Widget content = Container(padding: padding, decoration: decoration, child: child);
 
     if (onTap != null) {
-      content = GestureDetector(
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: content,
-      );
+      content = GestureDetector(onTap: onTap, behavior: HitTestBehavior.opaque, child: content);
     }
 
     return content;

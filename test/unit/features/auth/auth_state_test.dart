@@ -26,36 +26,24 @@ void main() {
 
     expect(describe(const AuthState.unknown()), 'unknown');
     expect(describe(const AuthState.unauthenticated()), 'unauthenticated');
-    expect(
-      describe(AuthState.authenticated(user: testUser())),
-      'authenticated',
-    );
+    expect(describe(AuthState.authenticated(user: testUser())), 'authenticated');
   });
 
   test('authenticated holati foydalanuvchini saqlaydi', () {
     final user = testUser(role: Role.employee);
     final state = AuthState.authenticated(user: user);
 
-    final carried = state.maybeWhen(
-      authenticated: (value) => value,
-      orElse: () => user,
-    );
+    final carried = state.maybeWhen(authenticated: (value) => value, orElse: () => user);
     expect(identical(carried, user), isTrue);
     expect(carried.role, Role.employee);
 
-    final notUnknown = state.maybeWhen(
-      unknown: () => true,
-      orElse: () => false,
-    );
+    final notUnknown = state.maybeWhen(unknown: () => true, orElse: () => false);
     expect(notUnknown, isFalse);
   });
 
   test('maybeWhen() berilmagan holat uchun orElse qaytaradi', () {
     const unknown = AuthState.unknown();
-    expect(
-      unknown.maybeWhen(authenticated: (_) => true, orElse: () => false),
-      isFalse,
-    );
+    expect(unknown.maybeWhen(authenticated: (_) => true, orElse: () => false), isFalse);
   });
 
   test('Failure.auth 401 tozalashga olib keladigan belgisi mavjud', () {

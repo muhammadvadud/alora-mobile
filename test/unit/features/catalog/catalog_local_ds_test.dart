@@ -64,16 +64,13 @@ void main() {
       expect((await ds.getCachedProducts('b'))!.results.single.id, 'p9');
     });
 
-    test(
-      'saveProductsMerged: yangi sahifa eskisiga qo\'shiladi, dublikatsiz',
-      () async {
-        await ds.saveProducts('all', _page(['p1', 'p2'], next: 'c2'));
-        await ds.saveProductsMerged('all', _page(['p2', 'p3'], next: null));
-        final cached = await ds.getCachedProductsDto('all');
-        expect(cached!.results.map((p) => p.id), ['p1', 'p2', 'p3']);
-        expect(cached.next, isNull);
-      },
-    );
+    test('saveProductsMerged: yangi sahifa eskisiga qo\'shiladi, dublikatsiz', () async {
+      await ds.saveProducts('all', _page(['p1', 'p2'], next: 'c2'));
+      await ds.saveProductsMerged('all', _page(['p2', 'p3'], next: null));
+      final cached = await ds.getCachedProductsDto('all');
+      expect(cached!.results.map((p) => p.id), ['p1', 'p2', 'p3']);
+      expect(cached.next, isNull);
+    });
 
     test('saveProductsMerged: kesh bo\'lmasa oddiy saqlash', () async {
       await ds.saveProductsMerged('x', _page(['p5']));
@@ -92,13 +89,7 @@ void main() {
           next: null,
           previous: null,
           results: [
-            CategoryDto(
-              id: 'c1',
-              name: 'Matolar',
-              slug: 'matolar',
-              sortOrder: 0,
-              isActive: true,
-            ),
+            CategoryDto(id: 'c1', name: 'Matolar', slug: 'matolar', sortOrder: 0, isActive: true),
           ],
         ),
       );
@@ -123,10 +114,7 @@ void main() {
       expect(await ds.getCachedProducts('all'), isNull);
       await box.put(
         'detail_p1',
-        jsonEncode({
-          'saved_at': old.toIso8601String(),
-          'data': _product('p1').toJson(),
-        }),
+        jsonEncode({'saved_at': old.toIso8601String(), 'data': _product('p1').toJson()}),
       );
       expect(await ds.getCachedProductDetail('p1'), isNull);
     });
@@ -137,8 +125,7 @@ void main() {
       await box.put('detail_p1', '[]');
       expect(await ds.getCachedProducts('all'), isNull);
       expect(await ds.getCachedProductDetail('p1'), isNull);
-      await Hive.box<dynamic>(HiveBoxes.catalogCategories)
-          .put('all', '{"x":1}');
+      await Hive.box<dynamic>(HiveBoxes.catalogCategories).put('all', '{"x":1}');
       expect(await ds.getCachedCategories(), isNull);
     });
   });

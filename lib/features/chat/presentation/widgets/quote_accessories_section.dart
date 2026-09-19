@@ -35,9 +35,7 @@ class QuoteAccessoriesSection extends StatelessWidget {
                     width: 44,
                     child: Text(
                       '${a.qty} ${a.unit}',
-                      style: typography.bodyS.copyWith(
-                        color: colors.textSecondary,
-                      ),
+                      style: typography.bodyS.copyWith(color: colors.textSecondary),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -45,9 +43,7 @@ class QuoteAccessoriesSection extends StatelessWidget {
                     width: 82,
                     child: Text(
                       formatMoneyPlain(a.total),
-                      style: typography.bodyS.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: typography.bodyS.copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.right,
                     ),
                   ),

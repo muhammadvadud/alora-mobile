@@ -9,18 +9,15 @@ class TypingLine extends StatefulWidget {
   State<TypingLine> createState() => _TypingLineState();
 }
 
-class _TypingLineState extends State<TypingLine>
-    with SingleTickerProviderStateMixin {
+class _TypingLineState extends State<TypingLine> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    )..repeat();
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400))
+      ..repeat();
 
     _animation = Tween<double>(
       begin: -40,
@@ -41,10 +38,7 @@ class _TypingLineState extends State<TypingLine>
     return Container(
       width: 120,
       height: 2,
-      decoration: BoxDecoration(
-        color: colors.border,
-        borderRadius: AppRadius.lineBorder,
-      ),
+      decoration: BoxDecoration(color: colors.border, borderRadius: AppRadius.lineBorder),
       clipBehavior: Clip.hardEdge,
       child: AnimatedBuilder(
         animation: _animation,

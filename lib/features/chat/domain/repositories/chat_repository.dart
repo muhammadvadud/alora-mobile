@@ -4,10 +4,7 @@ import 'package:alora_mobile/core/utils/paginated.dart';
 import 'package:alora_mobile/features/chat/domain/entities/message.dart';
 
 abstract class ChatRepository {
-  Future<Paginated<Message>> getMessages(
-    String conversationId, {
-    String? cursor,
-  });
+  Future<Paginated<Message>> getMessages(String conversationId, {String? cursor});
 
   Stream<SseEvent> sendMessage(
     String conversationId,

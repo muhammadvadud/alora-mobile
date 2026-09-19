@@ -41,10 +41,7 @@ class ProductFormBasicSection extends StatelessWidget {
         _MainFields(state: state, isEnabled: isEnabled, onChanged: onChanged),
         _DetailFields(state: state, isEnabled: isEnabled, onChanged: onChanged),
         const SizedBox(height: AppSpacing.m),
-        Text(
-          context.l10n.management_productFormRecommendedRooms,
-          style: context.text.bodyM,
-        ),
+        Text(context.l10n.management_productFormRecommendedRooms, style: context.text.bodyM),
         const SizedBox(height: AppSpacing.xs),
         _RecommendedRoomsView(
           selectedRooms: state.recommendedRooms,
@@ -62,11 +59,7 @@ class _MainFields extends StatelessWidget {
   final bool isEnabled;
   final void Function(String field, Object? value) onChanged;
 
-  const _MainFields({
-    required this.state,
-    required this.isEnabled,
-    required this.onChanged,
-  });
+  const _MainFields({required this.state, required this.isEnabled, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -114,11 +107,7 @@ class _DetailFields extends StatelessWidget {
   final bool isEnabled;
   final void Function(String field, Object? value) onChanged;
 
-  const _DetailFields({
-    required this.state,
-    required this.isEnabled,
-    required this.onChanged,
-  });
+  const _DetailFields({required this.state, required this.isEnabled, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -176,9 +165,7 @@ class _RecommendedRoomsView extends StatelessWidget {
         for (final room in _roomSuggestions)
           AppChip(
             label: room,
-            state: selectedRooms.contains(room)
-                ? AppChipState.selected
-                : AppChipState.unselected,
+            state: selectedRooms.contains(room) ? AppChipState.selected : AppChipState.unselected,
             onTap: isEnabled ? () => onToggleRoom(room) : null,
           ),
       ],

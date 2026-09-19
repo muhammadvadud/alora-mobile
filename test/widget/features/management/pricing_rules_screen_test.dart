@@ -21,9 +21,7 @@ void main() {
 
   setUp(() {
     mockRepo = MockPricingRepository();
-    registerFallbackValue(
-      const CalcPreviewRequestDto(measurements: [], services: []),
-    );
+    registerFallbackValue(const CalcPreviewRequestDto(measurements: [], services: []));
     when(() => mockRepo.getCalcRules()).thenAnswer(
       (_) async => [
         CalcRule(
@@ -74,9 +72,7 @@ void main() {
     );
   });
 
-  testWidgets('PricingRulesScreen preview so\'rov shakli', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('PricingRulesScreen preview so\'rov shakli', (WidgetTester tester) async {
     final quote = const Quote(
       fabrics: [],
       accessories: [],

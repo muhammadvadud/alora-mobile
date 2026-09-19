@@ -80,8 +80,9 @@ class CustomerModeNotifier extends Notifier<bool> {
   DateTime? get lockUntil => _lockUntil;
 }
 
-final customerModeNotifierProvider =
-    NotifierProvider<CustomerModeNotifier, bool>(CustomerModeNotifier.new);
+final customerModeNotifierProvider = NotifierProvider<CustomerModeNotifier, bool>(
+  CustomerModeNotifier.new,
+);
 
 final customerModeEnabledProvider = Provider<bool>((ref) {
   return ref.watch(customerModeNotifierProvider);

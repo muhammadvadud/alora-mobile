@@ -72,9 +72,7 @@ void main() {
 
     expect(find.byType(SkeletonBox), findsOneWidget);
 
-    repository.limitCompleter.complete(
-      testProfileLimit(maxCostUzs: '500000.00'),
-    );
+    repository.limitCompleter.complete(testProfileLimit(maxCostUzs: '500000.00'));
     repository.costCompleter.complete(100000);
     await tester.pumpAndSettle();
 
@@ -97,8 +95,7 @@ void main() {
   });
 
   testWidgets('cheksiz limit bo\'lsa ∞ ko\'rsatiladi', (tester) async {
-    final repository = FakeProfileRepository()
-      ..limit = testProfileLimit(isUnlimited: true);
+    final repository = FakeProfileRepository()..limit = testProfileLimit(isUnlimited: true);
 
     await _pumpSpend(tester, repository: repository);
     await tester.pumpAndSettle();
@@ -110,8 +107,7 @@ void main() {
   });
 
   testWidgets('limit maxCost null bo\'lsa notSet holati', (tester) async {
-    final repository = FakeProfileRepository()
-      ..limit = testProfileLimit(maxCostUzs: null);
+    final repository = FakeProfileRepository()..limit = testProfileLimit(maxCostUzs: null);
 
     await _pumpSpend(tester, repository: repository);
     await tester.pumpAndSettle();
@@ -121,9 +117,7 @@ void main() {
     await tester.pumpWidget(const SizedBox());
   });
 
-  testWidgets('maxCost va todayCost bo\'lsa progress bar ko\'rsatiladi', (
-    tester,
-  ) async {
+  testWidgets('maxCost va todayCost bo\'lsa progress bar ko\'rsatiladi', (tester) async {
     final repository = FakeProfileRepository()
       ..limit = testProfileLimit(maxCostUzs: '500000.00')
       ..todayCost = 100000;
@@ -139,8 +133,7 @@ void main() {
   });
 
   testWidgets('manager bo\'lmasa todayCost so\'ralmaydi', (tester) async {
-    final repository = FakeProfileRepository()
-      ..limit = testProfileLimit(maxCostUzs: '500000.00');
+    final repository = FakeProfileRepository()..limit = testProfileLimit(maxCostUzs: '500000.00');
 
     await _pumpSpend(tester, repository: repository, role: Role.employee);
     await tester.pumpAndSettle();

@@ -35,10 +35,7 @@ void main() {
 
   group('ProfileRemoteDataSource.meLimit', () {
     test('limit blokini qaytaradi (toJson round-trip bilan)', () async {
-      adapter.onGet(
-        ApiPaths.me,
-        (server) => server.reply(200, {'limit': limitJson()}),
-      );
+      adapter.onGet(ApiPaths.me, (server) => server.reply(200, {'limit': limitJson()}));
 
       final dto = await dataSource().meLimit();
 
@@ -55,19 +52,13 @@ void main() {
     });
 
     test('limit bloki yo\'q bo\'lsa null qaytaradi', () async {
-      adapter.onGet(
-        ApiPaths.me,
-        (server) => server.reply(200, {'id': 'user-1'}),
-      );
+      adapter.onGet(ApiPaths.me, (server) => server.reply(200, {'id': 'user-1'}));
 
       expect(await dataSource().meLimit(), isNull);
     });
 
     test('HTTP xatolikda Failure throw qiladi', () async {
-      adapter.onGet(
-        ApiPaths.me,
-        (server) => server.reply(500, {'detail': 'xatolik'}),
-      );
+      adapter.onGet(ApiPaths.me, (server) => server.reply(500, {'detail': 'xatolik'}));
 
       await expectLater(dataSource().meLimit(), throwsA(isA<Failure>()));
     });
@@ -111,19 +102,13 @@ void main() {
         queryParameters: {'period': 'day', 'user': 'user-1'},
       );
 
-      await expectLater(
-        dataSource().todayCost('user-1'),
-        throwsA(isA<Failure>()),
-      );
+      await expectLater(dataSource().todayCost('user-1'), throwsA(isA<Failure>()));
     });
   });
 
   group('ProfileRepositoryImpl', () {
     test('getLimit dto ni entity ga o\'tkazadi', () async {
-      adapter.onGet(
-        ApiPaths.me,
-        (server) => server.reply(200, {'limit': limitJson()}),
-      );
+      adapter.onGet(ApiPaths.me, (server) => server.reply(200, {'limit': limitJson()}));
 
       final limit = await ProfileRepositoryImpl(dataSource()).getLimit();
 
@@ -135,10 +120,7 @@ void main() {
     });
 
     test('getLimit null ni o\'tkazadi', () async {
-      adapter.onGet(
-        ApiPaths.me,
-        (server) => server.reply(200, {'id': 'user-1'}),
-      );
+      adapter.onGet(ApiPaths.me, (server) => server.reply(200, {'id': 'user-1'}));
 
       expect(await ProfileRepositoryImpl(dataSource()).getLimit(), isNull);
     });
@@ -150,28 +132,20 @@ void main() {
         queryParameters: {'period': 'day', 'user': 'user-1'},
       );
 
-      expect(
-        await ProfileRepositoryImpl(dataSource()).getTodayCost('user-1'),
-        1000,
-      );
+      expect(await ProfileRepositoryImpl(dataSource()).getTodayCost('user-1'), 1000);
     });
   });
 
   group('application providers', () {
     test('real profileRepositoryProvider ishlaydi', () async {
-      adapter.onGet(
-        ApiPaths.me,
-        (server) => server.reply(200, {'limit': limitJson()}),
-      );
+      adapter.onGet(ApiPaths.me, (server) => server.reply(200, {'limit': limitJson()}));
       adapter.onGet(
         ApiPaths.usageSummary,
         (server) => server.reply(200, {'cost_uzs': '5000.00'}),
         queryParameters: {'period': 'day', 'user': 'user-1'},
       );
 
-      final container = ProviderContainer(
-        overrides: [dioProvider.overrideWithValue(dio)],
-      );
+      final container = ProviderContainer(overrides: [dioProvider.overrideWithValue(dio)]);
       addTearDown(container.dispose);
 
       final repo = container.read(profileRepositoryProvider);

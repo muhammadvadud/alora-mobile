@@ -17,11 +17,7 @@ class BulkPriceSheet extends StatefulWidget {
   final List<ProductVariant> selectedVariants;
   final ValueChanged<BulkPriceDto> onSave;
 
-  const BulkPriceSheet({
-    super.key,
-    required this.selectedVariants,
-    required this.onSave,
-  });
+  const BulkPriceSheet({super.key, required this.selectedVariants, required this.onSave});
 
   @override
   State<BulkPriceSheet> createState() => _BulkPriceSheetState();
@@ -66,9 +62,7 @@ class _BulkPriceSheetState extends State<BulkPriceSheet> {
     if (mode == _BulkPriceMode.amount) {
       return _mode == mode ? AppChipState.selected : AppChipState.unselected;
     }
-    return _mode == mode && _value == value
-        ? AppChipState.selected
-        : AppChipState.unselected;
+    return _mode == mode && _value == value ? AppChipState.selected : AppChipState.unselected;
   }
 
   @override

@@ -16,9 +16,7 @@ import '../../../unit/features/conversations/conversations_test_helpers.dart'
 void main() {
   Widget buildPane(FakeConversationsRepository repository) {
     return ProviderScope(
-      overrides: [
-        conversationsRepositoryProvider.overrideWithValue(repository),
-      ],
+      overrides: [conversationsRepositoryProvider.overrideWithValue(repository)],
       child: const ConversationsPane().pumpApp(),
     );
   }
@@ -37,9 +35,7 @@ void main() {
     await tester.pumpAndSettle();
   });
 
-  testWidgets('bo\'sh ro\'yxat bo\'sh holat matnini ko\'rsatadi', (
-    tester,
-  ) async {
+  testWidgets('bo\'sh ro\'yxat bo\'sh holat matnini ko\'rsatadi', (tester) async {
     final repository = FakeConversationsRepository();
 
     await tester.pumpWidget(buildPane(repository));
@@ -48,9 +44,7 @@ void main() {
     expect(find.text('Hali suhbat yo\'q'), findsOneWidget);
   });
 
-  testWidgets('yuklangan ro\'yxatda sana guruhlari va qatorlar ko\'rinadi', (
-    tester,
-  ) async {
+  testWidgets('yuklangan ro\'yxatda sana guruhlari va qatorlar ko\'rinadi', (tester) async {
     final repository = FakeConversationsRepository();
     final now = DateTime.now();
     repository.listResult = (
@@ -77,31 +71,19 @@ void main() {
     await tester.pumpAndSettle();
 
     // SectionLabel matnni uppercase qiladi — case-insensitive qidiramiz
-    expect(
-      find.textContaining(RegExp('bugun', caseSensitive: false)),
-      findsOneWidget,
-    );
-    expect(
-      find.textContaining(RegExp('kecha', caseSensitive: false)),
-      findsOneWidget,
-    );
+    expect(find.textContaining(RegExp('bugun', caseSensitive: false)), findsOneWidget);
+    expect(find.textContaining(RegExp('kecha', caseSensitive: false)), findsOneWidget);
     expect(find.text('Oshxona tayyor'), findsOneWidget);
     expect(find.text('Yotoqxona pardasi'), findsOneWidget);
     expect(find.textContaining("so'm"), findsOneWidget);
   });
 
-  testWidgets('filtr chipslari mavjud va bosilganda ro\'yxatni filtrlaydi', (
-    tester,
-  ) async {
+  testWidgets('filtr chipslari mavjud va bosilganda ro\'yxatni filtrlaydi', (tester) async {
     final repository = FakeConversationsRepository();
     repository.listResult = (
       [
         testConversation(id: 'a', title: 'Buyurtmali', orderId: 'o1'),
-        testConversation(
-          id: 'b',
-          title: 'Boshlangich',
-          stage: ConversationStage.need,
-        ),
+        testConversation(id: 'b', title: 'Boshlangich', stage: ConversationStage.need),
       ],
       null,
     );

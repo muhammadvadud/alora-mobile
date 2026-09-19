@@ -56,11 +56,7 @@ class _SectionRow extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
 
-  const _SectionRow({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
+  const _SectionRow({required this.icon, required this.label, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +65,7 @@ class _SectionRow extends StatelessWidget {
 
     return AppCard(
       onTap: onTap,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.m,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l, vertical: AppSpacing.m),
       child: Row(
         children: [
           Container(
@@ -86,10 +79,7 @@ class _SectionRow extends StatelessWidget {
           ),
           const SizedBox(width: AppSpacing.m),
           Expanded(
-            child: Text(
-              label,
-              style: typography.bodyL.copyWith(color: colors.textPrimary),
-            ),
+            child: Text(label, style: typography.bodyL.copyWith(color: colors.textPrimary)),
           ),
           Icon(AppIcons.chevronRight, size: 18, color: colors.textSecondary),
         ],

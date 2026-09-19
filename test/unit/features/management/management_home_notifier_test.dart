@@ -65,9 +65,7 @@ void main() {
     final sub = container.listen(managementHomeProvider, (_, _) {});
     await container.read(managementHomeProvider.future);
 
-    container
-        .read(managementPeriodProvider.notifier)
-        .setPeriod(UsagePeriod.week);
+    container.read(managementPeriodProvider.notifier).setPeriod(UsagePeriod.week);
     await pumpEventQueue();
 
     expect(usageRepository.summaryCalls.length, 2);
@@ -98,35 +96,29 @@ void main() {
     sub.close();
   });
 
-  test(
-    'non-Failure xatolik Failure.unknown ga o\'raladi (regressiya)',
-    () async {
-      final throwing = _ThrowingUsageRepository();
+  test('non-Failure xatolik Failure.unknown ga o\'raladi (regressiya)', () async {
+    final throwing = _ThrowingUsageRepository();
 
-      final container = ProviderContainer(
-        overrides: [usageRepositoryProvider.overrideWithValue(throwing)],
-      );
-      addTearDown(container.dispose);
+    final container = ProviderContainer(
+      overrides: [usageRepositoryProvider.overrideWithValue(throwing)],
+    );
+    addTearDown(container.dispose);
 
-      final sub = container.listen(managementHomeProvider, (_, _) {});
-      await pumpEventQueue();
+    final sub = container.listen(managementHomeProvider, (_, _) {});
+    await pumpEventQueue();
 
-      expect(sub.read().hasError, isTrue);
-      final failure = sub.read().error;
-      expect(failure, isA<Failure>());
-      expect(failure.toString(), contains('boom'));
-      sub.close();
-    },
-  );
+    expect(sub.read().hasError, isTrue);
+    final failure = sub.read().error;
+    expect(failure, isA<Failure>());
+    expect(failure.toString(), contains('boom'));
+    sub.close();
+  });
 }
 
 /// Barcha so'rovlarda oddiy (Failure bo'lmagan) xato otuvchi repository.
 class _ThrowingUsageRepository implements UsageRepository {
   @override
-  Future<UsageSummary> summary({
-    required UsagePeriod period,
-    String? userId,
-  }) async {
+  Future<UsageSummary> summary({required UsagePeriod period, String? userId}) async {
     throw Exception('boom');
   }
 

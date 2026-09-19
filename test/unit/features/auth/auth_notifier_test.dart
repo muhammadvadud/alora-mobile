@@ -52,31 +52,27 @@ void main() {
     state(); // trigger provider creation and _initialize
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(unauthenticated: () => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(unauthenticated: () => true, orElse: () => false), isTrue);
     verify(() => errorReporter.clearUser()).called(1);
   });
 
-  test('refresh token bo\'lsa refresh + me orqali authenticated bo\'ladi va setUser chaqiriladi', () async {
-    repository.refreshToken = 'r1';
-    repository.user = testUser(role: Role.manager);
+  test(
+    'refresh token bo\'lsa refresh + me orqali authenticated bo\'ladi va setUser chaqiriladi',
+    () async {
+      repository.refreshToken = 'r1';
+      repository.user = testUser(role: Role.manager);
 
-    state(); // trigger provider creation and _initialize
-    await pumpEventQueue();
+      state(); // trigger provider creation and _initialize
+      await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(
-        authenticated: (user) => user.role == Role.manager,
-        orElse: () => false,
-      ),
-      isTrue,
-    );
+      expect(
+        state().maybeWhen(authenticated: (user) => user.role == Role.manager, orElse: () => false),
+        isTrue,
+      );
 
-    verify(() => errorReporter.setUser(id: 'user-1', role: 'manager'))
-        .called(1);
-  });
+      verify(() => errorReporter.setUser(id: 'user-1', role: 'manager')).called(1);
+    },
+  );
 
   test('refresh xatosi sessiyani tozalab unauthenticated qiladi', () async {
     repository.refreshToken = 'r1';
@@ -86,10 +82,7 @@ void main() {
     await pumpEventQueue();
 
     expect(repository.clearSessionCalls, 1);
-    expect(
-      state().maybeWhen(unauthenticated: () => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(unauthenticated: () => true, orElse: () => false), isTrue);
   });
 
   test('me xatosi sessiyani tozalab unauthenticated qiladi', () async {
@@ -100,10 +93,7 @@ void main() {
     await pumpEventQueue();
 
     expect(repository.clearSessionCalls, 1);
-    expect(
-      state().maybeWhen(unauthenticated: () => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(unauthenticated: () => true, orElse: () => false), isTrue);
   });
 
   test('muvaffaqiyatli login authenticated holatga o\'tkazadi', () async {
@@ -116,14 +106,10 @@ void main() {
     expect(failure, isNull);
     expect(repository.loginCalls, 1);
     expect(
-      state().maybeWhen(
-        authenticated: (user) => user.role == Role.employee,
-        orElse: () => false,
-      ),
+      state().maybeWhen(authenticated: (user) => user.role == Role.employee, orElse: () => false),
       isTrue,
     );
-    verify(() => errorReporter.setUser(id: 'user-1', role: 'employee'))
-        .called(1);
+    verify(() => errorReporter.setUser(id: 'user-1', role: 'employee')).called(1);
   });
 
   test('login xatosi Failure qaytaradi va holat o\'zgarmaydi', () async {
@@ -134,27 +120,24 @@ void main() {
         .login(phone: '+998901234567', password: 'xato');
 
     expect(failure, isNotNull);
-    expect(
-      state().maybeWhen(unauthenticated: () => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(unauthenticated: () => true, orElse: () => false), isTrue);
   });
 
-  test('logout repository logout chaqiradi va unauthenticated bo\'ladi va clearUser chaqiriladi', () async {
-    repository.refreshToken = 'r1';
-    repository.user = testUser();
+  test(
+    'logout repository logout chaqiradi va unauthenticated bo\'ladi va clearUser chaqiriladi',
+    () async {
+      repository.refreshToken = 'r1';
+      repository.user = testUser();
 
-    state(); // trigger provider creation
-    await pumpEventQueue();
-    await container.read(authProvider.notifier).logout();
+      state(); // trigger provider creation
+      await pumpEventQueue();
+      await container.read(authProvider.notifier).logout();
 
-    expect(repository.logoutCalls, 1);
-    expect(
-      state().maybeWhen(unauthenticated: () => true, orElse: () => false),
-      isTrue,
-    );
-    verify(() => errorReporter.clearUser()).called(greaterThanOrEqualTo(1));
-  });
+      expect(repository.logoutCalls, 1);
+      expect(state().maybeWhen(unauthenticated: () => true, orElse: () => false), isTrue);
+      verify(() => errorReporter.clearUser()).called(greaterThanOrEqualTo(1));
+    },
+  );
 
   test('session tugashi hodisasi unauthenticated holatga o\'tkazadi', () async {
     repository.refreshToken = 'r1';
@@ -166,25 +149,17 @@ void main() {
     repository.emitSessionExpired();
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(unauthenticated: () => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(unauthenticated: () => true, orElse: () => false), isTrue);
   });
 
   test('login detail matni xato kodi bilan saqlanadi', () async {
-    repository.loginFailure = const Failure.unknown(
-      'Parol yoki telefon noto\'g\'ri',
-    );
+    repository.loginFailure = const Failure.unknown('Parol yoki telefon noto\'g\'ri');
 
     final failure = await container
         .read(authProvider.notifier)
         .login(phone: '+998901234567', password: 'xato');
 
-    final detail = failure!.maybeWhen(
-      unknown: (detail) => detail,
-      orElse: () => '',
-    );
+    final detail = failure!.maybeWhen(unknown: (detail) => detail, orElse: () => '');
     expect(detail, 'Parol yoki telefon noto\'g\'ri');
   });
 }

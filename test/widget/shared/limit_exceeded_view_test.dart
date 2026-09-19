@@ -48,9 +48,7 @@ void main() {
       expect(find.byType(Icon), findsOneWidget);
     });
 
-    testWidgets("manager telefoni yo'q bo'lsa aloqa tugmalari ko'rinmaydi", (
-      tester,
-    ) async {
+    testWidgets("manager telefoni yo'q bo'lsa aloqa tugmalari ko'rinmaydi", (tester) async {
       await tester.pumpWidget(
         _wrap(const LimitExceededView(), _UnauthNotifier.new, ThemeMode.light),
       );
@@ -58,15 +56,9 @@ void main() {
       expect(find.byType(AppButton), findsNothing);
     });
 
-    testWidgets("manager telefoni bo'lsa Qo'ng'iroq va SMS tugmalari chiqadi", (
-      tester,
-    ) async {
+    testWidgets("manager telefoni bo'lsa Qo'ng'iroq va SMS tugmalari chiqadi", (tester) async {
       await tester.pumpWidget(
-        _wrap(
-          const LimitExceededView(),
-          _AuthWithManagerNotifier.new,
-          ThemeMode.light,
-        ),
+        _wrap(const LimitExceededView(), _AuthWithManagerNotifier.new, ThemeMode.light),
       );
 
       expect(find.byType(AppButton), findsNWidgets(2));

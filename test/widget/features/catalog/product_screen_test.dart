@@ -6,8 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_theme.dart';
 import 'package:alora_mobile/core/connectivity/connectivity_notifier.dart';
-import 'package:alora_mobile/features/catalog/application/providers.dart'
-    as catalog_providers;
+import 'package:alora_mobile/features/catalog/application/providers.dart' as catalog_providers;
 import 'package:alora_mobile/features/catalog/domain/entities/product.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product_image.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product_variant.dart';
@@ -64,10 +63,7 @@ Product _product() => const Product(
   ],
 );
 
-Future<void> _pumpProduct(
-  WidgetTester tester, {
-  required MockCatalogRepository mockRepo,
-}) async {
+Future<void> _pumpProduct(WidgetTester tester, {required MockCatalogRepository mockRepo}) async {
   tester.view.physicalSize = const Size(1170, 2532); // iPhone: 390x844 @3x
   tester.view.devicePixelRatio = 3.0;
   addTearDown(tester.view.reset);
@@ -104,13 +100,10 @@ void main() {
 
   setUp(() {
     mockRepo = MockCatalogRepository();
-    when(() => mockRepo.getProductDetail('p1'))
-        .thenAnswer((_) async => _product());
+    when(() => mockRepo.getProductDetail('p1')).thenAnswer((_) async => _product());
   });
 
-  testWidgets('shows product name, price and color of first variant', (
-    tester,
-  ) async {
+  testWidgets('shows product name, price and color of first variant', (tester) async {
     await _pumpProduct(tester, mockRepo: mockRepo);
     await tester.pumpAndSettle();
 
@@ -118,10 +111,7 @@ void main() {
     expect(find.textContaining('Grafit'), findsWidgets);
     expect(find.textContaining('so\'m'), findsWidgets);
     // UI'da "stock" so'zi bo'lmasligi kerak (Q8)
-    expect(
-      find.textContaining(RegExp('omborda|stock', caseSensitive: false)),
-      findsNothing,
-    );
+    expect(find.textContaining(RegExp('omborda|stock', caseSensitive: false)), findsNothing);
   });
 
   testWidgets('tapping second variant updates selected color', (tester) async {

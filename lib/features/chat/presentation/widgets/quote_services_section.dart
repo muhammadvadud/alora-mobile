@@ -34,9 +34,7 @@ class QuoteServicesSection extends StatelessWidget {
                     width: 82,
                     child: Text(
                       formatMoneyPlain(s.total),
-                      style: typography.bodyS.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: typography.bodyS.copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.right,
                     ),
                   ),

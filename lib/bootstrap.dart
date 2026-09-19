@@ -21,11 +21,7 @@ Future<void> bootstrap() async {
   await HiveBoxes.open<dynamic>(HiveBoxes.settings);
 
   FlutterError.onError = (details) {
-    logger.e(
-      'FlutterError',
-      error: details.exception,
-      stackTrace: details.stack,
-    );
+    logger.e('FlutterError', error: details.exception, stackTrace: details.stack);
     if (Env.isProd && Env.sentryDsn.isNotEmpty) {
       if (details.exception is Failure) {
         final reporter = SentryErrorReporter(DefaultSentryHub());
@@ -52,11 +48,7 @@ Future<void> bootstrap() async {
     if (error is Failure) {
       final context = scaffoldMessengerKey.currentContext;
       if (context != null) {
-        AppSnackbar.show(
-          context,
-          message: error.localizedMessage(context),
-          isError: true,
-        );
+        AppSnackbar.show(context, message: error.localizedMessage(context), isError: true);
       }
     }
 

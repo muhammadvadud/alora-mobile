@@ -5,10 +5,7 @@ enum ConversationDateGroup { today, yesterday, thisWeek, older }
 
 /// `date` qaysi guruhga tushishini aniqlaydi (Bugun/Kecha/Bu hafta/oldingi).
 /// Sana berilmagan suhbatlar `older` guruhiga tushadi.
-ConversationDateGroup classifyConversationDate(
-  DateTime? date, {
-  required DateTime now,
-}) {
+ConversationDateGroup classifyConversationDate(DateTime? date, {required DateTime now}) {
   if (date == null) return ConversationDateGroup.older;
   final today = DateTime(now.year, now.month, now.day);
   final target = DateTime(date.year, date.month, date.day);
@@ -31,10 +28,7 @@ Map<ConversationDateGroup, List<Conversation>> groupConversationsByDate(
     for (final group in ConversationDateGroup.values) group: <Conversation>[],
   };
   for (final conversation in items) {
-    final group = classifyConversationDate(
-      conversation.lastMessageAt,
-      now: now,
-    );
+    final group = classifyConversationDate(conversation.lastMessageAt, now: now);
     result[group]!.add(conversation);
   }
   return result;

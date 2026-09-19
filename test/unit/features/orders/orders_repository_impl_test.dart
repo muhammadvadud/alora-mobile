@@ -57,8 +57,7 @@ void main() {
   });
 
   test('patchOrder', () async {
-    when(() => mockDs.patchOrder(any(), any()))
-        .thenAnswer((_) async => orderDto);
+    when(() => mockDs.patchOrder(any(), any())).thenAnswer((_) async => orderDto);
 
     final result = await repository.patchOrder('1', {});
     expect(result.id, '1');
@@ -72,8 +71,7 @@ void main() {
   });
 
   test('changeStatus', () async {
-    when(() => mockDs.changeStatus(any(), any(), any(), any()))
-        .thenAnswer((_) async => orderDto);
+    when(() => mockDs.changeStatus(any(), any(), any(), any())).thenAnswer((_) async => orderDto);
 
     final result = await repository.changeStatus('1', 'confirmed');
     expect(result.id, '1');
@@ -88,8 +86,7 @@ void main() {
   });
 
   test('getPdf', () async {
-    when(() => mockDs.getPdf(any()))
-        .thenAnswer((_) async => Uint8List.fromList([1, 2, 3]));
+    when(() => mockDs.getPdf(any())).thenAnswer((_) async => Uint8List.fromList([1, 2, 3]));
 
     final result = await repository.getPdf('1');
     expect(result.length, 3);

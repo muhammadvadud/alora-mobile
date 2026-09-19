@@ -31,10 +31,7 @@ void main() {
   EmployeesState state() => container.read(employeesProvider);
 
   List<Employee> loadedItems() {
-    return state().maybeWhen(
-      loaded: (items, _) => items,
-      orElse: () => <Employee>[],
-    );
+    return state().maybeWhen(loaded: (items, _) => items, orElse: () => <Employee>[]);
   }
 
   test('boshlang\'ich holat initial bo\'ladi', () async {
@@ -60,10 +57,7 @@ void main() {
     final employees = loadedItems();
     expect(employees.length, 2);
     expect(employees[0].todayCost, 42000);
-    expect(
-      state().maybeWhen(loaded: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(loaded: (_, _) => true, orElse: () => false), isTrue);
   });
 
   test('summary xatosi bo\'lsa todayCost null qoladi', () async {
@@ -80,10 +74,7 @@ void main() {
     container.read(employeesProvider);
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(empty: (query) => query.isEmpty, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(empty: (query) => query.isEmpty, orElse: () => false), isTrue);
   });
 
   test('xatolik error holatga olib keladi va retry qayta yuklaydi', () async {
@@ -92,10 +83,7 @@ void main() {
     container.read(employeesProvider);
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(error: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(error: (_, _) => true, orElse: () => false), isTrue);
 
     teamRepository.employeesFailure = null;
     teamRepository.employeesResult = [testEmployee()];
@@ -104,10 +92,7 @@ void main() {
     await pumpEventQueue();
 
     expect(teamRepository.employeesCalls, 2);
-    expect(
-      state().maybeWhen(loaded: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(loaded: (_, _) => true, orElse: () => false), isTrue);
   });
 
   test('qidiruv 300ms debounce bilan client-side filtrlaydi', () async {
@@ -132,9 +117,7 @@ void main() {
   });
 
   test('qidiruv natija topilmasa empty qaytaradi', () async {
-    teamRepository.employeesResult = [
-      testEmployee(id: 'employee-1', fullName: 'Akmal Karimov'),
-    ];
+    teamRepository.employeesResult = [testEmployee(id: 'employee-1', fullName: 'Akmal Karimov')];
 
     container.read(employeesProvider);
     await pumpEventQueue();
@@ -143,10 +126,7 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 350));
     await pumpEventQueue();
 
-    final query = state().maybeWhen(
-      empty: (query) => query,
-      orElse: () => null,
-    );
+    final query = state().maybeWhen(empty: (query) => query, orElse: () => null);
     expect(query, 'yo\'q xodim');
   });
 
@@ -191,10 +171,7 @@ void main() {
     await pumpEventQueue();
 
     expect(teamRepository.employeesCalls, 2);
-    expect(
-      state().maybeWhen(loaded: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(loaded: (_, _) => true, orElse: () => false), isTrue);
   });
 
   test('empty holatda qidiruv holatni o\'zgartirmaydi', () async {
@@ -215,10 +192,7 @@ void main() {
 
     container.read(employeesProvider);
     await pumpEventQueue();
-    expect(
-      state().maybeWhen(error: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(error: (_, _) => true, orElse: () => false), isTrue);
 
     teamRepository.employeesFailure = null;
     teamRepository.employeesResult = [testEmployee(id: 'employee-1')];
@@ -228,9 +202,6 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 350));
     await pumpEventQueue();
 
-    expect(
-      state().maybeWhen(error: (_, _) => true, orElse: () => false),
-      isTrue,
-    );
+    expect(state().maybeWhen(error: (_, _) => true, orElse: () => false), isTrue);
   });
 }

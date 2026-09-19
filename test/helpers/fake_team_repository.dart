@@ -145,10 +145,7 @@ class FakeTeamRepository implements TeamRepository {
   }
 
   @override
-  Future<Employee> updateEmployee({
-    required String id,
-    required Map<String, dynamic> patch,
-  }) async {
+  Future<Employee> updateEmployee({required String id, required Map<String, dynamic> patch}) async {
     updates.add((id: id, patch: patch));
     final failure = updateFailure;
     if (failure != null) throw failure;

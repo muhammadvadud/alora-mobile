@@ -52,10 +52,7 @@ class ConnectivityNotifier extends _$ConnectivityNotifier {
         ),
       );
 
-      final healthUrl = Env.apiBaseUrl.replaceFirst(
-        RegExp(r'/api/v1/?$'),
-        '/health/',
-      );
+      final healthUrl = Env.apiBaseUrl.replaceFirst(RegExp(r'/api/v1/?$'), '/health/');
 
       final response = await dio.head(healthUrl);
       if (response.statusCode != null &&

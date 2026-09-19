@@ -8,9 +8,7 @@ part of 'transcript_message_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TranscriptMessageDto _$TranscriptMessageDtoFromJson(
-  Map<String, dynamic> json,
-) => $checkedCreate(
+TranscriptMessageDto _$TranscriptMessageDtoFromJson(Map<String, dynamic> json) => $checkedCreate(
   'TranscriptMessageDto',
   json,
   ($checkedConvert) {
@@ -30,12 +28,11 @@ TranscriptMessageDto _$TranscriptMessageDtoFromJson(
   },
 );
 
-Map<String, dynamic> _$TranscriptMessageDtoToJson(
-  TranscriptMessageDto instance,
-) => <String, dynamic>{
-  'role': instance.role,
-  'content': instance.content,
-  'tool_calls': ?instance.toolCalls,
-  'tool_result': ?instance.toolResult,
-  'created_at': ?instance.createdAt,
-};
+Map<String, dynamic> _$TranscriptMessageDtoToJson(TranscriptMessageDto instance) =>
+    <String, dynamic>{
+      'role': instance.role,
+      'content': instance.content,
+      'tool_calls': ?instance.toolCalls,
+      'tool_result': ?instance.toolResult,
+      'created_at': ?instance.createdAt,
+    };

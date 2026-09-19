@@ -8,9 +8,7 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('Dialog, BottomSheet va Snackbar testlari', () {
-    testWidgets('AppBottomSheet ochiladi va matnlar ko\'rsatiladi', (
-      tester,
-    ) async {
+    testWidgets('AppBottomSheet ochiladi va matnlar ko\'rsatiladi', (tester) async {
       await tester.pumpWidget(
         Builder(
           builder: (context) {
@@ -18,10 +16,8 @@ void main() {
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
-                  builder: (_) => const AppBottomSheet(
-                    title: 'Oyna sarlavhasi',
-                    content: Text('Oyna matni'),
-                  ),
+                  builder: (_) =>
+                      const AppBottomSheet(title: 'Oyna sarlavhasi', content: Text('Oyna matni')),
                 );
               },
               child: const Text('Ochish'),
@@ -81,9 +77,7 @@ void main() {
       expect(isPrimaryTapped, true);
     });
 
-    testWidgets('AppSnackbar ochiladi va harakat tugmasi ishlaydi', (
-      tester,
-    ) async {
+    testWidgets('AppSnackbar ochiladi va harakat tugmasi ishlaydi', (tester) async {
       bool isActionTapped = false;
 
       await tester.pumpWidget(

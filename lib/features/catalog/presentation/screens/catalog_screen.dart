@@ -97,23 +97,18 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                     type: AppTextFieldType.search,
                     hintText: l10n.catalog_searchHint,
                     controller: _searchController,
-                    onChanged: (value) =>
-                        ref.read(catalogProvider.notifier).setSearch(value),
+                    onChanged: (value) => ref.read(catalogProvider.notifier).setSearch(value),
                   ),
                 ),
                 const SizedBox(width: AppSpacing.s),
-                FilterButton(
-                  count: state.activeFilterCount,
-                  onTap: _openFilterSheet,
-                ),
+                FilterButton(count: state.activeFilterCount, onTap: _openFilterSheet),
               ],
             ),
           ),
           CategoryBar(
             categories: state.categories,
             categoryId: state.categoryId,
-            onSelect: (id) =>
-                ref.read(catalogProvider.notifier).selectCategory(id),
+            onSelect: (id) => ref.read(catalogProvider.notifier).selectCategory(id),
           ),
           Expanded(
             child: _Body(state: state, scrollController: _scrollController),
@@ -161,14 +156,8 @@ class FilterButton extends StatelessWidget {
             top: -4,
             child: Container(
               padding: const EdgeInsets.all(AppSpacing.xs),
-              decoration: BoxDecoration(
-                color: colors.brass,
-                shape: BoxShape.circle,
-              ),
-              child: Text(
-                '$count',
-                style: typography.badgeLabel.copyWith(color: colors.onAccent),
-              ),
+              decoration: BoxDecoration(color: colors.brass, shape: BoxShape.circle),
+              child: Text('$count', style: typography.badgeLabel.copyWith(color: colors.onAccent)),
             ),
           ),
       ],
@@ -204,9 +193,7 @@ class CategoryBar extends StatelessWidget {
           if (index == 0) {
             return AppChip(
               label: l10n.catalog_allCategories,
-              state: categoryId == null
-                  ? AppChipState.categorySelected
-                  : AppChipState.unselected,
+              state: categoryId == null ? AppChipState.categorySelected : AppChipState.unselected,
               onTap: () => onSelect(null),
             );
           }
@@ -289,8 +276,7 @@ class _SkeletonGrid extends StatelessWidget {
         childAspectRatio: 0.55,
       ),
       itemCount: 6,
-      itemBuilder: (context, _) =>
-          const SkeletonBox(borderRadius: AppRadius.card),
+      itemBuilder: (context, _) => const SkeletonBox(borderRadius: AppRadius.card),
     );
   }
 }

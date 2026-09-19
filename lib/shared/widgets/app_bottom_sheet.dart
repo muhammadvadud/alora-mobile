@@ -8,12 +8,7 @@ class AppBottomSheet extends StatelessWidget {
   final Widget content;
   final Widget? action;
 
-  const AppBottomSheet({
-    super.key,
-    required this.title,
-    required this.content,
-    this.action,
-  });
+  const AppBottomSheet({super.key, required this.title, required this.content, this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +30,14 @@ class AppBottomSheet extends StatelessWidget {
             child: Container(
               width: 36,
               height: 4,
-              decoration: BoxDecoration(
-                color: colors.border,
-                borderRadius: AppRadius.waveBorder,
-              ),
+              decoration: BoxDecoration(color: colors.border, borderRadius: AppRadius.waveBorder),
             ),
           ),
           const SizedBox(height: AppSpacing.l),
           Text(title, style: typography.titleM),
           const SizedBox(height: AppSpacing.l),
           Flexible(child: SingleChildScrollView(child: content)),
-          if (action != null) ...[
-            const SizedBox(height: AppSpacing.l),
-            action!,
-          ],
+          if (action != null) ...[const SizedBox(height: AppSpacing.l), action!],
         ],
       ),
     );

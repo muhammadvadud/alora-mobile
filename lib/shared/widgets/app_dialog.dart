@@ -27,22 +27,14 @@ class AppDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.xl,
-          vertical: AppSpacing.xl,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title, style: context.text.titleM),
             const SizedBox(height: AppSpacing.s),
-            Text(
-              content,
-              style: context.text.bodyS.copyWith(
-                color: context.colors.textSecondary,
-              ),
-            ),
+            Text(content, style: context.text.bodyS.copyWith(color: context.colors.textSecondary)),
             const SizedBox(height: AppSpacing.xl),
             Row(
               children: [
@@ -64,10 +56,7 @@ class AppDialog extends StatelessWidget {
                             text: primaryActionText,
                             onPressed: onPrimaryAction,
                           )
-                        : AppButton(
-                            text: primaryActionText,
-                            onPressed: onPrimaryAction,
-                          ),
+                        : AppButton(text: primaryActionText, onPressed: onPrimaryAction),
                   ),
                 ),
               ],

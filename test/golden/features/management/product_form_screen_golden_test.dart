@@ -62,9 +62,7 @@ void main() {
   Widget widgetFor(ThemeMode mode) {
     return ProviderScope(
       overrides: [
-        authProvider.overrideWithValue(
-          const AuthState.authenticated(user: _manager),
-        ),
+        authProvider.overrideWithValue(const AuthState.authenticated(user: _manager)),
         productFormProvider.overrideWith(_FilledForm.new),
       ],
       child: MaterialApp(

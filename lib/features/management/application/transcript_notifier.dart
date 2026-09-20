@@ -11,6 +11,9 @@ class TranscriptNotifier extends _$TranscriptNotifier {
   @override
   Future<List<TranscriptMessage>> build(String conversationId) async {
     final repository = ref.watch(teamRepositoryProvider);
-    return repository.transcript(conversationId);
+    final messages = await repository.transcript(conversationId);
+    return messages
+        .where((message) => message.content.trim().isNotEmpty || message.toolNames.isNotEmpty)
+        .toList();
   }
 }

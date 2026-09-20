@@ -19,20 +19,21 @@ class ConversationsRepositoryImpl implements ConversationsRepository {
   Future<(List<Conversation> items, String? nextCursor)> list({
     String? cursor,
     String? search,
+    String? cacheScope,
   }) async {
     try {
       final paginated = await _remote.list(cursor: cursor, search: search);
       // Birinchi sahifadan yangilanganlar — keshga saqlash
-      if (cursor == null) {
-        await _local.cache(paginated.results);
+      if (cursor == null && cacheScope != null) {
+        await _local.cache(paginated.results, scope: cacheScope);
       }
       final entities = paginated.results.map((dto) => dto.toEntity()).toList();
       return (entities, paginated.next);
     } on Failure catch (error) {
       // Tarmoq xatosi va birinchi sahifa bo'lsa — keshdan olish
       final isNetwork = error.maybeWhen(network: () => true, orElse: () => false);
-      if (isNetwork && cursor == null) {
-        final cached = await _local.getCached();
+      if (isNetwork && cursor == null && cacheScope != null) {
+        final cached = await _local.getCached(scope: cacheScope);
         if (cached.isNotEmpty) {
           logger.i('Keshdan ${cached.length} ta suhbat yuklandi');
           return (cached, null);

@@ -3,7 +3,11 @@ import '../entities/conversation.dart';
 /// Suhbatlar bilan ishlash interfeysi
 abstract class ConversationsRepository {
   /// Suhbatlar ro'yxatini olish (cursor pagination + qidiruv)
-  Future<(List<Conversation> items, String? nextCursor)> list({String? cursor, String? search});
+  Future<(List<Conversation> items, String? nextCursor)> list({
+    String? cursor,
+    String? search,
+    String? cacheScope,
+  });
 
   /// Yangi suhbat yaratish
   Future<Conversation> create();

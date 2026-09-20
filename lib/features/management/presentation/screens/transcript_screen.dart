@@ -102,8 +102,8 @@ class _MessageBubble extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (message.content.isNotEmpty)
-                  Text(message.content, style: typography.bodyM.copyWith(color: textColor)),
+                if (message.displayContent.isNotEmpty)
+                  Text(message.displayContent, style: typography.bodyM.copyWith(color: textColor)),
                 if (message.toolNames.isNotEmpty) ...[
                   const SizedBox(height: AppSpacing.s),
                   Wrap(

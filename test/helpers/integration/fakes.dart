@@ -208,7 +208,11 @@ class FakeConversationsRepository implements ConversationsRepository {
     : conversations = List.of(initial ?? const []);
 
   @override
-  Future<(List<Conversation>, String?)> list({String? cursor, String? search}) async {
+  Future<(List<Conversation>, String?)> list({
+    String? cursor,
+    String? search,
+    String? cacheScope,
+  }) async {
     loadCalls++;
     final query = search?.trim().toLowerCase() ?? '';
     final items = query.isEmpty

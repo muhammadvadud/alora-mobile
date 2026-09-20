@@ -11,7 +11,7 @@ import '../mappers/conversation_mapper.dart';
 
 /// Suhbatlar keshini boshqaruvchi local data source (Hive)
 class ConversationsLocalDataSource {
-  static const _cacheKey = 'cached_conversations';
+  static const _cacheKeyPrefix = 'cached_conversations';
   static const int _maxCachedCount = 20;
 
   Future<Box<dynamic>>? _boxFuture;
@@ -24,10 +24,10 @@ class ConversationsLocalDataSource {
   }
 
   /// Keshdan suhbatlarni olish
-  Future<List<Conversation>> getCached() async {
+  Future<List<Conversation>> getCached({String? scope}) async {
     try {
       final box = await _box();
-      final raw = box.get(_cacheKey);
+      final raw = box.get(_cacheKey(scope));
       if (raw is! String || raw.isEmpty) return [];
       final list = jsonDecode(raw) as List;
       return list.map((e) {
@@ -41,38 +41,41 @@ class ConversationsLocalDataSource {
   }
 
   /// Suhbatlarni keshga saqlash (oxirgi [_maxCachedCount] ta)
-  Future<void> cache(List<ConversationDto> dtos) async {
+  Future<void> cache(List<ConversationDto> dtos, {String? scope}) async {
     try {
       final box = await _box();
       final toCache = dtos.length > _maxCachedCount ? dtos.sublist(0, _maxCachedCount) : dtos;
       final jsonList = toCache.map((dto) => dto.toJson()).toList();
-      await box.put(_cacheKey, jsonEncode(jsonList));
+      await box.put(_cacheKey(scope), jsonEncode(jsonList));
     } catch (error) {
       logger.w("Suhbatlarni keshlashda xato: $error");
     }
   }
 
   /// Keshlangan suhbatlardan berilgan ID'ni o'chirish
-  Future<void> remove(String id) async {
+  Future<void> remove(String id, {String? scope}) async {
     try {
       final box = await _box();
-      final raw = box.get(_cacheKey);
+      final raw = box.get(_cacheKey(scope));
       if (raw is! String || raw.isEmpty) return;
       final list = jsonDecode(raw) as List;
       final updated = list.where((e) => Map<String, dynamic>.from(e as Map)['id'] != id).toList();
-      await box.put(_cacheKey, jsonEncode(updated));
+      await box.put(_cacheKey(scope), jsonEncode(updated));
     } catch (error) {
       logger.w("Keshdan suhbatni o'chirishda xato: $error");
     }
   }
 
   /// Keshni tozalash
-  Future<void> clear() async {
+  Future<void> clear({String? scope}) async {
     try {
       final box = await _box();
-      await box.delete(_cacheKey);
+      await box.delete(_cacheKey(scope));
     } catch (error) {
       logger.w("Keshni tozalashda xato: $error");
     }
   }
+
+  String _cacheKey(String? scope) =>
+      scope == null || scope.isEmpty ? _cacheKeyPrefix : '$_cacheKeyPrefix:$scope';
 }

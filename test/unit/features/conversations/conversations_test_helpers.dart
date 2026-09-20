@@ -62,7 +62,11 @@ class FakeConversationsRepository implements ConversationsRepository {
   String? lastArchivedId;
 
   @override
-  Future<(List<Conversation>, String?)> list({String? cursor, String? search}) async {
+  Future<(List<Conversation>, String?)> list({
+    String? cursor,
+    String? search,
+    String? cacheScope,
+  }) async {
     listCalls++;
     lastCursor = cursor;
     lastSearch = search;

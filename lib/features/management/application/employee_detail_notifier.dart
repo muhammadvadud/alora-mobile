@@ -56,6 +56,19 @@ class EmployeeDetailNotifier extends _$EmployeeDetailNotifier {
     }
   }
 
+  /// Xodim parolini yangilash.
+  Future<void> changePassword({
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    final repository = ref.read(teamRepositoryProvider);
+    await repository.changeEmployeePassword(
+      id: employeeId,
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+    );
+  }
+
   /// Xodim limitini o'rnatish. Limit POST javobidan keladi.
   Future<void> setLimit({required Map<String, dynamic> body}) async {
     final repository = ref.read(teamRepositoryProvider);

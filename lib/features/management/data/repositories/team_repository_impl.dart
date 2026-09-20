@@ -52,6 +52,20 @@ class TeamRepositoryImpl implements TeamRepository {
   }
 
   @override
+  Future<Employee> changeEmployeePassword({
+    required String id,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    final dto = await _remoteDataSource.changeEmployeePassword(
+      id: id,
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+    );
+    return dto.toEntity();
+  }
+
+  @override
   Future<UsageLimit> setEmployeeLimit({
     required String id,
     required Map<String, dynamic> body,

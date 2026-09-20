@@ -1627,6 +1627,30 @@ abstract class AppLocalizations {
   /// **'Xodim profili'**
   String get management_employeeProfileTitle;
 
+  /// No description provided for @management_employeeChangePassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parolni o\'zgartirish'**
+  String get management_employeeChangePassword;
+
+  /// No description provided for @management_employeeNewPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi parol'**
+  String get management_employeeNewPassword;
+
+  /// No description provided for @management_employeeConfirmPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi parolni takrorlang'**
+  String get management_employeeConfirmPassword;
+
+  /// No description provided for @management_employeePasswordChanged.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parol o\'zgartirildi'**
+  String get management_employeePasswordChanged;
+
   /// No description provided for @management_limitTitle.
   ///
   /// In uz, this message translates to:

@@ -25,6 +25,13 @@ abstract class TeamRepository {
   /// Xodimni yangilash. `patch` maydonlari: full_name, role, is_active, password...
   Future<Employee> updateEmployee({required String id, required Map<String, dynamic> patch});
 
+  /// Xodim parolini almashtirish.
+  Future<Employee> changeEmployeePassword({
+    required String id,
+    required String password,
+    required String passwordConfirmation,
+  });
+
   /// Xodim foydalanish limitini o'rnatish.
   Future<UsageLimit> setEmployeeLimit({required String id, required Map<String, dynamic> body});
 

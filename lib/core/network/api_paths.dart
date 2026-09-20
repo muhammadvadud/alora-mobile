@@ -62,6 +62,7 @@ class ApiPaths {
   // Jamoa
   static const String employees = 'team/employees/';
   static String employee(String id) => 'team/employees/$id/';
+  static String employeePassword(String id) => 'team/employees/$id/password/';
   static String employeeLimit(String id) => 'team/employees/$id/limit/';
   static String employeeConversations(String id) => 'team/employees/$id/conversations/';
 

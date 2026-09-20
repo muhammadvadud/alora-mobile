@@ -804,6 +804,18 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_employeeProfileTitle => 'Xodim profili';
 
   @override
+  String get management_employeeChangePassword => 'Parolni o\'zgartirish';
+
+  @override
+  String get management_employeeNewPassword => 'Yangi parol';
+
+  @override
+  String get management_employeeConfirmPassword => 'Yangi parolni takrorlang';
+
+  @override
+  String get management_employeePasswordChanged => 'Parol o\'zgartirildi';
+
+  @override
   String get management_limitTitle => 'Kunlik limit';
 
   @override
@@ -2196,6 +2208,18 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get management_employeeProfileTitle => 'Ходим профили';
+
+  @override
+  String get management_employeeChangePassword => 'Паролни ўзгартириш';
+
+  @override
+  String get management_employeeNewPassword => 'Янги парол';
+
+  @override
+  String get management_employeeConfirmPassword => 'Янги паролни такрорланг';
+
+  @override
+  String get management_employeePasswordChanged => 'Парол ўзгартирилди';
 
   @override
   String get management_limitTitle => 'Кунлик лимит';

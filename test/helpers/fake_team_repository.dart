@@ -153,6 +153,17 @@ class FakeTeamRepository implements TeamRepository {
   }
 
   @override
+  Future<Employee> changeEmployeePassword({
+    required String id,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    final failure = updateFailure;
+    if (failure != null) throw failure;
+    return employeeResult ?? testEmployee(id: id);
+  }
+
+  @override
   Future<UsageLimit> setEmployeeLimit({
     required String id,
     required Map<String, dynamic> body,

@@ -98,6 +98,29 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
     }
   }
 
+  Future<void> _changePassword() async {
+    final l10n = AppLocalizations.of(context)!;
+    final result = await showDialog<Map<String, String>>(
+      context: context,
+      builder: (dialogContext) => _PasswordDialog(l10n: l10n),
+    );
+    if (result == null || !mounted) return;
+
+    try {
+      await ref
+          .read(employeeDetailProvider(widget.employeeId).notifier)
+          .changePassword(
+            password: result['password']!,
+            passwordConfirmation: result['password_confirmation']!,
+          );
+      if (!mounted) return;
+      AppSnackbar.show(context, message: l10n.management_employeePasswordChanged);
+    } on Failure catch (error) {
+      if (!mounted) return;
+      AppSnackbar.show(context, message: error.localizedMessage(context), isError: true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -138,6 +161,7 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
           onViewConversations: () =>
               context.go(AppRoutes.managementEmployeeConversations(employee.id)),
           onBlockChanged: (blocked) => _toggleBlocked(blocked),
+          onChangePassword: employee.role == Role.employee ? _changePassword : null,
           limitEditor: EmployeeLimitEditor(
             key: ValueKey(limit?.id),
             employeeId: widget.employeeId,
@@ -157,6 +181,7 @@ class _DetailBody extends StatelessWidget {
   final ValueChanged<Role> onRoleChanged;
   final VoidCallback onViewConversations;
   final ValueChanged<bool> onBlockChanged;
+  final VoidCallback? onChangePassword;
   final Widget limitEditor;
 
   const _DetailBody({
@@ -166,6 +191,7 @@ class _DetailBody extends StatelessWidget {
     required this.onRoleChanged,
     required this.onViewConversations,
     required this.onBlockChanged,
+    required this.onChangePassword,
     required this.limitEditor,
   });
 
@@ -193,6 +219,13 @@ class _DetailBody extends StatelessWidget {
                 showDivider: false,
               ),
               _BlockToggleCard(isBlocked: employee.isBlocked, onBlockChanged: onBlockChanged),
+              if (onChangePassword != null)
+                AppListTile(
+                  title: l10n.management_employeeChangePassword,
+                  leading: const Icon(AppIcons.lock, size: 24),
+                  onTap: onChangePassword,
+                  showDivider: false,
+                ),
               limitEditor,
             ],
           ),
@@ -302,6 +335,62 @@ class _BlockToggleCard extends StatelessWidget {
       leading: const Icon(AppIcons.ban, size: 24),
       trailing: Switch(value: isBlocked, onChanged: onBlockChanged),
       showDivider: false,
+    );
+  }
+}
+
+class _PasswordDialog extends StatefulWidget {
+  final AppLocalizations l10n;
+
+  const _PasswordDialog({required this.l10n});
+
+  @override
+  State<_PasswordDialog> createState() => _PasswordDialogState();
+}
+
+class _PasswordDialogState extends State<_PasswordDialog> {
+  final _passwordController = TextEditingController();
+  final _confirmationController = TextEditingController();
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmationController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final password = _passwordController.text;
+    final confirmation = _confirmationController.text;
+    if (password.length < 8 || password != confirmation) return;
+    Navigator.of(context).pop({'password': password, 'password_confirmation': confirmation});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = widget.l10n;
+    return AlertDialog(
+      title: Text(l10n.management_employeeChangePassword),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppTextField(
+            controller: _passwordController,
+            type: AppTextFieldType.password,
+            hintText: l10n.management_employeeNewPassword,
+          ),
+          const SizedBox(height: AppSpacing.m),
+          AppTextField(
+            controller: _confirmationController,
+            type: AppTextFieldType.password,
+            hintText: l10n.management_employeeConfirmPassword,
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.common_cancel)),
+        FilledButton(onPressed: _submit, child: Text(l10n.common_save)),
+      ],
     );
   }
 }

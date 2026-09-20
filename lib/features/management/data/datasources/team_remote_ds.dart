@@ -59,6 +59,23 @@ class TeamRemoteDataSource {
     }
   }
 
+  /// POST /team/employees/{id}/password/ — xodim parolini almashtirish.
+  Future<EmployeeDto> changeEmployeePassword({
+    required String id,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        ApiPaths.employeePassword(id),
+        data: {'password': password, 'password_confirmation': passwordConfirmation},
+      );
+      return EmployeeDto.fromJson(response.data!);
+    } on DioException catch (error) {
+      throw _mapError(error);
+    }
+  }
+
   /// POST /team/employees/{id}/limit/ — xodim limitini o'rnatish.
   Future<UsageLimitDto> setEmployeeLimit({
     required String id,

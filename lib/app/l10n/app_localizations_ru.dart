@@ -804,6 +804,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_employeeProfileTitle => 'Профиль сотрудника';
 
   @override
+  String get management_employeeChangePassword => 'Изменить пароль';
+
+  @override
+  String get management_employeeNewPassword => 'Новый пароль';
+
+  @override
+  String get management_employeeConfirmPassword => 'Повторите новый пароль';
+
+  @override
+  String get management_employeePasswordChanged => 'Пароль изменён';
+
+  @override
   String get management_limitTitle => 'Дневной лимит';
 
   @override

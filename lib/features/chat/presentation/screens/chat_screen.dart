@@ -297,10 +297,11 @@ class _ChatBody extends ConsumerWidget {
     final error = chatState.error;
 
     final isServerError = error?.maybeWhen(server: () => true, orElse: () => false) == true;
-    if (isServerError) {
+    final isHistoryError = error != null && chatState.messages.isEmpty;
+    if (isServerError || isHistoryError) {
       return ErrorState(
-        title: l10n.error_server,
-        message: error!.localizedMessage(context),
+        title: isServerError ? l10n.error_server : l10n.chat_historyLoadFailedTitle,
+        message: error?.localizedMessage(context),
         onRetry: () => unawaited(ref.read(chatProvider(conversationId!).notifier).retryLast()),
       );
     }

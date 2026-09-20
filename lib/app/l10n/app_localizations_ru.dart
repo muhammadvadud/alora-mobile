@@ -71,6 +71,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chat_defaultTitle => 'Клиент';
 
   @override
+  String get chat_historyLoadFailedTitle => 'Данные не загружены';
+
+  @override
   String get chat_noConversation => 'Беседа не выбрана';
 
   @override

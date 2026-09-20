@@ -92,35 +92,26 @@ class _ConversationsPaneState extends ConsumerState<ConversationsPane> {
           child: Row(
             children: [
               Expanded(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: _FilterChip(
-                    label: l10n.conversations_filterAll,
-                    isSelected: filterType == ConversationFilterType.all,
-                    onTap: () => notifier.setFilter(ConversationFilterType.all),
-                  ),
+                child: _FilterChip(
+                  label: l10n.conversations_filterAll,
+                  isSelected: filterType == ConversationFilterType.all,
+                  onTap: () => notifier.setFilter(ConversationFilterType.all),
                 ),
               ),
               const SizedBox(width: AppSpacing.s),
               Expanded(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: _FilterChip(
-                    label: l10n.conversations_filterHasOrder,
-                    isSelected: filterType == ConversationFilterType.hasOrder,
-                    onTap: () => notifier.setFilter(ConversationFilterType.hasOrder),
-                  ),
+                child: _FilterChip(
+                  label: l10n.conversations_filterHasOrder,
+                  isSelected: filterType == ConversationFilterType.hasOrder,
+                  onTap: () => notifier.setFilter(ConversationFilterType.hasOrder),
                 ),
               ),
               const SizedBox(width: AppSpacing.s),
               Expanded(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: _FilterChip(
-                    label: l10n.conversations_filterInProgress,
-                    isSelected: filterType == ConversationFilterType.inProgress,
-                    onTap: () => notifier.setFilter(ConversationFilterType.inProgress),
-                  ),
+                child: _FilterChip(
+                  label: l10n.conversations_filterInProgress,
+                  isSelected: filterType == ConversationFilterType.inProgress,
+                  onTap: () => notifier.setFilter(ConversationFilterType.inProgress),
                 ),
               ),
             ],
@@ -341,6 +332,7 @@ class _FilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppChip(
       label: label,
+      expand: true,
       onTap: onTap,
       state: isSelected ? AppChipState.selected : AppChipState.unselected,
     );

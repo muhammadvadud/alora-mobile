@@ -217,6 +217,12 @@ abstract class AppLocalizations {
   /// **'Mijoz'**
   String get chat_defaultTitle;
 
+  /// No description provided for @chat_historyLoadFailedTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ma\'lumot kelmadi'**
+  String get chat_historyLoadFailedTitle;
+
   /// No description provided for @chat_noConversation.
   ///
   /// In uz, this message translates to:

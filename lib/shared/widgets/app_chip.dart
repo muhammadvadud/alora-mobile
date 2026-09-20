@@ -8,8 +8,15 @@ class AppChip extends StatelessWidget {
   final String label;
   final VoidCallback? onTap;
   final AppChipState state;
+  final bool expand;
 
-  const AppChip({super.key, required this.label, this.onTap, this.state = AppChipState.unselected});
+  const AppChip({
+    super.key,
+    required this.label,
+    this.onTap,
+    this.state = AppChipState.unselected,
+    this.expand = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +61,20 @@ class AppChip extends StatelessWidget {
           onTap: onTap,
           borderRadius: radius,
           child: Container(
+            width: expand ? double.infinity : null,
+            alignment: expand ? Alignment.center : null,
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
               color: bgColor,
               borderRadius: radius,
               border: borderSide == BorderSide.none ? null : Border.fromBorderSide(borderSide),
             ),
-            child: Text(label, style: textStyle.copyWith(color: textColor)),
+            child: expand
+                ? FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(label, style: textStyle.copyWith(color: textColor)),
+                  )
+                : Text(label, style: textStyle.copyWith(color: textColor)),
           ),
         ),
       ),

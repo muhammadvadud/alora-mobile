@@ -20,6 +20,7 @@
   "orders_confirmedSnack": "Buyurtma tasdiqlandi",
   "orders_createdSnack": "Buyurtma yaratildi",
   "chat_defaultTitle": "Mijoz",
+  "chat_historyLoadFailedTitle": "Ma'lumot kelmadi",
   "chat_noConversation": "Suhbat tanlanmagan",
   "limit_callManager": "Qo'ng'iroq",
   "limit_smsManager": "SMS",

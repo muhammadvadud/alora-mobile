@@ -20,6 +20,7 @@
   "orders_confirmedSnack": "Заказ подтверждён",
   "orders_createdSnack": "Заказ создан",
   "chat_defaultTitle": "Клиент",
+  "chat_historyLoadFailedTitle": "Данные не загружены",
   "chat_noConversation": "Беседа не выбрана",
   "limit_callManager": "Позвонить",
   "limit_smsManager": "SMS",

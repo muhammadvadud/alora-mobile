@@ -20,6 +20,7 @@
   "orders_confirmedSnack": "Буюртма тасдиқланди",
   "orders_createdSnack": "Буюртма яратилди",
   "chat_defaultTitle": "Мижоз",
+  "chat_historyLoadFailedTitle": "Маълумот келмади",
   "chat_noConversation": "Суҳбат танланмаган",
   "limit_callManager": "Қўнғироқ",
   "limit_smsManager": "SMS",

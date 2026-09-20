@@ -71,6 +71,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get chat_defaultTitle => 'Mijoz';
 
   @override
+  String get chat_historyLoadFailedTitle => 'Ma\'lumot kelmadi';
+
+  @override
   String get chat_noConversation => 'Suhbat tanlanmagan';
 
   @override
@@ -1430,6 +1433,9 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get chat_defaultTitle => 'Мижоз';
+
+  @override
+  String get chat_historyLoadFailedTitle => 'Маълумот келмади';
 
   @override
   String get chat_noConversation => 'Суҳбат танланмаган';

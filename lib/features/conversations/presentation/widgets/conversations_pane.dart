@@ -168,7 +168,10 @@ class _PaneLoading extends StatelessWidget {
     return const SkeletonList(
       padding: EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
       itemCount: 6,
-      itemBuilder: SkeletonBox(height: 84),
+      itemBuilder: Padding(
+        padding: EdgeInsets.only(bottom: AppSpacing.s),
+        child: SkeletonBox(height: 84),
+      ),
     );
   }
 }

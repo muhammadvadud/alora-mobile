@@ -1441,6 +1441,24 @@ abstract class AppLocalizations {
   /// **'Kunlik sarf'**
   String get management_chartTitle;
 
+  /// No description provided for @management_usageDetails.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sarf tafsilotlari'**
+  String get management_usageDetails;
+
+  /// No description provided for @management_usageTokens.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tokenlar'**
+  String get management_usageTokens;
+
+  /// No description provided for @management_usageMessages.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xabarlar'**
+  String get management_usageMessages;
+
   /// No description provided for @management_chartEmpty.
   ///
   /// In uz, this message translates to:

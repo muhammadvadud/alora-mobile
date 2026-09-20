@@ -12,6 +12,7 @@ import 'package:alora_mobile/features/management/presentation/widgets/management
 import 'package:alora_mobile/features/management/presentation/widgets/management_sections_list.dart';
 import 'package:alora_mobile/features/management/presentation/widgets/management_spend_chart.dart';
 import 'package:alora_mobile/features/management/presentation/widgets/management_stat_cards.dart';
+import 'package:alora_mobile/features/management/presentation/widgets/management_usage_details.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 
@@ -49,6 +50,8 @@ class ManagementScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ManagementStatCards(usage: data.usage, conversion: data.conversion),
+                    const SizedBox(height: AppSpacing.xl),
+                    ManagementUsageDetails(usage: data.usage),
                     const SizedBox(height: AppSpacing.xl),
                     ManagementSpendChart(daily: data.usage.daily),
                     const SizedBox(height: AppSpacing.xl),

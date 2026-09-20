@@ -707,6 +707,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_chartTitle => 'Ежедневный расход';
 
   @override
+  String get management_usageDetails => 'Детали расхода';
+
+  @override
+  String get management_usageTokens => 'Токены';
+
+  @override
+  String get management_usageMessages => 'Сообщения';
+
+  @override
   String get management_chartEmpty => 'Нет данных для графика';
 
   @override

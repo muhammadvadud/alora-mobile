@@ -6,6 +6,7 @@ import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/features/auth/application/auth_notifier.dart' show authProvider;
 import 'package:alora_mobile/features/auth/application/auth_state.dart';
 import 'package:alora_mobile/features/orders/application/providers.dart';
+import 'package:alora_mobile/features/management/application/management_home_notifier.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 import 'package:alora_mobile/shared/widgets/app_tab_bar.dart';
@@ -81,6 +82,9 @@ class AloraShell extends ConsumerWidget {
         items: tabItems,
         onTap: (tabIndex) {
           final branchIndex = branchIndices[tabIndex];
+          if (branchIndex == 3) {
+            ref.invalidate(managementHomeProvider);
+          }
           navigationShell.goBranch(branchIndex, initialLocation: tabIndex == currentTab);
         },
       ),

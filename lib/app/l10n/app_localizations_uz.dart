@@ -707,6 +707,15 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_chartTitle => 'Kunlik sarf';
 
   @override
+  String get management_usageDetails => 'Sarf tafsilotlari';
+
+  @override
+  String get management_usageTokens => 'Tokenlar';
+
+  @override
+  String get management_usageMessages => 'Xabarlar';
+
+  @override
   String get management_chartEmpty => 'Grafik uchun ma\'lumot yo\'q';
 
   @override
@@ -2069,6 +2078,15 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get management_chartTitle => 'Кунлик сарф';
+
+  @override
+  String get management_usageDetails => 'Сарф тафсилотлари';
+
+  @override
+  String get management_usageTokens => 'Токенлар';
+
+  @override
+  String get management_usageMessages => 'Хабарлар';
 
   @override
   String get management_chartEmpty => 'График учун маълумот йўқ';

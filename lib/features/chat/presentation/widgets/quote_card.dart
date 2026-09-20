@@ -181,11 +181,14 @@ class _QuoteTotalSection extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: AppButton.secondary(text: l10n.chat_quote_addPart, onPressed: onAddPart),
+              child: AppButton.compactSecondary(
+                text: l10n.chat_quote_addPart,
+                onPressed: onAddPart,
+              ),
             ),
             const SizedBox(width: AppSpacing.s),
             Expanded(
-              child: AppButton.secondary(
+              child: AppButton.compactSecondary(
                 text: l10n.chat_quote_showOptions,
                 onPressed: onShowOptions,
               ),

@@ -13,6 +13,8 @@ class ChatMessageList extends StatelessWidget {
   final ScrollController scrollController;
   final bool isCustomerMode;
   final void Function(OrderDraft draft) onCreateOrder;
+  final VoidCallback? onAddPart;
+  final VoidCallback? onShowOptions;
 
   const ChatMessageList({
     super.key,
@@ -20,6 +22,8 @@ class ChatMessageList extends StatelessWidget {
     required this.scrollController,
     required this.isCustomerMode,
     required this.onCreateOrder,
+    this.onAddPart,
+    this.onShowOptions,
   });
 
   @override
@@ -36,6 +40,8 @@ class ChatMessageList extends StatelessWidget {
             isCustomerMode: isCustomerMode,
             onEditOrder: (draft) => context.push(AppRoutes.orderNew, extra: draft),
             onCreateOrder: onCreateOrder,
+            onAddPart: onAddPart,
+            onShowOptions: onShowOptions,
           ),
         );
       },

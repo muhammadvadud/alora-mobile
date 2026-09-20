@@ -22,12 +22,16 @@ class ChatMessageRow extends StatelessWidget {
     required this.isCustomerMode,
     required this.onEditOrder,
     required this.onCreateOrder,
+    this.onAddPart,
+    this.onShowOptions,
   });
 
   final Message message;
   final bool isCustomerMode;
   final void Function(OrderDraft draft) onEditOrder;
   final void Function(OrderDraft draft) onCreateOrder;
+  final VoidCallback? onAddPart;
+  final VoidCallback? onShowOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +100,8 @@ class ChatMessageRow extends StatelessWidget {
                   quote: isCustomerMode
                       ? quote.copyWith(formula: '', wasteWarnings: const [])
                       : quote,
+                  onAddPart: isCustomerMode ? null : onAddPart,
+                  onShowOptions: isCustomerMode ? null : onShowOptions,
                 ),
                 options: (options) => OptionsCardView(optionsBlock: options),
                 orderDraft: (draft) => OrderDraftCardView(

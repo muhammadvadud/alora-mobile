@@ -114,6 +114,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     }
   }
 
+  void _sendQuoteAction(String text) {
+    final conversationId = widget.conversationId;
+    if (conversationId == null) return;
+    ref.read(chatProvider(conversationId).notifier).sendMessage(text);
+    _scrollToBottom();
+  }
+
   @override
   Widget build(BuildContext context) {
     final isCustomerMode = ref.watch(customerModeEnabledProvider);
@@ -142,6 +149,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 onScrollToBottom: _scrollToBottom,
                 onVoiceModeChanged: (val) => setState(() => _isVoiceMode = val),
                 onFirstMessage: widget.conversationId == null ? _startConversation : null,
+                onAddPart: () => _sendQuoteAction('Bo\'lak qo\'shish'),
+                onShowOptions: () => _sendQuoteAction('Variantlarni ko\'rsat'),
                 isCreatingConversation: _isCreatingConversation,
               ),
       ),
@@ -273,6 +282,8 @@ class _ChatBody extends ConsumerWidget {
   final VoidCallback onScrollToBottom;
   final ValueChanged<bool> onVoiceModeChanged;
   final ValueChanged<String>? onFirstMessage;
+  final VoidCallback? onAddPart;
+  final VoidCallback? onShowOptions;
   final bool isCreatingConversation;
 
   const _ChatBody({
@@ -286,6 +297,8 @@ class _ChatBody extends ConsumerWidget {
     required this.onScrollToBottom,
     required this.onVoiceModeChanged,
     this.onFirstMessage,
+    this.onAddPart,
+    this.onShowOptions,
     this.isCreatingConversation = false,
   });
 
@@ -314,6 +327,8 @@ class _ChatBody extends ConsumerWidget {
         scrollController: scrollController,
         isCustomerMode: isCustomerMode,
         onCreateOrder: onCreateOrder,
+        onAddPart: onAddPart,
+        onShowOptions: onShowOptions,
       );
     } else if (chatState.isLoadingHistory) {
       messageContent = const ChatHistorySkeleton();

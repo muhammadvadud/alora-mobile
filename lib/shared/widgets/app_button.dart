@@ -13,6 +13,7 @@ class AppButton extends StatelessWidget {
   final bool isEnabled;
   final IconData? icon;
   final bool filled;
+  final bool compact;
 
   const AppButton({
     super.key,
@@ -23,6 +24,7 @@ class AppButton extends StatelessWidget {
     this.isEnabled = true,
     this.icon,
     this.filled = false,
+    this.compact = false,
   });
 
   const AppButton.secondary({
@@ -32,8 +34,20 @@ class AppButton extends StatelessWidget {
     this.isLoading = false,
     this.isEnabled = true,
     this.icon,
+    this.compact = false,
   }) : type = AppButtonType.secondary,
        filled = false;
+
+  const AppButton.compactSecondary({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.isLoading = false,
+    this.isEnabled = true,
+    this.icon,
+  }) : type = AppButtonType.secondary,
+       filled = false,
+       compact = true;
 
   const AppButton.text({
     super.key,
@@ -43,7 +57,8 @@ class AppButton extends StatelessWidget {
     this.isEnabled = true,
   }) : type = AppButtonType.text,
        icon = null,
-       filled = false;
+       filled = false,
+       compact = false;
 
   const AppButton.destructive({
     super.key,
@@ -53,7 +68,8 @@ class AppButton extends StatelessWidget {
     this.isEnabled = true,
     this.filled = false,
   }) : type = AppButtonType.destructive,
-       icon = null;
+       icon = null,
+       compact = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +78,10 @@ class AppButton extends StatelessWidget {
     final effectiveEnabled = isEnabled && !isLoading;
     final style = _AppButtonStyle(type, effectiveEnabled, colors, filled);
 
-    Widget content = Text(text, style: typography.labelL.copyWith(color: style.textColor));
+    final textStyle = (compact ? typography.labelM : typography.labelL).copyWith(
+      color: style.textColor,
+    );
+    Widget content = Text(text, style: textStyle);
 
     if (isLoading) {
       content = Row(
@@ -99,7 +118,7 @@ class AppButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0),
         child: SizedBox(
-          height: 44,
+          height: compact ? 36 : 44,
           width: double.infinity,
           child: TextButton(
             onPressed: effectiveEnabled ? onPressed : null,
@@ -113,7 +132,7 @@ class AppButton extends StatelessWidget {
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(borderRadius: AppRadius.pillBorder, side: style.borderSide),
               ),
-              padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 16)),
+              padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: compact ? 10 : 16)),
             ),
             child: content,
           ),

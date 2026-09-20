@@ -260,7 +260,7 @@ void main() {
         "delivery_amount": "30000", "total": "450000"},
        "lines": [{"role": "portyera", "name": "Blackout Duo",
          "area_m2": "5.0", "coef": "2.5", "line_total": "350000"}],
-       "services": [{"key": "sewing", "line_total": "70000"}],
+       "services": [{"key": "sewing", "name": "Tikuv", "line_total": "70000"}],
        "warnings": [], "explanation": ["Hisob tayyor"]}''';
 
       final block = ChatMapper.parseToolResult('curtain_calculate', result);
@@ -270,7 +270,7 @@ void main() {
           expect(quote.fabrics.single.colorName, 'Blackout Duo');
           expect(quote.fabrics.single.areaSqm, 5.0);
           expect(quote.fabrics.single.total, 350000);
-          expect(quote.services.single.name, 'sewing');
+          expect(quote.services.single.name, 'Tikuv');
           expect(quote.total, 450000);
         },
         orElse: () => fail('Ixcham natija QuoteBlock bo\'lishi kerak'),

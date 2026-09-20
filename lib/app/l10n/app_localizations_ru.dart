@@ -938,6 +938,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_pricingCoefs => 'Коэффициенты';
 
   @override
+  String get management_pricingServicesTitle => 'Услуги';
+
+  @override
+  String get management_pricingServicesEmpty => 'Услуги не найдены';
+
+  @override
+  String get management_pricingServiceActive => 'Активна';
+
+  @override
+  String get management_pricingServiceInactive => 'Неактивна';
+
+  @override
+  String get management_pricingServicePrice => 'Цена';
+
+  @override
+  String get management_pricingServicePriceHint => 'Введите цену услуги в сумах';
+
+  @override
   String get management_pricingTiersTitle => 'Уровни скидок';
 
   @override

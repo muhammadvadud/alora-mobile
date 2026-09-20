@@ -6,6 +6,7 @@ import 'package:alora_mobile/core/network/api_paths.dart';
 import 'package:alora_mobile/features/management/pricing/application/pricing_repository.dart';
 import 'package:alora_mobile/features/management/pricing/data/datasources/pricing_remote_ds.dart';
 import 'package:alora_mobile/features/management/pricing/data/dto/calc_preview_dto.dart';
+import 'package:alora_mobile/features/management/pricing/domain/entities/service_price.dart';
 
 const _ts = '2026-09-01T10:00:00Z';
 Map<String, dynamic> _base(String id) => {
@@ -161,6 +162,45 @@ void main() {
       );
       final services = await repo.getServices();
       expect(services.single.price, 150000);
+    });
+
+    test('PATCH services — xizmat narxi va mavjud maydonlar yuboriladi', () async {
+      final service = ServicePrice(
+        id: 's1',
+        key: 'sewing',
+        name: 'Tikuv',
+        price: 12500,
+        unit: 'per_sqm',
+        isActive: true,
+        createdAt: DateTime(2026),
+        updatedAt: DateTime(2026),
+      );
+      adapter.onPatch(
+        ApiPaths.services,
+        (s) => s.reply(200, [
+          {
+            ..._base('s1'),
+            'key': 'sewing',
+            'name': 'Tikuv',
+            'price': '15000.00',
+            'unit': 'per_sqm',
+          },
+        ]),
+        data: {
+          'items': [
+            {
+              'key': 'sewing',
+              'name': 'Tikuv',
+              'price': '15000',
+              'unit': 'per_sqm',
+              'is_active': true,
+            },
+          ],
+        },
+      );
+
+      final updated = await repo.patchService(service, 15000);
+      expect(updated.price, 15000);
     });
   });
 }

@@ -12,6 +12,7 @@ import 'package:alora_mobile/features/management/pricing/presentation/widgets/di
 import 'package:alora_mobile/features/management/pricing/presentation/widgets/order_defaults_section.dart';
 import 'package:alora_mobile/features/management/pricing/presentation/widgets/pricing_coefficients_section.dart';
 import 'package:alora_mobile/features/management/pricing/presentation/widgets/pricing_section_title.dart';
+import 'package:alora_mobile/features/management/pricing/presentation/widgets/service_prices_section.dart';
 import 'package:alora_mobile/shared/extensions/l10n_extension.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
@@ -61,6 +62,10 @@ class PricingRulesScreen extends ConsumerWidget {
                 children: [
                   PricingSectionTitle(title: context.l10n.management_pricingCoefs),
                   PricingCoefficientsSection(rules: state.calcRules),
+                  const SizedBox(height: AppSpacing.xl),
+
+                  PricingSectionTitle(title: context.l10n.management_pricingServicesTitle),
+                  ServicePricesSection(services: state.services),
                   const SizedBox(height: AppSpacing.xl),
 
                   PricingSectionTitle(title: context.l10n.management_pricingTiersTitle),

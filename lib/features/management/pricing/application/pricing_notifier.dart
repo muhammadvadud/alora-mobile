@@ -73,6 +73,19 @@ class PricingNotifier extends _$PricingNotifier {
     }
   }
 
+  Future<void> updateService(ServicePrice service, int price) async {
+    try {
+      final repo = ref.read(pricingRepositoryProvider);
+      final updated = await repo.patchService(service, price);
+      state = state.copyWith(
+        services: state.services.map((item) => item.key == service.key ? updated : item).toList(),
+      );
+    } catch (e) {
+      state = state.copyWith(error: e.toString());
+      rethrow;
+    }
+  }
+
   Future<void> addDiscountTier(int minAmount, double percent) async {
     try {
       final repo = ref.read(pricingRepositoryProvider);

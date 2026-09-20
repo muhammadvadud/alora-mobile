@@ -938,6 +938,24 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_pricingCoefs => 'Koeffitsientlar';
 
   @override
+  String get management_pricingServicesTitle => 'Xizmatlar';
+
+  @override
+  String get management_pricingServicesEmpty => 'Xizmatlar topilmadi';
+
+  @override
+  String get management_pricingServiceActive => 'Faol';
+
+  @override
+  String get management_pricingServiceInactive => 'Faol emas';
+
+  @override
+  String get management_pricingServicePrice => 'Narx';
+
+  @override
+  String get management_pricingServicePriceHint => 'Xizmat narxini so\'mda kiriting';
+
+  @override
   String get management_pricingTiersTitle => 'Chegirma bosqichlari';
 
   @override
@@ -2309,6 +2327,24 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get management_pricingTest => 'Ҳисобни синаш';
+
+  @override
+  String get management_pricingServicesTitle => 'Хизматлар';
+
+  @override
+  String get management_pricingServicesEmpty => 'Хизматлар топилмади';
+
+  @override
+  String get management_pricingServiceActive => 'Фаол';
+
+  @override
+  String get management_pricingServiceInactive => 'Фаол эмас';
+
+  @override
+  String get management_pricingServicePrice => 'Нарх';
+
+  @override
+  String get management_pricingServicePriceHint => 'Хизмат нархини сўмда киритинг';
 
   @override
   String get management_bulkPriceTitle => 'Нархни ўзгартириш';

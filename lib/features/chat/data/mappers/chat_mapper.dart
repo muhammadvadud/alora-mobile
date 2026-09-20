@@ -451,7 +451,7 @@ class ChatMapper {
       for (final rawService in rawServices.whereType<Map<String, dynamic>>()) {
         services.add(
           QuoteService(
-            name: rawService['key']?.toString() ?? '',
+            name: rawService['name']?.toString() ?? rawService['key']?.toString() ?? '',
             total: _parseMoney(rawService['line_total']),
           ),
         );

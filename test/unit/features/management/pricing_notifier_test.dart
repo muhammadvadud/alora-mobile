@@ -6,6 +6,7 @@ import 'package:alora_mobile/features/management/pricing/domain/entities/calc_ru
 import 'package:alora_mobile/features/management/pricing/domain/entities/discount_tier.dart';
 import 'package:alora_mobile/features/management/pricing/domain/entities/discount_policy.dart';
 import 'package:alora_mobile/features/management/pricing/domain/entities/order_defaults.dart';
+import 'package:alora_mobile/features/management/pricing/domain/entities/service_price.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MockPricingRepository extends Mock implements PricingRepository {}
@@ -124,5 +125,28 @@ void main() {
 
     state = container.read(pricingProvider);
     expect(state.discountTiers.isEmpty, true);
+  });
+
+  test('xizmat narxini yangilash state va repositoryda saqlanadi', () async {
+    final notifier = container.read(pricingProvider.notifier);
+    await Future<void>.delayed(Duration.zero);
+    final service = ServicePrice(
+      id: 's1',
+      key: 'sewing',
+      name: 'Tikuv',
+      price: 12500,
+      unit: 'per_sqm',
+      isActive: true,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+    final updated = service.copyWith(price: 15000);
+    when(() => mockRepo.patchService(service, 15000)).thenAnswer((_) async => updated);
+
+    container.read(pricingProvider.notifier).state = PricingState(services: [service]);
+    await notifier.updateService(service, 15000);
+
+    verify(() => mockRepo.patchService(service, 15000)).called(1);
+    expect(container.read(pricingProvider).services.single.price, 15000);
   });
 }

@@ -37,6 +37,22 @@ class PricingRepository {
     return dtos.map(PricingMapper.toServicePrice).toList();
   }
 
+  Future<ServicePrice> patchService(ServicePrice service, int price) async {
+    final dtos = await _remoteDs.patchServices([
+      {
+        'key': service.key,
+        'name': service.name,
+        'price': price.toString(),
+        'unit': service.unit,
+        'is_active': service.isActive,
+      },
+    ]);
+    for (final dto in dtos) {
+      if (dto.key == service.key) return PricingMapper.toServicePrice(dto);
+    }
+    throw StateError('Yangilangan xizmat qaytmadi');
+  }
+
   Future<List<DiscountTier>> getDiscountTiers() async {
     final dtos = await _remoteDs.getDiscountTiers();
     return dtos.map(PricingMapper.toDiscountTier).toList();

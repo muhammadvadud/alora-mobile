@@ -1891,6 +1891,42 @@ abstract class AppLocalizations {
   /// **'Koeffitsientlar'**
   String get management_pricingCoefs;
 
+  /// No description provided for @management_pricingServicesTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xizmatlar'**
+  String get management_pricingServicesTitle;
+
+  /// No description provided for @management_pricingServicesEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xizmatlar topilmadi'**
+  String get management_pricingServicesEmpty;
+
+  /// No description provided for @management_pricingServiceActive.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faol'**
+  String get management_pricingServiceActive;
+
+  /// No description provided for @management_pricingServiceInactive.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faol emas'**
+  String get management_pricingServiceInactive;
+
+  /// No description provided for @management_pricingServicePrice.
+  ///
+  /// In uz, this message translates to:
+  /// **'Narx'**
+  String get management_pricingServicePrice;
+
+  /// No description provided for @management_pricingServicePriceHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xizmat narxini so\'mda kiriting'**
+  String get management_pricingServicePriceHint;
+
   /// No description provided for @management_pricingTiersTitle.
   ///
   /// In uz, this message translates to:

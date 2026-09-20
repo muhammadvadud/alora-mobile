@@ -71,11 +71,7 @@ void main() {
         final handle = tester.ensureSemantics();
 
         await tester.pumpWidget(
-          ChatInputPanel(
-            onSend: (_) {},
-            onMicPressed: _noop,
-            onAddPressed: _noop,
-          ).pumpApp(themeMode: themeMode),
+          ChatInputPanel(onSend: (_) {}, onMicPressed: _noop).pumpApp(themeMode: themeMode),
         );
 
         expect(tester, meetsGuideline(labeledTapTargetGuideline));

@@ -160,7 +160,7 @@ Widget _tabletShell({required FakeConversationsRepository convRepo, required The
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: ChatInputPanel(onSend: (_) {}, onMicPressed: () {}, onAddPressed: () {}),
+                child: ChatInputPanel(onSend: (_) {}, onMicPressed: () {}),
               ),
             ],
           ),

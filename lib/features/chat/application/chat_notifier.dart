@@ -67,9 +67,9 @@ class ChatNotifier extends _$ChatNotifier {
       final repository = ref.read(chatRepositoryProvider);
       final result = await repository.getMessages(conversationId);
       // Backend returns ordered, we need to reverse it for ListView.builder reverse: true
-      state = state.copyWith(messages: result.results.reversed.toList());
+      state = state.copyWith(messages: result.results.reversed.toList(), isLoadingHistory: false);
     } catch (e) {
-      state = state.copyWith(error: _mapFailure(e));
+      state = state.copyWith(error: _mapFailure(e), isLoadingHistory: false);
     }
   }
 
@@ -124,6 +124,7 @@ class ChatNotifier extends _$ChatNotifier {
       _latest.copyWith(
         messages: [assistantMsg, userMsg, ..._latest.messages],
         isStreaming: true,
+        isLoadingHistory: false,
         error: null,
         quickReplies: [],
       ),
@@ -290,6 +291,6 @@ class ChatNotifier extends _$ChatNotifier {
   Future<void> resetConversation() async {
     cancelStream();
     await ref.read(chatRepositoryProvider).resetConversation(conversationId);
-    state = const ChatState();
+    state = const ChatState(isLoadingHistory: false);
   }
 }

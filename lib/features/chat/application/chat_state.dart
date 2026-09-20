@@ -9,6 +9,7 @@ abstract class ChatState with _$ChatState {
   const factory ChatState({
     @Default([]) List<Message> messages,
     @Default(false) bool isStreaming,
+    @Default(true) bool isLoadingHistory,
     Failure? error,
     @Default([]) List<String> quickReplies,
     String? stage,

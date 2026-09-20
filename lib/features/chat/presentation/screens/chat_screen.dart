@@ -20,6 +20,7 @@ import 'package:alora_mobile/features/chat/presentation/widgets/chat_empty_view.
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_error_banner.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_input_panel.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_message_list.dart';
+import 'package:alora_mobile/features/chat/presentation/widgets/chat_history_skeleton.dart';
 import "package:alora_mobile/shared/widgets/scroll_down_button.dart";
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_title_bar.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/conversations_pane_placeholder.dart';
@@ -292,7 +293,7 @@ class _ChatBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final chatState = conversationId == null
-        ? const ChatState()
+        ? const ChatState(isLoadingHistory: false)
         : ref.watch(chatProvider(conversationId!));
     final error = chatState.error;
 
@@ -303,6 +304,28 @@ class _ChatBody extends ConsumerWidget {
         title: isServerError ? l10n.error_server : l10n.chat_historyLoadFailedTitle,
         message: error?.localizedMessage(context),
         onRetry: () => unawaited(ref.read(chatProvider(conversationId!).notifier).retryLast()),
+      );
+    }
+
+    final Widget messageContent;
+    if (chatState.messages.isNotEmpty) {
+      messageContent = ChatMessageList(
+        messages: chatState.messages,
+        scrollController: scrollController,
+        isCustomerMode: isCustomerMode,
+        onCreateOrder: onCreateOrder,
+      );
+    } else if (chatState.isLoadingHistory) {
+      messageContent = const ChatHistorySkeleton();
+    } else {
+      messageContent = ChatEmptyView(
+        onChipSelected: (text) {
+          if (conversationId == null) {
+            onFirstMessage?.call(text);
+          } else {
+            ref.read(chatProvider(conversationId!).notifier).sendMessage(text);
+          }
+        },
       );
     }
 
@@ -319,22 +342,7 @@ class _ChatBody extends ConsumerWidget {
         Expanded(
           child: Stack(
             children: [
-              chatState.messages.isEmpty
-                  ? ChatEmptyView(
-                      onChipSelected: (text) {
-                        if (conversationId == null) {
-                          onFirstMessage?.call(text);
-                        } else {
-                          ref.read(chatProvider(conversationId!).notifier).sendMessage(text);
-                        }
-                      },
-                    )
-                  : ChatMessageList(
-                      messages: chatState.messages,
-                      scrollController: scrollController,
-                      isCustomerMode: isCustomerMode,
-                      onCreateOrder: onCreateOrder,
-                    ),
+              messageContent,
               if (showScrollDown)
                 Positioned(
                   bottom: AppSpacing.l,
@@ -362,7 +370,6 @@ class _ChatBody extends ConsumerWidget {
                 }
               },
               onMicPressed: () => onVoiceModeChanged(true),
-              onAddPressed: () {},
             ),
           ),
       ],

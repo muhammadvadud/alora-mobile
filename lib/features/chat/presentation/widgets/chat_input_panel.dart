@@ -9,7 +9,6 @@ import 'package:alora_mobile/shared/widgets/app_icon_button.dart';
 class ChatInputPanel extends StatefulWidget {
   final ValueChanged<String> onSend;
   final VoidCallback onMicPressed;
-  final VoidCallback onAddPressed;
   final bool isStreaming;
   final bool disabled;
 
@@ -17,7 +16,6 @@ class ChatInputPanel extends StatefulWidget {
     super.key,
     required this.onSend,
     required this.onMicPressed,
-    required this.onAddPressed,
     this.isStreaming = false,
     this.disabled = false,
   });
@@ -65,17 +63,8 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
       color: colors.background,
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.m, vertical: AppSpacing.s),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.xs), // center align with 44 height
-            child: AppIconButton.muted(
-              icon: AppIcons.plus,
-              onPressed: widget.disabled ? null : widget.onAddPressed,
-              semanticLabel: l10n.chat_addAttachment,
-            ),
-          ),
-          const SizedBox(width: AppSpacing.s),
           Expanded(
             child: Container(
               constraints: const BoxConstraints(minHeight: 44),
@@ -84,7 +73,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
                 borderRadius: AppRadius.multilineInputBorder,
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Padding(
@@ -116,7 +105,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
                       label: l10n.chat_microphone,
                     ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 6, right: 6, left: AppSpacing.xs),
+                    padding: const EdgeInsets.only(right: 6, left: AppSpacing.xs),
                     child: AppIconButton.accent(
                       icon: _hasText ? AppIcons.send : AppIcons.audioLines,
                       onPressed: _hasText
@@ -146,7 +135,7 @@ class _MicButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppSpacing.s, right: AppSpacing.s, left: AppSpacing.s),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
       child: Semantics(
         button: true,
         label: label,

@@ -263,9 +263,13 @@ CustomTransitionPage<void> _chatPage(GoRouterState state, Widget child) {
     transitionDuration: _chatTransitionDuration,
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curved = CurvedAnimation(parent: animation, curve: Curves.easeOutCubic);
       return FadeTransition(
-        opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
-        child: child,
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween<Offset>(begin: const Offset(0, 0.025), end: Offset.zero).animate(curved),
+          child: child,
+        ),
       );
     },
   );

@@ -99,13 +99,22 @@ class ChatMessageRow extends StatelessWidget {
                     ? const SizedBox.shrink()
                     : ToolChipBlockView(tool: tool, state: state, resultText: resultText),
                 products: (products) => ProductCarousel(products: products),
-                quote: (quote) => QuoteCardView(
-                  quote: isCustomerMode
-                      ? quote.copyWith(formula: '', wasteWarnings: const [])
-                      : quote,
-                  onAddPart: isCustomerMode ? null : onAddPart,
-                  onShowOptions: isCustomerMode ? null : onShowOptions,
-                ),
+                quote: (quote) {
+                  final isEmptyQuote =
+                      quote.total == 0 &&
+                      quote.fabrics.isEmpty &&
+                      quote.accessories.isEmpty &&
+                      quote.services.isEmpty;
+                  if (isEmptyQuote) return const SizedBox.shrink();
+
+                  return QuoteCardView(
+                    quote: isCustomerMode
+                        ? quote.copyWith(formula: '', wasteWarnings: const [])
+                        : quote,
+                    onAddPart: isCustomerMode ? null : onAddPart,
+                    onShowOptions: isCustomerMode ? null : onShowOptions,
+                  );
+                },
                 options: (options) => OptionsCardView(
                   optionsBlock: options,
                   onSelect: isCustomerMode ? null : onSelectOption,

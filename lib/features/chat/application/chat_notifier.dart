@@ -229,7 +229,13 @@ class ChatNotifier extends _$ChatNotifier {
         }
 
         final parsedBlock = ref.read(chatRepositoryProvider).parseToolResult(tool, result);
-        // We add the parsed block after the tool chip
+        // Bitta javob ichida tool qayta chaqirilsa, oraliq hisob kartasi
+        // yakuniy hisob bilan almashtiriladi. Aks holda UI'da bir nechta
+        // hisob cardi paydo bo'ladi.
+        if (parsedBlock.mapOrNull(quote: (_) => true) == true) {
+          blocks.removeWhere((block) => block.mapOrNull(quote: (_) => true) == true);
+        }
+
         blocks.add(parsedBlock);
         msg = msg.copyWith(richBlocks: blocks);
       },

@@ -75,7 +75,7 @@ class ToolChipBlockView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (state == ToolChipState.done || state == ToolChipState.error) ...[
-            Text(toolLabel, style: typography.bodyS.copyWith(color: colors.textSecondary)),
+            Text(toolLabel, style: typography.labelS.copyWith(color: colors.textSecondary)),
             const SizedBox(height: 4),
           ],
           ui_tool_chip.ToolChip(text: labelText, state: widgetState, onTap: onTap),

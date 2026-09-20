@@ -9,6 +9,7 @@ import 'package:alora_mobile/features/chat/application/chat_state.dart';
 import 'package:alora_mobile/core/sse/sse_event.dart';
 import 'package:alora_mobile/features/chat/domain/entities/message.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
+import 'package:alora_mobile/features/conversations/application/conversations_notifier.dart';
 
 part 'chat_notifier.g.dart';
 
@@ -51,6 +52,12 @@ class ChatNotifier extends _$ChatNotifier {
     final lower = detail.toLowerCase();
     if (lower.contains('429') || lower.contains('limit')) {
       return Failure.limit(detail);
+    }
+    if (lower.contains('500') || lower.contains('server') || lower.contains('internal')) {
+      return const Failure.server();
+    }
+    if (lower.contains('503') || lower.contains('unavailable')) {
+      return const Failure.serviceUnavailable();
     }
     return Failure.unknown(detail);
   }
@@ -245,6 +252,7 @@ class ChatNotifier extends _$ChatNotifier {
       }
     }
     _updateStateThrottled(base.copyWith(isStreaming: false, messages: msgs));
+    unawaited(ref.read(conversationsProvider.notifier).refresh());
   }
 
   /// Uzilgan/xato bo'lgan oxirgi javobni qayta so'raydi: oxirgi user xabari

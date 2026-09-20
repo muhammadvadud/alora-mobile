@@ -57,14 +57,14 @@ class ToolChip extends StatelessWidget {
       child: GestureDetector(
         onTap: state != ToolChipState.running ? onTap : null,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(color: colors.surfaceMuted, borderRadius: AppRadius.pillBorder),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               leading,
               const SizedBox(width: 6),
-              Text(displayText, style: typography.labelM.copyWith(color: textColor)),
+              Text(displayText, style: typography.labelS.copyWith(color: textColor)),
               trailing,
             ],
           ),

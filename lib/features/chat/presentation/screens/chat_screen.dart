@@ -8,6 +8,7 @@ import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/router/adaptive_shell.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/core/error/failure.dart';
+import 'package:alora_mobile/core/error/failure_l10n.dart';
 import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/core/connectivity/connectivity_notifier.dart';
@@ -33,6 +34,7 @@ import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
 import 'package:alora_mobile/features/orders/application/order_from_draft_notifier.dart';
 import 'package:alora_mobile/features/orders/application/order_pdf_notifier.dart';
 import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
+import 'package:alora_mobile/shared/widgets/error_state.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String? conversationId;
@@ -293,6 +295,15 @@ class _ChatBody extends ConsumerWidget {
         ? const ChatState()
         : ref.watch(chatProvider(conversationId!));
     final error = chatState.error;
+
+    final isServerError = error?.maybeWhen(server: () => true, orElse: () => false) == true;
+    if (isServerError) {
+      return ErrorState(
+        title: l10n.error_server,
+        message: error!.localizedMessage(context),
+        onRetry: () => unawaited(ref.read(chatProvider(conversationId!).notifier).retryLast()),
+      );
+    }
 
     return Column(
       children: [

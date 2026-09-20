@@ -42,6 +42,14 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     await _fetch(search: query, filterType: filter);
   }
 
+  /// Suhbatlar ro'yxatini ekranda pastga tortib yangilash.
+  Future<void> refresh() async {
+    final search = _currentSearch;
+    final filter = _currentFilter;
+    state = ConversationsState.loading(searchQuery: search, filterType: filter);
+    await _fetch(search: search, filterType: filter);
+  }
+
   ConversationFilterType get _currentFilter => state.maybeWhen(
     loaded: (_, _, _, _, filterType) => filterType,
     empty: (_, filterType) => filterType,

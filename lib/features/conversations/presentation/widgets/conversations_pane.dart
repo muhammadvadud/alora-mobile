@@ -235,46 +235,49 @@ class _PaneLoaded extends ConsumerWidget {
       }
     }
 
-    return ListView.builder(
-      controller: scrollController,
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
-      itemCount: entries.length,
-      itemBuilder: (context, index) {
-        final entry = entries[index];
-        return switch (entry) {
-          _PaneHeader(:final group) => Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.screenH,
-              AppSpacing.l,
-              AppSpacing.screenH,
-              AppSpacing.s,
+    return RefreshIndicator(
+      onRefresh: ref.read(conversationsProvider.notifier).refresh,
+      child: ListView.builder(
+        controller: scrollController,
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+        itemCount: entries.length,
+        itemBuilder: (context, index) {
+          final entry = entries[index];
+          return switch (entry) {
+            _PaneHeader(:final group) => Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.screenH,
+                AppSpacing.l,
+                AppSpacing.screenH,
+                AppSpacing.s,
+              ),
+              child: SectionLabel(_headerLabel(context, group)),
             ),
-            child: SectionLabel(_headerLabel(context, group)),
-          ),
-          _PaneRow(:final conversation, :final group) => Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.screenH,
-              AppSpacing.xs,
-              AppSpacing.screenH,
-              AppSpacing.xs,
-            ),
-            child: Dismissible(
-              key: ValueKey(conversation.id),
-              direction: DismissDirection.endToStart,
-              background: const _ArchiveBackground(),
-              confirmDismiss: (_) => _confirmArchive(context, conversation.id),
-              onDismissed: (_) =>
-                  unawaited(ref.read(conversationsProvider.notifier).archive(conversation.id)),
-              child: ConversationRow(
-                conversation: conversation,
-                stageLabel: _stageLabel(context, conversation.stage),
-                timeLabel: _timeLabel(context, conversation, group),
-                onTap: () => context.go(AppRoutes.chatConversation(conversation.id)),
+            _PaneRow(:final conversation, :final group) => Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.screenH,
+                AppSpacing.xs,
+                AppSpacing.screenH,
+                AppSpacing.xs,
+              ),
+              child: Dismissible(
+                key: ValueKey(conversation.id),
+                direction: DismissDirection.endToStart,
+                background: const _ArchiveBackground(),
+                confirmDismiss: (_) => _confirmArchive(context, conversation.id),
+                onDismissed: (_) =>
+                    unawaited(ref.read(conversationsProvider.notifier).archive(conversation.id)),
+                child: ConversationRow(
+                  conversation: conversation,
+                  stageLabel: _stageLabel(context, conversation.stage),
+                  timeLabel: _timeLabel(context, conversation, group),
+                  onTap: () => context.push(AppRoutes.chatConversation(conversation.id)),
+                ),
               ),
             ),
-          ),
-        };
-      },
+          };
+        },
+      ),
     );
   }
 

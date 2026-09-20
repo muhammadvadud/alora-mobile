@@ -95,6 +95,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
                         maxLines: 6,
                         minLines: 1,
                         style: context.text.bodyL.copyWith(color: colors.textPrimary),
+                        textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
                           hintText: l10n.chat_inputHint,
                           hintStyle: context.text.bodyL.copyWith(color: colors.textDisabled),
@@ -103,7 +104,7 @@ class _ChatInputPanelState extends State<ChatInputPanel> {
                           focusedBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
                           isDense: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 11.0),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
                         ),
                       ),
                     ),

@@ -38,6 +38,20 @@ class ChatMessageRow extends StatelessWidget {
     final colors = context.colors;
     final typography = context.text;
     final l10n = AppLocalizations.of(context)!;
+    final hasRichData = message.richBlocks.any(
+      (block) => block.maybeMap(
+        products: (_) => true,
+        quote: (_) => true,
+        options: (_) => true,
+        orderDraft: (_) => true,
+        orElse: () => false,
+      ),
+    );
+    final lastToolChipIndex = hasRichData
+        ? message.richBlocks.lastIndexWhere(
+            (block) => block.mapOrNull(toolChip: (_) => true) == true,
+          )
+        : -1;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,31 +82,32 @@ class ChatMessageRow extends StatelessWidget {
                 message.status == MessageStatus.streaming))
           const TypingLine(),
 
-        ...message.richBlocks.map(
-          (b) => Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.m),
-            child: b.when(
-              toolChip: (tool, state, resultText, rawArgs, rawResult) => isCustomerMode
-                  ? const SizedBox.shrink()
-                  : ToolChipBlockView(tool: tool, state: state, resultText: resultText),
-              products: (products) => ProductCarousel(products: products),
-              quote: (quote) => QuoteCardView(
-                quote: isCustomerMode
-                    ? quote.copyWith(formula: '', wasteWarnings: const [])
-                    : quote,
+        for (var index = 0; index < message.richBlocks.length; index++)
+          if (message.richBlocks[index].mapOrNull(toolChip: (_) => true) != true ||
+              index == lastToolChipIndex)
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.m),
+              child: message.richBlocks[index].when(
+                toolChip: (tool, state, resultText, rawArgs, rawResult) => isCustomerMode
+                    ? const SizedBox.shrink()
+                    : ToolChipBlockView(tool: tool, state: state, resultText: resultText),
+                products: (products) => ProductCarousel(products: products),
+                quote: (quote) => QuoteCardView(
+                  quote: isCustomerMode
+                      ? quote.copyWith(formula: '', wasteWarnings: const [])
+                      : quote,
+                ),
+                options: (options) => OptionsCardView(optionsBlock: options),
+                orderDraft: (draft) => OrderDraftCardView(
+                  draft: draft,
+                  onEdit: () => onEditOrder(draft),
+                  onCreate: () => onCreateOrder(draft),
+                ),
+                warning: (message) => isCustomerMode
+                    ? const SizedBox.shrink()
+                    : Text(message, style: TextStyle(color: colors.danger)),
               ),
-              options: (options) => OptionsCardView(optionsBlock: options),
-              orderDraft: (draft) => OrderDraftCardView(
-                draft: draft,
-                onEdit: () => onEditOrder(draft),
-                onCreate: () => onCreateOrder(draft),
-              ),
-              warning: (message) => isCustomerMode
-                  ? const SizedBox.shrink()
-                  : Text(message, style: TextStyle(color: colors.danger)),
             ),
-          ),
-        ),
 
         if (message.content.isNotEmpty) AssistantMessageView(text: message.content),
 

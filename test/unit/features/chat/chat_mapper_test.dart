@@ -503,6 +503,35 @@ void main() {
       expect(msg.richBlocks, hasLength(1));
       expect(msg.richBlocks.single.maybeMap(products: (_) => true, orElse: () => false), isTrue);
     });
+
+    test('tarixdagi tool content JSON mahsulot kartasiga aylanadi', () {
+      final msg = ChatMapper.fromDto(
+        dto(
+          id: 'tool-product',
+          role: 'tool',
+          content:
+              '{"products":[{"variant_id":"v-1","name":"Atlas","price":"45000","unit":"per_sqm"}]}',
+        ),
+      );
+
+      expect(msg.richBlocks.single.maybeMap(products: (_) => true, orElse: () => false), isTrue);
+      msg.richBlocks.single.maybeWhen(
+        products: (products) => expect(products.single.id, 'v-1'),
+        orElse: () => fail('Mahsulot bloki kutilgan'),
+      );
+    });
+
+    test('tarixdagi state JSON xom matn sifatida qaytmaydi', () {
+      final msg = ChatMapper.fromDto(
+        dto(
+          id: 'tool-state',
+          role: 'tool',
+          content: '{"state":{"room":"wedding"},"next_question":"yorug\'lik"}',
+        ),
+      );
+
+      expect(msg.richBlocks, isEmpty);
+    });
   });
 
   group('ChatMapper.parseQuote — formula va measurement', () {

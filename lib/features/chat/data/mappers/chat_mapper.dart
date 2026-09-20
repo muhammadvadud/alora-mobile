@@ -54,9 +54,20 @@ class ChatMapper {
         contentStr = jsonEncode(contentRaw);
       }
 
-      if (name != null) {
-        final parsedBlock = parseToolResult(name, contentStr);
+      final toolName = name ?? _inferToolName(contentStr);
+      if (toolName != null) {
+        final parsedBlock = parseToolResult(toolName, contentStr);
         blocks.add(parsedBlock);
+      }
+    }
+
+    // Tarixdagi tool xabarlarida ayrim backend yozuvlarida tool_result nomi
+    // bo'lmaydi, natija esa content ichidagi JSON ko'rinishida saqlanadi.
+    // Texnik JSON'ni chatga chiqarmasdan, boy blok sifatida tiklaymiz.
+    if (dto.role == 'tool' && blocks.isEmpty) {
+      final toolName = _inferToolName(dto.content);
+      if (toolName != null) {
+        blocks.add(parseToolResult(toolName, dto.content));
       }
     }
 
@@ -80,7 +91,7 @@ class ChatMapper {
             final products = (data['products'] as List).map((e) {
               final p = e as Map<String, dynamic>;
               return ProductRef(
-                id: p['id']?.toString() ?? '',
+                id: p['id']?.toString() ?? p['variant_id']?.toString() ?? '',
                 name: p['name']?.toString() ?? '',
                 category: p['category']?.toString() ?? '',
                 price: num.tryParse(p['price']?.toString() ?? '0')?.toInt() ?? 0,
@@ -225,6 +236,19 @@ class ChatMapper {
 
     // Parse xatosi bo'lsa
     return RichBlock.toolChip(tool: tool, state: ToolChipState.done, rawResult: resultStr);
+  }
+
+  static String? _inferToolName(String raw) {
+    try {
+      final data = jsonDecode(raw);
+      if (data is! Map<String, dynamic>) return null;
+      if (data['products'] is List) return 'product_search';
+      if (data['totals'] is Map<String, dynamic>) return 'price_quote';
+      if (data['options'] is List) return 'build_options';
+    } catch (_) {
+      // Texnik yoki buzilgan tool natijasi UI'ga xom matn qilib chiqarilmaydi.
+    }
+    return null;
   }
 
   static List<PricingOption> _parseBackendOptions(List<Object?> rawOptions) {

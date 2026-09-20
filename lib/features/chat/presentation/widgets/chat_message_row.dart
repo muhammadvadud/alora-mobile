@@ -64,34 +64,38 @@ class ChatMessageRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // S-03: AI xabari ustida qator (28x28 avatar + 'Alora')
-        Row(
-          children: [
-            Container(
-              width: 28,
-              height: 28,
-              decoration: BoxDecoration(
-                color: colors.surfaceMuted,
-                borderRadius: AppRadius.avatarBorder,
+        if (message.role != MessageRole.system)
+          Row(
+            children: [
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: colors.surfaceMuted,
+                  borderRadius: AppRadius.avatarBorder,
+                ),
+                child: Center(
+                  child: Text('A', style: typography.bodyS.copyWith(color: colors.textPrimary)),
+                ),
               ),
-              child: Center(
-                child: Text('A', style: typography.bodyS.copyWith(color: colors.textPrimary)),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text(l10n.app_name, style: typography.bodyL.copyWith(color: colors.textSecondary)),
-          ],
-        ),
-        const SizedBox(height: 8),
+              const SizedBox(width: 8),
+              Text(l10n.app_name, style: typography.bodyL.copyWith(color: colors.textSecondary)),
+            ],
+          ),
+        if (message.role != MessageRole.system) const SizedBox(height: 8),
 
-        if (message.status == MessageStatus.sending ||
-            (message.content.isEmpty &&
-                message.richBlocks.isEmpty &&
-                message.status == MessageStatus.streaming))
+        if (message.role != MessageRole.system &&
+            (message.status == MessageStatus.sending ||
+                (message.content.isEmpty &&
+                    message.richBlocks.isEmpty &&
+                    message.status == MessageStatus.streaming)))
           const TypingLine(),
 
         for (var index = 0; index < message.richBlocks.length; index++)
-          if (message.richBlocks[index].mapOrNull(toolChip: (_) => true) != true ||
-              index == lastToolChipIndex)
+          if (message.role == MessageRole.system
+              ? message.richBlocks[index].mapOrNull(toolChip: (_) => true) != true
+              : message.richBlocks[index].mapOrNull(toolChip: (_) => true) != true ||
+                    index == lastToolChipIndex)
             Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.m),
               child: message.richBlocks[index].when(
@@ -130,9 +134,11 @@ class ChatMessageRow extends StatelessWidget {
               ),
             ),
 
-        if (message.content.isNotEmpty) AssistantMessageView(text: message.content),
+        if (message.role != MessageRole.system && message.content.isNotEmpty)
+          AssistantMessageView(text: message.content),
 
-        if (!isCustomerMode &&
+        if (message.role != MessageRole.system &&
+            !isCustomerMode &&
             message.status == MessageStatus.streaming &&
             message.richBlocks.any((b) => b.mapOrNull(toolChip: (_) => true) == true))
           const ThinkingBlockView(),

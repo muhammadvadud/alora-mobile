@@ -632,7 +632,7 @@ void main() {
       unawaited(notifier.sendMessage('Birinchi xabar'));
       await Future<void>.delayed(Duration.zero);
 
-      historyCompleter.complete(Paginated<Message>(next: null, previous: null, results: const []));
+      historyCompleter.complete(const Paginated<Message>(next: null, previous: null, results: []));
       await Future<void>.delayed(const Duration(milliseconds: 20));
 
       final loadedState = container2.read(chatProvider('load-race-1'));

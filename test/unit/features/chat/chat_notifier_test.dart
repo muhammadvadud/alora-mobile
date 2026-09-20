@@ -432,6 +432,68 @@ void main() {
         ),
       ).called(2);
     });
+
+    test('bir nechta xabarda eng oxirgi xabar qayta yuboriladi, tarix saqlanadi', () async {
+      final notifier = container.read(chatProvider('retry-3').notifier);
+      final firstStream = StreamController<SseEvent>.broadcast();
+      final failedStream = StreamController<SseEvent>.broadcast();
+      final retryStream = StreamController<SseEvent>.broadcast();
+      final streams = [firstStream.stream, failedStream.stream, retryStream.stream];
+      var sendCount = 0;
+
+      when(
+        () => mockRepo.sendMessage(
+          any(),
+          any(),
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).thenAnswer((_) => streams[sendCount++]);
+
+      unawaited(notifier.sendMessage('Birinchi xabar'));
+      await Future<void>.delayed(Duration.zero);
+      firstStream.add(const SseEvent.done());
+      await firstStream.close();
+      await chunkGap();
+
+      unawaited(notifier.sendMessage('Oxirgi xabar'));
+      await Future<void>.delayed(Duration.zero);
+      failedStream.addError('Server xatosi');
+      await chunkGap();
+
+      unawaited(notifier.retryLast());
+      await Future<void>.delayed(Duration.zero);
+      retryStream.add(const SseEvent.done());
+      await retryStream.close();
+      await failedStream.close();
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+
+      final state = readState('retry-3');
+      final users = state.messages.where((m) => m.role == MessageRole.user).toList();
+      expect(users.map((message) => message.content), ['Oxirgi xabar', 'Birinchi xabar']);
+      verify(
+        () => mockRepo.sendMessage(
+          any(),
+          'Oxirgi xabar',
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).called(2);
+      verify(
+        () => mockRepo.sendMessage(
+          any(),
+          'Birinchi xabar',
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).called(1);
+    });
   });
 
   group('CancelToken', () {

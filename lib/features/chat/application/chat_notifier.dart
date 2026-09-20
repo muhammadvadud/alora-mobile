@@ -288,20 +288,24 @@ class ChatNotifier extends _$ChatNotifier {
     unawaited(ref.read(conversationsProvider.notifier).refresh());
   }
 
-  /// Uzilgan/xato bo'lgan oxirgi javobni qayta so'raydi: oxirgi user xabari
-  /// qayta yuboriladi, xato holatidagi assistant xabari olib tashlanadi (§8.5).
+  /// Uzilgan/xato bo'lgan eng so'nggi javobni qayta so'raydi: xabarlar ro'yxati
+  /// yangi xabarlarni boshida saqlagani uchun birinchi user xabari olinadi.
+  /// Faqat xato bo'lgan assistant/user juftligi olib tashlanadi (§8.5).
   Future<void> retryLast() async {
     if (state.isStreaming) return;
     final msgs = List<Message>.from(_latest.messages);
-    final lastUserIdx = msgs.lastIndexWhere((m) => m.role == MessageRole.user);
-    if (lastUserIdx == -1) {
+    final latestUserIdx = msgs.indexWhere((m) => m.role == MessageRole.user);
+    if (latestUserIdx == -1) {
       // Tarix yuklanmagan (getMessages xatosi) — qayta yuklash.
       _commitNow(_latest.copyWith(error: null));
       await _loadMessages();
       return;
     }
-    final content = msgs[lastUserIdx].content;
-    msgs.removeRange(lastUserIdx, msgs.length);
+    final content = msgs[latestUserIdx].content;
+    final assistantIdx = latestUserIdx > 0 && msgs[latestUserIdx - 1].role == MessageRole.assistant
+        ? latestUserIdx - 1
+        : latestUserIdx;
+    msgs.removeRange(assistantIdx, latestUserIdx + 1);
     _commitNow(_latest.copyWith(messages: msgs, error: null));
     await sendMessage(content);
   }

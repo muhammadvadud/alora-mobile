@@ -171,7 +171,15 @@ class ChatNotifier extends _$ChatNotifier {
       },
       toolCall: (String tool) {
         final blocks = List<RichBlock>.from(msg.richBlocks);
-        blocks.add(RichBlock.toolChip(tool: tool, state: ToolChipState.running));
+        final chipIndex = blocks.lastIndexWhere(
+          (block) => block.mapOrNull(toolChip: (_) => true) == true,
+        );
+        final chip = RichBlock.toolChip(tool: tool, state: ToolChipState.running);
+        if (chipIndex == -1) {
+          blocks.add(chip);
+        } else {
+          blocks[chipIndex] = chip;
+        }
         msg = msg.copyWith(richBlocks: blocks);
       },
       toolArgs: (String tool, String args) {

@@ -253,6 +253,31 @@ void main() {
     });
   });
 
+  group('ChatMapper.parseToolResult — ixcham hisob natijasi', () {
+    test('agent totals/lines/services formatini Quote kartasiga parse qiladi', () {
+      const result = '''
+      {"totals": {"subtotal": "420000", "discount_amount": "0",
+        "delivery_amount": "30000", "total": "450000"},
+       "lines": [{"role": "portyera", "name": "Blackout Duo",
+         "area_m2": "5.0", "coef": "2.5", "line_total": "350000"}],
+       "services": [{"key": "sewing", "line_total": "70000"}],
+       "warnings": [], "explanation": ["Hisob tayyor"]}''';
+
+      final block = ChatMapper.parseToolResult('curtain_calculate', result);
+
+      block.maybeWhen(
+        quote: (quote) {
+          expect(quote.fabrics.single.colorName, 'Blackout Duo');
+          expect(quote.fabrics.single.areaSqm, 5.0);
+          expect(quote.fabrics.single.total, 350000);
+          expect(quote.services.single.name, 'sewing');
+          expect(quote.total, 450000);
+        },
+        orElse: () => fail('Ixcham natija QuoteBlock bo\'lishi kerak'),
+      );
+    });
+  });
+
   group('ChatMapper.parseToolResult — order_draft', () {
     test('missingFields bilan OrderDraft qaytadi', () {
       const result = '''

@@ -96,6 +96,9 @@ class ChatMapper {
         case 'curtain_calculate':
         case 'price_quote':
           if (data is Map<String, dynamic>) {
+            if (data['totals'] is Map<String, dynamic>) {
+              return RichBlock.quote(quote: _parseCompactQuote(data));
+            }
             // Let's see if it's an OptionsCard or a QuoteCard
             if (data.containsKey('options')) {
               // Parse OptionsCard
@@ -392,5 +395,59 @@ class ChatMapper {
       total: num.tryParse(data['total']?.toString() ?? '0')?.toInt() ?? 0,
       measurement: quoteMeasurement ?? const QuoteMeasurement(cornice: 0, height: 0, coef: 0),
     );
+  }
+
+  /// Agentning ixcham `totals/lines/services` formatini Quote kartasiga o'girish.
+  static Quote _parseCompactQuote(Map<String, dynamic> data) {
+    final totals = data['totals'] as Map<String, dynamic>;
+    final fabrics = <QuoteFabric>[];
+    final rawLines = data['lines'];
+    if (rawLines is List) {
+      for (final rawLine in rawLines.whereType<Map<String, dynamic>>()) {
+        fabrics.add(
+          QuoteFabric(
+            role: rawLine['role']?.toString() ?? '',
+            variantId: '',
+            colorName: rawLine['name']?.toString() ?? '',
+            colorHex: '',
+            widthM: 0,
+            heightM: 0,
+            coef: _parseDecimal(rawLine['coef']),
+            areaSqm: _parseDecimal(rawLine['area_m2']),
+            pricePerSqm: 0,
+            total: _parseMoney(rawLine['line_total']),
+          ),
+        );
+      }
+    }
+
+    final services = <QuoteService>[];
+    final rawServices = data['services'];
+    if (rawServices is List) {
+      for (final rawService in rawServices.whereType<Map<String, dynamic>>()) {
+        services.add(
+          QuoteService(
+            name: rawService['key']?.toString() ?? '',
+            total: _parseMoney(rawService['line_total']),
+          ),
+        );
+      }
+    }
+
+    return Quote(
+      fabrics: fabrics,
+      accessories: const [],
+      services: services,
+      wasteWarnings: (data['warnings'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      formula: (data['explanation'] as List?)?.join('\n') ?? '',
+      subtotal: _parseMoney(totals['subtotal']),
+      discount: _parseMoney(totals['discount_amount']),
+      delivery: _parseMoney(totals['delivery_amount']),
+      total: _parseMoney(totals['total']),
+    );
+  }
+
+  static double _parseDecimal(Object? value) {
+    return num.tryParse(value?.toString() ?? '0')?.toDouble() ?? 0;
   }
 }

@@ -93,10 +93,11 @@ class _FabricRow extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  '${f.widthM} m × ${f.heightM} m · K ${f.coef} · ${formatMoneyPlain(f.pricePerSqm)}/m²',
-                  style: typography.bodyS.copyWith(color: colors.textSecondary),
-                ),
+                if (f.widthM > 0 || f.heightM > 0 || f.coef > 0 || f.pricePerSqm > 0)
+                  Text(
+                    '${f.widthM} m × ${f.heightM} m · K ${f.coef} · ${formatMoneyPlain(f.pricePerSqm)}/m²',
+                    style: typography.bodyS.copyWith(color: colors.textSecondary),
+                  ),
               ],
             ),
           ),

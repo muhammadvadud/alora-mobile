@@ -254,6 +254,48 @@ void main() {
       expect(find.text('Tanlash'), findsWidgets);
     });
 
+    testWidgets('Variant tanlanganda uning tafsilotlari AI ga yuboriladi', (tester) async {
+      stubGetMessages(repo, [
+        assistantMessage(richBlocks: [RichBlock.options(options: optionsFixture())]),
+      ]);
+      when(
+        () => repo.sendMessage(
+          any(),
+          any(),
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).thenAnswer((_) => Stream<SseEvent>.multi((_) {}));
+
+      await tester.pumpWidget(
+        chatApp(
+          repo,
+          extraOverrides: [registerConversations(['conv-1'])],
+        ),
+      );
+      await tester.pump();
+
+      await tester.tap(find.widgetWithText(AppButton, 'Tanlash').last);
+      await tester.pump();
+
+      verify(
+        () => repo.sendMessage(
+          'conv-1',
+          'Men O\'rta variantni tanladim.\n'
+              'Variant ma\'lumotlari:\n'
+              '- Mato: Parda (belgiya)\n'
+              '- Muddat: 7 kun\n'
+              '- Jami: 1000000 so\'m',
+          'uz',
+          false,
+          null,
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).called(1);
+    });
+
     testWidgets('OrderDraftCard yetishmayotgan maydonlarni ko\'rsatadi', (tester) async {
       stubGetMessages(repo, [
         assistantMessage(richBlocks: [RichBlock.orderDraft(draft: orderDraftFixture())]),

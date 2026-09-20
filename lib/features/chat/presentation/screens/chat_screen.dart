@@ -122,6 +122,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     _scrollToBottom();
   }
 
+  String _selectedOptionMessage(PricingOption option) {
+    final details = option.lines.map((line) => '- ${line.title}: ${line.value}').join('\n');
+    final lines = <String>[
+      'Men ${option.title} variantni tanladim.',
+      'Variant ma\'lumotlari:',
+      if (details.isNotEmpty) details,
+      '- Jami: ${option.total} so\'m',
+    ];
+    return lines.join('\n');
+  }
+
   @override
   Widget build(BuildContext context) {
     final isCustomerMode = ref.watch(customerModeEnabledProvider);
@@ -152,8 +163,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 onFirstMessage: widget.conversationId == null ? _startConversation : null,
                 onAddPart: () => _sendQuoteAction('Bo\'lak qo\'shish'),
                 onShowOptions: () => _sendQuoteAction('Variantlarni ko\'rsat'),
-                onSelectOption: (option) =>
-                    _sendQuoteAction('Men ${option.title} variantni tanlayman.'),
+                onSelectOption: (option) => _sendQuoteAction(_selectedOptionMessage(option)),
                 isCreatingConversation: _isCreatingConversation,
               ),
       ),

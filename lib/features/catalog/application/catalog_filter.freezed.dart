@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CatalogFilter {
 
- ProductType? get type; ProductStyle? get style; ProductRoom? get room; ProductPattern? get pattern; ProductTransparency? get transparency; ProductSegment? get segment; int? get minPrice; int? get maxPrice;
+ String? get categoryId; ProductType? get type; ProductStyle? get style; ProductRoom? get room; ProductPattern? get pattern; ProductTransparency? get transparency; ProductSegment? get segment; int? get minPrice; int? get maxPrice;
 /// Create a copy of CatalogFilter
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CatalogFilterCopyWith<CatalogFilter> get copyWith => _$CatalogFilterCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CatalogFilter&&(identical(other.type, type) || other.type == type)&&(identical(other.style, style) || other.style == style)&&(identical(other.room, room) || other.room == room)&&(identical(other.pattern, pattern) || other.pattern == pattern)&&(identical(other.transparency, transparency) || other.transparency == transparency)&&(identical(other.segment, segment) || other.segment == segment)&&(identical(other.minPrice, minPrice) || other.minPrice == minPrice)&&(identical(other.maxPrice, maxPrice) || other.maxPrice == maxPrice));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CatalogFilter&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.type, type) || other.type == type)&&(identical(other.style, style) || other.style == style)&&(identical(other.room, room) || other.room == room)&&(identical(other.pattern, pattern) || other.pattern == pattern)&&(identical(other.transparency, transparency) || other.transparency == transparency)&&(identical(other.segment, segment) || other.segment == segment)&&(identical(other.minPrice, minPrice) || other.minPrice == minPrice)&&(identical(other.maxPrice, maxPrice) || other.maxPrice == maxPrice));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,style,room,pattern,transparency,segment,minPrice,maxPrice);
+int get hashCode => Object.hash(runtimeType,categoryId,type,style,room,pattern,transparency,segment,minPrice,maxPrice);
 
 @override
 String toString() {
-  return 'CatalogFilter(type: $type, style: $style, room: $room, pattern: $pattern, transparency: $transparency, segment: $segment, minPrice: $minPrice, maxPrice: $maxPrice)';
+  return 'CatalogFilter(categoryId: $categoryId, type: $type, style: $style, room: $room, pattern: $pattern, transparency: $transparency, segment: $segment, minPrice: $minPrice, maxPrice: $maxPrice)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CatalogFilterCopyWith<$Res>  {
   factory $CatalogFilterCopyWith(CatalogFilter value, $Res Function(CatalogFilter) _then) = _$CatalogFilterCopyWithImpl;
 @useResult
 $Res call({
- ProductType? type, ProductStyle? style, ProductRoom? room, ProductPattern? pattern, ProductTransparency? transparency, ProductSegment? segment, int? minPrice, int? maxPrice
+ String? categoryId, ProductType? type, ProductStyle? style, ProductRoom? room, ProductPattern? pattern, ProductTransparency? transparency, ProductSegment? segment, int? minPrice, int? maxPrice
 });
 
 
@@ -62,9 +62,10 @@ class _$CatalogFilterCopyWithImpl<$Res>
 
 /// Create a copy of CatalogFilter
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = freezed,Object? style = freezed,Object? room = freezed,Object? pattern = freezed,Object? transparency = freezed,Object? segment = freezed,Object? minPrice = freezed,Object? maxPrice = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? categoryId = freezed,Object? type = freezed,Object? style = freezed,Object? room = freezed,Object? pattern = freezed,Object? transparency = freezed,Object? segment = freezed,Object? minPrice = freezed,Object? maxPrice = freezed,}) {
   return _then(_self.copyWith(
-type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as String?,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as ProductType?,style: freezed == style ? _self.style : style // ignore: cast_nullable_to_non_nullable
 as ProductStyle?,room: freezed == room ? _self.room : room // ignore: cast_nullable_to_non_nullable
 as ProductRoom?,pattern: freezed == pattern ? _self.pattern : pattern // ignore: cast_nullable_to_non_nullable
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ProductType? type,  ProductStyle? style,  ProductRoom? room,  ProductPattern? pattern,  ProductTransparency? transparency,  ProductSegment? segment,  int? minPrice,  int? maxPrice)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? categoryId,  ProductType? type,  ProductStyle? style,  ProductRoom? room,  ProductPattern? pattern,  ProductTransparency? transparency,  ProductSegment? segment,  int? minPrice,  int? maxPrice)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CatalogFilter() when $default != null:
-return $default(_that.type,_that.style,_that.room,_that.pattern,_that.transparency,_that.segment,_that.minPrice,_that.maxPrice);case _:
+return $default(_that.categoryId,_that.type,_that.style,_that.room,_that.pattern,_that.transparency,_that.segment,_that.minPrice,_that.maxPrice);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.type,_that.style,_that.room,_that.pattern,_that.transparen
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ProductType? type,  ProductStyle? style,  ProductRoom? room,  ProductPattern? pattern,  ProductTransparency? transparency,  ProductSegment? segment,  int? minPrice,  int? maxPrice)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? categoryId,  ProductType? type,  ProductStyle? style,  ProductRoom? room,  ProductPattern? pattern,  ProductTransparency? transparency,  ProductSegment? segment,  int? minPrice,  int? maxPrice)  $default,) {final _that = this;
 switch (_that) {
 case _CatalogFilter():
-return $default(_that.type,_that.style,_that.room,_that.pattern,_that.transparency,_that.segment,_that.minPrice,_that.maxPrice);case _:
+return $default(_that.categoryId,_that.type,_that.style,_that.room,_that.pattern,_that.transparency,_that.segment,_that.minPrice,_that.maxPrice);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.type,_that.style,_that.room,_that.pattern,_that.transparen
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ProductType? type,  ProductStyle? style,  ProductRoom? room,  ProductPattern? pattern,  ProductTransparency? transparency,  ProductSegment? segment,  int? minPrice,  int? maxPrice)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? categoryId,  ProductType? type,  ProductStyle? style,  ProductRoom? room,  ProductPattern? pattern,  ProductTransparency? transparency,  ProductSegment? segment,  int? minPrice,  int? maxPrice)?  $default,) {final _that = this;
 switch (_that) {
 case _CatalogFilter() when $default != null:
-return $default(_that.type,_that.style,_that.room,_that.pattern,_that.transparency,_that.segment,_that.minPrice,_that.maxPrice);case _:
+return $default(_that.categoryId,_that.type,_that.style,_that.room,_that.pattern,_that.transparency,_that.segment,_that.minPrice,_that.maxPrice);case _:
   return null;
 
 }
@@ -213,9 +214,10 @@ return $default(_that.type,_that.style,_that.room,_that.pattern,_that.transparen
 
 
 class _CatalogFilter extends CatalogFilter {
-  const _CatalogFilter({this.type, this.style, this.room, this.pattern, this.transparency, this.segment, this.minPrice, this.maxPrice}): super._();
+  const _CatalogFilter({this.categoryId, this.type, this.style, this.room, this.pattern, this.transparency, this.segment, this.minPrice, this.maxPrice}): super._();
   
 
+@override final  String? categoryId;
 @override final  ProductType? type;
 @override final  ProductStyle? style;
 @override final  ProductRoom? room;
@@ -235,16 +237,16 @@ _$CatalogFilterCopyWith<_CatalogFilter> get copyWith => __$CatalogFilterCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CatalogFilter&&(identical(other.type, type) || other.type == type)&&(identical(other.style, style) || other.style == style)&&(identical(other.room, room) || other.room == room)&&(identical(other.pattern, pattern) || other.pattern == pattern)&&(identical(other.transparency, transparency) || other.transparency == transparency)&&(identical(other.segment, segment) || other.segment == segment)&&(identical(other.minPrice, minPrice) || other.minPrice == minPrice)&&(identical(other.maxPrice, maxPrice) || other.maxPrice == maxPrice));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CatalogFilter&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.type, type) || other.type == type)&&(identical(other.style, style) || other.style == style)&&(identical(other.room, room) || other.room == room)&&(identical(other.pattern, pattern) || other.pattern == pattern)&&(identical(other.transparency, transparency) || other.transparency == transparency)&&(identical(other.segment, segment) || other.segment == segment)&&(identical(other.minPrice, minPrice) || other.minPrice == minPrice)&&(identical(other.maxPrice, maxPrice) || other.maxPrice == maxPrice));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,style,room,pattern,transparency,segment,minPrice,maxPrice);
+int get hashCode => Object.hash(runtimeType,categoryId,type,style,room,pattern,transparency,segment,minPrice,maxPrice);
 
 @override
 String toString() {
-  return 'CatalogFilter(type: $type, style: $style, room: $room, pattern: $pattern, transparency: $transparency, segment: $segment, minPrice: $minPrice, maxPrice: $maxPrice)';
+  return 'CatalogFilter(categoryId: $categoryId, type: $type, style: $style, room: $room, pattern: $pattern, transparency: $transparency, segment: $segment, minPrice: $minPrice, maxPrice: $maxPrice)';
 }
 
 
@@ -255,7 +257,7 @@ abstract mixin class _$CatalogFilterCopyWith<$Res> implements $CatalogFilterCopy
   factory _$CatalogFilterCopyWith(_CatalogFilter value, $Res Function(_CatalogFilter) _then) = __$CatalogFilterCopyWithImpl;
 @override @useResult
 $Res call({
- ProductType? type, ProductStyle? style, ProductRoom? room, ProductPattern? pattern, ProductTransparency? transparency, ProductSegment? segment, int? minPrice, int? maxPrice
+ String? categoryId, ProductType? type, ProductStyle? style, ProductRoom? room, ProductPattern? pattern, ProductTransparency? transparency, ProductSegment? segment, int? minPrice, int? maxPrice
 });
 
 
@@ -272,9 +274,10 @@ class __$CatalogFilterCopyWithImpl<$Res>
 
 /// Create a copy of CatalogFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = freezed,Object? style = freezed,Object? room = freezed,Object? pattern = freezed,Object? transparency = freezed,Object? segment = freezed,Object? minPrice = freezed,Object? maxPrice = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? categoryId = freezed,Object? type = freezed,Object? style = freezed,Object? room = freezed,Object? pattern = freezed,Object? transparency = freezed,Object? segment = freezed,Object? minPrice = freezed,Object? maxPrice = freezed,}) {
   return _then(_CatalogFilter(
-type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as String?,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as ProductType?,style: freezed == style ? _self.style : style // ignore: cast_nullable_to_non_nullable
 as ProductStyle?,room: freezed == room ? _self.room : room // ignore: cast_nullable_to_non_nullable
 as ProductRoom?,pattern: freezed == pattern ? _self.pattern : pattern // ignore: cast_nullable_to_non_nullable

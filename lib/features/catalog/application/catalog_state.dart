@@ -32,6 +32,7 @@ abstract class CatalogState with _$CatalogState {
   int get activeFilterCount {
     var count = 0;
     final f = filter;
+    if (f.categoryId != null) count++;
     if (f.type != null) count++;
     if (f.style != null) count++;
     if (f.room != null) count++;

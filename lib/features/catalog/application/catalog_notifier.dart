@@ -54,7 +54,7 @@ class CatalogNotifier extends _$CatalogNotifier {
   /// Filtrni o'zgartiradi va qayta yuklaydi.
   void setFilter(CatalogFilter filter) {
     if (filter == state.filter) return;
-    state = state.copyWith(filter: filter);
+    state = state.copyWith(filter: filter, categoryId: filter.categoryId);
     _loadFirstPage();
   }
 
@@ -89,7 +89,10 @@ class CatalogNotifier extends _$CatalogNotifier {
   /// Kategoriyani tanlaydi (null — hammasi).
   void selectCategory(String? categoryId) {
     if (categoryId == state.categoryId) return;
-    state = state.copyWith(categoryId: categoryId);
+    state = state.copyWith(
+      categoryId: categoryId,
+      filter: state.filter.copyWith(categoryId: categoryId),
+    );
     _loadFirstPage();
   }
 

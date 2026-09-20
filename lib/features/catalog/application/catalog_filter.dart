@@ -6,6 +6,7 @@ part 'catalog_filter.freezed.dart';
 @Freezed(makeCollectionsUnmodifiable: false)
 abstract class CatalogFilter with _$CatalogFilter {
   const factory CatalogFilter({
+    String? categoryId,
     ProductType? type,
     ProductStyle? style,
     ProductRoom? room,
@@ -23,6 +24,7 @@ abstract class CatalogFilter with _$CatalogFilter {
 
   /// Backend'ga yuborilishi kerak bo'lgan filtrlar.
   bool get hasBackendFilters =>
+      categoryId != null ||
       type != null ||
       style != null ||
       room != null ||

@@ -166,36 +166,33 @@ class ChatMapper {
             final rawMeasurements = data['measurements'] is List
                 ? data['measurements'] as List
                 : (quote['measurements'] is List ? quote['measurements'] as List : const []);
-            final ms =
-                rawMeasurements.map((e) {
-                  final m = e as Map<String, dynamic>;
-                  final rawParts = m['parts'] is List ? m['parts'] as List : const [];
-                  final parts = rawParts.whereType<Map<String, dynamic>>().map((part) {
-                    return OrderDraftPart(
-                      variantId: part['variant_id']?.toString() ?? '',
-                      role: part['role']?.toString() ?? '',
-                      widthM: _optionalDecimal(part['width_m']),
-                      heightM: _optionalDecimal(part['height_m']),
-                      coefficient: _optionalDecimal(part['coefficient'] ?? part['coef']),
-                    );
-                  }).toList();
-                  final rawAccessories = m['accessories'] is List
-                      ? m['accessories'] as List
-                      : const [];
-                  return OrderDraftMeasurement(
-                    roomName: m['room_name']?.toString(),
-                    cornice: _optionalDecimal(m['cornice'] ?? m['cornice_length_m']),
-                    height: _optionalDecimal(m['height'] ?? m['height_m']),
-                    coefficient: _optionalDecimal(m['coefficient'] ?? m['coef']),
-                    parts: parts,
-                    accessories: rawAccessories.whereType<Map<String, dynamic>>().map((item) {
-                      return OrderDraftAccessory(
-                        variantId: item['variant_id']?.toString() ?? '',
-                        qty: _parseDecimal(item['qty']),
-                      );
-                    }).toList(),
+            final ms = rawMeasurements.map((e) {
+              final m = e as Map<String, dynamic>;
+              final rawParts = m['parts'] is List ? m['parts'] as List : const [];
+              final parts = rawParts.whereType<Map<String, dynamic>>().map((part) {
+                return OrderDraftPart(
+                  variantId: part['variant_id']?.toString() ?? '',
+                  role: part['role']?.toString() ?? '',
+                  widthM: _optionalDecimal(part['width_m']),
+                  heightM: _optionalDecimal(part['height_m']),
+                  coefficient: _optionalDecimal(part['coefficient'] ?? part['coef']),
+                );
+              }).toList();
+              final rawAccessories = m['accessories'] is List ? m['accessories'] as List : const [];
+              return OrderDraftMeasurement(
+                roomName: m['room_name']?.toString(),
+                cornice: _optionalDecimal(m['cornice'] ?? m['cornice_length_m'] ?? m['length']),
+                height: _optionalDecimal(m['height'] ?? m['height_m']),
+                coefficient: _optionalDecimal(m['coefficient'] ?? m['coef']),
+                parts: parts,
+                accessories: rawAccessories.whereType<Map<String, dynamic>>().map((item) {
+                  return OrderDraftAccessory(
+                    variantId: item['variant_id']?.toString() ?? '',
+                    qty: _parseDecimal(item['qty']),
                   );
-                }).toList();
+                }).toList(),
+              );
+            }).toList();
             return RichBlock.orderDraft(
               draft: OrderDraft(
                 customerName: data['customer_name']?.toString(),

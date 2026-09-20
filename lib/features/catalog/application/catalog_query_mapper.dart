@@ -11,6 +11,8 @@ class CatalogQueryMapper {
 
   static Map<String, String> toQuery(CatalogFilter filter) {
     return {
+      if (filter.categoryId != null && filter.categoryId!.isNotEmpty)
+        'category': filter.categoryId!,
       if (filter.type != null && filter.type != ProductType.unknown)
         'price_unit': _priceUnitFor(filter.type!),
       if (filter.style != null && filter.style != ProductStyle.unknown)

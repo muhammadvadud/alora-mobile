@@ -1,4 +1,5 @@
 import 'package:alora_mobile/core/utils/paginated.dart';
+import 'package:alora_mobile/core/error/failure.dart';
 
 import '../../domain/entities/category.dart';
 import '../../domain/entities/product.dart';
@@ -10,8 +11,7 @@ import '../mappers/catalog_mapper.dart';
 
 /// CatalogRepository'ning haqiqiy amalga oshirishi.
 ///
-/// Stale-while-revalidate: avval kesh (TTL 24 soat ichida) qaytariladi,
-/// fonda tarmoq yangilanadi va farq bo'lsa jimgina almashtiriladi.
+/// Tarmoqni birinchi o'ringa qo'yadi, kesh esa offline fallback sifatida ishlaydi.
 class CatalogRepositoryImpl implements CatalogRepository {
   CatalogRepositoryImpl(this._remote, this._local);
 
@@ -20,17 +20,20 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
   @override
   Future<Paginated<Category>> getCategories() async {
-    final cached = await _local.getCachedCategories();
-    if (cached != null) return cached;
-
-    final remote = await _remote.getCategories();
-    final entities = Paginated(
-      next: remote.next,
-      previous: remote.previous,
-      results: remote.results.map(categoryDtoToEntity).toList(),
-    );
-    await _local.saveCategories(remote);
-    return entities;
+    try {
+      final remote = await _remote.getCategories();
+      final entities = Paginated(
+        next: remote.next,
+        previous: remote.previous,
+        results: remote.results.map(categoryDtoToEntity).toList(),
+      );
+      await _local.saveCategories(remote);
+      return entities;
+    } on Failure {
+      final cached = await _local.getCachedCategories();
+      if (cached != null) return cached;
+      rethrow;
+    }
   }
 
   @override
@@ -57,10 +60,25 @@ class CatalogRepositoryImpl implements CatalogRepository {
     );
 
     if (cursor == null) {
-      final cached = await _local.getCachedProducts(filterKey);
-      // Bo'sh kesh server vaqtincha xato bergan paytda saqlanib qolishi mumkin.
-      // Bunday keshni qaytarmaymiz, aks holda retry serverga so'rov yubormaydi.
-      if (cached != null && cached.results.isNotEmpty) return cached;
+      try {
+        final products = await _fetchFromRemote(
+          category: category,
+          style: style,
+          room: room,
+          segment: segment,
+          priceUnit: priceUnit,
+          search: search,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          cursor: cursor,
+        );
+        await _local.saveProductsMerged(filterKey, products.raw);
+        return products.entities;
+      } on Failure {
+        final cached = await _local.getCachedProducts(filterKey);
+        if (cached != null && cached.results.isNotEmpty) return cached;
+        rethrow;
+      }
     }
 
     final products = await _fetchFromRemote(

@@ -7,6 +7,7 @@ import 'package:alora_mobile/core/utils/debounce.dart';
 import 'package:alora_mobile/features/catalog/application/catalog_filter.dart';
 import 'package:alora_mobile/features/catalog/application/catalog_notifier.dart';
 import 'package:alora_mobile/features/catalog/domain/entities/product_enums.dart';
+import 'package:alora_mobile/features/catalog/domain/entities/category.dart';
 import 'package:alora_mobile/shared/widgets/app_bottom_sheet.dart';
 import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_chip.dart';
@@ -73,7 +74,11 @@ class _CatalogFilterSheetState extends ConsumerState<CatalogFilterSheet> {
 
     return AppBottomSheet(
       title: l10n.catalog_filter,
-      content: _FilterContent(filter: _draft, onUpdate: _update),
+      content: _FilterContent(
+        filter: _draft,
+        categories: ref.watch(catalogProvider).categories,
+        onUpdate: _update,
+      ),
       action: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -107,9 +112,10 @@ class _FilterContent extends StatelessWidget {
       .toList();
 
   final CatalogFilter filter;
+  final List<Category> categories;
   final ValueChanged<CatalogFilter> onUpdate;
 
-  const _FilterContent({required this.filter, required this.onUpdate});
+  const _FilterContent({required this.filter, required this.categories, required this.onUpdate});
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +125,11 @@ class _FilterContent extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
+        _CategoryChipSection(
+          categories: categories,
+          current: current.categoryId,
+          onSelect: (id) => onUpdate(current.copyWith(categoryId: id)),
+        ),
         _EnumChipSection<ProductType>(
           label: l10n.catalog_filterType,
           values: const [ProductType.fabric, ProductType.accessory],
@@ -169,6 +180,39 @@ class _FilterContent extends StatelessWidget {
           onChanged: (minPrice, maxPrice) =>
               onUpdate(current.copyWith(minPrice: minPrice, maxPrice: maxPrice)),
         ),
+      ],
+    );
+  }
+}
+
+class _CategoryChipSection extends StatelessWidget {
+  final List<Category> categories;
+  final String? current;
+  final ValueChanged<String?> onSelect;
+
+  const _CategoryChipSection({
+    required this.categories,
+    required this.current,
+    required this.onSelect,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return _Section(
+      label: l10n.product_category,
+      children: [
+        AppChip(
+          label: l10n.catalog_allCategories,
+          state: current == null ? AppChipState.selected : AppChipState.unselected,
+          onTap: () => onSelect(null),
+        ),
+        for (final category in categories)
+          AppChip(
+            label: category.name,
+            state: current == category.id ? AppChipState.selected : AppChipState.unselected,
+            onTap: () => onSelect(current == category.id ? null : category.id),
+          ),
       ],
     );
   }

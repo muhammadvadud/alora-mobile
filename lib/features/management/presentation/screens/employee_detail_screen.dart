@@ -161,7 +161,7 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
           onViewConversations: () =>
               context.go(AppRoutes.managementEmployeeConversations(employee.id)),
           onBlockChanged: (blocked) => _toggleBlocked(blocked),
-          onChangePassword: employee.role == Role.employee ? _changePassword : null,
+          onChangePassword: _changePassword,
           limitEditor: EmployeeLimitEditor(
             key: ValueKey(limit?.id),
             employeeId: widget.employeeId,

@@ -67,7 +67,25 @@ class ChatNotifier extends _$ChatNotifier {
       final repository = ref.read(chatRepositoryProvider);
       final result = await repository.getMessages(conversationId);
       // Backend returns ordered, we need to reverse it for ListView.builder reverse: true
-      state = state.copyWith(messages: result.results.reversed.toList(), isLoadingHistory: false);
+      final loadedMessages = result.results.reversed.toList();
+      final current = _latest;
+      final hasOptimisticMessages = current.messages.any(
+        (message) => message.id.startsWith('temp_'),
+      );
+
+      // A new conversation can start sending before the initial history request
+      // finishes. The empty history response must not overwrite the optimistic
+      // user/assistant messages already visible in the UI.
+      if (hasOptimisticMessages) {
+        final existingIds = current.messages.map((message) => message.id).toSet();
+        final mergedMessages = [
+          ...current.messages,
+          ...loadedMessages.where((message) => !existingIds.contains(message.id)),
+        ];
+        _commitNow(current.copyWith(messages: mergedMessages, isLoadingHistory: false));
+      } else {
+        state = current.copyWith(messages: loadedMessages, isLoadingHistory: false);
+      }
     } catch (e) {
       state = state.copyWith(error: _mapFailure(e), isLoadingHistory: false);
     }

@@ -605,6 +605,43 @@ void main() {
   });
 
   group('Yuklash (loadMessages)', () {
+    test('Tarix yuklanishi birinchi yuborilgan xabarlarni ustidan yozmaydi', () async {
+      final historyCompleter = Completer<Paginated<Message>>();
+      final loadRepo = MockChatRepository();
+      when(() => loadRepo.getMessages(any(), cursor: any(named: 'cursor')))
+          .thenAnswer((_) => historyCompleter.future);
+      when(
+        () => loadRepo.sendMessage(
+          any(),
+          any(),
+          any(),
+          any(),
+          any(),
+          cancelToken: any(named: 'cancelToken'),
+        ),
+      ).thenAnswer((_) => const Stream<SseEvent>.empty());
+
+      final container2 = ProviderContainer(
+        overrides: [
+          chat_providers.chatRepositoryProvider.overrideWithValue(loadRepo),
+          cm_providers.customerModeEnabledProvider.overrideWithValue(false),
+        ],
+      );
+      final notifier = container2.read(chatProvider('load-race-1').notifier);
+
+      unawaited(notifier.sendMessage('Birinchi xabar'));
+      await Future<void>.delayed(Duration.zero);
+
+      historyCompleter.complete(Paginated<Message>(next: null, previous: null, results: const []));
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+
+      final loadedState = container2.read(chatProvider('load-race-1'));
+      expect(loadedState.messages, hasLength(2));
+      expect(loadedState.messages.any((message) => message.content == 'Birinchi xabar'), isTrue);
+
+      container2.dispose();
+    });
+
     test('Xabarlar yuklanadi', () async {
       final loadRepo = MockChatRepository();
       when(() => loadRepo.getMessages(any(), cursor: any(named: 'cursor'))).thenAnswer(

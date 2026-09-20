@@ -716,6 +716,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get management_usageMessages => 'Xabarlar';
 
   @override
+  String get management_statsTitle => 'Statistika';
+
+  @override
   String get management_chartEmpty => 'Grafik uchun ma\'lumot yo\'q';
 
   @override
@@ -2087,6 +2090,9 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get management_usageMessages => 'Хабарлар';
+
+  @override
+  String get management_statsTitle => 'Статистика';
 
   @override
   String get management_chartEmpty => 'График учун маълумот йўқ';

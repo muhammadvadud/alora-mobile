@@ -716,6 +716,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get management_usageMessages => 'Сообщения';
 
   @override
+  String get management_statsTitle => 'Статистика';
+
+  @override
   String get management_chartEmpty => 'Нет данных для графика';
 
   @override

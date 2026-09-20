@@ -1459,6 +1459,12 @@ abstract class AppLocalizations {
   /// **'Xabarlar'**
   String get management_usageMessages;
 
+  /// No description provided for @management_statsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Statistika'**
+  String get management_statsTitle;
+
   /// No description provided for @management_chartEmpty.
   ///
   /// In uz, this message translates to:

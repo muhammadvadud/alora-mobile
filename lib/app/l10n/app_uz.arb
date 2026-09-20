@@ -326,6 +326,7 @@
   "management_usageDetails": "Sarf tafsilotlari",
   "management_usageTokens": "Tokenlar",
   "management_usageMessages": "Xabarlar",
+  "management_statsTitle": "Statistika",
   "management_chartEmpty": "Grafik uchun ma'lumot yo'q",
   "management_statThreads": "Suhbatlar",
   "management_statOrders": "Buyurtmalar",

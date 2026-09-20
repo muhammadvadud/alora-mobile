@@ -326,6 +326,7 @@
   "management_usageDetails": "Сарф тафсилотлари",
   "management_usageTokens": "Токенлар",
   "management_usageMessages": "Хабарлар",
+  "management_statsTitle": "Статистика",
   "management_chartEmpty": "График учун маълумот йўқ",
   "management_statThreads": "Суҳбатлар",
   "management_statOrders": "Буюртмалар",

@@ -326,6 +326,7 @@
   "management_usageDetails": "Детали расхода",
   "management_usageTokens": "Токены",
   "management_usageMessages": "Сообщения",
+  "management_statsTitle": "Статистика",
   "management_chartEmpty": "Нет данных для графика",
   "management_statThreads": "Диалоги",
   "management_statOrders": "Заказы",

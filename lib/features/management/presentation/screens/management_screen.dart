@@ -12,8 +12,8 @@ import 'package:alora_mobile/features/management/presentation/widgets/management
 import 'package:alora_mobile/features/management/presentation/widgets/management_sections_list.dart';
 import 'package:alora_mobile/features/management/presentation/widgets/management_spend_chart.dart';
 import 'package:alora_mobile/features/management/presentation/widgets/management_stat_cards.dart';
-import 'package:alora_mobile/features/management/presentation/widgets/management_usage_details.dart';
 import 'package:alora_mobile/shared/widgets/error_state.dart';
+import 'package:alora_mobile/shared/widgets/section_label.dart';
 import 'package:alora_mobile/shared/widgets/skeleton.dart';
 
 /// Boshqaruv bosh sahifasi (S-19).
@@ -49,15 +49,15 @@ class ManagementScreen extends ConsumerWidget {
                 data: (data) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SectionLabel(l10n.management_statsTitle),
+                    const SizedBox(height: AppSpacing.m),
                     ManagementStatCards(usage: data.usage, conversion: data.conversion),
-                    const SizedBox(height: AppSpacing.xl),
-                    ManagementUsageDetails(usage: data.usage),
                     const SizedBox(height: AppSpacing.xl),
                     ManagementSpendChart(daily: data.usage.daily),
                     const SizedBox(height: AppSpacing.xl),
                     ManagementRankingTable(ranking: data.ranking),
                     const SizedBox(height: AppSpacing.xl),
-                    const ManagementSectionsList(),
+                    ManagementSectionsList(usage: data.usage),
                   ],
                 ),
                 orElse: () => const SizedBox.shrink(),

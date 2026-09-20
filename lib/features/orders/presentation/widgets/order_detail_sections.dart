@@ -283,8 +283,14 @@ class _OrderDetailMenu extends StatelessWidget {
   final VoidCallback onPdf;
   final VoidCallback onShare;
   final VoidCallback onCancel;
+  final VoidCallback? onMarkPaid;
 
-  const _OrderDetailMenu({required this.onPdf, required this.onShare, required this.onCancel});
+  const _OrderDetailMenu({
+    required this.onPdf,
+    required this.onShare,
+    required this.onCancel,
+    required this.onMarkPaid,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -297,12 +303,16 @@ class _OrderDetailMenu extends StatelessWidget {
           onShare();
         } else if (value == 'cancel') {
           onCancel();
+        } else if (value == 'paid') {
+          onMarkPaid?.call();
         }
       },
       itemBuilder: (context) => [
         PopupMenuItem(value: 'pdf', child: Text(context.l10n.orders_pdf)),
         PopupMenuItem(value: 'share', child: Text(context.l10n.orders_share)),
         PopupMenuItem(value: 'cancel', child: Text(context.l10n.common_cancel)),
+        if (onMarkPaid != null)
+          PopupMenuItem(value: 'paid', child: Text(context.l10n.payment_status_fullyPaid)),
       ],
     );
   }

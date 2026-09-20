@@ -23,6 +23,7 @@ import 'package:alora_mobile/shared/widgets/skeleton.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/features/orders/application/order_pdf_notifier.dart';
 import 'package:alora_mobile/features/orders/domain/entities/order.dart';
+import 'package:alora_mobile/shared/models/payment_status.dart';
 
 part '../widgets/order_detail_sections.dart';
 
@@ -72,6 +73,9 @@ class OrderDetailScreen extends ConsumerWidget {
               onShare: () =>
                   unawaited(ref.read(orderPdfProvider(orderId).notifier).shareOrderText(order)),
               onCancel: () => unawaited(StatusChangeSheet.show(context, order)),
+              onMarkPaid: order.paymentStatus == PaymentStatus.paid
+                  ? null
+                  : () => unawaited(ref.read(orderDetailProvider(orderId).notifier).markAsPaid()),
             ),
             orElse: () => const SizedBox.shrink(),
           ),

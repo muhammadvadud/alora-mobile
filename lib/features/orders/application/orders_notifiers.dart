@@ -153,4 +153,20 @@ class OrderDetailNotifier extends _$OrderDetailNotifier {
       state = AsyncValue.error(e, st);
     }
   }
+
+  Future<void> markAsPaid() async {
+    final currentOrder = state.value;
+    if (currentOrder == null) return;
+
+    state = const AsyncValue.loading();
+    try {
+      final updatedOrder = await ref.read(ordersRepositoryProvider).patchOrder(currentOrder.id, {
+        'payment_status': 'paid',
+      });
+      state = AsyncValue.data(updatedOrder);
+      ref.invalidate(ordersListProvider);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+  }
 }

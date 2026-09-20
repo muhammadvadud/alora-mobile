@@ -36,7 +36,10 @@ Map<String, dynamic> draftToBody(OrderDraft draft, {String? conversationId}) {
     'customer_phone': ?draft.phone,
     'address': ?draft.address,
     'conversation_id': ?conversationId,
-    if (draft.prepayment != null) 'prepayment': draft.prepayment.toString(),
+    if (draft.prepaymentPercent != null) 'prepayment_percent': draft.prepaymentPercent.toString(),
+    if (draft.services.isNotEmpty) 'services': draft.services,
+    if (draft.delivery) 'delivery': true,
+    if (draft.discountPercent != null) 'discount_percent': draft.discountPercent.toString(),
     if (draft.deadline != null) 'deadline_date': draft.deadline!.toIso8601String().split('T').first,
     'measurements': [
       for (final m in draft.measurements)
@@ -44,6 +47,23 @@ Map<String, dynamic> draftToBody(OrderDraft draft, {String? conversationId}) {
           'room_name': ?m.roomName,
           if (m.cornice != null) 'cornice_length_m': m.cornice!.toStringAsFixed(3),
           if (m.height != null) 'height_m': m.height!.toStringAsFixed(3),
+          if (m.coefficient != null) 'coefficient': m.coefficient!.toStringAsFixed(3),
+          if (m.parts.isNotEmpty)
+            'parts': [
+              for (final part in m.parts)
+                <String, dynamic>{
+                  'variant_id': part.variantId,
+                  'role': part.role,
+                  if (part.widthM != null) 'width_m': part.widthM!.toStringAsFixed(3),
+                  if (part.heightM != null) 'height_m': part.heightM!.toStringAsFixed(3),
+                  if (part.coefficient != null) 'coefficient': part.coefficient!.toStringAsFixed(3),
+                },
+            ],
+          if (m.accessories.isNotEmpty)
+            'accessories': [
+              for (final accessory in m.accessories)
+                <String, dynamic>{'variant_id': accessory.variantId, 'qty': accessory.qty},
+            ],
         },
     ],
   };

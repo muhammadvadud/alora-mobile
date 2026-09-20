@@ -160,27 +160,51 @@ class ChatMapper {
           break;
         case 'order_draft':
           if (data is Map<String, dynamic>) {
+            final quote = data['quote'] is Map<String, dynamic>
+                ? data['quote'] as Map<String, dynamic>
+                : const <String, dynamic>{};
+            final rawMeasurements = data['measurements'] is List
+                ? data['measurements'] as List
+                : (quote['measurements'] is List ? quote['measurements'] as List : const []);
             final ms =
-                (data['measurements'] as List?)?.map((e) {
+                rawMeasurements.map((e) {
                   final m = e as Map<String, dynamic>;
+                  final rawParts = m['parts'] is List ? m['parts'] as List : const [];
+                  final parts = rawParts.whereType<Map<String, dynamic>>().map((part) {
+                    return OrderDraftPart(
+                      variantId: part['variant_id']?.toString() ?? '',
+                      role: part['role']?.toString() ?? '',
+                      widthM: _optionalDecimal(part['width_m']),
+                      heightM: _optionalDecimal(part['height_m']),
+                      coefficient: _optionalDecimal(part['coefficient'] ?? part['coef']),
+                    );
+                  }).toList();
+                  final rawAccessories = m['accessories'] is List
+                      ? m['accessories'] as List
+                      : const [];
                   return OrderDraftMeasurement(
                     roomName: m['room_name']?.toString(),
-                    cornice: m['cornice'] != null
-                        ? num.tryParse(m['cornice'].toString())?.toDouble()
-                        : null,
-                    height: m['height'] != null
-                        ? num.tryParse(m['height'].toString())?.toDouble()
-                        : null,
+                    cornice: _optionalDecimal(m['cornice'] ?? m['cornice_length_m']),
+                    height: _optionalDecimal(m['height'] ?? m['height_m']),
+                    coefficient: _optionalDecimal(m['coefficient'] ?? m['coef']),
+                    parts: parts,
+                    accessories: rawAccessories.whereType<Map<String, dynamic>>().map((item) {
+                      return OrderDraftAccessory(
+                        variantId: item['variant_id']?.toString() ?? '',
+                        qty: _parseDecimal(item['qty']),
+                      );
+                    }).toList(),
                   );
-                }).toList() ??
-                [];
+                }).toList();
             return RichBlock.orderDraft(
               draft: OrderDraft(
                 customerName: data['customer_name']?.toString(),
                 phone: data['phone']?.toString(),
                 address: data['address']?.toString(),
                 measurements: ms,
-                total: num.tryParse(data['total']?.toString() ?? '0')?.toInt() ?? 0,
+                total:
+                    num.tryParse((data['total'] ?? quote['total'])?.toString() ?? '0')?.toInt() ??
+                    0,
                 prepayment: data['prepayment'] != null
                     ? num.tryParse(data['prepayment'].toString())?.toInt()
                     : null,
@@ -189,6 +213,19 @@ class ChatMapper {
                     : null,
                 missingFields:
                     (data['missing_fields'] as List?)?.map((e) => e.toString()).toList() ?? [],
+                services:
+                    ((data['services'] ?? quote['services']) as List?)
+                        ?.map((e) => e is Map ? e['key']?.toString() ?? '' : e.toString())
+                        .where((e) => e.isNotEmpty)
+                        .toList() ??
+                    [],
+                delivery: data['delivery'] == true || quote['delivery'] == true,
+                discountPercent: _optionalDecimal(
+                  data['discount_percent'] ?? quote['discount_percent'],
+                ),
+                prepaymentPercent: _optionalDecimal(
+                  data['prepayment_percent'] ?? quote['prepayment_percent'],
+                ),
               ),
             );
           }
@@ -431,14 +468,16 @@ class ChatMapper {
         fabrics.add(
           QuoteFabric(
             role: rawLine['role']?.toString() ?? '',
-            variantId: '',
+            variantId: rawLine['variant_id']?.toString() ?? '',
             colorName: rawLine['name']?.toString() ?? '',
             colorHex: '',
-            widthM: 0,
-            heightM: 0,
+            widthM: _parseDecimal(rawLine['width_m']),
+            heightM: _parseDecimal(rawLine['height_m']),
             coef: _parseDecimal(rawLine['coef']),
             areaSqm: _parseDecimal(rawLine['area_m2']),
-            pricePerSqm: 0,
+            pricePerSqm: rawLine['price_unit']?.toString() == 'per_sqm'
+                ? _parseMoney(rawLine['unit_price'])
+                : 0,
             total: _parseMoney(rawLine['line_total']),
           ),
         );
@@ -473,5 +512,10 @@ class ChatMapper {
 
   static double _parseDecimal(Object? value) {
     return num.tryParse(value?.toString() ?? '0')?.toDouble() ?? 0;
+  }
+
+  static double? _optionalDecimal(Object? value) {
+    if (value == null || value.toString().isEmpty) return null;
+    return num.tryParse(value.toString())?.toDouble();
   }
 }

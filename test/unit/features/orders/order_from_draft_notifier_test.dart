@@ -20,7 +20,7 @@ OrderDraft _draft() => OrderDraft(
     OrderDraftMeasurement(roomName: null, cornice: null, height: null),
   ],
   total: 2140000,
-  prepayment: 1000000,
+  prepaymentPercent: 50,
   deadline: DateTime(2026, 9, 30),
   missingFields: const [],
 );
@@ -34,7 +34,7 @@ void main() {
       expect(body['customer_phone'], '+998901234567');
       expect(body.containsKey('address'), isFalse);
       expect(body['conversation_id'], 'conv-1');
-      expect(body['prepayment'], '1000000');
+      expect(body['prepayment_percent'], '50.0');
       expect(body['deadline_date'], '2026-09-30');
     });
 

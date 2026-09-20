@@ -56,4 +56,10 @@ class FakeProfileRepository implements ProfileRepository {
     if (failure != null) throw failure;
     return todayCost ?? 0;
   }
+
+  @override
+  Future<void> changePassword({
+    required String password,
+    required String passwordConfirmation,
+  }) async {}
 }

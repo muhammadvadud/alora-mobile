@@ -1327,6 +1327,30 @@ abstract class AppLocalizations {
   /// **'Muhit'**
   String get profile_aboutEnv;
 
+  /// No description provided for @profile_changePassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parolni o\'zgartirish'**
+  String get profile_changePassword;
+
+  /// No description provided for @profile_newPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi parol'**
+  String get profile_newPassword;
+
+  /// No description provided for @profile_confirmPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi parolni takrorlang'**
+  String get profile_confirmPassword;
+
+  /// No description provided for @profile_passwordChanged.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parol o\'zgartirildi'**
+  String get profile_passwordChanged;
+
   /// No description provided for @profile_themeSystem.
   ///
   /// In uz, this message translates to:

@@ -29,8 +29,8 @@ class AloraShell extends ConsumerWidget {
         .watch(draftOrdersCountProvider)
         .maybeWhen(data: (count) => count, orElse: () => 0);
 
-    final isEmployee = auth.maybeWhen(
-      authenticated: (u) => u.role == Role.employee,
+    final hasManagementAccess = auth.maybeWhen(
+      authenticated: (u) => u.role != Role.employee,
       orElse: () => false,
     );
 
@@ -47,7 +47,7 @@ class AloraShell extends ConsumerWidget {
     ];
     branchIndices.addAll([0, 1, 2]);
 
-    if (!isEmployee) {
+    if (hasManagementAccess) {
       branchIndices.add(3);
       tabItems.add(
         AppTabBarItem(

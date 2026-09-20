@@ -9,6 +9,7 @@ class ApiPaths {
   static const String refresh = 'auth/refresh/';
   static const String logout = 'auth/logout/';
   static const String me = 'auth/me/';
+  static const String mePassword = 'auth/me/password/';
 
   // Suhbat
   static const String conversations = 'conversations/';

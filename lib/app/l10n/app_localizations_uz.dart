@@ -650,6 +650,18 @@ class AppLocalizationsUz extends AppLocalizations {
   String get profile_aboutEnv => 'Muhit';
 
   @override
+  String get profile_changePassword => 'Parolni o\'zgartirish';
+
+  @override
+  String get profile_newPassword => 'Yangi parol';
+
+  @override
+  String get profile_confirmPassword => 'Yangi parolni takrorlang';
+
+  @override
+  String get profile_passwordChanged => 'Parol o\'zgartirildi';
+
+  @override
   String get profile_themeSystem => 'Tizim';
 
   @override
@@ -2054,6 +2066,18 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get profile_aboutEnv => 'Муҳит';
+
+  @override
+  String get profile_changePassword => 'Паролни ўзгартириш';
+
+  @override
+  String get profile_newPassword => 'Янги парол';
+
+  @override
+  String get profile_confirmPassword => 'Янги паролни такрорланг';
+
+  @override
+  String get profile_passwordChanged => 'Парол ўзгартирилди';
 
   @override
   String get profile_themeSystem => 'Тизим';

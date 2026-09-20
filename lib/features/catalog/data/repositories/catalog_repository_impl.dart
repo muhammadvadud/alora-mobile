@@ -58,7 +58,9 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
     if (cursor == null) {
       final cached = await _local.getCachedProducts(filterKey);
-      if (cached != null) return cached;
+      // Bo'sh kesh server vaqtincha xato bergan paytda saqlanib qolishi mumkin.
+      // Bunday keshni qaytarmaymiz, aks holda retry serverga so'rov yubormaydi.
+      if (cached != null && cached.results.isNotEmpty) return cached;
     }
 
     final products = await _fetchFromRemote(

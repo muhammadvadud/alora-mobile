@@ -19,6 +19,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<int> getTodayCost(String userId) async {
     return _remoteDataSource.todayCost(userId);
   }
+
+  @override
+  Future<void> changePassword({required String password, required String passwordConfirmation}) {
+    return _remoteDataSource.changePassword(
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+    );
+  }
 }
 
 extension ProfileLimitDtoMapper on ProfileLimitDto {

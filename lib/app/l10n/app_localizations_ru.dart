@@ -650,6 +650,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profile_aboutEnv => 'Среда';
 
   @override
+  String get profile_changePassword => 'Изменить пароль';
+
+  @override
+  String get profile_newPassword => 'Новый пароль';
+
+  @override
+  String get profile_confirmPassword => 'Повторите новый пароль';
+
+  @override
+  String get profile_passwordChanged => 'Пароль изменён';
+
+  @override
   String get profile_themeSystem => 'Системная';
 
   @override

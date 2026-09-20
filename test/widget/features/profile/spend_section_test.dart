@@ -29,6 +29,12 @@ class _PendingProfileRepository implements ProfileRepository {
 
   @override
   Future<int> getTodayCost(String userId) => costCompleter.future;
+
+  @override
+  Future<void> changePassword({
+    required String password,
+    required String passwordConfirmation,
+  }) async {}
 }
 
 Future<void> _pumpSpend(

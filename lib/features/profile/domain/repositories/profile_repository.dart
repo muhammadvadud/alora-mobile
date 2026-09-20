@@ -8,4 +8,7 @@ abstract class ProfileRepository {
   /// Joriy foydalanuvchining bugungi sarfi (so'mda). Faqat manager/admin
   /// uchun mavjud; boshqa rollarda [getTodayCost] chaqirilmasligi kerak.
   Future<int> getTodayCost(String userId);
+
+  /// Joriy foydalanuvchining o'z parolini almashtirish.
+  Future<void> changePassword({required String password, required String passwordConfirmation});
 }

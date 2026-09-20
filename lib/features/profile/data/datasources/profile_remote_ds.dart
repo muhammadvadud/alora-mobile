@@ -25,6 +25,21 @@ class ProfileRemoteDataSource {
     }
   }
 
+  /// POST /auth/me/password/ — joriy foydalanuvchining o'z parolini almashtirish.
+  Future<void> changePassword({
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    try {
+      await _dio.post<Map<String, dynamic>>(
+        ApiPaths.mePassword,
+        data: {'password': password, 'password_confirmation': passwordConfirmation},
+      );
+    } on DioException catch (error) {
+      throw _mapError(error);
+    }
+  }
+
   /// GET `/usage/summary/?period=day&user=<id>` — joriy (manager/admin uchun)
   /// foydalanuvchining bugungi sarfini so'mda qaytaradi.
   Future<int> todayCost(String userId) async {

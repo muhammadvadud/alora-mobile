@@ -31,7 +31,11 @@ class TranscriptScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.management_transcriptTitle)),
       body: TabletCentered(
         child: transcript.maybeWhen(
-          loading: () => const SkeletonList(itemCount: 6, itemBuilder: SkeletonBox(height: 84)),
+          loading: () => const SkeletonList(
+            itemCount: 6,
+            itemBuilder: SkeletonBox(height: 84),
+            separator: SizedBox(height: AppSpacing.m),
+          ),
           error: (error, _) => ErrorState(
             message: (error as Failure).localizedMessage(context),
             onRetry: () => ref.invalidate(transcriptProvider(conversationId)),

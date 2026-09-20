@@ -46,6 +46,7 @@ class PricingRulesScreen extends ConsumerWidget {
                   height: 60,
                   borderRadius: AppRadius.card,
                 ),
+                separator: SizedBox(height: AppSpacing.s),
               ),
             )
           : state.error != null

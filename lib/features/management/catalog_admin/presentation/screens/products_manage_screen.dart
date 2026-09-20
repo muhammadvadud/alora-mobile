@@ -229,6 +229,7 @@ class _ProductList extends StatelessWidget {
               height: 120,
               borderRadius: AppRadius.card,
             ),
+            separator: SizedBox(height: AppSpacing.m),
           ),
         );
       }

@@ -63,16 +63,34 @@ class SkeletonList extends StatelessWidget {
   final int itemCount;
   final Widget itemBuilder;
   final EdgeInsetsGeometry? padding;
+  final Widget? separator;
 
-  const SkeletonList({super.key, this.itemCount = 3, required this.itemBuilder, this.padding});
+  const SkeletonList({
+    super.key,
+    this.itemCount = 3,
+    required this.itemBuilder,
+    this.padding,
+    this.separator,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    if (separator == null) {
+      return ListView.builder(
+        padding: padding,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: itemCount,
+        itemBuilder: (context, index) => itemBuilder,
+      );
+    }
+
+    return ListView.separated(
       padding: padding,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: itemCount,
+      separatorBuilder: (context, index) => separator!,
       itemBuilder: (context, index) => itemBuilder,
     );
   }

@@ -52,8 +52,11 @@ class EmployeesScreen extends ConsumerWidget {
             ),
             Expanded(
               child: state.maybeWhen(
-                loading: (_) =>
-                    const SkeletonList(itemCount: 5, itemBuilder: SkeletonBox(height: 84)),
+                loading: (_) => const SkeletonList(
+                  itemCount: 5,
+                  itemBuilder: SkeletonBox(height: 84),
+                  separator: SizedBox(height: AppSpacing.s),
+                ),
                 error: (failure, _) => ErrorState(
                   message: failure.localizedMessage(context),
                   onRetry: () => ref.read(employeesProvider.notifier).retry(),

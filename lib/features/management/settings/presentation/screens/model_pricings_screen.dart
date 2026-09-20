@@ -61,6 +61,7 @@ class ModelPricingsScreen extends ConsumerWidget {
                 height: 150,
                 borderRadius: AppRadius.card,
               ),
+              separator: SizedBox(height: AppSpacing.m),
             ),
           ),
           error: (e, st) => ErrorState(onRetry: () => ref.invalidate(modelPricingsProvider)),

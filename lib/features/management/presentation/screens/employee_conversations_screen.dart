@@ -33,7 +33,11 @@ class EmployeeConversationsScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.management_employeeConversationsTitle)),
       body: TabletCentered(
         child: conversations.maybeWhen(
-          loading: () => const SkeletonList(itemCount: 5, itemBuilder: SkeletonBox(height: 84)),
+          loading: () => const SkeletonList(
+            itemCount: 5,
+            itemBuilder: SkeletonBox(height: 84),
+            separator: SizedBox(height: AppSpacing.s),
+          ),
           error: (error, _) => ErrorState(
             message: (error as Failure).localizedMessage(context),
             onRetry: () => ref.invalidate(employeeConversationsProvider(employeeId)),

@@ -141,6 +141,7 @@ class _SystemPromptScreenState extends ConsumerState<SystemPromptScreen> {
                 height: 100,
                 borderRadius: AppRadius.card,
               ),
+              separator: SizedBox(height: AppSpacing.m),
             ),
           ),
           error: (e, st) => ErrorState(onRetry: () => ref.invalidate(promptHistoryProvider)),

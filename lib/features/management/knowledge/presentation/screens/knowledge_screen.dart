@@ -66,6 +66,7 @@ class _KnowledgeBody extends ConsumerWidget {
             height: 120,
             borderRadius: AppRadius.card,
           ),
+          separator: SizedBox(height: AppSpacing.m),
         ),
       );
     }

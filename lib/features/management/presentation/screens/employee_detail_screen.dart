@@ -120,7 +120,12 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
         ],
       ),
       body: state.maybeWhen(
-        loading: () => const SkeletonList(itemCount: 4, itemBuilder: SkeletonBox(height: 84)),
+        loading: () => const SkeletonList(
+          itemCount: 4,
+          itemBuilder: SkeletonBox(height: 84),
+          separator: SizedBox(height: AppSpacing.m),
+          padding: EdgeInsets.all(AppSpacing.screenH),
+        ),
         error: (failure) => ErrorState(
           message: failure.localizedMessage(context),
           onRetry: () => ref.read(employeeDetailProvider(widget.employeeId).notifier).load(),

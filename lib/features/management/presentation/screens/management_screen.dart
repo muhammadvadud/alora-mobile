@@ -40,8 +40,7 @@ class ManagementScreen extends ConsumerWidget {
               const ManagementPeriodToggle(),
               const SizedBox(height: AppSpacing.xl),
               home.maybeWhen(
-                loading: () =>
-                    const SkeletonList(itemCount: 4, itemBuilder: SkeletonBox(height: 84)),
+                loading: () => const _ManagementHomeSkeleton(),
                 error: (error, _) => ErrorState(
                   message: (error as Failure).localizedMessage(context),
                   onRetry: () => ref.invalidate(managementHomeProvider),
@@ -66,6 +65,44 @@ class ManagementScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ManagementHomeSkeleton extends StatelessWidget {
+  const _ManagementHomeSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SkeletonBox(width: 132, height: 20),
+        SizedBox(height: AppSpacing.m),
+        Row(
+          children: [
+            Expanded(child: SkeletonBox(height: 96)),
+            SizedBox(width: AppSpacing.m),
+            Expanded(child: SkeletonBox(height: 96)),
+          ],
+        ),
+        SizedBox(height: AppSpacing.m),
+        Row(
+          children: [
+            Expanded(child: SkeletonBox(height: 96)),
+            SizedBox(width: AppSpacing.m),
+            Expanded(child: SkeletonBox(height: 96)),
+          ],
+        ),
+        SizedBox(height: AppSpacing.xl),
+        SkeletonBox(width: 160, height: 20),
+        SizedBox(height: AppSpacing.m),
+        SkeletonBox(width: double.infinity, height: 220),
+        SizedBox(height: AppSpacing.xl),
+        SkeletonBox(width: 150, height: 20),
+        SizedBox(height: AppSpacing.m),
+        SkeletonBox(width: double.infinity, height: 180),
+      ],
     );
   }
 }

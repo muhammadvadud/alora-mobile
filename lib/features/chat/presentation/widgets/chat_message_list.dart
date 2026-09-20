@@ -7,12 +7,14 @@ import 'package:alora_mobile/features/chat/domain/entities/message.dart';
 import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
 import 'package:alora_mobile/features/chat/domain/entities/pricing_option.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_message_row.dart';
+import 'package:alora_mobile/features/orders/presentation/models/order_form_route_args.dart';
 
 /// Xabarlar ro'yxati (teskari, har xabar RepaintBoundary ichida — §13).
 class ChatMessageList extends StatelessWidget {
   final List<Message> messages;
   final ScrollController scrollController;
   final bool isCustomerMode;
+  final String? conversationId;
   final void Function(OrderDraft draft) onCreateOrder;
   final VoidCallback? onAddPart;
   final VoidCallback? onShowOptions;
@@ -23,6 +25,7 @@ class ChatMessageList extends StatelessWidget {
     required this.messages,
     required this.scrollController,
     required this.isCustomerMode,
+    required this.conversationId,
     required this.onCreateOrder,
     this.onAddPart,
     this.onShowOptions,
@@ -41,7 +44,10 @@ class ChatMessageList extends StatelessWidget {
           child: ChatMessageRow(
             message: messages[index],
             isCustomerMode: isCustomerMode,
-            onEditOrder: (draft) => context.push(AppRoutes.orderNew, extra: draft),
+            onEditOrder: (draft) => context.push(
+              AppRoutes.orderNew,
+              extra: OrderFormRouteArgs(draft: draft, conversationId: conversationId),
+            ),
             onCreateOrder: onCreateOrder,
             onAddPart: onAddPart,
             onShowOptions: onShowOptions,

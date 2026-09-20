@@ -341,6 +341,7 @@ class _ChatBody extends ConsumerWidget {
         messages: chatState.messages,
         scrollController: scrollController,
         isCustomerMode: isCustomerMode,
+        conversationId: conversationId,
         onCreateOrder: onCreateOrder,
         onAddPart: onAddPart,
         onShowOptions: onShowOptions,

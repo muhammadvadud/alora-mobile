@@ -9,15 +9,17 @@ import 'package:alora_mobile/shared/widgets/app_button.dart';
 import 'package:alora_mobile/shared/widgets/app_text_field.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
 import 'package:alora_mobile/features/orders/application/providers.dart';
+import 'package:alora_mobile/features/orders/application/order_from_draft_notifier.dart';
 import 'package:go_router/go_router.dart';
 import 'package:alora_mobile/shared/widgets/app_card.dart';
 import 'package:alora_mobile/shared/widgets/section_label.dart';
 
 class OrderFormScreen extends ConsumerStatefulWidget {
   /// [initialDraft] — chatdagi qoralamadan (S-07 "Tahrirlash") oldindan to'ldirish.
-  const OrderFormScreen({super.key, this.initialDraft});
+  const OrderFormScreen({super.key, this.initialDraft, this.conversationId});
 
   final OrderDraft? initialDraft;
+  final String? conversationId;
 
   @override
   ConsumerState<OrderFormScreen> createState() => _OrderFormScreenState();
@@ -72,13 +74,20 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
     try {
       final repo = ref.read(ordersRepositoryProvider);
 
-      final body = <String, dynamic>{
+      final draft = widget.initialDraft;
+      final body = draft == null
+          ? <String, dynamic>{}
+          : draftToBody(draft, conversationId: widget.conversationId);
+
+      body.addAll({
         'customer_name': _nameController.text.trim(),
         'customer_phone': _phoneController.text.trim(),
-      };
+      });
 
       if (_addressController.text.isNotEmpty) {
         body['address'] = _addressController.text.trim();
+      } else if (draft != null) {
+        body['address'] = '';
       }
       if (_noteController.text.isNotEmpty) {
         body['note'] = _noteController.text.trim();

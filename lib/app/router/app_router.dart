@@ -25,6 +25,7 @@ import 'package:alora_mobile/features/management/pricing/presentation/screens/pr
 import 'package:alora_mobile/features/management/knowledge/presentation/screens/knowledge_screen.dart';
 import 'package:alora_mobile/features/orders/presentation/screens/orders_screen.dart';
 import 'package:alora_mobile/features/orders/presentation/screens/order_form_screen.dart';
+import 'package:alora_mobile/features/orders/presentation/models/order_form_route_args.dart';
 import 'package:alora_mobile/features/profile/presentation/screens/profile_screen.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 import 'package:alora_mobile/features/management/settings/presentation/screens/system_prompt_screen.dart';
@@ -167,7 +168,14 @@ List<RouteBase> _routes() {
                 GoRoute(
                   path: 'new',
                   builder: (_, state) => OrderFormScreen(
-                    initialDraft: state.extra is OrderDraft ? state.extra as OrderDraft : null,
+                    initialDraft: state.extra is OrderFormRouteArgs
+                        ? (state.extra! as OrderFormRouteArgs).draft
+                        : state.extra is OrderDraft
+                        ? state.extra as OrderDraft
+                        : null,
+                    conversationId: state.extra is OrderFormRouteArgs
+                        ? (state.extra! as OrderFormRouteArgs).conversationId
+                        : null,
                   ),
                 ),
                 GoRoute(

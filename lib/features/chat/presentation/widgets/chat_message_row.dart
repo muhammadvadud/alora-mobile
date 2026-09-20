@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/chat/domain/entities/message.dart';
 import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
+import 'package:alora_mobile/features/chat/domain/entities/pricing_option.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/message_bubble.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/options_card.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/order_draft_card.dart';
@@ -24,6 +25,7 @@ class ChatMessageRow extends StatelessWidget {
     required this.onCreateOrder,
     this.onAddPart,
     this.onShowOptions,
+    this.onSelectOption,
   });
 
   final Message message;
@@ -32,6 +34,7 @@ class ChatMessageRow extends StatelessWidget {
   final void Function(OrderDraft draft) onCreateOrder;
   final VoidCallback? onAddPart;
   final VoidCallback? onShowOptions;
+  final ValueChanged<PricingOption>? onSelectOption;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +106,10 @@ class ChatMessageRow extends StatelessWidget {
                   onAddPart: isCustomerMode ? null : onAddPart,
                   onShowOptions: isCustomerMode ? null : onShowOptions,
                 ),
-                options: (options) => OptionsCardView(optionsBlock: options),
+                options: (options) => OptionsCardView(
+                  optionsBlock: options,
+                  onSelect: isCustomerMode ? null : onSelectOption,
+                ),
                 orderDraft: (draft) => OrderDraftCardView(
                   draft: draft,
                   onEdit: () => onEditOrder(draft),

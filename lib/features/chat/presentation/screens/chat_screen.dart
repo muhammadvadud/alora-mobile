@@ -32,6 +32,7 @@ import 'package:alora_mobile/features/conversations/application/conversations_st
 import 'package:alora_mobile/features/conversations/domain/entities/conversation.dart';
 import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
+import 'package:alora_mobile/features/chat/domain/entities/pricing_option.dart';
 import 'package:alora_mobile/features/orders/application/order_from_draft_notifier.dart';
 import 'package:alora_mobile/features/orders/application/order_pdf_notifier.dart';
 import 'package:alora_mobile/shared/widgets/app_snackbar.dart';
@@ -151,6 +152,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 onFirstMessage: widget.conversationId == null ? _startConversation : null,
                 onAddPart: () => _sendQuoteAction('Bo\'lak qo\'shish'),
                 onShowOptions: () => _sendQuoteAction('Variantlarni ko\'rsat'),
+                onSelectOption: (option) =>
+                    _sendQuoteAction('Men ${option.title} variantni tanlayman.'),
                 isCreatingConversation: _isCreatingConversation,
               ),
       ),
@@ -284,6 +287,7 @@ class _ChatBody extends ConsumerWidget {
   final ValueChanged<String>? onFirstMessage;
   final VoidCallback? onAddPart;
   final VoidCallback? onShowOptions;
+  final ValueChanged<PricingOption>? onSelectOption;
   final bool isCreatingConversation;
 
   const _ChatBody({
@@ -299,6 +303,7 @@ class _ChatBody extends ConsumerWidget {
     this.onFirstMessage,
     this.onAddPart,
     this.onShowOptions,
+    this.onSelectOption,
     this.isCreatingConversation = false,
   });
 
@@ -329,6 +334,7 @@ class _ChatBody extends ConsumerWidget {
         onCreateOrder: onCreateOrder,
         onAddPart: onAddPart,
         onShowOptions: onShowOptions,
+        onSelectOption: onSelectOption,
       );
     } else if (chatState.isLoadingHistory) {
       messageContent = const ChatHistorySkeleton();

@@ -5,6 +5,7 @@ import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 import 'package:alora_mobile/features/chat/domain/entities/message.dart';
 import 'package:alora_mobile/features/chat/domain/entities/order_draft.dart';
+import 'package:alora_mobile/features/chat/domain/entities/pricing_option.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_message_row.dart';
 
 /// Xabarlar ro'yxati (teskari, har xabar RepaintBoundary ichida — §13).
@@ -15,6 +16,7 @@ class ChatMessageList extends StatelessWidget {
   final void Function(OrderDraft draft) onCreateOrder;
   final VoidCallback? onAddPart;
   final VoidCallback? onShowOptions;
+  final ValueChanged<PricingOption>? onSelectOption;
 
   const ChatMessageList({
     super.key,
@@ -24,6 +26,7 @@ class ChatMessageList extends StatelessWidget {
     required this.onCreateOrder,
     this.onAddPart,
     this.onShowOptions,
+    this.onSelectOption,
   });
 
   @override
@@ -42,6 +45,7 @@ class ChatMessageList extends StatelessWidget {
             onCreateOrder: onCreateOrder,
             onAddPart: onAddPart,
             onShowOptions: onShowOptions,
+            onSelectOption: onSelectOption,
           ),
         );
       },

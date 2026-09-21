@@ -2,6 +2,13 @@
 
 Loyihadagi barcha muhim o'zgarishlar shu faylda yoziladi (o'zbekcha, Conventional Commits bo'yicha).
 
+## 1.0.2+3 (2026-09-21)
+
+- **fix(chat)**: qayta ochganda tarix tartibi va yo'qolgan xabarlar — server tartibi saqlanadi, id bo'yicha dedupe, kesh birlashuvi, `page_size=100` + scroll'da eski xabarlar
+- **fix(chat)**: qoralama kartasida qizil "to'ldirish kerak" ro'yxati olib tashlandi; maydon to'lmagan bo'lsa "Buyurtma yaratish" formani ochadi
+- **feat(orders)**: buyurtma tafsiloti to'liq — bo'laklar (mato, SKU, o'lcham, maydon, narx), aksessuarlar, xizmatlar, chegirma/yetkazish/avans/qoldiq
+- **feat(profile)**: versiya pubspec'dan avtomatik ko'rsatiladi (debug build'da ham)
+
 ## 1.0.1+2 (2026-09-21)
 
 - **fix(chat,orders)**: chat qoralamasidan buyurtma yaratish — Go agent `missing` kaliti o'qiladi, yetkazib berish `delivery` flagga aylanadi, `room_name` bo'lmasa "Xona N", o'lchovsiz qoralamada tugmalar o'chadi (bo'sh buyurtma yaratilmaydi)

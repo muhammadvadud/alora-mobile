@@ -2,6 +2,13 @@
 
 Loyihadagi barcha muhim o'zgarishlar shu faylda yoziladi (o'zbekcha, Conventional Commits bo'yicha).
 
+## 1.0.3+4 (2026-09-21)
+
+- **fix(auth)**: logout/akkaunt almashganda eski foydalanuvchi suhbatlari va keshi tozalanadi
+- **fix(orders)**: muddat o'rniga yaratilgan sana; buyurtma tafsiloti to'liq
+- **fix(management,profile)**: sarf/limit ekranlari yangilanadi, 0 = cheklov yo'q, pull-to-refresh
+- **fix(core)**: oflayn navbat Hive adapteri ilovada ro'yxatdan o'tkazildi (crash)
+
 ## 1.0.2+3 (2026-09-21)
 
 - **fix(chat)**: qayta ochganda tarix tartibi va yo'qolgan xabarlar — server tartibi saqlanadi, id bo'yicha dedupe, kesh birlashuvi, `page_size=100` + scroll'da eski xabarlar

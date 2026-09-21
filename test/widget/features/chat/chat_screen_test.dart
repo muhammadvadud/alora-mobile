@@ -308,10 +308,13 @@ void main() {
       expect(find.text('Telefon raqam'), findsOneWidget);
       expect(find.text('Manzil'), findsOneWidget);
 
+      // Qizil "to'ldirish kerak" ro'yxati chiqmaydi — kartadagi "—" yetarli;
+      // maydonlar to'lmagan bo'lsa tugma formani ochadi (bloklanmaydi).
+      expect(find.text("To'ldirish kerak bo'lgan maydonlar"), findsNothing);
       final createButton = find.widgetWithText(AppButton, 'Buyurtma yaratish');
       expect(createButton, findsOneWidget);
       final button = tester.widget<AppButton>(createButton);
-      expect(button.onPressed, isNull);
+      expect(button.onPressed, isNotNull);
     });
 
     testWidgets("to'liq qoralamada 'Buyurtma yaratish' → POST orders/ (7.12)", (tester) async {

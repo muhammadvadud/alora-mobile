@@ -14,15 +14,18 @@ part of 'chat_notifier.dart';
 @ProviderFor(ChatNotifier)
 final chatProvider = ChatNotifierFamily._();
 
-final class ChatNotifierProvider extends $NotifierProvider<ChatNotifier, ChatState> {
-  ChatNotifierProvider._({required ChatNotifierFamily super.from, required String super.argument})
-    : super(
-        retry: null,
-        name: r'chatProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+final class ChatNotifierProvider
+    extends $NotifierProvider<ChatNotifier, ChatState> {
+  ChatNotifierProvider._({
+    required ChatNotifierFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'chatProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$chatNotifierHash();
@@ -40,7 +43,10 @@ final class ChatNotifierProvider extends $NotifierProvider<ChatNotifier, ChatSta
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(ChatState value) {
-    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<ChatState>(value));
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ChatState>(value),
+    );
   }
 
   @override
@@ -54,10 +60,17 @@ final class ChatNotifierProvider extends $NotifierProvider<ChatNotifier, ChatSta
   }
 }
 
-String _$chatNotifierHash() => r'42e2561bf6ce875792462461da7d80bb63ac4a22';
+String _$chatNotifierHash() => r'd7adb536d7a4dd13a0f2194715d034aeb189fe54';
 
 final class ChatNotifierFamily extends $Family
-    with $ClassFamilyOverride<ChatNotifier, ChatState, ChatState, ChatState, String> {
+    with
+        $ClassFamilyOverride<
+          ChatNotifier,
+          ChatState,
+          ChatState,
+          ChatState,
+          String
+        > {
   ChatNotifierFamily._()
     : super(
         retry: null,

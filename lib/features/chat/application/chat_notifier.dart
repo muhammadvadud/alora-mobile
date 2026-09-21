@@ -62,33 +62,115 @@ class ChatNotifier extends _$ChatNotifier {
     return Failure.unknown(detail);
   }
 
+  /// Tarixni yuklaydi: avval Hive keshini darhol ko'rsatadi (§11 — oflayn yoki
+  /// server natijasi kelguncha), keyin server natijasini kesh/optimistik
+  /// xabarlar bilan birlashtiradi.
+  ///
+  /// Server xabarlari **yangi birinchi** tartibda keladi (backend
+  /// `order_by("-created_at")`). State ham shu tartibda saqlanadi: `messages[0]`
+  /// — eng yangi xabar (`reverse: true` ListView'da pastda, input ustida).
+  /// Bunda `reversed` qilinmaydi — aks holda barcha xabarlar teskari tartibda
+  /// (oxirgisi tepada) ko'rinib qolardi.
   Future<void> _loadMessages() async {
-    try {
-      final repository = ref.read(chatRepositoryProvider);
-      final result = await repository.getMessages(conversationId);
-      // Backend returns ordered, we need to reverse it for ListView.builder reverse: true
-      final loadedMessages = result.results.reversed.toList();
-      final current = _latest;
-      final hasOptimisticMessages = current.messages.any(
-        (message) => message.id.startsWith('temp_'),
-      );
+    final repository = ref.read(chatRepositoryProvider);
 
-      // A new conversation can start sending before the initial history request
-      // finishes. The empty history response must not overwrite the optimistic
-      // user/assistant messages already visible in the UI.
-      if (hasOptimisticMessages) {
-        final existingIds = current.messages.map((message) => message.id).toSet();
-        final mergedMessages = [
-          ...current.messages,
-          ...loadedMessages.where((message) => !existingIds.contains(message.id)),
-        ];
-        _commitNow(current.copyWith(messages: mergedMessages, isLoadingHistory: false));
-      } else {
-        state = current.copyWith(messages: loadedMessages, isLoadingHistory: false);
+    // 1) Kesh bor bo'lsa — darhol ko'rsatamiz (server kutilguncha yoki oflayn).
+    try {
+      final cached = await repository.getCachedMessages(conversationId);
+      if (cached.isNotEmpty) {
+        _commitNow(
+          _latest.copyWith(
+            messages: _mergeMessages(_latest.messages, cached),
+            isLoadingHistory: false,
+          ),
+        );
       }
-    } catch (e) {
-      state = state.copyWith(error: _mapFailure(e), isLoadingHistory: false);
+    } catch (_) {
+      // Kesh o'qilmadi — server natijasini kutamiz.
     }
+
+    // 2) Server — asosiy manba.
+    try {
+      final result = await repository.getMessages(conversationId);
+      _commitNow(
+        _latest.copyWith(
+          messages: _mergeMessages(_latest.messages, result.results),
+          nextCursor: result.next,
+          isLoadingHistory: false,
+          error: null,
+        ),
+      );
+    } catch (e) {
+      _commitNow(_latest.copyWith(error: _mapFailure(e), isLoadingHistory: false));
+    }
+  }
+
+  /// Eski xabarlarni cursor bo'yicha yuklaydi va ro'yxat bilan birlashtiradi
+  /// (§8.4 — cursor pagination, sahifa raqami ishlatilmaydi).
+  Future<void> loadOlderMessages() async {
+    if (state.isLoadingOlder || state.isStreaming) return;
+    final cursor = state.nextCursor;
+    if (cursor == null || cursor.isEmpty) return;
+
+    _commitNow(_latest.copyWith(isLoadingOlder: true));
+    try {
+      final result = await ref
+          .read(chatRepositoryProvider)
+          .getMessages(conversationId, cursor: cursor);
+      _commitNow(
+        _latest.copyWith(
+          messages: _mergeMessages(_latest.messages, result.results),
+          nextCursor: result.next,
+          isLoadingOlder: false,
+        ),
+      );
+    } catch (e) {
+      logger.w('Eski xabarlarni yuklashda xato', error: e);
+      _commitNow(_latest.copyWith(isLoadingOlder: false));
+    }
+  }
+
+  /// Xabarlarni yagona tartibga keltiradi: id bo'yicha dedupe + createdAt
+  /// (teng bo'lsa id) bo'yicha eng yangisi boshida. Kesh+server yoki sahifa-
+  /// sahifa birlashuvida hech bir xabar yo'qolmaydi; ayni id kelganda [incoming]
+  /// (server/kesh nusxasi) ustun turadi.
+  List<Message> _mergeMessages(List<Message> current, List<Message> incoming) {
+    final retained = _reconcileOptimistic(current, incoming);
+    final byId = <String, Message>{};
+    // `incoming` (server/kesh nusxasi) oxirgi yoziladi — ayni id bo'lsa u ustun.
+    for (final message in [...retained, ...incoming]) {
+      byId[message.id] = message;
+    }
+    final merged = byId.values.toList();
+    merged.sort(_newestFirst);
+    return merged;
+  }
+
+  /// Optimistik (`temp_`) xabar serverda aynan shu rol+mazmun bilan saqlangan
+  /// bo'lsa, uni olib tashlaymiz va server nusxasini qoldiramiz. Aks holda
+  /// yuborilgan xabar server tasdiqlagach dublikat bo'lib qolardi.
+  List<Message> _reconcileOptimistic(List<Message> current, List<Message> incoming) {
+    final confirmed = <String>{};
+    for (final message in incoming) {
+      if (_isOptimistic(message)) continue;
+      confirmed.add('${message.role.name}|${message.content}');
+    }
+    return current
+        .where((message) {
+          if (!_isOptimistic(message)) return true;
+          return !confirmed.contains('${message.role.name}|${message.content}');
+        })
+        .toList();
+  }
+
+  bool _isOptimistic(Message message) => message.id.startsWith('temp_');
+
+  /// `reverse: true` ListView uchun eng yangisi birinchi (index 0 — pastda).
+  /// Vaqt teng bo'lsa id bo'yicha teskari — server pagination bilan mos.
+  static int _newestFirst(Message a, Message b) {
+    final byTime = b.createdAt.compareTo(a.createdAt);
+    if (byTime != 0) return byTime;
+    return b.id.compareTo(a.id);
   }
 
   /// Throttle buferidagi eng so'nggi holat (hali `state` ga yozilmagan) yoki `state`.

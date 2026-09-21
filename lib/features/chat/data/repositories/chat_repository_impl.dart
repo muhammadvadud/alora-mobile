@@ -17,7 +17,7 @@ class ChatRepositoryImpl implements ChatRepository {
   @override
   Future<Paginated<Message>> getMessages(String conversationId, {String? cursor}) async {
     try {
-      final paginatedDto = await _remoteDS.getMessages(conversationId, cursor: cursor);
+      final paginatedDto = await _remoteDS.getMessages(conversationId, cursor: _cursorToken(cursor));
 
       // Keshni yangilaymiz (faqat birinchi sahifa bo'lsa)
       if (cursor == null) {
@@ -29,12 +29,28 @@ class ChatRepositoryImpl implements ChatRepository {
     } catch (_) {
       // Oflayn bo'lsa, keshdan qaytaramiz (faqat birinchi sahifa)
       if (cursor == null) {
-        final localDto = await _localDS.getMessages(conversationId);
-        final messages = localDto.map(ChatMapper.fromDto).toList();
+        final messages = await getCachedMessages(conversationId);
         return Paginated(next: null, previous: null, results: messages);
       }
       rethrow;
     }
+  }
+
+  @override
+  Future<List<Message>> getCachedMessages(String conversationId) async {
+    final localDto = await _localDS.getMessages(conversationId);
+    return localDto.map(ChatMapper.fromDto).toList();
+  }
+
+  /// Server `next` URL'dan cursor tokenini ajratib oladi. API `next` ni to'liq
+  /// URL ko'rinishida qaytaradi (`?cursor=...`); faqat token kelgan bo'lsa ham qo'llab-quvvatlaydi.
+  String? _cursorToken(String? next) {
+    if (next == null || next.isEmpty) return null;
+    final uri = Uri.tryParse(next);
+    if (uri != null && uri.queryParameters.containsKey('cursor')) {
+      return uri.queryParameters['cursor'];
+    }
+    return next;
   }
 
   @override

@@ -13,5 +13,8 @@ abstract class ChatState with _$ChatState {
     Failure? error,
     @Default([]) List<String> quickReplies,
     String? stage,
+    /// Keyingi (eski) sahifa kursori; `null` — barcha sahifalar yuklangan.
+    String? nextCursor,
+    @Default(false) bool isLoadingOlder,
   }) = _ChatState;
 }

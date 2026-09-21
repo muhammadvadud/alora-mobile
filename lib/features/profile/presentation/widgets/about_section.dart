@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
@@ -7,9 +8,38 @@ import 'package:alora_mobile/shared/extensions/theme_extensions.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:alora_mobile/shared/widgets/section_label.dart';
 
-/// "Ilova haqida" (20.9): versiya, build raqami, muhit — `Env` dan, inline.
-class AboutSection extends StatelessWidget {
+/// "Ilova haqida" (20.9): versiya, build raqami, muhit.
+/// Versiya/build `PackageInfo` dan (pubspec `version` — har qanday build usulida to'g'ri);
+/// `--dart-define` bo'lsa u ustun, aks holda `Env` default (`0.0.0`) ko'rinmaydi.
+class AboutSection extends StatefulWidget {
   const AboutSection({super.key});
+
+  @override
+  State<AboutSection> createState() => _AboutSectionState();
+}
+
+class _AboutSectionState extends State<AboutSection> {
+  String _version = Env.appVersion;
+  String _build = Env.buildNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    if (Env.appVersion == '0.0.0') _loadPackageInfo();
+  }
+
+  Future<void> _loadPackageInfo() async {
+    try {
+      final info = await PackageInfo.fromPlatform();
+      if (!mounted) return;
+      setState(() {
+        _version = info.version;
+        _build = info.buildNumber;
+      });
+    } catch (_) {
+      // Platform kanali yo'q (test/web) — Env qiymati qoladi.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +56,9 @@ class AboutSection extends StatelessWidget {
             SectionLabel(l10n.profile_aboutTitle),
           ],
         ),
-        _AboutRow(label: l10n.profile_aboutVersion, value: Env.appVersion),
+        _AboutRow(label: l10n.profile_aboutVersion, value: _version),
         const SizedBox(height: AppSpacing.s),
-        _AboutRow(label: l10n.profile_aboutBuild, value: Env.buildNumber),
+        _AboutRow(label: l10n.profile_aboutBuild, value: _build),
         const SizedBox(height: AppSpacing.s),
         _AboutRow(label: l10n.profile_aboutEnv, value: Env.env),
       ],

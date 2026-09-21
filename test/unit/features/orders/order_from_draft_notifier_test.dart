@@ -48,7 +48,8 @@ void main() {
         'cornice_length_m': '3.200',
         'height_m': '2.700',
       });
-      expect(measurements.last, isEmpty);
+      // AI hisobida xona nomi yo'q — backend `room_name` ni talab qiladi, default beriladi
+      expect(measurements.last, {'room_name': 'Xona 2'});
       expect(body.containsKey('total'), isFalse);
     });
   });

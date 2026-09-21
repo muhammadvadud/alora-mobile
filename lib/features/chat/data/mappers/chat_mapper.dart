@@ -208,15 +208,28 @@ class ChatMapper {
                 deadline: data['deadline'] != null
                     ? DateTime.tryParse(data['deadline'].toString())
                     : null,
+                // Go agent `missing` kalitini yuboradi (orderDraftResult.Missing),
+                // eski yozuvlarda `missing_fields` bo'lishi mumkin — ikkalasi ham o'qiladi.
                 missingFields:
-                    (data['missing_fields'] as List?)?.map((e) => e.toString()).toList() ?? [],
+                    ((data['missing'] ?? data['missing_fields']) as List?)
+                        ?.map((e) => e.toString())
+                        .toList() ??
+                    [],
+                // Yetkazib berish quote'da `is_delivery: true` xizmat qatori sifatida keladi —
+                // u `services` ga kirmaydi (Django uni alohida `delivery` flag bilan hisoblaydi).
                 services:
                     ((data['services'] ?? quote['services']) as List?)
-                        ?.map((e) => e is Map ? e['key']?.toString() ?? '' : e.toString())
+                        ?.where((e) => !(e is Map && e['is_delivery'] == true))
+                        .map((e) => e is Map ? e['key']?.toString() ?? '' : e.toString())
                         .where((e) => e.isNotEmpty)
                         .toList() ??
                     [],
-                delivery: data['delivery'] == true || quote['delivery'] == true,
+                delivery:
+                    data['delivery'] == true ||
+                    quote['delivery'] == true ||
+                    ((data['services'] ?? quote['services']) as List?)
+                            ?.any((e) => e is Map && e['is_delivery'] == true) ==
+                        true,
                 discountPercent: _optionalDecimal(
                   data['discount_percent'] ?? quote['discount_percent'],
                 ),

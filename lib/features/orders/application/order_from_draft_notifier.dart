@@ -42,9 +42,10 @@ Map<String, dynamic> draftToBody(OrderDraft draft, {String? conversationId}) {
     if (draft.discountPercent != null) 'discount_percent': draft.discountPercent.toString(),
     if (draft.deadline != null) 'deadline_date': draft.deadline!.toIso8601String().split('T').first,
     'measurements': [
-      for (final m in draft.measurements)
+      for (final (i, m) in draft.measurements.indexed)
         <String, dynamic>{
-          'room_name': ?m.roomName,
+          // Backend `room_name` ni talab qiladi; AI hisobida xona nomi bo'lmaydi.
+          'room_name': m.roomName ?? 'Xona ${i + 1}',
           if (m.cornice != null) 'cornice_length_m': m.cornice!.toStringAsFixed(3),
           if (m.height != null) 'height_m': m.height!.toStringAsFixed(3),
           if (m.coefficient != null) 'coefficient': m.coefficient!.toStringAsFixed(3),

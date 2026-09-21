@@ -22,6 +22,7 @@ class OrderDraftCardView extends StatelessWidget {
         sections: [
           _DraftHeaderSection(),
           _DraftFieldsSection(draft: draft),
+          if (draft.measurements.isEmpty) const _DraftNoMeasurementsSection(),
           if (draft.missingFields.isNotEmpty) _DraftMissingFieldsSection(draft: draft),
           _DraftActionsSection(draft: draft, onEdit: onEdit, onCreate: onCreate),
         ],
@@ -129,6 +130,30 @@ class _DraftMissingFieldsSection extends StatelessWidget {
   }
 }
 
+class _DraftNoMeasurementsSection extends StatelessWidget {
+  const _DraftNoMeasurementsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typography = context.text;
+    final l10n = AppLocalizations.of(context)!;
+
+    return Row(
+      children: [
+        Icon(AppIcons.alertTriangle, size: AppSpacing.l, color: colors.danger),
+        const SizedBox(width: AppSpacing.s),
+        Expanded(
+          child: Text(
+            l10n.chat_draft_noMeasurements,
+            style: typography.labelS.copyWith(color: colors.danger),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _DraftActionsSection extends StatelessWidget {
   final OrderDraft draft;
   final VoidCallback? onEdit;
@@ -139,12 +164,17 @@ class _DraftActionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isComplete = draft.missingFields.isEmpty;
+    // O'lchovsiz qoralama (AI hisobi yo'q) bo'sh buyurtma yaratadi — ruxsat berilmaydi.
+    final hasMeasurements = draft.measurements.isNotEmpty;
+    final isComplete = hasMeasurements && draft.missingFields.isEmpty;
 
     return Row(
       children: [
         Expanded(
-          child: AppButton.secondary(text: l10n.chat_draft_edit, onPressed: onEdit),
+          child: AppButton.secondary(
+            text: l10n.chat_draft_edit,
+            onPressed: hasMeasurements ? onEdit : null,
+          ),
         ),
         const SizedBox(width: AppSpacing.s),
         Expanded(

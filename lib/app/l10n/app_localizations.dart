@@ -2731,6 +2731,12 @@ abstract class AppLocalizations {
   /// **'To\'ldirish kerak bo\'lgan maydonlar'**
   String get chat_draft_missingFields;
 
+  /// No description provided for @chat_draft_noMeasurements.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisob ma\'lumotlari yo\'q — avval narxni hisoblang'**
+  String get chat_draft_noMeasurements;
+
   /// No description provided for @chat_start_livingRoom_sub.
   ///
   /// In uz, this message translates to:

@@ -313,6 +313,49 @@ void main() {
       );
     });
 
+    test('Go agent javobi: missing + quote → o\'lchovlar va xizmatlar to\'ladi', () {
+      // orderDraftResult{Missing, Hint, Quote} — action=draft, mijoz maydonlari yo'q
+      const result = '''
+      {
+        "missing": ["customer_name", "customer_phone", "address"],
+        "hint": "sotuvchi mijoz ma'lumotlarini kiritsin",
+        "quote": {
+          "measurements": [
+            {"length": "4.2", "height": "2.6",
+             "parts": [{"variant_id": "v1", "role": "main", "width_m": "4.2",
+                        "height_m": "2.6", "coef": "2"}],
+             "accessories": [{"variant_id": "a1", "qty": "3"}]}
+          ],
+          "services": [
+            {"key": "sewing", "is_delivery": false},
+            {"key": "delivery", "is_delivery": true}
+          ],
+          "manual_discount_percent": "0",
+          "discount_percent": "5",
+          "total": "1234567.00"
+        }
+      }''';
+
+      final block = ChatMapper.parseToolResult('order_draft', result);
+
+      block.maybeWhen(
+        orderDraft: (OrderDraft draft) {
+          expect(draft.missingFields, ['customer_name', 'customer_phone', 'address']);
+          expect(draft.measurements, hasLength(1));
+          expect(draft.measurements[0].cornice, 4.2);
+          expect(draft.measurements[0].height, 2.6);
+          expect(draft.measurements[0].parts.single.variantId, 'v1');
+          expect(draft.measurements[0].parts.single.coefficient, 2);
+          expect(draft.measurements[0].accessories.single.qty, 3);
+          expect(draft.services, ['sewing']);
+          expect(draft.delivery, isTrue);
+          expect(draft.discountPercent, 5);
+          expect(draft.total, 1234567);
+        },
+        orElse: () => fail('order_draft → OrderDraftBlock bo\'lishi kerak'),
+      );
+    });
+
     test('missing_fields yo\'q — bo\'sh ro\'yxat', () {
       const result = '{"total": "100000"}';
       final block = ChatMapper.parseToolResult('order_draft', result);

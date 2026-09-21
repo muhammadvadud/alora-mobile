@@ -649,6 +649,7 @@
   "chat_draft_phone": "Telefon raqam",
   "chat_draft_address": "Manzil",
   "chat_draft_missingFields": "To'ldirish kerak bo'lgan maydonlar",
+  "chat_draft_noMeasurements": "Hisob ma'lumotlari yo'q — avval narxni hisoblang",
   "chat_start_livingRoom_sub": "Parda va dizayn tanlash",
   "chat_start_bedroom_sub": "Qorong'i va osoyishta",
   "chat_start_couple_sub": "Romantik va shinam",

@@ -1386,6 +1386,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chat_draft_missingFields => 'Поля, которые нужно заполнить';
 
   @override
+  String get chat_draft_noMeasurements => 'Нет данных расчёта — сначала рассчитайте цену';
+
+  @override
   String get chat_start_livingRoom_sub => 'Шторы и дизайн';
 
   @override

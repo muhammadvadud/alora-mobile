@@ -634,6 +634,7 @@
   "chat_draft_phone": "Телефон рақам",
   "chat_draft_address": "Манзил",
   "chat_draft_missingFields": "Тўлдириш керак бўлган майдонлар",
+  "chat_draft_noMeasurements": "Ҳисоб маълумотлари йўқ — аввал нархни ҳисобланг",
   "common_delete": "Ўчириш",
   "management_pricingTierRow": "{minAmount} сўм дан",
   "chat_quote_title": "Ҳисоб",

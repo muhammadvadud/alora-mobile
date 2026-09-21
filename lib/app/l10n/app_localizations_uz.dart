@@ -1386,6 +1386,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get chat_draft_missingFields => 'To\'ldirish kerak bo\'lgan maydonlar';
 
   @override
+  String get chat_draft_noMeasurements => 'Hisob ma\'lumotlari yo\'q — avval narxni hisoblang';
+
+  @override
   String get chat_start_livingRoom_sub => 'Parda va dizayn tanlash';
 
   @override
@@ -2733,6 +2736,9 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get chat_draft_missingFields => 'Тўлдириш керак бўлган майдонлар';
+
+  @override
+  String get chat_draft_noMeasurements => 'Ҳисоб маълумотлари йўқ — аввал нархни ҳисобланг';
 
   @override
   String get chat_start_livingRoom_sub => 'Парда ва дизайн танлаш';

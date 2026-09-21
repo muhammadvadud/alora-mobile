@@ -23,7 +23,6 @@ class OrderDraftCardView extends StatelessWidget {
           _DraftHeaderSection(),
           _DraftFieldsSection(draft: draft),
           if (draft.measurements.isEmpty) const _DraftNoMeasurementsSection(),
-          if (draft.missingFields.isNotEmpty) _DraftMissingFieldsSection(draft: draft),
           _DraftActionsSection(draft: draft, onEdit: onEdit, onCreate: onCreate),
         ],
       ),
@@ -95,41 +94,6 @@ class _DraftFieldsSection extends StatelessWidget {
   }
 }
 
-class _DraftMissingFieldsSection extends StatelessWidget {
-  final OrderDraft draft;
-  const _DraftMissingFieldsSection({required this.draft});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final typography = context.text;
-    final l10n = AppLocalizations.of(context)!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(AppIcons.alertTriangle, size: AppSpacing.l, color: colors.danger),
-            const SizedBox(width: AppSpacing.s),
-            Text(
-              l10n.chat_draft_missingFields,
-              style: typography.labelS.copyWith(color: colors.danger),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppSpacing.xs),
-        ...draft.missingFields.map(
-          (f) => Padding(
-            padding: const EdgeInsets.only(left: AppSpacing.xl, bottom: 2.0),
-            child: Text('• $f', style: typography.bodyS.copyWith(color: colors.danger)),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _DraftNoMeasurementsSection extends StatelessWidget {
   const _DraftNoMeasurementsSection();
 
@@ -165,8 +129,14 @@ class _DraftActionsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     // O'lchovsiz qoralama (AI hisobi yo'q) bo'sh buyurtma yaratadi — ruxsat berilmaydi.
+    // Mijoz maydonlari to'lmagan bo'lsa (kartada "—" ko'rinadi) "Buyurtma yaratish"
+    // formani ochadi — sotuvchi o'sha yerda to'ldiradi; alohida qizil ro'yxat shart emas.
     final hasMeasurements = draft.measurements.isNotEmpty;
-    final isComplete = hasMeasurements && draft.missingFields.isEmpty;
+    final onCreatePressed = !hasMeasurements
+        ? null
+        : draft.missingFields.isEmpty
+        ? onCreate
+        : onEdit;
 
     return Row(
       children: [
@@ -180,7 +150,7 @@ class _DraftActionsSection extends StatelessWidget {
         Expanded(
           child: AppButton(
             text: l10n.chat_draft_createOrder,
-            onPressed: isComplete ? onCreate : null,
+            onPressed: onCreatePressed,
           ),
         ),
       ],

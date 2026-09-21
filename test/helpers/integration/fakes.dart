@@ -280,6 +280,9 @@ class FakeChatRepository implements ChatRepository {
   }
 
   @override
+  Future<List<Message>> getCachedMessages(String conversationId) async => const [];
+
+  @override
   Stream<SseEvent> sendMessage(
     String conversationId,
     String content,

@@ -16,7 +16,9 @@ class ChatRemoteDataSource {
     final path = ApiPaths.conversationMessages(conversationId);
     final response = await _dio.get(
       path,
-      queryParameters: cursor != null ? {'cursor': cursor} : null,
+      // Bitta suhbatda 20+ yozuv (user/tool/assistant) tez yig'iladi — birinchi
+      // sahifada tarix to'liq kelsin (backend max_page_size = 100), qolgani cursor bilan.
+      queryParameters: {'page_size': 100, 'cursor': ?cursor},
     );
     return Paginated<MessageDto>.fromJson(
       response.data as Map<String, dynamic>,

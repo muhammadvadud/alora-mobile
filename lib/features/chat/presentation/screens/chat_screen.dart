@@ -61,6 +61,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       if (show != _showScrollDown) {
         setState(() => _showScrollDown = show);
       }
+      // reverse ListView: maxScrollExtent — eng eski xabar; yaqinlashganda
+      // cursor bo'yicha keyingi sahifa yuklanadi (§8.4).
+      final position = _scrollController.position;
+      final id = widget.conversationId;
+      if (id != null && position.pixels >= position.maxScrollExtent - 300) {
+        ref.read(chatProvider(id).notifier).loadOlderMessages();
+      }
     });
   }
 

@@ -2,6 +2,10 @@
 
 Loyihadagi barcha muhim o'zgarishlar shu faylda yoziladi (o'zbekcha, Conventional Commits bo'yicha).
 
+## 1.0.1+2 (2026-09-21)
+
+- **fix(chat,orders)**: chat qoralamasidan buyurtma yaratish — Go agent `missing` kaliti o'qiladi, yetkazib berish `delivery` flagga aylanadi, `room_name` bo'lmasa "Xona N", o'lchovsiz qoralamada tugmalar o'chadi (bo'sh buyurtma yaratilmaydi)
+
 ## 1.0.0 (2026-09-18)
 
 - **fix(core,security)**: 2026-09-19 audit — `settings` box ochilmay ilova ishga tushmasdi (tuzatildi), Hive keshi AES bilan shifrlandi (schemaVersion 2), logout'da suhbat/xabar keshi tozalanadi, refresh tarmoq xatosida sessiya saqlanadi, SSE 4xx/429 qayta urinilmaydi va xom xato ko'rsatilmaydi, VoiceSocket URI kodlash/dispose/`ready`, PIN qulfi saqlanadi, Android `allowBackup=false`, release'da cleartext yo'q

@@ -42,6 +42,11 @@ class HiveBoxes {
   /// eskilarni tozalaydi.
   static Future<void> init() async {
     await Hive.initFlutter();
+    // Box<OfflineQueueItem> tipli — adapter ro'yxatdan o'tmasa yozishda HiveError.
+    // Testlar buni o'zi qiladi, shuning uchun qayta ro'yxatdan o'tkazmaymiz.
+    if (!Hive.isAdapterRegistered(OfflineQueueItemAdapter().typeId)) {
+      Hive.registerAdapter(OfflineQueueItemAdapter());
+    }
 
     final versionBox = await Hive.openBox<int>('system_version');
     final savedVersion = versionBox.get(_schemaVersionKey, defaultValue: 0);

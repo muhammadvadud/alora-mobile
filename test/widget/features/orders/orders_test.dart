@@ -16,6 +16,7 @@ import '../../../helpers/pump_app.dart';
 import '../../../helpers/mock_orders_repository.dart';
 
 import 'package:alora_mobile/core/utils/paginated.dart';
+import 'package:alora_mobile/core/utils/date_format.dart';
 import 'package:alora_mobile/features/orders/presentation/widgets/order_card.dart';
 import 'package:alora_mobile/features/orders/presentation/widgets/status_change_sheet.dart';
 import 'package:alora_mobile/shared/widgets/empty_state.dart';
@@ -33,7 +34,7 @@ void main() {
     total: 500000,
     paymentStatus: PaymentStatus.unpaid,
     measurements: const [OrderMeasurement(id: 'm1', roomName: 'Mehmonxona', parts: [])],
-    deadlineDate: DateTime.now().add(const Duration(days: 2)),
+    createdAt: DateTime.now(),
   );
 
   setUp(() {
@@ -90,7 +91,7 @@ void main() {
     await tester.pumpAndSettle();
   });
 
-  testWidgets('OrderCard (status chiziq, pill, muddat) va swipe amallari', (
+  testWidgets('OrderCard (status pill, yaratilgan sana) va swipe amallari', (
     WidgetTester tester,
   ) async {
     when(
@@ -105,6 +106,8 @@ void main() {
 
     expect(find.text('ORD-1234'), findsOneWidget);
     expect(find.textContaining('Toshmat'), findsOneWidget);
+    expect(find.text('Yaratilgan'), findsOneWidget);
+    expect(find.text(formatDate(dummyOrder.createdAt!)), findsOneWidget);
 
     // Swipe left to show status change
     await tester.drag(find.byType(OrderCard), const Offset(-500.0, 0.0));

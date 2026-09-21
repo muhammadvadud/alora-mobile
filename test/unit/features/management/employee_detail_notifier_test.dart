@@ -4,22 +4,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/features/management/application/employee_detail_notifier.dart';
 import 'package:alora_mobile/features/management/application/employee_detail_state.dart';
+import 'package:alora_mobile/features/management/application/employees_notifier.dart';
 import 'package:alora_mobile/features/management/application/providers.dart';
 import 'package:alora_mobile/shared/models/role.dart';
 
 import '../../../helpers/fake_team_repository.dart';
+import '../../../helpers/fake_usage_repository.dart';
 
 void main() {
   late ProviderContainer container;
   late FakeTeamRepository teamRepository;
+  late FakeUsageRepository usageRepository;
 
   setUp(() {
     teamRepository = FakeTeamRepository();
+    usageRepository = FakeUsageRepository();
     container = ProviderContainer(
-      overrides: [teamRepositoryProvider.overrideWithValue(teamRepository)],
+      overrides: [
+        teamRepositoryProvider.overrideWithValue(teamRepository),
+        usageRepositoryProvider.overrideWithValue(usageRepository),
+      ],
     );
     addTearDown(container.dispose);
   });
+
+  // AutoDispose provider'ni jonli ushlab turish (build test ichida, natijalar sozlangach).
+  void keepAlive() =>
+      addTearDown(container.listen(employeeDetailProvider('employee-1'), (_, _) {}).close);
 
   EmployeeDetailState state() => container.read(employeeDetailProvider('employee-1'));
 
@@ -34,7 +45,7 @@ void main() {
       isActive: false,
     );
 
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
 
     expect(teamRepository.employeeIds, ['employee-1']);
@@ -46,7 +57,7 @@ void main() {
 
   test('xatolik error holatga olib keladi va load() qayta yuklaydi', () async {
     teamRepository.employeeFailure = const Failure.server();
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
 
     expect(state().maybeWhen(error: (_) => true, orElse: () => false), isTrue);
@@ -65,7 +76,7 @@ void main() {
       isUnlimited: false,
       maxCostUzs: '500000.00',
     );
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
 
     await notifier().setLimit(body: {'is_unlimited': false, 'period': 'daily'});
@@ -80,7 +91,7 @@ void main() {
 
   test('setLimit loaded bo\'lmagan holatda state ni o\'zgartirmaydi', () async {
     teamRepository.employeeFailure = const Failure.network();
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
 
     await notifier().setLimit(body: {'is_unlimited': true});
@@ -89,13 +100,32 @@ void main() {
     expect(notifier().limit, isNull);
   });
 
+  test('setLimit employeesProvider ni invalidate qiladi (ro\'yxat qayta yuklanadi)', () async {
+    teamRepository.employeeResult = testEmployee(id: 'employee-1');
+    teamRepository.employeesResult = [testEmployee(id: 'employee-1', todayCost: 50000)];
+    teamRepository.setLimitResult = testUsageLimit(id: 'limit-1');
+    keepAlive();
+    await pumpEventQueue();
+
+    final sub = container.listen(employeesProvider, (_, _) {}, fireImmediately: true);
+    await pumpEventQueue();
+    final before = teamRepository.employeesCalls;
+    expect(before, greaterThan(0));
+
+    await notifier().setLimit(body: {'is_unlimited': true});
+    await pumpEventQueue();
+
+    expect(teamRepository.employeesCalls, greaterThan(before));
+    sub.close();
+  });
+
   test('updateProfile: ism va rol patch bilan yuboriladi', () async {
     teamRepository.employeeResult = testEmployee(
       id: 'employee-1',
       fullName: 'Yangi Ism',
       role: Role.manager,
     );
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
 
     await notifier().updateProfile(fullName: 'Yangi Ism', role: Role.manager);
@@ -106,7 +136,7 @@ void main() {
 
   test('toggleBlocked: is_active patch bilan teskari holatga o\'tkazadi', () async {
     teamRepository.employeeResult = testEmployee(id: 'employee-1', isActive: true);
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
     teamRepository.updates.clear();
 
@@ -117,7 +147,7 @@ void main() {
 
   test('updateProfile Failure bo\'lsa qayta throw qiladi', () async {
     teamRepository.employeeResult = testEmployee(id: 'employee-1');
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
 
     teamRepository.updateFailure = const Failure.server();
@@ -130,7 +160,7 @@ void main() {
 
   test('toggleBlocked Failure bo\'lsa qayta throw qiladi', () async {
     teamRepository.employeeResult = testEmployee(id: 'employee-1');
-    container.read(employeeDetailProvider('employee-1'));
+    keepAlive();
     await pumpEventQueue();
 
     teamRepository.updateFailure = const Failure.network();

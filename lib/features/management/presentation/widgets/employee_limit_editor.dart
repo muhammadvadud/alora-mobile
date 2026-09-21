@@ -65,12 +65,21 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
   }
 
   void _initFromLimit(UsageLimit? limit) {
-    _unlimited = limit?.isUnlimited ?? true;
+    _unlimited = limit == null || !_hasAnyPositiveValue(limit) || limit.isUnlimited;
     _period = limit == null ? LimitPeriod.daily : LimitPeriod.fromName(limit.period);
     _onExceed = limit?.onExceed ?? OnExceed.warn;
-    _tokensController.text = limit?.maxTokens?.toString() ?? '';
-    _costController.text = limit?.maxCost?.toString() ?? '';
-    _messagesController.text = limit?.maxMessages?.toString() ?? '';
+    _tokensController.text =
+        limit != null && (limit.maxTokens ?? 0) > 0 ? limit.maxTokens!.toString() : '';
+    _costController.text =
+        limit != null && (limit.maxCost ?? 0) > 0 ? limit.maxCost!.toString() : '';
+    _messagesController.text =
+        limit != null && (limit.maxMessages ?? 0) > 0 ? limit.maxMessages!.toString() : '';
+  }
+
+  bool _hasAnyPositiveValue(UsageLimit limit) {
+    return (limit.maxTokens ?? 0) > 0 ||
+        (limit.maxCost ?? 0) > 0 ||
+        (limit.maxMessages ?? 0) > 0;
   }
 
   @override
@@ -99,22 +108,32 @@ class _EmployeeLimitEditorState extends ConsumerState<EmployeeLimitEditor> {
   }
 
   Map<String, dynamic> _buildBody() {
-    if (_unlimited) {
+    final tokens = _positiveInt(_tokensController.text);
+    final cost = _positiveInt(_costController.text);
+    final messages = _positiveInt(_messagesController.text);
+
+    if (_unlimited || (tokens == null && cost == null && messages == null)) {
       return {'is_unlimited': true};
     }
-    final tokens = int.tryParse(_tokensController.text.trim()) ?? 0;
-    final cost = int.tryParse(_costController.text.trim()) ?? 0;
-    final messages = int.tryParse(_messagesController.text.trim()) ?? 0;
 
-    return {
+    final body = <String, dynamic>{
       'is_unlimited': false,
       'period': _period.query,
-      'max_tokens': tokens,
-      'max_cost_uzs': '$cost.00',
-      'max_messages': messages,
       'on_exceed': _onExceed.query,
       'is_active': true,
     };
+    if (tokens != null) body['max_tokens'] = tokens;
+    if (cost != null) body['max_cost_uzs'] = '$cost.00';
+    if (messages != null) body['max_messages'] = messages;
+    return body;
+  }
+
+  /// Bo'sh yoki nol kirishdan `null` qaytaradi — backend 0 ni "cheklov yo'q"
+  /// deb talqin qiladi, shuning uchun bunday maydonlar body'ga tushmaydi.
+  int? _positiveInt(String text) {
+    final value = int.tryParse(text.trim());
+    if (value == null || value <= 0) return null;
+    return value;
   }
 
   @override

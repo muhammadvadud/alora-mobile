@@ -153,10 +153,19 @@ class _StatusHistorySection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             StatusPill(status: order.status),
-            if (order.updatedAt != null)
-              Text(
-                formatDate(order.updatedAt!, context: context),
-                style: typography.labelS.copyWith(color: colors.textSecondary),
+            if (order.createdAt != null)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    context.l10n.orders_createdAt,
+                    style: typography.labelS.copyWith(color: colors.textSecondary),
+                  ),
+                  Text(
+                    formatDate(order.createdAt!, context: context),
+                    style: typography.labelS.copyWith(color: colors.textSecondary),
+                  ),
+                ],
               ),
           ],
         ),

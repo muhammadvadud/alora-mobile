@@ -110,6 +110,30 @@ class _SpendContent extends StatelessWidget {
       return const _NotSetView();
     }
 
+    if (maxCost <= 0) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.profile_todaySpend,
+                  style: typography.bodyM.copyWith(color: colors.textSecondary),
+                ),
+              ),
+              Text('∞', style: typography.displayM.copyWith(color: colors.accent)),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            l10n.profile_noLimit,
+            style: typography.bodyS.copyWith(color: colors.textSecondary),
+          ),
+        ],
+      );
+    }
+
     final fractionText = todayCost == null
         ? '${formatMoneyPlain(maxCost)} ${l10n.currency_som}'
         : '${formatMoneyPlain(todayCost)} / ${formatMoneyPlain(maxCost)} ${l10n.currency_som}';

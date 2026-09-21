@@ -12,7 +12,8 @@ import 'providers.dart';
 part 'employees_notifier.g.dart';
 
 /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
-@Riverpod(keepAlive: true)
+/// AutoDispose — ekran ochilganda qayta yuklanadi; pull-to-refresh ham bor.
+@riverpod
 class EmployeesNotifier extends _$EmployeesNotifier {
   static const Duration _debounceDuration = Duration(milliseconds: 300);
 

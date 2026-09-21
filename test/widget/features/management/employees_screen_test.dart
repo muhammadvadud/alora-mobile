@@ -108,4 +108,16 @@ void main() {
     expect(find.byType(ErrorState), findsNothing);
     expect(find.byType(EmployeeRow), findsNWidgets(2));
   });
+
+  testWidgets('pull-to-refresh: ro\'yxat qayta yuklanadi', (tester) async {
+    await _pumpEmployees(tester, teamRepository: teamRepository, usageRepository: usageRepository);
+    await tester.pumpAndSettle();
+
+    final before = teamRepository.employeesCalls;
+    await tester.fling(find.byType(ListView), const Offset(0, 300), 1000);
+    await tester.pumpAndSettle();
+
+    expect(teamRepository.employeesCalls, greaterThan(before));
+    expect(find.byType(EmployeeRow), findsNWidgets(2));
+  });
 }

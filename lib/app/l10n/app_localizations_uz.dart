@@ -68,6 +68,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get orders_createdSnack => 'Buyurtma yaratildi';
 
   @override
+  String get orders_createdAt => 'Yaratilgan';
+
+  @override
   String get chat_defaultTitle => 'Mijoz';
 
   @override
@@ -805,6 +808,9 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get profile_unlimited => 'Cheksiz';
+
+  @override
+  String get profile_noLimit => 'Cheklov yo\'q';
 
   @override
   String get currency_som => 'so\'m';
@@ -1592,6 +1598,9 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get orders_createdSnack => 'Буюртма яратилди';
 
   @override
+  String get orders_createdAt => 'Яратилган';
+
+  @override
   String get chat_defaultTitle => 'Мижоз';
 
   @override
@@ -2329,6 +2338,9 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get profile_unlimited => 'Чексиз';
+
+  @override
+  String get profile_noLimit => 'Чеклов йўқ';
 
   @override
   String get currency_som => 'сўм';

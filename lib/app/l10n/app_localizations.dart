@@ -211,6 +211,12 @@ abstract class AppLocalizations {
   /// **'Buyurtma yaratildi'**
   String get orders_createdSnack;
 
+  /// No description provided for @orders_createdAt.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yaratilgan'**
+  String get orders_createdAt;
+
   /// No description provided for @chat_defaultTitle.
   ///
   /// In uz, this message translates to:
@@ -1608,6 +1614,12 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Cheksiz'**
   String get profile_unlimited;
+
+  /// No description provided for @profile_noLimit.
+  ///
+  /// In uz, this message translates to:
+  /// **'Cheklov yo\'q'**
+  String get profile_noLimit;
 
   /// No description provided for @currency_som.
   ///

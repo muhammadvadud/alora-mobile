@@ -68,6 +68,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get orders_createdSnack => 'Заказ создан';
 
   @override
+  String get orders_createdAt => 'Создан';
+
+  @override
   String get chat_defaultTitle => 'Клиент';
 
   @override
@@ -805,6 +808,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get profile_unlimited => 'Безлимитно';
+
+  @override
+  String get profile_noLimit => 'Лимита нет';
 
   @override
   String get currency_som => 'сум';

@@ -58,10 +58,10 @@ class OrderPdfNotifier extends _$OrderPdfNotifier {
       buffer.writeln('Buyurtma: ${order.number ?? "Noma'lum"}');
       buffer.writeln('Mijoz: ${order.customerName ?? "Noma'lum"}');
       buffer.writeln('Jami: ${formatMoney(order.total ?? 0)}');
-      if (order.deadlineDate != null) {
-        buffer.writeln('Muddat: ${formatDate(order.deadlineDate!)}');
+      if (order.createdAt != null) {
+        buffer.writeln('Yaratilgan: ${formatDate(order.createdAt!)}');
       } else {
-        buffer.writeln("Muddat: Noma'lum");
+        buffer.writeln("Yaratilgan: Noma'lum");
       }
 
       state = const AsyncValue.data(null);

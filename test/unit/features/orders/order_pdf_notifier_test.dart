@@ -161,8 +161,23 @@ void main() {
     expect(text, contains('Buyurtma: ORD-001'));
     expect(text, contains('Mijoz: Toshmat'));
     expect(text, contains("Jami: 1\u202F000\u202F000 so'm"));
-    expect(text, contains("Muddat: Noma'lum"));
+    expect(text, contains("Yaratilgan: Noma'lum"));
     expect(c.read(orderPdfProvider('123')).hasError, false);
+    sub.close();
+  });
+
+  test('shareOrderText: createdAt bo\'lsa "Yaratilgan" sanasi chiqadi', () async {
+    final c = container();
+    final sub = c.listen(orderPdfProvider('123'), (_, _) {});
+    final notifier = c.read(orderPdfProvider('123').notifier);
+
+    await notifier.shareOrderText(
+      _order.copyWith(createdAt: DateTime(2026, 9, 15)),
+    );
+
+    final text = share.lastParams!.text!;
+    expect(text, contains('Yaratilgan: 15-sentabr'));
+    expect(text, isNot(contains('Muddat')));
     sub.close();
   });
 }

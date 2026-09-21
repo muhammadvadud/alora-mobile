@@ -61,29 +61,45 @@ class EmployeesScreen extends ConsumerWidget {
                   message: failure.localizedMessage(context),
                   onRetry: () => ref.read(employeesProvider.notifier).retry(),
                 ),
-                empty: (query) => EmptyState(
-                  icon: query.isEmpty ? AppIcons.profile : AppIcons.search,
-                  title: query.isEmpty
-                      ? l10n.management_employeesEmptyTitle
-                      : l10n.management_employeesSearchEmptyTitle,
-                  message: query.isEmpty
-                      ? l10n.management_employeesEmptyMessage
-                      : l10n.management_employeesSearchEmptyMessage,
-                ),
-                loaded: (items, query) => ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.screenH,
-                    vertical: AppSpacing.s,
+                empty: (query) => RefreshIndicator(
+                  onRefresh: () => ref.read(employeesProvider.notifier).refresh(),
+                  child: CustomScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    slivers: [
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: EmptyState(
+                          icon: query.isEmpty ? AppIcons.profile : AppIcons.search,
+                          title: query.isEmpty
+                              ? l10n.management_employeesEmptyTitle
+                              : l10n.management_employeesSearchEmptyTitle,
+                          message: query.isEmpty
+                              ? l10n.management_employeesEmptyMessage
+                              : l10n.management_employeesSearchEmptyMessage,
+                        ),
+                      ),
+                    ],
                   ),
-                  itemCount: items.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.s),
-                  itemBuilder: (context, index) {
-                    final employee = items[index];
-                    return EmployeeRow(
-                      employee: employee,
-                      onTap: () => context.go(AppRoutes.managementEmployee(employee.id)),
-                    );
-                  },
+                ),
+                loaded: (items, query) => RefreshIndicator(
+                  onRefresh: () => ref.read(employeesProvider.notifier).refresh(),
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.screenH,
+                      vertical: AppSpacing.s,
+                    ),
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: items.length,
+                    separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.s),
+                    itemBuilder: (context, index) {
+                      final employee = items[index];
+                      return EmployeeRow(
+                        employee: employee,
+                        onTap: () =>
+                            context.go(AppRoutes.managementEmployee(employee.id)),
+                      );
+                    },
+                  ),
                 ),
                 orElse: () => const SizedBox.shrink(),
               ),

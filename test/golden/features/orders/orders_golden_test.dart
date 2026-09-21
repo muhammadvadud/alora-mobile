@@ -30,7 +30,7 @@ void main() {
     total: 500000,
     paymentStatus: PaymentStatus.unpaid,
     measurements: const [OrderMeasurement(id: 'm1', roomName: 'Mehmonxona', parts: [])],
-    deadlineDate: DateTime.now().add(const Duration(days: 2)),
+    createdAt: DateTime.now().subtract(const Duration(days: 1)),
   );
 
   setUpAll(() async {

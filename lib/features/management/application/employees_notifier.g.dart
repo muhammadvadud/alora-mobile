@@ -11,20 +11,24 @@ part of 'employees_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
+/// AutoDispose — ekran ochilganda qayta yuklanadi; pull-to-refresh ham bor.
 
 @ProviderFor(EmployeesNotifier)
 final employeesProvider = EmployeesNotifierProvider._();
 
 /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
-final class EmployeesNotifierProvider extends $NotifierProvider<EmployeesNotifier, EmployeesState> {
+/// AutoDispose — ekran ochilganda qayta yuklanadi; pull-to-refresh ham bor.
+final class EmployeesNotifierProvider
+    extends $NotifierProvider<EmployeesNotifier, EmployeesState> {
   /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
+  /// AutoDispose — ekran ochilganda qayta yuklanadi; pull-to-refresh ham bor.
   EmployeesNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'employeesProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -45,9 +49,10 @@ final class EmployeesNotifierProvider extends $NotifierProvider<EmployeesNotifie
   }
 }
 
-String _$employeesNotifierHash() => r'ee08b9088dbb2030c029f767bb77900177d0eccb';
+String _$employeesNotifierHash() => r'30f19259b276731cd8d1d49ed4bb59f6df7737d5';
 
 /// Xodimlar ro'yxati notifier'i (qidiruv 300ms debounce bilan, S-20).
+/// AutoDispose — ekran ochilganda qayta yuklanadi; pull-to-refresh ham bor.
 
 abstract class _$EmployeesNotifier extends $Notifier<EmployeesState> {
   EmployeesState build();

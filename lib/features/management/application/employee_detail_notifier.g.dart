@@ -11,21 +11,24 @@ part of 'employee_detail_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Bitta xodim tafsiloti (S-21): profilni yangilash, bloklash, limit o'rnatish.
+/// AutoDispose — tafsilot ekrani qayta ochilganda yangi ma'lumot olinadi.
 
 @ProviderFor(EmployeeDetailNotifier)
 final employeeDetailProvider = EmployeeDetailNotifierFamily._();
 
 /// Bitta xodim tafsiloti (S-21): profilni yangilash, bloklash, limit o'rnatish.
+/// AutoDispose — tafsilot ekrani qayta ochilganda yangi ma'lumot olinadi.
 final class EmployeeDetailNotifierProvider
     extends $NotifierProvider<EmployeeDetailNotifier, EmployeeDetailState> {
   /// Bitta xodim tafsiloti (S-21): profilni yangilash, bloklash, limit o'rnatish.
+  /// AutoDispose — tafsilot ekrani qayta ochilganda yangi ma'lumot olinadi.
   EmployeeDetailNotifierProvider._({
     required EmployeeDetailNotifierFamily super.from,
     required String super.argument,
   }) : super(
          retry: null,
          name: r'employeeDetailProvider',
-         isAutoDispose: false,
+         isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -54,7 +57,8 @@ final class EmployeeDetailNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is EmployeeDetailNotifierProvider && other.argument == argument;
+    return other is EmployeeDetailNotifierProvider &&
+        other.argument == argument;
   }
 
   @override
@@ -63,9 +67,11 @@ final class EmployeeDetailNotifierProvider
   }
 }
 
-String _$employeeDetailNotifierHash() => r'd55b1f9d525d02a94ef21927c1207c10c1a11df4';
+String _$employeeDetailNotifierHash() =>
+    r'596d3ad285ea17bcbe42d75d59120e15da1c77d0';
 
 /// Bitta xodim tafsiloti (S-21): profilni yangilash, bloklash, limit o'rnatish.
+/// AutoDispose — tafsilot ekrani qayta ochilganda yangi ma'lumot olinadi.
 
 final class EmployeeDetailNotifierFamily extends $Family
     with
@@ -82,10 +88,11 @@ final class EmployeeDetailNotifierFamily extends $Family
         name: r'employeeDetailProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: false,
+        isAutoDispose: true,
       );
 
   /// Bitta xodim tafsiloti (S-21): profilni yangilash, bloklash, limit o'rnatish.
+  /// AutoDispose — tafsilot ekrani qayta ochilganda yangi ma'lumot olinadi.
 
   EmployeeDetailNotifierProvider call(String employeeId) =>
       EmployeeDetailNotifierProvider._(argument: employeeId, from: this);
@@ -95,6 +102,7 @@ final class EmployeeDetailNotifierFamily extends $Family
 }
 
 /// Bitta xodim tafsiloti (S-21): profilni yangilash, bloklash, limit o'rnatish.
+/// AutoDispose — tafsilot ekrani qayta ochilganda yangi ma'lumot olinadi.
 
 abstract class _$EmployeeDetailNotifier extends $Notifier<EmployeeDetailState> {
   late final _$args = ref.$arg as String;

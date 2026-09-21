@@ -153,19 +153,22 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
           message: failure.localizedMessage(context),
           onRetry: () => ref.read(employeeDetailProvider(widget.employeeId).notifier).load(),
         ),
-        loaded: (employee, _) => _DetailBody(
-          employee: employee,
-          nameController: _nameController,
-          role: _role,
-          onRoleChanged: (role) => setState(() => _role = role),
-          onViewConversations: () =>
-              context.go(AppRoutes.managementEmployeeConversations(employee.id)),
-          onBlockChanged: (blocked) => _toggleBlocked(blocked),
-          onChangePassword: _changePassword,
-          limitEditor: EmployeeLimitEditor(
-            key: ValueKey(limit?.id),
-            employeeId: widget.employeeId,
-            initialLimit: limit,
+        loaded: (employee, _) => RefreshIndicator(
+          onRefresh: () => ref.read(employeeDetailProvider(widget.employeeId).notifier).load(),
+          child: _DetailBody(
+            employee: employee,
+            nameController: _nameController,
+            role: _role,
+            onRoleChanged: (role) => setState(() => _role = role),
+            onViewConversations: () =>
+                context.go(AppRoutes.managementEmployeeConversations(employee.id)),
+            onBlockChanged: (blocked) => _toggleBlocked(blocked),
+            onChangePassword: _changePassword,
+            limitEditor: EmployeeLimitEditor(
+              key: ValueKey(limit?.id),
+              employeeId: widget.employeeId,
+              initialLimit: limit,
+            ),
           ),
         ),
         orElse: () => const SizedBox.shrink(),
@@ -202,6 +205,7 @@ class _DetailBody extends StatelessWidget {
     return TabletCentered(
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH, vertical: AppSpacing.l),
+        physics: const AlwaysScrollableScrollPhysics(),
         children: [
           _EmployeeHeader(employee: employee),
           const SizedBox(height: AppSpacing.xl),

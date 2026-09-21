@@ -6,7 +6,6 @@ import 'package:alora_mobile/app/router/routes.dart';
 import 'package:alora_mobile/shared/icons/app_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:alora_mobile/app/l10n/app_localizations.dart';
-import 'package:alora_mobile/app/theme/app_colors.dart';
 import 'package:alora_mobile/app/theme/app_radius.dart';
 import 'package:alora_mobile/app/theme/app_spacing.dart';
 
@@ -19,6 +18,7 @@ import 'package:alora_mobile/features/orders/domain/entities/order.dart';
 import 'package:alora_mobile/shared/models/order_status.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alora_mobile/features/orders/application/orders_notifiers.dart';
+import 'package:alora_mobile/core/utils/date_format.dart';
 import 'package:go_router/go_router.dart';
 
 import 'status_change_sheet.dart';
@@ -89,8 +89,8 @@ class _OrderCardContent extends ConsumerWidget {
     final typography = context.text;
     final l10n = AppLocalizations.of(context)!;
 
-    final deadlineText = _getDeadlineText(order.deadlineDate, l10n);
-    final deadlineColor = _getDeadlineColor(order.deadlineDate, colors);
+    final createdAt = order.createdAt;
+    final createdText = createdAt != null ? formatDate(createdAt, context: context) : '—';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +140,20 @@ class _OrderCardContent extends ConsumerWidget {
                   ),
               ],
             ),
-            Text(deadlineText, style: typography.bodyS.copyWith(color: deadlineColor)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  l10n.orders_createdAt,
+                  style: typography.labelS.copyWith(color: colors.textSecondary),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  createdText,
+                  style: typography.bodyS.copyWith(color: colors.textSecondary),
+                ),
+              ],
+            ),
           ],
         ),
         if (order.status == OrderStatus.draft) ...[
@@ -178,23 +191,4 @@ class _SwipeBackground extends StatelessWidget {
       child: Icon(icon, color: iconColor),
     );
   }
-}
-
-String _getDeadlineText(DateTime? date, AppLocalizations l10n) {
-  if (date == null) return 'Muddat qo\'yilmagan';
-  final now = DateTime.now();
-  final diff = date.difference(now).inDays;
-  if (diff < 0) return 'O\'tib ketgan';
-  if (diff == 0) return 'Bugun';
-  if (diff == 1) return 'Erta';
-  return '$diff kun qoldi';
-}
-
-Color _getDeadlineColor(DateTime? date, AppColors colors) {
-  if (date == null) return colors.textSecondary;
-  final now = DateTime.now();
-  final diff = date.difference(now).inDays;
-  if (diff < 0) return colors.danger;
-  if (diff <= 3) return colors.warning;
-  return colors.textSecondary;
 }

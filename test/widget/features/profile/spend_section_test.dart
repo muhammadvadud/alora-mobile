@@ -112,6 +112,19 @@ void main() {
     await tester.pumpWidget(const SizedBox());
   });
 
+  testWidgets('maxCost 0 (cheklovsiz) bo\'lsa "Cheklov yo\'q" ko\'rsatiladi, 0 so\'m emas', (tester) async {
+    final repository = FakeProfileRepository()..limit = testProfileLimit(maxCostUzs: '0.00');
+
+    await _pumpSpend(tester, repository: repository);
+    await tester.pumpAndSettle();
+
+    expect(find.text('∞'), findsOneWidget);
+    expect(find.text("Cheklov yo'q"), findsOneWidget);
+    expect(find.textContaining('0 / 0'), findsNothing);
+
+    await tester.pumpWidget(const SizedBox());
+  });
+
   testWidgets('limit maxCost null bo\'lsa notSet holati', (tester) async {
     final repository = FakeProfileRepository()..limit = testProfileLimit(maxCostUzs: null);
 

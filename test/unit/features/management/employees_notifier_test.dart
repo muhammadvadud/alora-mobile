@@ -28,6 +28,9 @@ void main() {
     addTearDown(container.dispose);
   });
 
+  // AutoDispose provider'ni jonli ushlab turish (build test ichida, natijalar sozlangach).
+  void keepAlive() => addTearDown(container.listen(employeesProvider, (_, _) {}).close);
+
   EmployeesState state() => container.read(employeesProvider);
 
   List<Employee> loadedItems() {
@@ -46,7 +49,7 @@ void main() {
     ];
     usageRepository.summaryResult = testUsageSummary(costUzs: 42000);
 
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
 
     expect(teamRepository.employeesCalls, 1);
@@ -64,14 +67,14 @@ void main() {
     teamRepository.employeesResult = [testEmployee(id: 'employee-1')];
     usageRepository.summaryFailure = const Failure.network();
 
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
 
     expect(loadedItems().single.todayCost, isNull);
   });
 
   test('bo\'sh ro\'yxat empty holatga olib keladi', () async {
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
 
     expect(state().maybeWhen(empty: (query) => query.isEmpty, orElse: () => false), isTrue);
@@ -80,7 +83,7 @@ void main() {
   test('xatolik error holatga olib keladi va retry qayta yuklaydi', () async {
     teamRepository.employeesFailure = const Failure.network();
 
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
 
     expect(state().maybeWhen(error: (_, _) => true, orElse: () => false), isTrue);
@@ -101,7 +104,7 @@ void main() {
       testEmployee(id: 'employee-2', fullName: 'Jasur Toshmatov'),
     ];
 
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
 
     container.read(employeesProvider.notifier).search('ak');
@@ -119,7 +122,7 @@ void main() {
   test('qidiruv natija topilmasa empty qaytaradi', () async {
     teamRepository.employeesResult = [testEmployee(id: 'employee-1', fullName: 'Akmal Karimov')];
 
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
 
     container.read(employeesProvider.notifier).search('yo\'q xodim');
@@ -136,7 +139,7 @@ void main() {
       testEmployee(id: 'employee-2', fullName: 'Jasur Toshmatov'),
     ];
 
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
 
     final notifier = container.read(employeesProvider.notifier);
@@ -161,7 +164,7 @@ void main() {
   });
 
   test('refresh() empty holatda qayta yuklaydi', () async {
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
     expect(state().maybeWhen(empty: (_) => true, orElse: () => false), isTrue);
 
@@ -175,7 +178,7 @@ void main() {
   });
 
   test('empty holatda qidiruv holatni o\'zgartirmaydi', () async {
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
     expect(state().maybeWhen(empty: (_) => true, orElse: () => false), isTrue);
 
@@ -190,7 +193,7 @@ void main() {
   test('error holatda qidiruv holatni o\'zgartirmaydi', () async {
     teamRepository.employeesFailure = const Failure.network();
 
-    container.read(employeesProvider);
+    keepAlive();
     await pumpEventQueue();
     expect(state().maybeWhen(error: (_, _) => true, orElse: () => false), isTrue);
 

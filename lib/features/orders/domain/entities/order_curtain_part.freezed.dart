@@ -14,8 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderCurtainPart {
 
- String get id; Map<String, dynamic>? get variant;// simplified for now, could be its own entity
- String? get role; double? get widthM; double? get heightM; double? get coefficient; double? get areaSqm; int? get pricePerSqm; int? get total; int? get sortOrder;
+ String get id; OrderVariant? get variant; String? get role; double? get widthM; double? get heightM; double? get coefficient; double? get areaSqm; int? get pricePerSqm; int? get total; int? get sortOrder;
 /// Create a copy of OrderCurtainPart
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,12 +25,12 @@ $OrderCurtainPartCopyWith<OrderCurtainPart> get copyWith => _$OrderCurtainPartCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderCurtainPart&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.variant, variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderCurtainPart&&(identical(other.id, id) || other.id == id)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(variant),role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
+int get hashCode => Object.hash(runtimeType,id,variant,role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
 
 @override
 String toString() {
@@ -46,11 +45,11 @@ abstract mixin class $OrderCurtainPartCopyWith<$Res>  {
   factory $OrderCurtainPartCopyWith(OrderCurtainPart value, $Res Function(OrderCurtainPart) _then) = _$OrderCurtainPartCopyWithImpl;
 @useResult
 $Res call({
- String id, Map<String, dynamic>? variant, String? role, double? widthM, double? heightM, double? coefficient, double? areaSqm, int? pricePerSqm, int? total, int? sortOrder
+ String id, OrderVariant? variant, String? role, double? widthM, double? heightM, double? coefficient, double? areaSqm, int? pricePerSqm, int? total, int? sortOrder
 });
 
 
-
+$OrderVariantCopyWith<$Res>? get variant;
 
 }
 /// @nodoc
@@ -67,7 +66,7 @@ class _$OrderCurtainPartCopyWithImpl<$Res>
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as OrderVariant?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String?,widthM: freezed == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
 as double?,heightM: freezed == heightM ? _self.heightM : heightM // ignore: cast_nullable_to_non_nullable
 as double?,coefficient: freezed == coefficient ? _self.coefficient : coefficient // ignore: cast_nullable_to_non_nullable
@@ -78,7 +77,19 @@ as int?,sortOrder: freezed == sortOrder ? _self.sortOrder : sortOrder // ignore:
 as int?,
   ));
 }
+/// Create a copy of OrderCurtainPart
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OrderVariantCopyWith<$Res>? get variant {
+    if (_self.variant == null) {
+    return null;
+  }
 
+  return $OrderVariantCopyWith<$Res>(_self.variant!, (value) {
+    return _then(_self.copyWith(variant: value));
+  });
+}
 }
 
 
@@ -160,7 +171,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Map<String, dynamic>? variant,  String? role,  double? widthM,  double? heightM,  double? coefficient,  double? areaSqm,  int? pricePerSqm,  int? total,  int? sortOrder)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  OrderVariant? variant,  String? role,  double? widthM,  double? heightM,  double? coefficient,  double? areaSqm,  int? pricePerSqm,  int? total,  int? sortOrder)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderCurtainPart() when $default != null:
 return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_that.coefficient,_that.areaSqm,_that.pricePerSqm,_that.total,_that.sortOrder);case _:
@@ -181,7 +192,7 @@ return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Map<String, dynamic>? variant,  String? role,  double? widthM,  double? heightM,  double? coefficient,  double? areaSqm,  int? pricePerSqm,  int? total,  int? sortOrder)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  OrderVariant? variant,  String? role,  double? widthM,  double? heightM,  double? coefficient,  double? areaSqm,  int? pricePerSqm,  int? total,  int? sortOrder)  $default,) {final _that = this;
 switch (_that) {
 case _OrderCurtainPart():
 return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_that.coefficient,_that.areaSqm,_that.pricePerSqm,_that.total,_that.sortOrder);case _:
@@ -201,7 +212,7 @@ return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Map<String, dynamic>? variant,  String? role,  double? widthM,  double? heightM,  double? coefficient,  double? areaSqm,  int? pricePerSqm,  int? total,  int? sortOrder)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  OrderVariant? variant,  String? role,  double? widthM,  double? heightM,  double? coefficient,  double? areaSqm,  int? pricePerSqm,  int? total,  int? sortOrder)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderCurtainPart() when $default != null:
 return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_that.coefficient,_that.areaSqm,_that.pricePerSqm,_that.total,_that.sortOrder);case _:
@@ -220,8 +231,7 @@ class _OrderCurtainPart implements OrderCurtainPart {
   
 
 @override final  String id;
-@override final  Map<String, dynamic>? variant;
-// simplified for now, could be its own entity
+@override final  OrderVariant? variant;
 @override final  String? role;
 @override final  double? widthM;
 @override final  double? heightM;
@@ -241,12 +251,12 @@ _$OrderCurtainPartCopyWith<_OrderCurtainPart> get copyWith => __$OrderCurtainPar
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderCurtainPart&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.variant, variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderCurtainPart&&(identical(other.id, id) || other.id == id)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(variant),role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
+int get hashCode => Object.hash(runtimeType,id,variant,role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
 
 @override
 String toString() {
@@ -261,11 +271,11 @@ abstract mixin class _$OrderCurtainPartCopyWith<$Res> implements $OrderCurtainPa
   factory _$OrderCurtainPartCopyWith(_OrderCurtainPart value, $Res Function(_OrderCurtainPart) _then) = __$OrderCurtainPartCopyWithImpl;
 @override @useResult
 $Res call({
- String id, Map<String, dynamic>? variant, String? role, double? widthM, double? heightM, double? coefficient, double? areaSqm, int? pricePerSqm, int? total, int? sortOrder
+ String id, OrderVariant? variant, String? role, double? widthM, double? heightM, double? coefficient, double? areaSqm, int? pricePerSqm, int? total, int? sortOrder
 });
 
 
-
+@override $OrderVariantCopyWith<$Res>? get variant;
 
 }
 /// @nodoc
@@ -282,7 +292,7 @@ class __$OrderCurtainPartCopyWithImpl<$Res>
   return _then(_OrderCurtainPart(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as OrderVariant?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String?,widthM: freezed == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
 as double?,heightM: freezed == heightM ? _self.heightM : heightM // ignore: cast_nullable_to_non_nullable
 as double?,coefficient: freezed == coefficient ? _self.coefficient : coefficient // ignore: cast_nullable_to_non_nullable
@@ -294,7 +304,19 @@ as int?,
   ));
 }
 
+/// Create a copy of OrderCurtainPart
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OrderVariantCopyWith<$Res>? get variant {
+    if (_self.variant == null) {
+    return null;
+  }
 
+  return $OrderVariantCopyWith<$Res>(_self.variant!, (value) {
+    return _then(_self.copyWith(variant: value));
+  });
+}
 }
 
 // dart format on

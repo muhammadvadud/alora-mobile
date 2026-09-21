@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderAccessoryDto {
 
- String get id; Map<String, dynamic>? get variant; String? get qty; String? get unit;@JsonKey(name: 'unit_price') String? get unitPrice; String? get total;@JsonKey(name: 'sort_order') int? get sortOrder;
+ String get id; OrderVariantDto? get variant; String? get qty; String? get unit;@JsonKey(name: 'unit_price') String? get unitPrice; String? get total;@JsonKey(name: 'sort_order') int? get sortOrder;
 /// Create a copy of OrderAccessoryDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,12 +28,12 @@ $OrderAccessoryDtoCopyWith<OrderAccessoryDto> get copyWith => _$OrderAccessoryDt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderAccessoryDto&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.variant, variant)&&(identical(other.qty, qty) || other.qty == qty)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderAccessoryDto&&(identical(other.id, id) || other.id == id)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.qty, qty) || other.qty == qty)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(variant),qty,unit,unitPrice,total,sortOrder);
+int get hashCode => Object.hash(runtimeType,id,variant,qty,unit,unitPrice,total,sortOrder);
 
 @override
 String toString() {
@@ -48,11 +48,11 @@ abstract mixin class $OrderAccessoryDtoCopyWith<$Res>  {
   factory $OrderAccessoryDtoCopyWith(OrderAccessoryDto value, $Res Function(OrderAccessoryDto) _then) = _$OrderAccessoryDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, Map<String, dynamic>? variant, String? qty, String? unit,@JsonKey(name: 'unit_price') String? unitPrice, String? total,@JsonKey(name: 'sort_order') int? sortOrder
+ String id, OrderVariantDto? variant, String? qty, String? unit,@JsonKey(name: 'unit_price') String? unitPrice, String? total,@JsonKey(name: 'sort_order') int? sortOrder
 });
 
 
-
+$OrderVariantDtoCopyWith<$Res>? get variant;
 
 }
 /// @nodoc
@@ -69,7 +69,7 @@ class _$OrderAccessoryDtoCopyWithImpl<$Res>
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,qty: freezed == qty ? _self.qty : qty // ignore: cast_nullable_to_non_nullable
+as OrderVariantDto?,qty: freezed == qty ? _self.qty : qty // ignore: cast_nullable_to_non_nullable
 as String?,unit: freezed == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as String?,unitPrice: freezed == unitPrice ? _self.unitPrice : unitPrice // ignore: cast_nullable_to_non_nullable
 as String?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
@@ -77,7 +77,19 @@ as String?,sortOrder: freezed == sortOrder ? _self.sortOrder : sortOrder // igno
 as int?,
   ));
 }
+/// Create a copy of OrderAccessoryDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OrderVariantDtoCopyWith<$Res>? get variant {
+    if (_self.variant == null) {
+    return null;
+  }
 
+  return $OrderVariantDtoCopyWith<$Res>(_self.variant!, (value) {
+    return _then(_self.copyWith(variant: value));
+  });
+}
 }
 
 
@@ -159,7 +171,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Map<String, dynamic>? variant,  String? qty,  String? unit, @JsonKey(name: 'unit_price')  String? unitPrice,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  OrderVariantDto? variant,  String? qty,  String? unit, @JsonKey(name: 'unit_price')  String? unitPrice,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderAccessoryDto() when $default != null:
 return $default(_that.id,_that.variant,_that.qty,_that.unit,_that.unitPrice,_that.total,_that.sortOrder);case _:
@@ -180,7 +192,7 @@ return $default(_that.id,_that.variant,_that.qty,_that.unit,_that.unitPrice,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Map<String, dynamic>? variant,  String? qty,  String? unit, @JsonKey(name: 'unit_price')  String? unitPrice,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  OrderVariantDto? variant,  String? qty,  String? unit, @JsonKey(name: 'unit_price')  String? unitPrice,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)  $default,) {final _that = this;
 switch (_that) {
 case _OrderAccessoryDto():
 return $default(_that.id,_that.variant,_that.qty,_that.unit,_that.unitPrice,_that.total,_that.sortOrder);case _:
@@ -200,7 +212,7 @@ return $default(_that.id,_that.variant,_that.qty,_that.unit,_that.unitPrice,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Map<String, dynamic>? variant,  String? qty,  String? unit, @JsonKey(name: 'unit_price')  String? unitPrice,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  OrderVariantDto? variant,  String? qty,  String? unit, @JsonKey(name: 'unit_price')  String? unitPrice,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderAccessoryDto() when $default != null:
 return $default(_that.id,_that.variant,_that.qty,_that.unit,_that.unitPrice,_that.total,_that.sortOrder);case _:
@@ -219,7 +231,7 @@ class _OrderAccessoryDto implements OrderAccessoryDto {
   factory _OrderAccessoryDto.fromJson(Map<String, dynamic> json) => _$OrderAccessoryDtoFromJson(json);
 
 @override final  String id;
-@override final  Map<String, dynamic>? variant;
+@override final  OrderVariantDto? variant;
 @override final  String? qty;
 @override final  String? unit;
 @override@JsonKey(name: 'unit_price') final  String? unitPrice;
@@ -239,12 +251,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderAccessoryDto&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.variant, variant)&&(identical(other.qty, qty) || other.qty == qty)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderAccessoryDto&&(identical(other.id, id) || other.id == id)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.qty, qty) || other.qty == qty)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(variant),qty,unit,unitPrice,total,sortOrder);
+int get hashCode => Object.hash(runtimeType,id,variant,qty,unit,unitPrice,total,sortOrder);
 
 @override
 String toString() {
@@ -259,11 +271,11 @@ abstract mixin class _$OrderAccessoryDtoCopyWith<$Res> implements $OrderAccessor
   factory _$OrderAccessoryDtoCopyWith(_OrderAccessoryDto value, $Res Function(_OrderAccessoryDto) _then) = __$OrderAccessoryDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id, Map<String, dynamic>? variant, String? qty, String? unit,@JsonKey(name: 'unit_price') String? unitPrice, String? total,@JsonKey(name: 'sort_order') int? sortOrder
+ String id, OrderVariantDto? variant, String? qty, String? unit,@JsonKey(name: 'unit_price') String? unitPrice, String? total,@JsonKey(name: 'sort_order') int? sortOrder
 });
 
 
-
+@override $OrderVariantDtoCopyWith<$Res>? get variant;
 
 }
 /// @nodoc
@@ -280,7 +292,7 @@ class __$OrderAccessoryDtoCopyWithImpl<$Res>
   return _then(_OrderAccessoryDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,qty: freezed == qty ? _self.qty : qty // ignore: cast_nullable_to_non_nullable
+as OrderVariantDto?,qty: freezed == qty ? _self.qty : qty // ignore: cast_nullable_to_non_nullable
 as String?,unit: freezed == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as String?,unitPrice: freezed == unitPrice ? _self.unitPrice : unitPrice // ignore: cast_nullable_to_non_nullable
 as String?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
@@ -289,7 +301,19 @@ as int?,
   ));
 }
 
+/// Create a copy of OrderAccessoryDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OrderVariantDtoCopyWith<$Res>? get variant {
+    if (_self.variant == null) {
+    return null;
+  }
 
+  return $OrderVariantDtoCopyWith<$Res>(_self.variant!, (value) {
+    return _then(_self.copyWith(variant: value));
+  });
+}
 }
 
 // dart format on

@@ -279,6 +279,115 @@
   "orders_financeTotal": "Jami",
   "orders_financePrepayment": "Avans",
   "orders_financeBalance": "Qoldiq",
+  "orders_parts": "Bo'laklar",
+  "orders_accessories": "Aksessuarlar",
+  "orders_services": "Xizmatlar",
+  "orders_measurementSummary": "Karniz {cornice} m · Balandlik {height} m · K {coef}",
+  "@orders_measurementSummary": {
+    "placeholders": {
+      "cornice": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      },
+      "coef": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partSku": "SKU {sku}",
+  "@orders_partSku": {
+    "placeholders": {
+      "sku": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partDims": "{width} m × {height} m",
+  "@orders_partDims": {
+    "placeholders": {
+      "width": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partMeta": "K {coef} · {area} m² · {price}",
+  "@orders_partMeta": {
+    "placeholders": {
+      "coef": {
+        "type": "String"
+      },
+      "area": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_rowMeta": "Soni {qty} {unit} · {price}",
+  "@orders_rowMeta": {
+    "placeholders": {
+      "qty": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_financeParts": "Bo'laklar jami",
+  "orders_financeAccessories": "Aksessuarlar jami",
+  "orders_financeServices": "Xizmatlar jami",
+  "orders_financeDelivery": "Yetkazish",
+  "orders_discountWithPercent": "Chegirma ({percent}%)",
+  "@orders_discountWithPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_discountWithSource": "Chegirma ({percent}%) · {source}",
+  "@orders_discountWithSource": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_financePrepaymentWithPercent": "Avans ({percent}%)",
+  "@orders_financePrepaymentWithPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_unitSqm": "m²",
+  "orders_unitPiece": "dona",
+  "orders_unitMeter": "m",
+  "orders_role_portyera": "Portyera",
+  "orders_role_tul": "Tul",
+  "orders_role_lambrekan": "Lambrekan",
+  "orders_role_kant": "Kant",
+  "orders_role_dekor": "Dekor",
+  "orders_role_astar": "Astar",
+  "orders_role_unknown": "Bo'lak",
+  "orders_sectionStatusHistory": "Statuslar tarixi",
+  "orders_sectionPayment": "To'lov",
+  "orders_roomDefault": "Xona",
+  "orders_statusButton": "Status",
   "nameAndPhoneRequired": "Ism va telefon majburiy",
   "errorOccurred": "Xatolik: {message}",
   "@errorOccurred": {

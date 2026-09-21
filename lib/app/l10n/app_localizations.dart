@@ -1219,6 +1219,180 @@ abstract class AppLocalizations {
   /// **'Qoldiq'**
   String get orders_financeBalance;
 
+  /// No description provided for @orders_parts.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bo\'laklar'**
+  String get orders_parts;
+
+  /// No description provided for @orders_accessories.
+  ///
+  /// In uz, this message translates to:
+  /// **'Aksessuarlar'**
+  String get orders_accessories;
+
+  /// No description provided for @orders_services.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xizmatlar'**
+  String get orders_services;
+
+  /// No description provided for @orders_measurementSummary.
+  ///
+  /// In uz, this message translates to:
+  /// **'Karniz {cornice} m · Balandlik {height} m · K {coef}'**
+  String orders_measurementSummary(String cornice, String height, String coef);
+
+  /// No description provided for @orders_partSku.
+  ///
+  /// In uz, this message translates to:
+  /// **'SKU {sku}'**
+  String orders_partSku(String sku);
+
+  /// No description provided for @orders_partDims.
+  ///
+  /// In uz, this message translates to:
+  /// **'{width} m × {height} m'**
+  String orders_partDims(String width, String height);
+
+  /// No description provided for @orders_partMeta.
+  ///
+  /// In uz, this message translates to:
+  /// **'K {coef} · {area} m² · {price}'**
+  String orders_partMeta(String coef, String area, String price);
+
+  /// No description provided for @orders_rowMeta.
+  ///
+  /// In uz, this message translates to:
+  /// **'Soni {qty} {unit} · {price}'**
+  String orders_rowMeta(String qty, String unit, String price);
+
+  /// No description provided for @orders_financeParts.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bo\'laklar jami'**
+  String get orders_financeParts;
+
+  /// No description provided for @orders_financeAccessories.
+  ///
+  /// In uz, this message translates to:
+  /// **'Aksessuarlar jami'**
+  String get orders_financeAccessories;
+
+  /// No description provided for @orders_financeServices.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xizmatlar jami'**
+  String get orders_financeServices;
+
+  /// No description provided for @orders_financeDelivery.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yetkazish'**
+  String get orders_financeDelivery;
+
+  /// No description provided for @orders_discountWithPercent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chegirma ({percent}%)'**
+  String orders_discountWithPercent(String percent);
+
+  /// No description provided for @orders_discountWithSource.
+  ///
+  /// In uz, this message translates to:
+  /// **'Chegirma ({percent}%) · {source}'**
+  String orders_discountWithSource(String percent, String source);
+
+  /// No description provided for @orders_financePrepaymentWithPercent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Avans ({percent}%)'**
+  String orders_financePrepaymentWithPercent(String percent);
+
+  /// No description provided for @orders_unitSqm.
+  ///
+  /// In uz, this message translates to:
+  /// **'m²'**
+  String get orders_unitSqm;
+
+  /// No description provided for @orders_unitPiece.
+  ///
+  /// In uz, this message translates to:
+  /// **'dona'**
+  String get orders_unitPiece;
+
+  /// No description provided for @orders_unitMeter.
+  ///
+  /// In uz, this message translates to:
+  /// **'m'**
+  String get orders_unitMeter;
+
+  /// No description provided for @orders_role_portyera.
+  ///
+  /// In uz, this message translates to:
+  /// **'Portyera'**
+  String get orders_role_portyera;
+
+  /// No description provided for @orders_role_tul.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tul'**
+  String get orders_role_tul;
+
+  /// No description provided for @orders_role_lambrekan.
+  ///
+  /// In uz, this message translates to:
+  /// **'Lambrekan'**
+  String get orders_role_lambrekan;
+
+  /// No description provided for @orders_role_kant.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kant'**
+  String get orders_role_kant;
+
+  /// No description provided for @orders_role_dekor.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dekor'**
+  String get orders_role_dekor;
+
+  /// No description provided for @orders_role_astar.
+  ///
+  /// In uz, this message translates to:
+  /// **'Astar'**
+  String get orders_role_astar;
+
+  /// No description provided for @orders_role_unknown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bo\'lak'**
+  String get orders_role_unknown;
+
+  /// No description provided for @orders_sectionStatusHistory.
+  ///
+  /// In uz, this message translates to:
+  /// **'Statuslar tarixi'**
+  String get orders_sectionStatusHistory;
+
+  /// No description provided for @orders_sectionPayment.
+  ///
+  /// In uz, this message translates to:
+  /// **'To\'lov'**
+  String get orders_sectionPayment;
+
+  /// No description provided for @orders_roomDefault.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xona'**
+  String get orders_roomDefault;
+
+  /// No description provided for @orders_statusButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Status'**
+  String get orders_statusButton;
+
   /// No description provided for @nameAndPhoneRequired.
   ///
   /// In uz, this message translates to:

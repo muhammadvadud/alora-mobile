@@ -4,6 +4,7 @@ import '../../domain/entities/order_curtain_part.dart';
 import '../../domain/entities/order_accessory.dart';
 import '../../domain/entities/order_item.dart';
 import '../../domain/entities/order_user.dart';
+import '../../domain/entities/order_variant.dart';
 import '../../domain/entities/status_transition.dart';
 import '../dto/order_dto.dart';
 import '../dto/order_measurement_dto.dart';
@@ -11,6 +12,7 @@ import '../dto/order_curtain_part_dto.dart';
 import '../dto/order_accessory_dto.dart';
 import '../dto/order_item_dto.dart';
 import '../dto/order_user_dto.dart';
+import '../dto/order_variant_dto.dart';
 import '../dto/status_transition_dto.dart';
 import '../../../../shared/models/order_status.dart';
 import '../../../../shared/models/payment_status.dart';
@@ -35,10 +37,20 @@ extension OrderUserDtoMapper on OrderUserDto {
   OrderUser toEntity() => OrderUser(id: id, fullName: fullName, phone: phone);
 }
 
+extension OrderVariantDtoMapper on OrderVariantDto {
+  OrderVariant toEntity() => OrderVariant(
+    id: id,
+    sku: sku,
+    colorName: colorName,
+    productName: productName,
+    priceUnit: priceUnit,
+  );
+}
+
 extension OrderCurtainPartDtoMapper on OrderCurtainPartDto {
   OrderCurtainPart toEntity() => OrderCurtainPart(
     id: id,
-    variant: variant,
+    variant: variant?.toEntity(),
     role: role,
     widthM: parseDouble(widthM),
     heightM: parseDouble(heightM),
@@ -53,7 +65,7 @@ extension OrderCurtainPartDtoMapper on OrderCurtainPartDto {
 extension OrderAccessoryDtoMapper on OrderAccessoryDto {
   OrderAccessory toEntity() => OrderAccessory(
     id: id,
-    variant: variant,
+    variant: variant?.toEntity(),
     qty: parseDouble(qty),
     unit: unit,
     unitPrice: parseMoney(unitPrice),

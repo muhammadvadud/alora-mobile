@@ -5,6 +5,7 @@ import 'package:alora_mobile/features/orders/data/dto/status_transition_dto.dart
 import 'package:alora_mobile/features/orders/data/mappers/order_mapper.dart';
 import 'package:alora_mobile/shared/models/order_status.dart';
 import 'package:alora_mobile/shared/models/payment_status.dart';
+import 'package:alora_mobile/shared/models/price_unit.dart';
 
 /// `GET orders/{id}/` javobi (API-CONTRACT 4.1) — to'liq ichma-ich namuna.
 Map<String, dynamic> _orderJson() => {
@@ -44,7 +45,13 @@ Map<String, dynamic> _orderJson() => {
       'parts': [
         {
           'id': 'p1',
-          'variant': {'id': 'v1', 'color_name': 'Zumrad'},
+          'variant': {
+            'id': 'v1',
+            'sku': 'VEL-01',
+            'color_name': 'Zumrad',
+            'product_name': 'Velvet Zumrad',
+            'price_unit': 'per_sqm',
+          },
           'role': 'portyera',
           'width_m': '10.500',
           'height_m': '2.600',
@@ -58,7 +65,12 @@ Map<String, dynamic> _orderJson() => {
       'accessories': [
         {
           'id': 'a1',
-          'variant': {'id': 'acc-1'},
+          'variant': {
+            'id': 'acc-1',
+            'sku': 'TAS-01',
+            'product_name': 'Tasma',
+            'price_unit': 'per_meter',
+          },
           'qty': '2.000',
           'unit': 'dona',
           'unit_price': '45000.00',
@@ -123,11 +135,21 @@ void main() {
       expect(m.roomName, 'Mehmonxona');
       expect(m.corniceLengthM, 4.2);
       expect(m.layers, ['portyera', 'tul']);
-      expect(m.parts.single.pricePerSqm, 120000);
-      expect(m.parts.single.total, 3276000);
-      expect(m.parts.single.areaSqm, 27.3);
-      expect(m.accessories.single.qty, 2.0);
-      expect(m.accessories.single.total, 90000);
+      final part = m.parts.single;
+      expect(part.role, 'portyera');
+      expect(part.pricePerSqm, 120000);
+      expect(part.total, 3276000);
+      expect(part.areaSqm, 27.3);
+      expect(part.variant?.sku, 'VEL-01');
+      expect(part.variant?.productName, 'Velvet Zumrad');
+      expect(part.variant?.colorName, 'Zumrad');
+      expect(part.variant?.priceUnit, PriceUnit.perSqm);
+
+      final accessory = m.accessories.single;
+      expect(accessory.qty, 2.0);
+      expect(accessory.total, 90000);
+      expect(accessory.variant?.productName, 'Tasma');
+      expect(accessory.variant?.priceUnit, PriceUnit.perMeter);
 
       expect(order.items.single.serviceKey, 'sewing');
       expect(order.items.single.total, 125000);

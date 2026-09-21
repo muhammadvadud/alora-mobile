@@ -12,7 +12,10 @@ _OrderAccessoryDto _$OrderAccessoryDtoFromJson(Map<String, dynamic> json) =>
     $checkedCreate('_OrderAccessoryDto', json, ($checkedConvert) {
       final val = _OrderAccessoryDto(
         id: $checkedConvert('id', (v) => v as String),
-        variant: $checkedConvert('variant', (v) => v as Map<String, dynamic>?),
+        variant: $checkedConvert(
+          'variant',
+          (v) => v == null ? null : OrderVariantDto.fromJson(v as Map<String, dynamic>),
+        ),
         qty: $checkedConvert('qty', (v) => v as String?),
         unit: $checkedConvert('unit', (v) => v as String?),
         unitPrice: $checkedConvert('unit_price', (v) => v as String?),
@@ -24,7 +27,7 @@ _OrderAccessoryDto _$OrderAccessoryDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$OrderAccessoryDtoToJson(_OrderAccessoryDto instance) => <String, dynamic>{
   'id': instance.id,
-  'variant': ?instance.variant,
+  'variant': ?instance.variant?.toJson(),
   'qty': ?instance.qty,
   'unit': ?instance.unit,
   'unit_price': ?instance.unitPrice,

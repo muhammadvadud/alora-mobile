@@ -147,7 +147,7 @@ final class OrderDetailNotifierProvider extends $AsyncNotifierProvider<OrderDeta
   }
 }
 
-String _$orderDetailNotifierHash() => r'f194a5e0142436346f1b6c08419d90dd7c26993a';
+String _$orderDetailNotifierHash() => r'fe7f54022d954867c3dd673660a35f7677bcf59b';
 
 final class OrderDetailNotifierFamily extends $Family
     with

@@ -279,6 +279,115 @@
   "orders_financeTotal": "Жами",
   "orders_financePrepayment": "Аванс",
   "orders_financeBalance": "Қолдиқ",
+  "orders_parts": "Бўлаклар",
+  "orders_accessories": "Аксессуарлар",
+  "orders_services": "Хизматлар",
+  "orders_measurementSummary": "Карниз {cornice} м · Баландлик {height} м · К {coef}",
+  "@orders_measurementSummary": {
+    "placeholders": {
+      "cornice": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      },
+      "coef": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partSku": "SKU {sku}",
+  "@orders_partSku": {
+    "placeholders": {
+      "sku": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partDims": "{width} м × {height} м",
+  "@orders_partDims": {
+    "placeholders": {
+      "width": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partMeta": "К {coef} · {area} м² · {price}",
+  "@orders_partMeta": {
+    "placeholders": {
+      "coef": {
+        "type": "String"
+      },
+      "area": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_rowMeta": "Сони {qty} {unit} · {price}",
+  "@orders_rowMeta": {
+    "placeholders": {
+      "qty": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_financeParts": "Бўлаклар жами",
+  "orders_financeAccessories": "Аксессуарлар жами",
+  "orders_financeServices": "Хизматлар жами",
+  "orders_financeDelivery": "Етказиш",
+  "orders_discountWithPercent": "Чегирма ({percent}%)",
+  "@orders_discountWithPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_discountWithSource": "Чегирма ({percent}%) · {source}",
+  "@orders_discountWithSource": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_financePrepaymentWithPercent": "Аванс ({percent}%)",
+  "@orders_financePrepaymentWithPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_unitSqm": "м²",
+  "orders_unitPiece": "дона",
+  "orders_unitMeter": "м",
+  "orders_role_portyera": "Портьера",
+  "orders_role_tul": "Тюль",
+  "orders_role_lambrekan": "Ламбрекен",
+  "orders_role_kant": "Кант",
+  "orders_role_dekor": "Декор",
+  "orders_role_astar": "Астар",
+  "orders_role_unknown": "Бўлак",
+  "orders_sectionStatusHistory": "Статуслар тарихи",
+  "orders_sectionPayment": "Тўлов",
+  "orders_roomDefault": "Хона",
+  "orders_statusButton": "Статус",
   "nameAndPhoneRequired": "Исм ва телефон мажбурий",
   "errorOccurred": "Хатолик: {message}",
   "@errorOccurred": {

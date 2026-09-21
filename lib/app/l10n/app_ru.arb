@@ -279,6 +279,115 @@
   "orders_financeTotal": "Итого",
   "orders_financePrepayment": "Аванс",
   "orders_financeBalance": "Остаток",
+  "orders_parts": "Части",
+  "orders_accessories": "Аксессуары",
+  "orders_services": "Услуги",
+  "orders_measurementSummary": "Карниз {cornice} м · Высота {height} м · К {coef}",
+  "@orders_measurementSummary": {
+    "placeholders": {
+      "cornice": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      },
+      "coef": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partSku": "SKU {sku}",
+  "@orders_partSku": {
+    "placeholders": {
+      "sku": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partDims": "{width} м × {height} м",
+  "@orders_partDims": {
+    "placeholders": {
+      "width": {
+        "type": "String"
+      },
+      "height": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_partMeta": "К {coef} · {area} м² · {price}",
+  "@orders_partMeta": {
+    "placeholders": {
+      "coef": {
+        "type": "String"
+      },
+      "area": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_rowMeta": "Кол-во {qty} {unit} · {price}",
+  "@orders_rowMeta": {
+    "placeholders": {
+      "qty": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_financeParts": "Итого по частям",
+  "orders_financeAccessories": "Итого по аксессуарам",
+  "orders_financeServices": "Итого по услугам",
+  "orders_financeDelivery": "Доставка",
+  "orders_discountWithPercent": "Скидка ({percent}%)",
+  "@orders_discountWithPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_discountWithSource": "Скидка ({percent}%) · {source}",
+  "@orders_discountWithSource": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_financePrepaymentWithPercent": "Аванс ({percent}%)",
+  "@orders_financePrepaymentWithPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "orders_unitSqm": "м²",
+  "orders_unitPiece": "шт",
+  "orders_unitMeter": "м",
+  "orders_role_portyera": "Портьера",
+  "orders_role_tul": "Тюль",
+  "orders_role_lambrekan": "Ламбрекен",
+  "orders_role_kant": "Кант",
+  "orders_role_dekor": "Декор",
+  "orders_role_astar": "Подкладка",
+  "orders_role_unknown": "Часть",
+  "orders_sectionStatusHistory": "История статусов",
+  "orders_sectionPayment": "Оплата",
+  "orders_roomDefault": "Комната",
+  "orders_statusButton": "Статус",
   "nameAndPhoneRequired": "Имя и телефон обязательны",
   "errorOccurred": "Ошибка: {message}",
   "@errorOccurred": {

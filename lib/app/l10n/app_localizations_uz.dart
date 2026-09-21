@@ -594,6 +594,109 @@ class AppLocalizationsUz extends AppLocalizations {
   String get orders_financeBalance => 'Qoldiq';
 
   @override
+  String get orders_parts => 'Bo\'laklar';
+
+  @override
+  String get orders_accessories => 'Aksessuarlar';
+
+  @override
+  String get orders_services => 'Xizmatlar';
+
+  @override
+  String orders_measurementSummary(String cornice, String height, String coef) {
+    return 'Karniz $cornice m · Balandlik $height m · K $coef';
+  }
+
+  @override
+  String orders_partSku(String sku) {
+    return 'SKU $sku';
+  }
+
+  @override
+  String orders_partDims(String width, String height) {
+    return '$width m × $height m';
+  }
+
+  @override
+  String orders_partMeta(String coef, String area, String price) {
+    return 'K $coef · $area m² · $price';
+  }
+
+  @override
+  String orders_rowMeta(String qty, String unit, String price) {
+    return 'Soni $qty $unit · $price';
+  }
+
+  @override
+  String get orders_financeParts => 'Bo\'laklar jami';
+
+  @override
+  String get orders_financeAccessories => 'Aksessuarlar jami';
+
+  @override
+  String get orders_financeServices => 'Xizmatlar jami';
+
+  @override
+  String get orders_financeDelivery => 'Yetkazish';
+
+  @override
+  String orders_discountWithPercent(String percent) {
+    return 'Chegirma ($percent%)';
+  }
+
+  @override
+  String orders_discountWithSource(String percent, String source) {
+    return 'Chegirma ($percent%) · $source';
+  }
+
+  @override
+  String orders_financePrepaymentWithPercent(String percent) {
+    return 'Avans ($percent%)';
+  }
+
+  @override
+  String get orders_unitSqm => 'm²';
+
+  @override
+  String get orders_unitPiece => 'dona';
+
+  @override
+  String get orders_unitMeter => 'm';
+
+  @override
+  String get orders_role_portyera => 'Portyera';
+
+  @override
+  String get orders_role_tul => 'Tul';
+
+  @override
+  String get orders_role_lambrekan => 'Lambrekan';
+
+  @override
+  String get orders_role_kant => 'Kant';
+
+  @override
+  String get orders_role_dekor => 'Dekor';
+
+  @override
+  String get orders_role_astar => 'Astar';
+
+  @override
+  String get orders_role_unknown => 'Bo\'lak';
+
+  @override
+  String get orders_sectionStatusHistory => 'Statuslar tarixi';
+
+  @override
+  String get orders_sectionPayment => 'To\'lov';
+
+  @override
+  String get orders_roomDefault => 'Xona';
+
+  @override
+  String get orders_statusButton => 'Status';
+
+  @override
   String get nameAndPhoneRequired => 'Ism va telefon majburiy';
 
   @override
@@ -2013,6 +2116,109 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get orders_financeBalance => 'Қолдиқ';
+
+  @override
+  String get orders_parts => 'Бўлаклар';
+
+  @override
+  String get orders_accessories => 'Аксессуарлар';
+
+  @override
+  String get orders_services => 'Хизматлар';
+
+  @override
+  String orders_measurementSummary(String cornice, String height, String coef) {
+    return 'Карниз $cornice м · Баландлик $height м · К $coef';
+  }
+
+  @override
+  String orders_partSku(String sku) {
+    return 'SKU $sku';
+  }
+
+  @override
+  String orders_partDims(String width, String height) {
+    return '$width м × $height м';
+  }
+
+  @override
+  String orders_partMeta(String coef, String area, String price) {
+    return 'К $coef · $area м² · $price';
+  }
+
+  @override
+  String orders_rowMeta(String qty, String unit, String price) {
+    return 'Сони $qty $unit · $price';
+  }
+
+  @override
+  String get orders_financeParts => 'Бўлаклар жами';
+
+  @override
+  String get orders_financeAccessories => 'Аксессуарлар жами';
+
+  @override
+  String get orders_financeServices => 'Хизматлар жами';
+
+  @override
+  String get orders_financeDelivery => 'Етказиш';
+
+  @override
+  String orders_discountWithPercent(String percent) {
+    return 'Чегирма ($percent%)';
+  }
+
+  @override
+  String orders_discountWithSource(String percent, String source) {
+    return 'Чегирма ($percent%) · $source';
+  }
+
+  @override
+  String orders_financePrepaymentWithPercent(String percent) {
+    return 'Аванс ($percent%)';
+  }
+
+  @override
+  String get orders_unitSqm => 'м²';
+
+  @override
+  String get orders_unitPiece => 'дона';
+
+  @override
+  String get orders_unitMeter => 'м';
+
+  @override
+  String get orders_role_portyera => 'Портьера';
+
+  @override
+  String get orders_role_tul => 'Тюль';
+
+  @override
+  String get orders_role_lambrekan => 'Ламбрекен';
+
+  @override
+  String get orders_role_kant => 'Кант';
+
+  @override
+  String get orders_role_dekor => 'Декор';
+
+  @override
+  String get orders_role_astar => 'Астар';
+
+  @override
+  String get orders_role_unknown => 'Бўлак';
+
+  @override
+  String get orders_sectionStatusHistory => 'Статуслар тарихи';
+
+  @override
+  String get orders_sectionPayment => 'Тўлов';
+
+  @override
+  String get orders_roomDefault => 'Хона';
+
+  @override
+  String get orders_statusButton => 'Статус';
 
   @override
   String get nameAndPhoneRequired => 'Исм ва телефон мажбурий';

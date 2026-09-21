@@ -25,7 +25,19 @@ import 'package:alora_mobile/features/orders/application/order_pdf_notifier.dart
 import 'package:alora_mobile/features/orders/domain/entities/order.dart';
 import 'package:alora_mobile/shared/models/payment_status.dart';
 
+import 'package:alora_mobile/core/utils/money_format.dart';
+import 'package:alora_mobile/app/l10n/app_localizations.dart';
+import 'package:alora_mobile/shared/models/price_unit.dart';
+import 'package:alora_mobile/shared/widgets/section_label.dart';
+import 'package:alora_mobile/features/orders/domain/entities/order_measurement.dart';
+import 'package:alora_mobile/features/orders/domain/entities/order_curtain_part.dart';
+import 'package:alora_mobile/features/orders/domain/entities/order_accessory.dart';
+import 'package:alora_mobile/features/orders/domain/entities/order_item.dart';
+import 'package:alora_mobile/features/orders/domain/entities/order_extension.dart';
+
 part '../widgets/order_detail_sections.dart';
+part '../widgets/order_detail_measurement_section.dart';
+part '../widgets/order_detail_finance_section.dart';
 
 class OrderDetailScreen extends ConsumerWidget {
   final String orderId;

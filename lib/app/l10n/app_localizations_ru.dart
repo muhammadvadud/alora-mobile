@@ -594,6 +594,109 @@ class AppLocalizationsRu extends AppLocalizations {
   String get orders_financeBalance => 'Остаток';
 
   @override
+  String get orders_parts => 'Части';
+
+  @override
+  String get orders_accessories => 'Аксессуары';
+
+  @override
+  String get orders_services => 'Услуги';
+
+  @override
+  String orders_measurementSummary(String cornice, String height, String coef) {
+    return 'Карниз $cornice м · Высота $height м · К $coef';
+  }
+
+  @override
+  String orders_partSku(String sku) {
+    return 'SKU $sku';
+  }
+
+  @override
+  String orders_partDims(String width, String height) {
+    return '$width м × $height м';
+  }
+
+  @override
+  String orders_partMeta(String coef, String area, String price) {
+    return 'К $coef · $area м² · $price';
+  }
+
+  @override
+  String orders_rowMeta(String qty, String unit, String price) {
+    return 'Кол-во $qty $unit · $price';
+  }
+
+  @override
+  String get orders_financeParts => 'Итого по частям';
+
+  @override
+  String get orders_financeAccessories => 'Итого по аксессуарам';
+
+  @override
+  String get orders_financeServices => 'Итого по услугам';
+
+  @override
+  String get orders_financeDelivery => 'Доставка';
+
+  @override
+  String orders_discountWithPercent(String percent) {
+    return 'Скидка ($percent%)';
+  }
+
+  @override
+  String orders_discountWithSource(String percent, String source) {
+    return 'Скидка ($percent%) · $source';
+  }
+
+  @override
+  String orders_financePrepaymentWithPercent(String percent) {
+    return 'Аванс ($percent%)';
+  }
+
+  @override
+  String get orders_unitSqm => 'м²';
+
+  @override
+  String get orders_unitPiece => 'шт';
+
+  @override
+  String get orders_unitMeter => 'м';
+
+  @override
+  String get orders_role_portyera => 'Портьера';
+
+  @override
+  String get orders_role_tul => 'Тюль';
+
+  @override
+  String get orders_role_lambrekan => 'Ламбрекен';
+
+  @override
+  String get orders_role_kant => 'Кант';
+
+  @override
+  String get orders_role_dekor => 'Декор';
+
+  @override
+  String get orders_role_astar => 'Подкладка';
+
+  @override
+  String get orders_role_unknown => 'Часть';
+
+  @override
+  String get orders_sectionStatusHistory => 'История статусов';
+
+  @override
+  String get orders_sectionPayment => 'Оплата';
+
+  @override
+  String get orders_roomDefault => 'Комната';
+
+  @override
+  String get orders_statusButton => 'Статус';
+
+  @override
   String get nameAndPhoneRequired => 'Имя и телефон обязательны';
 
   @override

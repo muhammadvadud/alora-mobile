@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderCurtainPartDto {
 
- String get id; Map<String, dynamic>? get variant; String? get role;@JsonKey(name: 'width_m') String? get widthM;@JsonKey(name: 'height_m') String? get heightM; String? get coefficient;@JsonKey(name: 'area_sqm') String? get areaSqm;@JsonKey(name: 'price_per_sqm') String? get pricePerSqm; String? get total;@JsonKey(name: 'sort_order') int? get sortOrder;
+ String get id; OrderVariantDto? get variant; String? get role;@JsonKey(name: 'width_m') String? get widthM;@JsonKey(name: 'height_m') String? get heightM; String? get coefficient;@JsonKey(name: 'area_sqm') String? get areaSqm;@JsonKey(name: 'price_per_sqm') String? get pricePerSqm; String? get total;@JsonKey(name: 'sort_order') int? get sortOrder;
 /// Create a copy of OrderCurtainPartDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,12 +28,12 @@ $OrderCurtainPartDtoCopyWith<OrderCurtainPartDto> get copyWith => _$OrderCurtain
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderCurtainPartDto&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.variant, variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderCurtainPartDto&&(identical(other.id, id) || other.id == id)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(variant),role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
+int get hashCode => Object.hash(runtimeType,id,variant,role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
 
 @override
 String toString() {
@@ -48,11 +48,11 @@ abstract mixin class $OrderCurtainPartDtoCopyWith<$Res>  {
   factory $OrderCurtainPartDtoCopyWith(OrderCurtainPartDto value, $Res Function(OrderCurtainPartDto) _then) = _$OrderCurtainPartDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, Map<String, dynamic>? variant, String? role,@JsonKey(name: 'width_m') String? widthM,@JsonKey(name: 'height_m') String? heightM, String? coefficient,@JsonKey(name: 'area_sqm') String? areaSqm,@JsonKey(name: 'price_per_sqm') String? pricePerSqm, String? total,@JsonKey(name: 'sort_order') int? sortOrder
+ String id, OrderVariantDto? variant, String? role,@JsonKey(name: 'width_m') String? widthM,@JsonKey(name: 'height_m') String? heightM, String? coefficient,@JsonKey(name: 'area_sqm') String? areaSqm,@JsonKey(name: 'price_per_sqm') String? pricePerSqm, String? total,@JsonKey(name: 'sort_order') int? sortOrder
 });
 
 
-
+$OrderVariantDtoCopyWith<$Res>? get variant;
 
 }
 /// @nodoc
@@ -69,7 +69,7 @@ class _$OrderCurtainPartDtoCopyWithImpl<$Res>
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as OrderVariantDto?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String?,widthM: freezed == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
 as String?,heightM: freezed == heightM ? _self.heightM : heightM // ignore: cast_nullable_to_non_nullable
 as String?,coefficient: freezed == coefficient ? _self.coefficient : coefficient // ignore: cast_nullable_to_non_nullable
@@ -80,7 +80,19 @@ as String?,sortOrder: freezed == sortOrder ? _self.sortOrder : sortOrder // igno
 as int?,
   ));
 }
+/// Create a copy of OrderCurtainPartDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OrderVariantDtoCopyWith<$Res>? get variant {
+    if (_self.variant == null) {
+    return null;
+  }
 
+  return $OrderVariantDtoCopyWith<$Res>(_self.variant!, (value) {
+    return _then(_self.copyWith(variant: value));
+  });
+}
 }
 
 
@@ -162,7 +174,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Map<String, dynamic>? variant,  String? role, @JsonKey(name: 'width_m')  String? widthM, @JsonKey(name: 'height_m')  String? heightM,  String? coefficient, @JsonKey(name: 'area_sqm')  String? areaSqm, @JsonKey(name: 'price_per_sqm')  String? pricePerSqm,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  OrderVariantDto? variant,  String? role, @JsonKey(name: 'width_m')  String? widthM, @JsonKey(name: 'height_m')  String? heightM,  String? coefficient, @JsonKey(name: 'area_sqm')  String? areaSqm, @JsonKey(name: 'price_per_sqm')  String? pricePerSqm,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderCurtainPartDto() when $default != null:
 return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_that.coefficient,_that.areaSqm,_that.pricePerSqm,_that.total,_that.sortOrder);case _:
@@ -183,7 +195,7 @@ return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Map<String, dynamic>? variant,  String? role, @JsonKey(name: 'width_m')  String? widthM, @JsonKey(name: 'height_m')  String? heightM,  String? coefficient, @JsonKey(name: 'area_sqm')  String? areaSqm, @JsonKey(name: 'price_per_sqm')  String? pricePerSqm,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  OrderVariantDto? variant,  String? role, @JsonKey(name: 'width_m')  String? widthM, @JsonKey(name: 'height_m')  String? heightM,  String? coefficient, @JsonKey(name: 'area_sqm')  String? areaSqm, @JsonKey(name: 'price_per_sqm')  String? pricePerSqm,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)  $default,) {final _that = this;
 switch (_that) {
 case _OrderCurtainPartDto():
 return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_that.coefficient,_that.areaSqm,_that.pricePerSqm,_that.total,_that.sortOrder);case _:
@@ -203,7 +215,7 @@ return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Map<String, dynamic>? variant,  String? role, @JsonKey(name: 'width_m')  String? widthM, @JsonKey(name: 'height_m')  String? heightM,  String? coefficient, @JsonKey(name: 'area_sqm')  String? areaSqm, @JsonKey(name: 'price_per_sqm')  String? pricePerSqm,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  OrderVariantDto? variant,  String? role, @JsonKey(name: 'width_m')  String? widthM, @JsonKey(name: 'height_m')  String? heightM,  String? coefficient, @JsonKey(name: 'area_sqm')  String? areaSqm, @JsonKey(name: 'price_per_sqm')  String? pricePerSqm,  String? total, @JsonKey(name: 'sort_order')  int? sortOrder)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderCurtainPartDto() when $default != null:
 return $default(_that.id,_that.variant,_that.role,_that.widthM,_that.heightM,_that.coefficient,_that.areaSqm,_that.pricePerSqm,_that.total,_that.sortOrder);case _:
@@ -222,7 +234,7 @@ class _OrderCurtainPartDto implements OrderCurtainPartDto {
   factory _OrderCurtainPartDto.fromJson(Map<String, dynamic> json) => _$OrderCurtainPartDtoFromJson(json);
 
 @override final  String id;
-@override final  Map<String, dynamic>? variant;
+@override final  OrderVariantDto? variant;
 @override final  String? role;
 @override@JsonKey(name: 'width_m') final  String? widthM;
 @override@JsonKey(name: 'height_m') final  String? heightM;
@@ -245,12 +257,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderCurtainPartDto&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.variant, variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderCurtainPartDto&&(identical(other.id, id) || other.id == id)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.role, role) || other.role == role)&&(identical(other.widthM, widthM) || other.widthM == widthM)&&(identical(other.heightM, heightM) || other.heightM == heightM)&&(identical(other.coefficient, coefficient) || other.coefficient == coefficient)&&(identical(other.areaSqm, areaSqm) || other.areaSqm == areaSqm)&&(identical(other.pricePerSqm, pricePerSqm) || other.pricePerSqm == pricePerSqm)&&(identical(other.total, total) || other.total == total)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(variant),role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
+int get hashCode => Object.hash(runtimeType,id,variant,role,widthM,heightM,coefficient,areaSqm,pricePerSqm,total,sortOrder);
 
 @override
 String toString() {
@@ -265,11 +277,11 @@ abstract mixin class _$OrderCurtainPartDtoCopyWith<$Res> implements $OrderCurtai
   factory _$OrderCurtainPartDtoCopyWith(_OrderCurtainPartDto value, $Res Function(_OrderCurtainPartDto) _then) = __$OrderCurtainPartDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id, Map<String, dynamic>? variant, String? role,@JsonKey(name: 'width_m') String? widthM,@JsonKey(name: 'height_m') String? heightM, String? coefficient,@JsonKey(name: 'area_sqm') String? areaSqm,@JsonKey(name: 'price_per_sqm') String? pricePerSqm, String? total,@JsonKey(name: 'sort_order') int? sortOrder
+ String id, OrderVariantDto? variant, String? role,@JsonKey(name: 'width_m') String? widthM,@JsonKey(name: 'height_m') String? heightM, String? coefficient,@JsonKey(name: 'area_sqm') String? areaSqm,@JsonKey(name: 'price_per_sqm') String? pricePerSqm, String? total,@JsonKey(name: 'sort_order') int? sortOrder
 });
 
 
-
+@override $OrderVariantDtoCopyWith<$Res>? get variant;
 
 }
 /// @nodoc
@@ -286,7 +298,7 @@ class __$OrderCurtainPartDtoCopyWithImpl<$Res>
   return _then(_OrderCurtainPartDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as OrderVariantDto?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String?,widthM: freezed == widthM ? _self.widthM : widthM // ignore: cast_nullable_to_non_nullable
 as String?,heightM: freezed == heightM ? _self.heightM : heightM // ignore: cast_nullable_to_non_nullable
 as String?,coefficient: freezed == coefficient ? _self.coefficient : coefficient // ignore: cast_nullable_to_non_nullable
@@ -298,7 +310,19 @@ as int?,
   ));
 }
 
+/// Create a copy of OrderCurtainPartDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OrderVariantDtoCopyWith<$Res>? get variant {
+    if (_self.variant == null) {
+    return null;
+  }
 
+  return $OrderVariantDtoCopyWith<$Res>(_self.variant!, (value) {
+    return _then(_self.copyWith(variant: value));
+  });
+}
 }
 
 // dart format on

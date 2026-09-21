@@ -1,6 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'order_variant_dto.dart';
+
 part 'order_curtain_part_dto.freezed.dart';
 part 'order_curtain_part_dto.g.dart';
 
@@ -8,7 +10,7 @@ part 'order_curtain_part_dto.g.dart';
 abstract class OrderCurtainPartDto with _$OrderCurtainPartDto {
   const factory OrderCurtainPartDto({
     required String id,
-    Map<String, dynamic>? variant,
+    OrderVariantDto? variant,
     String? role,
     @JsonKey(name: 'width_m') String? widthM,
     @JsonKey(name: 'height_m') String? heightM,

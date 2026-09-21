@@ -14,7 +14,10 @@ _OrderCurtainPartDto _$OrderCurtainPartDtoFromJson(Map<String, dynamic> json) =>
   ($checkedConvert) {
     final val = _OrderCurtainPartDto(
       id: $checkedConvert('id', (v) => v as String),
-      variant: $checkedConvert('variant', (v) => v as Map<String, dynamic>?),
+      variant: $checkedConvert(
+        'variant',
+        (v) => v == null ? null : OrderVariantDto.fromJson(v as Map<String, dynamic>),
+      ),
       role: $checkedConvert('role', (v) => v as String?),
       widthM: $checkedConvert('width_m', (v) => v as String?),
       heightM: $checkedConvert('height_m', (v) => v as String?),
@@ -38,7 +41,7 @@ _OrderCurtainPartDto _$OrderCurtainPartDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OrderCurtainPartDtoToJson(_OrderCurtainPartDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'variant': ?instance.variant,
+      'variant': ?instance.variant?.toJson(),
       'role': ?instance.role,
       'width_m': ?instance.widthM,
       'height_m': ?instance.heightM,

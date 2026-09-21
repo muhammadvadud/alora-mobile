@@ -83,6 +83,17 @@ class RefreshInterceptor extends Interceptor {
     }
 
     if (fetchedAccess != null && fetchedRefresh != null) {
+      // Sessiya o'zgargan bo'lsa (logout/akkaunt almashish) eski sessiya
+      // natijasini saqlamaslik uchun qayta tekshiramiz. Refresh boshlangach
+      // tokenlar tozalangan yoki almashtirilgan bo'lsa — yangilangan tokenlar
+      // bekor qilinadi va so'rov qayta urinilmaydi.
+      final storedRefreshToken = await secureStorage.getRefreshToken();
+      if (storedRefreshToken == null || storedRefreshToken != currentRefreshToken) {
+        _refreshTokenCompleter?.complete(null);
+        _isRefreshing = false;
+        _refreshTokenCompleter = null;
+        return handler.next(err);
+      }
       await secureStorage.saveTokens(access: fetchedAccess, refresh: fetchedRefresh);
       _refreshTokenCompleter?.complete(fetchedAccess);
 

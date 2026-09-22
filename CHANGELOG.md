@@ -2,6 +2,10 @@
 
 Loyihadagi barcha muhim o'zgarishlar shu faylda yoziladi (o'zbekcha, Conventional Commits bo'yicha).
 
+## 1.0.6+7 (2026-09-22)
+
+- **fix(auth)**: token muddati tugaganda (refresh rad etilsa) avtomatik logout va login ekrani
+
 ## 1.0.5+6 (2026-09-22)
 
 - **feat(management)**: menyuda "Tizim prompti" va "Model narxlari" bo'limlari

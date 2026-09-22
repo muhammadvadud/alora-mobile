@@ -86,6 +86,41 @@ void main() {
     expect(await secureStorage.getRefreshToken(), isNull);
   });
 
+  test('refresh rad etilganda onSessionExpired chaqiriladi (auth logout signali)', () async {
+    var expired = 0;
+    final localDio = Dio(BaseOptions(baseUrl: 'https://test.local'));
+    final adapter = DioAdapter(dio: localDio, matcher: const UrlRequestMatcher());
+    localDio.interceptors.add(
+      RefreshInterceptor(secureStorage, localDio, onSessionExpired: () => expired++),
+    );
+    await secureStorage.saveTokens(access: 'old_access', refresh: 'bad_refresh');
+    adapter.onGet('/protected', (server) => server.reply(401, {}));
+    adapter.onPost(ApiPaths.refresh, (server) => server.reply(401, {}));
+
+    try {
+      await localDio.get('/protected');
+    } catch (_) {}
+
+    expect(expired, 1);
+  });
+
+  test('refresh token yo\'q bo\'lsa ham onSessionExpired chaqiriladi', () async {
+    var expired = 0;
+    final localDio = Dio(BaseOptions(baseUrl: 'https://test.local'));
+    final adapter = DioAdapter(dio: localDio, matcher: const UrlRequestMatcher());
+    localDio.interceptors.add(
+      RefreshInterceptor(secureStorage, localDio, onSessionExpired: () => expired++),
+    );
+    await secureStorage.clearTokens();
+    adapter.onGet('/protected', (server) => server.reply(401, {}));
+
+    try {
+      await localDio.get('/protected');
+    } catch (_) {}
+
+    expect(expired, 1);
+  });
+
   test('login endpointi uchun refresh boshlanmaydi (Interceptor o\'tlaydi)', () async {
     // login endpointi RefreshInterceptor tomonidan e'tiborsiz qoldirilishi kerak
     // Lekin login 401 qaytarmaydi, shuning uchun test oddiyroq

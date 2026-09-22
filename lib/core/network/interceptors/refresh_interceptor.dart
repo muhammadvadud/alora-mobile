@@ -9,10 +9,19 @@ class RefreshInterceptor extends Interceptor {
   final SecureStorage secureStorage;
   final Dio dio;
 
+  /// Tokenlar refresh rad etilgani sabab o'chirilganda chaqiriladi —
+  /// auth qatlami foydalanuvchini login'ga qaytaradi.
+  final void Function()? onSessionExpired;
+
   bool _isRefreshing = false;
   Completer<String?>? _refreshTokenCompleter;
 
-  RefreshInterceptor(this.secureStorage, this.dio);
+  RefreshInterceptor(this.secureStorage, this.dio, {this.onSessionExpired});
+
+  Future<void> _expireSession() async {
+    await secureStorage.clearTokens();
+    onSessionExpired?.call();
+  }
 
   @override
   Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
@@ -26,7 +35,7 @@ class RefreshInterceptor extends Interceptor {
     final currentRefreshToken = await secureStorage.getRefreshToken();
 
     if (currentRefreshToken == null) {
-      await secureStorage.clearTokens();
+      await _expireSession();
       return handler.next(err);
     }
 
@@ -69,7 +78,7 @@ class RefreshInterceptor extends Interceptor {
       // login'ga tushmaydi, keyingi so'rov yana refresh qiladi.
       final status = e.response?.statusCode;
       if (status != null && status >= 400 && status < 500) {
-        await secureStorage.clearTokens();
+        await _expireSession();
       }
       _refreshTokenCompleter?.complete(null);
       _isRefreshing = false;
@@ -111,7 +120,7 @@ class RefreshInterceptor extends Interceptor {
         return handler.next(e);
       }
     } else {
-      await secureStorage.clearTokens();
+      await _expireSession();
       _refreshTokenCompleter?.complete(null);
       _isRefreshing = false;
       _refreshTokenCompleter = null;

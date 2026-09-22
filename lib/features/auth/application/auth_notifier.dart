@@ -6,6 +6,7 @@ import 'package:alora_mobile/app/session/user_scoped_state.dart';
 import 'package:alora_mobile/core/error/failure.dart';
 import 'package:alora_mobile/core/utils/app_logger.dart';
 import 'package:alora_mobile/core/error/error_reporter.dart';
+import 'package:alora_mobile/core/session/session_events.dart';
 
 import 'auth_state.dart';
 import 'providers.dart';
@@ -24,11 +25,20 @@ class AuthNotifier extends _$AuthNotifier {
   @override
   AuthState build() {
     final repository = ref.read(authRepositoryProvider);
-    _sessionExpiredSub = repository.onSessionExpired.listen((_) {
-      _setUnauthenticated();
-      ref.read(sessionExpiredProvider.notifier).trigger();
+    void onExpired(_) {
+      // Ikkala manba: repository.clearSession() va RefreshInterceptor (401, refresh rad).
+      if (state != const AuthState.unauthenticated()) {
+        _setUnauthenticated();
+        ref.read(sessionExpiredProvider.notifier).trigger();
+      }
+    }
+
+    _sessionExpiredSub = repository.onSessionExpired.listen(onExpired);
+    final networkSub = ref.read(sessionEventsProvider).onExpired.listen(onExpired);
+    ref.onDispose(() {
+      _sessionExpiredSub?.cancel();
+      networkSub.cancel();
     });
-    ref.onDispose(() => _sessionExpiredSub?.cancel());
 
     unawaited(_initialize());
     return const AuthState.unknown();

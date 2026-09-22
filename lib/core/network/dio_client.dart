@@ -8,6 +8,7 @@ import 'interceptors/error_mapper_interceptor.dart';
 import 'interceptors/logging_interceptor.dart';
 import 'interceptors/refresh_interceptor.dart';
 import 'interceptors/retry_interceptor.dart';
+import '../session/session_events.dart';
 import '../storage/secure_storage.dart';
 
 part 'dio_client.g.dart';
@@ -27,7 +28,11 @@ Dio dio(Ref ref) {
 
   dio.interceptors.addAll([
     AuthInterceptor(secureStorage),
-    RefreshInterceptor(secureStorage, dio),
+    RefreshInterceptor(
+      secureStorage,
+      dio,
+      onSessionExpired: () => ref.read(sessionEventsProvider).expire(),
+    ),
     RetryInterceptor(dio),
     ErrorMapperInterceptor(
       onFailure: (failure) => ref.read(errorReporterProvider).breadcrumb(failure),

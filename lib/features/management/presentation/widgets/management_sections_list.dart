@@ -52,6 +52,19 @@ class ManagementSectionsList extends StatelessWidget {
           label: l10n.management_sectionKnowledge,
           onTap: () => context.go(AppRoutes.managementKnowledge),
         ),
+        const SizedBox(height: AppSpacing.s),
+        // Ekranlar bor edi, menyuda kirish yo'q edi — manager ularni topa olmasdi.
+        _SectionRow(
+          icon: AppIcons.messageSquare,
+          label: l10n.settings_systemPromptTitle,
+          onTap: () => context.go(AppRoutes.managementSettingsPrompt),
+        ),
+        const SizedBox(height: AppSpacing.s),
+        _SectionRow(
+          icon: AppIcons.calculator,
+          label: l10n.settings_modelPricingsTitle,
+          onTap: () => context.go(AppRoutes.managementSettingsModels),
+        ),
       ],
     );
   }

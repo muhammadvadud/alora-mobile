@@ -82,32 +82,27 @@ class _OrderDefaultsSectionState extends ConsumerState<OrderDefaultsSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: AppTextField(
-                controller: _advCtrl,
-                type: AppTextFieldType.number,
-                hintText: context.l10n.management_pricingAdvancePercent,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.s),
-            Expanded(
-              child: AppTextField(
-                controller: _delCtrl,
-                type: AppTextFieldType.number,
-                hintText: context.l10n.management_pricingDeliveryPrice,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.s),
-            Expanded(
-              child: AppTextField(
-                controller: _daysCtrl,
-                type: AppTextFieldType.number,
-                hintText: context.l10n.management_pricingDeadlineDays,
-              ),
-            ),
-          ],
+        // Har maydonda doimiy sarlavha — hint qiymat kiritilgach yo'qoladi,
+        // manager qaysi son nima ekanini bilmay qolardi.
+        AppTextField(
+          controller: _advCtrl,
+          type: AppTextFieldType.number,
+          label: context.l10n.management_pricingAdvancePercent,
+          hintText: '0',
+        ),
+        const SizedBox(height: AppSpacing.s),
+        AppTextField(
+          controller: _delCtrl,
+          type: AppTextFieldType.number,
+          label: context.l10n.management_pricingDeliveryPrice,
+          hintText: '0',
+        ),
+        const SizedBox(height: AppSpacing.s),
+        AppTextField(
+          controller: _daysCtrl,
+          type: AppTextFieldType.number,
+          label: context.l10n.management_pricingDeadlineDays,
+          hintText: '0',
         ),
         const SizedBox(height: AppSpacing.m),
         AppButton(

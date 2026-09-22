@@ -54,7 +54,7 @@ class DiscountTiersSection extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      context.l10n.management_pricingTierRow(formatMoney(t.minAmount)),
+                      context.l10n.management_pricingTierRow(formatMoneyPlain(t.minAmount)),
                       style: context.text.titleS,
                     ),
                   ),

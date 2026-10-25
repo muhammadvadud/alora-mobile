@@ -344,6 +344,15 @@ void main() {
 
       await tester.tap(find.widgetWithText(AppButton, 'Buyurtma yaratish'));
       await tester.pumpAndSettle();
+      
+      // Bottom sheet ochildi. TextField(0) = chat input, 1 = name, 2 = phone
+      await tester.enterText(find.byType(TextField).at(1), 'Ali Valiyev');
+      await tester.enterText(find.byType(TextField).at(2), '998901234567');
+      
+      // Formani tasdiqlash
+      await tester.tap(find.widgetWithText(AppButton, 'Buyurtma yaratish').last);
+      await tester.pumpAndSettle();
+      
       expect(find.text('order:ord-1'), findsOneWidget);
 
       final body =

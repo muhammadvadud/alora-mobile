@@ -15,6 +15,11 @@ class Env {
   static const String appVersion = String.fromEnvironment('APP_VERSION', defaultValue: '0.0.0');
   static const String buildNumber = String.fromEnvironment('BUILD_NUMBER', defaultValue: '0');
 
+  /// LAN testlarda (masalan `lan.json`) `ENV` "dev" bo'lsa ham, PII logcat'ga tushmasligi
+  /// uchun batafsil loglarni chiqarish alohida bayroq orqali boshqariladi.
+  /// Agar `VERBOSE_LOGS` true bo'lsa, dio loglari va app_logger debug darajasida ishlaydi.
+  static const bool verboseLogs = bool.fromEnvironment('VERBOSE_LOGS');
+
   /// `const` — `if (Env.isDev)` shartlari kompilyatsiyada yo'qoladi, dev kod
   /// (komponent galereyasi, so'rov logi) prod binary'ga kirmaydi.
   static const bool isProd = env == 'prod';

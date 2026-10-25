@@ -236,6 +236,7 @@ class ChatMapper {
                 prepaymentPercent: _optionalDecimal(
                   data['prepayment_percent'] ?? quote['prepayment_percent'],
                 ),
+                customerFormRequired: data['customer_form_required'] == true,
               ),
             );
           }

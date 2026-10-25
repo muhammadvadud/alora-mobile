@@ -3,7 +3,7 @@ import 'package:logger/logger.dart';
 import '../env.dart';
 
 final logger = Logger(
-  level: Env.isProd ? Level.warning : Level.debug,
+  level: Env.verboseLogs ? Level.debug : Level.warning,
   printer: PrettyPrinter(
     methodCount: 0,
     errorMethodCount: 5,

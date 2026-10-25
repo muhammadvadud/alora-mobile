@@ -95,6 +95,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_unknown => 'Неизвестная ошибка';
 
   @override
+  String get error_required_field => 'Это поле обязательно для заполнения';
+
+  @override
+  String get error_invalid_phone => 'Неверный номер телефона';
+
+  @override
   String get order_status_draft => 'Черновик';
 
   @override
@@ -553,6 +559,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chat_draft_title => 'Черновик';
+
+  @override
+  String get chat_draft_customer_form_note => 'Данные клиента будут введены на следующем шаге';
 
   @override
   String get orders => 'Заказы';

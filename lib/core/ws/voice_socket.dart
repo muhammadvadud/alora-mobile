@@ -49,10 +49,9 @@ class VoiceSocket {
       final url = buildUri(
         conversationId: conversationId,
         locale: _lastLocale ?? 'uz',
-        token: token,
       );
 
-      final channel = WebSocketChannel.connect(url);
+      final channel = WebSocketChannel.connect(url, protocols: buildProtocols(token));
       // `ready` kutilmasa ulanish xatosi zone'da ushlanmagan xato bo'lib qoladi.
       await channel.ready;
       if (_disposed) {
@@ -114,17 +113,21 @@ class VoiceSocket {
     }
   }
 
-  /// `ws(s)://<host>/ws/voice/{id}/?locale=&token=` — query parametrlar
-  /// `Uri` orqali kodlanadi (§8.6).
+  /// `ws(s)://<host>/ws/voice/{id}/?locale=` — query parametrlar
+  /// `Uri` orqali kodlanadi (§8.6). Token `Sec-WebSocket-Protocol` da jo'natiladi.
   @visibleForTesting
   static Uri buildUri({
     required String conversationId,
     required String locale,
-    required String token,
     String? baseUrl,
   }) {
     return Uri.parse('${baseUrl ?? Env.wsBaseUrl}/${ApiPaths.voiceSocket(conversationId)}')
-        .replace(queryParameters: {'locale': locale, 'token': token});
+        .replace(queryParameters: {'locale': locale});
+  }
+
+  @visibleForTesting
+  static List<String> buildProtocols(String token) {
+    return ['bearer', token];
   }
 
   void sendAudio(Uint8List bytes) {

@@ -17,7 +17,8 @@ final transcriptProvider = TranscriptNotifierFamily._();
 
 /// Suhbat transkripti (manager uchun o'qish rejimi).
 final class TranscriptNotifierProvider
-    extends $AsyncNotifierProvider<TranscriptNotifier, List<TranscriptMessage>> {
+    extends
+        $AsyncNotifierProvider<TranscriptNotifier, List<TranscriptMessage>> {
   /// Suhbat transkripti (manager uchun o'qish rejimi).
   TranscriptNotifierProvider._({
     required TranscriptNotifierFamily super.from,
@@ -55,7 +56,8 @@ final class TranscriptNotifierProvider
   }
 }
 
-String _$transcriptNotifierHash() => r'a0623fb8c76ad76c794dd291fb26c96004820411';
+String _$transcriptNotifierHash() =>
+    r'ecddd90663598e8831704deea6ffd03cefa3eed7';
 
 /// Suhbat transkripti (manager uchun o'qish rejimi).
 
@@ -88,7 +90,8 @@ final class TranscriptNotifierFamily extends $Family
 
 /// Suhbat transkripti (manager uchun o'qish rejimi).
 
-abstract class _$TranscriptNotifier extends $AsyncNotifier<List<TranscriptMessage>> {
+abstract class _$TranscriptNotifier
+    extends $AsyncNotifier<List<TranscriptMessage>> {
   late final _$args = ref.$arg as String;
   String get conversationId => _$args;
 
@@ -96,11 +99,19 @@ abstract class _$TranscriptNotifier extends $AsyncNotifier<List<TranscriptMessag
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<List<TranscriptMessage>>, List<TranscriptMessage>>;
+    final ref =
+        this.ref
+            as $Ref<
+              AsyncValue<List<TranscriptMessage>>,
+              List<TranscriptMessage>
+            >;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<TranscriptMessage>>, List<TranscriptMessage>>,
+              AnyNotifier<
+                AsyncValue<List<TranscriptMessage>>,
+                List<TranscriptMessage>
+              >,
               AsyncValue<List<TranscriptMessage>>,
               Object?,
               Object?

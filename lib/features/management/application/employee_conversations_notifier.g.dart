@@ -17,7 +17,11 @@ final employeeConversationsProvider = EmployeeConversationsNotifierFamily._();
 
 /// Bitta xodimning suhbatlari ro'yxati.
 final class EmployeeConversationsNotifierProvider
-    extends $AsyncNotifierProvider<EmployeeConversationsNotifier, List<Conversation>> {
+    extends
+        $AsyncNotifierProvider<
+          EmployeeConversationsNotifier,
+          List<Conversation>
+        > {
   /// Bitta xodimning suhbatlari ro'yxati.
   EmployeeConversationsNotifierProvider._({
     required EmployeeConversationsNotifierFamily super.from,
@@ -46,7 +50,8 @@ final class EmployeeConversationsNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is EmployeeConversationsNotifierProvider && other.argument == argument;
+    return other is EmployeeConversationsNotifierProvider &&
+        other.argument == argument;
   }
 
   @override
@@ -55,7 +60,8 @@ final class EmployeeConversationsNotifierProvider
   }
 }
 
-String _$employeeConversationsNotifierHash() => r'f3bc30540ffbe36b9eb4828cb7c0ad6610a26086';
+String _$employeeConversationsNotifierHash() =>
+    r'f3bc30540ffbe36b9eb4828cb7c0ad6610a26086';
 
 /// Bitta xodimning suhbatlari ro'yxati.
 
@@ -88,7 +94,8 @@ final class EmployeeConversationsNotifierFamily extends $Family
 
 /// Bitta xodimning suhbatlari ro'yxati.
 
-abstract class _$EmployeeConversationsNotifier extends $AsyncNotifier<List<Conversation>> {
+abstract class _$EmployeeConversationsNotifier
+    extends $AsyncNotifier<List<Conversation>> {
   late final _$args = ref.$arg as String;
   String get employeeId => _$args;
 
@@ -96,7 +103,8 @@ abstract class _$EmployeeConversationsNotifier extends $AsyncNotifier<List<Conve
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<List<Conversation>>, List<Conversation>>;
+    final ref =
+        this.ref as $Ref<AsyncValue<List<Conversation>>, List<Conversation>>;
     final element =
         ref.element
             as $ClassProviderElement<

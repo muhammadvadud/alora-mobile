@@ -23,6 +23,7 @@ import 'package:alora_mobile/features/chat/presentation/widgets/chat_message_lis
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_history_skeleton.dart';
 import "package:alora_mobile/shared/widgets/scroll_down_button.dart";
 import 'package:alora_mobile/features/chat/presentation/widgets/chat_title_bar.dart';
+import 'package:alora_mobile/features/orders/presentation/widgets/customer_details_form_sheet.dart';
 import 'package:alora_mobile/features/chat/presentation/widgets/conversations_pane_placeholder.dart';
 import 'package:alora_mobile/features/voice/presentation/widgets/voice_panel.dart';
 import 'package:alora_mobile/features/customer_mode/application/providers.dart';
@@ -78,9 +79,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   }
 
   Future<void> _createOrderFromDraft(OrderDraft draft) async {
+    final updatedDraft = await CustomerDetailsFormSheet.show(context, draft);
+    if (updatedDraft == null || !mounted) return;
+
     final order = await ref
         .read(orderFromDraftProvider.notifier)
-        .create(draft, conversationId: widget.conversationId);
+        .create(updatedDraft, conversationId: widget.conversationId);
     if (!mounted) return;
     if (order == null) {
       final error = ref.read(orderFromDraftProvider).error;

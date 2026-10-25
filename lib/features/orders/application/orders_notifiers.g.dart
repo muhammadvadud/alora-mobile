@@ -43,7 +43,8 @@ final class OrdersListFilterNotifierProvider
   }
 }
 
-String _$ordersListFilterNotifierHash() => r'4f8783c929912cf03d9b1df0fd4384e3b39492cc';
+String _$ordersListFilterNotifierHash() =>
+    r'4f8783c929912cf03d9b1df0fd4384e3b39492cc';
 
 abstract class _$OrdersListFilterNotifier extends $Notifier<OrdersListFilter> {
   OrdersListFilter build();
@@ -67,7 +68,8 @@ abstract class _$OrdersListFilterNotifier extends $Notifier<OrdersListFilter> {
 final ordersListProvider = OrdersListNotifierProvider._();
 
 final class OrdersListNotifierProvider
-    extends $AsyncNotifierProvider<OrdersListNotifier, CursorPagingState<Order>> {
+    extends
+        $AsyncNotifierProvider<OrdersListNotifier, CursorPagingState<Order>> {
   OrdersListNotifierProvider._()
     : super(
         from: null,
@@ -87,18 +89,28 @@ final class OrdersListNotifierProvider
   OrdersListNotifier create() => OrdersListNotifier();
 }
 
-String _$ordersListNotifierHash() => r'd14b5fdaef6cfa66f7f505488463b49c52770312';
+String _$ordersListNotifierHash() =>
+    r'd14b5fdaef6cfa66f7f505488463b49c52770312';
 
-abstract class _$OrdersListNotifier extends $AsyncNotifier<CursorPagingState<Order>> {
+abstract class _$OrdersListNotifier
+    extends $AsyncNotifier<CursorPagingState<Order>> {
   FutureOr<CursorPagingState<Order>> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<CursorPagingState<Order>>, CursorPagingState<Order>>;
+    final ref =
+        this.ref
+            as $Ref<
+              AsyncValue<CursorPagingState<Order>>,
+              CursorPagingState<Order>
+            >;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<CursorPagingState<Order>>, CursorPagingState<Order>>,
+              AnyNotifier<
+                AsyncValue<CursorPagingState<Order>>,
+                CursorPagingState<Order>
+              >,
               AsyncValue<CursorPagingState<Order>>,
               Object?,
               Object?
@@ -110,7 +122,8 @@ abstract class _$OrdersListNotifier extends $AsyncNotifier<CursorPagingState<Ord
 @ProviderFor(OrderDetailNotifier)
 final orderDetailProvider = OrderDetailNotifierFamily._();
 
-final class OrderDetailNotifierProvider extends $AsyncNotifierProvider<OrderDetailNotifier, Order> {
+final class OrderDetailNotifierProvider
+    extends $AsyncNotifierProvider<OrderDetailNotifier, Order> {
   OrderDetailNotifierProvider._({
     required OrderDetailNotifierFamily super.from,
     required String super.argument,
@@ -147,7 +160,8 @@ final class OrderDetailNotifierProvider extends $AsyncNotifierProvider<OrderDeta
   }
 }
 
-String _$orderDetailNotifierHash() => r'fe7f54022d954867c3dd673660a35f7677bcf59b';
+String _$orderDetailNotifierHash() =>
+    r'fe7f54022d954867c3dd673660a35f7677bcf59b';
 
 final class OrderDetailNotifierFamily extends $Family
     with

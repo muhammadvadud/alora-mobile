@@ -18,7 +18,8 @@ final catalogProvider = CatalogNotifierProvider._();
 
 /// Katalog holatini boshqaruvchi notifier: kategoriyalar, qidiruv (300 ms debounce),
 /// filtrlar, sahifalash.
-final class CatalogNotifierProvider extends $NotifierProvider<CatalogNotifier, CatalogState> {
+final class CatalogNotifierProvider
+    extends $NotifierProvider<CatalogNotifier, CatalogState> {
   /// Katalog holatini boshqaruvchi notifier: kategoriyalar, qidiruv (300 ms debounce),
   /// filtrlar, sahifalash.
   CatalogNotifierProvider._()
@@ -48,7 +49,7 @@ final class CatalogNotifierProvider extends $NotifierProvider<CatalogNotifier, C
   }
 }
 
-String _$catalogNotifierHash() => r'c2e3670a4cc42dddaca6164097a8bc2cc07b49c1';
+String _$catalogNotifierHash() => r'0b1af46999372b1e6ca9f303e4eb378721a55bc5';
 
 /// Katalog holatini boshqaruvchi notifier: kategoriyalar, qidiruv (300 ms debounce),
 /// filtrlar, sahifalash.

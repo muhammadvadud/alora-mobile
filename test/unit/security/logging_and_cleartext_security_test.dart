@@ -12,8 +12,16 @@ void main() {
           .readAsStringSync();
 
       expect(source.contains("headers['Authorization'] = 'Bearer ***'"), isTrue);
-      expect(source.contains("maskedData['password'] = '***'"), isTrue);
-      expect(source.contains("maskedData['phone'] = '***'"), isTrue);
+      // Body maskalash rekursiv funksiyada — manba matni emas, xatti-harakat tekshiriladi.
+      final masked = maskSensitiveData({
+        'password': 'p',
+        'phone': '+998',
+        'order': {'customer_phone': '+998', 'qty': 2},
+      }) as Map<String, dynamic>;
+      expect(masked['password'], '***');
+      expect(masked['phone'], '***');
+      expect((masked['order'] as Map<String, dynamic>)['customer_phone'], '***');
+      expect((masked['order'] as Map<String, dynamic>)['qty'], 2);
     });
 
     test('so\'rov headers/data ni o\'zgartirmaydi (faqat log nusxasi)', () async {

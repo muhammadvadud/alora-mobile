@@ -46,5 +46,6 @@ abstract class OrderDraft with _$OrderDraft {
     @Default(false) bool delivery,
     double? discountPercent,
     double? prepaymentPercent,
+    @Default(false) bool customerFormRequired,
   }) = _OrderDraft;
 }

@@ -15,7 +15,12 @@ part of 'providers.dart';
 final chatLocalDataSourceProvider = ChatLocalDataSourceProvider._();
 
 final class ChatLocalDataSourceProvider
-    extends $FunctionalProvider<ChatLocalDataSource, ChatLocalDataSource, ChatLocalDataSource>
+    extends
+        $FunctionalProvider<
+          ChatLocalDataSource,
+          ChatLocalDataSource,
+          ChatLocalDataSource
+        >
     with $Provider<ChatLocalDataSource> {
   ChatLocalDataSourceProvider._()
     : super(
@@ -33,8 +38,9 @@ final class ChatLocalDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<ChatLocalDataSource> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ChatLocalDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   ChatLocalDataSource create(Ref ref) {
@@ -50,13 +56,19 @@ final class ChatLocalDataSourceProvider
   }
 }
 
-String _$chatLocalDataSourceHash() => r'd111eb1de5c9916910c379873cdfc5efcfa8f7f2';
+String _$chatLocalDataSourceHash() =>
+    r'd111eb1de5c9916910c379873cdfc5efcfa8f7f2';
 
 @ProviderFor(chatRemoteDataSource)
 final chatRemoteDataSourceProvider = ChatRemoteDataSourceProvider._();
 
 final class ChatRemoteDataSourceProvider
-    extends $FunctionalProvider<ChatRemoteDataSource, ChatRemoteDataSource, ChatRemoteDataSource>
+    extends
+        $FunctionalProvider<
+          ChatRemoteDataSource,
+          ChatRemoteDataSource,
+          ChatRemoteDataSource
+        >
     with $Provider<ChatRemoteDataSource> {
   ChatRemoteDataSourceProvider._()
     : super(
@@ -74,8 +86,9 @@ final class ChatRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<ChatRemoteDataSource> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ChatRemoteDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   ChatRemoteDataSource create(Ref ref) {
@@ -91,7 +104,8 @@ final class ChatRemoteDataSourceProvider
   }
 }
 
-String _$chatRemoteDataSourceHash() => r'75eff71d259cc74d86f6a7597be402c8055a51c3';
+String _$chatRemoteDataSourceHash() =>
+    r'75eff71d259cc74d86f6a7597be402c8055a51c3';
 
 @ProviderFor(chatRepository)
 final chatRepositoryProvider = ChatRepositoryProvider._();

@@ -15,7 +15,12 @@ part of 'pricing_repository.dart';
 final pricingRepositoryProvider = PricingRepositoryProvider._();
 
 final class PricingRepositoryProvider
-    extends $FunctionalProvider<PricingRepository, PricingRepository, PricingRepository>
+    extends
+        $FunctionalProvider<
+          PricingRepository,
+          PricingRepository,
+          PricingRepository
+        >
     with $Provider<PricingRepository> {
   PricingRepositoryProvider._()
     : super(
@@ -33,8 +38,9 @@ final class PricingRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<PricingRepository> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<PricingRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   PricingRepository create(Ref ref) {

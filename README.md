@@ -88,3 +88,8 @@ Ilovani Play Store ga chiqarish uchun qadamlar:
    # Flutter 3.47.4 da `--analyze-size` integration_test plagini bilan xato beradi — CI hajmni fayldan o'lchaydi
    ```
    (yoki aab formati uchun `flutter build appbundle`).
+
+> **Eslatma (LAN/test build):** `key.properties` siz release build faqat debug kalit bilan imzolashga ruxsat berilganda quriladi.
+> Gradle property Flutter orqali muhit o'zgaruvchisi bilan uzatiladi:
+> `ORG_GRADLE_PROJECT_aloraAllowDebugSigning=true flutter build apk --release --dart-define-from-file=env/lan.json`
+> Ruxsatsiz release build `key.properties` yo'qligi haqida xato bilan to'xtaydi. LAN build'ga `VERBOSE_LOGS` qo'shmang — so'rov body'lari logcat'ga yoziladi.

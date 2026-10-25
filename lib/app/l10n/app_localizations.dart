@@ -265,6 +265,18 @@ abstract class AppLocalizations {
   /// **'Noma\'lum xatolik'**
   String get error_unknown;
 
+  /// No description provided for @error_required_field.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ushbu maydonni to\'ldirish majburiy'**
+  String get error_required_field;
+
+  /// No description provided for @error_invalid_phone.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noto\'g\'ri telefon raqami'**
+  String get error_invalid_phone;
+
   /// No description provided for @order_status_draft.
   ///
   /// In uz, this message translates to:
@@ -1152,6 +1164,12 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Qoralama'**
   String get chat_draft_title;
+
+  /// No description provided for @chat_draft_customer_form_note.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mijoz ma\'lumotlari keyingi qadamda kiritiladi'**
+  String get chat_draft_customer_form_note;
 
   /// No description provided for @orders.
   ///

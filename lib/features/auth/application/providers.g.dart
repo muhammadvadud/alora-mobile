@@ -18,7 +18,12 @@ final authRemoteDataSourceProvider = AuthRemoteDataSourceProvider._();
 /// Auth backend data source
 
 final class AuthRemoteDataSourceProvider
-    extends $FunctionalProvider<AuthRemoteDataSource, AuthRemoteDataSource, AuthRemoteDataSource>
+    extends
+        $FunctionalProvider<
+          AuthRemoteDataSource,
+          AuthRemoteDataSource,
+          AuthRemoteDataSource
+        >
     with $Provider<AuthRemoteDataSource> {
   /// Auth backend data source
   AuthRemoteDataSourceProvider._()
@@ -37,8 +42,9 @@ final class AuthRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<AuthRemoteDataSource> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<AuthRemoteDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   AuthRemoteDataSource create(Ref ref) {
@@ -54,7 +60,8 @@ final class AuthRemoteDataSourceProvider
   }
 }
 
-String _$authRemoteDataSourceHash() => r'b815e770fe4b44dd75bce700bf3beca6bd35a46e';
+String _$authRemoteDataSourceHash() =>
+    r'b815e770fe4b44dd75bce700bf3beca6bd35a46e';
 
 /// Auth repository (testlarda override qilinadi)
 

@@ -8,21 +8,23 @@ import 'package:alora_mobile/core/ws/voice_socket.dart';
 class _MockSecureStorage extends Mock implements SecureStorage {}
 
 void main() {
-  group('VoiceSocket.buildUri', () {
-    test('locale va token query sifatida kodlanadi (§8.6)', () {
+  group('VoiceSocket.buildUri va buildProtocols', () {
+    test('locale query sifatida kodlanadi (§8.6), token URI dan olib tashlangan', () {
       final uri = VoiceSocket.buildUri(
         conversationId: 'c1',
         locale: 'ru',
-        token: 'a.b/c+d=',
         baseUrl: 'wss://api.alora.uz',
       );
       expect(uri.scheme, 'wss');
       expect(uri.host, 'api.alora.uz');
       expect(uri.path, '/ws/voice/c1/');
       expect(uri.queryParameters['locale'], 'ru');
-      expect(uri.queryParameters['token'], 'a.b/c+d=');
-      // `+` va `/` xom holda ketmaydi
-      expect(uri.query, isNot(contains('+')));
+      expect(uri.queryParameters.containsKey('token'), isFalse);
+    });
+
+    test('token subprotocol sifatida beriladi', () {
+      final protocols = VoiceSocket.buildProtocols('a.b/c+d=');
+      expect(protocols, ['bearer', 'a.b/c+d=']);
     });
   });
 

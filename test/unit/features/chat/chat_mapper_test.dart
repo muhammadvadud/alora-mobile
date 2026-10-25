@@ -356,11 +356,14 @@ void main() {
       );
     });
 
-    test('missing_fields yo\'q — bo\'sh ro\'yxat', () {
-      const result = '{"total": "100000"}';
+    test('missing_fields yo\'q — bo\'sh ro\'yxat, customer_form_required ishlaydi', () {
+      const result = '{"total": "100000", "customer_form_required": true}';
       final block = ChatMapper.parseToolResult('order_draft', result);
       block.maybeWhen(
-        orderDraft: (d) => expect(d.missingFields, isEmpty),
+        orderDraft: (d) {
+          expect(d.missingFields, isEmpty);
+          expect(d.customerFormRequired, isTrue);
+        },
         orElse: () => fail('Kutilgan: OrderDraftBlock'),
       );
     });

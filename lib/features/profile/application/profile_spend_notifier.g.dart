@@ -44,7 +44,8 @@ final class ProfileSpendNotifierProvider
   ProfileSpendNotifier create() => ProfileSpendNotifier();
 }
 
-String _$profileSpendNotifierHash() => r'769f7660b18b7faa520c177c0cedd5040e874570';
+String _$profileSpendNotifierHash() =>
+    r'769f7660b18b7faa520c177c0cedd5040e874570';
 
 /// Profil sarf ma'lumotlarini olib boruvchi notifier.
 /// `auth/me/` limit blo'gi va (manager/admin uchun) bugungi sarf
@@ -55,7 +56,8 @@ abstract class _$ProfileSpendNotifier extends $AsyncNotifier<ProfileSpendData> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<ProfileSpendData>, ProfileSpendData>;
+    final ref =
+        this.ref as $Ref<AsyncValue<ProfileSpendData>, ProfileSpendData>;
     final element =
         ref.element
             as $ClassProviderElement<

@@ -211,6 +211,7 @@ return $default(_that.variantId,_that.role,_that.widthM,_that.heightM,_that.coef
 
 class _OrderDraftPart implements OrderDraftPart {
   const _OrderDraftPart({required this.variantId, required this.role, this.widthM, this.heightM, this.coefficient});
+  
 
 @override final  String variantId;
 @override final  String role;
@@ -476,6 +477,7 @@ return $default(_that.variantId,_that.qty);case _:
 
 class _OrderDraftAccessory implements OrderDraftAccessory {
   const _OrderDraftAccessory({required this.variantId, required this.qty});
+  
 
 @override final  String variantId;
 @override final  double qty;
@@ -813,7 +815,7 @@ as List<OrderDraftAccessory>,
 /// @nodoc
 mixin _$OrderDraft {
 
- String? get customerName; String? get phone; String? get address; List<OrderDraftMeasurement> get measurements; int get total; int? get prepayment; DateTime? get deadline; List<String> get missingFields; List<String> get services; bool get delivery; double? get discountPercent; double? get prepaymentPercent;
+ String? get customerName; String? get phone; String? get address; List<OrderDraftMeasurement> get measurements; int get total; int? get prepayment; DateTime? get deadline; List<String> get missingFields; List<String> get services; bool get delivery; double? get discountPercent; double? get prepaymentPercent; bool get customerFormRequired;
 /// Create a copy of OrderDraft
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -824,16 +826,16 @@ $OrderDraftCopyWith<OrderDraft> get copyWith => _$OrderDraftCopyWithImpl<OrderDr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderDraft&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.measurements, measurements)&&(identical(other.total, total) || other.total == total)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&const DeepCollectionEquality().equals(other.missingFields, missingFields)&&const DeepCollectionEquality().equals(other.services, services)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.discountPercent, discountPercent) || other.discountPercent == discountPercent)&&(identical(other.prepaymentPercent, prepaymentPercent) || other.prepaymentPercent == prepaymentPercent));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderDraft&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.measurements, measurements)&&(identical(other.total, total) || other.total == total)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&const DeepCollectionEquality().equals(other.missingFields, missingFields)&&const DeepCollectionEquality().equals(other.services, services)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.discountPercent, discountPercent) || other.discountPercent == discountPercent)&&(identical(other.prepaymentPercent, prepaymentPercent) || other.prepaymentPercent == prepaymentPercent)&&(identical(other.customerFormRequired, customerFormRequired) || other.customerFormRequired == customerFormRequired));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,customerName,phone,address,const DeepCollectionEquality().hash(measurements),total,prepayment,deadline,const DeepCollectionEquality().hash(missingFields),const DeepCollectionEquality().hash(services),delivery,discountPercent,prepaymentPercent);
+int get hashCode => Object.hash(runtimeType,customerName,phone,address,const DeepCollectionEquality().hash(measurements),total,prepayment,deadline,const DeepCollectionEquality().hash(missingFields),const DeepCollectionEquality().hash(services),delivery,discountPercent,prepaymentPercent,customerFormRequired);
 
 @override
 String toString() {
-  return 'OrderDraft(customerName: $customerName, phone: $phone, address: $address, measurements: $measurements, total: $total, prepayment: $prepayment, deadline: $deadline, missingFields: $missingFields, services: $services, delivery: $delivery, discountPercent: $discountPercent, prepaymentPercent: $prepaymentPercent)';
+  return 'OrderDraft(customerName: $customerName, phone: $phone, address: $address, measurements: $measurements, total: $total, prepayment: $prepayment, deadline: $deadline, missingFields: $missingFields, services: $services, delivery: $delivery, discountPercent: $discountPercent, prepaymentPercent: $prepaymentPercent, customerFormRequired: $customerFormRequired)';
 }
 
 
@@ -844,7 +846,7 @@ abstract mixin class $OrderDraftCopyWith<$Res>  {
   factory $OrderDraftCopyWith(OrderDraft value, $Res Function(OrderDraft) _then) = _$OrderDraftCopyWithImpl;
 @useResult
 $Res call({
- String? customerName, String? phone, String? address, List<OrderDraftMeasurement> measurements, int total, int? prepayment, DateTime? deadline, List<String> missingFields, List<String> services, bool delivery, double? discountPercent, double? prepaymentPercent
+ String? customerName, String? phone, String? address, List<OrderDraftMeasurement> measurements, int total, int? prepayment, DateTime? deadline, List<String> missingFields, List<String> services, bool delivery, double? discountPercent, double? prepaymentPercent, bool customerFormRequired
 });
 
 
@@ -861,7 +863,7 @@ class _$OrderDraftCopyWithImpl<$Res>
 
 /// Create a copy of OrderDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? customerName = freezed,Object? phone = freezed,Object? address = freezed,Object? measurements = null,Object? total = null,Object? prepayment = freezed,Object? deadline = freezed,Object? missingFields = null,Object? services = null,Object? delivery = null,Object? discountPercent = freezed,Object? prepaymentPercent = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? customerName = freezed,Object? phone = freezed,Object? address = freezed,Object? measurements = null,Object? total = null,Object? prepayment = freezed,Object? deadline = freezed,Object? missingFields = null,Object? services = null,Object? delivery = null,Object? discountPercent = freezed,Object? prepaymentPercent = freezed,Object? customerFormRequired = null,}) {
   return _then(_self.copyWith(
 customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -875,7 +877,8 @@ as List<String>,services: null == services ? _self.services : services // ignore
 as List<String>,delivery: null == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
 as bool,discountPercent: freezed == discountPercent ? _self.discountPercent : discountPercent // ignore: cast_nullable_to_non_nullable
 as double?,prepaymentPercent: freezed == prepaymentPercent ? _self.prepaymentPercent : prepaymentPercent // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,customerFormRequired: null == customerFormRequired ? _self.customerFormRequired : customerFormRequired // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -960,10 +963,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? customerName,  String? phone,  String? address,  List<OrderDraftMeasurement> measurements,  int total,  int? prepayment,  DateTime? deadline,  List<String> missingFields,  List<String> services,  bool delivery,  double? discountPercent,  double? prepaymentPercent)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? customerName,  String? phone,  String? address,  List<OrderDraftMeasurement> measurements,  int total,  int? prepayment,  DateTime? deadline,  List<String> missingFields,  List<String> services,  bool delivery,  double? discountPercent,  double? prepaymentPercent,  bool customerFormRequired)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderDraft() when $default != null:
-return $default(_that.customerName,_that.phone,_that.address,_that.measurements,_that.total,_that.prepayment,_that.deadline,_that.missingFields,_that.services,_that.delivery,_that.discountPercent,_that.prepaymentPercent);case _:
+return $default(_that.customerName,_that.phone,_that.address,_that.measurements,_that.total,_that.prepayment,_that.deadline,_that.missingFields,_that.services,_that.delivery,_that.discountPercent,_that.prepaymentPercent,_that.customerFormRequired);case _:
   return orElse();
 
 }
@@ -981,10 +984,10 @@ return $default(_that.customerName,_that.phone,_that.address,_that.measurements,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? customerName,  String? phone,  String? address,  List<OrderDraftMeasurement> measurements,  int total,  int? prepayment,  DateTime? deadline,  List<String> missingFields,  List<String> services,  bool delivery,  double? discountPercent,  double? prepaymentPercent)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? customerName,  String? phone,  String? address,  List<OrderDraftMeasurement> measurements,  int total,  int? prepayment,  DateTime? deadline,  List<String> missingFields,  List<String> services,  bool delivery,  double? discountPercent,  double? prepaymentPercent,  bool customerFormRequired)  $default,) {final _that = this;
 switch (_that) {
 case _OrderDraft():
-return $default(_that.customerName,_that.phone,_that.address,_that.measurements,_that.total,_that.prepayment,_that.deadline,_that.missingFields,_that.services,_that.delivery,_that.discountPercent,_that.prepaymentPercent);case _:
+return $default(_that.customerName,_that.phone,_that.address,_that.measurements,_that.total,_that.prepayment,_that.deadline,_that.missingFields,_that.services,_that.delivery,_that.discountPercent,_that.prepaymentPercent,_that.customerFormRequired);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1001,10 +1004,10 @@ return $default(_that.customerName,_that.phone,_that.address,_that.measurements,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? customerName,  String? phone,  String? address,  List<OrderDraftMeasurement> measurements,  int total,  int? prepayment,  DateTime? deadline,  List<String> missingFields,  List<String> services,  bool delivery,  double? discountPercent,  double? prepaymentPercent)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? customerName,  String? phone,  String? address,  List<OrderDraftMeasurement> measurements,  int total,  int? prepayment,  DateTime? deadline,  List<String> missingFields,  List<String> services,  bool delivery,  double? discountPercent,  double? prepaymentPercent,  bool customerFormRequired)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderDraft() when $default != null:
-return $default(_that.customerName,_that.phone,_that.address,_that.measurements,_that.total,_that.prepayment,_that.deadline,_that.missingFields,_that.services,_that.delivery,_that.discountPercent,_that.prepaymentPercent);case _:
+return $default(_that.customerName,_that.phone,_that.address,_that.measurements,_that.total,_that.prepayment,_that.deadline,_that.missingFields,_that.services,_that.delivery,_that.discountPercent,_that.prepaymentPercent,_that.customerFormRequired);case _:
   return null;
 
 }
@@ -1016,7 +1019,7 @@ return $default(_that.customerName,_that.phone,_that.address,_that.measurements,
 
 
 class _OrderDraft implements OrderDraft {
-  const _OrderDraft({this.customerName, this.phone, this.address, required this.measurements, required this.total, this.prepayment, this.deadline, required this.missingFields, this.services = const [], this.delivery = false, this.discountPercent, this.prepaymentPercent});
+  const _OrderDraft({this.customerName, this.phone, this.address, required this.measurements, required this.total, this.prepayment, this.deadline, required this.missingFields, this.services = const [], this.delivery = false, this.discountPercent, this.prepaymentPercent, this.customerFormRequired = false});
   
 
 @override final  String? customerName;
@@ -1031,6 +1034,7 @@ class _OrderDraft implements OrderDraft {
 @override@JsonKey() final  bool delivery;
 @override final  double? discountPercent;
 @override final  double? prepaymentPercent;
+@override@JsonKey() final  bool customerFormRequired;
 
 /// Create a copy of OrderDraft
 /// with the given fields replaced by the non-null parameter values.
@@ -1042,16 +1046,16 @@ _$OrderDraftCopyWith<_OrderDraft> get copyWith => __$OrderDraftCopyWithImpl<_Ord
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderDraft&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.measurements, measurements)&&(identical(other.total, total) || other.total == total)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&const DeepCollectionEquality().equals(other.missingFields, missingFields)&&const DeepCollectionEquality().equals(other.services, services)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.discountPercent, discountPercent) || other.discountPercent == discountPercent)&&(identical(other.prepaymentPercent, prepaymentPercent) || other.prepaymentPercent == prepaymentPercent));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderDraft&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.measurements, measurements)&&(identical(other.total, total) || other.total == total)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.deadline, deadline) || other.deadline == deadline)&&const DeepCollectionEquality().equals(other.missingFields, missingFields)&&const DeepCollectionEquality().equals(other.services, services)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.discountPercent, discountPercent) || other.discountPercent == discountPercent)&&(identical(other.prepaymentPercent, prepaymentPercent) || other.prepaymentPercent == prepaymentPercent)&&(identical(other.customerFormRequired, customerFormRequired) || other.customerFormRequired == customerFormRequired));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,customerName,phone,address,const DeepCollectionEquality().hash(measurements),total,prepayment,deadline,const DeepCollectionEquality().hash(missingFields),const DeepCollectionEquality().hash(services),delivery,discountPercent,prepaymentPercent);
+int get hashCode => Object.hash(runtimeType,customerName,phone,address,const DeepCollectionEquality().hash(measurements),total,prepayment,deadline,const DeepCollectionEquality().hash(missingFields),const DeepCollectionEquality().hash(services),delivery,discountPercent,prepaymentPercent,customerFormRequired);
 
 @override
 String toString() {
-  return 'OrderDraft(customerName: $customerName, phone: $phone, address: $address, measurements: $measurements, total: $total, prepayment: $prepayment, deadline: $deadline, missingFields: $missingFields, services: $services, delivery: $delivery, discountPercent: $discountPercent, prepaymentPercent: $prepaymentPercent)';
+  return 'OrderDraft(customerName: $customerName, phone: $phone, address: $address, measurements: $measurements, total: $total, prepayment: $prepayment, deadline: $deadline, missingFields: $missingFields, services: $services, delivery: $delivery, discountPercent: $discountPercent, prepaymentPercent: $prepaymentPercent, customerFormRequired: $customerFormRequired)';
 }
 
 
@@ -1062,7 +1066,7 @@ abstract mixin class _$OrderDraftCopyWith<$Res> implements $OrderDraftCopyWith<$
   factory _$OrderDraftCopyWith(_OrderDraft value, $Res Function(_OrderDraft) _then) = __$OrderDraftCopyWithImpl;
 @override @useResult
 $Res call({
- String? customerName, String? phone, String? address, List<OrderDraftMeasurement> measurements, int total, int? prepayment, DateTime? deadline, List<String> missingFields, List<String> services, bool delivery, double? discountPercent, double? prepaymentPercent
+ String? customerName, String? phone, String? address, List<OrderDraftMeasurement> measurements, int total, int? prepayment, DateTime? deadline, List<String> missingFields, List<String> services, bool delivery, double? discountPercent, double? prepaymentPercent, bool customerFormRequired
 });
 
 
@@ -1079,7 +1083,7 @@ class __$OrderDraftCopyWithImpl<$Res>
 
 /// Create a copy of OrderDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? customerName = freezed,Object? phone = freezed,Object? address = freezed,Object? measurements = null,Object? total = null,Object? prepayment = freezed,Object? deadline = freezed,Object? missingFields = null,Object? services = null,Object? delivery = null,Object? discountPercent = freezed,Object? prepaymentPercent = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? customerName = freezed,Object? phone = freezed,Object? address = freezed,Object? measurements = null,Object? total = null,Object? prepayment = freezed,Object? deadline = freezed,Object? missingFields = null,Object? services = null,Object? delivery = null,Object? discountPercent = freezed,Object? prepaymentPercent = freezed,Object? customerFormRequired = null,}) {
   return _then(_OrderDraft(
 customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -1093,7 +1097,8 @@ as List<String>,services: null == services ? _self.services : services // ignore
 as List<String>,delivery: null == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
 as bool,discountPercent: freezed == discountPercent ? _self.discountPercent : discountPercent // ignore: cast_nullable_to_non_nullable
 as double?,prepaymentPercent: freezed == prepaymentPercent ? _self.prepaymentPercent : prepaymentPercent // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,customerFormRequired: null == customerFormRequired ? _self.customerFormRequired : customerFormRequired // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

@@ -45,11 +45,17 @@ android {
                 keyPassword = keystoreProperties["keyPassword"] as String
                 storeFile = file(keystoreProperties["storeFile"] as String)
                 storePassword = keystoreProperties["storePassword"] as String
-            } else {
-                // key.properties yo'q (CI / lokal tekshiruv) — debug kalit. Play'ga
-                // yuklanadigan build'da android/key.properties majburiy.
+            } else if (project.hasProperty("aloraAllowDebugSigning") && project.property("aloraAllowDebugSigning") == "true") {
+                // key.properties yo'q, lekin ruxsat berilgan — debug kalit bilan imzolanadi
                 logger.warn("ALORA: android/key.properties topilmadi — release DEBUG kalit bilan imzolanadi!")
                 initWith(getByName("debug"))
+            } else {
+                // Release task'lari bajarilayotganda, configuration bosqichida xato tashlaymiz.
+                // Shunday qilib, debug run yoki analyze/lint buzilmaydi.
+                val isReleaseTask = gradle.startParameter.taskNames.any { it.contains("Release", ignoreCase = true) }
+                if (isReleaseTask) {
+                    throw GradleException("android/key.properties topilmadi! Release imzolash uchun keystore kerak. Lokal test uchun -PaloraAllowDebugSigning=true property'sini ishlating.")
+                }
             }
         }
     }

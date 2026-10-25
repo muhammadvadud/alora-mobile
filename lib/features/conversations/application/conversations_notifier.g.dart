@@ -49,7 +49,8 @@ final class ConversationsNotifierProvider
   }
 }
 
-String _$conversationsNotifierHash() => r'54b0f4f6fdfaf15bace1ab6cf8f3738b7d4d98af';
+String _$conversationsNotifierHash() =>
+    r'ec4997426a007a880b850ef564a7b27ff13b604c';
 
 /// Suhbatlar ro'yxatini boshqaruvchi notifier.
 /// Sahifalash, 300 ms debounce qidiruv, filtr, arxivlash, yangi suhbat.

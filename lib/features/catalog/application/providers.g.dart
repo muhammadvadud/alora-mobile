@@ -38,8 +38,9 @@ final class CatalogRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<CatalogRemoteDataSource> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<CatalogRemoteDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   CatalogRemoteDataSource create(Ref ref) {
@@ -55,14 +56,19 @@ final class CatalogRemoteDataSourceProvider
   }
 }
 
-String _$catalogRemoteDataSourceHash() => r'8a95b0d8c4eab9f2bdafee0a6da3371e80b828ea';
+String _$catalogRemoteDataSourceHash() =>
+    r'8a95b0d8c4eab9f2bdafee0a6da3371e80b828ea';
 
 @ProviderFor(catalogLocalDataSource)
 final catalogLocalDataSourceProvider = CatalogLocalDataSourceProvider._();
 
 final class CatalogLocalDataSourceProvider
     extends
-        $FunctionalProvider<CatalogLocalDataSource, CatalogLocalDataSource, CatalogLocalDataSource>
+        $FunctionalProvider<
+          CatalogLocalDataSource,
+          CatalogLocalDataSource,
+          CatalogLocalDataSource
+        >
     with $Provider<CatalogLocalDataSource> {
   CatalogLocalDataSourceProvider._()
     : super(
@@ -80,8 +86,9 @@ final class CatalogLocalDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<CatalogLocalDataSource> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<CatalogLocalDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   CatalogLocalDataSource create(Ref ref) {
@@ -97,13 +104,19 @@ final class CatalogLocalDataSourceProvider
   }
 }
 
-String _$catalogLocalDataSourceHash() => r'3f8cf40fed1346e9f43cbbc9941743c6e8c87fd2';
+String _$catalogLocalDataSourceHash() =>
+    r'3f8cf40fed1346e9f43cbbc9941743c6e8c87fd2';
 
 @ProviderFor(catalogRepository)
 final catalogRepositoryProvider = CatalogRepositoryProvider._();
 
 final class CatalogRepositoryProvider
-    extends $FunctionalProvider<CatalogRepository, CatalogRepository, CatalogRepository>
+    extends
+        $FunctionalProvider<
+          CatalogRepository,
+          CatalogRepository,
+          CatalogRepository
+        >
     with $Provider<CatalogRepository> {
   CatalogRepositoryProvider._()
     : super(
@@ -121,8 +134,9 @@ final class CatalogRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<CatalogRepository> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<CatalogRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   CatalogRepository create(Ref ref) {

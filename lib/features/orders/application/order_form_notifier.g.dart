@@ -14,7 +14,8 @@ part of 'order_form_notifier.dart';
 @ProviderFor(OrderFormNotifier)
 final orderFormProvider = OrderFormNotifierProvider._();
 
-final class OrderFormNotifierProvider extends $NotifierProvider<OrderFormNotifier, OrderFormState> {
+final class OrderFormNotifierProvider
+    extends $NotifierProvider<OrderFormNotifier, OrderFormState> {
   OrderFormNotifierProvider._()
     : super(
         from: null,

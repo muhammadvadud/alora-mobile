@@ -14,7 +14,8 @@ part of 'knowledge_notifier.dart';
 @ProviderFor(KnowledgeNotifier)
 final knowledgeProvider = KnowledgeNotifierProvider._();
 
-final class KnowledgeNotifierProvider extends $NotifierProvider<KnowledgeNotifier, KnowledgeState> {
+final class KnowledgeNotifierProvider
+    extends $NotifierProvider<KnowledgeNotifier, KnowledgeState> {
   KnowledgeNotifierProvider._()
     : super(
         from: null,

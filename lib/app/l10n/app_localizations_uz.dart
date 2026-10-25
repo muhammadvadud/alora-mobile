@@ -95,6 +95,12 @@ class AppLocalizationsUz extends AppLocalizations {
   String get error_unknown => 'Noma\'lum xatolik';
 
   @override
+  String get error_required_field => 'Ushbu maydonni to\'ldirish majburiy';
+
+  @override
+  String get error_invalid_phone => 'Noto\'g\'ri telefon raqami';
+
+  @override
   String get order_status_draft => 'Qoralama';
 
   @override
@@ -553,6 +559,9 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get chat_draft_title => 'Qoralama';
+
+  @override
+  String get chat_draft_customer_form_note => 'Mijoz ma\'lumotlari keyingi qadamda kiritiladi';
 
   @override
   String get orders => 'Buyurtmalar';
@@ -1625,6 +1634,12 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
   String get error_unknown => 'Номаълум хатолик';
 
   @override
+  String get error_required_field => 'Ушбу майдонни тўлдириш мажбурий';
+
+  @override
+  String get error_invalid_phone => 'Нотўғри телефон рақами';
+
+  @override
   String get order_status_draft => 'Қоралама';
 
   @override
@@ -2083,6 +2098,9 @@ class AppLocalizationsUzCyrl extends AppLocalizationsUz {
 
   @override
   String get chat_draft_title => 'Қоралама';
+
+  @override
+  String get chat_draft_customer_form_note => 'Мижоз маълумотлари кейинги қадамда киритилади';
 
   @override
   String get orders => 'Буюртмалар';

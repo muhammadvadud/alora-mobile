@@ -14,7 +14,8 @@ part of 'order_pdf_notifier.dart';
 @ProviderFor(OrderPdfNotifier)
 final orderPdfProvider = OrderPdfNotifierFamily._();
 
-final class OrderPdfNotifierProvider extends $AsyncNotifierProvider<OrderPdfNotifier, void> {
+final class OrderPdfNotifierProvider
+    extends $AsyncNotifierProvider<OrderPdfNotifier, void> {
   OrderPdfNotifierProvider._({
     required OrderPdfNotifierFamily super.from,
     required String super.argument,
@@ -51,10 +52,17 @@ final class OrderPdfNotifierProvider extends $AsyncNotifierProvider<OrderPdfNoti
   }
 }
 
-String _$orderPdfNotifierHash() => r'5def62d6902380a7cdc5245c69f6422df66cfa17';
+String _$orderPdfNotifierHash() => r'7d8e2ac65a66126fc0c4ba6707dd8406a7df47da';
 
 final class OrderPdfNotifierFamily extends $Family
-    with $ClassFamilyOverride<OrderPdfNotifier, AsyncValue<void>, void, FutureOr<void>, String> {
+    with
+        $ClassFamilyOverride<
+          OrderPdfNotifier,
+          AsyncValue<void>,
+          void,
+          FutureOr<void>,
+          String
+        > {
   OrderPdfNotifierFamily._()
     : super(
         retry: null,
@@ -64,7 +72,8 @@ final class OrderPdfNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
-  OrderPdfNotifierProvider call(String id) => OrderPdfNotifierProvider._(argument: id, from: this);
+  OrderPdfNotifierProvider call(String id) =>
+      OrderPdfNotifierProvider._(argument: id, from: this);
 
   @override
   String toString() => r'orderPdfProvider';

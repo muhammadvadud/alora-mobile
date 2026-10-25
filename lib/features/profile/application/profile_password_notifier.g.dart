@@ -38,7 +38,8 @@ final class ProfilePasswordNotifierProvider
   ProfilePasswordNotifier create() => ProfilePasswordNotifier();
 }
 
-String _$profilePasswordNotifierHash() => r'103d94686e6545ca205d90232c68648ea3b1498d';
+String _$profilePasswordNotifierHash() =>
+    r'103d94686e6545ca205d90232c68648ea3b1498d';
 
 /// Joriy foydalanuvchining parolini almashtirish oqimi.
 

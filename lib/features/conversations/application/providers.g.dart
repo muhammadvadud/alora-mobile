@@ -13,7 +13,8 @@ part of 'providers.dart';
 /// Conversations remote data source
 
 @ProviderFor(conversationsRemoteDataSource)
-final conversationsRemoteDataSourceProvider = ConversationsRemoteDataSourceProvider._();
+final conversationsRemoteDataSourceProvider =
+    ConversationsRemoteDataSourceProvider._();
 
 /// Conversations remote data source
 
@@ -42,8 +43,9 @@ final class ConversationsRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<ConversationsRemoteDataSource> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ConversationsRemoteDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   ConversationsRemoteDataSource create(Ref ref) {
@@ -54,17 +56,21 @@ final class ConversationsRemoteDataSourceProvider
   Override overrideWithValue(ConversationsRemoteDataSource value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ConversationsRemoteDataSource>(value),
+      providerOverride: $SyncValueProvider<ConversationsRemoteDataSource>(
+        value,
+      ),
     );
   }
 }
 
-String _$conversationsRemoteDataSourceHash() => r'5aeb5758d4dbe46eebdab0783a8308a515f963fe';
+String _$conversationsRemoteDataSourceHash() =>
+    r'5aeb5758d4dbe46eebdab0783a8308a515f963fe';
 
 /// Conversations local data source
 
 @ProviderFor(conversationsLocalDataSource)
-final conversationsLocalDataSourceProvider = ConversationsLocalDataSourceProvider._();
+final conversationsLocalDataSourceProvider =
+    ConversationsLocalDataSourceProvider._();
 
 /// Conversations local data source
 
@@ -93,8 +99,9 @@ final class ConversationsLocalDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<ConversationsLocalDataSource> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ConversationsLocalDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   ConversationsLocalDataSource create(Ref ref) {
@@ -110,7 +117,8 @@ final class ConversationsLocalDataSourceProvider
   }
 }
 
-String _$conversationsLocalDataSourceHash() => r'69d0e255f236232b3c73d7555299463cb166fb5c';
+String _$conversationsLocalDataSourceHash() =>
+    r'69d0e255f236232b3c73d7555299463cb166fb5c';
 
 /// Conversations repository (testlarda override qilinadi)
 
@@ -144,8 +152,9 @@ final class ConversationsRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<ConversationsRepository> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ConversationsRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   ConversationsRepository create(Ref ref) {
@@ -161,4 +170,5 @@ final class ConversationsRepositoryProvider
   }
 }
 
-String _$conversationsRepositoryHash() => r'95c7dc3430d5ea9ae11894e3a00bdfe4bfa9a275';
+String _$conversationsRepositoryHash() =>
+    r'95c7dc3430d5ea9ae11894e3a00bdfe4bfa9a275';

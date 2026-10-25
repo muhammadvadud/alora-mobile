@@ -18,7 +18,8 @@ final authProvider = AuthNotifierProvider._();
 
 /// Auth holatini boshqaruvchi notifier.
 /// Ilovada sessiyani tiklaydi, login/logout amallarini bajardi.
-final class AuthNotifierProvider extends $NotifierProvider<AuthNotifier, AuthState> {
+final class AuthNotifierProvider
+    extends $NotifierProvider<AuthNotifier, AuthState> {
   /// Auth holatini boshqaruvchi notifier.
   /// Ilovada sessiyani tiklaydi, login/logout amallarini bajardi.
   AuthNotifierProvider._()
@@ -41,11 +42,14 @@ final class AuthNotifierProvider extends $NotifierProvider<AuthNotifier, AuthSta
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AuthState value) {
-    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AuthState>(value));
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AuthState>(value),
+    );
   }
 }
 
-String _$authNotifierHash() => r'5ed8aa10eb3c45dc459ce291b29c9b8d4a0d3daa';
+String _$authNotifierHash() => r'bf5b60c13c0b1a5ec6026965dbe607508b4b24c4';
 
 /// Auth holatini boshqaruvchi notifier.
 /// Ilovada sessiyani tiklaydi, login/logout amallarini bajardi.

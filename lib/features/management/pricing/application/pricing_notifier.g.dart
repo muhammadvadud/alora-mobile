@@ -14,7 +14,8 @@ part of 'pricing_notifier.dart';
 @ProviderFor(PricingNotifier)
 final pricingProvider = PricingNotifierProvider._();
 
-final class PricingNotifierProvider extends $NotifierProvider<PricingNotifier, PricingState> {
+final class PricingNotifierProvider
+    extends $NotifierProvider<PricingNotifier, PricingState> {
   PricingNotifierProvider._()
     : super(
         from: null,
@@ -42,7 +43,7 @@ final class PricingNotifierProvider extends $NotifierProvider<PricingNotifier, P
   }
 }
 
-String _$pricingNotifierHash() => r'80e90d6b22e392cd6ae315aa71ec0a9a0678548c';
+String _$pricingNotifierHash() => r'1815fd7a2230769147470ea42b784277c76f85a5';
 
 abstract class _$PricingNotifier extends $Notifier<PricingState> {
   PricingState build();

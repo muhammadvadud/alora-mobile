@@ -61,4 +61,47 @@ void main() {
 
     expect(response.statusCode, 200);
   });
+
+  group('maskSensitiveData', () {
+    test('sodda map maskalanadi', () {
+      final input = {'phone': '123', 'address': 'Toshkent', 'age': 25};
+      final result = maskSensitiveData(input) as Map<String, dynamic>;
+      expect(result['phone'], '***');
+      expect(result['address'], '***');
+      expect(result['age'], 25);
+    });
+
+    test('ichki map maskalanadi', () {
+      final input = {
+        'user': {'full_name': 'Ali', 'token': 'abc', 'id': 1},
+        'metadata': {'status': 'ok'}
+      };
+      final result = maskSensitiveData(input) as Map<String, dynamic>;
+      final user = result['user'] as Map<String, dynamic>;
+      final metadata = result['metadata'] as Map<String, dynamic>;
+      expect(user['full_name'], '***');
+      expect(user['token'], '***');
+      expect(user['id'], 1);
+      expect(metadata['status'], 'ok');
+    });
+
+    test('list ichidagi map maskalanadi', () {
+      final input = [
+        {'name': 'Vali', 'age': 30},
+        {'address': 'Samarqand'}
+      ];
+      final result = maskSensitiveData(input) as List<dynamic>;
+      final first = result[0] as Map<String, dynamic>;
+      final second = result[1] as Map<String, dynamic>;
+      expect(first['name'], '***');
+      expect(first['age'], 30);
+      expect(second['address'], '***');
+    });
+
+    test('kalitlar registrga sezgir emas holda maskalanadi', () {
+      final input = {'CUSTOMER_PHONE': '123'};
+      final result = maskSensitiveData(input) as Map<String, dynamic>;
+      expect(result['CUSTOMER_PHONE'], '***');
+    });
+  });
 }

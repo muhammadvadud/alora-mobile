@@ -1,6 +1,48 @@
 import 'package:dio/dio.dart';
 
+import 'package:flutter/foundation.dart';
+
 import '../../utils/app_logger.dart';
+
+final _maskKeys = {
+  'password',
+  'password_confirmation',
+  'old_password',
+  'new_password',
+  'phone',
+  'customer_phone',
+  'full_name',
+  'customer_name',
+  'name',
+  'address',
+  'delivery_address',
+  'content',
+  'message',
+  'note',
+  'notes',
+  'token',
+  'access',
+  'refresh',
+};
+
+@visibleForTesting
+dynamic maskSensitiveData(dynamic data) {
+  if (data is Map) {
+    final result = <String, dynamic>{};
+    for (final entry in data.entries) {
+      final key = entry.key.toString();
+      if (_maskKeys.contains(key.toLowerCase())) {
+        result[key] = '***';
+      } else {
+        result[key] = maskSensitiveData(entry.value);
+      }
+    }
+    return result;
+  } else if (data is List) {
+    return data.map((e) => maskSensitiveData(e)).toList();
+  }
+  return data;
+}
 
 class LoggingInterceptor extends Interceptor {
   @override
@@ -13,18 +55,8 @@ class LoggingInterceptor extends Interceptor {
     }
 
     final data = options.data;
-    if (data is Map) {
-      final maskedData = Map<String, dynamic>.from(data);
-      if (maskedData.containsKey('password')) {
-        maskedData['password'] = '***';
-      }
-      if (maskedData.containsKey('phone')) {
-        maskedData['phone'] = '***';
-      }
-      logger.i('Headers: $headers, Data: $maskedData');
-    } else {
-      logger.i('Headers: $headers, Data: $data');
-    }
+    final maskedData = maskSensitiveData(data);
+    logger.i('Headers: $headers, Data: $maskedData');
 
     handler.next(options);
   }

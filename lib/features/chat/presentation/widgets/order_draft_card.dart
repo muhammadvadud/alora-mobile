@@ -85,9 +85,21 @@ class _DraftFieldsSection extends StatelessWidget {
       }
     }
 
-    addField(l10n.chat_draft_customer, draft.customerName);
-    addField(l10n.chat_draft_phone, draft.phone);
-    addField(l10n.chat_draft_address, draft.address);
+    if (draft.customerFormRequired) {
+      fields.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: AppSpacing.s),
+          child: Text(
+            l10n.chat_draft_customer_form_note,
+            style: typography.bodyM.copyWith(color: colors.textSecondary),
+          ),
+        ),
+      );
+    } else {
+      addField(l10n.chat_draft_customer, draft.customerName);
+      addField(l10n.chat_draft_phone, draft.phone);
+      addField(l10n.chat_draft_address, draft.address);
+    }
 
     if (fields.isEmpty) return const SizedBox.shrink();
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: fields);

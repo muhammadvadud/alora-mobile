@@ -41,7 +41,8 @@ final class OrderFromDraftNotifierProvider
   OrderFromDraftNotifier create() => OrderFromDraftNotifier();
 }
 
-String _$orderFromDraftNotifierHash() => r'23675d4b1768d1ab3c4dafb9baa6c217f7278250';
+String _$orderFromDraftNotifierHash() =>
+    r'23675d4b1768d1ab3c4dafb9baa6c217f7278250';
 
 /// AI qoralamasidan (`OrderDraft`, S-07) buyurtma yaratadi — `POST orders/`.
 /// Narx/hisob ilovada hisoblanmaydi: faqat backend bergan maydonlar uzatiladi (§0.8).

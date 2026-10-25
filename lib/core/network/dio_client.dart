@@ -37,7 +37,7 @@ Dio dio(Ref ref) {
     ErrorMapperInterceptor(
       onFailure: (failure) => ref.read(errorReporterProvider).breadcrumb(failure),
     ),
-    if (Env.isDev) LoggingInterceptor(),
+    if (Env.verboseLogs) LoggingInterceptor(),
   ]);
 
   return dio;
